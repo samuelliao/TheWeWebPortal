@@ -1,20 +1,21 @@
 <!doctype html>
-<html>
+<html><!-- InstanceBegin template="/Templates/title.dwt" codeOutsideHTMLIsLocked="false" -->
 <head>
 <meta charset="utf-8">
+<!-- InstanceBeginEditable name="doctitle" -->
 <title>The We Wedding</title>
+<!-- InstanceEndEditable -->
 <link href="css/header.css" rel="stylesheet" type="text/css">
 <link href="css/content.css" rel="stylesheet" type="text/css">
 <link href="css/footer.css" rel="stylesheet" type="text/css">
+<link href="css/tablestyle.css" rel="stylesheet" type="text/css">
 <style type="text/css">
 .btn_1 {
 }
 </style>
 <link href="css/btn_1.css" rel="stylesheet" type="text/css">
 <link href="css/btn_2.css" rel="stylesheet" type="text/css">
-<style type="text/css">
-@import url("css/btn_3.css");
-</style>
+<link href="css/btn_3.css" rel="stylesheet" type="text/css">
 <link href="css/btn_4.css" rel="stylesheet" type="text/css">
 <link href="css/btn_5.css" rel="stylesheet" type="text/css">
 <link href="css/btn_6.css" rel="stylesheet" type="text/css">
@@ -24,61 +25,129 @@
 <body style="height:100%">
 <div id="header" style="margin:0px auto; padding-right:5px; height:100px;" >
   <div style="width:auto; float:left;"><a href="first.html"><img src="img/圖層_1.png" width="181" height="104" /></a></div>
+  <!-- InstanceBeginEditable name="top" -->
   <div style=" margin:0px auto; float:right;  ">
     <label style="font-size:20px; color:#516CC5; padding-right:10px; ">忠孝店Isaac</label>
     <input name="button" type="button" class="btn_1" id="button" value="首頁"  onClick="location.href='first.html'">
     <input name="button2" type="button" class="btn_1" id="button2" value="開店管理"  onClick="location.href='store.html'">
     <input type="button" name="button3" class="btn_4" id="button3" value="案件管理"  onClick="location.href='case.html'">
-          <input type="button" name="button3" class="btn_1" id="button8" value="查詢管理"  onClick="location.href='serch.html'">
+    <input type="button" name="button3" class="btn_1" id="button8" value="查詢管理"  onClick="location.href='serch.html'">
     <input type="button" name="button4" class="btn_1" id="button4" value="採購作業"  onClick="location.href='buy.html'">
     <input type="button" name="button5" class="btn_1" id="button5" value="銷貨作業"  onClick="location.href='sell.html'">
     <input type="button" name="button5" class="btn_1" id="button6" value="財務作業"  onClick="location.href='financial.html'">
     <input type="button" name="button6" class="btn_1" id="button7" value="系統管理"  onClick="location.href='system.html'">
   </div>
-</div>
+  <!-- InstanceEndEditable --></div>
 <div id="content" style="background:#FFFFFF; height:auto;" >
   <div>
     <input type="button" class="btn_3" value="工作提醒" onClick="location.href='case_remind.html'">
   </div>
-    <div  style="padding-top:10px;" >
-    <input type="button" class="btn_6" value="諮詢維護" onClick="location.href='case.html'">
+
+<!-- InstanceBeginEditable name="body" -->
+  <div  style="padding-top:10px;" >
+    <input type="button" class="btn_6" value="客戶維護" onClick="location.href='case.html'">
+    <input type="button" class="btn_5" value="諮詢維護" onClick="location.href='case_advisory.html'">
     <input type="button" class="btn_5" value="案件維護" onClick="location.href='case_list.html'">
-    <input type="button" class="btn_5" value="訂單維護" onClick="location.href='case_order.html'">
     <input type="button" class="btn_5" value="時程維護" onClick="location.href='case_time.html'">
+    <span style="padding-top:10px; float:none "><img src="img/圖層_1.png" width="70" height="40" alt=""/></span> <span style="padding-top:10px; float:none "><img src="img/圖層_1.png" width="70" height="40" alt=""/></span>
+    <div style="padding-top:10px; float:none "></div>
+    <div style="padding-top:10px; float:right ">
+      <input type="button" class="btn_7" value="查詢">
+      <input type="button" class="btn_7" value="新增">
+      <input type="button" class="btn_7" value="修改">
+      <input type="button" class="btn_7" value="刪除">
+    </div>
   </div>
-    <div style="padding-top:20px;" 　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　>
-    <label>諮詢編號：</label>
-    <input type="text">
-    <label>諮詢者：</label>
-    <input type="text">
-    <label>性別：</label>
-    <select></select>
-    <label>諮詢日期：</label>
-    <input type="date">
+  <div style="padding-top:20px;" 　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　>
+    <label>語系編號：</label>
+    <select>
+      <option value="" disabled selected>請選擇語系編號</option>
+    </select>
+    <label>會員編號：</label>
+    <input type="text" placeholder="請輸入會員編號...">
+    <label>新娘生日：</label>
+    <input type="date" placeholder="請輸入新娘生日...">
+    <label>新郎生日：</label>
+    <input type="date" placeholder="請輸入新郎生日...">
   </div>
   <div style="padding-top:10px; " >
-    <label>電話：</label>
-    <input type="tel">
-    <label>email：</label>
-    <input type="email">
-    <label>現居地：</label>
-    <select></select>
-    <label>狀態：</label>
-    <select></select>
+    <label>新娘姓名：</label>
+    <input type="text" placeholder="請輸入新娘姓名...">
+    <label>新娘電話：</label>
+    <input type="tel" placeholder="請輸入新娘電話...">
+    <label>新娘Line ID：</label>
+    <input type="text" placeholder="請輸入新娘Line ID...">
+    <label>新娘Mail：</label>
+    <input type="email" placeholder="請輸入新娘Mail...">
+    <label>新娘暱稱：</label>
+    <input type="text" placeholder="請輸入新娘暱稱...">
   </div>
-  
-  <div style="padding-top:10px; ">
-  <label>簽約日期：</label>
-    <input type="date">
-    <input type="button" class="btn_7" value="預約">
-    
-    <input type="button" class="btn_7" value="儲存">
-    <input type="button" class="btn_7" value="查詢">
-    <input type="button" class="btn_7" value="建立會員">
-    <input type="button" class="btn_7" value="開案" >
-    <input type="button" class="btn_7" value="轉目標客戶" >
+  <div style="padding-top:10px; " >
+    <label>新郎姓名：</label>
+    <input type="text" placeholder="請輸入新郎姓名...">
+    <label>新郎電話：</label>
+    <input type="tel" placeholder="請輸入新郎電話...">
+    <label>新郎Line ID：</label>
+    <input type="text" placeholder="請輸入新郎Line ID...">
+    <label>新郎Mail：</label>
+    <input type="email" placeholder="請輸入新郎Mail...">
+    <label>新郎暱稱：</label>
+    <input type="text" placeholder="請輸入新郎暱稱...">
   </div>
+  <div style="padding-top:10px; " >
+    <label>新娘護照英文：</label>
+    <input type="text" placeholder="請輸入新娘護照英文...">
+    <label>新郎護照英文：</label>
+    <input type="tel" placeholder="請輸入新郎護照英文...">
+    <label>備註：</label>
+    <input type="text" placeholder="請輸入備註...">
+  </div>
+  <div style="padding-top:10px; " >
+    <label>地址：</label>
+    <input type="text" placeholder="請輸入地址...">
+  </div>
+  <div style="padding-top:10px; " >
+    <label>搜尋管道：</label>
+    <select>
+      <option value="" disabled selected>請選擇搜尋管道</option>
+    </select>
+    <label>簡訊手機：</label>
+    <input type="tel" placeholder="請輸入簡訊手機...">
+    <label>簡訊稱呼：</label>
+    <input type="text" placeholder="請輸入簡訊稱呼...">
+  </div>
+  <table>
+    <tr>
+      <th>諮詢案號</th>
+      <th>案件代號</th>
+      <th>產品</th>
+      <th>產品內容</th>
+      <th>成案日期</th>
+      <th>結案日期</th>
+      <th>費用</th>
+    </tr>
+    <tr>
+      <td class="text-left">CU00001</td>
+      <td class="text-left">Joye</td>
+      <td class="text-left">小讌</td>
+      <td class="text-left">1234321</td>
+      <td class="text-left">1234321</td>
+      <td class="text-left">1234321</td>
+      <td class="text-left">1234321</td>
+    </tr>
+    <tr>
+      <td class="text-left">CU00001</td>
+      <td class="text-left">Joye</td>
+      <td class="text-left">小讌</td>
+      <td class="text-left">1234321</td>
+      <td class="text-left">1234321</td>
+      <td class="text-left">1234321</td>
+      <td class="text-left">1234321</td>
+    </tr>
+  </table>
+  <!-- InstanceEndEditable -->
 </div>
-<div id="footer" style="background-color: #362e2b">.</div>
+<div id="footer" style="background-color: #362e2b"></div>
+
 </body>
-</html>
+<!-- InstanceEnd --></html>
