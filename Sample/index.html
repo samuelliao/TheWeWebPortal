@@ -17,35 +17,26 @@
 <body style="height:100%">
 <div id="header" style="margin:0px auto; padding-right:5px; height:100px;" >
  <div style="width:auto; float:left;"><a href="Templates/first.dwt"><img src="img/圖層_1.png" width="181" height="104" /></a></div>
-  <div style=" margin:0px auto; float:right;  ">
-    <input name="button" type="button" class="btn_1" id="button" value="首頁"  onClick="location.href='first.html'">
-    <input name="button2" type="button" class="btn_1" id="button2" value="開店管理"  onClick="location.href='store.html'">
-    <input type="button" name="button3" class="btn_1" id="button3" value="案件管理"  onClick="location.href='case.html'">
-          <input type="button" name="button3" class="btn_1" id="button8" value="查詢管理"  onClick="location.href='serch.html'">
-    <input type="button" name="button4" class="btn_1" id="button4" value="採購作業"  onClick="location.href='buy.html'">
-    <input type="button" name="button5" class="btn_1" id="button5" value="銷貨作業"  onClick="location.href='sell.html'">
-        <input type="button" name="button5" class="btn_1" id="button6" value="財務作業"  onClick="location.href='financial.html'">
-    <input type="button" name="button6" class="btn_1" id="button7" value="系統管理"  onClick="location.href='system.html'">
-  </div>
 </div>
-<div id="content" style="background:#FFFFFF; height:auto;" >
+<div id="content" style="background:#FFFFFF; height:auto; text-align:center; margin-top:200px;" >
   <div style="padding:5px;">
     <label for="select" style=" font-size: 20px">店別:</label>
-    <select name="select" id="select">
+    <select name="select" id="select" style="width:150px;">
+     <option value="" disabled selected>請選擇店別</option>
     </select>
   </div>
   <div style="padding:5px;">
-    <label for="textfield"  style=" font-size: 20px">帳號:</label>
-    <input name="textfield" type="text" id="textfield">
+    <label for="textfield"  style=" font-size: 20px;" >帳號:</label>
+    <input name="textfield" type="text" id="textfield" placeholder="請輸入帳號...">
   </div>
   <div style="padding:5px;">
     <label for="password" style=" font-size: 20px">密碼:</label>
-    <input type="password" name="password" id="password">
+    <input type="password" name="password" id="password" placeholder="請輸入密碼...">
   </div>
   <div style="padding:5px;">
-    <input name="button7" type="button" class="btn_2" id="button7" value="Login">
+    <input style="margin-top: 30px;" name="button7" type="button" class="btn_2" id="button7" value="Login" onClick="location.href='first.html'">
   </div>
 </div>
-<div id="footer" style="background-color: #362e2b">.</div>
+<div id="footer" style="background-color: #362e2b"></div>
 </body>
 </html>
