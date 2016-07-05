@@ -90,7 +90,7 @@
     </tr>
 </table>
 </div>
-<div id="footer" style="background-color: #362e2b"></div>
+<div id="footer"></div>
 
 
     </form>

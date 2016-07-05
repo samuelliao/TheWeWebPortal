@@ -13,6 +13,7 @@
     <link href="../css/btn_5.css" rel="stylesheet" />
     <link href="../css/btn_6.css" rel="stylesheet" />
     <link href="../css/btn_7.css" rel="stylesheet" />
+    <link href="../css/btn_8.css" rel="stylesheet" />
     <link href="../css/content.css" rel="stylesheet" />
     <link href="../css/footer.css" rel="stylesheet" />
     <link href="../css/header.css" rel="stylesheet" />
@@ -78,7 +79,10 @@
   </div>
     <div style="float:left;  padding:5px; width:80%; height: 450px;  margin-top:15px" > 
     <table class="month" >
-    <caption ><span class="date" >2016 .  July </span>  <input type="button" class="btn_8" value="新增" style=" margin-right:20px; background:#F288B8; color:#FFFFFF; float:right;" ></caption>
+    <caption ><span class="date" >2016 .  July </span> 
+         <asp:Button    ID="btnInsert" runat="server" Text="新增" class="btn_8" style=" margin-right:20px; background:#F288B8; color:#FFFFFF; float:right;" />
+
+    </caption>
     <tr>
     <th scope="col"><span>Sun</th>
         <th scope="col">Mon</th>
@@ -166,8 +170,8 @@
     </tr>
 </table>
     </div>
-  </div></div>
-<div id="footer" style="background-color: #362e2b"></div>
+  </div>
+<div id="footer" ></div>
 
 
     </form>
