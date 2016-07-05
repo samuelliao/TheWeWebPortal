@@ -10,7 +10,7 @@
 namespace TheWeWebSite.Main {
     
     
-    public partial class first {
+    public partial class first_client {
         
         /// <summary>
         /// labelLocate 控制項。

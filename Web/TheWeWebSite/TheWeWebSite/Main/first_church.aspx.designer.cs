@@ -10,7 +10,7 @@
 namespace TheWeWebSite.Main {
     
     
-    public partial class first {
+    public partial class first_church {
         
         /// <summary>
         /// labelLocate 控制項。
