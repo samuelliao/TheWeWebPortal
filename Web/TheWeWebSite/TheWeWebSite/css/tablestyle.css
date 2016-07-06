@@ -1,0 +1,33 @@
+.tablestyle tr:nth-child(even) {background-color: #FFB7DD}
+
+.tablestyle th {
+	background-color: #FF0088;
+	color: #FFFFFF;
+	margin: 100;
+	padding: 10;
+	height: 30px;
+	width: auto;
+
+
+}
+
+.tablestyle td{
+  padding: 5px;
+  text-align:center;
+  vertical-align:middle;
+  font-weight: 300;
+  font-size: 16px;
+  color: #666666;
+  border-bottom: solid 1px rgba(255,255,255,0.1);
+}
+
+.tablestyle {
+    border: 1px solid #FF0088;
+	width: 100%;
+	margin-top: 10px;
+
+}
+
+.tablestyle tr:hover {background-color: #E6E6FA}
+.tablestyle td {
+}
