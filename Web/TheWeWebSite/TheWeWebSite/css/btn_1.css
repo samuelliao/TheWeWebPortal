@@ -4,11 +4,11 @@
 	font-style: normal;
 	color: #9e3f5f;
 	background: #f5b8cc;
-	border: 3px solid #ffffff;
+	border: 0px solid #ffffff;
 	text-shadow: 1px 1px 1px #222222;
-	box-shadow: 2px 2px 5px #000000;
+	box-shadow: 3px 3px 1px #9e3f5f;
 	-moz-box-shadow: 2px 2px 5px #000000;
-	-webkit-box-shadow: 2px 2px 5px #000000;
+	-webkit-box-shadow: 3px 3px 1px #9e3f5f;
 	border-radius: 15px 15px 15px 15px;
 	-moz-border-radius: 15px 15px 15px 15px;
 	-webkit-border-radius: 15px 15px 15px 15px;
