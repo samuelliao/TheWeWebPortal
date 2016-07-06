@@ -11,11 +11,12 @@ namespace TheWeLib
     {
         private string ConnStr;
         private SqlConnection SqlConn;
+        private const string KeyOpenString = "OPEN SYMMETRIC KEY RM_SY DECRYPTION BY PASSWORD = 'CheesWedding';";
 
         public DbConn(string str)
         {
             this.ConnStr = str;
-            SqlConn = new SqlConnection();
+            SqlConn = new SqlConnection(this.ConnStr);
         }
 
         public DbConn() { }
@@ -24,7 +25,7 @@ namespace TheWeLib
         {
             try
             {
-                SqlDataAdapter da = new SqlDataAdapter(sqlStr, SqlConn);
+                SqlDataAdapter da = new SqlDataAdapter(KeyOpenString + sqlStr, SqlConn);
                 DataSet ds = new DataSet();
                 da.Fill(ds);
                 return ds;                
@@ -33,6 +34,23 @@ namespace TheWeLib
             {
                 // Output log here.
                 return null;
+            }
+        }
+
+        public bool ExecSqlText(string sqlStr)
+        {
+            try
+            {
+                DataSet ds = new DataSet();
+                SqlConn.Open();
+                SqlCommand cmd = new SqlCommand(KeyOpenString + sqlStr);
+                int result = cmd.ExecuteNonQuery();
+                return result == -1;
+            }
+            catch(Exception ex)
+            {
+                // Output log.
+                return false;
             }
         }
     }

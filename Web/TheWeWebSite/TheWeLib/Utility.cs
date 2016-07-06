@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 
 namespace TheWeLib
 {
-    public class Util
+    public class Utility
     {
         /// <summary>
         /// True, dataset is null or empty.
@@ -19,6 +20,20 @@ namespace TheWeLib
             return ds == null ? true :
                 (ds.Tables.Count == 0 ? true :
                 (ds.Tables[0].Rows.Count == 0));
+        }
+
+        /// <summary>
+        /// Return the input variable name.
+        /// For example: GetVariableName(() => A.testA)
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="expr"></param>
+        /// <returns></returns>
+        public string GetVariableName<T>(Expression<Func<T>> expr)
+        {
+            var body = (MemberExpression)expr.Body;
+
+            return body.Member.Name;
         }
     }
 }
