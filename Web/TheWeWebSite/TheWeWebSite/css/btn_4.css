@@ -1,4 +1,4 @@
-@charset "utf-8";
+﻿@charset "utf-8";
 .btn_4 {
 	font: normal 25px Georgia, serif;
 	font-style: normal;
@@ -17,8 +17,8 @@
 	cursor: pointer;
 	margin-right: 2px;
 	margin-left: auto;
-	margin-bottom: 0;
-	margin-top: 19px;
+	margin-bottom: 25px;
+	margin-top: 25px;
 }
 .i2Style:active{
 	cursor: pointer;
