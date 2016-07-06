@@ -1,0 +1,12 @@
+1. 建立對稱金鑰
+CREATE SYMMETRIC KEY RM_SY 
+WITH ALGORITHM = AES_128, 
+KEY_SOURCE = 'RM_SY Key source',
+IDENTITY_VALUE = 'RM_SY Key identity'
+ENCRYPTION BY PASSWORD = 請口頭詢問;
+GO
+
+2.資料解密請先把KEY開啟
+OPEN SYMMETRIC KEY RM_SY DECRYPTION BY PASSWORD = 'rmpwd'; 
+
+Ref: https://msdn.microsoft.com/zh-tw/library/dn148210.aspx
