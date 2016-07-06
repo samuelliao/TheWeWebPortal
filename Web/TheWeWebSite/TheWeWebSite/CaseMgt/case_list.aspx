@@ -13,6 +13,7 @@
     <link href="../css/btn_5.css" rel="stylesheet" />
     <link href="../css/btn_6.css" rel="stylesheet" />
     <link href="../css/btn_7.css" rel="stylesheet" />
+    <link href="../css/btn_8.css" rel="stylesheet" />
     <link href="../css/content.css" rel="stylesheet" />
     <link href="../css/footer.css" rel="stylesheet" />
     <link href="../css/header.css" rel="stylesheet" />
@@ -49,20 +50,67 @@
                 <asp:Button ID="btnCaseList" runat="server" Text="案件維護" class="btn_6" />
                 <asp:Button ID="btnCaseTime" runat="server" Text="時程維護" class="btn_5" />
   </div>
+        <div style="padding-top:20px;" 　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　>
+    <asp:Label ID="labelAdvusoryId" runat="server" Text="諮詢編號："></asp:Label>
+    <input type="text" placeholder="由系統自動填入..."/>
+    <asp:Label ID="labelCaseId" runat="server" Text="案件編號："></asp:Label>
+    <input type="text" placeholder="由系統自動填入..."/>
+    <asp:Label ID="labelStartDate" runat="server" Text="開案日期："></asp:Label>
+    <input type="date"/>
+    <asp:Label ID="labelMemberId" runat="server" Text="會員編號："></asp:Label>
+    <input type="text" placeholder="由系統自動填入..."/>
+    <div style="float:right;">
+
+
+    <asp:Button ID="btnCustomerMaintain" runat="server" class="btn_8" Text="客戶資料維護"/>
+
+  </div>
+  </div>
+  <div style="padding-top:10px; " >
+    <asp:Label ID="labelStatus" runat="server" Text="狀態："></asp:Label>
+   <select >
+     <option  selected="selected">請選擇狀態</option>
+  </select>
+    <asp:Label ID="labelEndDate" runat="server" Text="結案日期："></asp:Label>
+    <input type="date" />
+    <asp:Label ID="labelCountry" runat="server" Text="國家："></asp:Label>
+    <select><option  selected="selected">請選擇國家</option></select>
+    <asp:Label ID="labelArea" runat="server" Text="地區："></asp:Label>
+    <select><option  selected="selected">請選擇地區</option></select>
+    <div style=" float:right;">
+  
+    <asp:Button ID="btnTimeMaintain" runat="server" class="btn_8" Text="時程維護"/>
+
+
+
+  </div>
+  </div>
+    <div style="padding-top:10px; " >
+    <asp:Label ID="labelLocation" runat="server" Text="">地點：</asp:Label>
+    <select><option  selected="selected">請選擇地點</option></select>
+
+    <asp:Label ID="labelPackage" runat="server" Text="">套餐：</asp:Label>
+    <select><option  selected="selected">請選擇套餐</option></select>
+  </div>
+
+       <div style="float:right">
+         <asp:Button ID="btnEdit" runat="server" class="btn_7" Text="修改"/>
+         <asp:Button ID="BtnDel" runat="server" class="btn_7" Text="刪除"/>
+</div>
 
   <table class="tablestyle"> 
-      <tr>
-          <th>諮詢編號</th>
-          <th>顧問</th>
-          <th>諮詢者</th>
-          <th>電話</th>
-          <th>預約日期</th>
-          <th>內容說明</th>
-          <th>最後一次回覆時間</th>
-          <th>備註</th>
-          <th>回覆</th>
-          <th>行程表</th>
-      </tr>
+    <tr>
+      <th>諮詢編號</th>
+      <th>案件編號</th>
+      <th>開案日期</th>
+      <th>會員編號</th>
+      <th>狀態</th>
+      <th>結案日期</th>
+      <th>國家</th>
+      <th>地區</th>
+      <th>地點</th>
+      <th>套餐</th>
+    </tr>
     <tr>
       <td class="text-left">CU00001</td>
       <td class="text-left">Joye</td>
@@ -71,7 +119,7 @@
       <td class="text-left">1234321</td>
       <td class="text-left">1234321</td>
       <td class="text-left">1234321</td>
-      <td class="text-left">1234321</td>
+        <td class="text-left">1234321</td>
       <td class="text-left">1234321</td>
       <td class="text-left">1234321</td>
     </tr>
@@ -83,11 +131,11 @@
       <td class="text-left">1234321</td>
       <td class="text-left">1234321</td>
       <td class="text-left">1234321</td>
-      <td class="text-left">1234321</td>
+        <td class="text-left">1234321</td>
       <td class="text-left">1234321</td>
       <td class="text-left">1234321</td>
     </tr>
-</table>
+  </table>
 </div>
 <div id="footer"></div>
 

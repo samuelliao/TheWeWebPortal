@@ -7,10 +7,10 @@
 // </自動產生的>
 //------------------------------------------------------------------------------
 
-namespace TheWeWebSite.CaseMgt {
+namespace TheWeWebSite.SysMgt {
     
     
-    public partial class case_list {
+    public partial class system_root {
         
         /// <summary>
         /// labelLocate 控制項。
@@ -139,112 +139,58 @@ namespace TheWeWebSite.CaseMgt {
         protected global::System.Web.UI.WebControls.Button btnCaseTime;
         
         /// <summary>
-        /// labelAdvusoryId 控制項。
+        /// Button1 控制項。
         /// </summary>
         /// <remarks>
         /// 自動產生的欄位。
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label labelAdvusoryId;
+        protected global::System.Web.UI.WebControls.Button Button1;
         
         /// <summary>
-        /// labelCaseId 控制項。
+        /// Button2 控制項。
         /// </summary>
         /// <remarks>
         /// 自動產生的欄位。
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label labelCaseId;
+        protected global::System.Web.UI.WebControls.Button Button2;
         
         /// <summary>
-        /// labelStartDate 控制項。
+        /// labelRootCase 控制項。
         /// </summary>
         /// <remarks>
         /// 自動產生的欄位。
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label labelStartDate;
+        protected global::System.Web.UI.WebControls.Label labelRootCase;
         
         /// <summary>
-        /// labelMemberId 控制項。
+        /// labelStoreId 控制項。
         /// </summary>
         /// <remarks>
         /// 自動產生的欄位。
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label labelMemberId;
+        protected global::System.Web.UI.WebControls.Label labelStoreId;
         
         /// <summary>
-        /// btnCustomerMaintain 控制項。
+        /// labelFeatures 控制項。
         /// </summary>
         /// <remarks>
         /// 自動產生的欄位。
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnCustomerMaintain;
+        protected global::System.Web.UI.WebControls.Label labelFeatures;
         
         /// <summary>
-        /// labelStatus 控制項。
+        /// btnInsert 控制項。
         /// </summary>
         /// <remarks>
         /// 自動產生的欄位。
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label labelStatus;
-        
-        /// <summary>
-        /// labelEndDate 控制項。
-        /// </summary>
-        /// <remarks>
-        /// 自動產生的欄位。
-        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label labelEndDate;
-        
-        /// <summary>
-        /// labelCountry 控制項。
-        /// </summary>
-        /// <remarks>
-        /// 自動產生的欄位。
-        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label labelCountry;
-        
-        /// <summary>
-        /// labelArea 控制項。
-        /// </summary>
-        /// <remarks>
-        /// 自動產生的欄位。
-        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label labelArea;
-        
-        /// <summary>
-        /// btnTimeMaintain 控制項。
-        /// </summary>
-        /// <remarks>
-        /// 自動產生的欄位。
-        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnTimeMaintain;
-        
-        /// <summary>
-        /// labelLocation 控制項。
-        /// </summary>
-        /// <remarks>
-        /// 自動產生的欄位。
-        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label labelLocation;
-        
-        /// <summary>
-        /// labelPackage 控制項。
-        /// </summary>
-        /// <remarks>
-        /// 自動產生的欄位。
-        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label labelPackage;
+        protected global::System.Web.UI.WebControls.Button btnInsert;
         
         /// <summary>
         /// btnEdit 控制項。
@@ -263,5 +209,14 @@ namespace TheWeWebSite.CaseMgt {
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button BtnDel;
+        
+        /// <summary>
+        /// btnSave 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnSave;
     }
 }

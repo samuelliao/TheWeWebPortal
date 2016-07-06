@@ -13,6 +13,7 @@
     <link href="../css/btn_5.css" rel="stylesheet" />
     <link href="../css/btn_6.css" rel="stylesheet" />
     <link href="../css/btn_7.css" rel="stylesheet" />
+    <link href="../css/btn_8.css" rel="stylesheet" />
     <link href="../css/content.css" rel="stylesheet" />
     <link href="../css/footer.css" rel="stylesheet" />
     <link href="../css/header.css" rel="stylesheet" />
@@ -50,26 +51,30 @@
                 <asp:Button ID="btnCaseTime" runat="server" Text="時程維護" class="btn_5" />
   </div>
 
+    <div style="padding-top:20px;" 　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　>
+     <asp:Label ID="labelAdvisoryId" runat="server" Text="諮詢案號："></asp:Label>
+     <input type="text" placeholder="請輸入諮詢案號..."/>
+     <asp:Label ID="labeBrideName" runat="server" Text="新娘姓名："></asp:Label>
+    <input type="text" placeholder="請輸入新娘姓名..."/>
+     <asp:Label ID="labelBridegroomName" runat="server" Text="新郎姓名："></asp:Label>
+    <input type="date" />
+         <asp:Button ID="btnSerch" runat="server" class="btn_8" Text="查詢"/>
+  </div>
+
   <table class="tablestyle"> 
-      <tr>
-          <th>諮詢編號</th>
-          <th>顧問</th>
-          <th>諮詢者</th>
-          <th>電話</th>
-          <th>預約日期</th>
-          <th>內容說明</th>
-          <th>最後一次回覆時間</th>
-          <th>備註</th>
-          <th>回覆</th>
-          <th>行程表</th>
-      </tr>
+    <tr>
+      <th>SEQ</th>
+      <th>諮詢日期</th>
+      <th>顧問</th>
+      <th>會議內容</th>
+      <th>下次會議日期</th>
+      <th>下次會議內容</th>
+      <th>備註</th>
+    </tr>
     <tr>
       <td class="text-left">CU00001</td>
       <td class="text-left">Joye</td>
       <td class="text-left">小讌</td>
-      <td class="text-left">1234321</td>
-      <td class="text-left">1234321</td>
-      <td class="text-left">1234321</td>
       <td class="text-left">1234321</td>
       <td class="text-left">1234321</td>
       <td class="text-left">1234321</td>
@@ -83,11 +88,73 @@
       <td class="text-left">1234321</td>
       <td class="text-left">1234321</td>
       <td class="text-left">1234321</td>
-      <td class="text-left">1234321</td>
-      <td class="text-left">1234321</td>
-      <td class="text-left">1234321</td>
     </tr>
-</table>
+  </table>
+
+     <div  style="border-color:#000000;border-style:solid;border-width:3px;padding:5px; margin-top: 10px; ">
+  <div style="padding-top:20px;" 　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　>
+     <asp:Label ID="labelAdvisoryDate" runat="server" Text="諮詢日期："></asp:Label>
+  <input type="date" />
+     <asp:Label ID="labelReservationDate" runat="server" Text="預約日期："></asp:Label>
+    <input type="date" />
+    <div style="float:right">
+         <asp:Button ID="btnInsert" runat="server" class="btn_7" Text="新增"/>
+         <asp:Button ID="btnSave" runat="server" class="btn_7" Text="存檔"/>
+         <asp:Button ID="btnEdit" runat="server" class="btn_7" Text="修改"/>
+         <asp:Button ID="BtnDel" runat="server" class="btn_7" Text="刪除"/>
+</div>
+  </div>
+  <div style="padding-top:10px;" 　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　>
+     <asp:Label ID="labelInterest" runat="server" Text="興趣事項："></asp:Label>
+    <select style="width: 300px">
+     <option selected="selected">請選擇興趣事項</option>
+  </select>
+  </div>
+  <div style="padding-top:10px;" 　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　>
+     <asp:Label ID="labelInterestCountry" runat="server" Text="興趣國家："></asp:Label>
+     <select  style="width: 300px">
+     <option selected="selected">請選擇興趣國家</option>
+  </select>
+  </div>
+  <div style="padding-top:10px;" 　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　>
+     <asp:Label ID="labelInterestChurch" runat="server" Text="興趣教堂："></asp:Label>
+     <select style="width: 300px">
+     <option selected="selected">請選擇興趣教堂</option>
+  </select>
+  </div>
+  <div style="padding-top:10px;" 　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　>
+     <asp:Label ID="labelWeddingConsultants" runat="server" Text="婚禮顧問："></asp:Label>
+     <select  style="width: 300px">
+     <option selected="selected">請選擇婚禮顧問</option>
+  </select>
+  </div>
+  <div style="padding-top:10px;" 　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　>
+     <asp:Label ID="labelPredictionPhoto" runat="server" Text="預計拍攝日："></asp:Label>
+<input type="date" />
+  <input type="checkbox" id="checkPredictionPhotoNotyet"/>
+      <asp:Label ID="labelPredictionPhotoNotyet" runat="server" Text="未決定"></asp:Label>
+  </div>
+  <div style="padding-top:10px;" 　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　>
+     <asp:Label ID="labelPredictionWedding" runat="server" Text="預計婚禮日："></asp:Label>
+<input type="date" />
+  <input type="checkbox" id="checkPredictionWeddingNotyet"/>
+      <asp:Label ID="labelPredictionWeddingNotyet" runat="server" Text="未決定"></asp:Label>
+  <div style="padding-top:10px; float: right;"> 
+   <asp:Label ID="labelCaseOkDate" runat="server" Text="結案時間："></asp:Label>
+<input type="date" />
+  </div>
+  </div>
+  <div style="padding-top:10px;" 　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　>
+     <asp:Label ID="labelBanquet" runat="server" Text="國內宴客日："></asp:Label>
+<input type="date" />
+  <input type="checkbox" id="checkBanquetNotyet"/>
+      <asp:Label ID="labelBanquetNotyet" runat="server" Text="未決定"></asp:Label>
+  <div style=" float: right;"> 
+   <asp:Label ID="labelPaidDate" runat="server" Text="簽約時間："></asp:Label>
+<input type="date" />
+  </div>
+  </div>
+  </div>
 </div>
 <div id="footer"></div>
 

@@ -59,61 +59,61 @@
 
       </div>
   <div style="padding-top:20px;">
-     <asp:Label ID="" runat="server" Text="">語系編號：</asp:Label>
+     <asp:Label ID="labelLanguageId" runat="server" Text="語系編號："></asp:Label>
     <select>
       <option selected="selected">請選擇語系編號</option>
     </select>
-     <asp:Label ID="" runat="server" Text="">會員編號：</asp:Label>
+     <asp:Label ID="labelMemberId" runat="server" Text="會員編號："></asp:Label>
     <input type="text" placeholder="請輸入會員編號..."/>
-     <asp:Label ID="" runat="server" Text="">新娘生日：</asp:Label>
+     <asp:Label ID="labelBrideBirthday" runat="server" Text="新娘生日："></asp:Label>
     <input type="date" />
-     <asp:Label ID="" runat="server" Text="">新郎生日：</asp:Label>
+     <asp:Label ID="labelBridegroomBirthday" runat="server" Text="新郎生日："></asp:Label>
     <input type="date"/>
   </div>
   <div style="padding-top:10px; " >
-     <asp:Label ID="" runat="server" Text="">新娘姓名：</asp:Label>
+     <asp:Label ID="labeBrideName" runat="server" Text="新娘姓名："></asp:Label>
     <input type="text" placeholder="請輸入新娘姓名..."/>
-     <asp:Label ID="" runat="server" Text="">新娘電話：</asp:Label>
+     <asp:Label ID="labelBrideTel" runat="server" Text="新娘電話："></asp:Label>
     <input type="tel" placeholder="請輸入新娘電話..."/>
-     <asp:Label ID="" runat="server" Text="">新娘Line ID：</asp:Label>
+     <asp:Label ID="labelBirdeLine" runat="server" Text="新娘Line ID："></asp:Label>
     <input type="text" placeholder="請輸入新娘Line ID..."/>
-     <asp:Label ID="" runat="server" Text="">新娘Mail：</asp:Label>
+     <asp:Label ID="labelBrideMain" runat="server" Text="新娘Mail："></asp:Label>
     <input type="email" placeholder="請輸入新娘Mail..."/>
-     <asp:Label ID="" runat="server" Text="">新娘暱稱：</asp:Label>
+     <asp:Label ID="labelBrideNickname" runat="server" Text="新娘暱稱："></asp:Label>
     <input type="text" placeholder="請輸入新娘暱稱..."/>
   </div>
   <div style="padding-top:10px; " >
-     <asp:Label ID="" runat="server" Text="">新郎姓名：</asp:Label>
+     <asp:Label ID="labelBridegroomName" runat="server" Text="新郎姓名："></asp:Label>
     <input type="text" placeholder="請輸入新郎姓名..."/>
-     <asp:Label ID="" runat="server" Text="">新郎電話：</asp:Label>
+     <asp:Label ID="labelBridegroomTel" runat="server" Text="新郎電話："></asp:Label>
     <input type="tel" placeholder="請輸入新郎電話..."/>
-     <asp:Label ID="" runat="server" Text="">新郎Line ID：</asp:Label>
+     <asp:Label ID="labelBridegroomLine" runat="server" Text="新郎Line ID："></asp:Label>
     <input type="text" placeholder="請輸入新郎Line ID..."/>
-     <asp:Label ID="" runat="server" Text="">新郎Mail：</asp:Label>
+     <asp:Label ID="labelBridegroomMail" runat="server" Text="新郎Mail："></asp:Label>
     <input type="email" placeholder="請輸入新郎Mail..."/>
-     <asp:Label ID="" runat="server" Text="">新郎暱稱：</asp:Label>
+     <asp:Label ID="labelBridegroomNickname" runat="server" Text="新郎暱稱："></asp:Label>
     <input type="text" placeholder="請輸入新郎暱稱..."/>
   </div>
   <div style="padding-top:10px; " >
-     <asp:Label ID="" runat="server" Text="">新娘護照英文：</asp:Label>
+     <asp:Label ID="labelBridePassport" runat="server" Text="新娘護照英文："></asp:Label>
     <input type="text" placeholder="請輸入新娘護照英文..."/>
-     <asp:Label ID="" runat="server" Text="">新郎護照英文：</asp:Label>
+     <asp:Label ID="labelBridegroomPassport" runat="server" Text="新郎護照英文："></asp:Label>
     <input type="tel" placeholder="請輸入新郎護照英文..."/>
-     <asp:Label ID="" runat="server" Text="">備註：</asp:Label>
+     <asp:Label ID="labelOther" runat="server" Text="備註："></asp:Label>
     <input type="text" placeholder="請輸入備註..."/>
   </div>
   <div style="padding-top:10px; " >
-     <asp:Label ID="" runat="server" Text="">地址：</asp:Label>
+     <asp:Label ID="labelAddress" runat="server" Text="地址："></asp:Label>
     <input type="text" placeholder="請輸入地址..."/>
   </div>
   <div style="padding-top:10px; " >
-     <asp:Label ID="" runat="server" Text="">搜尋管道：</asp:Label>
+     <asp:Label ID="laberSerchSource" runat="server" Text="搜尋管道："></asp:Label>
     <select>
       <option selected="selected">請選擇搜尋管道</option>
     </select>
-     <asp:Label ID="" runat="server" Text="">簡訊手機：</asp:Label>
+     <asp:Label ID="labelTel" runat="server" Text="簡訊手機："></asp:Label>
     <input type="tel" placeholder="請輸入簡訊手機..."/>
-     <asp:Label ID="" runat="server" Text="">簡訊稱呼：</asp:Label>
+     <asp:Label ID="labelTelName" runat="server" Text="簡訊稱呼："></asp:Label>
     <input type="text" placeholder="請輸入簡訊稱呼..."/>
   </div>
 

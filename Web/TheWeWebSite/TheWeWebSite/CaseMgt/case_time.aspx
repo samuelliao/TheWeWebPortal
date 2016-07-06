@@ -13,6 +13,7 @@
     <link href="../css/btn_5.css" rel="stylesheet" />
     <link href="../css/btn_6.css" rel="stylesheet" />
     <link href="../css/btn_7.css" rel="stylesheet" />
+    <link href="../css/btn_8.css" rel="stylesheet" />
     <link href="../css/content.css" rel="stylesheet" />
     <link href="../css/footer.css" rel="stylesheet" />
     <link href="../css/header.css" rel="stylesheet" />
@@ -50,44 +51,82 @@
                 <asp:Button ID="btnCaseTime" runat="server" Text="時程維護" class="btn_6" />
   </div>
 
-  <table class="tablestyle"> 
-      <tr>
-          <th>諮詢編號</th>
-          <th>顧問</th>
-          <th>諮詢者</th>
-          <th>電話</th>
-          <th>預約日期</th>
-          <th>內容說明</th>
-          <th>最後一次回覆時間</th>
-          <th>備註</th>
-          <th>回覆</th>
-          <th>行程表</th>
-      </tr>
+       <div style="padding-top:20px;" 　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　>
+   <asp:Label ID="labelCaseId" runat="server" Text="案件編號："></asp:Label>
+     <input type="text" placeholder="請輸入案件編號..."/>
+   <asp:Label ID="labelBreide" runat="server" Text="新娘："></asp:Label>
+    <input type="text" placeholder="請輸入查詢新娘..."/>
+   <asp:Label ID="labelBreidegroom" runat="server" Text="新郎："></asp:Label>
+    <input type="text" placeholder="由系統填寫..."/>
+   <asp:Label ID="labelStartDate" runat="server" Text="開案日期："></asp:Label>
+    <input type="date" />
+  </div>
+  <div style="padding-top:10px; " >
+   <asp:Label ID="labelCountry" runat="server" Text="國家："></asp:Label>
+    <input type="text" placeholder="由系統填寫..."/>
+   <asp:Label ID="labelArea" runat="server" Text="地區："></asp:Label>
+    <input type="text" placeholder="由系統填寫..."/>
+   <asp:Label ID="labelLocation" runat="server" Text="地點："></asp:Label>
+    <input type="text" placeholder="由系統填寫..."/>
+        
+       <asp:Button ID="btnReservation1" runat="server" class="btn_8" Text="預約" />
+
+   <asp:Label ID="labelMeetingDate" runat="server" Text="會議日期："></asp:Label>
+    <input type="date" />
+  </div>
+    <div>
+	<div style="float:left; width: 25%; padding:5px; ">
+      <table class="tablestyle"> 
     <tr>
-      <td class="text-left">CU00001</td>
-      <td class="text-left">Joye</td>
-      <td class="text-left">小讌</td>
-      <td class="text-left">1234321</td>
-      <td class="text-left">1234321</td>
-      <td class="text-left">1234321</td>
-      <td class="text-left">1234321</td>
-      <td class="text-left">1234321</td>
-      <td class="text-left">1234321</td>
-      <td class="text-left">1234321</td>
+      <th>會議項目</th>
+    
     </tr>
     <tr>
-      <td class="text-left">CU00001</td>
-      <td class="text-left">Joye</td>
-      <td class="text-left">小讌</td>
-      <td class="text-left">1234321</td>
-      <td class="text-left">1234321</td>
-      <td class="text-left">1234321</td>
-      <td class="text-left">1234321</td>
-      <td class="text-left">1234321</td>
-      <td class="text-left">1234321</td>
-      <td class="text-left">1234321</td>
+      <td class="text-left">第一次會議</td>
+
     </tr>
-</table>
+    <tr>
+     <td class="text-left">第二次會議</td>    </tr>
+     <tr>
+     <td class="text-left">第三次會議</td>    </tr>
+      <td class="text-left">第四次會議</td>    </tr>
+       <td class="text-left">第五次會議</td>    </tr>
+    </table>
+    </div>
+    
+      <div  style="border-color:#000000;border-style:solid;border-width:3px;padding:5px; margin-top: 10px; width:70%; float: right; height: 300px;">
+     
+      <div style="padding-top:10px; " >
+   <asp:Label ID="labelHotel" runat="server" Text="住宿飯店："></asp:Label>
+    <input type="text" placeholder="請輸入住宿飯店..."/>
+   <asp:Label ID="labelHotelAddress" runat="server" Text="地址："></asp:Label>
+    <input type="text" placeholder="請輸入地址..."/>
+  </div>
+     <div style="padding-top:10px; " >
+   <asp:Label ID="labelHotelPeople" runat="server" Text="人數："></asp:Label>
+    <input type="text" placeholder="請輸入人數..."/>
+   <asp:Label ID="labelHotelDate" runat="server" Text="住宿日期："></asp:Label>
+    <input type="date" />
+    <div style="padding-top:10px; float: right;">
+         <asp:Button ID="btnReservation2" runat="server" class="btn_8" Text="預約"/>
+ 
+    <input type="date" />
+    </div>
+  </div>
+  <div style="padding-top:10px; " >
+   <asp:Label ID="labelHotelFood" runat="server" Text="餐飲："></asp:Label>
+    <input type="text" placeholder="餐飲..."/>
+   <asp:Label ID="labelAnnex" runat="server" Text="附件："></asp:Label>
+   
+  </div>
+  <div style="padding-top:10px; " >
+   <asp:Label ID="labelBouquet" runat="server" Text="捧花："></asp:Label>
+    <input type="text" placeholder="捧花..."/>
+   <asp:Label ID="labelBouquetPhoto" runat="server" Text="照片："></asp:Label>
+
+  </div>
+</div>
+    </div>
 </div>
 <div id="footer"></div>
 
