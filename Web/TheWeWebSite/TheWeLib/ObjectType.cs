@@ -9,35 +9,33 @@ namespace TheWeLib
     public class CustomerObj
     {
         #region Variable Initial
-        string Id { set; get; }
-        string Name { set; get; }
-        string EngName { set; get; }
-        string Addr { set; get; }
-        string Msger { set; get; }
-        string MsgerTypeId { set; get; }
-        string CountryId { set; get; }
-        string Phone { set; get; }
-        string Mobile { set; get; }
-        string Email { set; get; }
-        DateTime Bday { set; get; }
-        string Remark { set; get; }
-        bool IsValid { set; get; }
-        string StoreId { set; get; }
-        string Account { set; get; }
-        string Sn { set; get; }
-        string NickName { set; get; }
-        bool Gender { set; get; }
-        bool InfoSource { set; get; }
-        string MsgTitle { set; get; }
-        string PhotoImg { set; get; }
+        public string Id { set; get; }
+        public string Name { set; get; }
+        public string EngName { set; get; }
+        public string Addr { set; get; }
+        public string Msger { set; get; }
+        public string MsgerTypeId { set; get; }
+        public string CountryId { set; get; }
+        public string Phone { set; get; }
+        public string Mobile { set; get; }
+        public string Email { set; get; }
+        public DateTime Bday { set; get; }
+        public string Remark { set; get; }
+        public bool IsValid { set; get; }
+        public string StoreId { set; get; }
+        public string Account { set; get; }
+        public string Sn { set; get; }
+        public string NickName { set; get; }
+        public bool Gender { set; get; }
+        public bool InfoSource { set; get; }
+        public string MsgTitle { set; get; }
+        public string PhotoImg { set; get; }
         #endregion
 
-        public CustomerObj(DataSet ds)
+        public CustomerObj(DataRow dr)
         {
             try
             {
-                if (new DbConn().IsDataSetEmpty(ds)) return;
-                DataRow dr = ds.Tables[0].Rows[0];
                 this.Id = dr["Id"].ToString();
                 this.Name = dr["Name"] == null ? string.Empty : dr["Name"].ToString();
                 this.EngName = dr["EngName"] == null ? string.Empty : dr["EngName"].ToString();
@@ -48,7 +46,7 @@ namespace TheWeLib
                 this.Gender = dr["Gender"] == null ? true : bool.Parse(dr["Gender"].ToString());
                 this.Bday = dr["Bday"] == null ? new DateTime() : DateTime.Parse(dr["Bday"].ToString());
                 this.InfoSource = dr["InfoSource"] == null ? false : bool.Parse(dr["InfoSource"].ToString());
-                this.IsValid = dr["IsValid"] == null ? false : bool.Parse(dr["Name"].ToString());
+                this.IsValid = dr["IsValid"] == null ? false : bool.Parse(dr["IsValid"].ToString());
                 this.Mobile = dr["Mobile"] == null ? string.Empty : dr["Mobile"].ToString();
                 this.Msger = dr["MessengerId"] == null ? string.Empty : dr["MessengerId"].ToString();
                 this.MsgerTypeId = dr["MessengerType"] == null ? string.Empty : dr["MessengerType"].ToString();
@@ -72,30 +70,28 @@ namespace TheWeLib
     public class EmployeeObj
     {
         #region Variable Initial
-        string Id { set; get; }
-        string Name { set; get; }
-        string CountryId { set; get; }
-        string Sn { set; get; }
-        string Account { set; get; }
-        string Password { set; get; }
-        string Addr { set; get; }
-        string Phone { set; get; }
-        DateTime Bday { set; get; }
-        DateTime OnBoard { set; get; }
-        DateTime QuitDay { set; get; }
-        string Salary { set; get; }
-        string CurrencyId { set; get; }
-        string Remark { set; get; }
-        string StoreId { set; get; }
-        bool IsValid { set; get; }
+        public string Id { set; get; }
+        public string Name { set; get; }
+        public string CountryId { set; get; }
+        public string Sn { set; get; }
+        public string Account { set; get; }
+        public string Password { set; get; }
+        public string Addr { set; get; }
+        public string Phone { set; get; }
+        public DateTime Bday { set; get; }
+        public DateTime OnBoard { set; get; }
+        public DateTime QuitDay { set; get; }
+        public string Salary { set; get; }
+        public string CurrencyId { set; get; }
+        public string Remark { set; get; }
+        public string StoreId { set; get; }
+        public bool IsValid { set; get; }
         #endregion
 
-        public EmployeeObj(DataSet ds)
+        public EmployeeObj(DataRow dr)
         {
             try
             {
-                if (new DbConn().IsDataSetEmpty(ds)) return;
-                DataRow dr = ds.Tables[0].Rows[0];
                 this.Account = dr["Account"] == null ? string.Empty : dr["Account"].ToString();
                 this.Addr = dr["Addr"] == null ? string.Empty : dr["Addr"].ToString();
                 this.Bday = dr["Bday"] == null ? new DateTime() : DateTime.Parse(dr["Bday"].ToString());
@@ -125,20 +121,18 @@ namespace TheWeLib
     public class CountryObj
     {
         #region Variable Initial
-        string Id { set; get; }
-        string ChName { set; get; }
-        string EngName { set; get; }
-        string Code { set; get; }
-        string CurrencyId { set; get; }
-        string LangCode { set; get; }
+        public string Id { set; get; }
+        public string ChName { set; get; }
+        public string EngName { set; get; }
+        public string Code { set; get; }
+        public string CurrencyId { set; get; }
+        public string LangCode { set; get; }
         #endregion
 
-        public CountryObj(DataSet ds)
+        public CountryObj(DataRow dr)
         {
             try
             {
-                if (new DbConn().IsDataSetEmpty(ds)) return;
-                DataRow dr = ds.Tables[0].Rows[0];
                 this.Id = dr["Id"] == null ? string.Empty : dr["Id"].ToString();
                 this.ChName = dr["ChName"] == null ? string.Empty : dr["ChName"].ToString();
                 this.EngName = dr["EngName"] == null ? string.Empty : dr["EngName"].ToString();
@@ -157,19 +151,17 @@ namespace TheWeLib
     public class AreaObj
     {
         #region Variable Initial
-        string Id { set; get; }
-        string ChName { set; get; }
-        string EngName { set; get; }
-        string Code { set; get; }
-        string CountryId { set; get; }
+        public string Id { set; get; }
+        public string ChName { set; get; }
+        public string EngName { set; get; }
+        public string Code { set; get; }
+        public string CountryId { set; get; }
         #endregion
 
-        public AreaObj(DataSet ds)
+        public AreaObj(DataRow dr)
         {
             try
             {
-                if (new DbConn().IsDataSetEmpty(ds)) return;
-                DataRow dr = ds.Tables[0].Rows[0];
                 this.Id = dr["Id"] == null ? string.Empty : dr["Id"].ToString();
                 this.ChName = dr["ChName"] == null ? string.Empty : dr["ChName"].ToString();
                 this.EngName = dr["EngName"] == null ? string.Empty : dr["EngName"].ToString();
@@ -187,22 +179,21 @@ namespace TheWeLib
     public class StoreObj
     {
         #region Variable Initial
-        string Id { set; get; }
-        string Sn { set; get; }
-        string CountryId { set; get; }
-        string AreaId { set; get; }
-        string ChName { set; get; }
-        string EngName { set; get; }
-        string Addr { set; get; }
-        string Description { set; get; }
+        public string Id { set; get; }
+        public string Sn { set; get; }
+        public string CountryId { set; get; }
+        public string AreaId { set; get; }
+        public string ChName { set; get; }
+        public string EngName { set; get; }
+        public string Addr { set; get; }
+        public string Description { set; get; }
         #endregion
 
         public StoreObj() { }
-        public StoreObj(DataSet ds)
+        public StoreObj(DataRow dr)
         {
-            try {
-                if (new DbConn().IsDataSetEmpty(ds)) return;
-                DataRow dr = ds.Tables[0].Rows[0];
+            try
+            {
                 this.Id = dr["Id"] == null ? string.Empty : dr["Id"].ToString();
                 this.Sn = dr["Sn"] == null ? string.Empty : dr["Sn"].ToString();
                 this.CountryId = dr["CountryId"] == null ? string.Empty : dr["CountryId"].ToString();
@@ -212,7 +203,7 @@ namespace TheWeLib
                 this.Addr = dr["Addr"] == null ? string.Empty : dr["Addr"].ToString();
                 this.Description = dr["Description"] == null ? string.Empty : dr["Description"].ToString();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 // Output log
             }

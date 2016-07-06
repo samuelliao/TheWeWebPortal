@@ -20,7 +20,7 @@ namespace TheWeLib
 
         public DbConn() { }
 
-        public DataSet  GetDataSet(string sqlStr)
+        public DataSet GetDataSet(string sqlStr)
         {
             try
             {
@@ -34,19 +34,6 @@ namespace TheWeLib
                 // Output log here.
                 return null;
             }
-        }
-
-        /// <summary>
-        /// True, dataset is null or empty.
-        /// False, dataset in not empty.
-        /// </summary>
-        /// <param name="ds"></param>
-        /// <returns></returns>
-        public bool IsDataSetEmpty(DataSet ds)
-        {
-            return ds == null ? true : 
-                (ds.Tables.Count == 0 ? true : 
-                (ds.Tables[0].Rows.Count == 0));
         }
     }
 }
