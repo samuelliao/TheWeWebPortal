@@ -94,18 +94,18 @@
       <div style="padding-top:20px;" 　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　>
     <asp:Label ID="labelDressUseStatus" runat="server" Text="使用狀況："></asp:Label>		
     <select><option  selected="selected">請選擇使用狀態</option></select>
-    <input type="checkbox"/>
-    <asp:Label ID="labeOutsider" runat="server" Text="可外拍"></asp:Label>
-     <asp:Label ID="labeIncrease" runat="server" Text="加價"></asp:Label>
+    <input type="checkbox" id="checkOutsider"/>
+    <asp:Label ID="labelOutsider" runat="server" Text="可外拍"></asp:Label>
+     <asp:Label ID="labelIncrease" runat="server" Text="加價"></asp:Label>
 <input type="text"/>
     <asp:Label ID="labelRent" runat="server" Text="租金："></asp:Label>
 <input type="text"/>
 
-    <input type="checkbox"/>
+    <input type="checkbox" id="checkDomesticWedding"/>
     <asp:Label ID="labelDomesticWedding" runat="server" Text="現國內婚宴"></asp:Label>
-    <input type="checkbox"/>
+    <input type="checkbox" id="checkIncreaseType"/>
     <asp:Label ID="labelIncreaseType" runat="server" Text="加價款"></asp:Label>
-    <input type="checkbox"/>
+    <input type="checkbox" id="checkBigSize"/>
     <asp:Label ID="labelBigSize" runat="server" Text="大尺碼"></asp:Label>
   </div>
 

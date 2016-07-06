@@ -292,22 +292,22 @@ namespace TheWeWebSite.StroeMgt {
         protected global::System.Web.UI.WebControls.Label labelDressUseStatus;
         
         /// <summary>
-        /// labeOutsider 控制項。
+        /// labelOutsider 控制項。
         /// </summary>
         /// <remarks>
         /// 自動產生的欄位。
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label labeOutsider;
+        protected global::System.Web.UI.WebControls.Label labelOutsider;
         
         /// <summary>
-        /// labeIncrease 控制項。
+        /// labelIncrease 控制項。
         /// </summary>
         /// <remarks>
         /// 自動產生的欄位。
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label labeIncrease;
+        protected global::System.Web.UI.WebControls.Label labelIncrease;
         
         /// <summary>
         /// labelRent 控制項。
