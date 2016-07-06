@@ -59,6 +59,12 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="CaseMgt\case.aspx" />
+    <Content Include="CaseMgt\case_advisory.aspx" />
+    <Content Include="CaseMgt\case_list.aspx" />
+    <Content Include="Login.aspx" />
+    <Content Include="remind.aspx" />
+    <Content Include="CaseMgt\case_time.aspx" />
     <Content Include="css\bootstrap.css" />
     <Content Include="css\btn_1.css" />
     <Content Include="css\btn_2.css" />
@@ -67,9 +73,12 @@
     <Content Include="css\btn_5.css" />
     <Content Include="css\btn_6.css" />
     <Content Include="css\btn_7.css" />
+    <Content Include="css\btn_8.css" />
     <Content Include="css\content.css" />
     <Content Include="css\footer.css" />
     <Content Include="css\header.css" />
+    <Content Include="css\month.css" />
+    <Content Include="css\tablestyle.css" />
     <Content Include="img\back.png" />
     <Content Include="img\bg.png" />
     <Content Include="img\bg_footer.jpg" />
@@ -77,37 +86,175 @@
     <Content Include="img\logo_clear.jpg" />
     <Content Include="img\title_top.jpg" />
     <Content Include="img\圖層_1.png" />
-    <Content Include="Index.aspx" />
-    <Content Include="LoginPage.aspx" />
+    <Content Include="Main\first.aspx" />
+    <Content Include="Main\first_case.aspx" />
+    <Content Include="Main\first_church.aspx" />
+    <Content Include="Main\first_client.aspx" />
+    <Content Include="Main\first_schedule.aspx" />
+    <Content Include="StoreMgt\store.aspx" />
+    <Content Include="StoreMgt\store_church.aspx" />
+    <Content Include="StoreMgt\store_dresses.aspx" />
+    <Content Include="StoreMgt\store_employee.aspx" />
+    <Content Include="SysMgt\system.aspx" />
+    <Content Include="SysMgt\system_case.aspx" />
+    <Content Include="SysMgt\system_dollar.aspx" />
+    <Content Include="SysMgt\system_msg.aspx" />
+    <Content Include="SysMgt\system_part.aspx" />
+    <Content Include="SysMgt\system_root.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Index.aspx.cs">
-      <DependentUpon>Index.aspx</DependentUpon>
+    <Compile Include="CaseMgt\case.aspx.cs">
+      <DependentUpon>case.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Index.aspx.designer.cs">
-      <DependentUpon>Index.aspx</DependentUpon>
+    <Compile Include="CaseMgt\case.aspx.designer.cs">
+      <DependentUpon>case.aspx</DependentUpon>
     </Compile>
-    <Compile Include="LoginPage.aspx.cs">
-      <DependentUpon>LoginPage.aspx</DependentUpon>
+    <Compile Include="CaseMgt\case_advisory.aspx.cs">
+      <DependentUpon>case_advisory.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="LoginPage.aspx.designer.cs">
-      <DependentUpon>LoginPage.aspx</DependentUpon>
+    <Compile Include="CaseMgt\case_advisory.aspx.designer.cs">
+      <DependentUpon>case_advisory.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CaseMgt\case_list.aspx.cs">
+      <DependentUpon>case_list.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CaseMgt\case_list.aspx.designer.cs">
+      <DependentUpon>case_list.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Login.aspx.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Login.aspx.designer.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="remind.aspx.cs">
+      <DependentUpon>remind.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="remind.aspx.designer.cs">
+      <DependentUpon>remind.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CaseMgt\case_time.aspx.cs">
+      <DependentUpon>case_time.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CaseMgt\case_time.aspx.designer.cs">
+      <DependentUpon>case_time.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Main\first.aspx.cs">
+      <DependentUpon>first.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Main\first.aspx.designer.cs">
+      <DependentUpon>first.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Main\first_case.aspx.cs">
+      <DependentUpon>first_case.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Main\first_case.aspx.designer.cs">
+      <DependentUpon>first_case.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Main\first_church.aspx.cs">
+      <DependentUpon>first_church.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Main\first_church.aspx.designer.cs">
+      <DependentUpon>first_church.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Main\first_client.aspx.cs">
+      <DependentUpon>first_client.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Main\first_client.aspx.designer.cs">
+      <DependentUpon>first_client.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Main\first_schedule.aspx.cs">
+      <DependentUpon>first_schedule.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Main\first_schedule.aspx.designer.cs">
+      <DependentUpon>first_schedule.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Site1.Master.cs">
-      <DependentUpon>Site1.Master</DependentUpon>
+    <Compile Include="StoreMgt\store.aspx.cs">
+      <DependentUpon>store.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Site1.Master.designer.cs">
-      <DependentUpon>Site1.Master</DependentUpon>
+    <Compile Include="StoreMgt\store.aspx.designer.cs">
+      <DependentUpon>store.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="StoreMgt\store_church.aspx.cs">
+      <DependentUpon>store_church.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="StoreMgt\store_church.aspx.designer.cs">
+      <DependentUpon>store_church.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="StoreMgt\store_dresses.aspx.cs">
+      <DependentUpon>store_dresses.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="StoreMgt\store_dresses.aspx.designer.cs">
+      <DependentUpon>store_dresses.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="StoreMgt\store_employee.aspx.cs">
+      <DependentUpon>store_employee.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="StoreMgt\store_employee.aspx.designer.cs">
+      <DependentUpon>store_employee.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="SysMgt\system.aspx.cs">
+      <DependentUpon>system.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SysMgt\system.aspx.designer.cs">
+      <DependentUpon>system.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="SysMgt\system_case.aspx.cs">
+      <DependentUpon>system_case.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SysMgt\system_case.aspx.designer.cs">
+      <DependentUpon>system_case.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="SysMgt\system_dollar.aspx.cs">
+      <DependentUpon>system_dollar.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SysMgt\system_dollar.aspx.designer.cs">
+      <DependentUpon>system_dollar.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="SysMgt\system_msg.aspx.cs">
+      <DependentUpon>system_msg.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SysMgt\system_msg.aspx.designer.cs">
+      <DependentUpon>system_msg.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="SysMgt\system_part.aspx.cs">
+      <DependentUpon>system_part.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SysMgt\system_part.aspx.designer.cs">
+      <DependentUpon>system_part.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="SysMgt\system_root.aspx.cs">
+      <DependentUpon>system_root.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SysMgt\system_root.aspx.designer.cs">
+      <DependentUpon>system_root.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="img\Chees.psd" />
-    <Content Include="Site1.Master" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -115,6 +262,7 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
