@@ -22,6 +22,7 @@ namespace TheWeLib
                 (ds.Tables[0].Rows.Count == 0));
         }
 
+
         /// <summary>
         /// Return the input variable name.
         /// For example: GetVariableName(() => A.testA)
@@ -34,6 +35,64 @@ namespace TheWeLib
             var body = (MemberExpression)expr.Body;
 
             return body.Member.Name;
+        }
+
+        public string SqlQueryConditionConverter(List<DbSearchObject> lst)
+        {
+            if (lst.Count == 0) return string.Empty;
+            string condStr = string.Empty;
+            foreach(DbSearchObject obj in lst)
+            {
+                if (string.IsNullOrEmpty(condStr))
+                    condStr += " Where ";
+                else condStr += " And ";
+            }
+            return condStr;
+        }
+
+        private string ConditionConverter(DbSearchObject obj)
+        {
+            if (obj == null) return string.Empty;
+            string cond = string.Empty;
+            switch (obj.AttrType)
+            {
+                case AtrrTypeItem.Integer:
+                case AtrrTypeItem.Bit:
+                case AtrrTypeItem.DateTime:
+                case AtrrTypeItem.Date:
+                    cond += AttrSymbolConverter(obj.AttrSymbol) + obj.AttrValue;
+                    break;
+                case AtrrTypeItem.String:
+                default:
+                    cond += AttrSymbolConverter(obj.AttrSymbol)
+                        + (obj.AttrSymbol == AttrSymbolItem.Like 
+                        ? "'" + obj.AttrValue + "'" 
+                        : "'%" + obj.AttrValue + "%'");
+                    break;
+            }
+            cond = obj.AttrName;
+
+            return cond;
+        }
+
+        public string AttrSymbolConverter(AttrSymbolItem item)
+        {
+            switch(item)
+            {
+                case AttrSymbolItem.Greater:
+                    return ">";
+                case AttrSymbolItem.GreaterOrEqual:
+                    return ">=";
+                case AttrSymbolItem.Less:
+                    return "<";
+                case AttrSymbolItem.LessOrEqual:
+                    return "<=";
+                case AttrSymbolItem.Like:
+                    return "like";
+                case AttrSymbolItem.Equal:
+                default:
+                    return "=";
+            }
         }
     }
 }

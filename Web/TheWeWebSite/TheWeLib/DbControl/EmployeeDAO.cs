@@ -123,7 +123,7 @@ namespace TheWeLib.DbControl
                     + ",[Bday] = '" + obj.Bday.ToString("yyyy/MM/dd") + "'"
                     + ",[OnBoard] = '" + obj.OnBoard.ToString("yyyy/MM/dd HH:mm:ss") + "'"
                     + ",[QuitDay] = '" + obj.QuitDay.ToString("yyyy/MM/dd HH:mm:ss") + "'"
-                    + ",[Salary] = " + float.Parse(obj.Salary)
+                    + ",[Salary] = " + decimal.Parse(obj.Salary)
                     + ",[CurrencyId] = '" + obj.CurrencyId + "'"
                     + ",[Remark] = N'" + obj.Remark + "'"
                     + ",[StoreId] = '" + obj.StoreId + "'"
@@ -153,7 +153,7 @@ namespace TheWeLib.DbControl
                     + ",'" + obj.Phone + "'"
                     + ",'" + obj.Bday.ToString("yyyy/MM/dd") + "'"
                     + ",'" + obj.OnBoard.ToString("yyyy/MM/dd HH:mm:ss") + "'"
-                    + "," + float.Parse(obj.Salary)
+                    + "," + decimal.Parse(obj.Salary)
                     + ",'" + obj.CurrencyId + "'"
                     + ",N'" + obj.Remark + "'"
                     + ",'" + obj.StoreId + "'"
