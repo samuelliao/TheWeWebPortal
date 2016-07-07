@@ -660,7 +660,7 @@ namespace TheWeLib
         #region Variable Initial
         public string Id { set; get; }
         public string Sn { set; get; }
-        public string Descirption { set; get; }
+        public string Description { set; get; }
 
         #endregion
 
@@ -671,7 +671,7 @@ namespace TheWeLib
             {
                 this.Id = dr["Id"] == null ? string.Empty : dr["Id"].ToString();
                 this.Sn = dr["Sn"] == null ? string.Empty : dr["Sn"].ToString();
-                this.Descirption = dr["Descirption"] == null ? string.Empty : dr["Descirption"].ToString();
+                this.Description = dr["Description"] == null ? string.Empty : dr["Description"].ToString();
             }
             catch (Exception ex)
             {
@@ -735,7 +735,7 @@ namespace TheWeLib
         #region Variable Initial
         public string Id { set; get; }
         public string Sn { set; get; }
-        public string Descirption { set; get; }
+        public string Description { set; get; }
 
         #endregion
 
@@ -746,7 +746,7 @@ namespace TheWeLib
             {
                 this.Id = dr["Id"] == null ? string.Empty : dr["Id"].ToString();
                 this.Sn = dr["Sn"] == null ? string.Empty : dr["Sn"].ToString();
-                this.Descirption = dr["Descirption"] == null ? string.Empty : dr["Descirption"].ToString();
+                this.Description = dr["Description"] == null ? string.Empty : dr["Description"].ToString();
             }
             catch (Exception ex)
             {
@@ -760,7 +760,7 @@ namespace TheWeLib
         #region Variable Initial
         public string Id { set; get; }
         public string Sn { set; get; }
-        public string Descirption { set; get; }
+        public string Description { set; get; }
 
         #endregion
 
@@ -771,7 +771,7 @@ namespace TheWeLib
             {
                 this.Id = dr["Id"] == null ? string.Empty : dr["Id"].ToString();
                 this.Sn = dr["Sn"] == null ? string.Empty : dr["Sn"].ToString();
-                this.Descirption = dr["Descirption"] == null ? string.Empty : dr["Descirption"].ToString();
+                this.Description = dr["Description"] == null ? string.Empty : dr["Description"].ToString();
             }
             catch (Exception ex)
             {
@@ -785,7 +785,7 @@ namespace TheWeLib
         #region Variable Initial
         public string Id { set; get; }
         public string Sn { set; get; }
-        public string Descirption { set; get; }
+        public string Description { set; get; }
 
         #endregion
 
@@ -796,7 +796,7 @@ namespace TheWeLib
             {
                 this.Id = dr["Id"] == null ? string.Empty : dr["Id"].ToString();
                 this.Sn = dr["Sn"] == null ? string.Empty : dr["Sn"].ToString();
-                this.Descirption = dr["Descirption"] == null ? string.Empty : dr["Descirption"].ToString();
+                this.Description = dr["Description"] == null ? string.Empty : dr["Description"].ToString();
             }
             catch (Exception ex)
             {
@@ -811,7 +811,7 @@ namespace TheWeLib
         public string Id { set; get; }
         public string Sn { set; get; }
         public string DataSeq { set; get; }
-        public string Descirption { set; get; }
+        public string Description { set; get; }
         public string ImgId { set; get; }
 
         #endregion
@@ -824,7 +824,7 @@ namespace TheWeLib
                 this.Id = dr["Id"] == null ? string.Empty : dr["Id"].ToString();
                 this.Sn = dr["Sn"] == null ? string.Empty : dr["Sn"].ToString();
                 this.DataSeq = dr["DataSeq"] == null ? string.Empty : dr["DataSeq"].ToString();
-                this.Descirption = dr["Descirption"] == null ? string.Empty : dr["Descirption"].ToString();
+                this.Description = dr["Description"] == null ? string.Empty : dr["Description"].ToString();
                 this.ImgId = dr["ImgId"] == null ? string.Empty : dr["ImgId"].ToString();
             }
             catch (Exception ex)
@@ -839,7 +839,7 @@ namespace TheWeLib
         #region Variable Initial
         public string Id { set; get; }
         public string Sn { set; get; }
-        public string Descirption { set; get; }
+        public string Description { set; get; }
 
         #endregion
 
@@ -850,7 +850,7 @@ namespace TheWeLib
             {
                 this.Id = dr["Id"] == null ? string.Empty : dr["Id"].ToString();
                 this.Sn = dr["Sn"] == null ? string.Empty : dr["Sn"].ToString();
-                this.Descirption = dr["Descirption"] == null ? string.Empty : dr["Descirption"].ToString();
+                this.Description = dr["Description"] == null ? string.Empty : dr["Description"].ToString();
             }
             catch (Exception ex)
             {
@@ -864,7 +864,7 @@ namespace TheWeLib
         #region Variable Initial
         public string Id { set; get; }
         public string Sn { set; get; }
-        public string Descirption { set; get; }
+        public string Description { set; get; }
 
         #endregion
 
@@ -875,7 +875,7 @@ namespace TheWeLib
             {
                 this.Id = dr["Id"] == null ? string.Empty : dr["Id"].ToString();
                 this.Sn = dr["Sn"] == null ? string.Empty : dr["Sn"].ToString();
-                this.Descirption = dr["Descirption"] == null ? string.Empty : dr["Descirption"].ToString();
+                this.Description = dr["Description"] == null ? string.Empty : dr["Description"].ToString();
             }
             catch (Exception ex)
             {
@@ -889,7 +889,7 @@ namespace TheWeLib
         #region Variable Initial
         public string Id { set; get; }
         public string Sn { set; get; }
-        public string Descirption { set; get; }
+        public string Description { set; get; }
 
         #endregion
 
@@ -900,7 +900,7 @@ namespace TheWeLib
             {
                 this.Id = dr["Id"] == null ? string.Empty : dr["Id"].ToString();
                 this.Sn = dr["Sn"] == null ? string.Empty : dr["Sn"].ToString();
-                this.Descirption = dr["Descirption"] == null ? string.Empty : dr["Descirption"].ToString();
+                this.Description = dr["Description"] == null ? string.Empty : dr["Description"].ToString();
             }
             catch (Exception ex)
             {
@@ -914,7 +914,7 @@ namespace TheWeLib
         #region Variable Initial
         public string Id { set; get; }
         public string Sn { set; get; }
-        public string Descirption { set; get; }
+        public string Description { set; get; }
 
         #endregion
 
@@ -925,7 +925,7 @@ namespace TheWeLib
             {
                 this.Id = dr["Id"] == null ? string.Empty : dr["Id"].ToString();
                 this.Sn = dr["Sn"] == null ? string.Empty : dr["Sn"].ToString();
-                this.Descirption = dr["Descirption"] == null ? string.Empty : dr["Descirption"].ToString();
+                this.Description = dr["Description"] == null ? string.Empty : dr["Description"].ToString();
             }
             catch (Exception ex)
             {
@@ -939,7 +939,7 @@ namespace TheWeLib
         #region Variable Initial
         public string Id { set; get; }
         public string Sn { set; get; }
-        public string Descirption { set; get; }
+        public string Description { set; get; }
 
         #endregion
 
@@ -950,7 +950,7 @@ namespace TheWeLib
             {
                 this.Id = dr["Id"] == null ? string.Empty : dr["Id"].ToString();
                 this.Sn = dr["Sn"] == null ? string.Empty : dr["Sn"].ToString();
-                this.Descirption = dr["Descirption"] == null ? string.Empty : dr["Descirption"].ToString();
+                this.Description = dr["Description"] == null ? string.Empty : dr["Description"].ToString();
             }
             catch (Exception ex)
             {
@@ -964,7 +964,7 @@ namespace TheWeLib
         #region Variable Initial
         public string Id { set; get; }
         public string Sn { set; get; }
-        public string Descirption { set; get; }
+        public string Description { set; get; }
         public string Country { set; get; }
         public string City { set; get; }
         public bool IsValid { set; get; }
@@ -978,7 +978,7 @@ namespace TheWeLib
             {
                 this.Id = dr["Id"] == null ? string.Empty : dr["Id"].ToString();
                 this.Sn = dr["Sn"] == null ? string.Empty : dr["Sn"].ToString();
-                this.Descirption = dr["Descirption"] == null ? string.Empty : dr["Descirption"].ToString();
+                this.Description = dr["Description"] == null ? string.Empty : dr["Description"].ToString();
                 this.Country = dr["Country"] == null ? string.Empty : dr["Country"].ToString();
                 this.City = dr["City"] == null ? string.Empty : dr["City"].ToString();
                 this.IsValid = dr["IsValid"] == null ? false : bool.Parse(dr["IsValid"].ToString());
@@ -995,7 +995,7 @@ namespace TheWeLib
         #region Variable Initial
         public string Id { set; get; }
         public string Sn { set; get; }
-        public string Descirption { set; get; }
+        public string Description { set; get; }
 
         #endregion
 
@@ -1006,7 +1006,7 @@ namespace TheWeLib
             {
                 this.Id = dr["Id"] == null ? string.Empty : dr["Id"].ToString();
                 this.Sn = dr["Sn"] == null ? string.Empty : dr["Sn"].ToString();
-                this.Descirption = dr["Descirption"] == null ? string.Empty : dr["Descirption"].ToString();
+                this.Description = dr["Description"] == null ? string.Empty : dr["Description"].ToString();
             }
             catch (Exception ex)
             {
@@ -1020,7 +1020,7 @@ namespace TheWeLib
         #region Variable Initial
         public string Id { set; get; }
         public string Sn { set; get; }
-        public string Descirption { set; get; }
+        public string Description { set; get; }
 
         #endregion
 
@@ -1031,7 +1031,7 @@ namespace TheWeLib
             {
                 this.Id = dr["Id"] == null ? string.Empty : dr["Id"].ToString();
                 this.Sn = dr["Sn"] == null ? string.Empty : dr["Sn"].ToString();
-                this.Descirption = dr["Descirption"] == null ? string.Empty : dr["Descirption"].ToString();
+                this.Description = dr["Description"] == null ? string.Empty : dr["Description"].ToString();
             }
             catch (Exception ex)
             {
@@ -1045,7 +1045,7 @@ namespace TheWeLib
         #region Variable Initial
         public string Id { set; get; }
         public string Sn { set; get; }
-        public string Descirption { set; get; }
+        public string Description { set; get; }
 
         #endregion
 
@@ -1056,7 +1056,7 @@ namespace TheWeLib
             {
                 this.Id = dr["Id"] == null ? string.Empty : dr["Id"].ToString();
                 this.Sn = dr["Sn"] == null ? string.Empty : dr["Sn"].ToString();
-                this.Descirption = dr["Descirption"] == null ? string.Empty : dr["Descirption"].ToString();
+                this.Description = dr["Description"] == null ? string.Empty : dr["Description"].ToString();
             }
             catch (Exception ex)
             {
@@ -1070,7 +1070,7 @@ namespace TheWeLib
         #region Variable Initial
         public string Id { set; get; }
         public string Sn { set; get; }
-        public string Descirption { set; get; }
+        public string Description { set; get; }
 
         #endregion
 
@@ -1081,7 +1081,7 @@ namespace TheWeLib
             {
                 this.Id = dr["Id"] == null ? string.Empty : dr["Id"].ToString();
                 this.Sn = dr["Sn"] == null ? string.Empty : dr["Sn"].ToString();
-                this.Descirption = dr["Descirption"] == null ? string.Empty : dr["Descirption"].ToString();
+                this.Description = dr["Description"] == null ? string.Empty : dr["Description"].ToString();
             }
             catch (Exception ex)
             {
@@ -1095,7 +1095,7 @@ namespace TheWeLib
         #region Variable Initial
         public string Id { set; get; }
         public string Sn { set; get; }
-        public string Descirption { set; get; }
+        public string Description { set; get; }
 
         #endregion
 
@@ -1106,7 +1106,7 @@ namespace TheWeLib
             {
                 this.Id = dr["Id"] == null ? string.Empty : dr["Id"].ToString();
                 this.Sn = dr["Sn"] == null ? string.Empty : dr["Sn"].ToString();
-                this.Descirption = dr["Descirption"] == null ? string.Empty : dr["Descirption"].ToString();
+                this.Description = dr["Description"] == null ? string.Empty : dr["Description"].ToString();
             }
             catch (Exception ex)
             {
@@ -1167,7 +1167,7 @@ namespace TheWeLib
         #region Variable Initial
         public string Id { set; get; }
         public string InfoId { set; get; }
-        public string Desciption { set; get; }
+        public string Description { set; get; }
         public string ConsultId { set; get; }
         public string CustomerId { set; get; }
         #endregion
@@ -1179,7 +1179,7 @@ namespace TheWeLib
             {
                 this.Id = dr["Id"] == null ? string.Empty : dr["Id"].ToString();
                 this.InfoId = dr["InfoId"] == null ? string.Empty : dr["InfoId"].ToString();
-                this.Desciption = dr["Desciption"] == null ? string.Empty : dr["Desciption"].ToString();
+                this.Description = dr["Description"] == null ? string.Empty : dr["Description"].ToString();
                 this.ConsultId = dr["ConsultId"] == null ? string.Empty : dr["ConsultId"].ToString();
                 this.CustomerId = dr["CustomerId"] == null ? string.Empty : dr["CustomerId"].ToString();
             }
@@ -1195,7 +1195,7 @@ namespace TheWeLib
         #region Variable Initial
         public string Id { set; get; }
         public string Name { set; get; }
-        public string Descirption { set; get; }
+        public string Description { set; get; }
 
         #endregion
 
@@ -1206,7 +1206,7 @@ namespace TheWeLib
             {
                 this.Id = dr["Id"] == null ? string.Empty : dr["Id"].ToString();
                 this.Name = dr["Name"] == null ? string.Empty : dr["Name"].ToString();
-                this.Descirption = dr["Descirption"] == null ? string.Empty : dr["Descirption"].ToString();
+                this.Description = dr["Description"] == null ? string.Empty : dr["Description"].ToString();
             }
             catch (Exception ex)
             {
@@ -1220,7 +1220,7 @@ namespace TheWeLib
         #region Variable Initial
         public string Id { set; get; }
         public string Name { set; get; }
-        public string Descirption { set; get; }
+        public string Description { set; get; }
 
         #endregion
 
@@ -1231,7 +1231,7 @@ namespace TheWeLib
             {
                 this.Id = dr["Id"] == null ? string.Empty : dr["Id"].ToString();
                 this.Name = dr["Name"] == null ? string.Empty : dr["Name"].ToString();
-                this.Descirption = dr["Descirption"] == null ? string.Empty : dr["Descirption"].ToString();
+                this.Description = dr["Description"] == null ? string.Empty : dr["Description"].ToString();
             }
             catch (Exception ex)
             {
@@ -1312,7 +1312,7 @@ namespace TheWeLib
             {
                 this.Id = dr["Id"] == null ? string.Empty : dr["Id"].ToString();
                 this.Name = dr["Name"] == null ? string.Empty : dr["Name"].ToString();
-                this.Descirption = dr["Descirption"] == null ? string.Empty : dr["Descirption"].ToString();
+                this.Description = dr["Description"] == null ? string.Empty : dr["Description"].ToString();
                 this.StartTime = dr["StartTime"] == null ? new DateTime() : DateTime.Parse(dr["StartTime"].ToString());
                 this.EndTime = dr["EndTime"] == null ? new DateTime() : DateTime.Parse(dr["EndTime"].ToString());
                 this.IsClose = dr["IsClose"] == null ? false : bool.Parse(dr["IsClose"].ToString());
@@ -1371,7 +1371,7 @@ namespace TheWeLib
     {
         #region Variable Initial
         public string Id { set; get; }
-        public string Descirption { set; get; }
+        public string Description { set; get; }
         public string Name { set; get; }
 
         #endregion
@@ -1382,7 +1382,7 @@ namespace TheWeLib
             try
             {
                 this.Id = dr["Id"] == null ? string.Empty : dr["Id"].ToString();
-                this.Descirption = dr["Descirption"] == null ? string.Empty : dr["Descirption"].ToString();
+                this.Description = dr["Description"] == null ? string.Empty : dr["Description"].ToString();
                 this.Name = dr["Name"] == null ? string.Empty : dr["Name"].ToString();
             }
             catch (Exception ex)
@@ -1424,7 +1424,7 @@ namespace TheWeLib
         #region Variable Initial
         public string Id { set; get; }
         public string Name { set; get; }
-        public string Descirption { set; get; }
+        public string Description { set; get; }
         public string ObjectId { set; get; }
         public string Type { set; get; }
 
@@ -1437,7 +1437,7 @@ namespace TheWeLib
             {
                 this.Id = dr["Id"] == null ? string.Empty : dr["Id"].ToString();
                 this.Name = dr["Name"] == null ? string.Empty : dr["Name"].ToString();
-                this.Descirption = dr["Descirption"] == null ? string.Empty : dr["Descirption"].ToString();
+                this.Description = dr["Description"] == null ? string.Empty : dr["Description"].ToString();
                 this.ObjectId = dr["ObjectId"] == null ? string.Empty : dr["ObjectId"].ToString();
                 this.Type = dr["Type"] == null ? string.Empty : dr["Type"].ToString();
             }
@@ -1699,7 +1699,7 @@ namespace TheWeLib
         public string Id { set; get; }
         public string Sn { set; get; }
         public string Name { set; get; }
-        public string Descirption { set; get; }
+        public string Description { set; get; }
         public string Type { set; get; }
         public string CategroyId { set; get; }
         public string SupplierId { set; get; }
@@ -1716,7 +1716,7 @@ namespace TheWeLib
                 this.Id = dr["Id"] == null ? string.Empty : dr["Id"].ToString();
                 this.Sn = dr["Sn"] == null ? string.Empty : dr["Sn"].ToString();
                 this.Name = dr["Name"] == null ? string.Empty : dr["Name"].ToString();
-                this.Descirption = dr["Descirption"] == null ? string.Empty : dr["Descirption"].ToString();
+                this.Description = dr["Description"] == null ? string.Empty : dr["Description"].ToString();
                 this.Type = dr["Type"] == null ? string.Empty : dr["Type"].ToString();
                 this.CategroyId = dr["CategroyId"] == null ? string.Empty : dr["CategroyId"].ToString();
                 this.SupplierId = dr["SupplierId"] == null ? string.Empty : dr["SupplierId"].ToString();
@@ -1735,7 +1735,7 @@ namespace TheWeLib
         #region Variable Initial
         public string Id { set; get; }
         public string Name { set; get; }
-        public string Descirption { set; get; }
+        public string Description { set; get; }
         public string Type { set; get; }
 
         #endregion
@@ -1747,7 +1747,7 @@ namespace TheWeLib
             {
                 this.Id = dr["Id"] == null ? string.Empty : dr["Id"].ToString();
                 this.Name = dr["Name"] == null ? string.Empty : dr["Name"].ToString();
-                this.Descirption = dr["Descirption"] == null ? string.Empty : dr["Descirption"].ToString();
+                this.Description = dr["Description"] == null ? string.Empty : dr["Description"].ToString();
                 this.Type = dr["Type"] == null ? string.Empty : dr["Type"].ToString();
             }
             catch (Exception ex)
