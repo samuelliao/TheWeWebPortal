@@ -16,11 +16,11 @@ namespace TheWeLib.DbControl
             Util = new Utility();
         }
 
-        public Dictionary<string, AreaObj> GetAllArea()
+        public Dictionary<string, AreaObj> GetAllArea(string condition)
         {
             try
             {
-                string sqlTxt = "Select * From Area";
+                string sqlTxt = "Select * From Area" + condition;
                 DataSet ds = DbConnection.GetDataSet(sqlTxt);
                 if (Util.IsDataSetEmpty(ds)) return new Dictionary<string, AreaObj>();
                 return DataSetConverter(ds);

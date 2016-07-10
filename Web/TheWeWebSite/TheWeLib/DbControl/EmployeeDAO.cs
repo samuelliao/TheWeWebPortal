@@ -118,6 +118,7 @@ namespace TheWeLib.DbControl
                     + " SET [CountryID] = N'" + obj.CountryId + "'"
                     + ",[Sn] = '" + obj.Sn + "'"
                     + ",[Name] = N'" + obj.Name + "'"
+                    + ",[Password] = '" +obj.Password+"'" 
                     + ",[Addr] = '" + obj.Addr + "'"
                     + ",[Phone] = '" + obj.Phone + "'"
                     + ",[Bday] = '" + obj.Bday.ToString("yyyy/MM/dd") + "'"
@@ -143,12 +144,13 @@ namespace TheWeLib.DbControl
             try
             {
                 string sqlTxt = "INSERT INTO [dbo].[Employee]"
-                    + "([CountryId],[Sn],[Name],[Account],[Addr],[Phone],[Bday],[OnBoard]"
+                    + "([CountryId],[Sn],[Name],[Account],[Password],[Addr],[Phone],[Bday],[OnBoard]"
                     +",[Salary],[CurrencyId],[Remark],[StoreId],[IsValid])VALUES("
                     + "'" + obj.CountryId + "'"
                     + ",'" + obj.Sn + "'"
                     + ",N'" + obj.Name + "'"
                     + ",'" + obj.Account + "'"
+                    + ","  + obj.Password+"'" 
                     + ",N'" + obj.Addr + "'"
                     + ",'" + obj.Phone + "'"
                     + ",'" + obj.Bday.ToString("yyyy/MM/dd") + "'"
