@@ -37,43 +37,105 @@ namespace TheWeLib
             return body.Member.Name;
         }
 
+        public string SqlQuerySelectInstanceConverter(List<string> lst)
+        {
+            if (lst.Count == 0) return "*";
+            string result = string.Empty;
+            foreach(string str in lst)
+            {
+                result += (string.IsNullOrEmpty(str) ? string.Empty : ",") + str;
+            }
+            return result;
+        }
+
+        public string SqlQueryUpdateConverter(List<DbSearchObject> lst)
+        {
+            if (lst.Count == 0) return string.Empty;
+            string result = string.Empty;
+            foreach(DbSearchObject obj in lst)
+            {
+                result += string.IsNullOrEmpty(result) ? string.Empty : "," + ConditionConverter(obj);
+            }
+            return result;
+        }
+
+        public string SqlQueryInsertInstanceConverter(List<DbSearchObject> lst)
+        {
+            if (lst.Count == 0) return string.Empty;
+            string result = string.Empty;
+            foreach(DbSearchObject obj in lst)
+            {
+                result += string.IsNullOrEmpty(result) ? string.Empty : "," + obj.AttrName;
+            }
+            return result;
+        }
+
+        public string SqlQueryInsertValueConverter(List<DbSearchObject> lst)
+        {
+            if (lst.Count == 0) return string.Empty;
+            string result = string.Empty;
+            foreach(DbSearchObject obj in lst)
+            {
+                result += string.IsNullOrEmpty(result) ? string.Empty : "," + ValueConverter(obj);
+            }
+            return result;
+        }
+
         public string SqlQueryConditionConverter(List<DbSearchObject> lst)
         {
             if (lst.Count == 0) return string.Empty;
             string condStr = string.Empty;
             foreach(DbSearchObject obj in lst)
             {
-                if (string.IsNullOrEmpty(condStr))
-                    condStr += " Where ";
-                else condStr += " And ";
+                condStr += string.IsNullOrEmpty(condStr) ? " Where " : " And " + ConditionConverter(obj);
             }
             return condStr;
+        }
+
+        public string ValueConverter(DbSearchObject obj)
+        {
+            if (obj == null) return string.Empty;
+            string str = string.Empty;
+            switch (obj.AttrType)
+            {
+                case AtrrTypeItem.Integer:
+                case AtrrTypeItem.Bit:
+                    str = obj.AttrValue;
+                    break;
+                case AtrrTypeItem.String:
+                case AtrrTypeItem.DateTime:
+                case AtrrTypeItem.Date:
+                default:
+                    str = "N'" + obj.AttrValue + "'";
+                    break;
+            }
+            return str;
         }
 
         private string ConditionConverter(DbSearchObject obj)
         {
             if (obj == null) return string.Empty;
-            string cond = string.Empty;
+            string cond = obj.AttrName;
             switch (obj.AttrType)
             {
                 case AtrrTypeItem.Integer:
-                case AtrrTypeItem.Bit:
-                case AtrrTypeItem.DateTime:
-                case AtrrTypeItem.Date:
+                case AtrrTypeItem.Bit:                
                     cond += AttrSymbolConverter(obj.AttrSymbol) + obj.AttrValue;
                     break;
                 case AtrrTypeItem.String:
+                case AtrrTypeItem.DateTime:
+                case AtrrTypeItem.Date:
                 default:
                     cond += AttrSymbolConverter(obj.AttrSymbol)
                         + (obj.AttrSymbol == AttrSymbolItem.Like 
-                        ? "'" + obj.AttrValue + "'" 
-                        : "'%" + obj.AttrValue + "%'");
+                        ? "N'" + obj.AttrValue + "'" 
+                        : "N'%" + obj.AttrValue + "%'");
                     break;
             }
-            cond = obj.AttrName;
+            
 
             return cond;
-        }
+        }        
 
         public string AttrSymbolConverter(AttrSymbolItem item)
         {
