@@ -22,6 +22,15 @@ namespace TheWeWebSite {
         protected global::System.Web.UI.WebControls.Label labelStore;
         
         /// <summary>
+        /// ddlStore 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlStore;
+        
+        /// <summary>
         /// labelAccount 控制項。
         /// </summary>
         /// <remarks>
@@ -31,6 +40,15 @@ namespace TheWeWebSite {
         protected global::System.Web.UI.WebControls.Label labelAccount;
         
         /// <summary>
+        /// tbAccount 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tbAccount;
+        
+        /// <summary>
         /// labelPw 控制項。
         /// </summary>
         /// <remarks>
@@ -38,6 +56,24 @@ namespace TheWeWebSite {
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label labelPw;
+        
+        /// <summary>
+        /// tbPassword 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tbPassword;
+        
+        /// <summary>
+        /// labelWarnText 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label labelWarnText;
         
         /// <summary>
         /// btnLogin 控制項。

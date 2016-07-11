@@ -1302,6 +1302,9 @@ namespace TheWeLib
         public DateTime StartTime { set; get; }
         public DateTime EndTime { set; get; }
         public bool IsClose { set; get; }
+        public string Name { set; get; }
+        public string Description { set; get; }
+
 
         #endregion
 

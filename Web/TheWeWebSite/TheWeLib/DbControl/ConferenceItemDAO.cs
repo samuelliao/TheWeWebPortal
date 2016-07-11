@@ -52,7 +52,6 @@ namespace TheWeLib.DbControl
         {
             try
             {
-                if (string.IsNullOrEmpty(lv)) return new Dictionary<string, ConferenceItemObj>();
                 string sqlTxt = "Select * From ConferenceItem Where ConferenceLv = "+lv;
                 DataSet ds = DbConnection.GetDataSet(sqlTxt);
                 if (Util.IsDataSetEmpty(ds)) return new Dictionary<string, ConferenceItemObj>();
