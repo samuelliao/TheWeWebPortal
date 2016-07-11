@@ -1,0 +1,6 @@
+C:\Jason\TheWeWebPortal\Web\TheWeWebSite\TheWeWebSite\bin\TheWeWebSite.dll.config
+C:\Jason\TheWeWebPortal\Web\TheWeWebSite\TheWeWebSite\bin\TheWeWebSite.dll
+C:\Jason\TheWeWebPortal\Web\TheWeWebSite\TheWeWebSite\bin\TheWeWebSite.pdb
+C:\Jason\TheWeWebPortal\Web\TheWeWebSite\TheWeWebSite\obj\Debug\TheWeWebSite.dll
+C:\Jason\TheWeWebPortal\Web\TheWeWebSite\TheWeWebSite\obj\Debug\TheWeWebSite.pdb
+C:\Jason\TheWeWebPortal\Web\TheWeWebSite\TheWeWebSite\obj\Debug\TheWeWebSite.csprojResolveAssemblyReference.cache
