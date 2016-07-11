@@ -141,4 +141,73 @@
   <data name="StoreString" xml:space="preserve">
     <value>Store Name</value>
   </data>
+  <data name="MainPageString" xml:space="preserve">
+    <value>Main</value>
+  </data>
+  <data name="StoreMgtString" xml:space="preserve">
+    <value>Store Mgt</value>
+  </data>
+  <data name="OrderMgtString" xml:space="preserve">
+    <value>Order Mgt</value>
+  </data>
+  <data name="SearchMgtString" xml:space="preserve">
+    <value>Search Mgt</value>
+  </data>
+  <data name="WorkReminderString" xml:space="preserve">
+    <value>Work Reminder</value>
+  </data>
+  <data name="ConsultScheduleString" xml:space="preserve">
+    <value>Unsigned Timetable</value>
+  </data>
+  <data name="OrderScheduleString" xml:space="preserve">
+    <value>Contract Timetable</value>
+  </data>
+  <data name="ScheduleString" xml:space="preserve">
+    <value>Schedule</value>
+  </data>
+  <data name="LocationReservationString" xml:space="preserve">
+    <value>Church Reservation</value>
+  </data>
+  <data name="CustomerScheduleString" xml:space="preserve">
+    <value>Customer Timetable</value>
+  </data>
+  <data name="SnString" xml:space="preserve">
+    <value>SN</value>
+  </data>
+  <data name="EmployeeString" xml:space="preserve">
+    <value>Employee</value>
+  </data>
+  <data name="PhoneString" xml:space="preserve">
+    <value>Phone</value>
+  </data>
+  <data name="AppointDateString" xml:space="preserve">
+    <value>Appointment Date</value>
+  </data>
+  <data name="ContentString" xml:space="preserve">
+    <value>Content</value>
+  </data>
+  <data name="LastReceivedTimeString" xml:space="preserve">
+    <value>Last Received</value>
+  </data>
+  <data name="RemarkString" xml:space="preserve">
+    <value>Remark</value>
+  </data>
+  <data name="ReceiveString" xml:space="preserve">
+    <value>Receive</value>
+  </data>
+  <data name="LogoutString" xml:space="preserve">
+    <value>Logout</value>
+  </data>
+  <data name="FinMgtString" xml:space="preserve">
+    <value>Financial Mgt</value>
+  </data>
+  <data name="PurchaseMgtString" xml:space="preserve">
+    <value>Purchase Mgt</value>
+  </data>
+  <data name="SysMgtString" xml:space="preserve">
+    <value>System Mgt</value>
+  </data>
+  <data name="SalesMgtString" xml:space="preserve">
+    <value>Sales Mgt</value>
+  </data>
 </root>

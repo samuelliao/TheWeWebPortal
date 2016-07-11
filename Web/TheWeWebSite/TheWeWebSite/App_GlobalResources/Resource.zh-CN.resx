@@ -141,4 +141,61 @@
   <data name="StoreString" xml:space="preserve">
     <value>店家</value>
   </data>
+  <data name="MainPageString" xml:space="preserve">
+    <value>首页</value>
+  </data>
+  <data name="StoreMgtString" xml:space="preserve">
+    <value>开店管理</value>
+  </data>
+  <data name="OrderMgtString" xml:space="preserve">
+    <value>案件管理</value>
+  </data>
+  <data name="SearchMgtString" xml:space="preserve">
+    <value>查询管理</value>
+  </data>
+  <data name="WorkReminderString" xml:space="preserve">
+    <value>工作提醒</value>
+  </data>
+  <data name="ConsultScheduleString" xml:space="preserve">
+    <value>未签约行程</value>
+  </data>
+  <data name="OrderScheduleString" xml:space="preserve">
+    <value>签约行程</value>
+  </data>
+  <data name="ScheduleString" xml:space="preserve">
+    <value>行程表</value>
+  </data>
+  <data name="LocationReservationString" xml:space="preserve">
+    <value>教堂预约</value>
+  </data>
+  <data name="CustomerScheduleString" xml:space="preserve">
+    <value>客户行程</value>
+  </data>
+  <data name="SnString" xml:space="preserve">
+    <value>编号</value>
+  </data>
+  <data name="EmployeeString" xml:space="preserve">
+    <value>员工</value>
+  </data>
+  <data name="PhoneString" xml:space="preserve">
+    <value>电话</value>
+  </data>
+  <data name="AppointDateString" xml:space="preserve">
+    <value>预约日期</value>
+  </data>
+  <data name="ContentString" xml:space="preserve">
+    <value>内容</value>
+  </data>
+  <data name="LastReceivedTimeString" xml:space="preserve">
+    <value>最后回覆时间</value>
+  </data>
+  <data name="RemarkString" xml:space="preserve">
+    <value>备注</value>
+  </data>
+  <data name="ReceiveString" xml:space="preserve">
+    <value>回覆</value>
+  </data>
+  <data name="LogoutString" xml:space="preserve">
+    <value>登出</value>
+  </data>
 </root>
