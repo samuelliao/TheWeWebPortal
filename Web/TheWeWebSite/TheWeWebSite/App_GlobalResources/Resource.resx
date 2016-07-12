@@ -148,7 +148,7 @@
     <value>Store Mgt</value>
   </data>
   <data name="OrderMgtString" xml:space="preserve">
-    <value>Order Mgt</value>
+    <value>Case Mgt</value>
   </data>
   <data name="SearchMgtString" xml:space="preserve">
     <value>Search Mgt</value>
@@ -159,7 +159,7 @@
   <data name="ConsultScheduleString" xml:space="preserve">
     <value>Unsigned Timetable</value>
   </data>
-  <data name="OrderScheduleString" xml:space="preserve">
+  <data name="ContractScheduleString" xml:space="preserve">
     <value>Contract Timetable</value>
   </data>
   <data name="ScheduleString" xml:space="preserve">
@@ -230,5 +230,77 @@
   </data>
   <data name="CurrencyInputString" xml:space="preserve">
     <value>Please input currency</value>
+  </data>
+  <data name="CustomerMaintainString" xml:space="preserve">
+    <value>Customer Maintain</value>
+  </data>
+  <data name="CasePermissionMgtString" xml:space="preserve">
+    <value>Case Permission</value>
+  </data>
+  <data name="PermissionCategoryString" xml:space="preserve">
+    <value>Permission Category</value>
+  </data>
+  <data name="SNSMgtString" xml:space="preserve">
+    <value>SNS</value>
+  </data>
+  <data name="LoginMaintainString" xml:space="preserve">
+    <value>System Maintain</value>
+  </data>
+  <data name="ProductMaintainString" xml:space="preserve">
+    <value>Product</value>
+  </data>
+  <data name="DressMaintainString" xml:space="preserve">
+    <value>Dress</value>
+  </data>
+  <data name="AccessoryMaintainString" xml:space="preserve">
+    <value>Accessory</value>
+  </data>
+  <data name="StyleMaintainString" xml:space="preserve">
+    <value>Style</value>
+  </data>
+  <data name="WeddingItemMaintainString" xml:space="preserve">
+    <value>Wedding Item</value>
+  </data>
+  <data name="ChurchMaintainString" xml:space="preserve">
+    <value>Church</value>
+  </data>
+  <data name="EmployeeMaintainString" xml:space="preserve">
+    <value>Employee</value>
+  </data>
+  <data name="ConsultString" xml:space="preserve">
+    <value>Unsigned Case</value>
+  </data>
+  <data name="ContractString" xml:space="preserve">
+    <value>Contract</value>
+  </data>
+  <data name="ConsultMaintainString" xml:space="preserve">
+    <value>Unsigned Case Maintain</value>
+  </data>
+  <data name="ContractMaintainString" xml:space="preserve">
+    <value>Contract Maintain</value>
+  </data>
+  <data name="TimetableMaintainString" xml:space="preserve">
+    <value>Timetable</value>
+  </data>
+  <data name="SearchString" xml:space="preserve">
+    <value>Search</value>
+  </data>
+  <data name="UpdateString" xml:space="preserve">
+    <value>UpdateString</value>
+  </data>
+  <data name="CancelString" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="SearchResultString" xml:space="preserve">
+    <value>Result</value>
+  </data>
+  <data name="AreaSelectRemindString" xml:space="preserve">
+    <value>Select a area</value>
+  </data>
+  <data name="ChurchSelectRemindString" xml:space="preserve">
+    <value>Select a church</value>
+  </data>
+  <data name="CountrySelectRemindString" xml:space="preserve">
+    <value>Select a country</value>
   </data>
 </root>

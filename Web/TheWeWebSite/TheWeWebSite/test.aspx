@@ -226,13 +226,13 @@
                                 <div class="12u">
                                     <ul class="actions">
                                         <li>
-                                            <asp:Button runat="server" CssClass="button alt" Text="新增" />
+                                            <asp:Button runat="server" CssClass="button alt" Text="<%$ Resources:Resource,CreateString%>" />
                                         </li>
                                         <li>
                                             <asp:Button runat="server" CssClass="button alt" Text="修改" />
                                         </li>
                                         <li>
-                                            <asp:Button runat="server" CssClass="button alt" Text="刪除" />
+                                            <asp:Button runat="server" CssClass="button alt" Text="<%$ Resources:Resource,DeleteString%>" />
                                         </li>
                                     </ul>
                                 </div>

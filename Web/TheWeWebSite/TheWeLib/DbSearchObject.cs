@@ -11,6 +11,14 @@ namespace TheWeLib
         public AtrrTypeItem AttrType;
         public string AttrValue;
         public AttrSymbolItem AttrSymbol;
+        public DbSearchObject() { }
+        public DbSearchObject(string name, AtrrTypeItem type, AttrSymbolItem symbol, string value)
+        {
+            AttrName = name;
+            AttrSymbol = symbol;
+            AttrType = type;
+            AttrValue = value;
+        }
     }
 
     public enum AtrrTypeItem

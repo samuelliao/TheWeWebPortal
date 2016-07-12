@@ -77,11 +77,12 @@
     <Content Include="assets\js\skel.min.js" />
     <Content Include="assets\js\table.js" />
     <Content Include="assets\js\util.js" />
-    <Content Include="assets\img\bg_top.jpg" />
     <Content Include="CaseMgt\AdvisoryMaintain.aspx" />
     <Content Include="CaseMgt\CaseMaintain.aspx" />
     <Content Include="CaseMgt\CustomerMaintain.aspx" />
     <Content Include="CaseMgt\TimeMaintain.aspx" />
+    <Content Include="css\main.css" />
+    <Content Include="img\bg_top.jpg" />
     <Content Include="Login.aspx" />
     <Content Include="Main\Calendar.aspx" />
     <Content Include="Main\Case.aspx" />
@@ -89,12 +90,27 @@
     <Content Include="Main\CustomerCalendar.aspx" />
     <Content Include="Main\Unsigned.aspx" />
     <Content Include="remind.aspx" />
-    <Content Include="assets\img\back.png" />
-    <Content Include="assets\img\bg.png" />
-    <Content Include="assets\img\bg_footer.jpg" />
-    <Content Include="assets\img\logo.jpg" />
-    <Content Include="assets\img\logo_clear.jpg" />
-    <Content Include="assets\img\title_top.jpg" />
+    <Content Include="css\bootstrap.css" />
+    <Content Include="css\btn_1.css" />
+    <Content Include="css\btn_2.css" />
+    <Content Include="css\btn_3.css" />
+    <Content Include="css\btn_4.css" />
+    <Content Include="css\btn_5.css" />
+    <Content Include="css\btn_6.css" />
+    <Content Include="css\btn_7.css" />
+    <Content Include="css\btn_8.css" />
+    <Content Include="css\content.css" />
+    <Content Include="css\footer.css" />
+    <Content Include="css\header.css" />
+    <Content Include="css\month.css" />
+    <Content Include="css\tablestyle.css" />
+    <Content Include="img\back.png" />
+    <Content Include="img\bg.png" />
+    <Content Include="img\bg_footer.jpg" />
+    <Content Include="img\logo.jpg" />
+    <Content Include="img\logo_clear.jpg" />
+    <Content Include="img\title_top.jpg" />
+    <Content Include="img\圖層_1.png" />
     <Content Include="StoreMgt\ChurchMaintain.aspx" />
     <Content Include="StoreMgt\DressMaintain.aspx" />
     <Content Include="StoreMgt\EmployeeMaintain.aspx" />
@@ -112,11 +128,6 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="App_GlobalResources\Resource.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resource.resx</DependentUpon>
-    </Compile>
     <Compile Include="App_GlobalResources\Resource.zh-CN.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -126,6 +137,11 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resource.zh-TW.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_GlobalResources\Resource1.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resource.resx</DependentUpon>
     </Compile>
     <Compile Include="CaseMgt\AdvisoryMaintain.aspx.cs">
       <DependentUpon>AdvisoryMaintain.aspx</DependentUpon>
@@ -305,20 +321,17 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="assets\img\Chees.psd" />
+    <Content Include="img\Chees.psd" />
     <Content Include="assets\sass\ie8.scss" />
     <Content Include="assets\sass\main.scss" />
     <Content Include="assets\sass\lib\_functions.scss" />
     <Content Include="assets\sass\lib\_mixins.scss" />
     <Content Include="assets\sass\lib\_skel.scss" />
     <Content Include="assets\sass\lib\_vars.scss" />
-    <Content Include="packages.config" />
     <Content Include="NLog.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <None Include="NLog.xsd">
-      <SubType>Designer</SubType>
-    </None>
+    <Content Include="packages.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

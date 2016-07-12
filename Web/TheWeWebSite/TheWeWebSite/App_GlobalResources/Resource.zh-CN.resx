@@ -159,7 +159,7 @@
   <data name="ConsultScheduleString" xml:space="preserve">
     <value>未签约行程</value>
   </data>
-  <data name="OrderScheduleString" xml:space="preserve">
+  <data name="ContractScheduleString" xml:space="preserve">
     <value>签约行程</value>
   </data>
   <data name="ScheduleString" xml:space="preserve">

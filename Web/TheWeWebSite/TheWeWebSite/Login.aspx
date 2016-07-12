@@ -33,7 +33,6 @@
         <div id="content" style="background: #FFFFFF; height: auto; text-align: center; margin-top: 200px;">
 
             <div style="padding: 5px;">
-
                 <asp:Label ID="labelStore" runat="server" Text="<%$ Resources:Resource,StoreString%>" Style="font-size: 20px;"></asp:Label>
                 <asp:DropDownList Width="150px" runat="server" ID="ddlStore" OnLoad="ddlStore_Load" />
             </div>
@@ -45,10 +44,10 @@
                 <asp:Label ID="labelPw" runat="server" Text="<%$ Resources:Resource,PasswordString%>" Style="font-size: 20px;"></asp:Label>
                 <asp:TextBox runat="server" ID="tbPassword" TextMode="Password" Width="150px" />
             </div>
-            <div style="padding: 5px;margin-top: 30px;">
+            <div style="padding: 5px; margin-top: 30px;">
                 <asp:Label runat="server" ID="labelWarnText" Font-Size="20px" ForeColor="Red" Visible="false" />
-                <br/>
-                <asp:Button ID="btnLogin" runat="server" class="btn_2" Text="<%$ Resources:Resource,LoginString%>" OnClick="btnLogin_Click" />
+                <br />
+                <asp:Button ID="btnLogin" runat="server" CssClass="btn_2" Text="<%$ Resources:Resource,LoginString%>" OnClick="btnLogin_Click" />
             </div>
 
 

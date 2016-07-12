@@ -156,7 +156,7 @@
   <data name="StoreMgtString" xml:space="preserve">
     <value>開店管理</value>
   </data>
-  <data name="OrderScheduleString" xml:space="preserve">
+  <data name="ContractScheduleString" xml:space="preserve">
     <value>簽約行程</value>
   </data>
   <data name="ScheduleString" xml:space="preserve">
@@ -230,5 +230,77 @@
   </data>
   <data name="CurrencyInputString" xml:space="preserve">
     <value>請輸入幣別</value>
+  </data>
+  <data name="CustomerMaintainString" xml:space="preserve">
+    <value>客戶維護</value>
+  </data>
+  <data name="CasePermissionMgtString" xml:space="preserve">
+    <value>權限案件</value>
+  </data>
+  <data name="PermissionCategoryString" xml:space="preserve">
+    <value>權限類別</value>
+  </data>
+  <data name="SNSMgtString" xml:space="preserve">
+    <value>常用簡訊</value>
+  </data>
+  <data name="LoginMaintainString" xml:space="preserve">
+    <value>登錄維護</value>
+  </data>
+  <data name="ProductMaintainString" xml:space="preserve">
+    <value>產品</value>
+  </data>
+  <data name="DressMaintainString" xml:space="preserve">
+    <value>禮服資料庫</value>
+  </data>
+  <data name="AccessoryMaintainString" xml:space="preserve">
+    <value>配件資料庫</value>
+  </data>
+  <data name="StyleMaintainString" xml:space="preserve">
+    <value>造型資料庫</value>
+  </data>
+  <data name="WeddingItemMaintainString" xml:space="preserve">
+    <value>婚禮小物</value>
+  </data>
+  <data name="ChurchMaintainString" xml:space="preserve">
+    <value>教堂資料庫</value>
+  </data>
+  <data name="EmployeeMaintainString" xml:space="preserve">
+    <value>員工資料庫</value>
+  </data>
+  <data name="ConsultString" xml:space="preserve">
+    <value> 未簽約</value>
+  </data>
+  <data name="ContractString" xml:space="preserve">
+    <value>已簽約</value>
+  </data>
+  <data name="ConsultMaintainString" xml:space="preserve">
+    <value>未簽約維護</value>
+  </data>
+  <data name="ContractMaintainString" xml:space="preserve">
+    <value>簽約維護</value>
+  </data>
+  <data name="TimetableMaintainString" xml:space="preserve">
+    <value>時程維護</value>
+  </data>
+  <data name="SearchString" xml:space="preserve">
+    <value>查詢</value>
+  </data>
+  <data name="UpdateString" xml:space="preserve">
+    <value>更新</value>
+  </data>
+  <data name="CancelString" xml:space="preserve">
+    <value>取消</value>
+  </data>
+  <data name="SearchResultString" xml:space="preserve">
+    <value>搜尋結果</value>
+  </data>
+  <data name="AreaSelectRemindString" xml:space="preserve">
+    <value>請選擇地區</value>
+  </data>
+  <data name="ChurchSelectRemindString" xml:space="preserve">
+    <value>請選擇教堂</value>
+  </data>
+  <data name="CountrySelectRemindString" xml:space="preserve">
+    <value>請選擇國家</value>
   </data>
 </root>

@@ -110,7 +110,7 @@ namespace TheWeWebSite
             else
             {
                 labelWarnText.Visible = false;
-                Server.Transfer("Main/first.aspx", true);
+                Server.Transfer("Main/Calendar.aspx", true);
             }
         }        
     }
