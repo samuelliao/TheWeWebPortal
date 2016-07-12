@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NLog;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,6 +11,7 @@ namespace TheWeLib
         public static string DbConcString;
         public static string CultureCode;
         public static EmployeeObj EmployeeInfo;
+        public static Logger Log;
 
         public static bool IsEnglish()
         {

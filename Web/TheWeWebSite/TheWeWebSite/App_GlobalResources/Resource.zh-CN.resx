@@ -198,4 +198,34 @@
   <data name="LogoutString" xml:space="preserve">
     <value>登出</value>
   </data>
+  <data name="FinMgtString" xml:space="preserve">
+    <value>财务管理</value>
+  </data>
+  <data name="PurchaseMgtString" xml:space="preserve">
+    <value>采购管理</value>
+  </data>
+  <data name="SysMgtString" xml:space="preserve">
+    <value>系统管理</value>
+  </data>
+  <data name="SalesMgtString" xml:space="preserve">
+    <value>销货管理</value>
+  </data>
+  <data name="CurrencyString" xml:space="preserve">
+    <value>币别</value>
+  </data>
+  <data name="CreateString" xml:space="preserve">
+    <value>新增</value>
+  </data>
+  <data name="ModifyString" xml:space="preserve">
+    <value>修改</value>
+  </data>
+  <data name="DeleteString" xml:space="preserve">
+    <value>删除</value>
+  </data>
+  <data name="CurrencyRateString" xml:space="preserve">
+    <value>汇率</value>
+  </data>
+  <data name="ModifiedTimeString" xml:space="preserve">
+    <value>修改日期</value>
+  </data>
 </root>

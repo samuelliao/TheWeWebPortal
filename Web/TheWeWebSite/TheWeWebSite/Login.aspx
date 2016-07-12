@@ -35,7 +35,7 @@
             <div style="padding: 5px;">
 
                 <asp:Label ID="labelStore" runat="server" Text="<%$ Resources:Resource,StoreString%>" Style="font-size: 20px;"></asp:Label>
-                <asp:DropDownList Width="150px" runat="server" ID="ddlStore" />
+                <asp:DropDownList Width="150px" runat="server" ID="ddlStore" OnLoad="ddlStore_Load" />
             </div>
             <div style="padding: 5px;">
                 <asp:Label ID="labelAccount" runat="server" Text="<%$ Resources:Resource,AccountString%>" Style="font-size: 20px;"></asp:Label>

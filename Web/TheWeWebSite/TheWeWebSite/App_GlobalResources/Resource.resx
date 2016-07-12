@@ -210,4 +210,25 @@
   <data name="SalesMgtString" xml:space="preserve">
     <value>Sales Mgt</value>
   </data>
+  <data name="CurrencyString" xml:space="preserve">
+    <value>Currency</value>
+  </data>
+  <data name="CreateString" xml:space="preserve">
+    <value>Create</value>
+  </data>
+  <data name="ModifyString" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="DeleteString" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="CurrencyRateString" xml:space="preserve">
+    <value>Rate</value>
+  </data>
+  <data name="ModifiedTimeString" xml:space="preserve">
+    <value>Modified Date</value>
+  </data>
+  <data name="CurrencyInputString" xml:space="preserve">
+    <value>Please input currency</value>
+  </data>
 </root>

@@ -22,12 +22,20 @@ namespace TheWeWebSite
             {
                 SysProperty.DbConcString = WebConfigurationManager.ConnectionStrings["TheWeConnectionString"].ConnectionString;
             }
+
+            if (SysProperty.Log == null)
+            {
+                SysProperty.Log = NLog.LogManager.GetCurrentClassLogger();
+            }
             DbDAO = new GeneralDbDAO();
             SysProperty.CultureCode = this.Culture;
             Util = new Utility();
         }
 
-
+        protected void ddlStore_Load(object sender, EventArgs e)
+        {
+            InitialStoreList();
+        }
         private void InitialStoreList()
         {
             Dictionary<string, string> stores = GetStoreList();
@@ -47,7 +55,7 @@ namespace TheWeWebSite
             try
             {
                 Dictionary<string, string> lst = new Dictionary<string, string>();
-                DataSet ds = DbDAO.GetDataFromTable("*", "Store", string.Empty);
+                DataSet ds = DbDAO.GetDataFromTable("*", Util.MsSqlTableConverter(MsSqlTable.Store), string.Empty);
                 foreach (DataRow dr in ds.Tables[0].Rows)
                 {
                     lst.Add(dr["Id"].ToString(), (SysProperty.IsEnglish() ? dr["EngName"].ToString() : dr["ChName"].ToString()));
@@ -57,13 +65,17 @@ namespace TheWeWebSite
             catch (Exception ex)
             {
                 // output log
+                SysProperty.Log.Error(ex.Message);
                 return new Dictionary<string, string>();
             }
         }
 
         private bool VerifyAccountAndPassword(string acc, string pwd, string storeId)
         {
-            DataSet ds = DbDAO.GetDataFromTable("*", "vmEN_Employee", " Where Account= N'" + acc + "' and StoreId = '" + storeId + "'");
+            DataSet ds = DbDAO.GetDataFromTable(string.Empty
+                , Util.MsSqlTableConverter(MsSqlTable.vwEN_Employee)
+                , " Where Account= N'" + acc.ToLower() + "'"
+                +(acc.ToLower().Equals("admin")?string.Empty:" and StoreId = '" + storeId + "'"));
             if (Util.IsDataSetEmpty(ds)) return false;
             if (new DataEncryption().GetMD5(pwd) == ds.Tables[0].Rows[0]["Password"].ToString())
             {
@@ -82,11 +94,12 @@ namespace TheWeWebSite
                 labelWarnText.Visible = true;
                 return;
             }
-            if (string.IsNullOrEmpty(ddlStore.SelectedValue)) {
+            if (string.IsNullOrEmpty(ddlStore.SelectedValue) && !tbAccount.Text.ToLower().Equals("admin"))
+            {
                 labelWarnText.Text = Resources.Resource.LoginStoreNotSelectedString;
                 labelWarnText.Visible = true;
                 return;
-            }                
+            }
             bool result = VerifyAccountAndPassword(tbAccount.Text, tbPassword.Text, ddlStore.SelectedItem.Value);
             if (!result)
             {
@@ -97,7 +110,8 @@ namespace TheWeWebSite
             else
             {
                 labelWarnText.Visible = false;
+                Server.Transfer("Main/first.aspx", true);
             }
-        }
+        }        
     }
 }

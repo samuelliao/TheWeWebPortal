@@ -27,6 +27,7 @@ namespace TheWeLib.DbControl
             } catch(Exception ex)
             {
                 // Output log
+                SysProperty.Log.Error(ex.Message);
                 return new Dictionary<string, ConferenceItemObj>();
             }
         }
@@ -44,6 +45,7 @@ namespace TheWeLib.DbControl
             catch (Exception ex)
             {
                 // Output log
+                SysProperty.Log.Error(ex.Message);
                 return new Dictionary<string, ConferenceItemObj>();
             }
         }
@@ -60,6 +62,7 @@ namespace TheWeLib.DbControl
             catch (Exception ex)
             {
                 // Output log
+                SysProperty.Log.Error(ex.Message);
                 return new Dictionary<string, ConferenceItemObj>();
             }
         }
@@ -76,6 +79,7 @@ namespace TheWeLib.DbControl
             }catch(Exception ex)
             {
                 // Output log
+                SysProperty.Log.Error(ex.Message);
                 return new ConferenceItemObj();
             }
         }
@@ -93,6 +97,7 @@ namespace TheWeLib.DbControl
             }catch(Exception ex)
             {
                 // Output log
+                SysProperty.Log.Error(ex.Message);
                 return false;
             }
         }
@@ -111,6 +116,7 @@ namespace TheWeLib.DbControl
             catch (Exception ex)
             {
                 // Output log
+                SysProperty.Log.Error(ex.Message);
                 return false;
             }
         }
@@ -131,6 +137,7 @@ namespace TheWeLib.DbControl
                 return lst;
             }catch(Exception ex)
             { // Output log
+                SysProperty.Log.Error(ex.Message);
                 return new Dictionary<string, ConferenceItemObj>();
             }
         }

@@ -33,6 +33,7 @@ namespace TheWeLib
             catch(Exception ex)
             {
                 // Output log here.
+                SysProperty.Log.Error(ex.Message);
                 return null;
             }
         }
@@ -43,14 +44,19 @@ namespace TheWeLib
             {
                 DataSet ds = new DataSet();
                 SqlConn.Open();
-                SqlCommand cmd = new SqlCommand(KeyOpenString + sqlStr);
+                SqlCommand cmd = new SqlCommand(KeyOpenString + sqlStr, SqlConn);
                 int result = cmd.ExecuteNonQuery();
-                return result == -1;
+                return result == -1;                
             }
             catch(Exception ex)
             {
                 // Output log.
+                SysProperty.Log.Error(ex.Message);
                 return false;
+            }
+            finally
+            {
+                if (SqlConn.State == ConnectionState.Open) SqlConn.Close();
             }
         }
     }

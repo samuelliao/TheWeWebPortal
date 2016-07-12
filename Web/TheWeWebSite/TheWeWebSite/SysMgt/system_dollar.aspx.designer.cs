@@ -13,13 +13,13 @@ namespace TheWeWebSite.SysMgt {
     public partial class system_dollar {
         
         /// <summary>
-        /// labelLocate 控制項。
+        /// label1 控制項。
         /// </summary>
         /// <remarks>
         /// 自動產生的欄位。
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label labelLocate;
+        protected global::System.Web.UI.WebControls.Label label1;
         
         /// <summary>
         /// btnFirst 控制項。
@@ -94,15 +94,6 @@ namespace TheWeWebSite.SysMgt {
         protected global::System.Web.UI.WebControls.Button btnSystemMgt;
         
         /// <summary>
-        /// btnCaseRemind 控制項。
-        /// </summary>
-        /// <remarks>
-        /// 自動產生的欄位。
-        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnCaseRemind;
-        
-        /// <summary>
         /// btnCase 控制項。
         /// </summary>
         /// <remarks>
@@ -166,6 +157,15 @@ namespace TheWeWebSite.SysMgt {
         protected global::System.Web.UI.WebControls.Label labeldollar;
         
         /// <summary>
+        /// tbCurrencyName 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tbCurrencyName;
+        
+        /// <summary>
         /// btnInsert 控制項。
         /// </summary>
         /// <remarks>
@@ -175,21 +175,12 @@ namespace TheWeWebSite.SysMgt {
         protected global::System.Web.UI.WebControls.Button btnInsert;
         
         /// <summary>
-        /// btnEdit 控制項。
+        /// dgCurrency 控制項。
         /// </summary>
         /// <remarks>
         /// 自動產生的欄位。
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnEdit;
-        
-        /// <summary>
-        /// BtnDel 控制項。
-        /// </summary>
-        /// <remarks>
-        /// 自動產生的欄位。
-        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button BtnDel;
+        protected global::System.Web.UI.WebControls.DataGrid dgCurrency;
     }
 }

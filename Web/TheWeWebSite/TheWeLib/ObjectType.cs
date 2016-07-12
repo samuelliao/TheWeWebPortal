@@ -60,12 +60,11 @@ namespace TheWeLib
                 this.Remark = dr["Remark"] == null ? string.Empty : dr["Remark"].ToString();
                 this.Sn = dr["Sn"] == null ? string.Empty : dr["Sn"].ToString();
                 this.StoreId = dr["StoreId"] == null ? string.Empty : dr["StoreId"].ToString();
-                this.Password = dr["Password"] == null ? string.Empty : dr["Password"].ToString();
 
             }
             catch (Exception ex)
             {
-                // Output log here.
+                SysProperty.Log.Error(ex.Message);
             }
         }
 
@@ -100,16 +99,15 @@ namespace TheWeLib
             {
                 this.Account = dr["Account"] == null ? string.Empty : dr["Account"].ToString();
                 this.Addr = dr["Addr"] == null ? string.Empty : dr["Addr"].ToString();
-                this.Bday = dr["Bday"] == null ? new DateTime() : DateTime.Parse(dr["Bday"].ToString());
+                this.Bday = dr["Bday"] == null ? new DateTime() : string.IsNullOrEmpty(dr["Bday"].ToString())?new DateTime():DateTime.Parse(dr["Bday"].ToString());
                 this.CountryId = dr["CountryId"] == null ? string.Empty : dr["CountryId"].ToString();
                 this.CurrencyId = dr["CurrencyId"] == null ? string.Empty : dr["CurrencyId"].ToString();
                 this.Id = dr["Id"] == null ? string.Empty : dr["Id"].ToString();
                 this.IsValid = dr["IsValid"] == null ? false : bool.Parse(dr["IsValid"].ToString());
                 this.Name = dr["Name"] == null ? string.Empty : dr["Name"].ToString();
-                this.OnBoard = dr["OnBoard"] == null ? new DateTime() : DateTime.Parse(dr["OnBoard"].ToString());
-                this.Password = dr["Password"] == null ? string.Empty : dr[""].ToString();
-                this.Phone = dr["Phone"] == null ? string.Empty : dr[""].ToString();
-                this.QuitDay = dr["QuitDay"] == null ? new DateTime() : DateTime.Parse(dr["QuitDay"].ToString());
+                this.OnBoard = dr["OnBoard"] == null ? new DateTime() : string.IsNullOrEmpty(dr["OnBoard"].ToString()) ? new DateTime(): DateTime.Parse(dr["OnBoard"].ToString());                
+                this.Phone = dr["Phone"] == null ? string.Empty : dr["Phone"].ToString();
+                this.QuitDay = dr["QuitDay"] == null ? new DateTime() : string.IsNullOrEmpty(dr["QuitDay"].ToString()) ? new DateTime(): DateTime.Parse(dr["QuitDay"].ToString());
                 this.Remark = dr["Remark"] == null ? string.Empty : dr["Remark"].ToString();
                 this.Salary = dr["Salary"] == null ? string.Empty : dr["Salary"].ToString();
                 this.Sn = dr["Sn"] == null ? string.Empty : dr["Sn"].ToString();
@@ -118,7 +116,7 @@ namespace TheWeLib
             }
             catch (Exception ex)
             {
-                // Output log
+                SysProperty.Log.Error(ex.Message);
             }
         }
 
@@ -149,7 +147,7 @@ namespace TheWeLib
             }
             catch (Exception ex)
             {
-                // output log.
+                SysProperty.Log.Error(ex.Message);
             }
         }
         public CountryObj() { }
@@ -177,7 +175,7 @@ namespace TheWeLib
             }
             catch (Exception ex)
             {
-                // Output log.
+                SysProperty.Log.Error(ex.Message);
             }
         }
         public AreaObj() { }
@@ -212,7 +210,7 @@ namespace TheWeLib
             }
             catch (Exception ex)
             {
-                // Output log
+                SysProperty.Log.Error(ex.Message);
             }
         }
     }
@@ -240,7 +238,7 @@ namespace TheWeLib
             }
             catch (Exception ex)
             {
-                // Output log
+                SysProperty.Log.Error(ex.Message);
             }
         }
     }
@@ -284,7 +282,7 @@ namespace TheWeLib
             }
             catch (Exception ex)
             {
-                // Output log
+                SysProperty.Log.Error(ex.Message);
             }
         }
     }
@@ -312,7 +310,7 @@ namespace TheWeLib
             }
             catch (Exception ex)
             {
-                // Output log
+                SysProperty.Log.Error(ex.Message);
             }
         }
     }
@@ -409,7 +407,7 @@ namespace TheWeLib
             }
             catch (Exception ex)
             {
-                // Output log
+                SysProperty.Log.Error(ex.Message);
             }
         }
     }
@@ -436,7 +434,7 @@ namespace TheWeLib
             }
             catch (Exception ex)
             {
-                // Output log
+                SysProperty.Log.Error(ex.Message);
             }
         }
     }
@@ -463,7 +461,7 @@ namespace TheWeLib
             }
             catch (Exception ex)
             {
-                // Output log
+                SysProperty.Log.Error(ex.Message);
             }
         }
     }
@@ -488,7 +486,7 @@ namespace TheWeLib
             }
             catch (Exception ex)
             {
-                // Output log
+                SysProperty.Log.Error(ex.Message);
             }
         }
     }
@@ -513,7 +511,7 @@ namespace TheWeLib
             }
             catch (Exception ex)
             {
-                // Output log
+                SysProperty.Log.Error(ex.Message);
             }
         }
     }
@@ -538,7 +536,7 @@ namespace TheWeLib
             }
             catch (Exception ex)
             {
-                // Output log
+                SysProperty.Log.Error(ex.Message);
             }
         }
     }
@@ -567,7 +565,7 @@ namespace TheWeLib
             }
             catch (Exception ex)
             {
-                // Output log
+                SysProperty.Log.Error(ex.Message);
             }
         }
     }
@@ -650,7 +648,7 @@ namespace TheWeLib
             }
             catch (Exception ex)
             {
-                // Output log
+                SysProperty.Log.Error(ex.Message);
             }
         }
     }
@@ -675,7 +673,7 @@ namespace TheWeLib
             }
             catch (Exception ex)
             {
-                // Output log
+                SysProperty.Log.Error(ex.Message);
             }
         }
     }
@@ -700,7 +698,7 @@ namespace TheWeLib
             }
             catch (Exception ex)
             {
-                // Output log
+                SysProperty.Log.Error(ex.Message);
             }
         }
     }
@@ -725,7 +723,7 @@ namespace TheWeLib
             }
             catch (Exception ex)
             {
-                // Output log
+                SysProperty.Log.Error(ex.Message);
             }
         }
     }
@@ -750,7 +748,7 @@ namespace TheWeLib
             }
             catch (Exception ex)
             {
-                // Output log
+                SysProperty.Log.Error(ex.Message);
             }
         }
     }
@@ -775,7 +773,7 @@ namespace TheWeLib
             }
             catch (Exception ex)
             {
-                // Output log
+                SysProperty.Log.Error(ex.Message);
             }
         }
     }
@@ -800,7 +798,7 @@ namespace TheWeLib
             }
             catch (Exception ex)
             {
-                // Output log
+                SysProperty.Log.Error(ex.Message);
             }
         }
     }
@@ -829,7 +827,7 @@ namespace TheWeLib
             }
             catch (Exception ex)
             {
-                // Output log
+                SysProperty.Log.Error(ex.Message);
             }
         }
     }
@@ -854,7 +852,7 @@ namespace TheWeLib
             }
             catch (Exception ex)
             {
-                // Output log
+                SysProperty.Log.Error(ex.Message);
             }
         }
     }
@@ -879,7 +877,7 @@ namespace TheWeLib
             }
             catch (Exception ex)
             {
-                // Output log
+                SysProperty.Log.Error(ex.Message);
             }
         }
     }
@@ -904,7 +902,7 @@ namespace TheWeLib
             }
             catch (Exception ex)
             {
-                // Output log
+                SysProperty.Log.Error(ex.Message);
             }
         }
     }
@@ -929,7 +927,7 @@ namespace TheWeLib
             }
             catch (Exception ex)
             {
-                // Output log
+                SysProperty.Log.Error(ex.Message);
             }
         }
     }
@@ -954,7 +952,7 @@ namespace TheWeLib
             }
             catch (Exception ex)
             {
-                // Output log
+                SysProperty.Log.Error(ex.Message);
             }
         }
     }
@@ -985,7 +983,7 @@ namespace TheWeLib
             }
             catch (Exception ex)
             {
-                // Output log
+                SysProperty.Log.Error(ex.Message);
             }
         }
     }
@@ -1010,7 +1008,7 @@ namespace TheWeLib
             }
             catch (Exception ex)
             {
-                // Output log
+                SysProperty.Log.Error(ex.Message);
             }
         }
     }
@@ -1035,7 +1033,7 @@ namespace TheWeLib
             }
             catch (Exception ex)
             {
-                // Output log
+                SysProperty.Log.Error(ex.Message);
             }
         }
     }
@@ -1060,7 +1058,7 @@ namespace TheWeLib
             }
             catch (Exception ex)
             {
-                // Output log
+                SysProperty.Log.Error(ex.Message);
             }
         }
     }
@@ -1085,7 +1083,7 @@ namespace TheWeLib
             }
             catch (Exception ex)
             {
-                // Output log
+                SysProperty.Log.Error(ex.Message);
             }
         }
     }
@@ -1110,7 +1108,7 @@ namespace TheWeLib
             }
             catch (Exception ex)
             {
-                // Output log
+                SysProperty.Log.Error(ex.Message);
             }
         }
     }
@@ -1135,7 +1133,7 @@ namespace TheWeLib
             }
             catch (Exception ex)
             {
-                // Output log
+                SysProperty.Log.Error(ex.Message);
             }
         }
     }
@@ -1157,7 +1155,7 @@ namespace TheWeLib
             }
             catch (Exception ex)
             {
-                // Output log
+                SysProperty.Log.Error(ex.Message);
             }
         }
     }
@@ -1185,7 +1183,7 @@ namespace TheWeLib
             }
             catch (Exception ex)
             {
-                // Output log
+                SysProperty.Log.Error(ex.Message);
             }
         }
     }
@@ -1210,7 +1208,7 @@ namespace TheWeLib
             }
             catch (Exception ex)
             {
-                // Output log
+                SysProperty.Log.Error(ex.Message);
             }
         }
     }
@@ -1235,7 +1233,7 @@ namespace TheWeLib
             }
             catch (Exception ex)
             {
-                // Output log
+                SysProperty.Log.Error(ex.Message);
             }
         }
     }
@@ -1288,7 +1286,7 @@ namespace TheWeLib
             }
             catch (Exception ex)
             {
-                // Output log
+                SysProperty.Log.Error(ex.Message);
             }
         }
     }
@@ -1322,7 +1320,7 @@ namespace TheWeLib
             }
             catch (Exception ex)
             {
-                // Output log
+                SysProperty.Log.Error(ex.Message);
             }
         }
     }
@@ -1365,7 +1363,7 @@ namespace TheWeLib
             }
             catch (Exception ex)
             {
-                // Output log
+                SysProperty.Log.Error(ex.Message);
             }
         }
     }
@@ -1390,7 +1388,7 @@ namespace TheWeLib
             }
             catch (Exception ex)
             {
-                // Output log
+                SysProperty.Log.Error(ex.Message);
             }
         }
     }
@@ -1417,7 +1415,7 @@ namespace TheWeLib
             }
             catch (Exception ex)
             {
-                // Output log
+                SysProperty.Log.Error(ex.Message);
             }
         }
     }
@@ -1446,7 +1444,7 @@ namespace TheWeLib
             }
             catch (Exception ex)
             {
-                // Output log
+                SysProperty.Log.Error(ex.Message);
             }
         }
     }
@@ -1482,7 +1480,7 @@ namespace TheWeLib
             }
             catch (Exception ex)
             {
-                // Output log
+                SysProperty.Log.Error(ex.Message);
             }
         }
     }
@@ -1570,7 +1568,7 @@ namespace TheWeLib
             }
             catch (Exception ex)
             {
-                // Output log
+                SysProperty.Log.Error(ex.Message);
             }
         }
     }
@@ -1601,7 +1599,7 @@ namespace TheWeLib
             }
             catch (Exception ex)
             {
-                // Output log
+                SysProperty.Log.Error(ex.Message);
             }
         }
     }
@@ -1625,7 +1623,7 @@ namespace TheWeLib
             }
             catch (Exception ex)
             {
-                // Output log
+                SysProperty.Log.Error(ex.Message);
             }
         }
     }
@@ -1659,7 +1657,7 @@ namespace TheWeLib
             }
             catch (Exception ex)
             {
-                // Output log
+                SysProperty.Log.Error(ex.Message);
             }
         }
     }
@@ -1691,7 +1689,7 @@ namespace TheWeLib
             }
             catch (Exception ex)
             {
-                // Output log
+                SysProperty.Log.Error(ex.Message);
             }
         }
     }
@@ -1728,7 +1726,7 @@ namespace TheWeLib
             }
             catch (Exception ex)
             {
-                // Output log
+                SysProperty.Log.Error(ex.Message);
             }
         }
     }
@@ -1755,7 +1753,7 @@ namespace TheWeLib
             }
             catch (Exception ex)
             {
-                // Output log
+                SysProperty.Log.Error(ex.Message);
             }
         }
     }
@@ -1786,7 +1784,7 @@ namespace TheWeLib
             }
             catch (Exception ex)
             {
-                // Output log
+                SysProperty.Log.Error(ex.Message);
             }
         }
     }
@@ -1811,7 +1809,7 @@ namespace TheWeLib
             }
             catch (Exception ex)
             {
-                // Output log
+                SysProperty.Log.Error(ex.Message);
             }
         }
     }
@@ -1840,7 +1838,7 @@ namespace TheWeLib
             }
             catch (Exception ex)
             {
-                // Output log
+                SysProperty.Log.Error(ex.Message);
             }
         }
     }

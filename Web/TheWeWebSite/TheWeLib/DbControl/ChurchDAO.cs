@@ -29,6 +29,7 @@ namespace TheWeLib.DbControl
             catch (Exception ex)
             {
                 // Ouput log
+                SysProperty.Log.Error(ex.Message);
                 return new Dictionary<string, ChurchObj>();
             }
         }
@@ -47,6 +48,7 @@ namespace TheWeLib.DbControl
             catch (Exception ex)
             {
                 // Ouput log
+                SysProperty.Log.Error(ex.Message);
                 return new Dictionary<string, ChurchObj>();
             }
         }
@@ -84,6 +86,7 @@ namespace TheWeLib.DbControl
             catch (Exception ex)
             {
                 // Ouput log
+                SysProperty.Log.Error(ex.Message);
                 return new Dictionary<string, ChurchObj>();
             }
         }
@@ -111,6 +114,7 @@ namespace TheWeLib.DbControl
             catch (Exception ex)
             {
                 // output log
+                SysProperty.Log.Error(ex.Message);
                 return false;
             }
         }
@@ -139,6 +143,7 @@ namespace TheWeLib.DbControl
             catch (Exception ex)
             {
                 // Output log.
+                SysProperty.Log.Error(ex.Message);
                 return false;
             }
         }
@@ -161,6 +166,7 @@ namespace TheWeLib.DbControl
             catch (Exception ex)
             {
                 // Output log
+                SysProperty.Log.Error(ex.Message);
                 return new Dictionary<string, ChurchObj>();
             }
         }

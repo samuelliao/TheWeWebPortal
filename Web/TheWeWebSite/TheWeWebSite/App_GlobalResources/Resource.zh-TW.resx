@@ -210,4 +210,25 @@
   <data name="SysMgtString" xml:space="preserve">
     <value>系統管理</value>
   </data>
+  <data name="CurrencyString" xml:space="preserve">
+    <value>幣別</value>
+  </data>
+  <data name="CreateString" xml:space="preserve">
+    <value>新增</value>
+  </data>
+  <data name="ModifyString" xml:space="preserve">
+    <value>修改</value>
+  </data>
+  <data name="DeleteString" xml:space="preserve">
+    <value>刪除</value>
+  </data>
+  <data name="CurrencyRateString" xml:space="preserve">
+    <value>匯率</value>
+  </data>
+  <data name="ModifiedTimeString" xml:space="preserve">
+    <value>修改日期</value>
+  </data>
+  <data name="CurrencyInputString" xml:space="preserve">
+    <value>請輸入幣別</value>
+  </data>
 </root>

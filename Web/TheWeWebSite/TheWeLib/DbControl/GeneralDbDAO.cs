@@ -19,26 +19,31 @@ namespace TheWeLib.DbControl
 
         public DataSet GetDataFromTable(string instance, string tableName, string condition)
         {
-            try
-            {
                 if (string.IsNullOrEmpty(tableName)) return null;
                 string sqlTxt = "Select "
                     + (string.IsNullOrEmpty(instance) ? "*" : instance)
                     + " From " + tableName
                     + condition;
+                return GetDataFromTable(sqlTxt);
+        }
+
+        public DataSet GetDataFromTable(string sqlTxt)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(sqlTxt)) return null;
                 return DbConnection.GetDataSet(sqlTxt);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 // output log
+                SysProperty.Log.Error(ex.Message);
                 return null;
-            }            
+            }
         }
 
         public bool InsertDataInToTable(string tableName, string instanceStr, string valueStr)
         {
-            try
-            {
                 if (string.IsNullOrEmpty(tableName) 
                     || string.IsNullOrEmpty(instanceStr)
                     ||string.IsNullOrEmpty(valueStr))
@@ -46,30 +51,34 @@ namespace TheWeLib.DbControl
                 string sqlTxt = "Insert into " + tableName
                     + " ( " + instanceStr + " ) " // Insert instance
                     + "values ( " + valueStr + " )"; // Isert value
+            return ModifyDataInToTable(sqlTxt);
+        }
+
+        public bool ModifyDataInToTable(string sqlTxt)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(sqlTxt))
+                    return false;
                 return DbConnection.ExecSqlText(sqlTxt);
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 // output log
+                SysProperty.Log.Error(ex.Message);
                 return false;
             }
         }
 
         public bool UpdateDataIntoTable(string tableName, string valueStr, string condStr)
         {
-            try {
                 if (string.IsNullOrEmpty(tableName) 
                     || string.IsNullOrEmpty(valueStr))
                     return false;
-
                 string sqlTxt = "Update " + tableName 
                     + " Set " + valueStr  // Set value
                     + " " + condStr; // Where string
-                return DbConnection.ExecSqlText(sqlTxt);
-            } catch(Exception ex)
-            {
-                // output log
-                return false;
-            }
+                return ModifyDataInToTable(sqlTxt);
         }
 
     }

@@ -27,6 +27,7 @@ namespace TheWeLib.DbControl
             }catch(Exception ex)
             {
                 // Output log
+                SysProperty.Log.Error(ex.Message);
                 return new Dictionary<string, ConsultationObj>();
             }
         }
@@ -44,6 +45,7 @@ namespace TheWeLib.DbControl
             catch (Exception ex)
             {
                 // Output log
+                SysProperty.Log.Error(ex.Message);
                 return new Dictionary<string, ConsultationObj>();
             }
         }
@@ -61,6 +63,7 @@ namespace TheWeLib.DbControl
             catch (Exception ex)
             {
                 // Output log
+                SysProperty.Log.Error(ex.Message);
                 return new Dictionary<string, ConsultationObj>();
             }
         }
@@ -83,6 +86,7 @@ namespace TheWeLib.DbControl
             catch(Exception ex)
             {
                 // Output log
+                SysProperty.Log.Error(ex.Message);
                 return new Dictionary<string, ConsultationObj>();
             }
         }
