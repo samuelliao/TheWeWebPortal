@@ -77,50 +77,37 @@
     <Content Include="assets\js\skel.min.js" />
     <Content Include="assets\js\table.js" />
     <Content Include="assets\js\util.js" />
-    <Content Include="CaseMgt\case.aspx" />
-    <Content Include="CaseMgt\case_advisory.aspx" />
-    <Content Include="CaseMgt\case_list.aspx" />
-    <Content Include="css\main.css" />
-    <Content Include="img\bg_top.jpg" />
+    <Content Include="assets\img\bg_top.jpg" />
+    <Content Include="CaseMgt\AdvisoryMaintain.aspx" />
+    <Content Include="CaseMgt\CaseMaintain.aspx" />
+    <Content Include="CaseMgt\CustomerMaintain.aspx" />
+    <Content Include="CaseMgt\TimeMaintain.aspx" />
     <Content Include="Login.aspx" />
+    <Content Include="Main\Calendar.aspx" />
+    <Content Include="Main\Case.aspx" />
+    <Content Include="Main\ChurchReservation.aspx" />
+    <Content Include="Main\CustomerCalendar.aspx" />
+    <Content Include="Main\Unsigned.aspx" />
     <Content Include="remind.aspx" />
-    <Content Include="CaseMgt\case_time.aspx" />
-    <Content Include="css\bootstrap.css" />
-    <Content Include="css\btn_1.css" />
-    <Content Include="css\btn_2.css" />
-    <Content Include="css\btn_3.css" />
-    <Content Include="css\btn_4.css" />
-    <Content Include="css\btn_5.css" />
-    <Content Include="css\btn_6.css" />
-    <Content Include="css\btn_7.css" />
-    <Content Include="css\btn_8.css" />
-    <Content Include="css\content.css" />
-    <Content Include="css\footer.css" />
-    <Content Include="css\header.css" />
-    <Content Include="css\month.css" />
-    <Content Include="css\tablestyle.css" />
-    <Content Include="img\back.png" />
-    <Content Include="img\bg.png" />
-    <Content Include="img\bg_footer.jpg" />
-    <Content Include="img\logo.jpg" />
-    <Content Include="img\logo_clear.jpg" />
-    <Content Include="img\title_top.jpg" />
-    <Content Include="img\圖層_1.png" />
-    <Content Include="Main\first.aspx" />
-    <Content Include="Main\first_case.aspx" />
-    <Content Include="Main\first_church.aspx" />
-    <Content Include="Main\first_client.aspx" />
-    <Content Include="Main\first_schedule.aspx" />
-    <Content Include="StoreMgt\store.aspx" />
-    <Content Include="StoreMgt\store_church.aspx" />
-    <Content Include="StoreMgt\store_dresses.aspx" />
-    <Content Include="StoreMgt\store_employee.aspx" />
-    <Content Include="SysMgt\system.aspx" />
-    <Content Include="SysMgt\system_case.aspx" />
-    <Content Include="SysMgt\system_dollar.aspx" />
-    <Content Include="SysMgt\system_msg.aspx" />
-    <Content Include="SysMgt\system_part.aspx" />
-    <Content Include="SysMgt\system_root.aspx" />
+    <Content Include="assets\img\back.png" />
+    <Content Include="assets\img\bg.png" />
+    <Content Include="assets\img\bg_footer.jpg" />
+    <Content Include="assets\img\logo.jpg" />
+    <Content Include="assets\img\logo_clear.jpg" />
+    <Content Include="assets\img\title_top.jpg" />
+    <Content Include="StoreMgt\ChurchMaintain.aspx" />
+    <Content Include="StoreMgt\DressMaintain.aspx" />
+    <Content Include="StoreMgt\EmployeeMaintain.aspx" />
+    <Content Include="StoreMgt\FittingMaintain.aspx" />
+    <Content Include="StoreMgt\ItemMaintain.aspx" />
+    <Content Include="StoreMgt\ModelingMaintain.aspx" />
+    <Content Include="StoreMgt\OtherItemMaintain.aspx" />
+    <Content Include="SysMgt\CaseRootMaintain.aspx" />
+    <Content Include="SysMgt\DollarMaintain.aspx" />
+    <Content Include="SysMgt\LoginMaintain.aspx" />
+    <Content Include="SysMgt\MsgMaintain.aspx" />
+    <Content Include="SysMgt\RootMaintain.aspx" />
+    <Content Include="SysMgt\UnitMaintain.aspx" />
     <Content Include="test.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
@@ -140,26 +127,33 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resource.zh-TW.resx</DependentUpon>
     </Compile>
-    <Compile Include="CaseMgt\case.aspx.cs">
-      <DependentUpon>case.aspx</DependentUpon>
+    <Compile Include="CaseMgt\AdvisoryMaintain.aspx.cs">
+      <DependentUpon>AdvisoryMaintain.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="CaseMgt\case.aspx.designer.cs">
-      <DependentUpon>case.aspx</DependentUpon>
+    <Compile Include="CaseMgt\AdvisoryMaintain.aspx.designer.cs">
+      <DependentUpon>AdvisoryMaintain.aspx</DependentUpon>
     </Compile>
-    <Compile Include="CaseMgt\case_advisory.aspx.cs">
-      <DependentUpon>case_advisory.aspx</DependentUpon>
+    <Compile Include="CaseMgt\CaseMaintain.aspx.cs">
+      <DependentUpon>CaseMaintain.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="CaseMgt\case_advisory.aspx.designer.cs">
-      <DependentUpon>case_advisory.aspx</DependentUpon>
+    <Compile Include="CaseMgt\CaseMaintain.aspx.designer.cs">
+      <DependentUpon>CaseMaintain.aspx</DependentUpon>
     </Compile>
-    <Compile Include="CaseMgt\case_list.aspx.cs">
-      <DependentUpon>case_list.aspx</DependentUpon>
+    <Compile Include="CaseMgt\CustomerMaintain.aspx.cs">
+      <DependentUpon>CustomerMaintain.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="CaseMgt\case_list.aspx.designer.cs">
-      <DependentUpon>case_list.aspx</DependentUpon>
+    <Compile Include="CaseMgt\CustomerMaintain.aspx.designer.cs">
+      <DependentUpon>CustomerMaintain.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CaseMgt\TimeMaintain.aspx.cs">
+      <DependentUpon>TimeMaintain.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CaseMgt\TimeMaintain.aspx.designer.cs">
+      <DependentUpon>TimeMaintain.aspx</DependentUpon>
     </Compile>
     <Compile Include="Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>
@@ -168,6 +162,41 @@
     <Compile Include="Login.aspx.designer.cs">
       <DependentUpon>Login.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Main\Calendar.aspx.cs">
+      <DependentUpon>Calendar.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Main\Calendar.aspx.designer.cs">
+      <DependentUpon>Calendar.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Main\Case.aspx.cs">
+      <DependentUpon>Case.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Main\Case.aspx.designer.cs">
+      <DependentUpon>Case.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Main\ChurchReservation.aspx.cs">
+      <DependentUpon>ChurchReservation.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Main\ChurchReservation.aspx.designer.cs">
+      <DependentUpon>ChurchReservation.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Main\CustomerCalendar.aspx.cs">
+      <DependentUpon>CustomerCalendar.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Main\CustomerCalendar.aspx.designer.cs">
+      <DependentUpon>CustomerCalendar.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Main\Unsigned.aspx.cs">
+      <DependentUpon>Unsigned.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Main\Unsigned.aspx.designer.cs">
+      <DependentUpon>Unsigned.aspx</DependentUpon>
+    </Compile>
     <Compile Include="remind.aspx.cs">
       <DependentUpon>remind.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -175,118 +204,97 @@
     <Compile Include="remind.aspx.designer.cs">
       <DependentUpon>remind.aspx</DependentUpon>
     </Compile>
-    <Compile Include="CaseMgt\case_time.aspx.cs">
-      <DependentUpon>case_time.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CaseMgt\case_time.aspx.designer.cs">
-      <DependentUpon>case_time.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Main\first.aspx.cs">
-      <DependentUpon>first.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Main\first.aspx.designer.cs">
-      <DependentUpon>first.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Main\first_case.aspx.cs">
-      <DependentUpon>first_case.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Main\first_case.aspx.designer.cs">
-      <DependentUpon>first_case.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Main\first_church.aspx.cs">
-      <DependentUpon>first_church.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Main\first_church.aspx.designer.cs">
-      <DependentUpon>first_church.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Main\first_client.aspx.cs">
-      <DependentUpon>first_client.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Main\first_client.aspx.designer.cs">
-      <DependentUpon>first_client.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Main\first_schedule.aspx.cs">
-      <DependentUpon>first_schedule.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Main\first_schedule.aspx.designer.cs">
-      <DependentUpon>first_schedule.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="StoreMgt\store.aspx.cs">
-      <DependentUpon>store.aspx</DependentUpon>
+    <Compile Include="StoreMgt\ChurchMaintain.aspx.cs">
+      <DependentUpon>ChurchMaintain.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="StoreMgt\store.aspx.designer.cs">
-      <DependentUpon>store.aspx</DependentUpon>
+    <Compile Include="StoreMgt\ChurchMaintain.aspx.designer.cs">
+      <DependentUpon>ChurchMaintain.aspx</DependentUpon>
     </Compile>
-    <Compile Include="StoreMgt\store_church.aspx.cs">
-      <DependentUpon>store_church.aspx</DependentUpon>
+    <Compile Include="StoreMgt\DressMaintain.aspx.cs">
+      <DependentUpon>DressMaintain.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="StoreMgt\store_church.aspx.designer.cs">
-      <DependentUpon>store_church.aspx</DependentUpon>
+    <Compile Include="StoreMgt\DressMaintain.aspx.designer.cs">
+      <DependentUpon>DressMaintain.aspx</DependentUpon>
     </Compile>
-    <Compile Include="StoreMgt\store_dresses.aspx.cs">
-      <DependentUpon>store_dresses.aspx</DependentUpon>
+    <Compile Include="StoreMgt\EmployeeMaintain.aspx.cs">
+      <DependentUpon>EmployeeMaintain.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="StoreMgt\store_dresses.aspx.designer.cs">
-      <DependentUpon>store_dresses.aspx</DependentUpon>
+    <Compile Include="StoreMgt\EmployeeMaintain.aspx.designer.cs">
+      <DependentUpon>EmployeeMaintain.aspx</DependentUpon>
     </Compile>
-    <Compile Include="StoreMgt\store_employee.aspx.cs">
-      <DependentUpon>store_employee.aspx</DependentUpon>
+    <Compile Include="StoreMgt\FittingMaintain.aspx.cs">
+      <DependentUpon>FittingMaintain.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="StoreMgt\store_employee.aspx.designer.cs">
-      <DependentUpon>store_employee.aspx</DependentUpon>
+    <Compile Include="StoreMgt\FittingMaintain.aspx.designer.cs">
+      <DependentUpon>FittingMaintain.aspx</DependentUpon>
     </Compile>
-    <Compile Include="SysMgt\system.aspx.cs">
-      <DependentUpon>system.aspx</DependentUpon>
+    <Compile Include="StoreMgt\ItemMaintain.aspx.cs">
+      <DependentUpon>ItemMaintain.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="SysMgt\system.aspx.designer.cs">
-      <DependentUpon>system.aspx</DependentUpon>
+    <Compile Include="StoreMgt\ItemMaintain.aspx.designer.cs">
+      <DependentUpon>ItemMaintain.aspx</DependentUpon>
     </Compile>
-    <Compile Include="SysMgt\system_case.aspx.cs">
-      <DependentUpon>system_case.aspx</DependentUpon>
+    <Compile Include="StoreMgt\ModelingMaintain.aspx.cs">
+      <DependentUpon>ModelingMaintain.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="SysMgt\system_case.aspx.designer.cs">
-      <DependentUpon>system_case.aspx</DependentUpon>
+    <Compile Include="StoreMgt\ModelingMaintain.aspx.designer.cs">
+      <DependentUpon>ModelingMaintain.aspx</DependentUpon>
     </Compile>
-    <Compile Include="SysMgt\system_dollar.aspx.cs">
-      <DependentUpon>system_dollar.aspx</DependentUpon>
+    <Compile Include="StoreMgt\OtherItemMaintain.aspx.cs">
+      <DependentUpon>OtherItemMaintain.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="SysMgt\system_dollar.aspx.designer.cs">
-      <DependentUpon>system_dollar.aspx</DependentUpon>
+    <Compile Include="StoreMgt\OtherItemMaintain.aspx.designer.cs">
+      <DependentUpon>OtherItemMaintain.aspx</DependentUpon>
     </Compile>
-    <Compile Include="SysMgt\system_msg.aspx.cs">
-      <DependentUpon>system_msg.aspx</DependentUpon>
+    <Compile Include="SysMgt\CaseRootMaintain.aspx.cs">
+      <DependentUpon>CaseRootMaintain.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="SysMgt\system_msg.aspx.designer.cs">
-      <DependentUpon>system_msg.aspx</DependentUpon>
+    <Compile Include="SysMgt\CaseRootMaintain.aspx.designer.cs">
+      <DependentUpon>CaseRootMaintain.aspx</DependentUpon>
     </Compile>
-    <Compile Include="SysMgt\system_part.aspx.cs">
-      <DependentUpon>system_part.aspx</DependentUpon>
+    <Compile Include="SysMgt\DollarMaintain.aspx.cs">
+      <DependentUpon>DollarMaintain.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="SysMgt\system_part.aspx.designer.cs">
-      <DependentUpon>system_part.aspx</DependentUpon>
+    <Compile Include="SysMgt\DollarMaintain.aspx.designer.cs">
+      <DependentUpon>DollarMaintain.aspx</DependentUpon>
     </Compile>
-    <Compile Include="SysMgt\system_root.aspx.cs">
-      <DependentUpon>system_root.aspx</DependentUpon>
+    <Compile Include="SysMgt\LoginMaintain.aspx.cs">
+      <DependentUpon>LoginMaintain.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="SysMgt\system_root.aspx.designer.cs">
-      <DependentUpon>system_root.aspx</DependentUpon>
+    <Compile Include="SysMgt\LoginMaintain.aspx.designer.cs">
+      <DependentUpon>LoginMaintain.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="SysMgt\MsgMaintain.aspx.cs">
+      <DependentUpon>MsgMaintain.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SysMgt\MsgMaintain.aspx.designer.cs">
+      <DependentUpon>MsgMaintain.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="SysMgt\RootMaintain.aspx.cs">
+      <DependentUpon>RootMaintain.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SysMgt\RootMaintain.aspx.designer.cs">
+      <DependentUpon>RootMaintain.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="SysMgt\UnitMaintain.aspx.cs">
+      <DependentUpon>UnitMaintain.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SysMgt\UnitMaintain.aspx.designer.cs">
+      <DependentUpon>UnitMaintain.aspx</DependentUpon>
     </Compile>
     <Compile Include="test.aspx.cs">
       <DependentUpon>test.aspx</DependentUpon>
@@ -297,7 +305,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="img\Chees.psd" />
+    <Content Include="assets\img\Chees.psd" />
     <Content Include="assets\sass\ie8.scss" />
     <Content Include="assets\sass\main.scss" />
     <Content Include="assets\sass\lib\_functions.scss" />

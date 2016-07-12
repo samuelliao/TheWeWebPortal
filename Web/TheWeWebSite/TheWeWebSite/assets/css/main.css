@@ -1795,7 +1795,6 @@ body, input, select, textarea {
 a {
     -moz-transition: color 0.2s ease-in-out, border-bottom-color 0.2s ease-in-out;
     -webkit-transition: color 0.2s ease-in-out, border-bottom-color 0.2s ease-in-out;
-    -ms-transition: color 0.2s ease-in-out, border-bottom-color 0.2s ease-in-out;
     transition: color 0.2s ease-in-out, border-bottom-color 0.2s ease-in-out;
     border-bottom: dotted 1px;
     color: #e89980;
@@ -1997,8 +1996,6 @@ select,
 textarea {
     -moz-appearance: none;
     -webkit-appearance: none;
-    -ms-appearance: none;
-    appearance: none;
     background: #f8f8f8;
     border-radius: 6px;
     border: solid 1px #e5e5e5;
@@ -2593,11 +2590,9 @@ input[type="button"],
 .button {
     -moz-appearance: none;
     -webkit-appearance: none;
-    -ms-appearance: none;
     appearance: none;
     -moz-transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
     -webkit-transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
-    -ms-transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
     transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
     background-color: #666;
     border-radius: 6px;
@@ -2786,7 +2781,7 @@ body.landing #page-wrapper {
 }
 
 #header {
-    background: #444;
+    background: #625d5c;
     color: #bbb;
     cursor: default;
     height: 3.25em;
@@ -2799,7 +2794,7 @@ body.landing #page-wrapper {
 }
 
     #header h1 {
-        color: inherit;
+        color: #f5f5f5;
         height: inherit;
         left: 1.25em;
         line-height: inherit;
@@ -2807,6 +2802,7 @@ body.landing #page-wrapper {
         padding: 0;
         position: absolute;
         top: 0;
+        font-size:larger;
     }
 
         #header h1 a {
@@ -3017,8 +3013,7 @@ body.landing #page-wrapper {
 
 #banner {
     background-attachment: scroll, fixed;
-    background-color: #666;
-    background-image: url("images/overlay.png"), url("../../images/banner.jpg");
+    background-color:#fcbbbb;
     background-position: top left, center center;
     background-repeat: repeat, no-repeat;
     background-size: auto, cover;
@@ -3033,6 +3028,7 @@ body.landing #page-wrapper {
 
     #banner h2, #banner h3, #banner h4, #banner h5, #banner h6 {
         color: #fff;
+        
     }
 
     #banner h2 {
