@@ -137,7 +137,7 @@
                             <asp:Label runat="server" Text="教堂維護"></asp:Label></h3>
                         <hr />
                     </header>
-
+                    <!-- Input -->
 
                     <div class="row">
                         <div class="12u">
@@ -147,21 +147,20 @@
                                     <div class="select-wrapper">
                                         <select>
                                             <option value="">- 請選擇國家 -</option>
-                                            <option value="1">Ch</option>
-                                            <option value="1">Tw</option>
-                                            <option value="1">En</option>
-                                            <option value="1">Jp</option>
+                                            <option value="1">1</option>
+                                            <option value="1">2</option>
+                                            <option value="1">3</option>
                                         </select>
                                     </div>
+
                                 </div>
                                 <div class="6u 12u(mobilep)">
                                     <div class="select-wrapper">
                                         <select>
                                             <option value="">- 請選擇地區 -</option>
-                                            <option value="1">Ch</option>
-                                            <option value="1">Tw</option>
-                                            <option value="1">En</option>
-                                            <option value="1">Jp</option>
+                                            <option value="1">1</option>
+                                            <option value="1">2</option>
+                                            <option value="1">3</option>
                                         </select>
                                     </div>
                                 </div>
@@ -172,30 +171,36 @@
                                     <div class="select-wrapper">
                                         <select>
                                             <option value="">- 請選擇教堂名稱 -</option>
-                                            <option value="1">Ch</option>
-                                            <option value="1">Tw</option>
-                                            <option value="1">En</option>
-                                            <option value="1">Jp</option>
+                                            <option value="1">1</option>
+                                            <option value="1">2</option>
+                                            <option value="1">3</option>
                                         </select>
-
                                     </div>
-                                    </div>
-                                    <div class="12u">
-                                        <asp:Button runat="server" CssClass="button alt" Text="查詢" />
-                                        <hr />
-
-                                    </div>
+                                </div>
                             </div>
+
+                            <div class="row uniform 50%">
+                                <div class="12u">
+                                    <textarea name="message" id="message" placeholder="備註..." rows="6"></textarea>
+                                </div>
+                            </div>
+
 
 
                             <div class="row uniform">
                                 <div class="12u">
                                     <ul class="actions">
                                         <li>
+                                            <asp:Button runat="server" CssClass="button alt" Text="查詢" />
+                                        </li>
+                                        <li>
                                             <asp:Button runat="server" CssClass="button alt" Text="新增" />
                                         </li>
                                         <li>
                                             <asp:Button runat="server" CssClass="button alt" Text="修改" />
+                                        </li>
+                                        <li>
+                                            <asp:Button runat="server" CssClass="button alt" Text="清除" />
                                         </li>
                                         <li>
                                             <asp:Button runat="server" CssClass="button alt" Text="刪除" />
@@ -210,24 +215,26 @@
 
                         </div>
                     </div>
-
                     <!-- Table -->
 
                     <div class="row">
                         <div class="12u">
+                            <h4>搜尋結果</h4>
+                            <hr />
                             <div class="table-wrapper">
                                 <table class="alt">
                                     <thead>
                                         <tr>
-                                            <th>國家</th>
-                                            <th>地區</th>
-                                            <th>教堂名稱</th>
-                                            <th>容納人數</th>
-                                            <th>服務項目及價格說明</th>
-                                            <th>售價</th>
+                                            <th>諮詢編號</th>
+                                            <th>顧問</th>
+                                            <th>諮詢者</th>
+                                            <th>電話</th>
+                                            <th>預約日期</th>
+                                            <th>內容說明</th>
+                                            <th>最後一次回覆時間</th>
                                             <th>備註</th>
-                                            <th>餐點</th>
-                                            <th>照片</th>
+                                            <th>回覆</th>
+                                            <th>行程表</th>
 
                                         </tr>
                                     </thead>
@@ -242,11 +249,13 @@
                                             <td>1234321</td>
                                             <td>1234321</td>
                                             <td>1234321</td>
+                                            <td>1234321</td>
                                         </tr>
                                         <tr>
                                             <td>CU00001</td>
                                             <td>Joye</td>
                                             <td>小讌</td>
+                                            <td>1234321</td>
                                             <td>1234321</td>
                                             <td>1234321</td>
                                             <td>1234321</td>
@@ -261,8 +270,6 @@
                             <hr />
                         </div>
                     </div>
-
-
 
 
                 </section>

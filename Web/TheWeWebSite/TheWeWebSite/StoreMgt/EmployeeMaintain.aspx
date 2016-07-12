@@ -131,41 +131,26 @@
             <section id="main" class="container">
 
                 <!-- Text -->
-                <!-- Input -->
+                <section class="box special">
+                    <header class="major">
+                        <h3>
+                            <asp:Label runat="server" Text="員工維護"></asp:Label></h3>
+                        <hr />
+                    </header>
+                    <!-- Input -->
 
                     <div class="row">
                         <div class="12u">
 
                             <div class="row uniform 50%">
                                 <div class="6u 12u(mobilep)">
-                                    <asp:TextBox runat="server" placeholder="請輸入禮服編號..."></asp:TextBox>
-                                </div>
-                                <div class="6u 12u(mobilep)">
-                                    <div class="select-wrapper">
-                                        <select>
-                                            <option value="">- 請選擇性別 -</option>
-                                            <option value="1">F</option>
-                                            <option value="1">M</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
+                                    <asp:TextBox runat="server" placeholder="請輸入員工編號..."></asp:TextBox>
 
-                            <div class="row uniform 50%">
-                                <div class="6u 12u(mobilep)">
-                                    <div class="select-wrapper">
-                                        <select>
-                                            <option value="">- 請選擇禮服類別 -</option>
-                                            <option value="1">1</option>
-                                            <option value="1">2</option>
-                                            <option value="1">3</option>
-                                        </select>
-                                    </div>
                                 </div>
                                 <div class="6u 12u(mobilep)">
                                     <div class="select-wrapper">
                                         <select>
-                                            <option value="">- 請選擇禮服顏色 -</option>
+                                            <option value="">- 請選擇權限類別 -</option>
                                             <option value="1">1</option>
                                             <option value="1">2</option>
                                             <option value="1">3</option>
@@ -178,7 +163,7 @@
                                 <div class="6u 12u(mobilep)">
                                     <div class="select-wrapper">
                                         <select>
-                                            <option value="">- 請選擇型態 -</option>
+                                            <option value="">- 請選擇語系編號 -</option>
                                             <option value="1">1</option>
                                             <option value="1">2</option>
                                             <option value="1">3</option>
@@ -186,265 +171,129 @@
                                     </div>
                                 </div>
                                 <div class="6u 12u(mobilep)">
-                                    <div class="select-wrapper">
-                                        <select>
-                                            <option value="">- 請選擇領口 -</option>
-                                            <option value="1">1</option>
-                                            <option value="1">2</option>
-                                            <option value="1">3</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row uniform 50%">
-                                <div class="6u 12u(mobilep)">
-                                    <div class="select-wrapper">
-                                        <select>
-                                            <option value="">- 請選擇後背 -</option>
-                                            <option value="1">1</option>
-                                            <option value="1">2</option>
-                                            <option value="1">3</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="6u 12u(mobilep)">
-                                    <div class="select-wrapper">
-                                        <select>
-                                            <option value="">- 請選擇肩膀 -</option>
-                                            <option value="1">1</option>
-                                            <option value="1">2</option>
-                                            <option value="1">3</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row uniform 50%">
-                                <div class="6u 12u(mobilep)">
-                                    <div class="select-wrapper">
-                                        <select>
-                                            <option value="">- 請選擇質料 -</option>
-                                            <option value="1">1</option>
-                                            <option value="1">2</option>
-                                            <option value="1">3</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="6u 12u(mobilep)">
-                                    <div class="select-wrapper">
-                                        <select>
-                                            <option value="">- 請選擇穿法 -</option>
-                                            <option value="1">1</option>
-                                            <option value="1">2</option>
-                                            <option value="1">3</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row uniform 50%">
-                                <div class="6u 12u(mobilep)">
-                                    <div class="select-wrapper">
-                                        <select>
-                                            <option value="">- 請選擇頭紗 -</option>
-                                            <option value="1">1</option>
-                                            <option value="1">2</option>
-                                            <option value="1">3</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="6u 12u(mobilep)">
-                                    <div class="select-wrapper">
-                                        <select>
-                                            <option value="">- 請選擇配件 -</option>
-                                            <option value="1">1</option>
-                                            <option value="1">2</option>
-                                            <option value="1">3</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row uniform 50%">
-                                <div class="6u 12u(mobilep)">
-                                    <div class="select-wrapper">
-                                        <select>
-                                            <option value="">- 請選擇胸花 -</option>
-                                            <option value="1">1</option>
-                                            <option value="1">2</option>
-                                            <option value="1">3</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="6u 12u(mobilep)">
-                                    <div class="select-wrapper">
-                                        <select>
-                                            <option value="">- 請選擇手套 -</option>
-                                            <option value="1">1</option>
-                                            <option value="1">2</option>
-                                            <option value="1">3</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row uniform 50%">
-                                <div class="6u 12u(mobilep)">
-                                    <div class="select-wrapper">
-                                        <select>
-                                            <option value="">- 請選擇狀態碼 -</option>
-                                            <option value="1">1</option>
-                                            <option value="1">2</option>
-                                            <option value="1">3</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="6u 12u(mobilep)">
-                                    <div class="select-wrapper">
-                                        <select>
-                                            <option value="">- 請選擇使用狀態 -</option>
-                                            <option value="1">1</option>
-                                            <option value="1">2</option>
-                                            <option value="1">3</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row uniform 50%">
-                                <div class="6u 12u(narrower)">
-                                    <div class="select-wrapper">
-                                        <select>
-                                            <option value="">- 可否外拍 -</option>
-                                            <option value="1">1</option>
-                                            <option value="1">2</option>
-                                            <option value="1">3</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="6u 12u(mobilep)">
-                                    <asp:TextBox runat="server" placeholder="加價金額..."></asp:TextBox>
-                                </div>
-                            </div>
-                            <div class="row uniform 50%">
-                                <div class="6u 12u(narrower)">
-                                    <div class="select-wrapper">
-                                        <select>
-                                            <option value="">- 限國內婚宴 -</option>
-                                            <option value="1">1</option>
-                                            <option value="1">2</option>
-                                            <option value="1">3</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="6u 12u(mobilep)">
-                                    <div class="select-wrapper">
-                                        <select>
-                                            <option value="">- 大尺碼 -</option>
-                                            <option value="1">1</option>
-                                            <option value="1">2</option>
-                                            <option value="1">3</option>
-                                        </select>
-                                    </div>
-                                </div>
-
-                            </div>
-                            <div class="row uniform 50%">
-                                <div class="6u 12u(narrower)">
-                                    <div class="select-wrapper">
-                                        <select>
-                                            <option value="">- 加價款 -</option>
-                                            <option value="1">1</option>
-                                            <option value="1">2</option>
-                                            <option value="1">3</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="6u 12u(mobilep)">
-                                    <asp:TextBox runat="server" placeholder="加價金額..."></asp:TextBox>
+                                    <asp:TextBox runat="server" placeholder="請輸入姓名..."></asp:TextBox>
 
                                 </div>
                             </div>
                             <div class="row uniform 50%">
-                                <div class="6u 12u(narrower)">
-                                    <asp:TextBox runat="server" placeholder="成本價..."></asp:TextBox>
+                                <div class="6u 12u(mobilep)">
+                                    <asp:TextBox runat="server" placeholder="請輸入電話..."></asp:TextBox>
 
                                 </div>
                                 <div class="6u 12u(mobilep)">
-                                    <asp:TextBox runat="server" placeholder="訂製價..."></asp:TextBox>
+                                    <input placeholder="請輸入生日..." type="text" onfocus="(this.type='date')" id="date" />
                                 </div>
-                            </div>
-                            <div class="row uniform 50%">
-                                <div class="6u 12u(narrower)">
-                                    <div class="select-wrapper">
-                                        <select>
-                                            <option value="">- 供應商 -</option>
-                                            <option value="1">1</option>
-                                            <option value="1">2</option>
-                                            <option value="1">3</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="6u 12u(mobilep)">
-                                    <asp:TextBox runat="server" placeholder="租金..."></asp:TextBox>
-                                </div>
-                            </div>
-                            
-                            <div class="row uniform 50%">
-                                <div class="6u 12u(narrower)">
-                                    <asp:TextBox runat="server" placeholder="售價..."></asp:TextBox>
-                                    
-                                </div>
-                                
                             </div>
                             <div class="row uniform 50%">
                                 <div class="12u">
-                                    <textarea name="message" id="message" placeholder="其他..." rows="6"></textarea>
+                                    <asp:TextBox runat="server" placeholder="請輸入E-Mail..."></asp:TextBox>
+
                                 </div>
                             </div>
-                            <div class="features-row">
-                                <section class="box special features">
-                                    <div class="features-row">
-                                        <section>
-                                            <span class="icon major fa-area-chart accent3"></span>
-                                            <h3>正面照片</h3>
-                                        </section>
-                                        <section>
-                                            <span class="icon major fa-area-chart accent3"></span>
-                                            <h3>側面照片</h3>
-                                        </section>
+                            <div class="row uniform 50%">
+                                <div class="12u">
+                                    <asp:TextBox runat="server" placeholder="請輸入地址..."></asp:TextBox>
 
-                                    </div>
-                                    <div class="features-row">
-                                        <section>
-                                            <span class="icon major fa-cloud accent4"></span>
-                                            <h3>背面照片</h3>
-                                        </section>
-                                        <section>
-                                            <span class="icon major fa-lock accent5"></span>
-                                            <h3>細節照片</h3>
-                                        </section>
-                                    </div>
-                                    <div class="features-row">
-                                        <section>
-                                            <span class="icon major fa-cloud accent4"></span>
-                                            <h3>配件照片</h3>
-                                        </section>
-                                        <section>
-                                            <span class="icon major fa-lock accent5"></span>
-                                            <h3>額外照片</h3>
-                                        </section>
-                                    </div>
-                                </section>
-
+                                </div>
                             </div>
+
+                            <div class="row uniform 50%">
+                                <div class="6u 12u(mobilep)">
+                                    <asp:TextBox runat="server" placeholder="請輸入護照英文名稱..."></asp:TextBox>
+
+                                </div>
+                                <div class="6u 12u(mobilep)">
+                                    <asp:TextBox runat="server" placeholder="請輸入護照號碼..."></asp:TextBox>
+                                </div>
+                            </div>
+
+                            <div class="row uniform 50%">
+                                <div class="6u 12u(mobilep)">
+                                    <asp:TextBox runat="server" placeholder="請輸入電話..."></asp:TextBox>
+
+                                </div>
+                                <div class="6u 12u(mobilep)">
+                                    <asp:TextBox runat="server" placeholder="請輸入電話..."></asp:TextBox>
+                                </div>
+                            </div>
+
+                            <div class="row uniform 50%">
+                                <div class="6u 12u(mobilep)">
+                                    <asp:TextBox runat="server" placeholder="請輸入緊急聯絡人..."></asp:TextBox>
+
+                                </div>
+                                <div class="6u 12u(mobilep)">
+                                    <asp:TextBox runat="server" placeholder="請輸入緊急連絡人電話..."></asp:TextBox>
+                                </div>
+                            </div>
+                            <div class="row uniform 50%">
+                                <div class="6u 12u(mobilep)">
+                                    <asp:TextBox runat="server" placeholder="請輸入存摺號碼..."></asp:TextBox>
+
+                                </div>
+                                <div class="6u 12u(mobilep)">
+                                    <asp:TextBox runat="server" placeholder="請輸入帳戶號碼..."></asp:TextBox>
+                                </div>
+                            </div>
+                            <div class="row uniform 50%">
+                                <div class="6u 12u(mobilep)">
+                                    <asp:TextBox runat="server" placeholder="請輸入薪資..."></asp:TextBox>
+
+                                </div>
+                                <div class="6u 12u(mobilep)">
+                                    <asp:TextBox runat="server" placeholder="請輸入勞健保..."></asp:TextBox>
+                                </div>
+                            </div>
+                            <div class="row uniform 50%">
+                                <div class="9u 12u(mobilep)">
+                                    <asp:TextBox runat="server" placeholder="請匯入照片..."></asp:TextBox>
+                                </div>
+                                <div class="3u 12u(mobilep)">
+                                    <asp:Button runat="server" CssClass="button alt" Text="上傳" />
+                                </div>
+                            </div>
+
+                            <div class="row uniform 50%">
+                                <div class="9u 12u(mobilep)">
+                                    <asp:TextBox runat="server" placeholder="請匯入身分證正面照面..."></asp:TextBox>
+                                </div>
+                                <div class="3u 12u(mobilep)">
+                                    <asp:Button runat="server" CssClass="button alt" Text="上傳" />
+                                </div>
+                            </div>
+
+                            <div class="row uniform 50%">
+                                <div class="9u 12u(mobilep)">
+                                    <asp:TextBox runat="server" placeholder="請匯入身分證反面照片..."></asp:TextBox>
+                                </div>
+                                <div class="3u 12u(mobilep)">
+                                    <asp:Button runat="server" CssClass="button alt" Text="上傳" />
+                                </div>
+                            </div>
+
+
+                            <div class="row uniform 50%">
+                                <div class="12u">
+                                    <textarea name="message" id="message" placeholder="備註..." rows="6"></textarea>
+                                </div>
+                            </div>
+
 
 
                             <div class="row uniform">
                                 <div class="12u">
                                     <ul class="actions">
                                         <li>
+                                            <asp:Button runat="server" CssClass="button alt" Text="查詢" />
+                                        </li>
+                                        <li>
                                             <asp:Button runat="server" CssClass="button alt" Text="新增" />
                                         </li>
                                         <li>
                                             <asp:Button runat="server" CssClass="button alt" Text="修改" />
+                                        </li>
+                                        <li>
+                                            <asp:Button runat="server" CssClass="button alt" Text="清除" />
                                         </li>
                                         <li>
                                             <asp:Button runat="server" CssClass="button alt" Text="刪除" />
@@ -459,11 +308,65 @@
 
                         </div>
                     </div>
+                    <!-- Table -->
+
+                    <div class="row">
+                        <div class="12u">
+                            <h4>搜尋結果</h4>
+                            <hr />
+                            <div class="table-wrapper">
+                                <table class="alt">
+                                    <thead>
+                                        <tr>
+                                            <th>語系編號</th>
+                                            <th>員工編號</th>
+                                            <th>姓名</th>
+                                            <th>電話</th>
+                                            <th>地址</th>
+                                            <th>生日</th>
+                                            <th>權限類別</th>
+                                            <th>到職日期</th>
+                                            <th>離職日期</th>
+                                            <th>備註</th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>CU00001</td>
+                                            <td>Joye</td>
+                                            <td>小讌</td>
+                                            <td>1234321</td>
+                                            <td>1234321</td>
+                                            <td>1234321</td>
+                                            <td>1234321</td>
+                                            <td>1234321</td>
+                                            <td>1234321</td>
+                                            <td>1234321</td>
+                                        </tr>
+                                        <tr>
+                                            <td>CU00001</td>
+                                            <td>Joye</td>
+                                            <td>小讌</td>
+                                            <td>1234321</td>
+                                            <td>1234321</td>
+                                            <td>1234321</td>
+                                            <td>1234321</td>
+                                            <td>1234321</td>
+                                            <td>1234321</td>
+                                            <td>1234321</td>
+                                        </tr>
+                                    </tbody>
+
+                                </table>
+                            </div>
+                            <hr />
+                        </div>
+                    </div>
 
 
-
+                </section>
             </section>
-
             <!-- CTA -->
 
 

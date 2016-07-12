@@ -393,55 +393,67 @@
                                     <asp:TextBox runat="server" placeholder="租金..."></asp:TextBox>
                                 </div>
                             </div>
-                            
+
                             <div class="row uniform 50%">
                                 <div class="6u 12u(narrower)">
                                     <asp:TextBox runat="server" placeholder="售價..."></asp:TextBox>
-                                    
+
                                 </div>
-                                
+
+
+
+                            </div>
+
+
+                            <div class="row uniform 50%">
+                                <div class="9u 12u(mobilep)">
+                                    <asp:TextBox runat="server" placeholder="請匯入正面照片..."></asp:TextBox>
+                                </div>
+                                <div class="3u 12u(mobilep)">
+                                    <asp:Button runat="server" CssClass="button alt" Text="上傳" />
+                                </div>
+                            </div>
+
+                            <div class="row uniform 50%">
+                                <div class="9u 12u(mobilep)">
+                                    <asp:TextBox runat="server" placeholder="請匯入側面照片..."></asp:TextBox>
+                                </div>
+                                <div class="3u 12u(mobilep)">
+                                    <asp:Button runat="server" CssClass="button alt" Text="上傳" />
+                                </div>
+                            </div>
+
+                            <div class="row uniform 50%">
+                                <div class="9u 12u(mobilep)">
+                                    <asp:TextBox runat="server" placeholder="請匯入背面照片..."></asp:TextBox>
+                                </div>
+                                <div class="3u 12u(mobilep)">
+                                    <asp:Button runat="server" CssClass="button alt" Text="上傳" />
+                                </div>
+                            </div>
+
+                            <div class="row uniform 50%">
+                                <div class="9u 12u(mobilep)">
+                                    <asp:TextBox runat="server" placeholder="請匯入配件照片..."></asp:TextBox>
+                                </div>
+                                <div class="3u 12u(mobilep)">
+                                    <asp:Button runat="server" CssClass="button alt" Text="上傳" />
+                                </div>
+                            </div>
+                            <div class="row uniform 50%">
+                                <div class="9u 12u(mobilep)">
+                                    <asp:TextBox runat="server" placeholder="請匯入細節照片..."></asp:TextBox>
+                                </div>
+                                <div class="3u 12u(mobilep)">
+                                    <asp:Button runat="server" CssClass="button alt" Text="上傳" />
+                                </div>
                             </div>
                             <div class="row uniform 50%">
                                 <div class="12u">
                                     <textarea name="message" id="message" placeholder="其他..." rows="6"></textarea>
                                 </div>
                             </div>
-                            <div class="features-row">
-                                <section class="box special features">
-                                    <div class="features-row">
-                                        <section>
-                                            <span class="icon major fa-area-chart accent3"></span>
-                                            <h3>正面照片</h3>
-                                        </section>
-                                        <section>
-                                            <span class="icon major fa-area-chart accent3"></span>
-                                            <h3>側面照片</h3>
-                                        </section>
 
-                                    </div>
-                                    <div class="features-row">
-                                        <section>
-                                            <span class="icon major fa-cloud accent4"></span>
-                                            <h3>背面照片</h3>
-                                        </section>
-                                        <section>
-                                            <span class="icon major fa-lock accent5"></span>
-                                            <h3>細節照片</h3>
-                                        </section>
-                                    </div>
-                                    <div class="features-row">
-                                        <section>
-                                            <span class="icon major fa-cloud accent4"></span>
-                                            <h3>配件照片</h3>
-                                        </section>
-                                        <section>
-                                            <span class="icon major fa-lock accent5"></span>
-                                            <h3>額外照片</h3>
-                                        </section>
-                                    </div>
-                                </section>
-
-                            </div>
 
 
                             <div class="row uniform">
@@ -471,6 +483,8 @@
 
                     <div class="row">
                         <div class="12u">
+                            <h4>搜尋結果</h4>
+                            <hr />
                             <div class="table-wrapper">
                                 <table class="alt">
                                     <thead>

@@ -134,7 +134,7 @@
                 <section class="box special">
                     <header class="major">
                         <h3>
-                            <asp:Label runat="server" Text="已簽約"></asp:Label></h3>
+                            <asp:Label runat="server" Text="客戶行程"></asp:Label></h3>
                         <hr />
                     </header>
 

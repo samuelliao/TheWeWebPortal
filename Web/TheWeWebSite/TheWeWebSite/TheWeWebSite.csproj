@@ -88,7 +88,6 @@
     <Content Include="assets\img\logo.jpg" />
     <Content Include="assets\img\logo_clear.jpg" />
     <Content Include="assets\img\title_top.jpg" />
-    <Content Include="assets\img\圖層_1.png" />
     <Content Include="StoreMgt\ChurchMaintain.aspx" />
     <Content Include="StoreMgt\DressMaintain.aspx" />
     <Content Include="StoreMgt\EmployeeMaintain.aspx" />
