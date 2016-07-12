@@ -47,7 +47,7 @@ header {
 }
 
 #calendar .days li {
-  height: auto;
+  height: 150px;
 }
 
 #calendar .days li:hover {
