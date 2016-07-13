@@ -10,9 +10,11 @@ using TheWeLib;
 using System.Web.Configuration;
 
 namespace TheWeWebSite
-{
+{ 
+    
     public partial class Login : System.Web.UI.Page
     {
+        /*
         private GeneralDbDAO DbDAO;
         Utility Util;
 
@@ -112,6 +114,6 @@ namespace TheWeWebSite
                 labelWarnText.Visible = false;
                 Server.Transfer("Main/Calendar.aspx", true);
             }
-        }        
+        }        */
     }
 }
