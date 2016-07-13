@@ -25,24 +25,21 @@
                     <asp:Label runat="server" Text="Login"></asp:Label>
                 </p>
                 <div style="color: #000; margin-bottom: 10px; margin-left: auto; margin-right: auto; width: 15%;">
-                    <select>
-                        <option value="">- 請選擇店別 -</option>
-                        <option value="1">1</option>
-                        <option value="1">2</option>
-                        <option value="1">3</option>
-                    </select>
+                    <asp:DropDownList runat="server"  ID="ddlStore" OnLoad="ddlStore_Load" />
                 </div>
 
                 <div style="color: #000; margin-bottom: 10px; margin-left: auto; margin-right: auto; width: 15%;">
-                    <asp:TextBox runat="server" placeholder="請輸入帳號..."></asp:TextBox>
+                    <asp:TextBox runat="server" TextMode="SingleLine" ID="tbAccount" />
+                    <!--<asp:TextBox runat="server" placeholder="請輸入帳號..."></asp:TextBox>-->
                 </div>
 
 
                 <div style="color: #000; margin-bottom: 10px; margin-left: auto; margin-right: auto; width: 15%;">
-                    <asp:TextBox runat="server" placeholder="請輸入密碼..."></asp:TextBox>
+                    <asp:TextBox runat="server" placeholder="請輸入密碼..." ID="tbPassword" TextMode ="Password"></asp:TextBox>
                 </div>
                 <div>
-                    <asp:Button runat="server" CssClass="button alt" Text="Login" />
+                    <asp:Label runat="server" ID="labelWarnText" ForeColor="Red" />
+                    <asp:Button runat="server" CssClass="button alt" Text="Login" OnClick="btnLogin_Click" />
                 </div>
 
             </section>
