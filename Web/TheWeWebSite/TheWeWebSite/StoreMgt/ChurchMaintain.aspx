@@ -56,7 +56,7 @@
                             </ul>
                         </li>
                         <li>
-                            <asp:LinkButton runat="server" Text="<%$ Resources:Resource,StoreMgtString%>" PostBackUrl="~/StoreMgt/ItemMaintain.aspx" ID="LinkItemMaintain" />                            
+                            <asp:LinkButton runat="server" Text="<%$ Resources:Resource,StoreMgtString%>" PostBackUrl="~/StoreMgt/ItemMaintain.aspx" ID="LinkItemMaintain" />
                             <ul>
                                 <li>
                                     <asp:LinkButton runat="server" Text="<%$ Resources:Resource,ProductMaintainString%>" PostBackUrl="~/StoreMgt/ItemMaintain.aspx" ID="LinkProductMgt" />
@@ -82,7 +82,7 @@
                             </ul>
                         </li>
                         <li>
-                            <asp:LinkButton runat="server" Text="<%$ Resources:Resource,OrderMgtString%>" PostBackUrl="~/CaseMgt/CustomerMaintain.aspx" ID="LinkCaseMgt" />                            
+                            <asp:LinkButton runat="server" Text="<%$ Resources:Resource,OrderMgtString%>" PostBackUrl="~/CaseMgt/CustomerMaintain.aspx" ID="LinkCaseMgt" />
                             <ul>
                                 <li>
                                     <asp:LinkButton runat="server" Text="<%$ Resources:Resource,CustomerMaintainString%>" PostBackUrl="~/CaseMgt/CustomerMaintain.aspx" ID="LinkCustomerMaintain" />
@@ -130,7 +130,7 @@
                                 </li>
                             </ul>
                         </li>
-                        <li><a>
+                        <li>
                             <asp:LinkButton runat="server" Text="<%$ Resources:Resource,LogoutString%>" ID="LinkLogout" PostBackUrl="~/Login.aspx" />
                         </li>
                     </ul>
@@ -153,130 +153,143 @@
 
                 <!-- Text -->
                 <section class="box special">
-                    <header class="major">
-                        <h3>
-                            <asp:Label runat="server" Text="<%$ Resources:Resource,ChurchMaintainString%>"></asp:Label></h3>
-                        <hr />
-                    </header>
-                    <!-- Input -->
+                    <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
+                    <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+                        <ContentTemplate>
+                            <header class="major">
+                                <h3>
+                                    <asp:Label runat="server" Text="<%$ Resources:Resource,ChurchMaintainString%>"></asp:Label></h3>
+                                <hr />
+                            </header>
+                            <!-- Input -->
 
-                    <div class="row">
-                        <div class="12u">
-
-                            <div class="row uniform 50%">
-                                <div class="6u 12u(mobilep)">
-                                    <div class="select-wrapper">
-                                        <asp:DropDownList runat="server" ID="ddlCountry" OnSelectedIndexChanged="ddlCountry_SelectedIndexChanged"  />
-                                    </div>
-
-                                </div>
-                                <div class="6u 12u(mobilep)">
-                                    <div class="select-wrapper">
-                                        <asp:DropDownList runat="server" ID="ddlArea" OnSelectedIndexChanged="ddlArea_SelectedIndexChanged" />
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row uniform 50%">
-                                <div class="6u 12u(mobilep)">
-                                    <div class="select-wrapper">
-                                        <asp:DropDownList runat="server" ID="ddlChruch" OnSelectedIndexChanged="ddlChruch_SelectedIndexChanged" />
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row uniform 50%">
+                            <div class="row">
                                 <div class="12u">
-                                    <textarea name="message" id="message" placeholder="備註..." rows="6"></textarea>
+
+                                    <div class="row uniform 50%">
+                                        <div class="6u 12u(mobilep)">
+                                            <div class="select-wrapper">
+                                                <asp:DropDownList runat="server" ID="ddlCountry" OnSelectedIndexChanged="ddlCountry_SelectedIndexChanged" AutoPostBack="true" />
+                                            </div>
+
+                                        </div>
+                                        <div class="6u 12u(mobilep)">
+                                            <div class="select-wrapper">
+                                                <asp:DropDownList runat="server" ID="ddlArea" OnSelectedIndexChanged="ddlArea_SelectedIndexChanged" AutoPostBack="true" />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row uniform 50%">
+                                        <div class="6u 12u(mobilep)">
+                                            <div class="select-wrapper">
+                                                <asp:DropDownList runat="server" ID="ddlChruch" OnSelectedIndexChanged="ddlChruch_SelectedIndexChanged" AutoPostBack="true" />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row uniform 50%">
+                                        <div class="12u">
+                                            <textarea name="message" id="message" placeholder="備註..." rows="6"></textarea>
+                                        </div>
+                                    </div>
+
+                                    <div class="row uniform">
+                                        <div class="12u">
+                                            <ul class="actions">
+                                                <li>
+                                                    <asp:Button runat="server" CssClass="button alt" Text="<%$ Resources:Resource,SearchString%>"
+                                                        ID="btnSearch" OnClick="btnSearch_Click" />
+                                                </li>
+                                                <li>
+                                                    <asp:Button runat="server" CssClass="button alt" Text="<%$ Resources:Resource,CreateString%>" />
+                                                </li>
+                                                <li>
+                                                    <asp:Button runat="server" CssClass="button alt" Text="<%$ Resources:Resource,ModifyString%>" />
+                                                </li>
+                                                <li>
+                                                    <asp:Button runat="server" CssClass="button alt" Text="清除" />
+                                                </li>
+                                                <li>
+                                                    <asp:Button runat="server" CssClass="button alt" Text="<%$ Resources:Resource,DeleteString%>" />
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    <hr />
                                 </div>
                             </div>
+                            <!-- Table -->
 
-
-
-                            <div class="row uniform">
+                            <div class="row">
                                 <div class="12u">
-                                    <ul class="actions">
-                                        <li>
-                                            <asp:Button runat="server" CssClass="button alt" Text="<%$ Resources:Resource,SearchString%>" />
-                                        </li>
-                                        <li>
-                                            <asp:Button runat="server" CssClass="button alt" Text="<%$ Resources:Resource,CreateString%>" />
-                                        </li>
-                                        <li>
-                                            <asp:Button runat="server" CssClass="button alt" Text="<%$ Resources:Resource,ModifyString%>" />
-                                        </li>
-                                        <li>
-                                            <asp:Button runat="server" CssClass="button alt" Text="清除" />
-                                        </li>
-                                        <li>
-                                            <asp:Button runat="server" CssClass="button alt" Text="<%$ Resources:Resource,DeleteString%>" />
-                                        </li>
-                                    </ul>
+                                    <asp:Label runat="server" Text="<%$ Resources:Resource,SearchResultString%>" />
+                                    <hr />
+                                    <div class="table-wrapper">
+                                        <asp:DataGrid runat="server" ID="dgChurch" CssClass="alt" AllowPaging="true"
+                                            AllowSorting="true" OnEditCommand="dgChurch_EditCommand" OnCancelCommand="dgChurch_CancelCommand"
+                                            OnDeleteCommand="dgChurch_DeleteCommand" OnPageIndexChanged="dgChurch_PageIndexChanged"
+                                            OnUpdateCommand="dgChurch_UpdateCommand" AutoGenerateColumns="false">
+                                            <HeaderStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                            <FooterStyle BackColor="White" VerticalAlign="Middle" HorizontalAlign="Center" />
+                                            <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                            <Columns>
+                                                <asp:BoundColumn HeaderText="Id" DataField="Id" Visible="false" />
+                                                <asp:TemplateColumn HeaderText="<%$ Resources:Resource,CountryString%>">
+                                                    <EditItemTemplate>
+                                                        <asp:DropDownList runat="server" ID="dgDdlCountry" />
+                                                    </EditItemTemplate>
+                                                    <ItemTemplate>
+                                                        <asp:Label runat="server" ID="dgLabelCountry" />
+                                                    </ItemTemplate>
+                                                </asp:TemplateColumn>
+                                                <asp:TemplateColumn HeaderText="<%$ Resources:Resource,AreaString%>">
+                                                    <EditItemTemplate>
+                                                        <asp:DropDownList runat="server" ID="dgDdlArea" />
+                                                    </EditItemTemplate>
+                                                    <ItemTemplate>
+                                                        <asp:Label runat="server" ID="dgLabelArea" />
+                                                    </ItemTemplate>
+                                                </asp:TemplateColumn>
+                                                <asp:BoundColumn HeaderText="<%$ Resources:Resource,ChNameString%>" DataField="ChName" />
+                                                <asp:BoundColumn HeaderText="<%$ Resources:Resource,EngNameString%>" DataField="EngName" />
+                                                <asp:BoundColumn HeaderText="<%$ Resources:Resource,CapacitiesString%>" DataField="Capacities" />
+                                                <asp:BoundColumn HeaderText="<%$ Resources:Resource,PriceString%>" DataField="Price" />
+                                                <asp:BoundColumn HeaderText="<%$ Resources:Resource,RemarkString%>" DataField="Remark" />
+                                                <asp:TemplateColumn HeaderText="<%$ Resources:Resource,MealString%>">
+                                                    <EditItemTemplate>
+                                                        <asp:Image runat="server" ID="ImgMealUpload" />
+                                                        <asp:FileUpload ID="fileImgMeal" runat="server" />
+                                                    </EditItemTemplate>
+                                                    <ItemTemplate>
+                                                        <asp:Image runat="server" ID="ImgMeal" />
+                                                    </ItemTemplate>
+                                                </asp:TemplateColumn>
+                                                <asp:TemplateColumn HeaderText="<%$ Resources:Resource,MealString%>">
+                                                    <EditItemTemplate>
+                                                        <asp:Image runat="server" ID="imgChurchUpload" />
+                                                        <asp:FileUpload runat="server" ID="fileImgChurch" />
+                                                    </EditItemTemplate>
+                                                    <ItemTemplate>
+                                                        <asp:Image runat="server" ID="imgChurch1" />
+                                                    </ItemTemplate>
+                                                </asp:TemplateColumn>
+                                                <asp:EditCommandColumn EditText="<%$ Resources:Resource,ModifyString%>"
+                                                    CancelText="<%$ Resources:Resource,CancelString%>"
+                                                    UpdateText="<%$ Resources:Resource,UpdateString%>"
+                                                    HeaderText="<%$ Resources:Resource,ModifyString%>" />
+                                                <asp:ButtonColumn CommandName="Delete"
+                                                    HeaderText="<%$ Resources:Resource,DeleteString%>"
+                                                    Text="<%$ Resources:Resource,DeleteString%>" />
+                                            </Columns>
+                                        </asp:DataGrid>
+                                    </div>
+                                    <hr />
                                 </div>
                             </div>
-
-                            <hr />
-
-
-
-                        </div>
-                    </div>
-                    <!-- Table -->
-
-                    <div class="row">
-                        <div class="12u">
-                            <asp:Label runat="server" Text="<%$ Resources:Resource,SearchResultString%>" />
-                            <hr />
-                            <div class="table-wrapper">
-                                <table class="alt">
-                                    <thead>
-                                        <tr>
-                                            <th>諮詢編號</th>
-                                            <th>顧問</th>
-                                            <th>諮詢者</th>
-                                            <th>電話</th>
-                                            <th>預約日期</th>
-                                            <th>內容說明</th>
-                                            <th>最後一次回覆時間</th>
-                                            <th>備註</th>
-                                            <th>回覆</th>
-                                            <th>行程表</th>
-
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>CU00001</td>
-                                            <td>Joye</td>
-                                            <td>小讌</td>
-                                            <td>1234321</td>
-                                            <td>1234321</td>
-                                            <td>1234321</td>
-                                            <td>1234321</td>
-                                            <td>1234321</td>
-                                            <td>1234321</td>
-                                            <td>1234321</td>
-                                        </tr>
-                                        <tr>
-                                            <td>CU00001</td>
-                                            <td>Joye</td>
-                                            <td>小讌</td>
-                                            <td>1234321</td>
-                                            <td>1234321</td>
-                                            <td>1234321</td>
-                                            <td>1234321</td>
-                                            <td>1234321</td>
-                                            <td>1234321</td>
-                                            <td>1234321</td>
-                                        </tr>
-                                    </tbody>
-
-                                </table>
-                            </div>
-                            <hr />
-                        </div>
-                    </div>
-
+                        </ContentTemplate>
+                    </asp:UpdatePanel>
 
                 </section>
 

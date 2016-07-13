@@ -303,4 +303,28 @@
   <data name="CountrySelectRemindString" xml:space="preserve">
     <value>請選擇國家</value>
   </data>
+  <data name="CountryString" xml:space="preserve">
+    <value>國家</value>
+  </data>
+  <data name="CapacitiesString" xml:space="preserve">
+    <value>容納人數</value>
+  </data>
+  <data name="AreaString" xml:space="preserve">
+    <value>地區</value>
+  </data>
+  <data name="ChNameString" xml:space="preserve">
+    <value>中文名稱</value>
+  </data>
+  <data name="EngNameString" xml:space="preserve">
+    <value>英文名稱</value>
+  </data>
+  <data name="PriceString" xml:space="preserve">
+    <value>售價</value>
+  </data>
+  <data name="MealString" xml:space="preserve">
+    <value>餐點</value>
+  </data>
+  <data name="PhotoString" xml:space="preserve">
+    <value>照片</value>
+  </data>
 </root>

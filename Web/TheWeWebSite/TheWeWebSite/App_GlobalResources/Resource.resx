@@ -303,4 +303,28 @@
   <data name="CountrySelectRemindString" xml:space="preserve">
     <value>Select a country</value>
   </data>
+  <data name="CountryString" xml:space="preserve">
+    <value>Country</value>
+  </data>
+  <data name="CapacitiesString" xml:space="preserve">
+    <value>Capacities</value>
+  </data>
+  <data name="AreaString" xml:space="preserve">
+    <value>Area</value>
+  </data>
+  <data name="ChNameString" xml:space="preserve">
+    <value>Chinese Name</value>
+  </data>
+  <data name="EngNameString" xml:space="preserve">
+    <value>English Name</value>
+  </data>
+  <data name="PriceString" xml:space="preserve">
+    <value>Price</value>
+  </data>
+  <data name="MealString" xml:space="preserve">
+    <value>Meal</value>
+  </data>
+  <data name="PhotoString" xml:space="preserve">
+    <value>Photo</value>
+  </data>
 </root>

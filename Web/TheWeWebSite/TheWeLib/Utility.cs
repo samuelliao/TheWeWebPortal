@@ -110,7 +110,7 @@ namespace TheWeLib
             string condStr = string.Empty;
             foreach (DbSearchObject obj in lst)
             {
-                condStr += string.IsNullOrEmpty(condStr) ? " Where " : " And " + ConditionConverter(obj);
+                condStr += (string.IsNullOrEmpty(condStr) ? " Where " : " And ") + ConditionConverter(obj);
             }
             return condStr;
         }
@@ -150,7 +150,7 @@ namespace TheWeLib
                 case AtrrTypeItem.Date:
                 default:
                     cond += AttrSymbolConverter(obj.AttrSymbol)
-                        + (obj.AttrSymbol == AttrSymbolItem.Like
+                        + (obj.AttrSymbol != AttrSymbolItem.Like
                         ? "N'" + obj.AttrValue + "'"
                         : "N'%" + obj.AttrValue + "%'");
                     break;
