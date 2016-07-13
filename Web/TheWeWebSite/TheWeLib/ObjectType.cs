@@ -127,8 +127,10 @@ namespace TheWeLib
     {
         #region Variable Initial
         public string Id { set; get; }
-        public string ChName { set; get; }
+        public string Name { set; get; }
         public string EngName { set; get; }
+        public string CnName { set; get; }
+        public string JpName { set; get; }
         public string Code { set; get; }
         public string CurrencyId { set; get; }
         public string LangCode { set; get; }
@@ -139,7 +141,7 @@ namespace TheWeLib
             try
             {
                 this.Id = dr["Id"] == null ? string.Empty : dr["Id"].ToString();
-                this.ChName = dr["ChName"] == null ? string.Empty : dr["ChName"].ToString();
+                this.Name = dr["Name"] == null ? string.Empty : dr["Name"].ToString();
                 this.EngName = dr["EngName"] == null ? string.Empty : dr["EngName"].ToString();
                 this.Code = dr["Code"] == null ? string.Empty : dr["Code"].ToString();
                 this.LangCode = dr["LangCode"] == null ? string.Empty : dr["LangCode"].ToString();

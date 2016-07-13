@@ -1,6 +1,8 @@
 ﻿using NLog;
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using TheWeLib.DbControl;
@@ -15,23 +17,7 @@ namespace TheWeLib
         public static Logger Log;
         public static GeneralDbDAO GenDbCon;
         public static Utility Util;
-
-        public static bool IsEnglish()
-        {
-            switch (CultureCode)
-            {
-                case "zh-TW":
-                case "zh-CHT":
-                case "zh-CHS":
-                case "zh-CN":
-                case "zh-HK":
-                    return false;
-                case "ja-JP":
-                    return true;
-                default:
-                    return true;
-
-            }
-        }
+        public static Hashtable CountryList;
+        public static Hashtable AreaList;
     }
 }

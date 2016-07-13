@@ -151,15 +151,6 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   查詢類似 Chinese Name 的當地語系化字串。
-        /// </summary>
-        internal static string ChNameString {
-            get {
-                return ResourceManager.GetString("ChNameString", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   查詢類似 Church 的當地語系化字串。
         /// </summary>
         internal static string ChurchMaintainString {
@@ -174,6 +165,15 @@ namespace Resources {
         internal static string ChurchSelectRemindString {
             get {
                 return ResourceManager.GetString("ChurchSelectRemindString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查詢類似 Simplified Chinese Name 的當地語系化字串。
+        /// </summary>
+        internal static string CnNameString {
+            get {
+                return ResourceManager.GetString("CnNameString", resourceCulture);
             }
         }
         
@@ -367,6 +367,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   查詢類似 Japanese Name 的當地語系化字串。
+        /// </summary>
+        internal static string JpNameString {
+            get {
+                return ResourceManager.GetString("JpNameString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查詢類似 Last Received 的當地語系化字串。
         /// </summary>
         internal static string LastReceivedTimeString {
@@ -453,6 +462,15 @@ namespace Resources {
         internal static string ModifyString {
             get {
                 return ResourceManager.GetString("ModifyString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查詢類似 Name 的當地語系化字串。
+        /// </summary>
+        internal static string NameString {
+            get {
+                return ResourceManager.GetString("NameString", resourceCulture);
             }
         }
         

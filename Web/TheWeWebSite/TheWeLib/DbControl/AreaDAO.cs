@@ -56,7 +56,7 @@ namespace TheWeLib.DbControl
             try
             {
                 if (string.IsNullOrEmpty(name)) return new Dictionary<string, AreaObj>();
-                string sqlTxt = "Select * From Area Where ChName like '%" + name + "%' OR EngName like '%" + name + "%'";
+                string sqlTxt = "Select * From Area Where Name like '%" + name + "%' OR EngName like '%" + name + "%'";
                 DataSet ds = DbConnection.GetDataSet(sqlTxt);
                 if (Util.IsDataSetEmpty(ds)) return new Dictionary<string, AreaObj>();
                 return DataSetConverter(ds);

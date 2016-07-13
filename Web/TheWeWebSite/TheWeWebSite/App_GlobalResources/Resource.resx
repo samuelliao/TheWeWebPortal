@@ -312,8 +312,8 @@
   <data name="AreaString" xml:space="preserve">
     <value>Area</value>
   </data>
-  <data name="ChNameString" xml:space="preserve">
-    <value>Chinese Name</value>
+  <data name="NameString" xml:space="preserve">
+    <value>Name</value>
   </data>
   <data name="EngNameString" xml:space="preserve">
     <value>English Name</value>
@@ -326,5 +326,11 @@
   </data>
   <data name="PhotoString" xml:space="preserve">
     <value>Photo</value>
+  </data>
+  <data name="JpNameString" xml:space="preserve">
+    <value>Japanese Name</value>
+  </data>
+  <data name="CnNameString" xml:space="preserve">
+    <value>Simplified Chinese Name</value>
   </data>
 </root>

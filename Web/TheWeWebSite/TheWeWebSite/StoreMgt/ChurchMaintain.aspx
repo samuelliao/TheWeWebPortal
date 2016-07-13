@@ -42,7 +42,7 @@
                                     <asp:LinkButton runat="server" Text="<%$ Resources:Resource,ConsultString%>" PostBackUrl="~/Main/Unsigned.aspx" ID="LinkUnsigned" />
                                 </li>
                                 <li>
-                                    <asp:LinkButton runat="server" Text="<%$ Resources:Resource,ScheduleString%>" PostBackUrl="~/Main/Case.aspx" ID="LinkCase" />
+                                    <asp:LinkButton runat="server" Text="<%$ Resources:Resource,ContractScheduleString%>" PostBackUrl="~/Main/Case.aspx" ID="LinkCase" />
                                 </li>
                                 <li>
                                     <asp:LinkButton runat="server" Text="<%$ Resources:Resource,ScheduleString%>" PostBackUrl="~/Main/Calendar.aspx" ID="LinkCalendar" />
@@ -227,6 +227,13 @@
                                     <asp:Label runat="server" Text="<%$ Resources:Resource,SearchResultString%>" />
                                     <hr />
                                     <div class="table-wrapper">
+                                        <asp:GridView runat="server" ID="gvChurch" CssClass="alt" AllowPaging="true"
+                                             AllowSorting ="true">
+                                            <
+                                            <Columns>
+                                                
+                                            </Columns>
+                                        </asp:GridView>
                                         <asp:DataGrid runat="server" ID="dgChurch" CssClass="alt" AllowPaging="true"
                                             AllowSorting="true" OnEditCommand="dgChurch_EditCommand" OnCancelCommand="dgChurch_CancelCommand"
                                             OnDeleteCommand="dgChurch_DeleteCommand" OnPageIndexChanged="dgChurch_PageIndexChanged"
@@ -240,7 +247,7 @@
                                                 <asp:BoundColumn HeaderText="AreaId" DataField="AreaId" Visible="false" />                                                 
                                                 <asp:TemplateColumn HeaderText="<%$ Resources:Resource,CountryString%>">
                                                     <EditItemTemplate>
-                                                        <asp:DropDownList runat="server" ID="dgDdlCountry" />
+                                                        <asp:DropDownList runat="server" ID="dgDdlCountry" OnSelectedIndexChanged="dgDdlCountry_SelectedIndexChanged" AutoPostBack="true" />
                                                     </EditItemTemplate>
                                                     <ItemTemplate>
                                                         <asp:Label runat="server" ID="dgLabelCountry" Text="" />
@@ -251,15 +258,18 @@
                                                         <asp:DropDownList runat="server" ID="dgDdlArea" />
                                                     </EditItemTemplate>
                                                     <ItemTemplate>
-                                                        <asp:Label runat="server" ID="dgLabelArea" />
+                                                        <asp:Label runat="server" ID="dgLabelArea" Text="" />
                                                     </ItemTemplate>
                                                 </asp:TemplateColumn>
-                                                <asp:BoundColumn HeaderText="<%$ Resources:Resource,ChNameString%>" DataField="ChName" />
+                                                <asp:BoundColumn HeaderText="<%$ Resources:Resource,NameString%>" DataField="Name" />
+                                                <asp:BoundColumn HeaderText="<%$ Resources:Resource,CnNameString%>" DataField="CnName" />
                                                 <asp:BoundColumn HeaderText="<%$ Resources:Resource,EngNameString%>" DataField="EngName" />
+                                                <asp:BoundColumn HeaderText="<%$ Resources:Resource,JpNameString%>" DataField="JpName" />
                                                 <asp:BoundColumn HeaderText="<%$ Resources:Resource,CapacitiesString%>" DataField="Capacities" />
                                                 <asp:BoundColumn HeaderText="<%$ Resources:Resource,PriceString%>" DataField="Price" />
-                                                <asp:BoundColumn HeaderText="<%$ Resources:Resource,RemarkString%>" DataField="Remark" />
-                                                <asp:TemplateColumn HeaderText="<%$ Resources:Resource,MealString%>">
+                                                <asp:BoundColumn HeaderText="<%$ Resources:Resource,RemarkString%>" DataField="Remark">                                                    
+                                                </asp:BoundColumn>
+                                                <asp:TemplateColumn HeaderText="<%$ Resources:Resource,MealString%>" Visible="false">
                                                     <EditItemTemplate>
                                                         <asp:Image runat="server" ID="ImgMealUpload" />
                                                         <asp:FileUpload ID="fileImgMeal" runat="server" />
@@ -268,7 +278,7 @@
                                                         <asp:Image runat="server" ID="ImgMeal" />
                                                     </ItemTemplate>
                                                 </asp:TemplateColumn>
-                                                <asp:TemplateColumn HeaderText="<%$ Resources:Resource,MealString%>">
+                                                <asp:TemplateColumn HeaderText="<%$ Resources:Resource,PhotoString%>" Visible="false">
                                                     <EditItemTemplate>
                                                         <asp:Image runat="server" ID="imgChurchUpload" />
                                                         <asp:FileUpload runat="server" ID="fileImgChurch" />

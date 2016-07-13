@@ -57,7 +57,7 @@ namespace TheWeWebSite
                 DataSet ds = SysProperty.GenDbCon.GetDataFromTable("*", SysProperty.Util.MsSqlTableConverter(MsSqlTable.Store), string.Empty);
                 foreach (DataRow dr in ds.Tables[0].Rows)
                 {
-                    lst.Add(dr["Id"].ToString(), (SysProperty.IsEnglish() ? dr["EngName"].ToString() : dr["ChName"].ToString()));
+                    lst.Add(dr["Id"].ToString(), SysProperty.Util.OutputRelatedLangName(dr));
                 }
                 return new Dictionary<string, string>();
             }
@@ -78,6 +78,8 @@ namespace TheWeWebSite
             if (SysProperty.Util.IsDataSetEmpty(ds)) return false;
             if (new DataEncryption().GetMD5(pwd) == ds.Tables[0].Rows[0]["Password"].ToString())
             {
+                GetCountryList();
+                GetAreaList();
                 SysProperty.EmployeeInfo = new EmployeeObj(ds.Tables[0].Rows[0]);
                 return true;
             }
@@ -111,6 +113,27 @@ namespace TheWeWebSite
                 labelWarnText.Visible = false;
                 Server.Transfer("Main/Calendar.aspx", true);
             }
-        }        
+        }
+
+        public void GetCountryList() {
+            SysProperty.CountryList = new System.Collections.Hashtable();
+            DataSet ds = SysProperty.GenDbCon.GetDataFromTable(string.Empty
+                , SysProperty.Util.MsSqlTableConverter(MsSqlTable.Country)
+                , string.Empty);
+            foreach (DataRow dr in ds.Tables[0].Rows)
+            {
+                SysProperty.CountryList.Add(dr["Id"].ToString(), dr);
+            }
+        }
+        public void GetAreaList() { 
+            SysProperty.AreaList = new System.Collections.Hashtable();
+            DataSet ds = SysProperty.GenDbCon.GetDataFromTable(string.Empty
+                , SysProperty.Util.MsSqlTableConverter(MsSqlTable.Area)
+                , string.Empty);
+            foreach (DataRow dr in ds.Tables[0].Rows)
+            {
+                SysProperty.AreaList.Add(dr["Id"].ToString(), dr);
+            }
+        }    
     }
 }

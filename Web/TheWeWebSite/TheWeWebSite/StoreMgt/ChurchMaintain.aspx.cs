@@ -49,7 +49,7 @@ namespace TheWeWebSite.StoreMgt
                 foreach (DataRow dr in CountryDataSet.Tables[0].Rows)
                 {
                     ddlCountry.Items.Add(new ListItem(
-                        SysProperty.IsEnglish() ? dr["EngName"].ToString() : dr["ChName"].ToString()
+                        SysProperty.Util.OutputRelatedLangName(dr)
                         , dr["Id"].ToString(), true));
                 }
             }
@@ -72,7 +72,7 @@ namespace TheWeWebSite.StoreMgt
                 foreach (DataRow dr in AreaDataSet.Tables[0].Rows)
                 {
                     ddlArea.Items.Add(new ListItem(
-                        SysProperty.IsEnglish() ? dr["EngName"].ToString() : dr["ChName"].ToString()
+                        SysProperty.Util.OutputRelatedLangName(dr)                        
                         , dr["Id"].ToString(), true));
                 }
             }
@@ -91,7 +91,7 @@ namespace TheWeWebSite.StoreMgt
             foreach (DataRow dr in ChurchDataSet.Tables[0].Rows)
             {
                 ddlChruch.Items.Add(new ListItem(
-                    SysProperty.IsEnglish() ? dr["EngName"].ToString() : dr["ChName"].ToString()
+                    SysProperty.Util.OutputRelatedLangName(dr)
                     , dr["Id"].ToString(), true));
             }
         }
@@ -191,7 +191,29 @@ namespace TheWeWebSite.StoreMgt
 
         protected void dgChurch_UpdateCommand(object source, DataGridCommandEventArgs e)
         {
+            DropDownList ddl1 = (DropDownList)dgChurch.Items[dgChurch.EditItemIndex].FindControl("dgDdlCountry");
+            DropDownList ddl2 = (DropDownList)dgChurch.Items[dgChurch.EditItemIndex].FindControl("dgDdlArea");
+            
+            List<DbSearchObject> updateLst = new List<DbSearchObject>();
+            updateLst.Add(new DbSearchObject("CountryId", AtrrTypeItem.String, AttrSymbolItem.Equal, ddl1.SelectedValue));
+            updateLst.Add(new DbSearchObject("AreaId", AtrrTypeItem.String, AttrSymbolItem.Equal, ddl2.SelectedValue));
+            updateLst.Add(new DbSearchObject("Name", AtrrTypeItem.String, AttrSymbolItem.Equal, ((TextBox)e.Item.Cells[5].Controls[0]).Text));
+            updateLst.Add(new DbSearchObject("CnName", AtrrTypeItem.String, AttrSymbolItem.Equal, ((TextBox)e.Item.Cells[6].Controls[0]).Text));
+            updateLst.Add(new DbSearchObject("EngName", AtrrTypeItem.String, AttrSymbolItem.Equal, ((TextBox)e.Item.Cells[7].Controls[0]).Text));
+            updateLst.Add(new DbSearchObject("JpName", AtrrTypeItem.String, AttrSymbolItem.Equal, ((TextBox)e.Item.Cells[8].Controls[0]).Text));
+            updateLst.Add(new DbSearchObject("Capacities", AtrrTypeItem.Integer, AttrSymbolItem.Equal, ((TextBox)e.Item.Cells[9].Controls[0]).Text));
+            updateLst.Add(new DbSearchObject("Price", AtrrTypeItem.Integer, AttrSymbolItem.Equal, ((TextBox)e.Item.Cells[10].Controls[0]).Text));
+            updateLst.Add(new DbSearchObject("Remark", AtrrTypeItem.String, AttrSymbolItem.Equal, ((TextBox)e.Item.Cells[11].Controls[0]).Text));
 
+            if (SysProperty.GenDbCon.UpdateDataIntoTable
+                (SysProperty.Util.MsSqlTableConverter(MsSqlTable.Church)
+                , SysProperty.Util.SqlQueryUpdateConverter(updateLst)
+                , " Where Id = '" + ((TextBox)e.Item.Cells[0].Controls[0]).Text + "'"))
+            {
+                dgChurch.EditItemIndex = -1;
+                BindData();
+            }
+            
         }
 
         protected void btnSearch_Click(object sender, EventArgs e)
@@ -201,21 +223,54 @@ namespace TheWeWebSite.StoreMgt
 
         protected void dgChurch_ItemDataBound(object sender, DataGridItemEventArgs e)
         {
-            if (e.Item.ItemType == ListItemType.EditItem)
+            DataRowView dataItem1 = (DataRowView)e.Item.DataItem;
+            if (dataItem1 != null)
             {
-                DropDownList dropDownList1 = (DropDownList)e.Item.FindControl("dgDdlCountry");
-                dropDownList1.DataValueField = "Id";
-                dropDownList1.DataTextField = SysProperty.IsEnglish() ? "EngName" : "ChName";
-                dropDownList1.DataSource = SysProperty.GenDbCon.GetDataFromTable(string.Empty
-                    , SysProperty.Util.MsSqlTableConverter(MsSqlTable.Country), string.Empty);
-                dropDownList1.DataBind();
-                DataRowView dataItem1 = (DataRowView)e.Item.DataItem;
-                dropDownList1.SelectedValue = dataItem1["CountryId"].ToString();
+                if (e.Item.ItemType == ListItemType.EditItem)
+                {
+                    DropDownList dropDownList1 = (DropDownList)e.Item.FindControl("dgDdlCountry");
+                    DataSet ds = SysProperty.GenDbCon.GetDataFromTable(string.Empty
+                        , SysProperty.Util.MsSqlTableConverter(MsSqlTable.Country), string.Empty);
+                    foreach (DataRow dr in ds.Tables[0].Rows)
+                    {
+                        dropDownList1.Items.Add(new ListItem(SysProperty.Util.OutputRelatedLangName(dr), dr["Id"].ToString()));
+                    }
+                    dropDownList1.SelectedValue = dataItem1["CountryId"].ToString();
+
+                    DropDownList dropDownList2 = (DropDownList)e.Item.FindControl("dgDdlArea");
+                    ds = SysProperty.GenDbCon.GetDataFromTable(string.Empty
+                        , SysProperty.Util.MsSqlTableConverter(MsSqlTable.Area), " Where CountryId = '" + dataItem1["CountryId"].ToString() + "'");
+                    foreach (DataRow dr in ds.Tables[0].Rows)
+                    {
+                        dropDownList2.Items.Add(new ListItem(SysProperty.Util.OutputRelatedLangName(dr), dr["Id"].ToString()));
+                    }
+                    dropDownList1.SelectedValue = dataItem1["AreaId"].ToString();
+                }
+                else
+                {
+                    Label label = (Label)e.Item.FindControl("dgLabelCountry");
+                    label.Text = SysProperty.CountryList.ContainsKey(dataItem1["CountryId"].ToString())
+                        ? SysProperty.Util.OutputRelatedLangName((DataRow)SysProperty.CountryList[dataItem1["CountryId"].ToString()])
+                        : string.Empty;
+
+                    Label label2 = (Label)e.Item.FindControl("dgLabelArea");
+                    label2.Text = SysProperty.AreaList.ContainsKey(dataItem1["AreaId"].ToString())
+                        ? SysProperty.Util.OutputRelatedLangName((DataRow)SysProperty.AreaList[dataItem1["AreaId"].ToString()])
+                        : string.Empty;
+                }
             }
-            else
+        }
+
+        protected void dgDdlCountry_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            DropDownList ddl = (DropDownList)dgChurch.Items[dgChurch.EditItemIndex].FindControl("dgDdlArea");
+            ddl.Items.Clear();
+            DataSet ds = SysProperty.GenDbCon.GetDataFromTable(string.Empty
+                , SysProperty.Util.MsSqlTableConverter(MsSqlTable.Area)
+                , " Where CountryId='" + (sender as DropDownList).SelectedValue + "'");
+            foreach (DataRow dr in ds.Tables[0].Rows)
             {
-                Label label = (Label)e.Item.FindControl("dgLabelCountry");
-                //label.Text = 
+                ddl.Items.Add(new ListItem(SysProperty.Util.OutputRelatedLangName(dr), dr["Id"].ToString()));
             }
         }
     }

@@ -108,7 +108,7 @@ namespace TheWeLib.DbControl
             try
             {
                 string sqlTxt = "UPDATE [dbo].[Country]"
-                    + " SET [ChName] = N'" + obj.ChName + "'"
+                    + " SET [ChName] = N'" + obj.Name + "'"
                     + ",[EngName] = '" + obj.EngName + "'"
                     + ",[Code] = '" + obj.Code + "'"
                     + ",[CurrencyId] = '" + obj.CurrencyId + "'"
@@ -129,7 +129,7 @@ namespace TheWeLib.DbControl
             {
                 string sqlTxt = "INSERT INTO [dbo].[Store]"
                     + "([ChName],[EngName],[Code],[CurrencyId],[LangCode])VALUES("
-                    + "N'" + obj.ChName + "'"
+                    + "N'" + obj.Name + "'"
                     + ",'" + obj.EngName + "'"
                     + ",'" + obj.Code + "'"
                     + ",'" + obj.CurrencyId + "'"

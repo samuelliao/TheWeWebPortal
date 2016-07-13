@@ -312,8 +312,8 @@
   <data name="AreaString" xml:space="preserve">
     <value>地區</value>
   </data>
-  <data name="ChNameString" xml:space="preserve">
-    <value>中文名稱</value>
+  <data name="NameString" xml:space="preserve">
+    <value>名稱</value>
   </data>
   <data name="EngNameString" xml:space="preserve">
     <value>英文名稱</value>
@@ -326,5 +326,11 @@
   </data>
   <data name="PhotoString" xml:space="preserve">
     <value>照片</value>
+  </data>
+  <data name="JpNameString" xml:space="preserve">
+    <value>日文名稱</value>
+  </data>
+  <data name="CnNameString" xml:space="preserve">
+    <value>簡中名稱</value>
   </data>
 </root>

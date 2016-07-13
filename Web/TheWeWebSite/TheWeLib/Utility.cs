@@ -45,6 +45,49 @@ namespace TheWeLib
             return body.Member.Name;
         }
 
+        public string OutputRelatedLangName(DataRow dr)
+        {
+            try
+            {
+                string result = string.Empty;
+                switch (SysProperty.CultureCode)
+                {
+                    case "zh-TW":
+                        result = !string.IsNullOrEmpty(dr["Name"].ToString()) ? dr["Name"].ToString() :
+                            !string.IsNullOrEmpty(dr["CnName"].ToString()) ? dr["CnName"].ToString():
+                            !string.IsNullOrEmpty(dr["EngName"].ToString()) ? dr["EngName"].ToString() :
+                            !string.IsNullOrEmpty(dr["JpName"].ToString()) ? dr["JpName"].ToString() : string.Empty;                        
+                        break;
+                    case "zh-CHT":
+                    case "zh-CHS":
+                    case "zh-CN":
+                    case "zh-HK":
+                        result = !string.IsNullOrEmpty(dr["CnName"].ToString()) ? dr["CnName"].ToString() :
+                            !string.IsNullOrEmpty(dr["Name"].ToString()) ? dr["Name"].ToString() :
+                            !string.IsNullOrEmpty(dr["EngName"].ToString()) ? dr["EngName"].ToString() :
+                            !string.IsNullOrEmpty(dr["JpName"].ToString()) ? dr["JpName"].ToString() : string.Empty;
+                        break;
+                    case "ja-JP":
+                        result = !string.IsNullOrEmpty(dr["JpName"].ToString()) ? dr["JpName"].ToString() :
+                            !string.IsNullOrEmpty(dr["CnName"].ToString()) ? dr["CnName"].ToString() :
+                            !string.IsNullOrEmpty(dr["Name"].ToString()) ? dr["Name"].ToString() :
+                            !string.IsNullOrEmpty(dr["EngName"].ToString()) ? dr["EngName"].ToString() : string.Empty;
+                        break;
+                    default:
+                        result = !string.IsNullOrEmpty(dr["EngName"].ToString()) ? dr["EngName"].ToString() :
+                            !string.IsNullOrEmpty(dr["CnName"].ToString()) ? dr["CnName"].ToString() :
+                            !string.IsNullOrEmpty(dr["Name"].ToString()) ? dr["Name"].ToString() :
+                            !string.IsNullOrEmpty(dr["JpName"].ToString()) ? dr["JpName"].ToString() : string.Empty;
+                        break;
+                }
+                return result;
+            }catch(Exception ex)
+            {
+                SysProperty.Log.Error(ex.Message);
+                return string.Empty;
+            }
+        }
+
         public bool VerifyBasicVariable()
         {
             try
