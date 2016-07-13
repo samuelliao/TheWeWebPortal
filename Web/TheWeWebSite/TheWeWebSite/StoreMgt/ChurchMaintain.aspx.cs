@@ -208,7 +208,7 @@ namespace TheWeWebSite.StoreMgt
             if (SysProperty.GenDbCon.UpdateDataIntoTable
                 (SysProperty.Util.MsSqlTableConverter(MsSqlTable.Church)
                 , SysProperty.Util.SqlQueryUpdateConverter(updateLst)
-                , " Where Id = '" + ((TextBox)e.Item.Cells[0].Controls[0]).Text + "'"))
+                , " Where Id = '" + dgChurch.DataKeys[dgChurch.EditItemIndex].ToString() + "'"))
             {
                 dgChurch.EditItemIndex = -1;
                 BindData();

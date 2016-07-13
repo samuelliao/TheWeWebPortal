@@ -46,7 +46,7 @@ namespace TheWeLib
                 SqlConn.Open();
                 SqlCommand cmd = new SqlCommand(KeyOpenString + sqlStr, SqlConn);
                 int result = cmd.ExecuteNonQuery();
-                return result == -1;                
+                return result != 0;                
             }
             catch(Exception ex)
             {

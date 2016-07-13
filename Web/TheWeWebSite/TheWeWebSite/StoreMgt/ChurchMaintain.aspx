@@ -227,17 +227,11 @@
                                     <asp:Label runat="server" Text="<%$ Resources:Resource,SearchResultString%>" />
                                     <hr />
                                     <div class="table-wrapper">
-                                        <asp:GridView runat="server" ID="gvChurch" CssClass="alt" AllowPaging="true"
-                                             AllowSorting ="true">
-                                            <
-                                            <Columns>
-                                                
-                                            </Columns>
-                                        </asp:GridView>
                                         <asp:DataGrid runat="server" ID="dgChurch" CssClass="alt" AllowPaging="true"
                                             AllowSorting="true" OnEditCommand="dgChurch_EditCommand" OnCancelCommand="dgChurch_CancelCommand"
                                             OnDeleteCommand="dgChurch_DeleteCommand" OnPageIndexChanged="dgChurch_PageIndexChanged"
-                                            OnUpdateCommand="dgChurch_UpdateCommand" AutoGenerateColumns="false" OnItemDataBound="dgChurch_ItemDataBound">
+                                            OnUpdateCommand="dgChurch_UpdateCommand" AutoGenerateColumns="false" OnItemDataBound="dgChurch_ItemDataBound"
+                                            DataKeyField="Id">
                                             <HeaderStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                             <FooterStyle BackColor="White" VerticalAlign="Middle" HorizontalAlign="Center" />
                                             <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />

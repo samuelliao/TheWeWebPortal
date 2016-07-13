@@ -120,7 +120,7 @@ namespace TheWeLib
             string result = string.Empty;
             foreach (DbSearchObject obj in lst)
             {
-                result += string.IsNullOrEmpty(result) ? string.Empty : "," + ConditionConverter(obj);
+                result += (string.IsNullOrEmpty(result) ? string.Empty : "," )+ ConditionConverter(obj);
             }
             return result;
         }
@@ -131,7 +131,7 @@ namespace TheWeLib
             string result = string.Empty;
             foreach (DbSearchObject obj in lst)
             {
-                result += string.IsNullOrEmpty(result) ? string.Empty : "," + obj.AttrName;
+                result += (string.IsNullOrEmpty(result) ? string.Empty : ",") + obj.AttrName;
             }
             return result;
         }
@@ -142,7 +142,7 @@ namespace TheWeLib
             string result = string.Empty;
             foreach (DbSearchObject obj in lst)
             {
-                result += string.IsNullOrEmpty(result) ? string.Empty : "," + ValueConverter(obj);
+                result += (string.IsNullOrEmpty(result) ? string.Empty : ",") + ValueConverter(obj);
             }
             return result;
         }
