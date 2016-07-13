@@ -8,15 +8,12 @@ using System.Web.UI.WebControls;
 using TheWeLib.DbControl;
 using TheWeLib;
 using System.Web.Configuration;
+using System.Globalization;
 
 namespace TheWeWebSite
-{ 
-    
+{
     public partial class Login : System.Web.UI.Page
     {
-        /*
-        private GeneralDbDAO DbDAO;
-        Utility Util;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -29,9 +26,9 @@ namespace TheWeWebSite
             {
                 SysProperty.Log = NLog.LogManager.GetCurrentClassLogger();
             }
-            DbDAO = new GeneralDbDAO();
-            SysProperty.CultureCode = this.Culture;
-            Util = new Utility();
+            SysProperty.GenDbCon = new GeneralDbDAO();
+            SysProperty.CultureCode = CultureInfo.CurrentCulture.ToString();
+            SysProperty.Util = new Utility();
         }
 
         protected void ddlStore_Load(object sender, EventArgs e)
@@ -57,7 +54,7 @@ namespace TheWeWebSite
             try
             {
                 Dictionary<string, string> lst = new Dictionary<string, string>();
-                DataSet ds = DbDAO.GetDataFromTable("*", Util.MsSqlTableConverter(MsSqlTable.Store), string.Empty);
+                DataSet ds = SysProperty.GenDbCon.GetDataFromTable("*", SysProperty.Util.MsSqlTableConverter(MsSqlTable.Store), string.Empty);
                 foreach (DataRow dr in ds.Tables[0].Rows)
                 {
                     lst.Add(dr["Id"].ToString(), (SysProperty.IsEnglish() ? dr["EngName"].ToString() : dr["ChName"].ToString()));
@@ -74,11 +71,11 @@ namespace TheWeWebSite
 
         private bool VerifyAccountAndPassword(string acc, string pwd, string storeId)
         {
-            DataSet ds = DbDAO.GetDataFromTable(string.Empty
-                , Util.MsSqlTableConverter(MsSqlTable.vwEN_Employee)
+            DataSet ds = SysProperty.GenDbCon.GetDataFromTable(string.Empty
+                , SysProperty.Util.MsSqlTableConverter(MsSqlTable.vwEN_Employee)
                 , " Where Account= N'" + acc.ToLower() + "'"
                 +(acc.ToLower().Equals("admin")?string.Empty:" and StoreId = '" + storeId + "'"));
-            if (Util.IsDataSetEmpty(ds)) return false;
+            if (SysProperty.Util.IsDataSetEmpty(ds)) return false;
             if (new DataEncryption().GetMD5(pwd) == ds.Tables[0].Rows[0]["Password"].ToString())
             {
                 SysProperty.EmployeeInfo = new EmployeeObj(ds.Tables[0].Rows[0]);
@@ -114,6 +111,6 @@ namespace TheWeWebSite
                 labelWarnText.Visible = false;
                 Server.Transfer("Main/Calendar.aspx", true);
             }
-        }        */
+        }        
     }
 }

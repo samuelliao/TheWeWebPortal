@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using TheWeLib.DbControl;
 
 namespace TheWeLib
 {
@@ -10,8 +11,10 @@ namespace TheWeLib
     {
         public static string DbConcString;
         public static string CultureCode;
-        public static EmployeeObj EmployeeInfo;
+        public static EmployeeObj EmployeeInfo;        
         public static Logger Log;
+        public static GeneralDbDAO GenDbCon;
+        public static Utility Util;
 
         public static bool IsEnglish()
         {
