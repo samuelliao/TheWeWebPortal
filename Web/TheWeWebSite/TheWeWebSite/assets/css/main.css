@@ -238,10 +238,6 @@ body {
 /* Grid */
 
 .row {
-    border-bottom: solid 1px transparent;
-    -moz-box-sizing: border-box;
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box;
 }
 
     .row > * {
@@ -1840,6 +1836,7 @@ h3 {
     font-size: 1.75em;
     line-height: 1.5em;
     letter-spacing: -0.025em;
+    color: #ffffff;
 }
 
 h4 {
@@ -2061,7 +2058,7 @@ input[type="text"],
 input[type="password"],
 input[type="email"],
 select {
-    height: 3em;
+    height: 2em;
 }
 
 textarea {
@@ -2168,8 +2165,20 @@ input[type="radio"] {
     opacity: 1.0;
 }
 
-/* Box */
+/* Div */
+.Div {
+    text-align: left;
+    font-size: 1em;
+    padding-left: 0.5em;
+    padding-bottom: 0;
+    padding-top: 0;
+}
 
+    .Div.btn {
+        margin-top:1.5em;
+        text-align:right;
+    }
+/* Box */
 .box {
     background: #fff;
     border-radius: 6px;
@@ -2246,8 +2255,30 @@ input[type="radio"] {
                 padding-bottom: 0;
             }
 
-    .box.special {
+    .box.title {
         text-align: center;
+        background-color: #f2a6a6;
+        text-align: left;
+        font-size: 10px;
+        padding: 0.5em;
+        padding-left: 1.5em;
+    }
+
+    .create{
+        background-color:#f2a6a6;
+        margin-top:1em;
+    }
+
+    .box.special {
+        padding: 20px;
+        text-align: center;
+    }
+
+    .insert{
+        height:100%;
+        width:100%;
+        padding:20px;
+        background-color:#fff;
     }
 
     .box .image.featured {
@@ -2588,147 +2619,155 @@ input[type="submit"],
 input[type="reset"],
 input[type="button"],
 .button {
-    -moz-appearance: none;
-    -webkit-appearance: none;
-    appearance: none;
-    -moz-transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
-    -webkit-transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
-    transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
-    background-color: #666;
-    border-radius: 6px;
-    border: 0;
+    font: 1em;
+    font-style: normal;
     color: #ffffff;
-    cursor: pointer;
-    display: inline-block;
-    font-weight: 400;
-    height: 3em;
-    line-height: 3em;
-    padding: 0 2em;
-    text-align: center;
-    text-decoration: none;
-    white-space: nowrap;
+    background: #f2a6a6;
+    border: 0px solid #f2a6a6;
+    text-shadow: 0px 0px 0px #f2a6a6;
+    box-shadow: 0px 0px 0px #f2a6a6;
+    -moz-border-radius: 10px 10px 10px 10px;
+    -webkit-border-radius: 10px 10px 10px 10px;
+    width: auto;
+    padding: 0.3em 1.3em;
+    margin: 0 auto;
 }
 
-    input[type="submit"]:hover,
-    input[type="reset"]:hover,
-    input[type="button"]:hover,
-    .button:hover {
-        background-color: #737373;
+.i2Style:active {
+    cursor: pointer;
+    position: relative;
+    top: 2px;
+}
+
+}
+
+.i2Style:active {
+    cursor: pointer;
+    position: relative;
+    top: 2px;
+}
+
+}
+
+input[type="submit"]:hover,
+input[type="reset"]:hover,
+input[type="button"]:hover,
+.button:hover {
+    background-color: #f2a6a6;
+}
+
+input[type="submit"]:active,
+input[type="reset"]:active,
+input[type="button"]:active,
+.button:active {
+    background-color: #595959;
+}
+
+input[type="submit"].icon,
+input[type="reset"].icon,
+input[type="button"].icon,
+.button.icon {
+    padding-left: 1.35em;
+}
+
+    input[type="submit"].icon:before,
+    input[type="reset"].icon:before,
+    input[type="button"].icon:before,
+    .button.icon:before {
+        margin-right: 0.5em;
     }
 
-    input[type="submit"]:active,
-    input[type="reset"]:active,
-    input[type="button"]:active,
-    .button:active {
-        background-color: #595959;
+input[type="submit"].fit,
+input[type="reset"].fit,
+input[type="button"].fit,
+.button.fit {
+    display: block;
+    margin: 0 0 1em 0;
+    width: 100%;
+}
+
+input[type="submit"].small,
+input[type="reset"].small,
+input[type="button"].small,
+.button.small {
+    font-size: 0.8em;
+    height: 2.7em;
+    line-height: 2.7em;
+}
+
+input[type="submit"].big,
+input[type="reset"].big,
+input[type="button"].big,
+.button.big {
+    font-size: 1.25em;
+    height: 2.7em;
+    line-height: 2.7em;
+}
+
+input[type="submit"].alt,
+input[type="reset"].alt,
+input[type="button"].alt,
+.button.alt {
+    background-color: #f2a6a6;
+    box-shadow: inset 0 0 0 2px #f2a6a6;
+}
+
+    input[type="submit"].alt:hover,
+    input[type="reset"].alt:hover,
+    input[type="button"].alt:hover,
+    .button.alt:hover {
+        background-color: #f2a6a6;
     }
 
-    input[type="submit"].icon,
-    input[type="reset"].icon,
-    input[type="button"].icon,
-    .button.icon {
-        padding-left: 1.35em;
+    input[type="submit"].alt:active,
+    input[type="reset"].alt:active,
+    input[type="button"].alt:active,
+    .button.alt:active {
+        background-color: #f2a6a6;
     }
 
-        input[type="submit"].icon:before,
-        input[type="reset"].icon:before,
-        input[type="button"].icon:before,
-        .button.icon:before {
-            margin-right: 0.5em;
-        }
-
-    input[type="submit"].fit,
-    input[type="reset"].fit,
-    input[type="button"].fit,
-    .button.fit {
-        display: block;
-        margin: 0 0 1em 0;
-        width: 100%;
+    input[type="submit"].alt.icon:before,
+    input[type="reset"].alt.icon:before,
+    input[type="button"].alt.icon:before,
+    .button.alt.icon:before {
+        color: #999;
     }
 
-    input[type="submit"].small,
-    input[type="reset"].small,
-    input[type="button"].small,
-    .button.small {
-        font-size: 0.8em;
-        height: 2.7em;
-        line-height: 2.7em;
+input[type="submit"].special,
+input[type="reset"].special,
+input[type="button"].special,
+.button.special {
+    background-color: #f2a6a6;
+    color: #ffffff !important;
+}
+
+    input[type="submit"].special:hover,
+    input[type="reset"].special:hover,
+    input[type="button"].special:hover,
+    .button.special:hover {
+        background-color: #f2a6a6;
     }
 
-    input[type="submit"].big,
-    input[type="reset"].big,
-    input[type="button"].big,
-    .button.big {
-        font-size: 1.25em;
-        height: 2.7em;
-        line-height: 2.7em;
+    input[type="submit"].special:active,
+    input[type="reset"].special:active,
+    input[type="button"].special:active,
+    .button.special:active {
+        background-color: #f2a6a6;
     }
 
-    input[type="submit"].alt,
-    input[type="reset"].alt,
-    input[type="button"].alt,
-    .button.alt {
-        background-color: transparent;
-        box-shadow: inset 0 0 0 2px #e5e5e5;
-        color: #777;
-    }
-
-        input[type="submit"].alt:hover,
-        input[type="reset"].alt:hover,
-        input[type="button"].alt:hover,
-        .button.alt:hover {
-            background-color: #f8f8f8;
-        }
-
-        input[type="submit"].alt:active,
-        input[type="reset"].alt:active,
-        input[type="button"].alt:active,
-        .button.alt:active {
-            background-color: #f0f0f0;
-        }
-
-        input[type="submit"].alt.icon:before,
-        input[type="reset"].alt.icon:before,
-        input[type="button"].alt.icon:before,
-        .button.alt.icon:before {
-            color: #999;
-        }
-
-    input[type="submit"].special,
-    input[type="reset"].special,
-    input[type="button"].special,
-    .button.special {
-        background-color: #e89980;
-        color: #ffffff !important;
-    }
-
-        input[type="submit"].special:hover,
-        input[type="reset"].special:hover,
-        input[type="button"].special:hover,
-        .button.special:hover {
-            background-color: #ecaa96;
-        }
-
-        input[type="submit"].special:active,
-        input[type="reset"].special:active,
-        input[type="button"].special:active,
-        .button.special:active {
-            background-color: #e4886a;
-        }
-
-    input[type="submit"].disabled, input[type="submit"]:disabled,
-    input[type="reset"].disabled,
-    input[type="reset"]:disabled,
-    input[type="button"].disabled,
-    input[type="button"]:disabled,
-    .button.disabled,
-    .button:disabled {
-        background-color: #777 !important;
-        box-shadow: inset 0 -0.15em 0 0 rgba(0, 0, 0, 0.15);
-        color: #f5f5f5 !important;
-        cursor: default;
-        opacity: 0.25;
-    }
+input[type="submit"].disabled, input[type="submit"]:disabled,
+input[type="reset"].disabled,
+input[type="reset"]:disabled,
+input[type="button"].disabled,
+input[type="button"]:disabled,
+.button.disabled,
+.button:disabled {
+    background-color: #777 !important;
+    box-shadow: inset 0 -0.15em 0 0 rgba(0, 0, 0, 0.15);
+    color: #f2a6a6 !important;
+    cursor: default;
+    opacity: 0.25;
+}
 
 /* Header */
 
@@ -2802,7 +2841,7 @@ body.landing #page-wrapper {
         padding: 0;
         position: absolute;
         top: 0;
-        font-size:larger;
+        font-size: larger;
     }
 
         #header h1 a {
@@ -2881,14 +2920,14 @@ body.landing #page-wrapper {
         #header input[type="reset"]:hover,
         #header input[type="button"]:hover,
         #header .button:hover {
-            background-color: rgba(153, 153, 153, 0.25);
+            background-color: #f2a6a6;
         }
 
         #header input[type="submit"]:active,
         #header input[type="reset"]:active,
         #header input[type="button"]:active,
         #header .button:active {
-            background-color: rgba(153, 153, 153, 0.5);
+            background-color: #f2a6a6;
         }
 
     #header .container {
@@ -2932,21 +2971,21 @@ body.landing #page-wrapper {
         #header.alt input[type="reset"],
         #header.alt input[type="button"],
         #header.alt .button {
-            box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.5);
+            box-shadow: inset 0 0 0 2px #f2a6a6;
         }
 
             #header.alt input[type="submit"]:hover,
             #header.alt input[type="reset"]:hover,
             #header.alt input[type="button"]:hover,
             #header.alt .button:hover {
-                background-color: rgba(255, 255, 255, 0.1);
+                background-color: #f2a6a6;
             }
 
             #header.alt input[type="submit"]:active,
             #header.alt input[type="reset"]:active,
             #header.alt input[type="button"]:active,
             #header.alt .button:active {
-                background-color: rgba(255, 255, 255, 0.2);
+                background-color: #f2a6a6;
             }
 
 .dropotron {
@@ -3013,12 +3052,11 @@ body.landing #page-wrapper {
 
 #banner {
     background-attachment: scroll, fixed;
-    background-color:#fcbbbb;
     background-position: top left, center center;
     background-repeat: repeat, no-repeat;
     background-size: auto, cover;
     color: #fff;
-    padding: 12em 0 20em 0;
+    padding: 5em 0 5em 0;
     text-align: center;
 }
 
@@ -3028,7 +3066,6 @@ body.landing #page-wrapper {
 
     #banner h2, #banner h3, #banner h4, #banner h5, #banner h6 {
         color: #fff;
-        
     }
 
     #banner h2 {
@@ -3048,7 +3085,7 @@ body.landing #page-wrapper {
     #banner input[type="button"],
     #banner .button {
         background-color: transparent;
-        box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.5);
+        box-shadow: inset 0 0 0 2px #f2a6a6;
         color: #fff;
         min-width: 12em;
     }
@@ -3057,14 +3094,14 @@ body.landing #page-wrapper {
         #banner input[type="reset"]:hover,
         #banner input[type="button"]:hover,
         #banner .button:hover {
-            background-color: rgba(255, 255, 255, 0.1);
+            background-color: #f2a6a6;
         }
 
         #banner input[type="submit"]:active,
         #banner input[type="reset"]:active,
         #banner input[type="button"]:active,
         #banner .button:active {
-            background-color: rgba(255, 255, 255, 0.2);
+            background-color: #f2a6a6;
         }
 
         #banner input[type="submit"].special,
@@ -3078,7 +3115,7 @@ body.landing #page-wrapper {
 /* Main */
 
 #main {
-    padding: 4em 0;
+    padding: 4em 2em;
 }
 
     #main > header {
@@ -3101,7 +3138,7 @@ body.landing #page-wrapper {
         }
 
 body.landing #main {
-    margin-top: -14em;
+    margin-top: 0em;
 }
 
 /* Footer */
@@ -3115,7 +3152,6 @@ body.landing #main {
     #footer .icons a {
         -moz-transition: opacity 0.2s ease-in-out;
         -webkit-transition: opacity 0.2s ease-in-out;
-        -ms-transition: opacity 0.2s ease-in-out;
         transition: opacity 0.2s ease-in-out;
         opacity: 0.35;
     }
@@ -3518,6 +3554,7 @@ body.landing #main {
 
     h3 {
         font-size: 1.5em;
+        color: #fff;
     }
 
     h4 {
@@ -3542,6 +3579,8 @@ body.landing #main {
         overflow-x: hidden;
         padding: 2em 2em !important;
     }
+
+
 
         .box.features .features-row {
             border-top: 0;
@@ -3649,6 +3688,7 @@ body.landing #main {
 
     header.major {
         padding: 0;
+        background: #e89980;
     }
 
     /* List */
@@ -3737,5 +3777,3 @@ body.landing #main {
         padding: 2.5em 1em 3em 1em;
     }
 }
-
-    
