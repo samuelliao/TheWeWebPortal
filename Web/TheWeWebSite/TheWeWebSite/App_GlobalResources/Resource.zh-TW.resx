@@ -357,4 +357,10 @@
   <data name="ClearString" xml:space="preserve">
     <value>清除</value>
   </data>
+  <data name="CustomerString" xml:space="preserve">
+    <value>客戶</value>
+  </data>
+  <data name="ReceivedString" xml:space="preserve">
+    <value>回覆</value>
+  </data>
 </root>

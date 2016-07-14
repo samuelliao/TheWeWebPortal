@@ -340,6 +340,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   查詢類似 Customer 的當地語系化字串。
+        /// </summary>
+        internal static string CustomerString {
+            get {
+                return ResourceManager.GetString("CustomerString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查詢類似 Delete 的當地語系化字串。
         /// </summary>
         internal static string DeleteString {
@@ -430,7 +439,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   查詢類似 Last Received 的當地語系化字串。
+        ///   查詢類似 Last Received Time 的當地語系化字串。
         /// </summary>
         internal static string LastReceivedTimeString {
             get {
@@ -556,7 +565,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   查詢類似 Phone 的當地語系化字串。
+        ///   查詢類似 Phone Number 的當地語系化字串。
         /// </summary>
         internal static string PhoneString {
             get {
@@ -597,6 +606,15 @@ namespace Resources {
         internal static string PurchaseMgtString {
             get {
                 return ResourceManager.GetString("PurchaseMgtString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查詢類似 Received 的當地語系化字串。
+        /// </summary>
+        internal static string ReceivedString {
+            get {
+                return ResourceManager.GetString("ReceivedString", resourceCulture);
             }
         }
         
