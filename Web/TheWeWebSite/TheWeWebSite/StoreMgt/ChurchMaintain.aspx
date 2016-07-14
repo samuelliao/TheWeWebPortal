@@ -166,7 +166,7 @@
                             <div class="row">
                                 <div class="12u">
 
-                                    <div class="row uniform 50%">
+                                    <div class="row uniform 80%">
                                         <div class="6u 12u(mobilep)">
                                             <div class="select-wrapper">
                                                 <asp:DropDownList runat="server" ID="ddlCountry" OnSelectedIndexChanged="ddlCountry_SelectedIndexChanged" AutoPostBack="true" />
@@ -180,7 +180,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="row uniform 50%">
+                                    <div class="row uniform 80%">
                                         <div class="6u 12u(mobilep)">
                                             <div class="select-wrapper">
                                                 <asp:DropDownList runat="server" ID="ddlChruch" OnSelectedIndexChanged="ddlChruch_SelectedIndexChanged" AutoPostBack="true" />
@@ -188,9 +188,24 @@
                                         </div>
                                     </div>
 
-                                    <div class="row uniform 50%">
+                                    <div class="row uniform 80%">
                                         <div class="12u">
-                                            <textarea name="message" id="message" placeholder="備註..." rows="6"></textarea>
+                                            <div class="6u 12u(mobilep)">
+                                                <div class="select-wrapper">
+                                                    <asp:DropDownList runat="server" Width="80%" ID="ddlLang" />     
+                                                    </div>
+                                               </div>
+                                            <div class="6u 12u(mobilep)">
+                                                <div class="select-wrapper">
+                                                    <asp:TextBox runat="server" ID="tbChurchName" Width="80%" TextMode="SingleLine" placeholder="<%$ Resources:Resource,ChurchNameInputString%>" />
+                                                    </div>
+                                                </div>
+                                                <div class="6u 12u(mobilep)">
+                                                    <div class="select-wrapper">
+                                                    <asp:TextBox runat="server" ID="tbRemark" Width="80%" placeholder="<%$ Resources:Resource,RemarkString%>" TextMode="MultiLine" Rows="6" />                                                    
+                                                        </div>
+                                                </div>
+                                            </ul>
                                         </div>
                                     </div>
 
@@ -202,16 +217,16 @@
                                                         ID="btnSearch" OnClick="btnSearch_Click" />
                                                 </li>
                                                 <li>
-                                                    <asp:Button runat="server" CssClass="button alt" Text="<%$ Resources:Resource,CreateString%>" />
+                                                    <asp:Button runat="server" CssClass="button alt" Text="<%$ Resources:Resource,CreateString%>"
+                                                        ID="btnCreate" OnClick="btnCreate_Click" />
                                                 </li>
                                                 <li>
-                                                    <asp:Button runat="server" CssClass="button alt" Text="<%$ Resources:Resource,ModifyString%>" />
+                                                    <asp:Button runat="server" CssClass="button alt" Text="<%$ Resources:Resource,ClearString%>" 
+                                                        ID ="btnClear" OnClick="btnClear_Click" />
                                                 </li>
                                                 <li>
-                                                    <asp:Button runat="server" CssClass="button alt" Text="清除" />
-                                                </li>
-                                                <li>
-                                                    <asp:Button runat="server" CssClass="button alt" Text="<%$ Resources:Resource,DeleteString%>" />
+                                                    <asp:Button runat="server" CssClass="button alt" Text="<%$ Resources:Resource,DeleteString%>"
+                                                        ID="btnDelete" OnClick="btnDelete_Click" />
                                                 </li>
                                             </ul>
                                         </div>
@@ -231,14 +246,14 @@
                                             AllowSorting="true" OnEditCommand="dgChurch_EditCommand" OnCancelCommand="dgChurch_CancelCommand"
                                             OnDeleteCommand="dgChurch_DeleteCommand" OnPageIndexChanged="dgChurch_PageIndexChanged"
                                             OnUpdateCommand="dgChurch_UpdateCommand" AutoGenerateColumns="false" OnItemDataBound="dgChurch_ItemDataBound"
-                                            DataKeyField="Id">
+                                            DataKeyField="Id" Font-Size="Medium">
                                             <HeaderStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                             <FooterStyle BackColor="White" VerticalAlign="Middle" HorizontalAlign="Center" />
                                             <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                             <Columns>
                                                 <asp:BoundColumn HeaderText="Id" DataField="Id" Visible="false" />
                                                 <asp:BoundColumn HeaderText="CountryId" DataField="CountryId" Visible="false" />
-                                                <asp:BoundColumn HeaderText="AreaId" DataField="AreaId" Visible="false" />                                                 
+                                                <asp:BoundColumn HeaderText="AreaId" DataField="AreaId" Visible="false" />
                                                 <asp:TemplateColumn HeaderText="<%$ Resources:Resource,CountryString%>">
                                                     <EditItemTemplate>
                                                         <asp:DropDownList runat="server" ID="dgDdlCountry" OnSelectedIndexChanged="dgDdlCountry_SelectedIndexChanged" AutoPostBack="true" />
@@ -261,8 +276,7 @@
                                                 <asp:BoundColumn HeaderText="<%$ Resources:Resource,JpNameString%>" DataField="JpName" />
                                                 <asp:BoundColumn HeaderText="<%$ Resources:Resource,CapacitiesString%>" DataField="Capacities" />
                                                 <asp:BoundColumn HeaderText="<%$ Resources:Resource,PriceString%>" DataField="Price" />
-                                                <asp:BoundColumn HeaderText="<%$ Resources:Resource,RemarkString%>" DataField="Remark">                                                    
-                                                </asp:BoundColumn>
+                                                <asp:BoundColumn HeaderText="<%$ Resources:Resource,RemarkString%>" DataField="Remark"></asp:BoundColumn>
                                                 <asp:TemplateColumn HeaderText="<%$ Resources:Resource,MealString%>" Visible="false">
                                                     <EditItemTemplate>
                                                         <asp:Image runat="server" ID="ImgMealUpload" />

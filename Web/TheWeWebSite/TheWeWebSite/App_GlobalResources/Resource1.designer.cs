@@ -160,11 +160,38 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   查詢類似 Please input church name 的當地語系化字串。
+        /// </summary>
+        internal static string ChurchNameInputString {
+            get {
+                return ResourceManager.GetString("ChurchNameInputString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查詢類似 Church Name 的當地語系化字串。
+        /// </summary>
+        internal static string ChurchNameString {
+            get {
+                return ResourceManager.GetString("ChurchNameString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查詢類似 Select a church 的當地語系化字串。
         /// </summary>
         internal static string ChurchSelectRemindString {
             get {
                 return ResourceManager.GetString("ChurchSelectRemindString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查詢類似 Clear 的當地語系化字串。
+        /// </summary>
+        internal static string ClearString {
+            get {
+                return ResourceManager.GetString("ClearString", resourceCulture);
             }
         }
         
@@ -349,6 +376,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   查詢類似 English 的當地語系化字串。
+        /// </summary>
+        internal static string EnglishString {
+            get {
+                return ResourceManager.GetString("EnglishString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查詢類似 English Name 的當地語系化字串。
         /// </summary>
         internal static string EngNameString {
@@ -367,11 +403,29 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   查詢類似 Japanese 的當地語系化字串。
+        /// </summary>
+        internal static string JapaneseString {
+            get {
+                return ResourceManager.GetString("JapaneseString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查詢類似 Japanese Name 的當地語系化字串。
         /// </summary>
         internal static string JpNameString {
             get {
                 return ResourceManager.GetString("JpNameString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查詢類似 Language Code 的當地語系化字串。
+        /// </summary>
+        internal static string LangCodeString {
+            get {
+                return ResourceManager.GetString("LangCodeString", resourceCulture);
             }
         }
         
@@ -619,6 +673,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   查詢類似 Simplified Chinese 的當地語系化字串。
+        /// </summary>
+        internal static string SimplifiedChineseString {
+            get {
+                return ResourceManager.GetString("SimplifiedChineseString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查詢類似 SNS 的當地語系化字串。
         /// </summary>
         internal static string SNSMgtString {
@@ -678,6 +741,15 @@ namespace Resources {
         internal static string TimetableMaintainString {
             get {
                 return ResourceManager.GetString("TimetableMaintainString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查詢類似 Traditional Chinese 的當地語系化字串。
+        /// </summary>
+        internal static string TraditionalChineseString {
+            get {
+                return ResourceManager.GetString("TraditionalChineseString", resourceCulture);
             }
         }
         

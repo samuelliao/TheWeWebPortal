@@ -333,4 +333,28 @@
   <data name="CnNameString" xml:space="preserve">
     <value>Simplified Chinese Name</value>
   </data>
+  <data name="ChurchNameString" xml:space="preserve">
+    <value>Church Name</value>
+  </data>
+  <data name="LangCodeString" xml:space="preserve">
+    <value>Language Code</value>
+  </data>
+  <data name="ChurchNameInputString" xml:space="preserve">
+    <value>Please input church name</value>
+  </data>
+  <data name="EnglishString" xml:space="preserve">
+    <value>English</value>
+  </data>
+  <data name="TraditionalChineseString" xml:space="preserve">
+    <value>Traditional Chinese</value>
+  </data>
+  <data name="SimplifiedChineseString" xml:space="preserve">
+    <value>Simplified Chinese</value>
+  </data>
+  <data name="JapaneseString" xml:space="preserve">
+    <value>Japanese</value>
+  </data>
+  <data name="ClearString" xml:space="preserve">
+    <value>Clear</value>
+  </data>
 </root>

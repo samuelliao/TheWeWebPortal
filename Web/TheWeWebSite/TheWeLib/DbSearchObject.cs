@@ -124,10 +124,10 @@ namespace TheWeLib
     }
 
     public enum LanguageCode
-    {
-        en = 0,
-        zhTW =1,
-        zhCN = 2,
+    {         
+        zhTW =0,
+        zhCN = 1,
+        en = 2,
         jaJP = 3
     }
 

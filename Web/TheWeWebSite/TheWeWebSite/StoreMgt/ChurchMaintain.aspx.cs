@@ -29,13 +29,21 @@ namespace TheWeWebSite.StoreMgt
 
         private void InitialAllList()
         {
-            //ddlArea.SelectedIndexChanged += ddlArea_SelectedIndexChanged;
-            //ddlCountry.SelectedIndexChanged += ddlCountry_SelectedIndexChanged;
-            //ddlChruch.SelectedIndexChanged += ddlChruch_SelectedIndexChanged;
             GetCountryList();
             GetAreaList(string.Empty);
             GetChurchList(string.Empty, string.Empty, string.Empty);
             RefreshChurchDropDownList();
+            InitialLangList();
+        }
+
+        private void InitialLangList()
+        {
+            ddlLang.Items.Clear();
+            ddlLang.Items.Add(new ListItem(Resources.Resource.TraditionalChineseString, "zh-TW"));
+            ddlLang.Items.Add(new ListItem(Resources.Resource.SimplifiedChineseString, "zh-CN"));
+            ddlLang.Items.Add(new ListItem(Resources.Resource.EnglishString, "en"));
+            ddlLang.Items.Add(new ListItem(Resources.Resource.JapaneseString, "ja-JP"));
+            ddlLang.SelectedIndex = new ResourceUtil().OutputLangNameNumber(SysProperty.CultureCode);
         }
 
         private void GetCountryList()
@@ -72,7 +80,7 @@ namespace TheWeWebSite.StoreMgt
                 foreach (DataRow dr in AreaDataSet.Tables[0].Rows)
                 {
                     ddlArea.Items.Add(new ListItem(
-                        SysProperty.Util.OutputRelatedLangName(dr)                        
+                        SysProperty.Util.OutputRelatedLangName(dr)
                         , dr["Id"].ToString(), true));
                 }
             }
@@ -98,7 +106,6 @@ namespace TheWeWebSite.StoreMgt
 
         private void GetChurchList(string countryId, string areaId, string churchId)
         {
-
             try
             {
                 List<DbSearchObject> lst = new List<DbSearchObject>();
@@ -146,17 +153,13 @@ namespace TheWeWebSite.StoreMgt
 
         }
         #endregion
-
-
-
-
-
+        
+        #region DataGrid Control
         private void BindData()
         {
             GetChurchList(ddlCountry.SelectedValue, ddlArea.SelectedValue, ddlChruch.SelectedValue);
             dgChurch.DataSource = ChurchDataSet;
             dgChurch.DataBind();
-
         }
 
         protected void dgChurch_EditCommand(object source, DataGridCommandEventArgs e)
@@ -174,13 +177,13 @@ namespace TheWeWebSite.StoreMgt
         protected void dgChurch_DeleteCommand(object source, DataGridCommandEventArgs e)
         {
             string id = (string)dgChurch.DataKeys[(int)e.Item.ItemIndex];
-            string sqlTxt = "Delete from " + SysProperty.Util.MsSqlTableConverter(MsSqlTable.Church) + " Where Id ='" + id + "'";
+            string sqlTxt = "Delete from " + SysProperty.Util.MsSqlTableConverter(MsSqlTable.Church)
+                + " Where Id ='" + id + "'";
             if (SysProperty.GenDbCon.ModifyDataInToTable(sqlTxt))
             {
                 BindData();
                 RefreshChurchDropDownList();
             }
-
         }
 
         protected void dgChurch_PageIndexChanged(object source, DataGridPageChangedEventArgs e)
@@ -193,7 +196,7 @@ namespace TheWeWebSite.StoreMgt
         {
             DropDownList ddl1 = (DropDownList)dgChurch.Items[dgChurch.EditItemIndex].FindControl("dgDdlCountry");
             DropDownList ddl2 = (DropDownList)dgChurch.Items[dgChurch.EditItemIndex].FindControl("dgDdlArea");
-            
+
             List<DbSearchObject> updateLst = new List<DbSearchObject>();
             updateLst.Add(new DbSearchObject("CountryId", AtrrTypeItem.String, AttrSymbolItem.Equal, ddl1.SelectedValue));
             updateLst.Add(new DbSearchObject("AreaId", AtrrTypeItem.String, AttrSymbolItem.Equal, ddl2.SelectedValue));
@@ -213,14 +216,7 @@ namespace TheWeWebSite.StoreMgt
                 dgChurch.EditItemIndex = -1;
                 BindData();
             }
-            
         }
-
-        protected void btnSearch_Click(object sender, EventArgs e)
-        {
-            BindData();
-        }
-
         protected void dgChurch_ItemDataBound(object sender, DataGridItemEventArgs e)
         {
             DataRowView dataItem1 = (DataRowView)e.Item.DataItem;
@@ -260,7 +256,6 @@ namespace TheWeWebSite.StoreMgt
                 }
             }
         }
-
         protected void dgDdlCountry_SelectedIndexChanged(object sender, EventArgs e)
         {
             DropDownList ddl = (DropDownList)dgChurch.Items[dgChurch.EditItemIndex].FindControl("dgDdlArea");
@@ -273,5 +268,71 @@ namespace TheWeWebSite.StoreMgt
                 ddl.Items.Add(new ListItem(SysProperty.Util.OutputRelatedLangName(dr), dr["Id"].ToString()));
             }
         }
+        #endregion
+
+        #region Button Control
+        protected void btnSearch_Click(object sender, EventArgs e)
+        {
+            BindData();
+        }
+
+        protected void btnClear_Click(object sender, EventArgs e)
+        {
+            tbChurchName.Text = string.Empty;
+            tbRemark.Text = string.Empty;
+        }
+
+        protected void btnDelete_Click(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(ddlChruch.SelectedValue))
+            {
+                string sqlTxt = "Delete From Church Where Id = '" + ddlChruch.SelectedValue + "'";
+                if (SysProperty.GenDbCon.ModifyDataInToTable(sqlTxt))
+                {
+                    GetChurchList(ddlCountry.SelectedValue, ddlArea.SelectedValue, string.Empty);
+                    RefreshChurchDropDownList();
+                }
+            }
+        }
+
+        protected void btnCreate_Click(object sender, EventArgs e)
+        {
+            List<DbSearchObject> lst = new List<DbSearchObject>();
+            lst.Add(new DbSearchObject(
+                new ResourceUtil().OutputLangNameToAttrName(ddlLang.SelectedValue)
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , tbChurchName.Text)
+                );
+            lst.Add(new DbSearchObject(
+                "CountryId"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , ddlCountry.SelectedValue)
+                );
+            lst.Add(new DbSearchObject(
+                "AreaId"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , ddlArea.SelectedValue)
+                );
+            lst.Add(new DbSearchObject(
+                "Remark"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , tbRemark.Text)
+                );
+
+            if (SysProperty.GenDbCon.InsertDataInToTable(
+                SysProperty.Util.MsSqlTableConverter(MsSqlTable.Church)
+                , SysProperty.Util.SqlQueryInsertInstanceConverter(lst)
+                , SysProperty.Util.SqlQueryInsertValueConverter(lst)                
+                ))
+            {
+                GetChurchList(ddlCountry.SelectedValue, ddlArea.SelectedValue, string.Empty);
+                RefreshChurchDropDownList();
+            }
+        }
+        #endregion
     }
 }

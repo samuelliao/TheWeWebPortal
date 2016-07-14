@@ -56,7 +56,7 @@
                             </ul>
                         </li>
                         <li>
-                            <asp:LinkButton runat="server" Text="<%$ Resources:Resource,StoreMgtString%>" PostBackUrl="~/StoreMgt/ItemMaintain.aspx" ID="LinkItemMaintain" />                            
+                            <asp:LinkButton runat="server" Text="<%$ Resources:Resource,StoreMgtString%>" PostBackUrl="~/StoreMgt/ItemMaintain.aspx" ID="LinkItemMaintain" />
                             <ul>
                                 <li>
                                     <asp:LinkButton runat="server" Text="<%$ Resources:Resource,ProductMaintainString%>" PostBackUrl="~/StoreMgt/ItemMaintain.aspx" ID="LinkProductMgt" />
@@ -82,7 +82,7 @@
                             </ul>
                         </li>
                         <li>
-                            <asp:LinkButton runat="server" Text="<%$ Resources:Resource,OrderMgtString%>" PostBackUrl="~/CaseMgt/CustomerMaintain.aspx" ID="LinkCaseMgt" />                            
+                            <asp:LinkButton runat="server" Text="<%$ Resources:Resource,OrderMgtString%>" PostBackUrl="~/CaseMgt/CustomerMaintain.aspx" ID="LinkCaseMgt" />
                             <ul>
                                 <li>
                                     <asp:LinkButton runat="server" Text="<%$ Resources:Resource,CustomerMaintainString%>" PostBackUrl="~/CaseMgt/CustomerMaintain.aspx" ID="LinkCustomerMaintain" />
@@ -166,16 +166,16 @@
 
                             <div class="row uniform 50%">
                                 <div class="6u 12u(mobilep)">
-                                    <asp:TextBox runat="server" placeholder="請輸入諮詢案號..."></asp:TextBox>
+                                    <asp:TextBox runat="server" placeholder="請輸入諮詢案號..." ID="tbConsultId"></asp:TextBox>
 
                                 </div>
                                 <div class="6u 12u(mobilep)">
-                                    <asp:TextBox runat="server" placeholder="請輸入新娘姓名..."></asp:TextBox>
+                                    <asp:TextBox runat="server" placeholder="請輸入新娘姓名..." ID="tbBridalName"></asp:TextBox>
                                 </div>
                             </div>
                             <div class="row uniform 50%">
                                 <div class="6u 12u(mobilep)">
-                                    <asp:TextBox runat="server" placeholder="請輸入新郎姓名..."></asp:TextBox>
+                                    <asp:TextBox runat="server" placeholder="請輸入新郎姓名..." ID="tbGroomName"></asp:TextBox>
                                 </div>
                             </div>
 
@@ -202,9 +202,22 @@
                     <div class="row">
                         <div class="12u">
 
-                            <h4>搜尋結果</h4>
+                            <h4><%$ Resources:Resource,ResultString%>"></h4>
                             <hr />
                             <div class="table-wrapper">
+                                <asp:DataGrid runat="server" ID="dgConsult" AllowPaging="true" AllowSorting="true"
+                                     DataKeyField="Id" Font-Size="Medium" AutoGenerateColumns="false"                                    
+                                    OnPageIndexChanged="dgConsult_PageIndexChanged" OnItemDataBound="dgConsult_ItemDataBound">
+                                    <HeaderStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                    <Columns>
+                                        <asp:BoundColumn Visible="false" DataField="Id" />
+                                        <asp:BoundColumn HeaderText="<%$ Resources:Resource,SnString%>>" DataField="Sn" />
+                                        <asp:BoundColumn HeaderText="" DataField="" />
+                                        <asp:BoundColumn HeaderText="" DataField="EmployeeName" Visible="false" />
+                                        <asp:BoundColumn HeaderText="" DataField="EmployeeName" Visible="false" />
+                                    </Columns>
+                                </asp:DataGrid>
                                 <table class="alt">
                                     <thead>
                                         <tr>

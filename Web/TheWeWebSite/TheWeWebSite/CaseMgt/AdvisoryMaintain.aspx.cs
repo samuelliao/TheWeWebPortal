@@ -13,5 +13,15 @@ namespace TheWeWebSite.CaseMgt
         {
 
         }
+
+        protected void dgConsult_PageIndexChanged(object source, DataGridPageChangedEventArgs e)
+        {
+
+        }
+
+        protected void dgConsult_ItemDataBound(object sender, DataGridItemEventArgs e)
+        {
+
+        }
     }
 }

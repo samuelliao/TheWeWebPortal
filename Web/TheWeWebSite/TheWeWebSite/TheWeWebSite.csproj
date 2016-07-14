@@ -221,6 +221,7 @@
       <DependentUpon>remind.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ResourceUtil.cs" />
     <Compile Include="StoreMgt\ChurchMaintain.aspx.cs">
       <DependentUpon>ChurchMaintain.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
