@@ -82,6 +82,7 @@
     <Content Include="CaseMgt\CustomerMaintain.aspx" />
     <Content Include="CaseMgt\TimeMaintain.aspx" />
     <Content Include="css\main.css" />
+    <Content Include="Header.ascx" />
     <Content Include="img\bg_top.jpg" />
     <Content Include="Login.aspx" />
     <Content Include="Main\Calendar.aspx" />
@@ -170,6 +171,13 @@
     </Compile>
     <Compile Include="CaseMgt\TimeMaintain.aspx.designer.cs">
       <DependentUpon>TimeMaintain.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Header.ascx.cs">
+      <DependentUpon>Header.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Header.ascx.designer.cs">
+      <DependentUpon>Header.ascx</DependentUpon>
     </Compile>
     <Compile Include="Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>
