@@ -99,9 +99,6 @@
                             </ul>
                         </li>
                         <li>
-                            <asp:LinkButton runat="server" Text="<%$ Resources:Resource,SearchMgtString%>" ID="LinkSearchMgt" />
-                        </li>
-                        <li>
                             <asp:LinkButton runat="server" Text="<%$ Resources:Resource,PurchaseMgtString%>" ID="LinkPuchaseMgt" />
                         </li>
                         <li>
@@ -126,115 +123,101 @@
                                     <asp:LinkButton runat="server" Text="<%$ Resources:Resource,SNSMgtString%>" ID="LinkMsgMaintain" PostBackUrl="~/SysMgt/MsgMaintain.aspx" />
                                 </li>
                                 <li>
+                                    <asp:LinkButton runat="server" Text="<%$ Resources:Resource,CountryString%>" ID="LinkCountryMaintain" PostBackUrl="~/SysMgt/CountryMaintain.aspx" />
+                                </li>
+                                <li>
+                                    <asp:LinkButton runat="server" Text="<%$ Resources:Resource,AreaString%>" ID="LinkAreaMaintain" PostBackUrl="~/SysMgt/AreaMaintain.aspx" />
+                                </li>
+                                <li>
+                                    <asp:LinkButton runat="server" Text="<%$ Resources:Resource,UnitString%>" ID="LinkUnitMaintain" PostBackUrl="~/SysMgt/UnitMaintain.aspx" />
+                                </li>
+                                <li>
                                     <asp:LinkButton runat="server" Text="<%$ Resources:Resource,CurrencyString%>" ID="LinkDollarMaintain" PostBackUrl="~/SysMgt/DollarMaintain.aspx" />
                                 </li>
                             </ul>
                         </li>
-                        <li><a>
+                        <li>
                             <asp:LinkButton runat="server" Text="<%$ Resources:Resource,LogoutString%>" ID="LinkLogout" PostBackUrl="~/Login.aspx" />
                         </li>
                     </ul>
                 </nav>
             </header>
 
-            <!-- Banner -->
-            <section id="banner">
-                <h2>
-                    <asp:Label runat="server" Text="The We Wedding"></asp:Label></h2>
-                <p>
-                    <asp:Label runat="server" Text="<%$ Resources:Resource,OrderMgtString%>"></asp:Label>
-                </p>
-
-            </section>
 
             <!-- Main -->
 
-            <section id="main" class="container">
+            <section id="main">
 
                 <!-- Text -->
+                <section class="box title">
+                    <h3>
+                        <asp:Label runat="server" Text="案件管理&nbsp;&nbsp;>&nbsp;&nbsp;未簽約維護(待修改)"></asp:Label></h3>
+                </section>
+                <!-- Input -->
+
                 <section class="box special">
-                    <header class="major">
-                        <h3>
-                            <asp:Label runat="server" Text="<%$ Resources:Resource,ConsultMaintainString%>"></asp:Label></h3>
-                        <hr />
-                    </header>
+                    <div class="12u">
 
-                    <!-- Input -->
+                        <div class="row uniform 50%">
+                            <div class="4u 12u(mobilep)">
+                                <div class="Div">
+                                        <asp:Label runat="server" Text="諮詢編號"></asp:Label>
+                                    </div>
+                                <asp:TextBox runat="server" placeholder="請輸入諮詢案號..." ID="tbConsultId"></asp:TextBox>
 
-                    <div class="row">
-                        <div class="12u">
-
-                            <div class="row uniform 50%">
-                                <div class="6u 12u(mobilep)">
-                                    <asp:TextBox runat="server" placeholder="請輸入諮詢案號..." ID="tbConsultId"></asp:TextBox>
-
-                                </div>
-                                <div class="6u 12u(mobilep)">
-                                    <asp:TextBox runat="server" placeholder="請輸入新娘姓名..." ID="tbBridalName"></asp:TextBox>
-                                </div>
                             </div>
-                            <div class="row uniform 50%">
-                                <div class="6u 12u(mobilep)">
-                                    <asp:TextBox runat="server" placeholder="請輸入新郎姓名..." ID="tbGroomName"></asp:TextBox>
-                                </div>
+                            <div class="4u 12u(mobilep)">
+                                <div class="Div">
+                                        <asp:Label runat="server" Text="新娘姓名"></asp:Label>
+                                    </div>
+                                <asp:TextBox runat="server" placeholder="請輸入新娘姓名..." ID="tbBridalName"></asp:TextBox>
                             </div>
-
-
-                            <div class="row uniform">
-                                <div class="12u">
-                                    <ul class="actions">
-                                        <li>
-                                            <asp:Button runat="server" CssClass="button alt" Text="<%$ Resources:Resource,SearchString%>" />
-                                        </li>
-                                    </ul>
-                                </div>
+                            <div class="4u 12u(mobilep)">
+                                <div class="Div">
+                                        <asp:Label runat="server" Text="新郎姓名"></asp:Label>
+                                    </div>
+                                <asp:TextBox runat="server" placeholder="請輸入新郎姓名..." ID="tbGroomName"></asp:TextBox>
                             </div>
-
-                            <hr />
-
-
-
                         </div>
+
                     </div>
+
+                    <!-- Btn -->
+                    <div class="Div btn">
+                        <ul class="actions">
+
+                            <li>
+                                <asp:Button runat="server" Text="<%$ Resources:Resource,CreateString%>" ID="LinkAdvisoryMCreate" PostBackUrl="~/CaseMgt/AdvisoryMCreate.aspx" />
+                            </li>
+                            <li>
+                                <asp:Button runat="server" CssClass="button alt" Text="<%$ Resources:Resource,SearchString%>" />
+                            </li>
+
+                        </ul>
+                    </div>
+
+                    <hr />
 
                     <!-- Table -->
 
                     <div class="row">
                         <div class="12u">
 
-                            <h4><%$ Resources:Resource,ResultString%>"></h4>
-                            <hr />
                             <div class="table-wrapper">
-                                <asp:DataGrid runat="server" ID="dgConsult" AllowPaging="true" AllowSorting="true"
-                                     DataKeyField="Id" Font-Size="Medium" AutoGenerateColumns="false"                                    
-                                    OnPageIndexChanged="dgConsult_PageIndexChanged" OnItemDataBound="dgConsult_ItemDataBound">
-                                    <HeaderStyle VerticalAlign="Middle" HorizontalAlign="Center" />
-                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
-                                    <Columns>
-                                        <asp:BoundColumn Visible="false" DataField="Id" />
-                                        <asp:BoundColumn HeaderText="<%$ Resources:Resource,SnString%>>" DataField="Sn" />
-                                        <asp:BoundColumn HeaderText="EmployeeId" DataField="EmployeeId" Visible="false" />
-                                        <asp:BoundColumn HeaderText="EmployeeName" DataField="EmployeeName" Visible="true" />
-                                        <asp:BoundColumn HeaderText="" DataField="EmployeeName" Visible="false" />
-                                        <asp:BoundColumn HeaderText="" DataField="Phone" Visible="true" />
-                                        <asp:BoundColumn HeaderText="" DataField="EmployeeName" Visible="true" />
-                                        <asp:BoundColumn HeaderText="<%$ Resources:Resource,ContentString%>>" DataField="Content" Visible="true" />
-                                        <asp:BoundColumn HeaderText="" DataField="EmployeeName" Visible="true" />
-                                        <asp:BoundColumn HeaderText="<%$ Resources:Resource,RemarkString%>>" DataField="Remark" Visible="true" />
-                                        <asp:BoundColumn HeaderText="" DataField="EmployeeName" Visible="true" />
-                                        <asp:BoundColumn HeaderText="" DataField="EmployeeName" Visible="true" />
-                                    </Columns>
-                                </asp:DataGrid>
                                 <table class="alt">
                                     <thead>
                                         <tr>
-                                            <th>SEQ</th>
-                                            <th>諮詢日期</th>
-                                            <th>顧問</th>
-                                            <th>會議內容</th>
-                                            <th>下次會議日期</th>
-                                            <th>下次會議內容</th>
-                                            <th>備註</th>
+                                            <th>諮詢編號</th>
+                                            <th>案件編號</th>
+                                            <th>開案日期</th>
+                                            <th>會員編號</th>
+                                            <th>狀態</th>
+                                            <th>結案日期</th>
+                                            <th>國家</th>
+                                            <th>地區</th>
+                                            <th>地點</th>
+                                            <th>套餐</th>
+
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -246,11 +229,17 @@
                                             <td>1234321</td>
                                             <td>1234321</td>
                                             <td>1234321</td>
+                                            <td>1234321</td>
+                                            <td>1234321</td>
+                                            <td>1234321</td>
                                         </tr>
                                         <tr>
                                             <td>CU00001</td>
                                             <td>Joye</td>
                                             <td>小讌</td>
+                                            <td>1234321</td>
+                                            <td>1234321</td>
+                                            <td>1234321</td>
                                             <td>1234321</td>
                                             <td>1234321</td>
                                             <td>1234321</td>
@@ -263,16 +252,15 @@
                             <hr />
                         </div>
                     </div>
-
-
-
-
                 </section>
+
+
 
 
             </section>
 
-            <!-- CTA -->
+
+
 
 
             <!-- Footer -->

@@ -220,15 +220,6 @@ namespace TheWeWebSite.CaseMgt {
         protected global::System.Web.UI.WebControls.LinkButton LinkTimeMaintain;
         
         /// <summary>
-        /// LinkSearchMgt 控制項。
-        /// </summary>
-        /// <remarks>
-        /// 自動產生的欄位。
-        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton LinkSearchMgt;
-        
-        /// <summary>
         /// LinkPuchaseMgt 控制項。
         /// </summary>
         /// <remarks>
@@ -301,6 +292,33 @@ namespace TheWeWebSite.CaseMgt {
         protected global::System.Web.UI.WebControls.LinkButton LinkMsgMaintain;
         
         /// <summary>
+        /// LinkCountryMaintain 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton LinkCountryMaintain;
+        
+        /// <summary>
+        /// LinkAreaMaintain 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton LinkAreaMaintain;
+        
+        /// <summary>
+        /// LinkUnitMaintain 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton LinkUnitMaintain;
+        
+        /// <summary>
         /// LinkDollarMaintain 控制項。
         /// </summary>
         /// <remarks>
@@ -346,12 +364,12 @@ namespace TheWeWebSite.CaseMgt {
         protected global::System.Web.UI.WebControls.TextBox tbGroomName;
         
         /// <summary>
-        /// dgConsult 控制項。
+        /// LinkAdvisoryMCreate 控制項。
         /// </summary>
         /// <remarks>
         /// 自動產生的欄位。
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DataGrid dgConsult;
+        protected global::System.Web.UI.WebControls.Button LinkAdvisoryMCreate;
     }
 }
