@@ -164,7 +164,7 @@
                     <div class="row">
                         <div class="12u">
 
-                            <div class="row uniform 50%">
+                            <div class="row uniform 80%">
                                 <div class="6u 12u(mobilep)">
                                     <asp:TextBox runat="server" placeholder="請輸入禮服編號..."></asp:TextBox>
                                 </div>

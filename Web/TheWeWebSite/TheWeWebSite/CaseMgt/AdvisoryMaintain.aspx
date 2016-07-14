@@ -213,9 +213,16 @@
                                     <Columns>
                                         <asp:BoundColumn Visible="false" DataField="Id" />
                                         <asp:BoundColumn HeaderText="<%$ Resources:Resource,SnString%>>" DataField="Sn" />
-                                        <asp:BoundColumn HeaderText="" DataField="" />
+                                        <asp:BoundColumn HeaderText="EmployeeId" DataField="EmployeeId" Visible="false" />
+                                        <asp:BoundColumn HeaderText="EmployeeName" DataField="EmployeeName" Visible="true" />
                                         <asp:BoundColumn HeaderText="" DataField="EmployeeName" Visible="false" />
-                                        <asp:BoundColumn HeaderText="" DataField="EmployeeName" Visible="false" />
+                                        <asp:BoundColumn HeaderText="" DataField="Phone" Visible="true" />
+                                        <asp:BoundColumn HeaderText="" DataField="EmployeeName" Visible="true" />
+                                        <asp:BoundColumn HeaderText="<%$ Resources:Resource,ContentString%>>" DataField="Content" Visible="true" />
+                                        <asp:BoundColumn HeaderText="" DataField="EmployeeName" Visible="true" />
+                                        <asp:BoundColumn HeaderText="<%$ Resources:Resource,RemarkString%>>" DataField="Remark" Visible="true" />
+                                        <asp:BoundColumn HeaderText="" DataField="EmployeeName" Visible="true" />
+                                        <asp:BoundColumn HeaderText="" DataField="EmployeeName" Visible="true" />
                                     </Columns>
                                 </asp:DataGrid>
                                 <table class="alt">

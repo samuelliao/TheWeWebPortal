@@ -15,7 +15,7 @@
         <div id="page-wrapper">
 
             <!-- Header -->
-           <header id="header">
+            <header id="header">
                 <h1>
                     <asp:Label runat="server" Text="台北"></asp:Label></h1>
 
@@ -56,7 +56,7 @@
                             </ul>
                         </li>
                         <li>
-                            <asp:LinkButton runat="server" Text="<%$ Resources:Resource,StoreMgtString%>" PostBackUrl="~/StoreMgt/ItemMaintain.aspx" ID="LinkItemMaintain" />                            
+                            <asp:LinkButton runat="server" Text="<%$ Resources:Resource,StoreMgtString%>" PostBackUrl="~/StoreMgt/ItemMaintain.aspx" ID="LinkItemMaintain" />
                             <ul>
                                 <li>
                                     <asp:LinkButton runat="server" Text="<%$ Resources:Resource,ProductMaintainString%>" PostBackUrl="~/StoreMgt/ItemMaintain.aspx" ID="LinkProductMgt" />
@@ -82,7 +82,7 @@
                             </ul>
                         </li>
                         <li>
-                            <asp:LinkButton runat="server" Text="<%$ Resources:Resource,OrderMgtString%>" PostBackUrl="~/CaseMgt/CustomerMaintain.aspx" ID="LinkCaseMgt" />                            
+                            <asp:LinkButton runat="server" Text="<%$ Resources:Resource,OrderMgtString%>" PostBackUrl="~/CaseMgt/CustomerMaintain.aspx" ID="LinkCaseMgt" />
                             <ul>
                                 <li>
                                     <asp:LinkButton runat="server" Text="<%$ Resources:Resource,CustomerMaintainString%>" PostBackUrl="~/CaseMgt/CustomerMaintain.aspx" ID="LinkCustomerMaintain" />
@@ -142,7 +142,7 @@
                 <h2>
                     <asp:Label runat="server" Text="The We Wedding"></asp:Label></h2>
                 <p>
-                    <asp:Label runat="server" Text="開店管理"></asp:Label>
+                    <asp:Label runat="server" Text="<%$ Resources:Resources,StoreMgtString%>"></asp:Label>
                 </p>
 
             </section>
@@ -155,7 +155,7 @@
                 <section class="box special">
                     <header class="major">
                         <h3>
-                            <asp:Label runat="server" Text="員工維護"></asp:Label></h3>
+                            <asp:Label runat="server" Text="<%$ Resources:Resource,EmployeeMaintainString%>"></asp:Label></h3>
                         <hr />
                     </header>
                     <!-- Input -->
@@ -183,12 +183,7 @@
                             <div class="row uniform 50%">
                                 <div class="6u 12u(mobilep)">
                                     <div class="select-wrapper">
-                                        <select>
-                                            <option value="">- 請選擇語系編號 -</option>
-                                            <option value="1">1</option>
-                                            <option value="1">2</option>
-                                            <option value="1">3</option>
-                                        </select>
+                                        <asp:DropDownList runat="server" ID="ddlLang" />
                                     </div>
                                 </div>
                                 <div class="6u 12u(mobilep)">
@@ -295,7 +290,7 @@
 
                             <div class="row uniform 50%">
                                 <div class="12u">
-                                    <textarea name="message" id="message" placeholder="備註..." rows="6"></textarea>
+                                    <textarea name="message" id="message" placeholder="<%$ Resources:Resource,RemarkString%>" rows="6"></textarea>
                                 </div>
                             </div>
 
@@ -305,19 +300,20 @@
                                 <div class="12u">
                                     <ul class="actions">
                                         <li>
-                                            <asp:Button runat="server" CssClass="button alt" Text="<%$ Resources:Resource,SearchString%>" />
+                                            <asp:Button runat="server" CssClass="button alt" Text="<%$ Resources:Resource,SearchString%>"
+                                                ID="btnSearch" OnClick="btnSearch_Click" />
                                         </li>
                                         <li>
-                                            <asp:Button runat="server" CssClass="button alt" Text="<%$ Resources:Resource,CreateString%>" />
+                                            <asp:Button runat="server" CssClass="button alt" Text="<%$ Resources:Resource,CreateString%>"
+                                                ID="btnCreate" OnClick="btnCreate_Click" />
                                         </li>
                                         <li>
-                                            <asp:Button runat="server" CssClass="button alt" Text="修改" />
+                                            <asp:Button runat="server" CssClass="button alt" Text="<%$ Resources:Resource,ClearString%>"
+                                                ID="btnClear" OnClick="btnClear_Click" />
                                         </li>
                                         <li>
-                                            <asp:Button runat="server" CssClass="button alt" Text="清除" />
-                                        </li>
-                                        <li>
-                                            <asp:Button runat="server" CssClass="button alt" Text="<%$ Resources:Resource,DeleteString%>" />
+                                            <asp:Button runat="server" CssClass="button alt" Text="<%$ Resources:Resource,DeleteString%>"
+                                                ID="btnDelete" OnClick="btnDelete_Click" />
                                         </li>
                                     </ul>
                                 </div>
@@ -333,9 +329,23 @@
 
                     <div class="row">
                         <div class="12u">
-                            <h4>搜尋結果</h4>
+                            <h4><%$ Resources:Resource,ResultString%></h4>
                             <hr />
                             <div class="table-wrapper">
+                                <asp:DataGrid runat="server" ID="dgEmployee" AllowPaging="true" AllowSorting="true" AutoGenerateColumns="false"
+                                    DataKeyField="Id" OnUpdateCommand="dgEmployee_UpdateCommand" OnDeleteCommand="dgEmployee_DeleteCommand"
+                                    OnCancelCommand="dgEmployee_CancelCommand" OnEditCommand="dgEmployee_EditCommand"
+                                    OnPageIndexChanged="dgEmployee_PageIndexChanged" OnItemDataBound="dgEmployee_ItemDataBound">
+                                    <HeaderStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                    <Columns>
+                                        <asp:BoundColumn Visible="false" HeaderText="Id" DataField="Id" />
+                                        <asp:BoundColumn HeaderText="<%$ Resources:Resource,SnString%>" DataField="Sn" />
+                                        <asp:BoundColumn HeaderText="<%$ Resources:Resource,NameString%>" DataField="Name" />
+                                        <asp:BoundColumn HeaderText="<%$ Resources:Resource,LogoutString%>" DataField="Account" />
+                                        <asp:BoundColumn HeaderText="<%$ Resources:Resource,PhoneString%>" DataField="Phone" />
+                                    </Columns>
+                                </asp:DataGrid>
                                 <table class="alt">
                                     <thead>
                                         <tr>
