@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="UnitMaintain.aspx.cs" Inherits="TheWeWebSite.SysMgt.UnitMaintain" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="CountryMaintain.aspx.cs" Inherits="TheWeWebSite.SysMgt.CountryMaintain" %>
 
 <%@ Register TagPrefix="My" TagName="Header" Src="~/Header.ascx" %>
 
@@ -27,7 +27,7 @@
                 <!-- Text -->
                 <section class="box title">
                     <h3>
-                        <asp:Label runat="server" Text="系統管理&nbsp;&nbsp;>&nbsp;&nbsp;單位(待修改)"></asp:Label></h3>
+                        <asp:Label runat="server" Text="系統管理&nbsp;&nbsp;>&nbsp;&nbsp;國家(待修改)"></asp:Label></h3>
                 </section>
                 <!-- Input -->
                 <section class="box special">
@@ -37,9 +37,15 @@
                             <div class="row uniform 50%">
                                 <div class="2u 12u(mobilep)">
                                     <div class="Div">
-                                        <asp:Label runat="server" Text="單位"></asp:Label>
+                                        <asp:Label runat="server" Text="國家"></asp:Label>
                                     </div>
-                                    <asp:TextBox runat="server" placeholder="請輸入單位..."></asp:TextBox>
+                                    <asp:TextBox runat="server" placeholder="請輸入國家..."></asp:TextBox>
+                                </div>
+                                <div class="2u 12u(mobilep)">
+                                    <div class="Div">
+                                        <asp:Label runat="server" Text="國別代碼"></asp:Label>
+                                    </div>
+                                    <asp:TextBox runat="server" placeholder="請輸入國別代碼..."></asp:TextBox>
                                 </div>
                                 <!-- Btn -->
 

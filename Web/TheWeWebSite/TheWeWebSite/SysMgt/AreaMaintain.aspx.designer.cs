@@ -10,7 +10,7 @@
 namespace TheWeWebSite.SysMgt {
     
     
-    public partial class CaseRootMaintain {
+    public partial class AreaMaintain {
         
         /// <summary>
         /// ucHeader 控制項。
