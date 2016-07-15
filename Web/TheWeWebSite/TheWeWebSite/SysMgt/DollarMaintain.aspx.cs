@@ -1,17 +1,149 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using TheWeLib;
 
 namespace TheWeWebSite.SysMgt
 {
     public partial class DollarMaintain : System.Web.UI.Page
     {
+        private DataSet CurrencyDataSet;
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if (!Page.IsPostBack)
+            {
+                if (SysProperty.Util == null) Response.Redirect("../Login.aspx", true);
+                else
+                {                    
+                    labelPageTitle.Text = Resources.Resource.SysMgtString + " > " + Resources.Resource.CurrencyString;
+                    BindData();
+                }
+            }
         }
+
+        protected void btnCreate_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(tbCurrency.Text) || string.IsNullOrEmpty(tbRate.Text)) { return; }
+            List<DbSearchObject> lst = new List<DbSearchObject>();
+            lst.Add(new DbSearchObject(
+                "Name"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , tbCurrency.Text)
+                );
+            lst.Add(new DbSearchObject(
+                "UpdateTime"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss"))
+                );
+            lst.Add(new DbSearchObject(
+                "UpdateAccId"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , SysProperty.AccountInfo["Id"].ToString())
+                );
+            lst.Add(new DbSearchObject(
+                "Rate"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , tbRate.Text)
+                );
+
+            if (SysProperty.GenDbCon.InsertDataInToTable(
+                SysProperty.Util.MsSqlTableConverter(MsSqlTable.Currency)
+                , SysProperty.Util.SqlQueryInsertInstanceConverter(lst)
+                , SysProperty.Util.SqlQueryInsertValueConverter(lst)
+                ))
+            {
+                BindData();
+                tbCurrency.Text = string.Empty;
+                tbRate.Text = string.Empty;
+            }
+        }
+        protected void btnClear_Click(object sender, EventArgs e)
+        {
+            tbCurrency.Text = string.Empty;
+            tbRate.Text = string.Empty;
+        }
+
+        private void BindData()
+        {
+            GetCurrencyList();
+            dgCurrency.DataSource = CurrencyDataSet;
+            dgCurrency.AllowPaging = !SysProperty.Util.IsDataSetEmpty(CurrencyDataSet);
+            dgCurrency.DataBind();
+        }
+
+        private void GetCurrencyList()
+        {
+            try
+            {
+                string sqlTxt = "SELECT c.[Id],c.Name,Rate,c.UpdateAccId,c.UpdateTime,c.IsDelete,e.Name as EmployeeName"
+                    + " FROM[TheWe].[dbo].[Currency] as c"
+                    + " inner join Employee as e on e.Id = c.UpdateAccId"
+                    + " WHERE c.IsDelete = 0";
+                CurrencyDataSet = SysProperty.GenDbCon.GetDataFromTable(sqlTxt);
+            }
+            catch (Exception ex)
+            {
+                SysProperty.Log.Error(ex.Message);
+                CurrencyDataSet = null;
+            }
+        }
+
+        #region DataGrid Control
+        protected void dgCurrency_CancelCommand(object source, DataGridCommandEventArgs e)
+        {
+            dgCurrency.EditItemIndex = -1;
+            BindData();
+        }
+
+        protected void dgCurrency_DeleteCommand(object source, DataGridCommandEventArgs e)
+        {
+            string id = dgCurrency.DataKeys[(int)e.Item.ItemIndex].ToString();
+            string sqlTxt = "UPDATE [dbo].[Currency] SET IsDelete = 1"
+                + ", UpdateAccId=N'" + SysProperty.AccountInfo["Id"].ToString() + "'"
+                + ", UpdateTime='" + DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss") + "'"
+                + " Where Id = '" + id + "'";
+            if (SysProperty.GenDbCon.ModifyDataInToTable(sqlTxt))
+            {
+                BindData();
+            }
+        }
+
+        protected void dgCurrency_PageIndexChanged(object source, DataGridPageChangedEventArgs e)
+        {
+            dgCurrency.CurrentPageIndex = e.NewPageIndex;
+            BindData();
+        }
+
+        protected void dgCurrency_EditCommand(object source, DataGridCommandEventArgs e)
+        {
+            dgCurrency.EditItemIndex = e.Item.ItemIndex;
+            BindData();
+        }
+
+        protected void dgCurrency_UpdateCommand(object source, DataGridCommandEventArgs e)
+        {
+            List<DbSearchObject> updateLst = new List<DbSearchObject>();
+            updateLst.Add(new DbSearchObject("Name", AtrrTypeItem.String, AttrSymbolItem.Equal, ((TextBox)e.Item.Cells[1].Controls[0]).Text));
+            updateLst.Add(new DbSearchObject("Rate", AtrrTypeItem.String, AttrSymbolItem.Equal, ((TextBox)e.Item.Cells[2].Controls[0]).Text));
+            updateLst.Add(new DbSearchObject("UpdateAccId", AtrrTypeItem.String, AttrSymbolItem.Equal, SysProperty.AccountInfo["Id"].ToString()));
+            updateLst.Add(new DbSearchObject("UpdateTime", AtrrTypeItem.String, AttrSymbolItem.Equal, DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss")));
+            if (SysProperty.GenDbCon.UpdateDataIntoTable
+                (SysProperty.Util.MsSqlTableConverter(MsSqlTable.Currency)
+                , SysProperty.Util.SqlQueryUpdateConverter(updateLst)
+                , " Where Id = '" + dgCurrency.DataKeys[dgCurrency.EditItemIndex].ToString() + "'"))
+            {
+                dgCurrency.EditItemIndex = -1;
+                BindData();
+            }
+        }
+        #endregion        
     }
 }

@@ -74,17 +74,19 @@ namespace TheWeWebSite
             DataSet ds = SysProperty.GenDbCon.GetDataFromTable(string.Empty
                 , SysProperty.Util.MsSqlTableConverter(MsSqlTable.vwEN_Employee)
                 , " Where Account= N'" + acc.ToLower() + "'"
-                +(acc.ToLower().Equals("admin")?string.Empty:" and StoreId = '" + storeId + "'"));
+                +(acc.ToLower().Equals("admin")?string.Empty:" and StoreId = '" + storeId + "'")
+                +" And IsDelete = 0 And IsValid = 1");
             if (SysProperty.Util.IsDataSetEmpty(ds)) return false;
             if (new DataEncryption().GetMD5(pwd) == ds.Tables[0].Rows[0]["Password"].ToString())
             {
                 GetCountryList();
                 GetAreaList();
-                SysProperty.EmployeeInfo = new EmployeeObj(ds.Tables[0].Rows[0]);
+                SysProperty.AccountInfo = ds.Tables[0].Rows[0];
+                GetLocateStoreInfo(ds.Tables[0].Rows[0]["StoreId"].ToString());
                 return true;
             }
             else return false;
-        }
+        }        
 
         protected void btnLogin_Click(object sender, EventArgs e)
         {
@@ -116,24 +118,44 @@ namespace TheWeWebSite
         }
 
         public void GetCountryList() {
-            SysProperty.CountryList = new System.Collections.Hashtable();
+            SysProperty.CountryList = new CountryHashList();
             DataSet ds = SysProperty.GenDbCon.GetDataFromTable(string.Empty
                 , SysProperty.Util.MsSqlTableConverter(MsSqlTable.Country)
                 , string.Empty);
             foreach (DataRow dr in ds.Tables[0].Rows)
             {
-                SysProperty.CountryList.Add(dr["Id"].ToString(), dr);
+                SysProperty.CountryList.InsertCountry(dr["Id"].ToString(), dr);
             }
         }
         public void GetAreaList() { 
-            SysProperty.AreaList = new System.Collections.Hashtable();
+            SysProperty.AreaList = new AreaHashList();
             DataSet ds = SysProperty.GenDbCon.GetDataFromTable(string.Empty
                 , SysProperty.Util.MsSqlTableConverter(MsSqlTable.Area)
                 , string.Empty);
             foreach (DataRow dr in ds.Tables[0].Rows)
             {
-                SysProperty.AreaList.Add(dr["Id"].ToString(), dr);
+                SysProperty.AreaList.InsertArea(dr["Id"].ToString(), dr);
             }
-        }    
+        }
+        private void GetLocateStoreInfo(string id)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(id))
+                {
+                    SysProperty.LocateStore = null;
+                }
+                else
+                {
+                    DataSet ds = SysProperty.GenDbCon.GetDataFromTable(string.Empty
+                    , SysProperty.Util.MsSqlTableConverter(MsSqlTable.Store)
+                    , " Where IsDelete = 0 And StoreId = '" + id + "'");
+                    SysProperty.LocateStore = ds.Tables[0].Rows[0];
+                }
+            }catch(Exception ex)
+            {
+                SysProperty.LocateStore = null;
+            }
+        }
     }
 }

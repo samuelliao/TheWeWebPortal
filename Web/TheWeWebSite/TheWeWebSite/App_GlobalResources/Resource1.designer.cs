@@ -205,6 +205,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   查詢類似 Input the code 的當地語系化字串。
+        /// </summary>
+        internal static string CodeInputString {
+            get {
+                return ResourceManager.GetString("CodeInputString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查詢類似 Code 的當地語系化字串。
+        /// </summary>
+        internal static string CodeString {
+            get {
+                return ResourceManager.GetString("CodeString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查詢類似 Unsigned Case Maintain 的當地語系化字串。
         /// </summary>
         internal static string ConsultMaintainString {
@@ -268,6 +286,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   查詢類似 Input the country name 的當地語系化字串。
+        /// </summary>
+        internal static string CountryNameInputString {
+            get {
+                return ResourceManager.GetString("CountryNameInputString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查詢類似 Select a country 的當地語系化字串。
         /// </summary>
         internal static string CountrySelectRemindString {
@@ -295,11 +322,20 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   查詢類似 Please input currency 的當地語系化字串。
+        ///   查詢類似 Input the currency name 的當地語系化字串。
         /// </summary>
-        internal static string CurrencyInputString {
+        internal static string CurrencyNameInputString {
             get {
-                return ResourceManager.GetString("CurrencyInputString", resourceCulture);
+                return ResourceManager.GetString("CurrencyNameInputString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查詢類似 Input the rate 的當地語系化字串。
+        /// </summary>
+        internal static string CurrencyRateInputString {
+            get {
+                return ResourceManager.GetString("CurrencyRateInputString", resourceCulture);
             }
         }
         
@@ -309,6 +345,15 @@ namespace Resources {
         internal static string CurrencyRateString {
             get {
                 return ResourceManager.GetString("CurrencyRateString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查詢類似 Select a currency 的當地語系化字串。
+        /// </summary>
+        internal static string CurrencySelectionReminderString {
+            get {
+                return ResourceManager.GetString("CurrencySelectionReminderString", resourceCulture);
             }
         }
         
@@ -385,20 +430,20 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   查詢類似 English Name 的當地語系化字串。
+        /// </summary>
+        internal static string EnglishNameString {
+            get {
+                return ResourceManager.GetString("EnglishNameString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查詢類似 English 的當地語系化字串。
         /// </summary>
         internal static string EnglishString {
             get {
                 return ResourceManager.GetString("EnglishString", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查詢類似 English Name 的當地語系化字串。
-        /// </summary>
-        internal static string EngNameString {
-            get {
-                return ResourceManager.GetString("EngNameString", resourceCulture);
             }
         }
         
@@ -435,6 +480,24 @@ namespace Resources {
         internal static string LangCodeString {
             get {
                 return ResourceManager.GetString("LangCodeString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查詢類似 Select a language 的當地語系化字串。
+        /// </summary>
+        internal static string LanguageSelectionReminderString {
+            get {
+                return ResourceManager.GetString("LanguageSelectionReminderString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查詢類似 Language 的當地語系化字串。
+        /// </summary>
+        internal static string LanguageString {
+            get {
+                return ResourceManager.GetString("LanguageString", resourceCulture);
             }
         }
         
@@ -637,6 +700,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   查詢類似 Result 的當地語系化字串。
+        /// </summary>
+        internal static string ResultString {
+            get {
+                return ResourceManager.GetString("ResultString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查詢類似 Sales Mgt 的當地語系化字串。
         /// </summary>
         internal static string SalesMgtString {
@@ -772,11 +844,38 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   查詢類似 UpdateString 的當地語系化字串。
+        ///   查詢類似 Input the unit 的當地語系化字串。
+        /// </summary>
+        internal static string UnitInputString {
+            get {
+                return ResourceManager.GetString("UnitInputString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查詢類似 Unit 的當地語系化字串。
+        /// </summary>
+        internal static string UnitString {
+            get {
+                return ResourceManager.GetString("UnitString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查詢類似 Update 的當地語系化字串。
         /// </summary>
         internal static string UpdateString {
             get {
                 return ResourceManager.GetString("UpdateString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查詢類似 Update time 的當地語系化字串。
+        /// </summary>
+        internal static string UpdateTimeString {
+            get {
+                return ResourceManager.GetString("UpdateTimeString", resourceCulture);
             }
         }
         

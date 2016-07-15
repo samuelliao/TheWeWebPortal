@@ -1,5 +1,4 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="CountryMaintain.aspx.cs" Inherits="TheWeWebSite.SysMgt.CountryMaintain" %>
-
 <%@ Register TagPrefix="My" TagName="Header" Src="~/Header.ascx" %>
 
 <!DOCTYPE html>
@@ -27,7 +26,7 @@
                 <!-- Text -->
                 <section class="box title">
                     <h3>
-                        <asp:Label runat="server" Text="系統管理&nbsp;&nbsp;>&nbsp;&nbsp;國家(待修改)"></asp:Label></h3>
+                        <asp:Label runat="server" Text="" ID="labelPageTitle"></asp:Label></h3>
                 </section>
                 <!-- Input -->
                 <section class="box special">
@@ -37,15 +36,33 @@
                             <div class="row uniform 50%">
                                 <div class="2u 12u(mobilep)">
                                     <div class="Div">
-                                        <asp:Label runat="server" Text="國家"></asp:Label>
+                                        <asp:Label runat="server" Text="<%$ Resources:Resource,LangCodeString%>"></asp:Label>
                                     </div>
-                                    <asp:TextBox runat="server" placeholder="請輸入國家..."></asp:TextBox>
+                                    <asp:DropDownList runat="server" ID="ddlLang" />
                                 </div>
                                 <div class="2u 12u(mobilep)">
                                     <div class="Div">
-                                        <asp:Label runat="server" Text="國別代碼"></asp:Label>
+                                        <asp:Label runat="server" Text="<%$ Resources:Resource,CountryString%>"></asp:Label>
                                     </div>
-                                    <asp:TextBox runat="server" placeholder="請輸入國別代碼..."></asp:TextBox>
+                                    <asp:TextBox runat="server" placeholder="<%$ Resources:Resource,CountryNameInputString%>" ID="tbName"></asp:TextBox>
+                                </div>
+                                <div class="2u 12u(mobilep)">
+                                    <div class="Div">
+                                        <asp:Label runat="server" Text="<%$ Resources:Resource,CodeString%>"></asp:Label>
+                                    </div>
+                                    <asp:TextBox runat="server" placeholder="<%$ Resources:Resource,CodeInputString%>" ID="tbCode"></asp:TextBox>
+                                </div>
+                                <div class="2u 12u(mobilep)">
+                                    <div class="Div">
+                                        <asp:Label runat="server" Text="<%$ Resources:Resource,CurrencyString%>"></asp:Label>
+                                    </div>
+                                    <asp:DropDownList runat="server" ID="ddlCurrency" />
+                                </div>
+                                <div class="2u 12u(mobilep)">
+                                    <div class="Div">
+                                        <asp:Label runat="server" Text="<%$ Resources:Resource,LanguageString%>"></asp:Label>
+                                    </div>
+                                    <asp:DropDownList runat="server" ID="ddlUseLang" />
                                 </div>
                                 <!-- Btn -->
 
@@ -53,12 +70,13 @@
                                     <ul class="actions">
 
                                         <li>
-                                            <asp:Button runat="server" Text="<%$ Resources:Resource,CreateString%>" ID="LinkCaseMCreate" PostBackUrl="~/CaseMgt/CaseMCreate.aspx" />
+                                            <asp:Button runat="server" Text="<%$ Resources:Resource,CreateString%>"
+                                                ID="btnCreate" OnClick="btnCreate_Click" />
                                         </li>
                                         <li>
-                                            <asp:Button runat="server" CssClass="button alt" Text="<%$ Resources:Resource,SearchString%>" />
+                                            <asp:Button runat="server" Text="<%$ Resources:Resource,ClearString%>"
+                                                ID="btnClear" OnClick="btnClear_Click" />
                                         </li>
-
                                     </ul>
                                 </div>
                             </div>
@@ -71,22 +89,47 @@
                     <div class="row">
                         <div class="12u">
                             <div class="table-wrapper">
-                                <table class="alt">
-                                    <thead>
-                                        <tr>
-                                            <th>單位</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>個</td>
-                                        </tr>
-                                        <tr>
-                                            <td>張</td>
-                                        </tr>
-                                    </tbody>
-
-                                </table>
+                                <asp:DataGrid runat="server" ID="dgCountry" AllowPaging="true" AllowSorting="true"
+                                    AutoGenerateColumns="false" DataKeyField="Id" OnCancelCommand="dgCountry_CancelCommand"
+                                    OnDeleteCommand="dgCountry_DeleteCommand" OnEditCommand="dgCountry_EditCommand"
+                                    OnPageIndexChanged="dgCountry_PageIndexChanged" OnUpdateCommand="dgCountry_UpdateCommand"
+                                    OnItemDataBound="dgCountry_ItemDataBound" Font-Size="Medium">
+                                    <HeaderStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                    <PagerStyle Mode="NumericPages" />
+                                    <Columns>
+                                        <asp:BoundColumn DataField="Id" Visible="false" />
+                                        <asp:BoundColumn DataField="Name" HeaderText="<%$ Resources:Resource,NameString%>" />
+                                        <asp:BoundColumn DataField="CnName" HeaderText="<%$ Resources:Resource,CnNameString%>" />
+                                        <asp:BoundColumn DataField="EngName" HeaderText="<%$ Resources:Resource,EnglishNameString%>" />
+                                        <asp:BoundColumn DataField="JpName" HeaderText="<%$ Resources:Resource,JpNameString%>" />
+                                        <asp:BoundColumn DataField="Code" HeaderText="<%$ Resources:Resource,UpdateTimeString%>" />
+                                        <asp:TemplateColumn HeaderText="<%$ Resources:Resource,CurrencyString%>">
+                                            <EditItemTemplate>
+                                                <asp:DropDownList runat="server" ID="ddlDgCurrency" />
+                                            </EditItemTemplate>
+                                            <ItemTemplate>
+                                                <asp:Label runat="server" ID="labelDgCurrency" />
+                                            </ItemTemplate>
+                                        </asp:TemplateColumn>
+                                        <asp:TemplateColumn HeaderText="<%$ Resources:Resource,LanguageString%>">
+                                            <EditItemTemplate>
+                                                <asp:DropDownList runat="server" ID="ddlDgLang" />
+                                            </EditItemTemplate>
+                                            <ItemTemplate>
+                                                <asp:Label runat="server" ID="labelDgLang" />
+                                            </ItemTemplate>
+                                        </asp:TemplateColumn>
+                                        <asp:BoundColumn HeaderText="<%$ Resources:Resource,UpdateTimeString%>" DataField="UpdateTime" ReadOnly="true" />
+                                        <asp:BoundColumn HeaderText="<%$ Resources:Resource,EmployeeString%>" DataField="EmployeeName"  ReadOnly="true"/>
+                                        <asp:EditCommandColumn EditText="<%$ Resources:Resource,ModifyString%>"
+                                            CancelText="<%$ Resources:Resource,CancelString%>"
+                                            UpdateText="<%$ Resources:Resource,UpdateString%>"
+                                            HeaderText="<%$ Resources:Resource,ModifyString%>" />
+                                        <asp:ButtonColumn CommandName="Delete"
+                                            HeaderText="<%$ Resources:Resource,DeleteString%>"
+                                            Text="<%$ Resources:Resource,DeleteString%>" />
+                                    </Columns>
+                                </asp:DataGrid>
                             </div>
                             <hr />
                         </div>

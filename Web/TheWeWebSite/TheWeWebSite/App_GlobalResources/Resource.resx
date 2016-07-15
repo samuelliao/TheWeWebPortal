@@ -228,9 +228,6 @@
   <data name="ModifiedTimeString" xml:space="preserve">
     <value>Modified Date</value>
   </data>
-  <data name="CurrencyInputString" xml:space="preserve">
-    <value>Please input currency</value>
-  </data>
   <data name="CustomerMaintainString" xml:space="preserve">
     <value>Customer Maintain</value>
   </data>
@@ -286,7 +283,7 @@
     <value>Search</value>
   </data>
   <data name="UpdateString" xml:space="preserve">
-    <value>UpdateString</value>
+    <value>Update</value>
   </data>
   <data name="CancelString" xml:space="preserve">
     <value>Cancel</value>
@@ -315,7 +312,7 @@
   <data name="NameString" xml:space="preserve">
     <value>Name</value>
   </data>
-  <data name="EngNameString" xml:space="preserve">
+  <data name="EnglishNameString" xml:space="preserve">
     <value>English Name</value>
   </data>
   <data name="PriceString" xml:space="preserve">
@@ -362,5 +359,41 @@
   </data>
   <data name="ReceivedString" xml:space="preserve">
     <value>Received</value>
+  </data>
+  <data name="UnitString" xml:space="preserve">
+    <value>Unit</value>
+  </data>
+  <data name="ResultString" xml:space="preserve">
+    <value>Result</value>
+  </data>
+  <data name="UpdateTimeString" xml:space="preserve">
+    <value>Update time</value>
+  </data>
+  <data name="CurrencyRateInputString" xml:space="preserve">
+    <value>Input the rate</value>
+  </data>
+  <data name="CurrencyNameInputString" xml:space="preserve">
+    <value>Input the currency name</value>
+  </data>
+  <data name="CountryNameInputString" xml:space="preserve">
+    <value>Input the country name</value>
+  </data>
+  <data name="CodeString" xml:space="preserve">
+    <value>Code</value>
+  </data>
+  <data name="CodeInputString" xml:space="preserve">
+    <value>Input the code</value>
+  </data>
+  <data name="CurrencySelectionReminderString" xml:space="preserve">
+    <value>Select a currency</value>
+  </data>
+  <data name="LanguageString" xml:space="preserve">
+    <value>Language</value>
+  </data>
+  <data name="LanguageSelectionReminderString" xml:space="preserve">
+    <value>Select a language</value>
+  </data>
+  <data name="UnitInputString" xml:space="preserve">
+    <value>Input the unit</value>
   </data>
 </root>

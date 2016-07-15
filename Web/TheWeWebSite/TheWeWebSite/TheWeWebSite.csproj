@@ -70,6 +70,14 @@
     <Content Include="assets\css\font-awesome.min.css" />
     <Content Include="assets\css\ie8.css" />
     <Content Include="assets\css\main.css" />
+    <Content Include="assets\img\back.png" />
+    <Content Include="assets\img\bg.png" />
+    <Content Include="assets\img\bg_footer.jpg" />
+    <Content Include="assets\img\bg_top.jpg" />
+    <Content Include="assets\img\calendar.png" />
+    <Content Include="assets\img\logo.jpg" />
+    <Content Include="assets\img\logo_clear.jpg" />
+    <Content Include="assets\img\title_top.jpg" />
     <Content Include="assets\js\jquery.dropotron.min.js" />
     <Content Include="assets\js\jquery.min.js" />
     <Content Include="assets\js\jquery.scrollgress.min.js" />
@@ -82,8 +90,8 @@
     <Content Include="CaseMgt\CustomerMaintain.aspx" />
     <Content Include="CaseMgt\TimeMaintain.aspx" />
     <Content Include="css\main.css" />
+    <Content Include="DatePicker.ascx" />
     <Content Include="Header.ascx" />
-    <Content Include="img\bg_top.jpg" />
     <Content Include="Login.aspx" />
     <Content Include="Main\Calendar.aspx" />
     <Content Include="Main\Case.aspx" />
@@ -105,13 +113,6 @@
     <Content Include="css\header.css" />
     <Content Include="css\month.css" />
     <Content Include="css\tablestyle.css" />
-    <Content Include="img\back.png" />
-    <Content Include="img\bg.png" />
-    <Content Include="img\bg_footer.jpg" />
-    <Content Include="img\logo.jpg" />
-    <Content Include="img\logo_clear.jpg" />
-    <Content Include="img\title_top.jpg" />
-    <Content Include="img\圖層_1.png" />
     <Content Include="StoreMgt\ChurchMaintain.aspx" />
     <Content Include="StoreMgt\DressMaintain.aspx" />
     <Content Include="StoreMgt\EmployeeMaintain.aspx" />
@@ -119,7 +120,9 @@
     <Content Include="StoreMgt\ItemMaintain.aspx" />
     <Content Include="StoreMgt\ModelingMaintain.aspx" />
     <Content Include="StoreMgt\OtherItemMaintain.aspx" />
+    <Content Include="SysMgt\AreaMaintain.aspx" />
     <Content Include="SysMgt\CaseRootMaintain.aspx" />
+    <Content Include="SysMgt\CountryMaintain.aspx" />
     <Content Include="SysMgt\DollarMaintain.aspx" />
     <Content Include="SysMgt\LoginMaintain.aspx" />
     <Content Include="SysMgt\MsgMaintain.aspx" />
@@ -171,6 +174,13 @@
     </Compile>
     <Compile Include="CaseMgt\TimeMaintain.aspx.designer.cs">
       <DependentUpon>TimeMaintain.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="DatePicker.ascx.cs">
+      <DependentUpon>DatePicker.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DatePicker.ascx.designer.cs">
+      <DependentUpon>DatePicker.ascx</DependentUpon>
     </Compile>
     <Compile Include="Header.ascx.cs">
       <DependentUpon>Header.ascx</DependentUpon>
@@ -279,12 +289,26 @@
     <Compile Include="StoreMgt\OtherItemMaintain.aspx.designer.cs">
       <DependentUpon>OtherItemMaintain.aspx</DependentUpon>
     </Compile>
+    <Compile Include="SysMgt\AreaMaintain.aspx.cs">
+      <DependentUpon>AreaMaintain.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SysMgt\AreaMaintain.aspx.designer.cs">
+      <DependentUpon>AreaMaintain.aspx</DependentUpon>
+    </Compile>
     <Compile Include="SysMgt\CaseRootMaintain.aspx.cs">
       <DependentUpon>CaseRootMaintain.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="SysMgt\CaseRootMaintain.aspx.designer.cs">
       <DependentUpon>CaseRootMaintain.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="SysMgt\CountryMaintain.aspx.cs">
+      <DependentUpon>CountryMaintain.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SysMgt\CountryMaintain.aspx.designer.cs">
+      <DependentUpon>CountryMaintain.aspx</DependentUpon>
     </Compile>
     <Compile Include="SysMgt\DollarMaintain.aspx.cs">
       <DependentUpon>DollarMaintain.aspx</DependentUpon>
@@ -330,7 +354,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="img\Chees.psd" />
     <Content Include="assets\sass\ie8.scss" />
     <Content Include="assets\sass\main.scss" />
     <Content Include="assets\sass\lib\_functions.scss" />
@@ -341,6 +364,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="packages.config" />
+    <Content Include="assets\img\Chees.psd" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

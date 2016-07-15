@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -92,8 +93,12 @@ namespace TheWeLib
         {
             try
             {
-                if (string.IsNullOrEmpty(SysProperty.DbConcString)) return false;
-                if (SysProperty.EmployeeInfo == null || string.IsNullOrEmpty(SysProperty.EmployeeInfo.Id)) return false;
+                if (string.IsNullOrEmpty(SysProperty.DbConcString)) { return false; }
+                if (SysProperty.AccountInfo == null
+                    || string.IsNullOrEmpty(SysProperty.AccountInfo["Id"].ToString()))
+                {
+                    return false;
+                }
                 return true;
             }
             catch (Exception ex)
@@ -384,6 +389,70 @@ namespace TheWeLib
                 default:
                     return string.Empty;
 
+            }
+        }
+    }
+
+    public class AreaHashList
+    {
+        private Hashtable Areas = new Hashtable();
+        private Object locker = new object();
+        public void InsertArea(string key, DataRow dr)
+        {
+            lock (locker)
+            {
+                Areas.Add(key, dr);
+            }
+        }
+
+        public DataRow GetAreaById(string id)
+        {
+            lock (locker)
+            {
+                if (CheckKeyInArea(id))
+                    return (DataRow)Areas[id];
+                else
+                    return null;
+            }
+        }
+
+        public bool CheckKeyInArea(string id)
+        {
+            lock (locker)
+            {
+                return Areas.ContainsKey(id);
+            }
+        }
+    }
+
+    public class CountryHashList
+    {
+        private Hashtable Conutries = new Hashtable();
+        private Object locker = new object();
+        public void InsertCountry(string key, DataRow dr)
+        {
+            lock (locker)
+            {
+                Conutries.Add(key, dr);
+            }
+        }
+
+        public DataRow GetCountryById(string id)
+        {
+            lock (locker)
+            {
+                if (CheckKeyInCountry(id))
+                    return (DataRow)Conutries[id];
+                else
+                    return null;
+            }
+        }
+
+        public bool CheckKeyInCountry(string id)
+        {
+            lock (locker)
+            {
+                return Conutries.ContainsKey(id);
             }
         }
     }

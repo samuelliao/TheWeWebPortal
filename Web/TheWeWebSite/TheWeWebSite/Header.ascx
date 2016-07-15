@@ -2,7 +2,7 @@
 
 <header id="header">
                 <h1>
-                    <asp:Label runat="server" Text="台北"></asp:Label></h1>
+                    <asp:Label runat="server" Text="台北" ID="labelStoreName"></asp:Label></h1>
 
                 <nav id="nav">
                     <ul>

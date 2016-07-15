@@ -13,11 +13,12 @@ namespace TheWeLib
     {
         public static string DbConcString;
         public static string CultureCode;
-        public static EmployeeObj EmployeeInfo;        
+        public static DataRow AccountInfo;
+        public static DataRow LocateStore;
         public static Logger Log;
         public static GeneralDbDAO GenDbCon;
         public static Utility Util;
-        public static Hashtable CountryList;
-        public static Hashtable AreaList;
+        public static CountryHashList CountryList;
+        public static AreaHashList AreaList;
     }
 }

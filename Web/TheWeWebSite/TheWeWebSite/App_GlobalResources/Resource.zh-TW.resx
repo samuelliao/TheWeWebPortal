@@ -228,9 +228,6 @@
   <data name="ModifiedTimeString" xml:space="preserve">
     <value>修改日期</value>
   </data>
-  <data name="CurrencyInputString" xml:space="preserve">
-    <value>請輸入幣別</value>
-  </data>
   <data name="CustomerMaintainString" xml:space="preserve">
     <value>客戶維護</value>
   </data>
@@ -315,7 +312,7 @@
   <data name="NameString" xml:space="preserve">
     <value>名稱</value>
   </data>
-  <data name="EngNameString" xml:space="preserve">
+  <data name="EnglishNameString" xml:space="preserve">
     <value>英文名稱</value>
   </data>
   <data name="PriceString" xml:space="preserve">
@@ -362,5 +359,41 @@
   </data>
   <data name="ReceivedString" xml:space="preserve">
     <value>回覆</value>
+  </data>
+  <data name="UnitString" xml:space="preserve">
+    <value>單位</value>
+  </data>
+  <data name="ResultString" xml:space="preserve">
+    <value>結果</value>
+  </data>
+  <data name="UpdateTimeString" xml:space="preserve">
+    <value>更新時間</value>
+  </data>
+  <data name="CurrencyRateInputString" xml:space="preserve">
+    <value>請輸入匯率</value>
+  </data>
+  <data name="CurrencyNameInputString" xml:space="preserve">
+    <value>請輸入幣別名稱</value>
+  </data>
+  <data name="CountryNameInputString" xml:space="preserve">
+    <value>請輸入國家名稱</value>
+  </data>
+  <data name="CodeString" xml:space="preserve">
+    <value>代碼</value>
+  </data>
+  <data name="CodeInputString" xml:space="preserve">
+    <value>請輸入代碼</value>
+  </data>
+  <data name="CurrencySelectionReminderString" xml:space="preserve">
+    <value>請選擇幣別</value>
+  </data>
+  <data name="LanguageString" xml:space="preserve">
+    <value>語言</value>
+  </data>
+  <data name="LanguageSelectionReminderString" xml:space="preserve">
+    <value>請選擇一種語言</value>
+  </data>
+  <data name="UnitInputString" xml:space="preserve">
+    <value>請輸入單位</value>
   </data>
 </root>
