@@ -286,7 +286,7 @@
     <value>Search</value>
   </data>
   <data name="UpdateString" xml:space="preserve">
-    <value>UpdateString</value>
+    <value>Update</value>
   </data>
   <data name="CancelString" xml:space="preserve">
     <value>Cancel</value>
@@ -362,5 +362,83 @@
   </data>
   <data name="ReceivedString" xml:space="preserve">
     <value>Received</value>
+  </data>
+  <data name="UnitString" xml:space="preserve">
+    <value>Unit</value>
+  </data>
+  <data name="AdviosryIdString" xml:space="preserve">
+    <value>Advisory id</value>
+  </data>
+  <data name="CaseIdString" xml:space="preserve">
+    <value>Case id</value>
+  </data>
+  <data name="MemberIdString" xml:space="preserve">
+    <value>Member id</value>
+  </data>
+  <data name="StatusString" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="ContractDateString" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="ContractEDateString" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="LocateString" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="ItemPackageString" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="BridalNameString" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="GroomNameString" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="BridalBdayString" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="GroomBdayString" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="BridalCommunicationCString" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="GroomCommunicationCString" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="BridalCommunicationIdString" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="GroomCommunicationIdString" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="GroomNicknameString" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="BridalNicknameString" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="GroomPassportString" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="BridalPassportString" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="AddressString" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="ReferralsString" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="MsgIdString" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="MsgString" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="UploadString" xml:space="preserve">
+    <value></value>
   </data>
 </root>

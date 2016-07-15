@@ -247,7 +247,7 @@
     <value>登錄維護</value>
   </data>
   <data name="ProductMaintainString" xml:space="preserve">
-    <value>產品</value>
+    <value>產品資料庫</value>
   </data>
   <data name="DressMaintainString" xml:space="preserve">
     <value>禮服資料庫</value>
@@ -259,7 +259,7 @@
     <value>造型資料庫</value>
   </data>
   <data name="WeddingItemMaintainString" xml:space="preserve">
-    <value>婚禮小物</value>
+    <value>婚禮小物資料庫</value>
   </data>
   <data name="ChurchMaintainString" xml:space="preserve">
     <value>教堂資料庫</value>
@@ -268,7 +268,7 @@
     <value>員工資料庫</value>
   </data>
   <data name="ConsultString" xml:space="preserve">
-    <value> 未簽約</value>
+    <value>未簽約</value>
   </data>
   <data name="ContractString" xml:space="preserve">
     <value>已簽約</value>
@@ -362,5 +362,83 @@
   </data>
   <data name="ReceivedString" xml:space="preserve">
     <value>回覆</value>
+  </data>
+  <data name="UnitString" xml:space="preserve">
+    <value>單位</value>
+  </data>
+  <data name="AdviosryIdString" xml:space="preserve">
+    <value>諮詢編號</value>
+  </data>
+  <data name="CaseIdString" xml:space="preserve">
+    <value>案件編號</value>
+  </data>
+  <data name="MemberIdString" xml:space="preserve">
+    <value>會員編號</value>
+  </data>
+  <data name="StatusString" xml:space="preserve">
+    <value>狀態</value>
+  </data>
+  <data name="ContractDateString" xml:space="preserve">
+    <value>開案日期</value>
+  </data>
+  <data name="ContractEDateString" xml:space="preserve">
+    <value>結案日期</value>
+  </data>
+  <data name="LocateString" xml:space="preserve">
+    <value>地點</value>
+  </data>
+  <data name="ItemPackageString" xml:space="preserve">
+    <value>套餐</value>
+  </data>
+  <data name="BridalNameString" xml:space="preserve">
+    <value>新娘姓名</value>
+  </data>
+  <data name="GroomNameString" xml:space="preserve">
+    <value>新郎姓名</value>
+  </data>
+  <data name="BridalBdayString" xml:space="preserve">
+    <value>新娘生日</value>
+  </data>
+  <data name="GroomBdayString" xml:space="preserve">
+    <value>新郎生日</value>
+  </data>
+  <data name="BridalCommunicationCString" xml:space="preserve">
+    <value>新娘通訊軟體類型</value>
+  </data>
+  <data name="GroomCommunicationCString" xml:space="preserve">
+    <value>新郎通訊軟體類型</value>
+  </data>
+  <data name="BridalCommunicationIdString" xml:space="preserve">
+    <value>新娘通訊軟體ID</value>
+  </data>
+  <data name="GroomCommunicationIdString" xml:space="preserve">
+    <value>新郎通訊軟體ID</value>
+  </data>
+  <data name="GroomNicknameString" xml:space="preserve">
+    <value>新娘暱稱</value>
+  </data>
+  <data name="BridalNicknameString" xml:space="preserve">
+    <value>新郎暱稱</value>
+  </data>
+  <data name="GroomPassportString" xml:space="preserve">
+    <value>新娘護照英文</value>
+  </data>
+  <data name="BridalPassportString" xml:space="preserve">
+    <value>新郎護照英文</value>
+  </data>
+  <data name="AddressString" xml:space="preserve">
+    <value>地址</value>
+  </data>
+  <data name="MsgIdString" xml:space="preserve">
+    <value>簡訊稱呼</value>
+  </data>
+  <data name="ReferralsString" xml:space="preserve">
+    <value>介紹人</value>
+  </data>
+  <data name="MsgString" xml:space="preserve">
+    <value>簡訊手機</value>
+  </data>
+  <data name="UploadString" xml:space="preserve">
+    <value>上傳</value>
   </data>
 </root>
