@@ -59,6 +59,7 @@
                             </div>
                         </div>
                     </div>
+                    <asp:Label Text="" Visible="false" runat="server" ID="labelWarnStr" ForeColor="Red" />
                     <hr />
 
                     <!-- Table -->
@@ -70,6 +71,7 @@
                                  OnEditCommand="dgUnit_EditCommand" OnDeleteCommand="dgUnit_DeleteCommand"
                                  OnUpdateCommand="dgUnit_UpdateCommand" OnPageIndexChanged="dgUnit_PageIndexChanged">
                                     <PagerStyle Mode="NumericPages" />
+                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                     <HeaderStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                     <Columns>
                                         <asp:BoundColumn DataField="Id" Visible="false"/>

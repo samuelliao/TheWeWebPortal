@@ -477,4 +477,16 @@
   <data name="StoreNameInputString" xml:space="preserve">
     <value>請輸入店名</value>
   </data>
+  <data name="AddressInputString" xml:space="preserve">
+    <value>請輸入地址</value>
+  </data>
+  <data name="SnInputString" xml:space="preserve">
+    <value>請輸入編號</value>
+  </data>
+  <data name="NameInputString" xml:space="preserve">
+    <value>請輸入名稱</value>
+  </data>
+  <data name="ContentInputString" xml:space="preserve">
+    <value>請輸入內容</value>
+  </data>
 </root>

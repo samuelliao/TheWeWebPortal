@@ -97,7 +97,16 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   查詢類似  的當地語系化字串。
+        ///   查詢類似 Please input a address 的當地語系化字串。
+        /// </summary>
+        internal static string AddressInputString {
+            get {
+                return ResourceManager.GetString("AddressInputString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查詢類似 Address 的當地語系化字串。
         /// </summary>
         internal static string AddressString {
             get {
@@ -106,7 +115,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   查詢類似 Advisory id 的當地語系化字串。
+        ///   查詢類似 Adivosry Sn 的當地語系化字串。
         /// </summary>
         internal static string AdviosryIdString {
             get {
@@ -336,6 +345,15 @@ namespace Resources {
         internal static string ConsultString {
             get {
                 return ResourceManager.GetString("ConsultString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查詢類似 Please input the content 的當地語系化字串。
+        /// </summary>
+        internal static string ContentInputString {
+            get {
+                return ResourceManager.GetString("ContentInputString", resourceCulture);
             }
         }
         
@@ -799,6 +817,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   查詢類似 Please input a name 的當地語系化字串。
+        /// </summary>
+        internal static string NameInputString {
+            get {
+                return ResourceManager.GetString("NameInputString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查詢類似 Name 的當地語系化字串。
         /// </summary>
         internal static string NameString {
@@ -984,6 +1011,15 @@ namespace Resources {
         internal static string SimplifiedChineseString {
             get {
                 return ResourceManager.GetString("SimplifiedChineseString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查詢類似 Please input SN 的當地語系化字串。
+        /// </summary>
+        internal static string SnInputString {
+            get {
+                return ResourceManager.GetString("SnInputString", resourceCulture);
             }
         }
         

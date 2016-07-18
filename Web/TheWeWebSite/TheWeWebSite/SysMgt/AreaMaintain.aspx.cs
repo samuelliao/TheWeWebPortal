@@ -45,6 +45,7 @@ namespace TheWeWebSite.SysMgt
             catch (Exception ex)
             {
                 SysProperty.Log.Error(ex.Message);
+                ShowErrorMsg(ex.Message);
                 AreaDataSet = null;
             }
         }
@@ -62,16 +63,22 @@ namespace TheWeWebSite.SysMgt
         {
             ddlCountry.Items.Clear();
             ddlCountry.Items.Add(new ListItem(Resources.Resource.CountrySelectRemindString, string.Empty));
-
-            DataSet ds = SysProperty.GenDbCon.GetDataFromTable("Select * From Country where IsDelete = 0");
-            if (!SysProperty.Util.IsDataSetEmpty(ds))
+            try
             {
-                foreach (DataRow dr in ds.Tables[0].Rows)
+                DataSet ds = SysProperty.GenDbCon.GetDataFromTable("Select * From Country where IsDelete = 0");
+                if (!SysProperty.Util.IsDataSetEmpty(ds))
                 {
-                    ddlCountry.Items.Add(new ListItem(
-                        SysProperty.Util.OutputRelatedLangName(dr)
-                        , dr["Id"].ToString()));
+                    foreach (DataRow dr in ds.Tables[0].Rows)
+                    {
+                        ddlCountry.Items.Add(new ListItem(
+                            SysProperty.Util.OutputRelatedLangName(dr)
+                            , dr["Id"].ToString()));
+                    }
                 }
+            }catch(Exception ex)
+            {
+                SysProperty.Log.Error(ex.Message);
+                ShowErrorMsg(ex.Message);
             }
         }
 
@@ -167,22 +174,29 @@ namespace TheWeWebSite.SysMgt
 
         protected void dgArea_UpdateCommand(object source, DataGridCommandEventArgs e)
         {
-            DropDownList ddl1 = (DropDownList)dgArea.Items[dgArea.EditItemIndex].FindControl("ddlDgCountry");
-            List<DbSearchObject> updateLst = new List<DbSearchObject>();
-            updateLst.Add(new DbSearchObject("Name", AtrrTypeItem.String, AttrSymbolItem.Equal, ((TextBox)e.Item.Cells[1].Controls[0]).Text));
-            updateLst.Add(new DbSearchObject("CnName", AtrrTypeItem.String, AttrSymbolItem.Equal, ((TextBox)e.Item.Cells[2].Controls[0]).Text));
-            updateLst.Add(new DbSearchObject("EngName", AtrrTypeItem.String, AttrSymbolItem.Equal, ((TextBox)e.Item.Cells[3].Controls[0]).Text));
-            updateLst.Add(new DbSearchObject("JpName", AtrrTypeItem.String, AttrSymbolItem.Equal, ((TextBox)e.Item.Cells[4].Controls[0]).Text));
-            updateLst.Add(new DbSearchObject("CountryId", AtrrTypeItem.String, AttrSymbolItem.Equal, ddl1.SelectedValue));
-            updateLst.Add(new DbSearchObject("UpdateAccId", AtrrTypeItem.String, AttrSymbolItem.Equal, SysProperty.AccountInfo["Id"].ToString()));
-            updateLst.Add(new DbSearchObject("UpdateTime", AtrrTypeItem.String, AttrSymbolItem.Equal, DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss")));
-            if (SysProperty.GenDbCon.UpdateDataIntoTable
-                (SysProperty.Util.MsSqlTableConverter(MsSqlTable.Area)
-                , SysProperty.Util.SqlQueryUpdateConverter(updateLst)
-                , " Where Id = '" + dgArea.DataKeys[dgArea.EditItemIndex].ToString() + "'"))
+            try
             {
-                dgArea.EditItemIndex = -1;
-                BindData();
+                DropDownList ddl1 = (DropDownList)dgArea.Items[dgArea.EditItemIndex].FindControl("ddlDgCountry");
+                List<DbSearchObject> updateLst = new List<DbSearchObject>();
+                updateLst.Add(new DbSearchObject("Name", AtrrTypeItem.String, AttrSymbolItem.Equal, ((TextBox)e.Item.Cells[1].Controls[0]).Text));
+                updateLst.Add(new DbSearchObject("CnName", AtrrTypeItem.String, AttrSymbolItem.Equal, ((TextBox)e.Item.Cells[2].Controls[0]).Text));
+                updateLst.Add(new DbSearchObject("EngName", AtrrTypeItem.String, AttrSymbolItem.Equal, ((TextBox)e.Item.Cells[3].Controls[0]).Text));
+                updateLst.Add(new DbSearchObject("JpName", AtrrTypeItem.String, AttrSymbolItem.Equal, ((TextBox)e.Item.Cells[4].Controls[0]).Text));
+                updateLst.Add(new DbSearchObject("CountryId", AtrrTypeItem.String, AttrSymbolItem.Equal, ddl1.SelectedValue));
+                updateLst.Add(new DbSearchObject("UpdateAccId", AtrrTypeItem.String, AttrSymbolItem.Equal, SysProperty.AccountInfo["Id"].ToString()));
+                updateLst.Add(new DbSearchObject("UpdateTime", AtrrTypeItem.String, AttrSymbolItem.Equal, DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss")));
+                if (SysProperty.GenDbCon.UpdateDataIntoTable
+                    (SysProperty.Util.MsSqlTableConverter(MsSqlTable.Area)
+                    , SysProperty.Util.SqlQueryUpdateConverter(updateLst)
+                    , " Where Id = '" + dgArea.DataKeys[dgArea.EditItemIndex].ToString() + "'"))
+                {
+                    dgArea.EditItemIndex = -1;
+                    BindData();
+                }
+            }catch(Exception ex)
+            {
+                SysProperty.Log.Error(ex.Message);
+                ShowErrorMsg(ex.Message);
             }
         }
 
@@ -195,16 +209,22 @@ namespace TheWeWebSite.SysMgt
                 {
                     DropDownList dropDownList1 = (DropDownList)e.Item.FindControl("ddlDgCountry");
                     dropDownList1.Items.Clear();
-                    DataSet ds = SysProperty.GenDbCon.GetDataFromTable(string.Empty
-                        , SysProperty.Util.MsSqlTableConverter(MsSqlTable.Country)
-                        , " Where IsDelete = 0");
-                    foreach (DataRow dr in ds.Tables[0].Rows)
+                    try
                     {
-                        dropDownList1.Items.Add(new ListItem(
-                            SysProperty.Util.OutputRelatedLangName(dr)
-                            , dr["Id"].ToString()));
+                        DataSet ds = SysProperty.GenDbCon.GetDataFromTable(string.Empty
+                            , SysProperty.Util.MsSqlTableConverter(MsSqlTable.Country)
+                            , " Where IsDelete = 0");
+                        foreach (DataRow dr in ds.Tables[0].Rows)
+                        {
+                            dropDownList1.Items.Add(new ListItem(
+                                SysProperty.Util.OutputRelatedLangName(dr)
+                                , dr["Id"].ToString()));
+                        }
+                        dropDownList1.SelectedValue = dataItem1["CountryId"].ToString();
+                    }catch(Exception ex)
+                    {
+                        SysProperty.Log.Error(ex.Message);
                     }
-                    dropDownList1.SelectedValue = dataItem1["CountryId"].ToString();
                 }
                 else
                 {
@@ -218,7 +238,7 @@ namespace TheWeWebSite.SysMgt
         {
             if(AreaDataSet==null)
             {
-                GetAreaList("Order by "+ e.SortExpression + " " + GetSortDirection(e.SortExpression));
+                GetAreaList("Order by "+ e.SortExpression + " " + SysProperty.Util.GetSortDirection(e.SortExpression));
             }
             if(AreaDataSet != null)
             {                
@@ -227,20 +247,10 @@ namespace TheWeWebSite.SysMgt
             }
         }
 
-        private string  GetSortDirection(string column)
+        private void ShowErrorMsg(string msg)
         {
-            string sortDirect = "ASC";
-            if (SysProperty.DataSetSortType)
-            {
-                SysProperty.DataSetSortType = false;
-                sortDirect = "ASC";
-            }
-            else
-            {
-                SysProperty.DataSetSortType = true;
-                sortDirect = "DESC";
-            }      
-            return sortDirect;
+            labelWarnStr.Text = msg;
+            labelWarnStr.Visible = !string.IsNullOrEmpty(msg);
         }
     }
 }

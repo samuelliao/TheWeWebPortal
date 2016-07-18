@@ -24,7 +24,7 @@ namespace TheWeWebSite.SysMgt
                 }
             }
         }
-
+        #region
         protected void btnCreate_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(tbCurrency.Text) || string.IsNullOrEmpty(tbRate.Text)) { return; }
@@ -53,16 +53,22 @@ namespace TheWeWebSite.SysMgt
                 , AttrSymbolItem.Equal
                 , tbRate.Text)
                 );
-
-            if (SysProperty.GenDbCon.InsertDataInToTable(
-                SysProperty.Util.MsSqlTableConverter(MsSqlTable.Currency)
-                , SysProperty.Util.SqlQueryInsertInstanceConverter(lst)
-                , SysProperty.Util.SqlQueryInsertValueConverter(lst)
-                ))
+            try
             {
-                BindData();
-                tbCurrency.Text = string.Empty;
-                tbRate.Text = string.Empty;
+                if (SysProperty.GenDbCon.InsertDataInToTable(
+                    SysProperty.Util.MsSqlTableConverter(MsSqlTable.Currency)
+                    , SysProperty.Util.SqlQueryInsertInstanceConverter(lst)
+                    , SysProperty.Util.SqlQueryInsertValueConverter(lst)
+                    ))
+                {
+                    BindData();
+                    tbCurrency.Text = string.Empty;
+                    tbRate.Text = string.Empty;
+                }
+            }catch(Exception ex)
+            {
+                SysProperty.Log.Error(ex.Message);
+                ShowErrorMsg(ex.Message);
             }
         }
         protected void btnClear_Click(object sender, EventArgs e)
@@ -70,28 +76,30 @@ namespace TheWeWebSite.SysMgt
             tbCurrency.Text = string.Empty;
             tbRate.Text = string.Empty;
         }
+        #endregion
 
         private void BindData()
         {
-            GetCurrencyList();
+            GetCurrencyList(string.Empty);
             dgCurrency.DataSource = CurrencyDataSet;
             dgCurrency.AllowPaging = !SysProperty.Util.IsDataSetEmpty(CurrencyDataSet);
             dgCurrency.DataBind();
         }
 
-        private void GetCurrencyList()
+        private void GetCurrencyList(string sortString)
         {
             try
             {
                 string sqlTxt = "SELECT c.[Id],c.Name,Rate,c.UpdateAccId,c.UpdateTime,c.IsDelete,e.Name as EmployeeName"
                     + " FROM[TheWe].[dbo].[Currency] as c"
                     + " inner join Employee as e on e.Id = c.UpdateAccId"
-                    + " WHERE c.IsDelete = 0";
+                    + " WHERE c.IsDelete = 0 "+ sortString;
                 CurrencyDataSet = SysProperty.GenDbCon.GetDataFromTable(sqlTxt);
             }
             catch (Exception ex)
             {
                 SysProperty.Log.Error(ex.Message);
+                ShowErrorMsg(ex.Message);
                 CurrencyDataSet = null;
             }
         }
@@ -110,9 +118,16 @@ namespace TheWeWebSite.SysMgt
                 + ", UpdateAccId=N'" + SysProperty.AccountInfo["Id"].ToString() + "'"
                 + ", UpdateTime='" + DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss") + "'"
                 + " Where Id = '" + id + "'";
-            if (SysProperty.GenDbCon.ModifyDataInToTable(sqlTxt))
+            try
             {
-                BindData();
+                if (SysProperty.GenDbCon.ModifyDataInToTable(sqlTxt))
+                {
+                    BindData();
+                }
+            }catch(Exception ex)
+            {
+                SysProperty.Log.Error(ex.Message);
+                ShowErrorMsg(ex.Message);
             }
         }
 
@@ -135,15 +150,40 @@ namespace TheWeWebSite.SysMgt
             updateLst.Add(new DbSearchObject("Rate", AtrrTypeItem.String, AttrSymbolItem.Equal, ((TextBox)e.Item.Cells[2].Controls[0]).Text));
             updateLst.Add(new DbSearchObject("UpdateAccId", AtrrTypeItem.String, AttrSymbolItem.Equal, SysProperty.AccountInfo["Id"].ToString()));
             updateLst.Add(new DbSearchObject("UpdateTime", AtrrTypeItem.String, AttrSymbolItem.Equal, DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss")));
-            if (SysProperty.GenDbCon.UpdateDataIntoTable
-                (SysProperty.Util.MsSqlTableConverter(MsSqlTable.Currency)
-                , SysProperty.Util.SqlQueryUpdateConverter(updateLst)
-                , " Where Id = '" + dgCurrency.DataKeys[dgCurrency.EditItemIndex].ToString() + "'"))
+            try
             {
-                dgCurrency.EditItemIndex = -1;
-                BindData();
+                if (SysProperty.GenDbCon.UpdateDataIntoTable
+                    (SysProperty.Util.MsSqlTableConverter(MsSqlTable.Currency)
+                    , SysProperty.Util.SqlQueryUpdateConverter(updateLst)
+                    , " Where Id = '" + dgCurrency.DataKeys[dgCurrency.EditItemIndex].ToString() + "'"))
+                {
+                    dgCurrency.EditItemIndex = -1;
+                    BindData();
+                }
+            } catch (Exception ex)
+            {
+                SysProperty.Log.Error(ex.Message);
+                ShowErrorMsg(ex.Message);
             }
         }
-        #endregion        
+
+        protected void dgCurrency_SortCommand(object source, DataGridSortCommandEventArgs e)
+        {
+            if (CurrencyDataSet == null)
+            {
+                GetCurrencyList("Order by " + e.SortExpression + " " + SysProperty.Util.GetSortDirection(e.SortExpression));
+            }
+            if (CurrencyDataSet != null)
+            {
+                dgCurrency.DataSource = CurrencyDataSet;
+                dgCurrency.DataBind();
+            }
+        }
+        #endregion
+        private void ShowErrorMsg(string msg)
+        {
+            labelWarnStr.Text = msg;
+            labelWarnStr.Visible = !string.IsNullOrEmpty(msg);
+        }
     }
 }

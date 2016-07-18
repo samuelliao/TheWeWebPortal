@@ -31,7 +31,6 @@ namespace TheWeLib
             return BitConverter.ToString(b).Replace("-", string.Empty);
         }
 
-
         /// <summary>
         /// Return the input variable name.
         /// For example: GetVariableName(() => A.testA)
@@ -106,6 +105,23 @@ namespace TheWeLib
                 SysProperty.Log.Error(ex.Message);
                 return false;
             }
+        }
+
+        #region DB Controller
+        public string GetSortDirection(string column)
+        {
+            string sortDirect = "ASC";
+            if (SysProperty.DataSetSortType)
+            {
+                SysProperty.DataSetSortType = false;
+                sortDirect = "ASC";
+            }
+            else
+            {
+                SysProperty.DataSetSortType = true;
+                sortDirect = "DESC";
+            }
+            return sortDirect;
         }
 
         public string SqlQuerySelectInstanceConverter(List<string> lst)
@@ -386,11 +402,14 @@ namespace TheWeLib
                     return "vwEN_Employee";
                 case MsSqlTable.vwEN_Partner:
                     return "vmEN_Partner";
+                case MsSqlTable.SnsMgt:
+                    return "SnsMgt";
                 default:
                     return string.Empty;
 
             }
         }
+        #endregion
     }
 
     public class AreaHashList

@@ -38,7 +38,7 @@ namespace TheWeLib.DbControl
             {
                 // output log
                 SysProperty.Log.Error(ex.Message);
-                return null;
+                throw ex;
             }
         }
 
@@ -66,7 +66,7 @@ namespace TheWeLib.DbControl
             {
                 // output log
                 SysProperty.Log.Error(ex.Message);
-                return false;
+                throw ex;
             }
         }
 

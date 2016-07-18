@@ -120,7 +120,8 @@ namespace TheWeLib
         WeddingPhotoConsultation = 74,
         vwEN_Employee = 75,
         vwEN_Partner = 76,
-        vwEN_Customer = 77
+        vwEN_Customer = 77,
+        SnsMgt = 78
     }
 
     public enum LanguageCode

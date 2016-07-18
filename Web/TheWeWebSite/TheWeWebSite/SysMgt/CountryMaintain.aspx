@@ -83,18 +83,20 @@
 
                         </div>
                     </div>
+                    <asp:Label Text="" Visible="false" runat="server" ID="labelWarnStr" ForeColor="Red" />
                     <hr />
 
                     <!-- Table -->
                     <div class="row">
                         <div class="12u">
-                            <div class="table-wrapper">
+                            <div class="table-wrapper" style="overflow:auto;">
                                 <asp:DataGrid runat="server" ID="dgCountry" AllowPaging="true" AllowSorting="true"
                                     AutoGenerateColumns="false" DataKeyField="Id" OnCancelCommand="dgCountry_CancelCommand"
                                     OnDeleteCommand="dgCountry_DeleteCommand" OnEditCommand="dgCountry_EditCommand"
                                     OnPageIndexChanged="dgCountry_PageIndexChanged" OnUpdateCommand="dgCountry_UpdateCommand"
                                     OnItemDataBound="dgCountry_ItemDataBound" Font-Size="Medium" OnSortCommand="dgCountry_SortCommand">
                                     <HeaderStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                     <PagerStyle Mode="NumericPages" />
                                     <Columns>
                                         <asp:BoundColumn DataField="Id" Visible="false" />

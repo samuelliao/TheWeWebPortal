@@ -397,7 +397,7 @@
     <value>Input the unit</value>
   </data>
   <data name="AdviosryIdString" xml:space="preserve">
-    <value>Advisory id</value>
+    <value>Adivosry Sn</value>
   </data>
   <data name="CaseIdString" xml:space="preserve">
     <value>Case id</value>
@@ -457,7 +457,7 @@
     <value></value>
   </data>
   <data name="AddressString" xml:space="preserve">
-    <value></value>
+    <value>Address</value>
   </data>
   <data name="ReferralsString" xml:space="preserve">
     <value></value>
@@ -476,5 +476,17 @@
   </data>
   <data name="StoreNameInputString" xml:space="preserve">
     <value>Please input a store name</value>
+  </data>
+  <data name="AddressInputString" xml:space="preserve">
+    <value>Please input a address</value>
+  </data>
+  <data name="SnInputString" xml:space="preserve">
+    <value>Please input SN</value>
+  </data>
+  <data name="NameInputString" xml:space="preserve">
+    <value>Please input a name</value>
+  </data>
+  <data name="ContentInputString" xml:space="preserve">
+    <value>Please input the content</value>
   </data>
 </root>

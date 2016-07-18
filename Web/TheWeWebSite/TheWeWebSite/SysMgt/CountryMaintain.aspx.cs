@@ -51,14 +51,20 @@ namespace TheWeWebSite.SysMgt
         {
             ddlCurrency.Items.Clear();
             ddlCurrency.Items.Add(new ListItem(Resources.Resource.CurrencySelectionReminderString, string.Empty));
-
-            DataSet ds = SysProperty.GenDbCon.GetDataFromTable("Select * From Currency where IsDelete = 0");
-            if (!SysProperty.Util.IsDataSetEmpty(ds))
+            try
             {
-                foreach (DataRow dr in ds.Tables[0].Rows)
+                DataSet ds = SysProperty.GenDbCon.GetDataFromTable("Select * From Currency where IsDelete = 0");
+                if (!SysProperty.Util.IsDataSetEmpty(ds))
                 {
-                    ddlCurrency.Items.Add(new ListItem(dr["Name"].ToString(), dr["Id"].ToString()));
+                    foreach (DataRow dr in ds.Tables[0].Rows)
+                    {
+                        ddlCurrency.Items.Add(new ListItem(dr["Name"].ToString(), dr["Id"].ToString()));
+                    }
                 }
+            }catch(Exception ex)
+            {
+                SysProperty.Log.Error(ex.Message);
+                ShowErrorMsg(ex.Message);
             }
         }
         #endregion
@@ -77,9 +83,16 @@ namespace TheWeWebSite.SysMgt
                 + ", UpdateAccId=N'" + SysProperty.AccountInfo["Id"].ToString() + "'"
                 + ", UpdateTime='" + DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss") + "'"
                 + " Where Id = '" + id + "'";
-            if (SysProperty.GenDbCon.ModifyDataInToTable(sqlTxt))
+            try
             {
-                BindData();
+                if (SysProperty.GenDbCon.ModifyDataInToTable(sqlTxt))
+                {
+                    BindData();
+                }
+            } catch (Exception ex)
+            {
+                SysProperty.Log.Error(ex.Message);
+                ShowErrorMsg(ex.Message);
             }
         }
 
@@ -109,13 +122,20 @@ namespace TheWeWebSite.SysMgt
             updateLst.Add(new DbSearchObject("LangCode", AtrrTypeItem.String, AttrSymbolItem.Equal, ddl2.SelectedValue));
             updateLst.Add(new DbSearchObject("UpdateAccId", AtrrTypeItem.String, AttrSymbolItem.Equal, SysProperty.AccountInfo["Id"].ToString()));
             updateLst.Add(new DbSearchObject("UpdateTime", AtrrTypeItem.String, AttrSymbolItem.Equal, DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss")));
-            if (SysProperty.GenDbCon.UpdateDataIntoTable
-                (SysProperty.Util.MsSqlTableConverter(MsSqlTable.Country)
-                , SysProperty.Util.SqlQueryUpdateConverter(updateLst)
-                , " Where Id = '" + dgCountry.DataKeys[dgCountry.EditItemIndex].ToString() + "'"))
+            try
             {
-                dgCountry.EditItemIndex = -1;
-                BindData();
+                if (SysProperty.GenDbCon.UpdateDataIntoTable
+                    (SysProperty.Util.MsSqlTableConverter(MsSqlTable.Country)
+                    , SysProperty.Util.SqlQueryUpdateConverter(updateLst)
+                    , " Where Id = '" + dgCountry.DataKeys[dgCountry.EditItemIndex].ToString() + "'"))
+                {
+                    dgCountry.EditItemIndex = -1;
+                    BindData();
+                }
+            }catch(Exception ex)
+            {
+                SysProperty.Log.Error(ex.Message);
+                ShowErrorMsg(ex.Message);
             }
         }
         protected void dgCountry_ItemDataBound(object sender, DataGridItemEventArgs e)
@@ -127,14 +147,20 @@ namespace TheWeWebSite.SysMgt
                 {
                     DropDownList dropDownList1 = (DropDownList)e.Item.FindControl("ddlDgCurrency");
                     dropDownList1.Items.Clear();
-                    DataSet ds = SysProperty.GenDbCon.GetDataFromTable(string.Empty
-                        , SysProperty.Util.MsSqlTableConverter(MsSqlTable.Currency)
-                        , " Where IsDelete = 0");
-                    foreach (DataRow dr in ds.Tables[0].Rows)
+                    try
                     {
-                        dropDownList1.Items.Add(new ListItem(dr["Name"].ToString(), dr["Id"].ToString()));
+                        DataSet ds = SysProperty.GenDbCon.GetDataFromTable(string.Empty
+                            , SysProperty.Util.MsSqlTableConverter(MsSqlTable.Currency)
+                            , " Where IsDelete = 0");
+                        foreach (DataRow dr in ds.Tables[0].Rows)
+                        {
+                            dropDownList1.Items.Add(new ListItem(dr["Name"].ToString(), dr["Id"].ToString()));
+                        }
+                        dropDownList1.SelectedValue = dataItem1["CurrencyId"].ToString();
+                    }catch(Exception ex)
+                    {
+                        SysProperty.Log.Error(ex.Message);
                     }
-                    dropDownList1.SelectedValue = dataItem1["CurrencyId"].ToString();
 
                     DropDownList dropDownList2 = (DropDownList)e.Item.FindControl("ddlDgLang");
                     dropDownList2.Items.Clear();
@@ -157,7 +183,7 @@ namespace TheWeWebSite.SysMgt
         {
             if (CountryDataSet == null)
             {
-                GetCountryList("Order by " + e.SortExpression + " " + GetSortDirection(e.SortExpression));
+                GetCountryList("Order by " + e.SortExpression + " " + SysProperty.Util.GetSortDirection(e.SortExpression));
             }
             if (CountryDataSet != null)
             {
@@ -165,25 +191,9 @@ namespace TheWeWebSite.SysMgt
                 dgCountry.DataBind();
             }
         }
-
-        private string GetSortDirection(string column)
-        {
-            string sortDirect = "ASC";
-            if (SysProperty.DataSetSortType)
-            {
-                SysProperty.DataSetSortType = false;
-                sortDirect = "ASC";
-            }
-            else
-            {
-                SysProperty.DataSetSortType = true;
-                sortDirect = "DESC";
-            }
-            return sortDirect;
-        }
-
         #endregion
 
+        #region Button Control
         protected void btnCreate_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(tbName.Text) 
@@ -229,18 +239,24 @@ namespace TheWeWebSite.SysMgt
                 , AttrSymbolItem.Equal
                 , ddlUseLang.SelectedValue)
                 );
-
-            if (SysProperty.GenDbCon.InsertDataInToTable(
-                SysProperty.Util.MsSqlTableConverter(MsSqlTable.Country)
-                , SysProperty.Util.SqlQueryInsertInstanceConverter(lst)
-                , SysProperty.Util.SqlQueryInsertValueConverter(lst)
-                ))
+            try
             {
-                BindData();
-                tbCode.Text = string.Empty;
-                tbName.Text = string.Empty;
-                ddlCurrency.SelectedIndex = 0;
-                ddlUseLang.SelectedIndex = 0;
+                if (SysProperty.GenDbCon.InsertDataInToTable(
+                    SysProperty.Util.MsSqlTableConverter(MsSqlTable.Country)
+                    , SysProperty.Util.SqlQueryInsertInstanceConverter(lst)
+                    , SysProperty.Util.SqlQueryInsertValueConverter(lst)
+                    ))
+                {
+                    BindData();
+                    tbCode.Text = string.Empty;
+                    tbName.Text = string.Empty;
+                    ddlCurrency.SelectedIndex = 0;
+                    ddlUseLang.SelectedIndex = 0;
+                }
+            }catch(Exception ex)
+            {
+                SysProperty.Log.Error(ex.Message);
+                ShowErrorMsg(ex.Message);
             }
         }
 
@@ -251,6 +267,7 @@ namespace TheWeWebSite.SysMgt
             ddlCurrency.SelectedIndex = 0;
             ddlUseLang.SelectedIndex = 0;
         }
+        #endregion
 
         private void BindData()
         {
@@ -277,8 +294,15 @@ namespace TheWeWebSite.SysMgt
             catch (Exception ex)
             {
                 SysProperty.Log.Error(ex.Message);
+                ShowErrorMsg(ex.Message);
                 CountryDataSet = null;
             }
-        }        
+        }
+
+        private void ShowErrorMsg(string msg)
+        {
+            labelWarnStr.Text = msg;
+            labelWarnStr.Visible = !string.IsNullOrEmpty(msg);
+        }
     }
 }

@@ -42,7 +42,15 @@ namespace TheWeWebSite.SysMgt
                 + ",i.[IsDelete],i.[UpdateAccId],i.[UpdateTime],e.Name as EmployeeName"
                 + " FROM[TheWe].[dbo].[ItemUnit] as i"
                 + " left join Employee as e on e.Id = i.UpdateAccId";
-            UnitDataSet = SysProperty.GenDbCon.GetDataFromTable(sqlTxt);
+            try
+            {
+                UnitDataSet = SysProperty.GenDbCon.GetDataFromTable(sqlTxt);
+            }catch(Exception ex)
+            {
+                SysProperty.Log.Error(ex.Message);
+                UnitDataSet = null;
+                ShowErrorMsg(ex.Message);
+            }
         }
 
         private void BindData()
@@ -76,15 +84,21 @@ namespace TheWeWebSite.SysMgt
                 , AttrSymbolItem.Equal
                 , SysProperty.AccountInfo["Id"].ToString())
                 );
-
-            if (SysProperty.GenDbCon.InsertDataInToTable(
-                SysProperty.Util.MsSqlTableConverter(MsSqlTable.ItemUnit)
-                , SysProperty.Util.SqlQueryInsertInstanceConverter(lst)
-                , SysProperty.Util.SqlQueryInsertValueConverter(lst)
-                ))
+            try
             {
-                BindData();
-                tbUnit.Text = string.Empty;
+                if (SysProperty.GenDbCon.InsertDataInToTable(
+                    SysProperty.Util.MsSqlTableConverter(MsSqlTable.ItemUnit)
+                    , SysProperty.Util.SqlQueryInsertInstanceConverter(lst)
+                    , SysProperty.Util.SqlQueryInsertValueConverter(lst)
+                    ))
+                {
+                    BindData();
+                    btnClear_Click(sender, e);
+                }
+            }catch(Exception ex)
+            {
+                SysProperty.Log.Error(ex.Message);
+                ShowErrorMsg(ex.Message);
             }
         }
 
@@ -114,9 +128,16 @@ namespace TheWeWebSite.SysMgt
                 + ", UpdateAccId=N'" + SysProperty.AccountInfo["Id"].ToString() + "'"
                 + ", UpdateTime='" + DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss") + "'"
                 + " Where Id = '" + id + "'";
-            if (SysProperty.GenDbCon.ModifyDataInToTable(sqlTxt))
+            try
             {
-                BindData();
+                if (SysProperty.GenDbCon.ModifyDataInToTable(sqlTxt))
+                {
+                    BindData();
+                }
+            }catch(Exception ex)
+            {
+                SysProperty.Log.Error(ex.Message);
+                ShowErrorMsg(ex.Message);
             }
         }
 
@@ -129,13 +150,20 @@ namespace TheWeWebSite.SysMgt
             updateLst.Add(new DbSearchObject("JpName", AtrrTypeItem.String, AttrSymbolItem.Equal, ((TextBox)e.Item.Cells[4].Controls[0]).Text));
             updateLst.Add(new DbSearchObject("UpdateAccId", AtrrTypeItem.String, AttrSymbolItem.Equal, SysProperty.AccountInfo["Id"].ToString()));
             updateLst.Add(new DbSearchObject("UpdateTime", AtrrTypeItem.String, AttrSymbolItem.Equal, DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss")));
-            if (SysProperty.GenDbCon.UpdateDataIntoTable
-                (SysProperty.Util.MsSqlTableConverter(MsSqlTable.ItemUnit)
-                , SysProperty.Util.SqlQueryUpdateConverter(updateLst)
-                , " Where Id = '" + dgUnit.DataKeys[dgUnit.EditItemIndex].ToString() + "'"))
+            try
             {
-                dgUnit.EditItemIndex = -1;
-                BindData();
+                if (SysProperty.GenDbCon.UpdateDataIntoTable
+                    (SysProperty.Util.MsSqlTableConverter(MsSqlTable.ItemUnit)
+                    , SysProperty.Util.SqlQueryUpdateConverter(updateLst)
+                    , " Where Id = '" + dgUnit.DataKeys[dgUnit.EditItemIndex].ToString() + "'"))
+                {
+                    dgUnit.EditItemIndex = -1;
+                    BindData();
+                }
+            }catch(Exception ex)
+            {
+                SysProperty.Log.Error(ex.Message);
+                ShowErrorMsg(ex.Message);
             }
         }
 
@@ -145,5 +173,11 @@ namespace TheWeWebSite.SysMgt
             BindData();
         }
         #endregion
+
+        private void ShowErrorMsg(string msg)
+        {
+            labelWarnStr.Text = msg;
+            labelWarnStr.Visible = !string.IsNullOrEmpty(msg);
+        }
     }
 }

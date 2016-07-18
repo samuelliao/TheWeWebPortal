@@ -20,5 +20,6 @@ namespace TheWeLib
         public static Utility Util;
         public static CountryHashList CountryList;
         public static AreaHashList AreaList;
+        public static bool DataSetSortType;
     }
 }

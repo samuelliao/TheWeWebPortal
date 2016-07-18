@@ -67,7 +67,7 @@
                         </div>
                     </div>
 
-
+                    <asp:Label Text="" Visible="false" runat="server" ID="labelWarnStr" ForeColor="Red" />
                     <hr />
                     <!-- Table -->
                     <div class="row">
@@ -76,15 +76,17 @@
                                 <asp:DataGrid runat="server" ID="dgCurrency" AllowPaging="true" AllowSorting="true"
                                     AutoGenerateColumns="false" DataKeyField="Id" OnCancelCommand="dgCurrency_CancelCommand"
                                     OnDeleteCommand="dgCurrency_DeleteCommand" OnEditCommand="dgCurrency_EditCommand"
-                                    OnPageIndexChanged="dgCurrency_PageIndexChanged" OnUpdateCommand="dgCurrency_UpdateCommand">
+                                    OnPageIndexChanged="dgCurrency_PageIndexChanged" OnUpdateCommand="dgCurrency_UpdateCommand"
+                                    OnSortCommand="dgCurrency_SortCommand">
                                     <HeaderStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                     <PagerStyle Mode="NumericPages" />
                                     <Columns>
                                         <asp:BoundColumn DataField="Id" Visible="false" />
-                                        <asp:BoundColumn HeaderText="<%$ Resources:Resource,CurrencyString%>" DataField="Name" />
-                                        <asp:BoundColumn HeaderText="<%$ Resources:Resource,CurrencyRateString%>" DataField="Rate" />
-                                        <asp:BoundColumn HeaderText="<%$ Resources:Resource,UpdateTimeString%>" DataField="UpdateTime" />
-                                        <asp:BoundColumn HeaderText="<%$ Resources:Resource,EmployeeString%>" DataField="EmployeeName" />
+                                        <asp:BoundColumn HeaderText="<%$ Resources:Resource,CurrencyString%>" DataField="Name" SortExpression="Name" />
+                                        <asp:BoundColumn HeaderText="<%$ Resources:Resource,CurrencyRateString%>" DataField="Rate" SortExpression="Rate" />
+                                        <asp:BoundColumn HeaderText="<%$ Resources:Resource,UpdateTimeString%>" DataField="UpdateTime" SortExpression="UpdateTime" />
+                                        <asp:BoundColumn HeaderText="<%$ Resources:Resource,EmployeeString%>" DataField="EmployeeName" SortExpression="EmployeeName" />
                                         <asp:EditCommandColumn EditText="<%$ Resources:Resource,ModifyString%>"
                                             CancelText="<%$ Resources:Resource,CancelString%>"
                                             UpdateText="<%$ Resources:Resource,UpdateString%>"
