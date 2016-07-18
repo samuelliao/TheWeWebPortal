@@ -396,9 +396,6 @@
   <data name="UnitInputString" xml:space="preserve">
     <value>Input the unit</value>
   </data>
-  <data name="UnitString" xml:space="preserve">
-    <value>Unit</value>
-  </data>
   <data name="AdviosryIdString" xml:space="preserve">
     <value>Advisory id</value>
   </data>
@@ -473,5 +470,11 @@
   </data>
   <data name="UploadString" xml:space="preserve">
     <value></value>
+  </data>
+  <data name="AreaNameInputString" xml:space="preserve">
+    <value>Please input area name</value>
+  </data>
+  <data name="StoreNameInputString" xml:space="preserve">
+    <value>Please input a store name</value>
   </data>
 </root>

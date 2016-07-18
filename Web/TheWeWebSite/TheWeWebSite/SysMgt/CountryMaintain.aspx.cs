@@ -153,6 +153,35 @@ namespace TheWeWebSite.SysMgt
                 }
             }
         }
+        protected void dgCountry_SortCommand(object source, DataGridSortCommandEventArgs e)
+        {
+            if (CountryDataSet == null)
+            {
+                GetCountryList("Order by " + e.SortExpression + " " + GetSortDirection(e.SortExpression));
+            }
+            if (CountryDataSet != null)
+            {
+                dgCountry.DataSource = CountryDataSet;
+                dgCountry.DataBind();
+            }
+        }
+
+        private string GetSortDirection(string column)
+        {
+            string sortDirect = "ASC";
+            if (SysProperty.DataSetSortType)
+            {
+                SysProperty.DataSetSortType = false;
+                sortDirect = "ASC";
+            }
+            else
+            {
+                SysProperty.DataSetSortType = true;
+                sortDirect = "DESC";
+            }
+            return sortDirect;
+        }
+
         #endregion
 
         protected void btnCreate_Click(object sender, EventArgs e)
@@ -225,13 +254,13 @@ namespace TheWeWebSite.SysMgt
 
         private void BindData()
         {
-            GetCountryList();
+            GetCountryList(string.Empty);
             dgCountry.DataSource = CountryDataSet;
             dgCountry.AllowPaging = !SysProperty.Util.IsDataSetEmpty(CountryDataSet);
             dgCountry.DataBind();
         }
 
-        private void GetCountryList()
+        private void GetCountryList(string sortString)
         {
             try
             {
@@ -242,7 +271,7 @@ namespace TheWeWebSite.SysMgt
                     +" FROM[TheWe].[dbo].[Country] as co"
                     +" left join Currency as cu on cu.Id = co.CurrencyId"
                     +" left join vwEN_Employee as em on em.Id = co.UpdateAccId"
-                    +" where co.IsDelete = 0";
+                    +" where co.IsDelete = 0 "+ sortString;
                 CountryDataSet = SysProperty.GenDbCon.GetDataFromTable(sqlTxt);
             }
             catch (Exception ex)
@@ -250,6 +279,6 @@ namespace TheWeWebSite.SysMgt
                 SysProperty.Log.Error(ex.Message);
                 CountryDataSet = null;
             }
-        }
+        }        
     }
 }

@@ -127,6 +127,7 @@
     <Content Include="SysMgt\LoginMaintain.aspx" />
     <Content Include="SysMgt\MsgMaintain.aspx" />
     <Content Include="SysMgt\RootMaintain.aspx" />
+    <Content Include="SysMgt\StoreMaintain.aspx" />
     <Content Include="SysMgt\UnitMaintain.aspx" />
     <Content Include="test.aspx" />
     <Content Include="Web.config" />
@@ -337,6 +338,13 @@
     </Compile>
     <Compile Include="SysMgt\RootMaintain.aspx.designer.cs">
       <DependentUpon>RootMaintain.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="SysMgt\StoreMaintain.aspx.cs">
+      <DependentUpon>StoreMaintain.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SysMgt\StoreMaintain.aspx.designer.cs">
+      <DependentUpon>StoreMaintain.aspx</DependentUpon>
     </Compile>
     <Compile Include="SysMgt\UnitMaintain.aspx.cs">
       <DependentUpon>UnitMaintain.aspx</DependentUpon>

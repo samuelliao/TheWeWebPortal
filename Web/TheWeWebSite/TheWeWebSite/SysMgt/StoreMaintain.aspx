@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="CountryMaintain.aspx.cs" Inherits="TheWeWebSite.SysMgt.CountryMaintain" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="StoreMaintain.aspx.cs" Inherits="TheWeWebSite.SysMgt.StoreMaintain" %>
 <%@ Register TagPrefix="My" TagName="Header" Src="~/Header.ascx" %>
 
 <!DOCTYPE html>
@@ -36,33 +36,27 @@
                             <div class="row uniform 50%">
                                 <div class="2u 12u(mobilep)">
                                     <div class="Div">
+                                        <asp:Label runat="server" Text="<%$ Resources:Resource,CountryString%>"></asp:Label>
+                                    </div>
+                                    <asp:DropDownList runat="server" ID="ddlCountry" />
+                                </div>
+                                <div class="2u 12u(mobilep)">
+                                    <div class="Div">
+                                        <asp:Label runat="server" Text="<%$ Resources:Resource,AreaString%>"></asp:Label>
+                                    </div>
+                                    <asp:DropDownList runat="server" ID="ddlArea" />
+                                </div>
+                                <div class="2u 12u(mobilep)">
+                                    <div class="Div">
                                         <asp:Label runat="server" Text="<%$ Resources:Resource,LangCodeString%>"></asp:Label>
                                     </div>
                                     <asp:DropDownList runat="server" ID="ddlLang" />
                                 </div>
                                 <div class="2u 12u(mobilep)">
                                     <div class="Div">
-                                        <asp:Label runat="server" Text="<%$ Resources:Resource,CountryString%>"></asp:Label>
+                                        <asp:Label runat="server" Text="<%$ Resources:Resource,StoreString%>"></asp:Label>
                                     </div>
-                                    <asp:TextBox runat="server" placeholder="<%$ Resources:Resource,CountryNameInputString%>" ID="tbName"></asp:TextBox>
-                                </div>
-                                <div class="2u 12u(mobilep)">
-                                    <div class="Div">
-                                        <asp:Label runat="server" Text="<%$ Resources:Resource,CodeString%>"></asp:Label>
-                                    </div>
-                                    <asp:TextBox runat="server" placeholder="<%$ Resources:Resource,CodeInputString%>" ID="tbCode"></asp:TextBox>
-                                </div>
-                                <div class="2u 12u(mobilep)">
-                                    <div class="Div">
-                                        <asp:Label runat="server" Text="<%$ Resources:Resource,CurrencyString%>"></asp:Label>
-                                    </div>
-                                    <asp:DropDownList runat="server" ID="ddlCurrency" />
-                                </div>
-                                <div class="2u 12u(mobilep)">
-                                    <div class="Div">
-                                        <asp:Label runat="server" Text="<%$ Resources:Resource,LanguageString%>"></asp:Label>
-                                    </div>
-                                    <asp:DropDownList runat="server" ID="ddlUseLang" />
+                                    <asp:TextBox runat="server" placeholder="<%$ Resources:Resource,StoreNameInputString%>" ID="tbName"></asp:TextBox>
                                 </div>
                                 <!-- Btn -->
 
@@ -70,13 +64,14 @@
                                     <ul class="actions">
 
                                         <li>
-                                            <asp:Button runat="server" Text="<%$ Resources:Resource,CreateString%>"
-                                                ID="btnCreate" OnClick="btnCreate_Click" />
+                                            <asp:Button runat="server" Text="<%$ Resources:Resource,CreateString%>" ID="btnCreate"
+                                                OnClick="btnCreate_Click" />
                                         </li>
                                         <li>
-                                            <asp:Button runat="server" Text="<%$ Resources:Resource,ClearString%>"
-                                                ID="btnClear" OnClick="btnClear_Click" />
+                                             <asp:Button runat="server" Text="<%$ Resources:Resource,ClearString%>"
+                                             ID="btnClear" OnClick="btnClear_Click" />
                                         </li>
+
                                     </ul>
                                 </div>
                             </div>
@@ -89,11 +84,11 @@
                     <div class="row">
                         <div class="12u">
                             <div class="table-wrapper">
-                                <asp:DataGrid runat="server" ID="dgCountry" AllowPaging="true" AllowSorting="true"
-                                    AutoGenerateColumns="false" DataKeyField="Id" OnCancelCommand="dgCountry_CancelCommand"
-                                    OnDeleteCommand="dgCountry_DeleteCommand" OnEditCommand="dgCountry_EditCommand"
-                                    OnPageIndexChanged="dgCountry_PageIndexChanged" OnUpdateCommand="dgCountry_UpdateCommand"
-                                    OnItemDataBound="dgCountry_ItemDataBound" Font-Size="Medium" OnSortCommand="dgCountry_SortCommand">
+                                <asp:DataGrid runat="server" ID="dgStore" AllowPaging="true" AllowSorting="true"
+                                    AutoGenerateColumns="false" DataKeyField="Id" OnCancelCommand="dgStore_CancelCommand"
+                                    OnDeleteCommand="dgStore_DeleteCommand" OnEditCommand="dgStore_EditCommand"
+                                    OnPageIndexChanged="dgStore_PageIndexChanged" OnUpdateCommand="dgStore_UpdateCommand"
+                                    OnItemDataBound="dgStore_ItemDataBound" Font-Size="Medium" OnSortCommand="dgStore_SortCommand">
                                     <HeaderStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                     <PagerStyle Mode="NumericPages" />
                                     <Columns>
@@ -102,24 +97,23 @@
                                         <asp:BoundColumn DataField="CnName" HeaderText="<%$ Resources:Resource,CnNameString%>" SortExpression="CnName" />
                                         <asp:BoundColumn DataField="EngName" HeaderText="<%$ Resources:Resource,EnglishNameString%>" SortExpression="EngName" />
                                         <asp:BoundColumn DataField="JpName" HeaderText="<%$ Resources:Resource,JpNameString%>" SortExpression="JpName" />
-                                        <asp:BoundColumn DataField="Code" HeaderText="<%$ Resources:Resource,UpdateTimeString%>" SortExpression="Code" />
-                                        <asp:TemplateColumn HeaderText="<%$ Resources:Resource,CurrencyString%>"  SortExpression="CurrencyName">
+                                        <asp:TemplateColumn HeaderText="<%$ Resources:Resource,CountryString%>" SortExpression="CountryName">
                                             <EditItemTemplate>
-                                                <asp:DropDownList runat="server" ID="ddlDgCurrency" />
+                                                <asp:DropDownList runat="server" ID="ddlDgCountry" />
                                             </EditItemTemplate>
                                             <ItemTemplate>
-                                                <asp:Label runat="server" ID="labelDgCurrency" />
+                                                <asp:Label runat="server" ID="labelDgCountry" />
                                             </ItemTemplate>
                                         </asp:TemplateColumn>
-                                        <asp:TemplateColumn HeaderText="<%$ Resources:Resource,LanguageString%>" SortExpression="LangCode">
+                                        <asp:TemplateColumn HeaderText="<%$ Resources:Resource,CountryString%>" SortExpression="AreaName">
                                             <EditItemTemplate>
-                                                <asp:DropDownList runat="server" ID="ddlDgLang" />
+                                                <asp:DropDownList runat="server" ID="ddlDgArea" />
                                             </EditItemTemplate>
                                             <ItemTemplate>
-                                                <asp:Label runat="server" ID="labelDgLang" />
+                                                <asp:Label runat="server" ID="labelDgArea" />
                                             </ItemTemplate>
                                         </asp:TemplateColumn>
-                                        <asp:BoundColumn HeaderText="<%$ Resources:Resource,UpdateTimeString%>" DataField="UpdateTime" ReadOnly="true"  SortExpression="UpdateTime"/>
+                                        <asp:BoundColumn HeaderText="<%$ Resources:Resource,UpdateTimeString%>" DataField="UpdateTime" ReadOnly="true" SortExpression="UpdateTime" />
                                         <asp:BoundColumn HeaderText="<%$ Resources:Resource,EmployeeString%>" DataField="EmployeeName"  ReadOnly="true" SortExpression="EmployeeName"/>
                                         <asp:EditCommandColumn EditText="<%$ Resources:Resource,ModifyString%>"
                                             CancelText="<%$ Resources:Resource,CancelString%>"
@@ -134,9 +128,6 @@
                             <hr />
                         </div>
                     </div>
-
-
-
                 </section>
             </section>
 

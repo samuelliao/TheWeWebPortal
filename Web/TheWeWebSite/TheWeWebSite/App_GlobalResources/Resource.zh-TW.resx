@@ -396,9 +396,6 @@
   <data name="UnitInputString" xml:space="preserve">
     <value>請輸入單位</value>
   </data>
-  <data name="UnitString" xml:space="preserve">
-    <value>單位</value>
-  </data>
   <data name="AdviosryIdString" xml:space="preserve">
     <value>諮詢編號</value>
   </data>
@@ -473,5 +470,11 @@
   </data>
   <data name="UploadString" xml:space="preserve">
     <value>上傳</value>
+  </data>
+  <data name="AreaNameInputString" xml:space="preserve">
+    <value>請輸入地區名稱</value>
+  </data>
+  <data name="StoreNameInputString" xml:space="preserve">
+    <value>請輸入店名</value>
   </data>
 </root>

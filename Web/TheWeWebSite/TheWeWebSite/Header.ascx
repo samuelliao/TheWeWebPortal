@@ -112,6 +112,9 @@
                                 </li>
                                 <li>
                                     <asp:LinkButton runat="server" Text="<%$ Resources:Resource,AreaString%>" ID="LinkAreaMaintain" PostBackUrl="~/SysMgt/AreaMaintain.aspx" />
+                                </li>                                
+                                <li>
+                                    <asp:LinkButton runat="server" Text="<%$ Resources:Resource,StoreString%>" ID="LinkStoreMaintain" PostBackUrl="~/SysMgt/StoreMaintain.aspx" />
                                 </li>
                                 <li>
                                     <asp:LinkButton runat="server" Text="<%$ Resources:Resource,UnitString%>" ID="LinkUnitMaintain" PostBackUrl="~/SysMgt/UnitMaintain.aspx" />

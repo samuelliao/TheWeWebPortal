@@ -10,7 +10,7 @@
 namespace TheWeWebSite.SysMgt {
     
     
-    public partial class AreaMaintain {
+    public partial class StoreMaintain {
         
         /// <summary>
         /// ucHeader 控制項。
@@ -38,6 +38,15 @@ namespace TheWeWebSite.SysMgt {
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlCountry;
+        
+        /// <summary>
+        /// ddlArea 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlArea;
         
         /// <summary>
         /// ddlLang 控制項。
@@ -76,12 +85,12 @@ namespace TheWeWebSite.SysMgt {
         protected global::System.Web.UI.WebControls.Button btnClear;
         
         /// <summary>
-        /// dgArea 控制項。
+        /// dgStore 控制項。
         /// </summary>
         /// <remarks>
         /// 自動產生的欄位。
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DataGrid dgArea;
+        protected global::System.Web.UI.WebControls.DataGrid dgStore;
     }
 }
