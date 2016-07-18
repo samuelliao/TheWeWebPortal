@@ -27,7 +27,7 @@
                 <!-- Text -->
                 <section class="box title">
                     <h3>
-                        <asp:Label runat="server" Text="系統管理&nbsp;&nbsp;>&nbsp;&nbsp;地區(待修改)"></asp:Label></h3>
+                        <asp:Label runat="server" Text="" ID="labelPageTitle"></asp:Label></h3>
                 </section>
                 <!-- Input -->
                 <section class="box special">
@@ -37,21 +37,21 @@
                             <div class="row uniform 50%">
                                 <div class="2u 12u(mobilep)">
                                     <div class="Div">
-                                        <asp:Label runat="server" Text="國家"></asp:Label>
+                                        <asp:Label runat="server" Text="<%$ Resources:Resource,CountryString%>"></asp:Label>
                                     </div>
-                                    <asp:TextBox runat="server" placeholder="請輸入國家..."></asp:TextBox>
+                                    <asp:DropDownList runat="server" ID="ddlCountry" />
                                 </div>
                                 <div class="2u 12u(mobilep)">
                                     <div class="Div">
-                                        <asp:Label runat="server" Text="國別代碼"></asp:Label>
+                                        <asp:Label runat="server" Text="<%$ Resources:Resource,LangCodeString%>"></asp:Label>
                                     </div>
-                                    <asp:TextBox runat="server" placeholder="請輸入國別代碼..."></asp:TextBox>
+                                    <asp:DropDownList runat="server" ID="ddlLang" />
                                 </div>
                                 <div class="2u 12u(mobilep)">
                                     <div class="Div">
-                                        <asp:Label runat="server" Text="地區代碼"></asp:Label>
+                                        <asp:Label runat="server" Text="<%$ Resources:Resource,AreaString%>"></asp:Label>
                                     </div>
-                                    <asp:TextBox runat="server" placeholder="請輸入地區代碼..."></asp:TextBox>
+                                    <asp:TextBox runat="server" placeholder="<%$ Resources:Resource,AreaNameInputString%>" ID="tbName"></asp:TextBox>
                                 </div>
                                 <!-- Btn -->
 
@@ -59,10 +59,12 @@
                                     <ul class="actions">
 
                                         <li>
-                                            <asp:Button runat="server" Text="<%$ Resources:Resource,CreateString%>" ID="LinkCaseMCreate" PostBackUrl="~/CaseMgt/CaseMCreate.aspx" />
+                                            <asp:Button runat="server" Text="<%$ Resources:Resource,CreateString%>" ID="btnCreate"
+                                                OnClick="btnCreate_Click" />
                                         </li>
                                         <li>
-                                            <asp:Button runat="server" CssClass="button alt" Text="<%$ Resources:Resource,SearchString%>" />
+                                             <asp:Button runat="server" Text="<%$ Resources:Resource,ClearString%>"
+                                             ID="btnClear" OnClick="btnClear_Click" />
                                         </li>
 
                                     </ul>
@@ -71,35 +73,50 @@
 
                         </div>
                     </div>
+                    <asp:Label Text="" Visible="false" runat="server" ID="labelWarnStr" ForeColor="Red" />
                     <hr />
 
                     <!-- Table -->
                     <div class="row">
                         <div class="12u">
-                            <div class="table-wrapper">
-                                <table class="alt">
-                                    <thead>
-                                        <tr>
-                                            <th>單位</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>個</td>
-                                        </tr>
-                                        <tr>
-                                            <td>張</td>
-                                        </tr>
-                                    </tbody>
-
-                                </table>
+                            <div class="table-wrapper" style="overflow:auto;">
+                                <asp:DataGrid runat="server" ID="dgArea" AllowPaging="true" AllowSorting="true"
+                                    AutoGenerateColumns="false" DataKeyField="Id" OnCancelCommand="dgArea_CancelCommand"
+                                    OnDeleteCommand="dgArea_DeleteCommand" OnEditCommand="dgArea_EditCommand"
+                                    OnPageIndexChanged="dgArea_PageIndexChanged" OnUpdateCommand="dgArea_UpdateCommand"
+                                    OnItemDataBound="dgArea_ItemDataBound" Font-Size="Medium" OnSortCommand="dgArea_SortCommand">
+                                    <HeaderStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                    <PagerStyle Mode="NumericPages" />
+                                    <Columns>
+                                        <asp:BoundColumn DataField="Id" Visible="false" />
+                                        <asp:BoundColumn DataField="Name" HeaderText="<%$ Resources:Resource,NameString%>" SortExpression="Name" />
+                                        <asp:BoundColumn DataField="CnName" HeaderText="<%$ Resources:Resource,CnNameString%>" SortExpression="CnName" />
+                                        <asp:BoundColumn DataField="EngName" HeaderText="<%$ Resources:Resource,EnglishNameString%>" SortExpression="EngName" />
+                                        <asp:BoundColumn DataField="JpName" HeaderText="<%$ Resources:Resource,JpNameString%>" SortExpression="JpName" />
+                                        <asp:TemplateColumn HeaderText="<%$ Resources:Resource,CountryString%>" SortExpression="CountryName">
+                                            <EditItemTemplate>
+                                                <asp:DropDownList runat="server" ID="ddlDgCountry" />
+                                            </EditItemTemplate>
+                                            <ItemTemplate>
+                                                <asp:Label runat="server" ID="labelDgCountry" />
+                                            </ItemTemplate>
+                                        </asp:TemplateColumn>
+                                        <asp:BoundColumn HeaderText="<%$ Resources:Resource,UpdateTimeString%>" DataField="UpdateTime" ReadOnly="true" SortExpression="UpdateTime" />
+                                        <asp:BoundColumn HeaderText="<%$ Resources:Resource,EmployeeString%>" DataField="EmployeeName"  ReadOnly="true" SortExpression="EmployeeName"/>
+                                        <asp:EditCommandColumn EditText="<%$ Resources:Resource,ModifyString%>"
+                                            CancelText="<%$ Resources:Resource,CancelString%>"
+                                            UpdateText="<%$ Resources:Resource,UpdateString%>"
+                                            HeaderText="<%$ Resources:Resource,ModifyString%>" />
+                                        <asp:ButtonColumn CommandName="Delete"
+                                            HeaderText="<%$ Resources:Resource,DeleteString%>"
+                                            Text="<%$ Resources:Resource,DeleteString%>" />
+                                    </Columns>
+                                </asp:DataGrid>
                             </div>
                             <hr />
                         </div>
                     </div>
-
-
-
                 </section>
             </section>
 

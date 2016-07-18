@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -29,7 +30,6 @@ namespace TheWeLib
             byte[] b = md5.ComputeHash(Encoding.UTF8.GetBytes(inputStr));
             return BitConverter.ToString(b).Replace("-", string.Empty);
         }
-
 
         /// <summary>
         /// Return the input variable name.
@@ -92,8 +92,12 @@ namespace TheWeLib
         {
             try
             {
-                if (string.IsNullOrEmpty(SysProperty.DbConcString)) return false;
-                if (SysProperty.EmployeeInfo == null || string.IsNullOrEmpty(SysProperty.EmployeeInfo.Id)) return false;
+                if (string.IsNullOrEmpty(SysProperty.DbConcString)) { return false; }
+                if (SysProperty.AccountInfo == null
+                    || string.IsNullOrEmpty(SysProperty.AccountInfo["Id"].ToString()))
+                {
+                    return false;
+                }
                 return true;
             }
             catch (Exception ex)
@@ -101,6 +105,23 @@ namespace TheWeLib
                 SysProperty.Log.Error(ex.Message);
                 return false;
             }
+        }
+
+        #region DB Controller
+        public string GetSortDirection(string column)
+        {
+            string sortDirect = "ASC";
+            if (SysProperty.DataSetSortType)
+            {
+                SysProperty.DataSetSortType = false;
+                sortDirect = "ASC";
+            }
+            else
+            {
+                SysProperty.DataSetSortType = true;
+                sortDirect = "DESC";
+            }
+            return sortDirect;
         }
 
         public string SqlQuerySelectInstanceConverter(List<string> lst)
@@ -381,9 +402,76 @@ namespace TheWeLib
                     return "vwEN_Employee";
                 case MsSqlTable.vwEN_Partner:
                     return "vmEN_Partner";
+                case MsSqlTable.SnsMgt:
+                    return "SnsMgt";
                 default:
                     return string.Empty;
 
+            }
+        }
+        #endregion
+    }
+
+    public class AreaHashList
+    {
+        private Hashtable Areas = new Hashtable();
+        private Object locker = new object();
+        public void InsertArea(string key, DataRow dr)
+        {
+            lock (locker)
+            {
+                Areas.Add(key, dr);
+            }
+        }
+
+        public DataRow GetAreaById(string id)
+        {
+            lock (locker)
+            {
+                if (CheckKeyInArea(id))
+                    return (DataRow)Areas[id];
+                else
+                    return null;
+            }
+        }
+
+        public bool CheckKeyInArea(string id)
+        {
+            lock (locker)
+            {
+                return Areas.ContainsKey(id);
+            }
+        }
+    }
+
+    public class CountryHashList
+    {
+        private Hashtable Conutries = new Hashtable();
+        private Object locker = new object();
+        public void InsertCountry(string key, DataRow dr)
+        {
+            lock (locker)
+            {
+                Conutries.Add(key, dr);
+            }
+        }
+
+        public DataRow GetCountryById(string id)
+        {
+            lock (locker)
+            {
+                if (CheckKeyInCountry(id))
+                    return (DataRow)Conutries[id];
+                else
+                    return null;
+            }
+        }
+
+        public bool CheckKeyInCountry(string id)
+        {
+            lock (locker)
+            {
+                return Conutries.ContainsKey(id);
             }
         }
     }

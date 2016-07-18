@@ -6,48 +6,45 @@
 <head runat="server">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>The We Wedding</title>
-    <link href="../assets/css/font-awesome.min.css" rel="stylesheet" />
-    <link href="../assets/css/main.css" rel="stylesheet" />
-    <link href="../assets/css/calendar.css" rel="stylesheet" />
+    <link href="assets/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="assets/css/main.css" rel="stylesheet" />
+    <link href="assets/css/calendar.css" rel="stylesheet" />
 </head>
 <body class="landing">
-    <form runat="server">
+    <form runat="server" style="background-color: Pink">
         <div id="page-wrapper">
 
             <!-- Header -->
 
 
             <!-- Banner -->
-            <section id="banner">
-                <h2>
-                    <asp:Label runat="server" Text="The We Wedding"></asp:Label></h2>
-                <p>
-                    <asp:Label runat="server" Text="Login"></asp:Label>
-                </p>
-                <div style="color: #000; margin-bottom: 10px; margin-left: auto; margin-right: auto; width: 15%;">
-                    <asp:DropDownList runat="server"  ID="ddlStore" OnLoad="ddlStore_Load" />
-                </div>
+            <section id="banner">                
+                    <h2>
+                        <asp:Label runat="server" Text="The We Wedding"></asp:Label></h2>                    
+                    <div style="color: #000; margin-bottom: 10px; margin-left: auto; margin-right: auto; width: 15%;">
+                        <asp:DropDownList runat="server" ID="ddlStore" OnLoad="ddlStore_Load" />
+                    </div>
 
-                <div style="color: #000; margin-bottom: 10px; margin-left: auto; margin-right: auto; width: 15%;">
-                    <asp:TextBox runat="server" TextMode="SingleLine" ID="tbAccount" />
-                    <!--<asp:TextBox runat="server" placeholder="請輸入帳號..."></asp:TextBox>-->
-                </div>
+                    <div style="color: #000; margin-bottom: 10px; margin-left: auto; margin-right: auto; width: 15%;">
+                        <asp:TextBox runat="server" TextMode="SingleLine" ID="tbAccount" />
+                        <!--<asp:TextBox runat="server" placeholder="請輸入帳號..."></asp:TextBox>-->
+                    </div>
 
 
-                <div style="color: #000; margin-bottom: 10px; margin-left: auto; margin-right: auto; width: 15%;">
-                    <asp:TextBox runat="server" placeholder="請輸入密碼..." ID="tbPassword" TextMode ="Password"></asp:TextBox>
-                </div>
-                <div>
-                    <asp:Label runat="server" ID="labelWarnText" ForeColor="Red" />
-                    <asp:Button runat="server" CssClass="button alt" Text="Login" OnClick="btnLogin_Click" />
-                </div>
-
+                    <div style="color: #000; margin-bottom: 10px; margin-left: auto; margin-right: auto; width: 15%;">
+                        <asp:TextBox runat="server" placeholder="請輸入密碼..." ID="tbPassword" TextMode="Password"></asp:TextBox>
+                    </div>
+                    <div>
+                        <asp:Label runat="server" ID="labelWarnText" ForeColor="Red" />
+                        <br />
+                        <asp:Button runat="server" CssClass="button alt" Text="<%$ Resources:Resource,LoginString%>" OnClick="btnLogin_Click" />
+                    </div>
             </section>
 
 
 
             <!-- Footer -->
-            <footer id="footer">
+            <footer id="footer" style="background-color:pink">
                 <ul class="copyright">
                     <li>rights.</li>
                     <li>The We Wedding</li>

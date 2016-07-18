@@ -34,7 +34,7 @@ namespace TheWeLib
             {
                 // Output log here.
                 SysProperty.Log.Error(ex.Message);
-                return null;
+                throw ex;
             }
         }
 
@@ -52,7 +52,7 @@ namespace TheWeLib
             {
                 // Output log.
                 SysProperty.Log.Error(ex.Message);
-                return false;
+                throw ex;
             }
             finally
             {

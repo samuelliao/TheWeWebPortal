@@ -1,5 +1,4 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="UnitMaintain.aspx.cs" Inherits="TheWeWebSite.SysMgt.UnitMaintain" %>
-
 <%@ Register TagPrefix="My" TagName="Header" Src="~/Header.ascx" %>
 
 <!DOCTYPE html>
@@ -19,15 +18,12 @@
             <!-- Header -->
             <My:Header runat="server" ID="ucHeader" />
 
-
             <!-- Main -->
-
             <section id="main">
-
                 <!-- Text -->
                 <section class="box title">
                     <h3>
-                        <asp:Label runat="server" Text="系統管理&nbsp;&nbsp;>&nbsp;&nbsp;單位(待修改)"></asp:Label></h3>
+                        <asp:Label runat="server" Text="" ID="labelPageTitle"></asp:Label></h3>
                 </section>
                 <!-- Input -->
                 <section class="box special">
@@ -37,57 +33,67 @@
                             <div class="row uniform 50%">
                                 <div class="2u 12u(mobilep)">
                                     <div class="Div">
-                                        <asp:Label runat="server" Text="單位"></asp:Label>
+                                        <asp:Label runat="server" Text="<%$ Resources:Resource,LangCodeString%>"></asp:Label>
                                     </div>
-                                    <asp:TextBox runat="server" placeholder="請輸入單位..."></asp:TextBox>
+                                    <asp:DropDownList runat="server" ID="ddlLang" />
+                                </div>
+                                <div class="2u 12u(mobilep)">
+                                    <div class="Div">
+                                        <asp:Label runat="server" Text="<%$ Resources:Resource,UnitString%>"></asp:Label>
+                                    </div>
+                                    <asp:TextBox runat="server" placeholder="<%$ Resources:Resource,UnitInputString%>" ID="tbUnit"></asp:TextBox>
                                 </div>
                                 <!-- Btn -->
-
                                 <div class="Div btn">
                                     <ul class="actions">
-
                                         <li>
-                                            <asp:Button runat="server" Text="<%$ Resources:Resource,CreateString%>" ID="LinkCaseMCreate" PostBackUrl="~/CaseMgt/CaseMCreate.aspx" />
+                                            <asp:Button runat="server" Text="<%$ Resources:Resource,CreateString%>" 
+                                               ID="btnCreate" OnClick="btnCreate_Click"/>
                                         </li>
                                         <li>
-                                            <asp:Button runat="server" CssClass="button alt" Text="<%$ Resources:Resource,SearchString%>" />
+                                            <asp:Button runat="server" CssClass="button alt" Text="<%$ Resources:Resource,ClearString%>"
+                                                ID="btnClear" OnClick="btnClear_Click" />
                                         </li>
-
                                     </ul>
                                 </div>
                             </div>
-
                         </div>
                     </div>
+                    <asp:Label Text="" Visible="false" runat="server" ID="labelWarnStr" ForeColor="Red" />
                     <hr />
 
                     <!-- Table -->
                     <div class="row">
                         <div class="12u">
                             <div class="table-wrapper">
-                                <table class="alt">
-                                    <thead>
-                                        <tr>
-                                            <th>單位</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>個</td>
-                                        </tr>
-                                        <tr>
-                                            <td>張</td>
-                                        </tr>
-                                    </tbody>
-
-                                </table>
+                                <asp:DataGrid runat="server" ID="dgUnit" AllowPaging="true" AllowSorting="true" AutoGenerateColumns="false"
+                                 DataKeyField="Id" Font-Size="Medium" OnCancelCommand="dgUnit_CancelCommand"
+                                 OnEditCommand="dgUnit_EditCommand" OnDeleteCommand="dgUnit_DeleteCommand"
+                                 OnUpdateCommand="dgUnit_UpdateCommand" OnPageIndexChanged="dgUnit_PageIndexChanged">
+                                    <PagerStyle Mode="NumericPages" />
+                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                    <HeaderStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                    <Columns>
+                                        <asp:BoundColumn DataField="Id" Visible="false"/>
+                                        <asp:BoundColumn DataField="Name" HeaderText="<%$ Resources:Resource,NameString%>" />
+                                        <asp:BoundColumn DataField="CnName" HeaderText="<%$ Resources:Resource,CnNameString%>" />
+                                        <asp:BoundColumn DataField="EngName" HeaderText="<%$ Resources:Resource,EnglishNameString%>" />
+                                        <asp:BoundColumn DataField="JpName" HeaderText="<%$ Resources:Resource,JpNameString%>" />                                        
+                                        <asp:BoundColumn HeaderText="<%$ Resources:Resource,UpdateTimeString%>" DataField="UpdateTime" ReadOnly="true" />
+                                        <asp:BoundColumn HeaderText="<%$ Resources:Resource,EmployeeString%>" DataField="EmployeeName" ReadOnly="true" />
+                                        <asp:EditCommandColumn EditText="<%$ Resources:Resource,ModifyString%>"
+                                            CancelText="<%$ Resources:Resource,CancelString%>"
+                                            UpdateText="<%$ Resources:Resource,UpdateString%>"
+                                            HeaderText="<%$ Resources:Resource,ModifyString%>" />
+                                        <asp:ButtonColumn CommandName="Delete"
+                                            HeaderText="<%$ Resources:Resource,DeleteString%>"
+                                            Text="<%$ Resources:Resource,DeleteString%>" />
+                                    </Columns>
+                                </asp:DataGrid>
                             </div>
                             <hr />
                         </div>
                     </div>
-
-
-
                 </section>
             </section>
 

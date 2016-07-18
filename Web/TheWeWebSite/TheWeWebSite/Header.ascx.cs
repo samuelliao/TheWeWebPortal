@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using TheWeLib;
 
 namespace TheWeWebSite
 {
@@ -12,6 +13,15 @@ namespace TheWeWebSite
         protected void Page_Load(object sender, EventArgs e)
         {
 
+        }
+
+        public void StoreName()
+        {
+            if (SysProperty.LocateStore != null)
+            {
+                labelStoreName.Text = SysProperty.Util.OutputRelatedLangName(SysProperty.LocateStore);
+            }
+            else labelStoreName.Text = string.Empty;
         }
     }
 }

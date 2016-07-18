@@ -228,9 +228,6 @@
   <data name="ModifiedTimeString" xml:space="preserve">
     <value>Modified Date</value>
   </data>
-  <data name="CurrencyInputString" xml:space="preserve">
-    <value>Please input currency</value>
-  </data>
   <data name="CustomerMaintainString" xml:space="preserve">
     <value>Customer Maintain</value>
   </data>
@@ -315,7 +312,7 @@
   <data name="NameString" xml:space="preserve">
     <value>Name</value>
   </data>
-  <data name="EngNameString" xml:space="preserve">
+  <data name="EnglishNameString" xml:space="preserve">
     <value>English Name</value>
   </data>
   <data name="PriceString" xml:space="preserve">
@@ -366,8 +363,41 @@
   <data name="UnitString" xml:space="preserve">
     <value>Unit</value>
   </data>
+  <data name="ResultString" xml:space="preserve">
+    <value>Result</value>
+  </data>
+  <data name="UpdateTimeString" xml:space="preserve">
+    <value>Update time</value>
+  </data>
+  <data name="CurrencyRateInputString" xml:space="preserve">
+    <value>Input the rate</value>
+  </data>
+  <data name="CurrencyNameInputString" xml:space="preserve">
+    <value>Input the currency name</value>
+  </data>
+  <data name="CountryNameInputString" xml:space="preserve">
+    <value>Input the country name</value>
+  </data>
+  <data name="CodeString" xml:space="preserve">
+    <value>Code</value>
+  </data>
+  <data name="CodeInputString" xml:space="preserve">
+    <value>Input the code</value>
+  </data>
+  <data name="CurrencySelectionReminderString" xml:space="preserve">
+    <value>Select a currency</value>
+  </data>
+  <data name="LanguageString" xml:space="preserve">
+    <value>Language</value>
+  </data>
+  <data name="LanguageSelectionReminderString" xml:space="preserve">
+    <value>Select a language</value>
+  </data>
+  <data name="UnitInputString" xml:space="preserve">
+    <value>Input the unit</value>
+  </data>
   <data name="AdviosryIdString" xml:space="preserve">
-    <value>Advisory id</value>
+    <value>Adivosry Sn</value>
   </data>
   <data name="CaseIdString" xml:space="preserve">
     <value>Case id</value>
@@ -427,7 +457,7 @@
     <value></value>
   </data>
   <data name="AddressString" xml:space="preserve">
-    <value></value>
+    <value>Address</value>
   </data>
   <data name="ReferralsString" xml:space="preserve">
     <value></value>
@@ -440,5 +470,23 @@
   </data>
   <data name="UploadString" xml:space="preserve">
     <value></value>
+  </data>
+  <data name="AreaNameInputString" xml:space="preserve">
+    <value>Please input area name</value>
+  </data>
+  <data name="StoreNameInputString" xml:space="preserve">
+    <value>Please input a store name</value>
+  </data>
+  <data name="AddressInputString" xml:space="preserve">
+    <value>Please input a address</value>
+  </data>
+  <data name="SnInputString" xml:space="preserve">
+    <value>Please input SN</value>
+  </data>
+  <data name="NameInputString" xml:space="preserve">
+    <value>Please input a name</value>
+  </data>
+  <data name="ContentInputString" xml:space="preserve">
+    <value>Please input the content</value>
   </data>
 </root>

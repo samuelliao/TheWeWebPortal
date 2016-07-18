@@ -26,7 +26,7 @@
                 <!-- Text -->
                 <section class="box title">
                     <h3>
-                        <asp:Label runat="server" Text="系統管理&nbsp;&nbsp;>&nbsp;&nbsp;幣別(待修改)"></asp:Label></h3>
+                        <asp:Label runat="server" ID="labelPageTitle" Text=""></asp:Label></h3>
                 </section>
                 <!-- Input -->
                 <section class="box special">
@@ -37,66 +37,65 @@
                             <div class="row uniform 50%">
                                 <div class="2u 12u(mobilep)">
                                     <div class="Div">
-                                        <asp:Label runat="server" Text="國家"></asp:Label>
+                                        <asp:Label runat="server" Text="<%$ Resources:Resource,CurrencyString%>"></asp:Label>
                                     </div>
-                                    <asp:DropDownList runat="server" />
-
+                                    <asp:TextBox runat="server" ID="tbCurrency" placeholder="<%$ Resources:Resource,CurrencyNameInputString%>" />
                                 </div>
                                 <div class="2u 12u(mobilep)">
                                     <div class="Div">
-                                        <asp:Label runat="server" Text="匯率"></asp:Label>
+                                        <asp:Label runat="server" Text="<%$ Resources:Resource,CurrencyRateString%>"></asp:Label>
                                     </div>
-                                    <asp:TextBox runat="server" placeholder="請輸入匯率..."></asp:TextBox>
+                                    <asp:TextBox runat="server" placeholder="<%$ Resources:Resource,CurrencyRateInputString%>" ID="tbRate" />
+                                    <asp:RegularExpressionValidator ID="RegularExpressionValidator1" ControlToValidate="tbRate" runat="server" ErrorMessage="Only Numbers allowed" ValidationExpression="\d+[.]*\d*"></asp:RegularExpressionValidator>
                                 </div>
-                                
+
                                 <!-- Btn -->
                                 <div class="Div btn">
                                     <ul class="actions">
 
                                         <li>
-                                            <asp:Button runat="server" Text="<%$ Resources:Resource,CreateString%>" ID="LinkCaseMCreate" PostBackUrl="~/CaseMgt/CaseMCreate.aspx" />
+                                            <asp:Button runat="server" Text="<%$ Resources:Resource,CreateString%>"
+                                                ID="btnCreate" OnClick="btnCreate_Click" />
                                         </li>
                                         <li>
-                                            <asp:Button runat="server" CssClass="button alt" Text="<%$ Resources:Resource,SearchString%>" />
+                                            <asp:Button runat="server" Text="<%$ Resources:Resource,ClearString%>"
+                                             ID="btnClear" OnClick="btnClear_Click" />
                                         </li>
-
                                     </ul>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-
+                    <asp:Label Text="" Visible="false" runat="server" ID="labelWarnStr" ForeColor="Red" />
                     <hr />
                     <!-- Table -->
                     <div class="row">
                         <div class="12u">
                             <div class="table-wrapper">
-                                <table class="alt">
-                                    <thead>
-                                        <tr>
-                                            <th>幣別</th>
-                                            <th>匯率</th>
-                                            <th>修改日期</th>
-                                            <th>修改人</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>$</td>
-                                            <td>35.123</td>
-                                            <td>2016/07/05</td>
-                                            <td>Joye</td>
-                                        </tr>
-                                        <tr>
-                                            <td>¥</td>
-                                            <td>0.35123</td>
-                                            <td>2016/07/05</td>
-                                            <td>Joye</td>
-                                        </tr>
-                                    </tbody>
-
-                                </table>
+                                <asp:DataGrid runat="server" ID="dgCurrency" AllowPaging="true" AllowSorting="true"
+                                    AutoGenerateColumns="false" DataKeyField="Id" OnCancelCommand="dgCurrency_CancelCommand"
+                                    OnDeleteCommand="dgCurrency_DeleteCommand" OnEditCommand="dgCurrency_EditCommand"
+                                    OnPageIndexChanged="dgCurrency_PageIndexChanged" OnUpdateCommand="dgCurrency_UpdateCommand"
+                                    OnSortCommand="dgCurrency_SortCommand">
+                                    <HeaderStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                    <PagerStyle Mode="NumericPages" />
+                                    <Columns>
+                                        <asp:BoundColumn DataField="Id" Visible="false" />
+                                        <asp:BoundColumn HeaderText="<%$ Resources:Resource,CurrencyString%>" DataField="Name" SortExpression="Name" />
+                                        <asp:BoundColumn HeaderText="<%$ Resources:Resource,CurrencyRateString%>" DataField="Rate" SortExpression="Rate" />
+                                        <asp:BoundColumn HeaderText="<%$ Resources:Resource,UpdateTimeString%>" DataField="UpdateTime" SortExpression="UpdateTime" />
+                                        <asp:BoundColumn HeaderText="<%$ Resources:Resource,EmployeeString%>" DataField="EmployeeName" SortExpression="EmployeeName" />
+                                        <asp:EditCommandColumn EditText="<%$ Resources:Resource,ModifyString%>"
+                                            CancelText="<%$ Resources:Resource,CancelString%>"
+                                            UpdateText="<%$ Resources:Resource,UpdateString%>"
+                                            HeaderText="<%$ Resources:Resource,ModifyString%>" />
+                                        <asp:ButtonColumn CommandName="Delete"
+                                            HeaderText="<%$ Resources:Resource,DeleteString%>"
+                                            Text="<%$ Resources:Resource,DeleteString%>" />
+                                    </Columns>
+                                </asp:DataGrid>
                             </div>
                             <hr />
                         </div>
