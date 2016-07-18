@@ -159,7 +159,7 @@ namespace TheWeWebSite.StoreMgt
         {
             GetChurchList(ddlCountry.SelectedValue, ddlArea.SelectedValue, ddlChruch.SelectedValue);
             dgChurch.DataSource = ChurchDataSet;
-            dgChurch.DataBind();
+                dgChurch.DataBind();
         }
 
         protected void dgChurch_EditCommand(object source, DataGridCommandEventArgs e)
@@ -279,7 +279,6 @@ namespace TheWeWebSite.StoreMgt
         protected void btnClear_Click(object sender, EventArgs e)
         {
             tbChurchName.Text = string.Empty;
-            tbRemark.Text = string.Empty;
         }
 
         protected void btnDelete_Click(object sender, EventArgs e)
@@ -316,12 +315,7 @@ namespace TheWeWebSite.StoreMgt
                 , AttrSymbolItem.Equal
                 , ddlArea.SelectedValue)
                 );
-            lst.Add(new DbSearchObject(
-                "Remark"
-                , AtrrTypeItem.String
-                , AttrSymbolItem.Equal
-                , tbRemark.Text)
-                );
+           
 
             if (SysProperty.GenDbCon.InsertDataInToTable(
                 SysProperty.Util.MsSqlTableConverter(MsSqlTable.Church)

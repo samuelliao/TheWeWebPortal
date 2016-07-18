@@ -1,4 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="CaseMaintain.aspx.cs" Inherits="TheWeWebSite.CaseMgt.CaseMaintain" %>
+
 <%@ Register TagPrefix="My" TagName="Header" Src="~/Header.ascx" %>
 
 <!DOCTYPE html>
@@ -9,10 +10,11 @@
     <title>The We Wedding</title>
     <link href="../assets/css/font-awesome.min.css" rel="stylesheet" />
     <link href="../assets/css/main.css" rel="stylesheet" />
-    <link href="../assets/css/calendar.css" rel="stylesheet" />
+    <link href="../assets/css/jquery-ui.css" rel="stylesheet"/>
 </head>
 <body class="landing">
     <form runat="server">
+
         <div id="page-wrapper">
 
             <!-- Header -->
@@ -31,7 +33,6 @@
                 <section class="box special">
                     <div>
                         <div class="12u">
-
                             <div class="row uniform 50%">
                                 <div class="2u 12u(mobilep)">
                                     <div class="Div">
@@ -48,17 +49,41 @@
 
                                 <div class="2u 12u(mobilep)">
                                     <div class="Div">
-                                        <asp:Label runat="server" Text="開案日期"></asp:Label>
+                                        <asp:Label runat="server" Text="開案日期選擇範圍(開始)"></asp:Label>
                                     </div>
-                                    <input placeholder="開案日期..." type="text" onfocus="(this.type='date')" id="date" />
+                                    <div>
+                                        <asp:TextBox runat="server" CssClass="dp"></asp:TextBox>
+                                    </div>
                                 </div>
                                 <div class="2u 12u(mobilep)">
                                     <div class="Div">
-                                        <asp:Label runat="server" Text="結案日期"></asp:Label>
+                                        <asp:Label runat="server" Text="開案日期選擇範圍(結束)"></asp:Label>
                                     </div>
-                                    <input placeholder="結案日期..." type="text" onfocus="(this.type='date')" id="date" />
-
+                                    <div>
+                                        <asp:TextBox runat="server"  CssClass="dp"></asp:TextBox>
+                                    </div>
                                 </div>
+                                 <div class="2u 12u(mobilep)">
+                                    <div class="Div">
+                                        <asp:Label runat="server" Text="結案日期選擇範圍(開始)"></asp:Label>
+                                    </div>
+                                    <div>
+                                        <asp:TextBox runat="server" CssClass="dp"></asp:TextBox>
+                                    </div>
+                                </div>
+                                <div class="2u 12u(mobilep)">
+                                    <div class="Div">
+                                        <asp:Label runat="server" Text="結案日期選擇範圍(結束)"></asp:Label>
+                                    </div>
+                                    <div> <asp:TextBox runat="server"  CssClass="dp"></asp:TextBox> </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+
+                        <div class="12u">
+
+                            <div class="row uniform 50%">
                                 <div class="2u 12u(mobilep)">
                                     <div class="Div">
                                         <asp:Label runat="server" Text="會員編號"></asp:Label>
@@ -69,86 +94,53 @@
                                     <div class="Div">
                                         <asp:Label runat="server" Text="方案"></asp:Label>
                                     </div>
-                                    <select>
-                                        <option value="">- 請選擇方案 -</option>
-                                        <option value="1">1</option>
-                                        <option value="1">2</option>
-                                        <option value="1">3</option>
-                                    </select>
+                                    <asp:DropDownList runat="server" />
                                 </div>
-                            </div>
-                        </div>
-
-                        <div class="12u">
-
-                            <div class="row uniform 50%">
-
                                 <div class="2u 12u(mobilep)">
                                     <div class="Div">
                                         <asp:Label runat="server" Text="狀態"></asp:Label>
                                     </div>
-                                    <select>
-                                        <option value="">- 請選擇狀態 -</option>
-                                        <option value="1">1</option>
-                                        <option value="1">2</option>
-                                        <option value="1">3</option>
-                                    </select>
+                                    <asp:DropDownList runat="server" />
+
 
                                 </div>
                                 <div class="2u 12u(mobilep)">
                                     <div class="Div">
                                         <asp:Label runat="server" Text="國家"></asp:Label>
                                     </div>
-                                    <select>
-                                        <option value="">- 請選擇國家 -</option>
-                                        <option value="1">1</option>
-                                        <option value="1">2</option>
-                                        <option value="1">3</option>
-                                    </select>
+                                    <asp:DropDownList runat="server" />
+
                                 </div>
                                 <div class="2u 12u(mobilep)">
                                     <div class="Div">
                                         <asp:Label runat="server" Text="地區"></asp:Label>
                                     </div>
-                                    <select>
-                                        <option value="">- 請選擇地區 -</option>
-                                        <option value="1">1</option>
-                                        <option value="1">2</option>
-                                        <option value="1">3</option>
-                                    </select>
+                                    <asp:DropDownList runat="server" />
+
 
                                 </div>
                                 <div class="2u 12u(mobilep)">
                                     <div class="Div">
                                         <asp:Label runat="server" Text="地點"></asp:Label>
                                     </div>
-                                    <select>
-                                        <option value="">- 請選擇地點 -</option>
-                                        <option value="1">1</option>
-                                        <option value="1">2</option>
-                                        <option value="1">3</option>
-                                    </select>
+                                    <asp:DropDownList runat="server" />
+
                                 </div>
+                                
+
+                            </div>
+                        </div>
+                         <div class="12u">
+
+                            <div class="row uniform 50%">
                                 <div class="2u 12u(mobilep)">
                                     <div class="Div">
                                         <asp:Label runat="server" Text="套餐"></asp:Label>
                                     </div>
-                                    <select>
-                                        <option value="">- 請選擇套餐 -</option>
-                                        <option value="1">1</option>
-                                        <option value="1">2</option>
-                                        <option value="1">3</option>
-                                    </select>
+                                    <asp:DropDownList runat="server" />
+
                                 </div>
-
-                            </div>
-
-
-
-
-
-
-                        </div>
+                                </div></div>
                     </div>
 
                     <!-- Btn -->
@@ -165,7 +157,6 @@
 
                         </ul>
                     </div>
-
                     <hr />
                     <!-- Table -->
 
@@ -224,8 +215,6 @@
 
 
                 </section>
-
-
             </section>
 
             <!-- Footer -->
@@ -247,6 +236,13 @@
         <!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
         <script src="../assets/js/main.js"></script>
         <script src="../assets/js/table.js"></script>
+        <!-- datepicker -->
+        <script src="../assets/js/datepicker.js"></script>
+        <script src="../assets/js/jquery-1.10.2.js"></script>
+        <script src="../assets/js/jquery-ui.js"></script>
+       
+
     </form>
+
 </body>
 </html>

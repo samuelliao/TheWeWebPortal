@@ -69,7 +69,11 @@
     <Content Include="assets\css\calendar.css" />
     <Content Include="assets\css\font-awesome.min.css" />
     <Content Include="assets\css\ie8.css" />
+    <Content Include="assets\css\jquery-ui.css" />
     <Content Include="assets\css\main.css" />
+    <Content Include="assets\js\datepicker.js" />
+    <Content Include="assets\js\jquery-1.10.2.js" />
+    <Content Include="assets\js\jquery-ui.js" />
     <Content Include="assets\js\jquery.dropotron.min.js" />
     <Content Include="assets\js\jquery.min.js" />
     <Content Include="assets\js\jquery.scrollgress.min.js" />
@@ -78,9 +82,13 @@
     <Content Include="assets\js\table.js" />
     <Content Include="assets\js\util.js" />
     <Content Include="CaseMgt\AdvisoryMaintain.aspx" />
+    <Content Include="CaseMgt\AdvisoryMCreate.aspx" />
     <Content Include="CaseMgt\CaseMaintain.aspx" />
+    <Content Include="CaseMgt\CaseMCreate.aspx" />
     <Content Include="CaseMgt\CustomerMaintain.aspx" />
+    <Content Include="CaseMgt\CustomerMCreate.aspx" />
     <Content Include="CaseMgt\TimeMaintain.aspx" />
+    <Content Include="CaseMgt\TimeMCreate.aspx" />
     <Content Include="css\main.css" />
     <Content Include="Header.ascx" />
     <Content Include="img\bg_top.jpg" />
@@ -113,19 +121,29 @@
     <Content Include="img\title_top.jpg" />
     <Content Include="img\圖層_1.png" />
     <Content Include="StoreMgt\ChurchMaintain.aspx" />
+    <Content Include="StoreMgt\ChurchMCreate.aspx" />
     <Content Include="StoreMgt\DressMaintain.aspx" />
+    <Content Include="StoreMgt\DressMCreate.aspx" />
     <Content Include="StoreMgt\EmployeeMaintain.aspx" />
+    <Content Include="StoreMgt\EmployeeMCreate.aspx" />
     <Content Include="StoreMgt\FittingMaintain.aspx" />
+    <Content Include="StoreMgt\FittingMCreate.aspx" />
     <Content Include="StoreMgt\ItemMaintain.aspx" />
+    <Content Include="StoreMgt\ItemMCreate.aspx" />
     <Content Include="StoreMgt\ModelingMaintain.aspx" />
+    <Content Include="StoreMgt\ModelingMCreate.aspx" />
     <Content Include="StoreMgt\OtherItemMaintain.aspx" />
+    <Content Include="StoreMgt\OtherItemMCreate.aspx" />
+    <Content Include="SysMgt\AreaMaintain.aspx" />
     <Content Include="SysMgt\CaseRootMaintain.aspx" />
+    <Content Include="SysMgt\CountryMaintain.aspx" />
     <Content Include="SysMgt\DollarMaintain.aspx" />
     <Content Include="SysMgt\LoginMaintain.aspx" />
     <Content Include="SysMgt\MsgMaintain.aspx" />
     <Content Include="SysMgt\RootMaintain.aspx" />
     <Content Include="SysMgt\UnitMaintain.aspx" />
     <Content Include="test.aspx" />
+    <Content Include="test2.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -151,12 +169,26 @@
     <Compile Include="CaseMgt\AdvisoryMaintain.aspx.designer.cs">
       <DependentUpon>AdvisoryMaintain.aspx</DependentUpon>
     </Compile>
+    <Compile Include="CaseMgt\AdvisoryMCreate.aspx.cs">
+      <DependentUpon>AdvisoryMCreate.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CaseMgt\AdvisoryMCreate.aspx.designer.cs">
+      <DependentUpon>AdvisoryMCreate.aspx</DependentUpon>
+    </Compile>
     <Compile Include="CaseMgt\CaseMaintain.aspx.cs">
       <DependentUpon>CaseMaintain.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="CaseMgt\CaseMaintain.aspx.designer.cs">
       <DependentUpon>CaseMaintain.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CaseMgt\CaseMCreate.aspx.cs">
+      <DependentUpon>CaseMCreate.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CaseMgt\CaseMCreate.aspx.designer.cs">
+      <DependentUpon>CaseMCreate.aspx</DependentUpon>
     </Compile>
     <Compile Include="CaseMgt\CustomerMaintain.aspx.cs">
       <DependentUpon>CustomerMaintain.aspx</DependentUpon>
@@ -165,12 +197,26 @@
     <Compile Include="CaseMgt\CustomerMaintain.aspx.designer.cs">
       <DependentUpon>CustomerMaintain.aspx</DependentUpon>
     </Compile>
+    <Compile Include="CaseMgt\CustomerMCreate.aspx.cs">
+      <DependentUpon>CustomerMCreate.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CaseMgt\CustomerMCreate.aspx.designer.cs">
+      <DependentUpon>CustomerMCreate.aspx</DependentUpon>
+    </Compile>
     <Compile Include="CaseMgt\TimeMaintain.aspx.cs">
       <DependentUpon>TimeMaintain.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="CaseMgt\TimeMaintain.aspx.designer.cs">
       <DependentUpon>TimeMaintain.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CaseMgt\TimeMCreate.aspx.cs">
+      <DependentUpon>TimeMCreate.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CaseMgt\TimeMCreate.aspx.designer.cs">
+      <DependentUpon>TimeMCreate.aspx</DependentUpon>
     </Compile>
     <Compile Include="Header.ascx.cs">
       <DependentUpon>Header.ascx</DependentUpon>
@@ -237,12 +283,26 @@
     <Compile Include="StoreMgt\ChurchMaintain.aspx.designer.cs">
       <DependentUpon>ChurchMaintain.aspx</DependentUpon>
     </Compile>
+    <Compile Include="StoreMgt\ChurchMCreate.aspx.cs">
+      <DependentUpon>ChurchMCreate.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="StoreMgt\ChurchMCreate.aspx.designer.cs">
+      <DependentUpon>ChurchMCreate.aspx</DependentUpon>
+    </Compile>
     <Compile Include="StoreMgt\DressMaintain.aspx.cs">
       <DependentUpon>DressMaintain.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="StoreMgt\DressMaintain.aspx.designer.cs">
       <DependentUpon>DressMaintain.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="StoreMgt\DressMCreate.aspx.cs">
+      <DependentUpon>DressMCreate.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="StoreMgt\DressMCreate.aspx.designer.cs">
+      <DependentUpon>DressMCreate.aspx</DependentUpon>
     </Compile>
     <Compile Include="StoreMgt\EmployeeMaintain.aspx.cs">
       <DependentUpon>EmployeeMaintain.aspx</DependentUpon>
@@ -251,12 +311,26 @@
     <Compile Include="StoreMgt\EmployeeMaintain.aspx.designer.cs">
       <DependentUpon>EmployeeMaintain.aspx</DependentUpon>
     </Compile>
+    <Compile Include="StoreMgt\EmployeeMCreate.aspx.cs">
+      <DependentUpon>EmployeeMCreate.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="StoreMgt\EmployeeMCreate.aspx.designer.cs">
+      <DependentUpon>EmployeeMCreate.aspx</DependentUpon>
+    </Compile>
     <Compile Include="StoreMgt\FittingMaintain.aspx.cs">
       <DependentUpon>FittingMaintain.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="StoreMgt\FittingMaintain.aspx.designer.cs">
       <DependentUpon>FittingMaintain.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="StoreMgt\FittingMCreate.aspx.cs">
+      <DependentUpon>FittingMCreate.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="StoreMgt\FittingMCreate.aspx.designer.cs">
+      <DependentUpon>FittingMCreate.aspx</DependentUpon>
     </Compile>
     <Compile Include="StoreMgt\ItemMaintain.aspx.cs">
       <DependentUpon>ItemMaintain.aspx</DependentUpon>
@@ -265,12 +339,26 @@
     <Compile Include="StoreMgt\ItemMaintain.aspx.designer.cs">
       <DependentUpon>ItemMaintain.aspx</DependentUpon>
     </Compile>
+    <Compile Include="StoreMgt\ItemMCreate.aspx.cs">
+      <DependentUpon>ItemMCreate.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="StoreMgt\ItemMCreate.aspx.designer.cs">
+      <DependentUpon>ItemMCreate.aspx</DependentUpon>
+    </Compile>
     <Compile Include="StoreMgt\ModelingMaintain.aspx.cs">
       <DependentUpon>ModelingMaintain.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="StoreMgt\ModelingMaintain.aspx.designer.cs">
       <DependentUpon>ModelingMaintain.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="StoreMgt\ModelingMCreate.aspx.cs">
+      <DependentUpon>ModelingMCreate.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="StoreMgt\ModelingMCreate.aspx.designer.cs">
+      <DependentUpon>ModelingMCreate.aspx</DependentUpon>
     </Compile>
     <Compile Include="StoreMgt\OtherItemMaintain.aspx.cs">
       <DependentUpon>OtherItemMaintain.aspx</DependentUpon>
@@ -279,12 +367,33 @@
     <Compile Include="StoreMgt\OtherItemMaintain.aspx.designer.cs">
       <DependentUpon>OtherItemMaintain.aspx</DependentUpon>
     </Compile>
+    <Compile Include="StoreMgt\OtherItemMCreate.aspx.cs">
+      <DependentUpon>OtherItemMCreate.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="StoreMgt\OtherItemMCreate.aspx.designer.cs">
+      <DependentUpon>OtherItemMCreate.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="SysMgt\AreaMaintain.aspx.cs">
+      <DependentUpon>AreaMaintain.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SysMgt\AreaMaintain.aspx.designer.cs">
+      <DependentUpon>AreaMaintain.aspx</DependentUpon>
+    </Compile>
     <Compile Include="SysMgt\CaseRootMaintain.aspx.cs">
       <DependentUpon>CaseRootMaintain.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="SysMgt\CaseRootMaintain.aspx.designer.cs">
       <DependentUpon>CaseRootMaintain.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="SysMgt\CountryMaintain.aspx.cs">
+      <DependentUpon>CountryMaintain.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SysMgt\CountryMaintain.aspx.designer.cs">
+      <DependentUpon>CountryMaintain.aspx</DependentUpon>
     </Compile>
     <Compile Include="SysMgt\DollarMaintain.aspx.cs">
       <DependentUpon>DollarMaintain.aspx</DependentUpon>
@@ -327,6 +436,13 @@
     </Compile>
     <Compile Include="test.aspx.designer.cs">
       <DependentUpon>test.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="test2.aspx.cs">
+      <DependentUpon>test2.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="test2.aspx.designer.cs">
+      <DependentUpon>test2.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

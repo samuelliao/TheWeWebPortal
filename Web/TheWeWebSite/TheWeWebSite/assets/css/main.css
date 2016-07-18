@@ -2069,24 +2069,14 @@ input[type="checkbox"],
 input[type="radio"] {
     -moz-appearance: none;
     -webkit-appearance: none;
-    -ms-appearance: none;
-    appearance: none;
     display: block;
-    float: left;
-    margin-right: -2em;
-    opacity: 0;
-    width: 1em;
-    z-index: -1;
 }
 
     input[type="checkbox"] + label,
     input[type="radio"] + label {
         text-decoration: none;
-        color: #777;
-        cursor: pointer;
-        display: inline-block;
         font-size: 1em;
-        font-weight: 300;
+        font-weight: 100;
         padding-left: 2.55em;
         padding-right: 0.75em;
         position: relative;
@@ -2094,18 +2084,12 @@ input[type="radio"] {
 
         input[type="checkbox"] + label:before,
         input[type="radio"] + label:before {
-            -moz-osx-font-smoothing: grayscale;
-            -webkit-font-smoothing: antialiased;
-            font-family: FontAwesome;
-            font-style: normal;
-            font-weight: normal;
-            text-transform: none !important;
         }
+
 
         input[type="checkbox"] + label:before,
         input[type="radio"] + label:before {
             background: #f8f8f8;
-            border-radius: 6px;
             border: solid 1px #e5e5e5;
             content: '';
             display: inline-block;
@@ -2120,10 +2104,10 @@ input[type="radio"] {
 
     input[type="checkbox"]:checked + label:before,
     input[type="radio"]:checked + label:before {
-        background: #666;
-        border-color: #666;
+        background: #f2a6a6;
+        border-color: #f2a6a6;
         color: #ffffff;
-        content: '\f00c';
+        content: "O";
     }
 
     input[type="checkbox"]:focus + label:before,
@@ -2174,10 +2158,17 @@ input[type="radio"] {
     padding-top: 0;
 }
 
+
+
     .Div.btn {
-        margin-top:1.5em;
-        text-align:right;
+        margin-top: 1.5em;
+        text-align: right;
     }
+
+    .Check.Div{
+        
+    }
+
 /* Box */
 .box {
     background: #fff;
@@ -2633,6 +2624,9 @@ input[type="button"],
     margin: 0 auto;
 }
 
+.center{
+    text-align:center;
+}
 .i2Style:active {
     cursor: pointer;
     position: relative;
@@ -3058,6 +3052,7 @@ body.landing #page-wrapper {
     color: #fff;
     padding: 5em 0 5em 0;
     text-align: center;
+    background-color:#ffd3d3;
 }
 
     #banner :last-child {

@@ -1,4 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Case.aspx.cs" Inherits="TheWeWebSite.Main.Case" %>
+<%@ Register TagPrefix="My" TagName="Header" Src="~/Header.ascx" %>
 
 <!DOCTYPE html>
 
@@ -15,169 +16,36 @@
         <div id="page-wrapper">
 
             <!-- Header -->
-           <header id="header">
-                <h1>
-                    <asp:Label runat="server" Text="台北"></asp:Label></h1>
-
-                <nav id="nav">
-                    <ul>
-                        <li>
-                            <asp:LinkButton runat="server" Text="<%$ Resources:Resource,WorkReminderString%>" PostBackUrl="~/CaseMgt/AdvisoryMaintain.aspx" ID="linkWorkReminder" />
-                            <ul>
-                                <li>
-                                    <asp:LinkButton runat="server" Text="<%$ Resources:Resource,ConsultMaintainString%>" PostBackUrl="~/CaseMgt/AdvisoryMaintain.aspx" ID="LinkConsultMgt" />
-                                </li>
-                                <li>
-                                    <asp:LinkButton runat="server" Text="<%$ Resources:Resource,ContractMaintainString%>" PostBackUrl="~/Main/Case.aspx" ID="LinkOrderMgt" />
-                                </li>
-                                <li>
-                                    <asp:LinkButton runat="server" Text="<%$ Resources:Resource,TimetableMaintainString%>" PostBackUrl="~/CaseMgt/TimeMaintain.aspx" ID="LinkTimeMgt" />
-                                </li>
-                            </ul>
-                        </li>
-                        <li>
-                            <asp:LinkButton runat="server" Text="<%$ Resources:Resource,MainPageString%>" PostBackUrl="~/Main/Unsigned.aspx" ID="LinkMain" />
-                            <ul>
-                                <li>
-                                    <asp:LinkButton runat="server" Text="<%$ Resources:Resource,ConsultString%>" PostBackUrl="~/Main/Unsigned.aspx" ID="LinkUnsigned" />
-                                </li>
-                                <li>
-                                    <asp:LinkButton runat="server" Text="<%$ Resources:Resource,ContractScheduleString%>" PostBackUrl="~/Main/Case.aspx" ID="LinkCase" />
-                                </li>
-                                <li>
-                                    <asp:LinkButton runat="server" Text="<%$ Resources:Resource,ScheduleString%>" PostBackUrl="~/Main/Calendar.aspx" ID="LinkCalendar" />
-                                </li>
-                                <li>
-                                    <asp:LinkButton runat="server" Text="<%$ Resources:Resource,CustomerScheduleString%>" PostBackUrl="~/Main/CustomerCalendar.aspx" ID="LinkCustomerCalendar" />
-                                </li>
-                                <li>
-                                    <asp:LinkButton runat="server" Text="<%$ Resources:Resource,LocationReservationString%>" PostBackUrl="~/Main/ChurchReservation.aspx" ID="LinkChurchReservtion" />
-                                </li>
-                            </ul>
-                        </li>
-                        <li>
-                            <asp:LinkButton runat="server" Text="<%$ Resources:Resource,StoreMgtString%>" PostBackUrl="~/StoreMgt/ItemMaintain.aspx" ID="LinkItemMaintain" />                            
-                            <ul>
-                                <li>
-                                    <asp:LinkButton runat="server" Text="<%$ Resources:Resource,ProductMaintainString%>" PostBackUrl="~/StoreMgt/ItemMaintain.aspx" ID="LinkProductMgt" />
-                                </li>
-                                <li>
-                                    <asp:LinkButton runat="server" Text="<%$ Resources:Resource,DressMaintainString%>" PostBackUrl="~/StoreMgt/DressMaintain.aspx" ID="LinkDressMaintain" />
-                                </li>
-                                <li>
-                                    <asp:LinkButton runat="server" Text="<%$ Resources:Resource,AccessoryMaintainString%>" PostBackUrl="~/StoreMgt/FittingMaintain.aspx" ID="LinkFittingMaintain" />
-                                </li>
-                                <li>
-                                    <asp:LinkButton runat="server" Text="<%$ Resources:Resource,StyleMaintainString%>" PostBackUrl="~/StoreMgt/ModelingMaintain.aspx" ID="LinkModelingMaintain" />
-                                </li>
-                                <li>
-                                    <asp:LinkButton runat="server" Text="<%$ Resources:Resource,WeddingItemMaintainString%>" PostBackUrl="~/StoreMgt/OtherItemMaintain.aspx" ID="LinkOtherItemMaintain" />
-                                </li>
-                                <li>
-                                    <asp:LinkButton runat="server" Text="<%$ Resources:Resource,ChurchMaintainString%>" PostBackUrl="~/StoreMgt/ChurchMaintain.aspx" ID="LinkChurchMaintain" />
-                                </li>
-                                <li>
-                                    <asp:LinkButton runat="server" Text="<%$ Resources:Resource,EmployeeMaintainString%>" PostBackUrl="~/StoreMgt/EmployeeMaintain.aspx" ID="LinkEmployeeMaintain" />
-                                </li>
-                            </ul>
-                        </li>
-                        <li>
-                            <asp:LinkButton runat="server" Text="<%$ Resources:Resource,OrderMgtString%>" PostBackUrl="~/CaseMgt/CustomerMaintain.aspx" ID="LinkCaseMgt" />                            
-                            <ul>
-                                <li>
-                                    <asp:LinkButton runat="server" Text="<%$ Resources:Resource,CustomerMaintainString%>" PostBackUrl="~/CaseMgt/CustomerMaintain.aspx" ID="LinkCustomerMaintain" />
-                                </li>
-                                <li>
-                                    <asp:LinkButton runat="server" Text="<%$ Resources:Resource,ConsultMaintainString%>" PostBackUrl="~/CaseMgt/AdvisoryMaintain.aspx" ID="LinkButton1" />
-                                </li>
-                                <li>
-                                    <asp:LinkButton runat="server" Text="<%$ Resources:Resource,ContractMaintainString%>" PostBackUrl="~/CaseMgt/CaseMaintain.aspx" ID="LinkCaseMaintain" />
-                                </li>
-                                <li>
-                                    <asp:LinkButton runat="server" Text="<%$ Resources:Resource,TimetableMaintainString%>" PostBackUrl="~/CaseMgt/TimeMaintain.aspx" ID="LinkTimeMaintain" />
-                                </li>
-                            </ul>
-                        </li>
-                        <li>
-                            <asp:LinkButton runat="server" Text="<%$ Resources:Resource,SearchMgtString%>" ID="LinkSearchMgt" />
-                        </li>
-                        <li>
-                            <asp:LinkButton runat="server" Text="<%$ Resources:Resource,PurchaseMgtString%>" ID="LinkPuchaseMgt" />
-                        </li>
-                        <li>
-                            <asp:LinkButton runat="server" Text="<%$ Resources:Resource,SalesMgtString%>" ID="LinkSalesMgtString" />
-                        </li>
-                        <li>
-                            <asp:LinkButton runat="server" Text="<%$ Resources:Resource,FinMgtString%>" ID="LinkFinMgt" />
-                        </li>
-                        <li>
-                            <asp:LinkButton runat="server" Text="<%$ Resources:Resource,SysMgtString%>" ID="LinkSysMgt" PostBackUrl="~/SysMgt/LoginMaintain.aspx" />
-                            <ul>
-                                <li>
-                                    <asp:LinkButton runat="server" Text="<%$ Resources:Resource,LoginMaintainString%>" ID="LinkLoginMaintain" PostBackUrl="~/SysMgt/LoginMaintain.aspx" />
-                                </li>
-                                <li>
-                                    <asp:LinkButton runat="server" Text="<%$ Resources:Resource,PermissionCategoryString%>" ID="LinkRootMaintain" PostBackUrl="~/SysMgt/RootMaintain.aspx" />
-                                </li>
-                                <li>
-                                    <asp:LinkButton runat="server" Text="<%$ Resources:Resource,CasePermissionMgtString%>" ID="LinkCaseRootMaintain" PostBackUrl="~/SysMgt/CaseRootMaintain.aspx" />
-                                </li>
-                                <li>
-                                    <asp:LinkButton runat="server" Text="<%$ Resources:Resource,SNSMgtString%>" ID="LinkMsgMaintain" PostBackUrl="~/SysMgt/MsgMaintain.aspx" />
-                                </li>
-                                <li>
-                                    <asp:LinkButton runat="server" Text="<%$ Resources:Resource,CurrencyString%>" ID="LinkDollarMaintain" PostBackUrl="~/SysMgt/DollarMaintain.aspx" />
-                                </li>
-                            </ul>
-                        </li>
-                        <li><a>
-                            <asp:LinkButton runat="server" Text="<%$ Resources:Resource,LogoutString%>" ID="LinkLogout" PostBackUrl="~/Login.aspx" />
-                        </li>
-                    </ul>
-                </nav>
-            </header>
-
-            <!-- Banner -->
-            <section id="banner">
-                <h2>
-                    <asp:Label runat="server" Text="The We Wedding"></asp:Label></h2>
-                <p>
-                    <asp:Label runat="server" Text="首頁"></asp:Label>
-                </p>
-
-            </section>
+            <My:Header runat="server" ID="ucHeader" />
 
             <!-- Main -->
-
-            <section id="main" class="container">
+            <section id="main">
 
                 <!-- Text -->
+                <section class="box title">
+                    <h3>
+                        <asp:Label runat="server" Text="首頁&nbsp;&nbsp;>&nbsp;&nbsp;簽約行程(待修改)"></asp:Label></h3>
+                </section>
+
+                <!-- Input -->
                 <section class="box special">
-                    <header class="major">
-                        <h3>
-                            <asp:Label runat="server" Text="已簽約"></asp:Label></h3>
-                        <hr />
-                    </header>
-
                     <!-- Table -->
-
                     <div class="row">
                         <div class="12u">
                             <div class="table-wrapper">
                                 <table class="alt">
                                     <thead>
                                         <tr>
-                                            <th>案件編號</th>
-                                            <th>新娘</th>
-                                            <th>新郎</th>
-                                            <th>下次會議</th>
-                                            <th>目的</th>
-                                            <th>上次會議備註</th>
-                                            <th>行程</th>
-                                            <th>產品</th>
-                                            <th>教堂</th>
-                                            <th>費用</th>
+                                            <th>諮詢編號</th>
                                             <th>顧問</th>
+                                            <th>諮詢者</th>
+                                            <th>電話</th>
+                                            <th>預約日期</th>
+                                            <th>內容說明</th>
+                                            <th>最後一次回覆時間</th>
+                                            <th>備註</th>
+                                            <th>回覆</th>
+                                            <th>行程表</th>
 
                                         </tr>
                                     </thead>
@@ -193,7 +61,6 @@
                                             <td>1234321</td>
                                             <td>1234321</td>
                                             <td>1234321</td>
-                                            <td>234</td>
                                         </tr>
                                         <tr>
                                             <td>CU00001</td>
@@ -206,7 +73,6 @@
                                             <td>1234321</td>
                                             <td>1234321</td>
                                             <td>1234321</td>
-                                            <td>234</td>
                                         </tr>
                                     </tbody>
 
@@ -216,16 +82,8 @@
                         </div>
                     </div>
 
-
-
-
                 </section>
-
-
             </section>
-
-            <!-- CTA -->
-
 
             <!-- Footer -->
             <footer id="footer">
