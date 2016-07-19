@@ -25,7 +25,7 @@
                 <!-- Text -->
                 <section class="box title">
                     <h3>
-                        <asp:Label runat="server" Text="系統管理&nbsp;&nbsp;>&nbsp;&nbsp;登錄維護(待修改)"></asp:Label></h3>
+                        <asp:Label runat="server" Text="" ID="labelPageTitle"></asp:Label></h3>
                 </section>
                 <!-- Input -->
                 <section class="box special">
@@ -43,32 +43,31 @@
                                      <div class="Div">
                                         <asp:Label runat="server" Text="帳號"></asp:Label>
                                     </div>
-                                    <asp:TextBox runat="server" placeholder="請輸入帳號..."></asp:TextBox>
+                                    <asp:TextBox runat="server" ID="tbAccount" placeholder="請輸入帳號..."></asp:TextBox>
                                 </div>
                                 <div class="2u 12u(mobilep)">
                                      <div class="Div">
                                         <asp:Label runat="server" Text="密碼"></asp:Label>
                                     </div>
-                                    <asp:TextBox runat="server" placeholder="請輸入密碼..."></asp:TextBox>
+                                    <asp:TextBox runat="server" ID="tbPwd" TextMode="Password" placeholder="請輸入密碼..."></asp:TextBox>
                                 </div>
                                 <div class="2u 12u(mobilep)">
                                      <div class="Div">
                                         <asp:Label runat="server" Text="確認密碼"></asp:Label>
                                     </div>
-                                    <asp:TextBox runat="server" placeholder="請確認密碼..."></asp:TextBox>
+                                    <asp:TextBox runat="server" ID="tbPwdConfirm" TextMode="Password" placeholder="請確認密碼..."></asp:TextBox>
                                 </div>
                                 <div class="2u 12u(mobilep)">
                                      <div class="Div">
                                         <asp:Label runat="server" Text="員工編號"></asp:Label>
                                     </div>
-                                    <asp:TextBox runat="server" placeholder="請輸入員工編號..."></asp:TextBox>
+                                    <asp:TextBox runat="server" ID="tbEmployeeSn" placeholder="請輸入員工編號..."></asp:TextBox>
                                 </div>
                                 <div class="2u 12u(mobilep)">
                                      <div class="Div">
                                         <asp:Label runat="server" Text="是否有效"></asp:Label>
                                     </div>
-                                    <asp:DropDownList runat="server" />
-
+                                    <asp:CheckBox runat="server" ID="cbIsValid" />
                                 </div>
                             </div>
                         </div>

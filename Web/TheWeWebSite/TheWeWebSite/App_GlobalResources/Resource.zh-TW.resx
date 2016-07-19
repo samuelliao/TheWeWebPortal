@@ -411,7 +411,7 @@
   <data name="ContractDateString" xml:space="preserve">
     <value>開案日期</value>
   </data>
-  <data name="ContractEDateString" xml:space="preserve">
+  <data name="ContractEndDateString" xml:space="preserve">
     <value>結案日期</value>
   </data>
   <data name="LocateString" xml:space="preserve">
@@ -445,13 +445,13 @@
     <value>新郎通訊軟體ID</value>
   </data>
   <data name="GroomNicknameString" xml:space="preserve">
-    <value>新娘暱稱</value>
+    <value>新郎暱稱</value>
   </data>
   <data name="BridalNicknameString" xml:space="preserve">
     <value>新郎暱稱</value>
   </data>
   <data name="GroomPassportString" xml:space="preserve">
-    <value>新娘護照英文</value>
+    <value>新郎護照英文</value>
   </data>
   <data name="BridalPassportString" xml:space="preserve">
     <value>新郎護照英文</value>
@@ -488,5 +488,38 @@
   </data>
   <data name="ContentInputString" xml:space="preserve">
     <value>請輸入內容</value>
+  </data>
+  <data name="PasswordInputString" xml:space="preserve">
+    <value>請輸入密碼</value>
+  </data>
+  <data name="PasswordConfirmString" xml:space="preserve">
+    <value>密碼確認</value>
+  </data>
+  <data name="PasswordConfirmInputString" xml:space="preserve">
+    <value>請再一次輸入密碼</value>
+  </data>
+  <data name="StoreSnString" xml:space="preserve">
+    <value>店編號</value>
+  </data>
+  <data name="EmployeeSnString" xml:space="preserve">
+    <value>員工編號</value>
+  </data>
+  <data name="IsValidString" xml:space="preserve">
+    <value>是否有效</value>
+  </data>
+  <data name="SeletionRemindString" xml:space="preserve">
+    <value>請選擇</value>
+  </data>
+  <data name="AccountInputString" xml:space="preserve">
+    <value>請輸入帳號</value>
+  </data>
+  <data name="OperationString" xml:space="preserve">
+    <value>功能</value>
+  </data>
+  <data name="ViewString" xml:space="preserve">
+    <value>進入</value>
+  </data>
+  <data name="ExportString" xml:space="preserve">
+    <value>匯出</value>
   </data>
 </root>

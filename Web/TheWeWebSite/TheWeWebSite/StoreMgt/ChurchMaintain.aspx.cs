@@ -22,7 +22,7 @@ namespace TheWeWebSite.StoreMgt
                 if (SysProperty.Util == null) Response.Redirect("../Login.aspx", true);
                 else
                 {
-                    InitialAllList();
+                    //InitialAllList();
                 }
             }
         }
@@ -245,6 +245,7 @@ namespace TheWeWebSite.StoreMgt
                 else
                 {
                     Label label = (Label)e.Item.FindControl("dgLabelCountry");
+                    /*
                     label.Text = SysProperty.CountryList.ContainsKey(dataItem1["CountryId"].ToString())
                         ? SysProperty.Util.OutputRelatedLangName((DataRow)SysProperty.CountryList[dataItem1["CountryId"].ToString()])
                         : string.Empty;
@@ -253,6 +254,7 @@ namespace TheWeWebSite.StoreMgt
                     label2.Text = SysProperty.AreaList.ContainsKey(dataItem1["AreaId"].ToString())
                         ? SysProperty.Util.OutputRelatedLangName((DataRow)SysProperty.AreaList[dataItem1["AreaId"].ToString()])
                         : string.Empty;
+                        */
                 }
             }
         }

@@ -37,35 +37,33 @@ namespace TheWeWebSite
         }
         private void InitialStoreList()
         {
-            Dictionary<string, string> stores = GetStoreList();
+            DataSet stores = GetStoreList();
             ddlStore.Items.Clear();
             ListItem item = new ListItem(Resources.Resource.SelectStoreString, string.Empty, true);
             ddlStore.Items.Add(item);
-            foreach (KeyValuePair<string, string> kvp in stores)
+            foreach (DataRow dr in stores.Tables[0].Rows)
             {
-                item = new ListItem(kvp.Value, kvp.Key);
+                item = new ListItem(
+                    SysProperty.Util.OutputRelatedLangName(dr)
+                    , dr["Id"].ToString());
                 ddlStore.Items.Add(item);
             }
             ddlStore.Items[0].Selected = true;
         }
 
-        private Dictionary<string, string> GetStoreList()
+        private DataSet GetStoreList()
         {
             try
             {
-                Dictionary<string, string> lst = new Dictionary<string, string>();
-                DataSet ds = SysProperty.GenDbCon.GetDataFromTable("*", SysProperty.Util.MsSqlTableConverter(MsSqlTable.Store), string.Empty);
-                foreach (DataRow dr in ds.Tables[0].Rows)
-                {
-                    lst.Add(dr["Id"].ToString(), SysProperty.Util.OutputRelatedLangName(dr));
-                }
-                return new Dictionary<string, string>();
+                return SysProperty.GenDbCon.GetDataFromTable("*"
+                    , SysProperty.Util.MsSqlTableConverter(MsSqlTable.Store)
+                    , " Where IsDelete = 0");
             }
             catch (Exception ex)
             {
                 // output log
                 SysProperty.Log.Error(ex.Message);
-                return new Dictionary<string, string>();
+                return null;
             }
         }
 
@@ -113,7 +111,7 @@ namespace TheWeWebSite
             else
             {
                 labelWarnText.Visible = false;
-                Server.Transfer("Main/Calendar.aspx", true);
+                Server.Transfer("Main/Case.aspx", true);
             }
         }
 

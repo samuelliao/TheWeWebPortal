@@ -409,49 +409,49 @@
     <value>Status</value>
   </data>
   <data name="ContractDateString" xml:space="preserve">
-    <value></value>
+    <value>Contract Date</value>
   </data>
-  <data name="ContractEDateString" xml:space="preserve">
+  <data name="ContractEndDateString" xml:space="preserve">
     <value></value>
   </data>
   <data name="LocateString" xml:space="preserve">
-    <value></value>
+    <value>Location</value>
   </data>
   <data name="ItemPackageString" xml:space="preserve">
-    <value></value>
+    <value>Package</value>
   </data>
   <data name="BridalNameString" xml:space="preserve">
-    <value></value>
+    <value>Bridal's Name</value>
   </data>
   <data name="GroomNameString" xml:space="preserve">
-    <value></value>
+    <value>Groom's Name</value>
   </data>
   <data name="BridalBdayString" xml:space="preserve">
     <value></value>
   </data>
   <data name="GroomBdayString" xml:space="preserve">
-    <value></value>
+    <value>Groom's Birthday</value>
   </data>
   <data name="BridalCommunicationCString" xml:space="preserve">
     <value></value>
   </data>
   <data name="GroomCommunicationCString" xml:space="preserve">
-    <value></value>
+    <value>Groom's Msger</value>
   </data>
   <data name="BridalCommunicationIdString" xml:space="preserve">
     <value></value>
   </data>
   <data name="GroomCommunicationIdString" xml:space="preserve">
-    <value></value>
+    <value>Groom's Msger Id</value>
   </data>
   <data name="GroomNicknameString" xml:space="preserve">
-    <value></value>
+    <value>Groom's Nickname</value>
   </data>
   <data name="BridalNicknameString" xml:space="preserve">
-    <value></value>
+    <value>Bridal's Nickname</value>
   </data>
   <data name="GroomPassportString" xml:space="preserve">
-    <value></value>
+    <value>Groom's Passport Name</value>
   </data>
   <data name="BridalPassportString" xml:space="preserve">
     <value></value>
@@ -460,16 +460,16 @@
     <value>Address</value>
   </data>
   <data name="ReferralsString" xml:space="preserve">
-    <value></value>
+    <value>Referrals</value>
   </data>
   <data name="MsgIdString" xml:space="preserve">
-    <value></value>
+    <value>Msger Title</value>
   </data>
   <data name="MsgString" xml:space="preserve">
-    <value></value>
+    <value>Msger</value>
   </data>
   <data name="UploadString" xml:space="preserve">
-    <value></value>
+    <value>Upload</value>
   </data>
   <data name="AreaNameInputString" xml:space="preserve">
     <value>Please input area name</value>
@@ -488,5 +488,38 @@
   </data>
   <data name="ContentInputString" xml:space="preserve">
     <value>Please input the content</value>
+  </data>
+  <data name="PasswordInputString" xml:space="preserve">
+    <value>Please input the password</value>
+  </data>
+  <data name="PasswordConfirmString" xml:space="preserve">
+    <value>Password Confirmation</value>
+  </data>
+  <data name="PasswordConfirmInputString" xml:space="preserve">
+    <value>Please input password again</value>
+  </data>
+  <data name="StoreSnString" xml:space="preserve">
+    <value>Store SN</value>
+  </data>
+  <data name="EmployeeSnString" xml:space="preserve">
+    <value>EmployeeSnString</value>
+  </data>
+  <data name="IsValidString" xml:space="preserve">
+    <value>Is Valid</value>
+  </data>
+  <data name="SeletionRemindString" xml:space="preserve">
+    <value>Please select an item</value>
+  </data>
+  <data name="AccountInputString" xml:space="preserve">
+    <value>Please input an account</value>
+  </data>
+  <data name="OperationString" xml:space="preserve">
+    <value>Operation</value>
+  </data>
+  <data name="ViewString" xml:space="preserve">
+    <value>View</value>
+  </data>
+  <data name="ExportString" xml:space="preserve">
+    <value>Export</value>
   </data>
 </root>

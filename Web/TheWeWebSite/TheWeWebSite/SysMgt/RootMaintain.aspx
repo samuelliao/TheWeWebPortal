@@ -25,111 +25,209 @@
                 <!-- Text -->
                 <section class="box title">
                     <h3>
-                        <asp:Label runat="server" Text="系統管理&nbsp;&nbsp;>&nbsp;&nbsp;權限類別(待修改)"></asp:Label></h3>
+                        <asp:Label runat="server" ID="labelPageTitle"></asp:Label></h3>
                 </section>
                 <!-- Input -->
                 <section class="box special">
-
-                    <div>
-                        <div class="12u">
-                            <div class="row uniform 50%">
-                                <div class="2u 12u(mobilep)">
-                                    <div class="Div">
-                                        <asp:Label runat="server" Text="權限類別"></asp:Label>
-                                    </div>
-                                    <asp:DropDownList runat="server" />
-
-                                </div>
-                                <div class="2u 12u(mobilep)">
-                                    <div class="Div">
-                                        <asp:Label runat="server" Text="店編號"></asp:Label>
-                                    </div>
-                                    <asp:DropDownList runat="server" />
-                                </div>
-                                <div class="2u 12u(mobilep)">
-                                    <div class="Div">
-                                        <asp:Label runat="server" Text="功能"></asp:Label>
-                                    </div>
-                                    <asp:DropDownList runat="server" />
-
-                                </div>
-                                <!-- Btn -->
-
-                                <div class="Div btn">
-                                    <ul class="actions">
-
-                                        <li>
-                                            <asp:Button runat="server" Text="<%$ Resources:Resource,CreateString%>" ID="LinkCaseMCreate" PostBackUrl="~/CaseMgt/CaseMCreate.aspx" />
-                                        </li>
-                                        <li>
-                                            <asp:Button runat="server" CssClass="button alt" Text="<%$ Resources:Resource,SearchString%>" />
-                                        </li>
-
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <hr />
+                    <asp:Label Text="" Visible="false" runat="server" ID="labelWarnStr" ForeColor="Red" />
                     <!-- Table -->
                     <div class="row">
                         <div class="12u">
                             <div class="table-wrapper">
-                                <table class="alt">
-                                    <thead>
-                                        <tr>
-                                            <th>權限類別</th>
-                                            <th>店編號</th>
-                                            <th>功能</th>
-                                            <th>進入</th>
-                                            <th>新增</th>
-                                            <th>修改</th>
-                                            <th>刪除</th>
-                                            <th>匯出</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>系統管理者</td>
-                                            <td>S00001</td>
-                                            <td>開店管理</td>
-                                            <td>
-                                                <input type="checkbox" checked="checked" />
-                                            </td>
-                                            <td>
-                                                <input type="checkbox" checked="checked" />
-                                            </td>
-                                            <td>
-                                                <input type="checkbox" checked="checked" />
-                                            </td>
-                                            <td>
-                                                <input type="checkbox" checked="checked" />
-                                            </td>
-                                            <td>
-                                                <input type="checkbox" checked="checked" />
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>系統管理者</td>
-                                            <td>S00001</td>
-                                            <td>開店管理</td>
-                                            <td>
-                                                <input type="checkbox" /></td>
-                                            <td>
-                                                <input type="checkbox" /></td>
-                                            <td>
-                                                <input type="checkbox" /></td>
-                                            <td>
-                                                <input type="checkbox" /></td>
-                                            <td>
-                                                <input type="checkbox" /></td>
-                                        </tr>
-                                    </tbody>
-
-                                </table>
+                                <asp:DataGrid runat="server" ID="dataGrid" AutoGenerateColumns="false"
+                                    AllowPaging="true" AllowSorting="true" DataKeyField="Id" Font-Size="Small"
+                                    OnDeleteCommand="dataGrid_DeleteCommand" OnSelectedIndexChanged="dataGrid_SelectedIndexChanged"
+                                    OnPageIndexChanged="dataGrid_PageIndexChanged" OnSortCommand="dataGrid_SortCommand"
+                                    OnItemDataBound="dataGrid_ItemDataBound">
+                                    <HeaderStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                    <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                    <PagerStyle Mode="NumericPages" />
+                                    <Columns>
+                                        <asp:ButtonColumn Text="<%$ Resources:Resource,SearchString%>" CommandName="Select"/>
+                                        <asp:BoundColumn DataField="Id" Visible="false" />
+                                        <asp:BoundColumn DataField="Name" HeaderText="<%$ Resources:Resource,PermissionCategoryString%>" SortExpression="Name" />
+                                        <asp:TemplateColumn HeaderText="<%$ Resources:Resource,StoreSnString%>">
+                                            <ItemTemplate>
+                                                <asp:Label runat="server" ID="dgLabelStoreDisplayName" Text="" />
+                                                <asp:Label runat="server" ID="LabelStoreId" Text="" Visible="false" />
+                                            </ItemTemplate>
+                                        </asp:TemplateColumn>
+                                        <asp:ButtonColumn CommandName="Delete"
+                                            HeaderText="<%$ Resources:Resource,DeleteString%>"
+                                            Text="<%$ Resources:Resource,DeleteString%>" />
+                                    </Columns>
+                                </asp:DataGrid>
                             </div>
                             <hr />
+                            <div>
+                                <div class="12u">
+                                    <div class="row uniform 50%">
+                                        <div class="2u 12u(mobilep)">
+                                            <div class="Div">
+                                                <asp:Label runat="server" Text="<%$ Resources:Resource,PermissionCategoryString%>"></asp:Label>
+                                            </div>
+                                            <asp:TextBox runat="server" ID="tbPermissionCategory" />
+
+                                        </div>
+                                        <div class="2u 12u(mobilep)">
+                                            <div class="Div">
+                                                <asp:Label runat="server" Text="<%$ Resources:Resource,StoreSnString%>"></asp:Label>
+                                            </div>
+                                            <asp:DropDownList runat="server" ID="ddlStore" />
+                                        </div>
+                                        <asp:Table runat="server" ID="table1" CssClass="alt">
+                                            <asp:TableHeaderRow runat="server">
+                                                <asp:TableHeaderCell Text="Id" HorizontalAlign="Center" VerticalAlign="Middle" Visible="false" />
+                                                <asp:TableHeaderCell Text="FunctionTypeSn" HorizontalAlign="Center" VerticalAlign="Middle" Visible="false" />
+                                                <asp:TableHeaderCell Text="<%$ Resources:Resource,OperationString%>" HorizontalAlign="Center" VerticalAlign="Middle" />
+                                                <asp:TableHeaderCell Text="<%$ Resources:Resource,ViewString%>" HorizontalAlign="Center" VerticalAlign="Middle" />
+                                                <asp:TableHeaderCell Text="<%$ Resources:Resource,CreateString%>" HorizontalAlign="Center" VerticalAlign="Middle" />
+                                                <asp:TableHeaderCell Text="<%$ Resources:Resource,ModifyString%>" HorizontalAlign="Center" VerticalAlign="Middle" />
+                                                <asp:TableHeaderCell Text="<%$ Resources:Resource,DeleteString%>" HorizontalAlign="Center" VerticalAlign="Middle" />
+                                                <asp:TableHeaderCell Text="<%$ Resources:Resource,ExportString%>" HorizontalAlign="Center" VerticalAlign="Middle" />
+                                            </asp:TableHeaderRow>
+                                            <asp:TableRow>
+                                                <asp:TableCell Visible="false" />
+                                                <asp:TableCell Visible="false" />
+                                                <asp:TableCell Text="<%$ Resources:Resource,StoreMgtString%>"/>
+                                                <asp:TableCell>
+                                                    <asp:CheckBox runat="server" Checked="true" />
+                                                </asp:TableCell>
+                                                <asp:TableCell>
+                                                    <asp:CheckBox runat="server" Checked="true" />
+                                                </asp:TableCell>
+                                                <asp:TableCell>
+                                                    <asp:CheckBox runat="server" Checked="true" />
+                                                </asp:TableCell>
+                                                <asp:TableCell>
+                                                    <asp:CheckBox runat="server" Checked="true" />
+                                                </asp:TableCell>
+                                                <asp:TableCell>
+                                                    <asp:CheckBox runat="server" Checked="true" />
+                                                </asp:TableCell>
+                                            </asp:TableRow>
+                                            <asp:TableRow>
+                                                <asp:TableCell Visible="false" />
+                                                <asp:TableCell Visible="false" />
+                                                <asp:TableCell Text="<%$ Resources:Resource,OrderMgtString%>" />
+                                                <asp:TableCell>
+                                                    <asp:CheckBox runat="server" Checked="true" />
+                                                </asp:TableCell>
+                                                <asp:TableCell>
+                                                    <asp:CheckBox runat="server" Checked="true" />
+                                                </asp:TableCell>
+                                                <asp:TableCell>
+                                                    <asp:CheckBox runat="server" Checked="true" />
+                                                </asp:TableCell>
+                                                <asp:TableCell>
+                                                    <asp:CheckBox runat="server" Checked="true" />
+                                                </asp:TableCell>
+                                                <asp:TableCell>
+                                                    <asp:CheckBox runat="server" Checked="true" />
+                                                </asp:TableCell>
+                                            </asp:TableRow>
+                                            <asp:TableRow>
+                                                <asp:TableCell Visible="false" />
+                                                <asp:TableCell Visible="false" />
+                                                <asp:TableCell Text="<%$ Resources:Resource,PurchaseMgtString%>" />
+                                                <asp:TableCell>
+                                                    <asp:CheckBox runat="server" Checked="true" />
+                                                </asp:TableCell>
+                                                <asp:TableCell>
+                                                    <asp:CheckBox runat="server" Checked="true" />
+                                                </asp:TableCell>
+                                                <asp:TableCell>
+                                                    <asp:CheckBox runat="server" Checked="true" />
+                                                </asp:TableCell>
+                                                <asp:TableCell>
+                                                    <asp:CheckBox runat="server" Checked="true" />
+                                                </asp:TableCell>
+                                                <asp:TableCell>
+                                                    <asp:CheckBox runat="server" Checked="true" />
+                                                </asp:TableCell>
+                                            </asp:TableRow>
+                                            <asp:TableRow>
+                                                <asp:TableCell Visible="false" />
+                                                <asp:TableCell Visible="false" />
+                                                <asp:TableCell Text="<%$ Resources:Resource,SalesMgtString%>" />
+                                                <asp:TableCell>
+                                                    <asp:CheckBox runat="server" Checked="true" />
+                                                </asp:TableCell>
+                                                <asp:TableCell>
+                                                    <asp:CheckBox runat="server" Checked="true" />
+                                                </asp:TableCell>
+                                                <asp:TableCell>
+                                                    <asp:CheckBox runat="server" Checked="true" />
+                                                </asp:TableCell>
+                                                <asp:TableCell>
+                                                    <asp:CheckBox runat="server" Checked="true" />
+                                                </asp:TableCell>
+                                                <asp:TableCell>
+                                                    <asp:CheckBox runat="server" Checked="true" />
+                                                </asp:TableCell>
+                                            </asp:TableRow>
+                                            <asp:TableRow>
+                                                <asp:TableCell Visible="false" />
+                                                <asp:TableCell Visible="false" />
+                                                <asp:TableCell Text="<%$ Resources:Resource,FinMgtString%>" />
+                                                <asp:TableCell>
+                                                    <asp:CheckBox runat="server" Checked="true" />
+                                                </asp:TableCell>
+                                                <asp:TableCell>
+                                                    <asp:CheckBox runat="server" Checked="true" />
+                                                </asp:TableCell>
+                                                <asp:TableCell>
+                                                    <asp:CheckBox runat="server" Checked="true" />
+                                                </asp:TableCell>
+                                                <asp:TableCell>
+                                                    <asp:CheckBox runat="server" Checked="true" />
+                                                </asp:TableCell>
+                                                <asp:TableCell>
+                                                    <asp:CheckBox runat="server" Checked="true" />
+                                                </asp:TableCell>
+                                            </asp:TableRow>
+                                            <asp:TableRow>
+                                                <asp:TableCell Visible="false" />
+                                                <asp:TableCell Visible="false" />
+                                                <asp:TableCell Text="<%$ Resources:Resource,SysMgtString%>" />
+                                                <asp:TableCell>
+                                                    <asp:CheckBox runat="server" Checked="true" />
+                                                </asp:TableCell>
+                                                <asp:TableCell>
+                                                    <asp:CheckBox runat="server" Checked="true" />
+                                                </asp:TableCell>
+                                                <asp:TableCell>
+                                                    <asp:CheckBox runat="server" Checked="true" />
+                                                </asp:TableCell>
+                                                <asp:TableCell>
+                                                    <asp:CheckBox runat="server" Checked="true" />
+                                                </asp:TableCell>
+                                                <asp:TableCell>
+                                                    <asp:CheckBox runat="server" Checked="true" />
+                                                </asp:TableCell>
+                                            </asp:TableRow>
+                                        </asp:Table>
+                                        <!-- Btn -->
+
+                                        <div class="Div btn">
+                                            <ul class="actions">
+                                                <li>
+                                                    <asp:Button runat="server" Text="<%$ Resources:Resource,CreateString%>"
+                                                        ID="btnCreate" OnClick="btnCreate_Click" />
+                                                </li>
+                                                <li>
+                                                    <asp:Button runat="server" CssClass="button alt" Text="<%$ Resources:Resource,UpdateString%>"
+                                                        ID="btnUpdate" OnClick="btnUpdate_Click" Visible="false" />
+                                                </li>
+                                                <li>
+                                                    <asp:Button runat="server" CssClass="button alt" Text="<%$ Resources:Resource,ClearString%>"
+                                                        ID="btnClear" OnClick="btnClear_Click" />
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </section>
