@@ -77,27 +77,27 @@
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
-                                <asp:Label runat="server" Text="顏色1"></asp:Label>
+                                <asp:Label runat="server" Text="顏色"></asp:Label>
                             </div>
                             <asp:TextBox runat="server" placeholder=""></asp:TextBox>
                         </div>
 
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
-                                <asp:Label runat="server" Text="顏色2"></asp:Label>
+                                <asp:Label runat="server" Text="顏色"></asp:Label>
                             </div>
                             <asp:TextBox runat="server" placeholder=""></asp:TextBox>
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
-                                <asp:Label runat="server" Text="材質1"></asp:Label>
+                                <asp:Label runat="server" Text="材質"></asp:Label>
                             </div>
                             <asp:TextBox runat="server" placeholder=""></asp:TextBox>
 
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
-                                <asp:Label runat="server" Text="材質2"></asp:Label>
+                                <asp:Label runat="server" Text="材質"></asp:Label>
                             </div>
                             <asp:TextBox runat="server" placeholder=""></asp:TextBox>
                         </div>

@@ -63,6 +63,37 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="12u">
+
+                    <div class="row uniform 50%">
+                        <div class="2u 12u(mobilep)">
+                            <div class="Div">
+                                <asp:Label runat="server" Text="聖潔之道長度"></asp:Label>
+                            </div>
+                            <asp:TextBox runat="server" placeholder=""></asp:TextBox>
+                        </div>
+                        <div class="2u 12u(mobilep)">
+                            <div class="Div">
+                                <asp:Label runat="server" Text="聖潔之道類型"></asp:Label>
+                            </div>
+                            <asp:DropDownList runat="server" />
+                        </div>
+                        <div class="2u 12u(mobilep)">
+                            <div class="Div">
+                            <asp:TextBox runat="server" placeholder=""></asp:TextBox>
+                            </div>
+                            <asp:DropDownList runat="server" />
+                        </div>
+                        <div class="2u 12u(mobilep)">
+                            <div class="Div">
+                                <asp:Label runat="server" Text="婚禮時間"></asp:Label>
+                            </div>
+                            <asp:TextBox runat="server" placeholder=""></asp:TextBox>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="12u">
                     <div class="row uniform 50%">
 

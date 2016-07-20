@@ -45,13 +45,19 @@
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
+                                <asp:Label runat="server" Text="售價"></asp:Label>
+                            </div>
+                            <asp:TextBox runat="server" placeholder="..."></asp:TextBox>
+                        </div>
+                        <div class="2u 12u(mobilep)">
+                            <div class="Div">
                                 <asp:Label runat="server" Text="成本"></asp:Label>
                             </div>
                             <asp:TextBox runat="server" placeholder="..."></asp:TextBox>
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
-                                <asp:Label runat="server" Text="售價"></asp:Label>
+                                <asp:Label runat="server" Text="運費"></asp:Label>
                             </div>
                             <asp:TextBox runat="server" placeholder="..."></asp:TextBox>
                         </div>
@@ -96,6 +102,16 @@
                     <div class="2u">
                           <div style="text-align: center">
                             <asp:Label runat="server" Text="側面照片"></asp:Label>
+                        </div>
+                        <span class="image fit">
+                            <img src="../assets/img/logo_clear.jpg" alt="" /></span>
+                        <div class="align-center">
+                                <asp:Button runat="server" Text="<%$ Resources:Resource,UploadString%>" />
+                            </div>
+                    </div>
+                         <div class="2u">
+                          <div style="text-align: center">
+                            <asp:Label runat="server" Text="補充照片"></asp:Label>
                         </div>
                         <span class="image fit">
                             <img src="../assets/img/logo_clear.jpg" alt="" /></span>

@@ -129,16 +129,17 @@
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
-                                <asp:Label runat="server" Text="存摺號碼"></asp:Label>
-                            </div>
-                            <asp:TextBox runat="server" placeholder="請輸入存摺號碼..."></asp:TextBox>
-                        </div>
-                        <div class="2u 12u(mobilep)">
-                            <div class="Div">
                                 <asp:Label runat="server" Text="帳戶號碼"></asp:Label>
                             </div>
                             <asp:TextBox runat="server" placeholder="請輸入帳戶號碼..."></asp:TextBox>
                         </div>
+                        <div class="2u 12u(mobilep)">
+                            <div class="Div">
+                                <asp:Label runat="server" Text="存摺號碼"></asp:Label>
+                            </div>
+                            <asp:TextBox runat="server" placeholder="請輸入存摺號碼..."></asp:TextBox>
+                        </div>
+                        
 
                     </div>
                 </div>

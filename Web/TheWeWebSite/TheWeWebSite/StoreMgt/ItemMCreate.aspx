@@ -98,9 +98,24 @@
                             </div>
                             <asp:TextBox runat="server" placeholder=""></asp:TextBox>
                         </div>
+                        <div class="2u 12u(mobilep)">
+                            <div class="Div">
+                                <asp:Label runat="server" Text="教堂佈置"></asp:Label>
+                            </div>
+                            <asp:TextBox runat="server" placeholder=""></asp:TextBox>
+                        </div>
                     </div>
                 </div>
-
+                <div class="12u">
+                    <div class="row uniform 50%">
+                        <div class="2u 12u(mobilep)">
+                            <div class="Div">
+                                <asp:Label runat="server" Text="婚禮工作人員"></asp:Label>
+                            </div>
+                            <asp:TextBox runat="server" placeholder=""></asp:TextBox>
+                        </div>
+                    </div>
+                </div>
 
                 <div>
                     <div class="row uniform 50%">
@@ -111,9 +126,6 @@
                             <asp:CheckBox runat="server" Text="牧師" />
                         </div>
                         <div class="Check Div">
-                            <asp:CheckBox runat="server" Text="教堂佈置" />
-                        </div>
-                        <div class="Check Div">
                             <asp:CheckBox runat="server" Text="結婚證明書" />
                         </div>
                         <div class="Check Div">
@@ -121,9 +133,6 @@
                         </div>
                         <div class="Check Div">
                             <asp:CheckBox runat="server" Text="簽名筆" />
-                        </div>
-                        <div class="Check Div">
-                            <asp:CheckBox runat="server" Text="中文婚禮工作人員" />
                         </div>
                         <div class="Check Div">
                             <asp:CheckBox runat="server" Text="新娘休息室" />
@@ -137,6 +146,9 @@
                         <div class="Check Div">
                             <asp:CheckBox runat="server" Text="早餐" />
                         </div>
+                        <div class="Check Div">
+                            <asp:CheckBox runat="server" Text="可做合法婚禮" />
+                        </div>
                     </div>
                 </div>
 
@@ -144,7 +156,7 @@
 
             <!-- Table -->
 
-            <div style="margin-top:1.5em">
+            <div style="margin-top: 1.5em">
                 <div class="12u">
                     <div class="table-wrapper">
                         <table class="alt">
@@ -169,7 +181,7 @@
 
                         </table>
                     </div>
-            </div>
+                </div>
             </div>
 
 
