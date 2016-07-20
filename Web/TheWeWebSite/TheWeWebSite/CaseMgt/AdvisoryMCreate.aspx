@@ -34,6 +34,17 @@
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
+                                <asp:Label runat="server" Text="最後連絡日期"></asp:Label>
+                            </div>
+                            <asp:TextBox runat="server" placeholder=""></asp:TextBox>
+                        </div>
+                    </div>
+                </div>
+                <div class="12u">
+
+                    <div class="row uniform 50%">
+                        <div class="2u 12u(mobilep)">
+                            <div class="Div">
                                 <asp:Label runat="server" Text="新娘姓名"></asp:Label>
                             </div>
                             <asp:TextBox runat="server" placeholder=""></asp:TextBox>
@@ -64,12 +75,6 @@
                             </div>
                             <asp:TextBox runat="server" placeholder=""></asp:TextBox>
                         </div>
-
-                    </div>
-                </div>
-                <div class="12u">
-
-                    <div class="row uniform 50%">
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
                                 <asp:Label runat="server" Text="新娘生日"></asp:Label>
@@ -78,19 +83,33 @@
                                 <asp:TextBox runat="server" CssClass="dp"></asp:TextBox>
                             </div>
                         </div>
+
+                    </div>
+                </div>
+                <div class="12u">
+
+                    <div class="row uniform 50%">
+
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
                                 <asp:Label runat="server" Text="新娘職業"></asp:Label>
                             </div>
                             <asp:TextBox runat="server" placeholder=""></asp:TextBox>
                         </div>
-                        <div class="2u 12u(mobilep)">
+                        <div class="4u 12u(mobilep)">
                             <div class="Div">
                                 <asp:Label runat="server" Text="新娘E-Mail"></asp:Label>
                             </div>
                             <asp:TextBox runat="server" placeholder=""></asp:TextBox>
                         </div>
 
+
+
+                    </div>
+                </div>
+                <div class="12u">
+
+                    <div class="row uniform 50%">
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
                                 <asp:Label runat="server" Text="新郎姓名"></asp:Label>
@@ -110,12 +129,6 @@
                             </div>
                             <asp:TextBox runat="server" placeholder=""></asp:TextBox>
                         </div>
-
-                    </div>
-                </div>
-                <div class="12u">
-
-                    <div class="row uniform 50%">
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
                                 <asp:Label runat="server" Text="新郎通訊軟體類型"></asp:Label>
@@ -136,19 +149,35 @@
                                 <asp:TextBox runat="server" CssClass="dp"></asp:TextBox>
                             </div>
                         </div>
+
+
+
+
+                    </div>
+                </div>
+
+                <div class="12u">
+
+                    <div class="row uniform 50%">
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
                                 <asp:Label runat="server" Text="新郎職業"></asp:Label>
                             </div>
                             <asp:TextBox runat="server" placeholder=""></asp:TextBox>
                         </div>
-
-                        <div class="2u 12u(mobilep)">
+                        <div class="4u 12u(mobilep)">
                             <div class="Div">
                                 <asp:Label runat="server" Text="新郎E-Mail"></asp:Label>
                             </div>
                             <asp:TextBox runat="server" placeholder=""></asp:TextBox>
                         </div>
+
+                    </div>
+                </div>
+
+                <div class="12u">
+
+                    <div class="row uniform 50%">
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
                                 <asp:Label runat="server" Text="詢問項目"></asp:Label>
@@ -156,12 +185,6 @@
                             <asp:DropDownList runat="server" />
 
                         </div>
-
-                    </div>
-                </div>
-                <div class="12u">
-
-                    <div class="row uniform 50%">
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
                                 <asp:Label runat="server" Text="興趣國家"></asp:Label>
@@ -193,6 +216,15 @@
                             </div>
                             <asp:DropDownList runat="server" />
                         </div>
+
+
+                    </div>
+                </div>
+
+
+                <div class="12u">
+
+                    <div class="row uniform 50%">
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
                                 <asp:Label runat="server" Text="預定拍攝日"></asp:Label>
@@ -202,14 +234,6 @@
                             </div>
 
                         </div>
-
-                    </div>
-                </div>
-
-
-                <div class="12u">
-
-                    <div class="row uniform 50%">
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
                                 <asp:Label runat="server" Text="預定婚禮日"></asp:Label>
@@ -228,12 +252,6 @@
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
-                                <asp:Label runat="server" Text="親友"></asp:Label>
-                            </div>
-                            <asp:TextBox runat="server" placeholder=""></asp:TextBox>
-                        </div>
-                        <div class="2u 12u(mobilep)">
-                            <div class="Div">
                                 <asp:Label runat="server" Text="如何得知"></asp:Label>
                             </div>
                             <asp:DropDownList runat="server" />
@@ -245,6 +263,8 @@
                             </div>
                             <asp:TextBox runat="server" placeholder=""></asp:TextBox>
                         </div>
+
+
 
                     </div>
 

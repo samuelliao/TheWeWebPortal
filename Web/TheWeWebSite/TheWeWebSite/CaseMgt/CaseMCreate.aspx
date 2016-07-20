@@ -9,7 +9,7 @@
     <title>The We Wedding</title>
     <link href="../assets/css/font-awesome.min.css" rel="stylesheet" />
     <link href="../assets/css/main.css" rel="stylesheet" />
-    <link href="../assets/css/jquery-ui.css" rel="stylesheet"/>
+    <link href="../assets/css/jquery-ui.css" rel="stylesheet" />
 
 </head>
 <body>
@@ -128,7 +128,7 @@
                             </div>
                             <asp:TextBox runat="server" placeholder="系統自動帶入諮詢編號..."></asp:TextBox>
                         </div>
-                       
+
 
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
@@ -138,13 +138,13 @@
                                 <asp:TextBox runat="server" CssClass="dp"></asp:TextBox>
                             </div>
                         </div>
-                         <div class="2u 12u(mobilep)">
+                        <div class="2u 12u(mobilep)">
                             <div class="Div">
                                 <asp:Label runat="server" Text="新娘通訊軟體類型"></asp:Label>
                             </div>
                             <asp:DropDownList runat="server" />
                         </div>
-                         <div class="2u 12u(mobilep)">
+                        <div class="2u 12u(mobilep)">
                             <div class="Div">
                                 <asp:Label runat="server" Text="新娘通訊軟體ID"></asp:Label>
                             </div>
@@ -162,7 +162,7 @@
                             </div>
                             <asp:TextBox runat="server" placeholder="系統自動帶入會員編號..."></asp:TextBox>
                         </div>
-                        
+
                     </div>
                 </div>
                 <div class="12u">
@@ -182,7 +182,7 @@
                                 <asp:TextBox runat="server" CssClass="dp"></asp:TextBox>
                             </div>
                         </div>
-                       
+
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
                                 <asp:Label runat="server" Text="新郎通訊軟體類型"></asp:Label>
@@ -196,14 +196,14 @@
                             <asp:TextBox runat="server" placeholder="系統自動帶入案件編號..."></asp:TextBox>
                         </div>
 
-                        
+
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
                                 <asp:Label runat="server" Text="新郎暱稱"></asp:Label>
                             </div>
                             <asp:TextBox runat="server" placeholder="..."></asp:TextBox>
                         </div>
-                        
+
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
                                 <asp:Label runat="server" Text="新郎護照英文"></asp:Label>
@@ -312,6 +312,58 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="12u">
+
+                    <div class="row uniform 50%">
+                         <div class="2u 12u(mobilep)">
+                            <div class="Div">
+                                <asp:Label runat="server" Text="訂單金額"></asp:Label>
+                            </div>
+                            <asp:TextBox runat="server" placeholder="系統自動帶入諮詢編號..."></asp:TextBox>
+
+                        </div>
+                         <div class="2u 12u(mobilep)">
+                            <div class="Div">
+                                <asp:Label runat="server" Text="折扣"></asp:Label>
+                            </div>
+                            <asp:TextBox runat="server" placeholder="系統自動帶入諮詢編號..."></asp:TextBox>
+
+                        </div>
+                         <div class="2u 12u(mobilep)">
+                            <div class="Div">
+                                <asp:Label runat="server" Text="總價"></asp:Label>
+                            </div>
+                            <asp:TextBox runat="server" placeholder="系統自動帶入諮詢編號..."></asp:TextBox>
+
+                        </div>
+                         <div class="2u 12u(mobilep)">
+                            <div class="Div">
+                                <asp:Label runat="server" Text="訂金"></asp:Label>
+                            </div>
+                            <asp:TextBox runat="server" placeholder="系統自動帶入諮詢編號..."></asp:TextBox>
+
+                        </div>
+                         <div class="2u 12u(mobilep)">
+                            <div class="Div">
+                                <asp:Label runat="server" Text="二次付款"></asp:Label>
+                            </div>
+                            <asp:TextBox runat="server" placeholder="系統自動帶入諮詢編號..."></asp:TextBox>
+
+                        </div>
+                         <div class="2u 12u(mobilep)">
+                            <div class="Div">
+                                <asp:Label runat="server" Text="尾款"></asp:Label>
+                            </div>
+                            <asp:TextBox runat="server" placeholder="系統自動帶入諮詢編號..."></asp:TextBox>
+
+                        </div>
+
+
+
+                    </div>
+                </div>
+
                 <div class="12u">
 
                     <div class="row uniform 50%">
@@ -323,7 +375,6 @@
                             <div>
                                 <asp:TextBox runat="server" CssClass="dp"></asp:TextBox>
                             </div>
-
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
@@ -340,52 +391,14 @@
                             <div>
                                 <asp:TextBox runat="server" CssClass="dp"></asp:TextBox>
                             </div>
-
-                        </div>
-                        <div class="2u 12u(mobilep)">
-                            <div class="Div">
-                                <asp:Label runat="server" Text="折扣"></asp:Label>
-                            </div>
-                            <asp:TextBox runat="server" placeholder="系統自動帶入諮詢編號..."></asp:TextBox>
-
-                        </div>
-                        <div class="2u 12u(mobilep)">
-                            <div class="Div">
-                                <asp:Label runat="server" Text="訂金"></asp:Label>
-                            </div>
-                            <asp:TextBox runat="server" placeholder="系統自動帶入諮詢編號..."></asp:TextBox>
-
-                        </div>
-                        <div class="2u 12u(mobilep)">
-                            <div class="Div">
-                                <asp:Label runat="server" Text="二次付款"></asp:Label>
-                            </div>
-                            <asp:TextBox runat="server" placeholder="系統自動帶入諮詢編號..."></asp:TextBox>
-
-
                         </div>
 
-                    </div>
-
-
-                    <div class="12u">
-
-                        <div class="row uniform 50%">
-
-
-                            <div class="2u 12u(mobilep)">
-                                <div class="Div">
-                                    <asp:Label runat="server" Text="價格"></asp:Label>
-                                </div>
-                                <asp:TextBox runat="server" placeholder="系統自動帶入諮詢編號..."></asp:TextBox>
-
-                            </div>
-                            <!-- 照片 -->
+                         <!-- 照片 -->
                             <div class="row no-collapse 50% uniform">
                                 <div class="5u">
                                     <div style="text-align: center">
-                            <asp:Label runat="server" Text="合照照片"></asp:Label>
-                        </div>
+                                        <asp:Label runat="server" Text="合照照片"></asp:Label>
+                                    </div>
                                     <span class="image fit">
                                         <img src="../assets/img/logo_clear.jpg" alt="" /></span>
                                 </div>
@@ -393,11 +406,7 @@
                                     <asp:Button runat="server" Text="<%$ Resources:Resource,UploadString%>" />
                                 </div>
                             </div>
-                        </div>
-
                     </div>
-
-
 
                 </div>
             </div>
@@ -430,7 +439,7 @@
         <script src="../assets/js/util.js"></script>
         <!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
         <script src="../assets/js/main.js"></script>
-                <!-- datepicker -->
+        <!-- datepicker -->
         <script src="../assets/js/datepicker.js"></script>
         <script src="../assets/js/jquery-1.10.2.js"></script>
         <script src="../assets/js/jquery-ui.js"></script>
