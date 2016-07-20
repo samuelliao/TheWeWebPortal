@@ -34,7 +34,13 @@
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
-                                <asp:Label runat="server" Text="婚禮演奏"></asp:Label>
+                                <asp:Label runat="server" Text="婚禮類型"></asp:Label>
+                            </div>
+                                <asp:DropDownList runat="server"/>
+                        </div>
+                        <div class="2u 12u(mobilep)">
+                            <div class="Div">
+                                <asp:Label runat="server" Text="方案"></asp:Label>
                             </div>
                             <asp:TextBox runat="server" placeholder=""></asp:TextBox>
                         </div>
@@ -57,16 +63,17 @@
                             </div>
                             <asp:TextBox runat="server" placeholder=""></asp:TextBox>
                         </div>
+                        
+                    </div>
+                </div>
+                <div class="12u">
+                    <div class="row uniform 50%">
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
                                 <asp:Label runat="server" Text="拍攝地點"></asp:Label>
                             </div>
                             <asp:TextBox runat="server" placeholder=""></asp:TextBox>
                         </div>
-                    </div>
-                </div>
-                <div class="12u">
-                    <div class="row uniform 50%">
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
                                 <asp:Label runat="server" Text="移動方式"></asp:Label>
@@ -98,12 +105,8 @@
                             </div>
                             <asp:TextBox runat="server" placeholder=""></asp:TextBox>
                         </div>
-                        <div class="2u 12u(mobilep)">
-                            <div class="Div">
-                                <asp:Label runat="server" Text="教堂佈置"></asp:Label>
-                            </div>
-                            <asp:TextBox runat="server" placeholder=""></asp:TextBox>
-                        </div>
+                        
+                        
                     </div>
                 </div>
                 <div class="12u">
@@ -111,6 +114,18 @@
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
                                 <asp:Label runat="server" Text="婚禮工作人員"></asp:Label>
+                            </div>
+                            <asp:TextBox runat="server" placeholder=""></asp:TextBox>
+                        </div>
+                        <div class="4u 12u(mobilep)">
+                            <div class="Div">
+                                <asp:Label runat="server" Text="教堂佈置"></asp:Label>
+                            </div>
+                            <asp:TextBox runat="server" placeholder=""></asp:TextBox>
+                        </div>
+                        <div class="4u 12u(mobilep)">
+                            <div class="Div">
+                                <asp:Label runat="server" Text="婚禮演奏"></asp:Label>
                             </div>
                             <asp:TextBox runat="server" placeholder=""></asp:TextBox>
                         </div>
@@ -145,6 +160,19 @@
                         </div>
                         <div class="Check Div">
                             <asp:CheckBox runat="server" Text="早餐" />
+
+                        </div>
+                        <div class="Check Div">
+                            <asp:CheckBox runat="server" Text="午餐" />
+
+                        </div>
+                        <div class="Check Div">
+                            <asp:CheckBox runat="server" Text="燭光晚餐" />
+
+                        </div>
+                        <div class="Check Div">
+                            <asp:CheckBox runat="server" Text="婚禮彩排" />
+
                         </div>
                         <div class="Check Div">
                             <asp:CheckBox runat="server" Text="可做合法婚禮" />

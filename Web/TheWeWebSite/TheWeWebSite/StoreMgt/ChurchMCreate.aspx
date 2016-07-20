@@ -77,19 +77,19 @@
                             <div class="Div">
                                 <asp:Label runat="server" Text="聖潔之道類型"></asp:Label>
                             </div>
-                            <asp:DropDownList runat="server" />
-                        </div>
-                        <div class="2u 12u(mobilep)">
-                            <div class="Div">
                             <asp:TextBox runat="server" placeholder=""></asp:TextBox>
+                        </div>
+                       <div class="2u 12u(mobilep)">
+                            <div class="Div">
+                                <asp:Label runat="server" Text="天井高度"></asp:Label>
                             </div>
-                            <asp:DropDownList runat="server" />
+                            <asp:TextBox runat="server" placeholder=""></asp:TextBox>
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
                                 <asp:Label runat="server" Text="婚禮時間"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server" placeholder=""></asp:TextBox>
+                                <asp:DropDownList runat="server" />
                         </div>
                     </div>
                 </div>
