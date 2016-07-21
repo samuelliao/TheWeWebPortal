@@ -45,7 +45,7 @@ namespace TheWeWebSite.SysMgt
                 foreach (DataRow dr in ds.Tables[0].Rows)
                 {
                     ddlArea.Items.Add(new ListItem(
-                        SysProperty.Util.OutputRelatedLangName(dr)
+                        SysProperty.Util.OutputRelatedLangName(((string)Session["CultureCode"]), dr)
                         , dr["Id"].ToString()));
                 }
             }
@@ -62,7 +62,7 @@ namespace TheWeWebSite.SysMgt
                 foreach (DataRow dr in ds.Tables[0].Rows)
                 {
                     ddlCountry.Items.Add(new ListItem(
-                        SysProperty.Util.OutputRelatedLangName(dr)
+                        SysProperty.Util.OutputRelatedLangName(((string)Session["CultureCode"]), dr)
                         , dr["Id"].ToString()));
                 }
             }
@@ -75,7 +75,7 @@ namespace TheWeWebSite.SysMgt
             ddlLang.Items.Add(new ListItem(Resources.Resource.SimplifiedChineseString, "zh-CN"));
             ddlLang.Items.Add(new ListItem(Resources.Resource.EnglishString, "en"));
             ddlLang.Items.Add(new ListItem(Resources.Resource.JapaneseString, "ja-JP"));
-            ddlLang.SelectedIndex = new ResourceUtil().OutputLangNameNumber(SysProperty.CultureCode);
+            ddlLang.SelectedIndex = new ResourceUtil().OutputLangNameNumber(((string)Session["CultureCode"]));
         }
 
         protected void ddlCountry_SelectedIndexChanged(object sender, EventArgs e)
@@ -91,9 +91,9 @@ namespace TheWeWebSite.SysMgt
                 string sqlTxt = "SELECT s.[Id],s.Sn,s.CountryId,s.AreaId"
                     + ",s.Name,s.CnName,s.EngName,s.JpName,s.Addr,s.Description"
                     + ",s.IsDelete,s.UpdateAccId,s.UpdateTime,e.Name as EmployeeName"
-                    + ",c." + new ResourceUtil().OutputLangNameToAttrName(SysProperty.CultureCode)
+                    + ",c." + new ResourceUtil().OutputLangNameToAttrName(((string)Session["CultureCode"]))
                     + " as CountryName"
-                    + ",a." + new ResourceUtil().OutputLangNameToAttrName(SysProperty.CultureCode)
+                    + ",a." + new ResourceUtil().OutputLangNameToAttrName(((string)Session["CultureCode"]))
                     + " as AreaName"
                     + " FROM[TheWe].[dbo].[Store] as s"
                     + " left join Employee as e on e.Id = s.UpdateAccId"
@@ -131,7 +131,7 @@ namespace TheWeWebSite.SysMgt
             {
                 string id = dgStore.DataKeys[(int)e.Item.ItemIndex].ToString();
                 string sqlTxt = "UPDATE [dbo].[Store] SET IsDelete = 1"
-                    + ", UpdateAccId=N'" + SysProperty.AccountInfo["Id"].ToString() + "'"
+                    + ", UpdateAccId=N'" + ((DataRow)Session["AccountInfo"])["Id"].ToString() + "'"
                     + ", UpdateTime='" + DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss") + "'"
                     + " Where Id = '" + id + "'";
                 if (SysProperty.GenDbCon.ModifyDataInToTable(sqlTxt))
@@ -168,7 +168,7 @@ namespace TheWeWebSite.SysMgt
                 updateLst.Add(new DbSearchObject("Description", AtrrTypeItem.String, AttrSymbolItem.Equal, ((TextBox)e.Item.Cells[9].Controls[0]).Text));
                 updateLst.Add(new DbSearchObject("CountryId", AtrrTypeItem.String, AttrSymbolItem.Equal, ddl1.SelectedValue));
                 updateLst.Add(new DbSearchObject("AreaId", AtrrTypeItem.String, AttrSymbolItem.Equal, ddl2.SelectedValue));
-                updateLst.Add(new DbSearchObject("UpdateAccId", AtrrTypeItem.String, AttrSymbolItem.Equal, SysProperty.AccountInfo["Id"].ToString()));
+                updateLst.Add(new DbSearchObject("UpdateAccId", AtrrTypeItem.String, AttrSymbolItem.Equal, ((DataRow)Session["AccountInfo"])["Id"].ToString()));
                 updateLst.Add(new DbSearchObject("UpdateTime", AtrrTypeItem.String, AttrSymbolItem.Equal, DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss")));
                 if (SysProperty.GenDbCon.UpdateDataIntoTable
                     (SysProperty.Util.MsSqlTableConverter(MsSqlTable.Store)
@@ -207,7 +207,7 @@ namespace TheWeWebSite.SysMgt
                     foreach (DataRow dr in ds.Tables[0].Rows)
                     {
                         dropDownList1.Items.Add(new ListItem(
-                            SysProperty.Util.OutputRelatedLangName(dr)
+                            SysProperty.Util.OutputRelatedLangName(((string)Session["CultureCode"]), dr)
                             , dr["Id"].ToString()));
                     }
                     dropDownList1.SelectedValue = dataItem1["CountryId"].ToString();
@@ -223,7 +223,7 @@ namespace TheWeWebSite.SysMgt
                     foreach (DataRow dr in ds.Tables[0].Rows)
                     {
                         dropDownList2.Items.Add(new ListItem(
-                            SysProperty.Util.OutputRelatedLangName(dr)
+                            SysProperty.Util.OutputRelatedLangName(((string)Session["CultureCode"]), dr)
                             , dr["Id"].ToString()));
                     }
                     dropDownList2.SelectedValue = dataItem1["AreaId"].ToString();
@@ -249,7 +249,9 @@ namespace TheWeWebSite.SysMgt
                 + (string.IsNullOrEmpty(countryId) ? string.Empty : " And CountryId='" + countryId + "'"));
             foreach (DataRow dr in ds.Tables[0].Rows)
             {
-                ddl.Items.Add(new ListItem(SysProperty.Util.OutputRelatedLangName(dr), dr["Id"].ToString()));
+                ddl.Items.Add(new ListItem(
+                    SysProperty.Util.OutputRelatedLangName(((string)Session["CultureCode"]), dr)
+                    , dr["Id"].ToString()));
             }
         }
 
@@ -373,7 +375,7 @@ namespace TheWeWebSite.SysMgt
                 "UpdateAccId"
                 , AtrrTypeItem.String
                 , AttrSymbolItem.Equal
-                , SysProperty.AccountInfo["Id"].ToString())
+                , ((DataRow)Session["AccountInfo"])["Id"].ToString())
                 );
             lst.Add(new DbSearchObject(
                 "CountryId"

@@ -45,7 +45,7 @@ namespace TheWeWebSite.SysMgt
                 "UpdateAccId"
                 , AtrrTypeItem.String
                 , AttrSymbolItem.Equal
-                , SysProperty.AccountInfo["Id"].ToString())
+                , ((DataRow)Session["AccountInfo"])["Id"].ToString())
                 );
             lst.Add(new DbSearchObject(
                 "Rate"
@@ -115,7 +115,7 @@ namespace TheWeWebSite.SysMgt
         {
             string id = dgCurrency.DataKeys[(int)e.Item.ItemIndex].ToString();
             string sqlTxt = "UPDATE [dbo].[Currency] SET IsDelete = 1"
-                + ", UpdateAccId=N'" + SysProperty.AccountInfo["Id"].ToString() + "'"
+                + ", UpdateAccId=N'" + ((DataRow)Session["AccountInfo"])["Id"].ToString() + "'"
                 + ", UpdateTime='" + DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss") + "'"
                 + " Where Id = '" + id + "'";
             try
@@ -148,7 +148,7 @@ namespace TheWeWebSite.SysMgt
             List<DbSearchObject> updateLst = new List<DbSearchObject>();
             updateLst.Add(new DbSearchObject("Name", AtrrTypeItem.String, AttrSymbolItem.Equal, ((TextBox)e.Item.Cells[1].Controls[0]).Text));
             updateLst.Add(new DbSearchObject("Rate", AtrrTypeItem.String, AttrSymbolItem.Equal, ((TextBox)e.Item.Cells[2].Controls[0]).Text));
-            updateLst.Add(new DbSearchObject("UpdateAccId", AtrrTypeItem.String, AttrSymbolItem.Equal, SysProperty.AccountInfo["Id"].ToString()));
+            updateLst.Add(new DbSearchObject("UpdateAccId", AtrrTypeItem.String, AttrSymbolItem.Equal, ((DataRow)Session["AccountInfo"])["Id"].ToString()));
             updateLst.Add(new DbSearchObject("UpdateTime", AtrrTypeItem.String, AttrSymbolItem.Equal, DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss")));
             try
             {

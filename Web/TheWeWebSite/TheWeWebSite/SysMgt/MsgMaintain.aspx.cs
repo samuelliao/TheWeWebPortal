@@ -68,7 +68,7 @@ namespace TheWeWebSite.SysMgt
         {
             string id = dataGrid.DataKeys[(int)e.Item.ItemIndex].ToString();
             string sqlTxt = "UPDATE [dbo].[SnsMgt] SET IsDelete = 1"
-                + ", UpdateAccId=N'" + SysProperty.AccountInfo["Id"].ToString() + "'"
+                + ", UpdateAccId=N'" + ((DataRow)Session["AccountInfo"])["Id"].ToString() + "'"
                 + ", UpdateTime='" + DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss") + "'"
                 + " Where Id = '" + id + "'";
             try
@@ -115,7 +115,7 @@ namespace TheWeWebSite.SysMgt
             List<DbSearchObject> updateLst = new List<DbSearchObject>();
             updateLst.Add(new DbSearchObject("Name", AtrrTypeItem.String, AttrSymbolItem.Equal, ((TextBox)e.Item.Cells[1].Controls[0]).Text));
             updateLst.Add(new DbSearchObject("SnsContent", AtrrTypeItem.String, AttrSymbolItem.Equal, ((TextBox)e.Item.Cells[2].Controls[0]).Text.Replace("'","''")));
-            updateLst.Add(new DbSearchObject("UpdateAccId", AtrrTypeItem.String, AttrSymbolItem.Equal, SysProperty.AccountInfo["Id"].ToString()));
+            updateLst.Add(new DbSearchObject("UpdateAccId", AtrrTypeItem.String, AttrSymbolItem.Equal, ((DataRow)Session["AccountInfo"])["Id"].ToString()));
             updateLst.Add(new DbSearchObject("UpdateTime", AtrrTypeItem.String, AttrSymbolItem.Equal, DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss")));
             try
             {
@@ -155,7 +155,7 @@ namespace TheWeWebSite.SysMgt
                 "UpdateAccId"
                 , AtrrTypeItem.String
                 , AttrSymbolItem.Equal
-                , SysProperty.AccountInfo["Id"].ToString())
+                , ((DataRow)Session["AccountInfo"])["Id"].ToString())
                 );
             lst.Add(new DbSearchObject(
                 "SnsContent"

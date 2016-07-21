@@ -34,7 +34,7 @@ namespace TheWeWebSite.SysMgt
             {
                 string sqlTxt = "SELECT a.[Id],a.[Name],a.[EngName],a.JpName,a.CnName"
                     + ",a.IsDelete,a.UpdateAccId as EmployeeId,a.UpdateTime,a.CountryId"
-                    + ",c." + new ResourceUtil().OutputLangNameToAttrName(SysProperty.CultureCode)
+                    + ",c." + new ResourceUtil().OutputLangNameToAttrName(((string)Session["CultureCode"]))
                     + " as CountryName,e.Name as EmployeeName"
                     + " FROM[TheWe].[dbo].[Area] as a"
                     + " left join Country as c on c.Id = a.CountryId"
@@ -57,7 +57,7 @@ namespace TheWeWebSite.SysMgt
             ddlLang.Items.Add(new ListItem(Resources.Resource.SimplifiedChineseString, "zh-CN"));
             ddlLang.Items.Add(new ListItem(Resources.Resource.EnglishString, "en"));
             ddlLang.Items.Add(new ListItem(Resources.Resource.JapaneseString, "ja-JP"));
-            ddlLang.SelectedIndex = new ResourceUtil().OutputLangNameNumber(SysProperty.CultureCode);
+            ddlLang.SelectedIndex = new ResourceUtil().OutputLangNameNumber(((string)Session["CultureCode"]));
         }
         private void InitialCountryList()
         {
@@ -71,7 +71,7 @@ namespace TheWeWebSite.SysMgt
                     foreach (DataRow dr in ds.Tables[0].Rows)
                     {
                         ddlCountry.Items.Add(new ListItem(
-                            SysProperty.Util.OutputRelatedLangName(dr)
+                            SysProperty.Util.OutputRelatedLangName(((string)Session["CultureCode"]), dr)
                             , dr["Id"].ToString()));
                     }
                 }
@@ -112,7 +112,7 @@ namespace TheWeWebSite.SysMgt
                 "UpdateAccId"
                 , AtrrTypeItem.String
                 , AttrSymbolItem.Equal
-                , SysProperty.AccountInfo["Id"].ToString())
+                , ((DataRow)Session["AccountInfo"])["Id"].ToString())
                 );
             lst.Add(new DbSearchObject(
                 "CountryId"
@@ -157,7 +157,7 @@ namespace TheWeWebSite.SysMgt
         {
             string id = dgArea.DataKeys[(int)e.Item.ItemIndex].ToString();
             string sqlTxt = "UPDATE [dbo].[Area] SET IsDelete = 1"
-                + ", UpdateAccId=N'" + SysProperty.AccountInfo["Id"].ToString() + "'"
+                + ", UpdateAccId=N'" + ((DataRow)Session["AccountInfo"])["Id"].ToString() + "'"
                 + ", UpdateTime='" + DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss") + "'"
                 + " Where Id = '" + id + "'";
             if (SysProperty.GenDbCon.ModifyDataInToTable(sqlTxt))
@@ -183,7 +183,7 @@ namespace TheWeWebSite.SysMgt
                 updateLst.Add(new DbSearchObject("EngName", AtrrTypeItem.String, AttrSymbolItem.Equal, ((TextBox)e.Item.Cells[3].Controls[0]).Text));
                 updateLst.Add(new DbSearchObject("JpName", AtrrTypeItem.String, AttrSymbolItem.Equal, ((TextBox)e.Item.Cells[4].Controls[0]).Text));
                 updateLst.Add(new DbSearchObject("CountryId", AtrrTypeItem.String, AttrSymbolItem.Equal, ddl1.SelectedValue));
-                updateLst.Add(new DbSearchObject("UpdateAccId", AtrrTypeItem.String, AttrSymbolItem.Equal, SysProperty.AccountInfo["Id"].ToString()));
+                updateLst.Add(new DbSearchObject("UpdateAccId", AtrrTypeItem.String, AttrSymbolItem.Equal, ((DataRow)Session["AccountInfo"])["Id"].ToString()));
                 updateLst.Add(new DbSearchObject("UpdateTime", AtrrTypeItem.String, AttrSymbolItem.Equal, DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss")));
                 if (SysProperty.GenDbCon.UpdateDataIntoTable
                     (SysProperty.Util.MsSqlTableConverter(MsSqlTable.Area)
@@ -217,7 +217,7 @@ namespace TheWeWebSite.SysMgt
                         foreach (DataRow dr in ds.Tables[0].Rows)
                         {
                             dropDownList1.Items.Add(new ListItem(
-                                SysProperty.Util.OutputRelatedLangName(dr)
+                                SysProperty.Util.OutputRelatedLangName(((string)Session["CultureCode"]), dr)
                                 , dr["Id"].ToString()));
                         }
                         dropDownList1.SelectedValue = dataItem1["CountryId"].ToString();

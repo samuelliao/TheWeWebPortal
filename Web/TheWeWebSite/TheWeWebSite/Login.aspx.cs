@@ -26,15 +26,17 @@ namespace TheWeWebSite
             {
                 SysProperty.Log = NLog.LogManager.GetCurrentClassLogger();
             }
-            SysProperty.GenDbCon = new GeneralDbDAO();
-            SysProperty.CultureCode = CultureInfo.CurrentCulture.ToString();
-            SysProperty.Util = new Utility();
+            
+            Session["CultureCode"] = CultureInfo.CurrentCulture.ToString();
+            
+            if (!Page.IsPostBack)
+            {
+                SysProperty.GenDbCon = new GeneralDbDAO();
+                SysProperty.Util = new Utility();
+                InitialStoreList();
+            }
         }
 
-        protected void ddlStore_Load(object sender, EventArgs e)
-        {
-            InitialStoreList();
-        }
         private void InitialStoreList()
         {
             DataSet stores = GetStoreList();
@@ -44,7 +46,7 @@ namespace TheWeWebSite
             foreach (DataRow dr in stores.Tables[0].Rows)
             {
                 item = new ListItem(
-                    SysProperty.Util.OutputRelatedLangName(dr)
+                    SysProperty.Util.OutputRelatedLangName(((string)Session["CultureCode"]), dr)
                     , dr["Id"].ToString());
                 ddlStore.Items.Add(item);
             }
@@ -77,10 +79,11 @@ namespace TheWeWebSite
             if (SysProperty.Util.IsDataSetEmpty(ds)) return false;
             if (new DataEncryption().GetMD5(pwd) == ds.Tables[0].Rows[0]["Password"].ToString())
             {
-                GetCountryList();
-                GetAreaList();
-                SysProperty.AccountInfo = ds.Tables[0].Rows[0];
-                GetLocateStoreInfo(ds.Tables[0].Rows[0]["StoreId"].ToString());
+                SysProperty.UpdateCountries();
+                SysProperty.UpdateAreas();
+                SysProperty.UpdateChurch();
+                Session["AccountInfo"] = ds.Tables[0].Rows[0];
+                GetLocateStoreInfo(ddlStore.SelectedValue);
                 return true;
             }
             else return false;
@@ -115,44 +118,24 @@ namespace TheWeWebSite
             }
         }
 
-        public void GetCountryList() {
-            SysProperty.CountryList = new CountryHashList();
-            DataSet ds = SysProperty.GenDbCon.GetDataFromTable(string.Empty
-                , SysProperty.Util.MsSqlTableConverter(MsSqlTable.Country)
-                , string.Empty);
-            foreach (DataRow dr in ds.Tables[0].Rows)
-            {
-                SysProperty.CountryList.InsertCountry(dr["Id"].ToString(), dr);
-            }
-        }
-        public void GetAreaList() { 
-            SysProperty.AreaList = new AreaHashList();
-            DataSet ds = SysProperty.GenDbCon.GetDataFromTable(string.Empty
-                , SysProperty.Util.MsSqlTableConverter(MsSqlTable.Area)
-                , string.Empty);
-            foreach (DataRow dr in ds.Tables[0].Rows)
-            {
-                SysProperty.AreaList.InsertArea(dr["Id"].ToString(), dr);
-            }
-        }
         private void GetLocateStoreInfo(string id)
         {
             try
             {
                 if (string.IsNullOrEmpty(id))
                 {
-                    SysProperty.LocateStore = null;
+                    Session["LocateStore"] = null;
                 }
                 else
                 {
                     DataSet ds = SysProperty.GenDbCon.GetDataFromTable(string.Empty
                     , SysProperty.Util.MsSqlTableConverter(MsSqlTable.Store)
-                    , " Where IsDelete = 0 And StoreId = '" + id + "'");
-                    SysProperty.LocateStore = ds.Tables[0].Rows[0];
+                    , " Where IsDelete = 0 And Id = '" + id + "'");
+                    Session["LocateStore"] = ds.Tables[0].Rows[0];
                 }
             }catch(Exception ex)
             {
-                SysProperty.LocateStore = null;
+                Session["LocateStore"] = null;
             }
         }
     }

@@ -180,9 +180,6 @@
   <data name="PhoneString" xml:space="preserve">
     <value>电话</value>
   </data>
-  <data name="AppointDateString" xml:space="preserve">
-    <value>预约日期</value>
-  </data>
   <data name="ContentString" xml:space="preserve">
     <value>内容</value>
   </data>
@@ -227,5 +224,8 @@
   </data>
   <data name="ModifiedTimeString" xml:space="preserve">
     <value>修改日期</value>
+  </data>
+  <data name="AppointmentDateString" xml:space="preserve">
+    <value>预约日期</value>
   </data>
 </root>

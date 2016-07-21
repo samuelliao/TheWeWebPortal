@@ -43,7 +43,7 @@
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                     <PagerStyle Mode="NumericPages" />
                                     <Columns>
-                                        <asp:ButtonColumn Text="<%$ Resources:Resource,SearchString%>" CommandName="Select"/>
+                                        <asp:ButtonColumn Text="<%$ Resources:Resource,SearchString%>" CommandName="Select" />
                                         <asp:BoundColumn DataField="Id" Visible="false" />
                                         <asp:BoundColumn DataField="Name" HeaderText="<%$ Resources:Resource,PermissionCategoryString%>" SortExpression="Name" />
                                         <asp:TemplateColumn HeaderText="<%$ Resources:Resource,StoreSnString%>">
@@ -89,7 +89,7 @@
                                             <asp:TableRow>
                                                 <asp:TableCell Visible="false" />
                                                 <asp:TableCell Visible="false" />
-                                                <asp:TableCell Text="<%$ Resources:Resource,StoreMgtString%>"/>
+                                                <asp:TableCell Text="<%$ Resources:Resource,StoreMgtString%>" />
                                                 <asp:TableCell>
                                                     <asp:CheckBox runat="server" Checked="true" />
                                                 </asp:TableCell>

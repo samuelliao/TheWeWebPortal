@@ -53,11 +53,8 @@ namespace TheWeLib
         ConferenceInfo = 7,
         ConferenceItem = 8,
         Consultation = 9,
-        ConsultOverseaWedding = 10,
+        ConsultLocation = 10,
         ConsultServiceItem = 11,
-        ConsultStatus = 12,
-        ConsultWeddingLocoation = 13,
-        ConsultWeddingPhoto = 14,
         Country = 15,
         Currency = 16,
         Customer = 17,
@@ -121,7 +118,8 @@ namespace TheWeLib
         vwEN_Employee = 75,
         vwEN_Partner = 76,
         vwEN_Customer = 77,
-        SnsMgt = 78
+        SnsMgt = 78,
+        vwEN_Consultation
     }
 
     public enum LanguageCode

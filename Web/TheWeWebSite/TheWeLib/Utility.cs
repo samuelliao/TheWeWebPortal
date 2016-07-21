@@ -45,18 +45,18 @@ namespace TheWeLib
             return body.Member.Name;
         }
 
-        public string OutputRelatedLangName(DataRow dr)
+        public string OutputRelatedLangName(string cultureCode, DataRow dr)
         {
             try
             {
                 string result = string.Empty;
-                switch (SysProperty.CultureCode)
+                switch (cultureCode)
                 {
                     case "zh-TW":
                         result = !string.IsNullOrEmpty(dr["Name"].ToString()) ? dr["Name"].ToString() :
-                            !string.IsNullOrEmpty(dr["CnName"].ToString()) ? dr["CnName"].ToString():
+                            !string.IsNullOrEmpty(dr["CnName"].ToString()) ? dr["CnName"].ToString() :
                             !string.IsNullOrEmpty(dr["EngName"].ToString()) ? dr["EngName"].ToString() :
-                            !string.IsNullOrEmpty(dr["JpName"].ToString()) ? dr["JpName"].ToString() : string.Empty;                        
+                            !string.IsNullOrEmpty(dr["JpName"].ToString()) ? dr["JpName"].ToString() : string.Empty;
                         break;
                     case "zh-CHT":
                     case "zh-CHS":
@@ -81,20 +81,21 @@ namespace TheWeLib
                         break;
                 }
                 return result;
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 SysProperty.Log.Error(ex.Message);
                 return string.Empty;
             }
         }
 
-        public bool VerifyBasicVariable()
+        public bool VerifyBasicVariable(DataRow AccInfo)
         {
             try
             {
                 if (string.IsNullOrEmpty(SysProperty.DbConcString)) { return false; }
-                if (SysProperty.AccountInfo == null
-                    || string.IsNullOrEmpty(SysProperty.AccountInfo["Id"].ToString()))
+                if (AccInfo == null
+                    || string.IsNullOrEmpty(AccInfo["Id"].ToString()))
                 {
                     return false;
                 }
@@ -141,7 +142,7 @@ namespace TheWeLib
             string result = string.Empty;
             foreach (DbSearchObject obj in lst)
             {
-                result += (string.IsNullOrEmpty(result) ? string.Empty : "," )+ ConditionConverter(obj);
+                result += (string.IsNullOrEmpty(result) ? string.Empty : ",") + ConditionConverter(obj);
             }
             return result;
         }
@@ -209,9 +210,17 @@ namespace TheWeLib
                 case AtrrTypeItem.Bit:
                     cond += AttrSymbolConverter(obj.AttrSymbol) + obj.AttrValue;
                     break;
-                case AtrrTypeItem.String:
                 case AtrrTypeItem.DateTime:
                 case AtrrTypeItem.Date:
+                    DateTime tmp = new DateTime();
+                    bool result = DateTime.TryParse(obj.AttrValue, out tmp);
+                    string reStr = result ? tmp.ToString("yyyy/MM/dd HH:mm:ss") : null;
+                    cond += AttrSymbolConverter(obj.AttrSymbol)
+                            + (obj.AttrSymbol != AttrSymbolItem.Like
+                            ? "N'" + reStr + "'"
+                            : "N'%" + reStr + "%'");
+                    break;
+                case AtrrTypeItem.String:
                 default:
                     cond += AttrSymbolConverter(obj.AttrSymbol)
                         + (obj.AttrSymbol != AttrSymbolItem.Like
@@ -266,16 +275,10 @@ namespace TheWeLib
                     return "ConferenceItem";
                 case MsSqlTable.Consultation:
                     return "Consultation";
-                case MsSqlTable.ConsultOverseaWedding:
-                    return "ConsultOverseaWedding";
+                case MsSqlTable.ConsultLocation:
+                    return "ConsultLocation";
                 case MsSqlTable.ConsultServiceItem:
                     return "ConsultServiceItem";
-                case MsSqlTable.ConsultStatus:
-                    return "ConsultStatus";
-                case MsSqlTable.ConsultWeddingLocoation:
-                    return "ConsultWeddingLocoation";
-                case MsSqlTable.ConsultWeddingPhoto:
-                    return "ConsultWeddingPhoto";
                 case MsSqlTable.Country:
                     return "Country";
                 case MsSqlTable.Currency:
@@ -401,78 +404,16 @@ namespace TheWeLib
                 case MsSqlTable.vwEN_Employee:
                     return "vwEN_Employee";
                 case MsSqlTable.vwEN_Partner:
-                    return "vmEN_Partner";
+                    return "vwEN_Partner";
                 case MsSqlTable.SnsMgt:
                     return "SnsMgt";
+                case MsSqlTable.vwEN_Consultation:
+                    return "vwEN_Consultation";
                 default:
                     return string.Empty;
 
             }
         }
         #endregion
-    }
-
-    public class AreaHashList
-    {
-        private Hashtable Areas = new Hashtable();
-        private Object locker = new object();
-        public void InsertArea(string key, DataRow dr)
-        {
-            lock (locker)
-            {
-                Areas.Add(key, dr);
-            }
-        }
-
-        public DataRow GetAreaById(string id)
-        {
-            lock (locker)
-            {
-                if (CheckKeyInArea(id))
-                    return (DataRow)Areas[id];
-                else
-                    return null;
-            }
-        }
-
-        public bool CheckKeyInArea(string id)
-        {
-            lock (locker)
-            {
-                return Areas.ContainsKey(id);
-            }
-        }
-    }
-
-    public class CountryHashList
-    {
-        private Hashtable Conutries = new Hashtable();
-        private Object locker = new object();
-        public void InsertCountry(string key, DataRow dr)
-        {
-            lock (locker)
-            {
-                Conutries.Add(key, dr);
-            }
-        }
-
-        public DataRow GetCountryById(string id)
-        {
-            lock (locker)
-            {
-                if (CheckKeyInCountry(id))
-                    return (DataRow)Conutries[id];
-                else
-                    return null;
-            }
-        }
-
-        public bool CheckKeyInCountry(string id)
-        {
-            lock (locker)
-            {
-                return Conutries.ContainsKey(id);
-            }
-        }
     }
 }

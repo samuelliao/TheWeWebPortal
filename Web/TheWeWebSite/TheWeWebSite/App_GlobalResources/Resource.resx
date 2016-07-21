@@ -180,9 +180,6 @@
   <data name="PhoneString" xml:space="preserve">
     <value>Phone Number</value>
   </data>
-  <data name="AppointDateString" xml:space="preserve">
-    <value>Appointment Date</value>
-  </data>
   <data name="ContentString" xml:space="preserve">
     <value>Content</value>
   </data>
@@ -397,7 +394,7 @@
     <value>Input the unit</value>
   </data>
   <data name="AdviosryIdString" xml:space="preserve">
-    <value>Adivosry Sn</value>
+    <value>Unsigned SN</value>
   </data>
   <data name="CaseIdString" xml:space="preserve">
     <value>Case id</value>
@@ -411,8 +408,8 @@
   <data name="ContractDateString" xml:space="preserve">
     <value>Contract Date</value>
   </data>
-  <data name="ContractEndDateString" xml:space="preserve">
-    <value></value>
+  <data name="ContractCloseDateString" xml:space="preserve">
+    <value>Closed Date</value>
   </data>
   <data name="LocateString" xml:space="preserve">
     <value>Location</value>
@@ -427,19 +424,19 @@
     <value>Groom's Name</value>
   </data>
   <data name="BridalBdayString" xml:space="preserve">
-    <value></value>
+    <value>Bridal's Birthday</value>
   </data>
   <data name="GroomBdayString" xml:space="preserve">
     <value>Groom's Birthday</value>
   </data>
-  <data name="BridalCommunicationCString" xml:space="preserve">
-    <value></value>
+  <data name="BridalCommunicationTypeString" xml:space="preserve">
+    <value>Bridal's Msger Type</value>
   </data>
-  <data name="GroomCommunicationCString" xml:space="preserve">
+  <data name="GroomCommunicationTypeString" xml:space="preserve">
     <value>Groom's Msger</value>
   </data>
   <data name="BridalCommunicationIdString" xml:space="preserve">
-    <value></value>
+    <value>Brigal Msger Id</value>
   </data>
   <data name="GroomCommunicationIdString" xml:space="preserve">
     <value>Groom's Msger Id</value>
@@ -454,7 +451,7 @@
     <value>Groom's Passport Name</value>
   </data>
   <data name="BridalPassportString" xml:space="preserve">
-    <value></value>
+    <value>Bridal's Passport Name</value>
   </data>
   <data name="AddressString" xml:space="preserve">
     <value>Address</value>
@@ -463,7 +460,7 @@
     <value>Referrals</value>
   </data>
   <data name="MsgIdString" xml:space="preserve">
-    <value>Msger Title</value>
+    <value>Msger Id</value>
   </data>
   <data name="MsgString" xml:space="preserve">
     <value>Msger</value>
@@ -521,5 +518,107 @@
   </data>
   <data name="ExportString" xml:space="preserve">
     <value>Export</value>
+  </data>
+  <data name="StartString" xml:space="preserve">
+    <value>Start</value>
+  </data>
+  <data name="EndString" xml:space="preserve">
+    <value>End</value>
+  </data>
+  <data name="ContractSnString" xml:space="preserve">
+    <value>Contract SN</value>
+  </data>
+  <data name="ProductSetString" xml:space="preserve">
+    <value>Product</value>
+  </data>
+  <data name="AppointmentDateString" xml:space="preserve">
+    <value>Appointment Date</value>
+  </data>
+  <data name="BdayString" xml:space="preserve">
+    <value>Birthday</value>
+  </data>
+  <data name="PhoneInputString" xml:space="preserve">
+    <value>Please input the phone</value>
+  </data>
+  <data name="EmailString" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="EmailInputString" xml:space="preserve">
+    <value>Please input a email</value>
+  </data>
+  <data name="PassportNameString" xml:space="preserve">
+    <value>Passport Name</value>
+  </data>
+  <data name="PassportNameInputString" xml:space="preserve">
+    <value>Please input a passport name</value>
+  </data>
+  <data name="SourceInfoString" xml:space="preserve">
+    <value>Information Source</value>
+  </data>
+  <data name="SnsTitleString" xml:space="preserve">
+    <value>SNS Title</value>
+  </data>
+  <data name="SnsTitleInputString" xml:space="preserve">
+    <value>Please input a SNS title</value>
+  </data>
+  <data name="MsgSelectionRemindString" xml:space="preserve">
+    <value>Please select a Msger</value>
+  </data>
+  <data name="NickNameString" xml:space="preserve">
+    <value>Nickname</value>
+  </data>
+  <data name="NickNameInputString" xml:space="preserve">
+    <value>Please input a nickname</value>
+  </data>
+  <data name="ProjectString" xml:space="preserve">
+    <value>Project</value>
+  </data>
+  <data name="MeetingDateString" xml:space="preserve">
+    <value>Meeting Date</value>
+  </data>
+  <data name="StartDateString" xml:space="preserve">
+    <value>Start Date</value>
+  </data>
+  <data name="GroomEmailString" xml:space="preserve">
+    <value>Groom's Email</value>
+  </data>
+  <data name="GroomEngNameString" xml:space="preserve">
+    <value>Groom's English Name</value>
+  </data>
+  <data name="GroomPhoneString" xml:space="preserve">
+    <value>Groom's Phone</value>
+  </data>
+  <data name="BridalEmailString" xml:space="preserve">
+    <value>Bridal's Email</value>
+  </data>
+  <data name="GroomWorkString" xml:space="preserve">
+    <value>Groom's Vocation</value>
+  </data>
+  <data name="BridalEngNameString" xml:space="preserve">
+    <value>Bridal's English Name</value>
+  </data>
+  <data name="BridalWorkString" xml:space="preserve">
+    <value>Bridal's Vocation</value>
+  </data>
+  <data name="BridalPhoneString" xml:space="preserve">
+    <value>Bridal's Phone</value>
+  </data>
+  <data name="AdvisoryItemString" xml:space="preserve">
+    <value>Advisory Item</value>
+  </data>
+  <data name="WeddingPlannerString" xml:space="preserve">
+    <value>Wedding Planner</value>
+  </data>
+  <data name="PlannedWeddingDateString" xml:space="preserve">
+    <value>The Planned Wedding Date</value>
+  </data>
+  <data name="HowToKnowString" xml:space="preserve">
+    <value>How to know</value>
+  </data>
+  <data name="DomesticWeddingReceptionDateString" xml:space="preserve">
+    <value>Domestic Wedding Reception Date</value>
+  </data>
+  <data name="PlannedWeddingFilmDateString" xml:space="preserve">
+    <value>The Planned Wedding Filming Date</value>
   </data>
 </root>

@@ -1,4 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="AdvisoryMaintain.aspx.cs" Inherits="TheWeWebSite.CaseMgt.AdvisoryMaintain" %>
+
 <%@ Register TagPrefix="My" TagName="Header" Src="~/Header.ascx" %>
 
 <!DOCTYPE html>
@@ -26,103 +27,113 @@
                 <!-- Text -->
                 <section class="box title">
                     <h3>
-                        <asp:Label runat="server" Text="案件管理&nbsp;&nbsp;>&nbsp;&nbsp;未簽約維護(待修改)"></asp:Label></h3>
+                        <asp:Label runat="server" Text="" ID="labelPageTitle"></asp:Label></h3>
                 </section>
                 <!-- Input -->
 
                 <section class="box special">
                     <div class="12u">
-
                         <div class="row uniform 50%">
-                            <div class="4u 12u(mobilep)">
+                            <div class="2u 12u(mobilep)">
                                 <div class="Div">
-                                        <asp:Label runat="server" Text="諮詢編號"></asp:Label>
-                                    </div>
-                                <asp:TextBox runat="server" placeholder="請輸入諮詢案號..." ID="tbConsultId"></asp:TextBox>
-
+                                    <asp:Label runat="server" Text="<%$ Resources:Resource,AdviosryIdString%>"></asp:Label>
+                                </div>
+                                <asp:TextBox runat="server" placeholder="" ID="tbConsultSn"></asp:TextBox>
                             </div>
-                            <div class="4u 12u(mobilep)">
+                            <div class="2u 12u(mobilep)">
                                 <div class="Div">
-                                        <asp:Label runat="server" Text="新娘姓名"></asp:Label>
-                                    </div>
-                                <asp:TextBox runat="server" placeholder="請輸入新娘姓名..." ID="tbBridalName"></asp:TextBox>
+                                    <asp:Label runat="server" Text="<%$ Resources:Resource,BridalNameString%>"></asp:Label>
+                                </div>
+                                <asp:TextBox runat="server" placeholder="" ID="tbBridalName"></asp:TextBox>
                             </div>
-                            <div class="4u 12u(mobilep)">
+                            <div class="2u 12u(mobilep)">
                                 <div class="Div">
-                                        <asp:Label runat="server" Text="新郎姓名"></asp:Label>
-                                    </div>
-                                <asp:TextBox runat="server" placeholder="請輸入新郎姓名..." ID="tbGroomName"></asp:TextBox>
+                                    <asp:Label runat="server" Text="<%$ Resources:Resource,GroomNameString%>"></asp:Label>
+                                </div>
+                                <asp:TextBox runat="server" placeholder="" ID="tbGroomName"></asp:TextBox>
+                            </div>
+                            <div class="2u 12u(mobilep)">
+                                <div class="Div">
+                                    <asp:Label runat="server" Text="開案日期選擇範圍(開始)" ID="labelSearchStartDate"></asp:Label>
+                                </div>
+                                <div>
+                                    <asp:TextBox runat="server" CssClass="dp" ID="tbSearchStartDate"></asp:TextBox>
+                                </div>
+                            </div>
+                            <div class="2u 12u(mobilep)">
+                                <div class="Div">
+                                    <asp:Label runat="server" Text="開案日期選擇範圍(結束)" ID="labelSearchEndDate"></asp:Label>
+                                </div>
+                                <div>
+                                    <asp:TextBox runat="server" CssClass="dp" ID="tbSearchEndDate"></asp:TextBox>
+                                </div>
+                            </div>                            
+                        </div>
+                    </div>
+                    <div class="12u">
+                        <div class="row uniform 50%">
+                            <div class="2u 12u(mobilep)">
+                                <div class="Div">
+                                    <asp:Label runat="server" Text="會議日期選擇範圍(開始)" ID="labelBookStartDate"></asp:Label>
+                                </div>
+                                <div>
+                                    <asp:TextBox runat="server" CssClass="dp" ID="tbBookStartDate"></asp:TextBox>
+                                </div>
+                            </div>
+                            <div class="2u 12u(mobilep)">
+                                <div class="Div">
+                                    <asp:Label runat="server" Text="會議日期選擇範圍(結束)" ID="labelBookEndDate"></asp:Label>
+                                </div>
+                                <div>
+                                    <asp:TextBox runat="server" CssClass="dp" ID="tbBookEndDate"></asp:TextBox>
+                                </div>
                             </div>
                         </div>
-
                     </div>
 
                     <!-- Btn -->
                     <div class="Div btn">
                         <ul class="actions">
-
                             <li>
                                 <asp:Button runat="server" Text="<%$ Resources:Resource,CreateString%>" ID="LinkAdvisoryMCreate" PostBackUrl="~/CaseMgt/AdvisoryMCreate.aspx" />
                             </li>
                             <li>
-                                <asp:Button runat="server" CssClass="button alt" Text="<%$ Resources:Resource,SearchString%>" />
+                                <asp:Button runat="server" CssClass="button alt" Text="<%$ Resources:Resource,SearchString%>"
+                                    ID="btnSearch" OnClick="btnSearch_Click" />
                             </li>
 
                         </ul>
                     </div>
-
+                    <asp:Label runat="server" ID="labelWarnString" ForeColor="Red" Visible="false" />
                     <hr />
 
                     <!-- Table -->
 
                     <div class="row">
                         <div class="12u">
-
                             <div class="table-wrapper">
-                                <table class="alt">
-                                    <thead>
-                                        <tr>
-                                            <th>諮詢編號</th>
-                                            <th>案件編號</th>
-                                            <th>開案日期</th>
-                                            <th>會員編號</th>
-                                            <th>狀態</th>
-                                            <th>結案日期</th>
-                                            <th>國家</th>
-                                            <th>地區</th>
-                                            <th>地點</th>
-                                            <th>套餐</th>
-
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>CU00001</td>
-                                            <td>Joye</td>
-                                            <td>小讌</td>
-                                            <td>1234321</td>
-                                            <td>1234321</td>
-                                            <td>1234321</td>
-                                            <td>1234321</td>
-                                            <td>1234321</td>
-                                            <td>1234321</td>
-                                            <td>1234321</td>
-                                        </tr>
-                                        <tr>
-                                            <td>CU00001</td>
-                                            <td>Joye</td>
-                                            <td>小讌</td>
-                                            <td>1234321</td>
-                                            <td>1234321</td>
-                                            <td>1234321</td>
-                                            <td>1234321</td>
-                                            <td>1234321</td>
-                                            <td>1234321</td>
-                                            <td>1234321</td>
-                                        </tr>
-                                    </tbody>
-
-                                </table>
+                                <asp:DataGrid runat="server" ID="dataGrid" AutoGenerateColumns="false"
+                                    AllowPaging="true" AllowSorting="true" OnPageIndexChanged="dataGrid_PageIndexChanged"
+                                    OnSelectedIndexChanged="dataGrid_SelectedIndexChanged" OnDeleteCommand="dataGrid_DeleteCommand"
+                                    DataKeyField="Id" OnSortCommand="dataGrid_SortCommand" Font-Size="Small">
+                                    <HeaderStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                    <PagerStyle Mode="NumericPages" HorizontalAlign="Center" VerticalAlign="Middle" />
+                                    <Columns>
+                                        <asp:ButtonColumn Text="<%$ Resources:Resource,SearchString%>" CommandName="Select" />
+                                        <asp:BoundColumn Visible="false" DataField="Id" />
+                                        <asp:BoundColumn HeaderText="<%$ Resources:Resource,AdviosryIdString%>" DataField="Sn" SortExpression="Sn"/>
+                                        <asp:BoundColumn HeaderText="<%$ Resources:Resource,BridalNameString%>" DataField="BridalName" SortExpression="BridalName" />
+                                        <asp:BoundColumn HeaderText="<%$ Resources:Resource,GroomNameString%>" DataField="GroomName" SortExpression="GroomName" />
+                                        <asp:BoundColumn HeaderText="<%$ Resources:Resource,PhoneString%>" DataField="BridalPhone" SortExpression="BridalPhone" />
+                                        <asp:BoundColumn HeaderText="<%$ Resources:Resource,StartDateString%>" DataField="ConsultDate" SortExpression="ConsultDate" />                                        
+                                        <asp:BoundColumn HeaderText="<%$ Resources:Resource,AppointmentDateString%>" DataField="BookingDate" SortExpression="BookingDate" />
+                                        <asp:BoundColumn HeaderText="<%$ Resources:Resource,ContentString%>" DataField="ContactMethod" SortExpression="ContactMethod" />
+                                        <asp:BoundColumn HeaderText="<%$ Resources:Resource,LastReceivedTimeString%>" DataField="LastReceivedDate" SortExpression="LastReceivedDate" />
+                                        <asp:ButtonColumn CommandName="Delete"
+                                            HeaderText="<%$ Resources:Resource,DeleteString%>"
+                                            Text="<%$ Resources:Resource,DeleteString%>" />
+                                    </Columns>
+                                </asp:DataGrid>
                             </div>
                             <hr />
                         </div>

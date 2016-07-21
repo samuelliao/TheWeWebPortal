@@ -10,7 +10,7 @@
     <title>The We Wedding</title>
     <link href="../assets/css/font-awesome.min.css" rel="stylesheet" />
     <link href="../assets/css/main.css" rel="stylesheet" />
-    <link href="../assets/css/jquery-ui.css" rel="stylesheet"/>
+    <link href="../assets/css/jquery-ui.css" rel="stylesheet" />
 </head>
 <body class="landing">
     <form runat="server">
@@ -27,57 +27,59 @@
                 <!-- Text -->
                 <section class="box title">
                     <h3>
-                        <asp:Label runat="server" Text="案件管理&nbsp;&nbsp;>&nbsp;&nbsp;簽約維護(待修改)"></asp:Label></h3>
+                        <asp:Label runat="server" Text="" ID="labelPageTitle"></asp:Label></h3>
                 </section>
                 <!-- Input -->
                 <section class="box special">
+                    <asp:ScriptManager runat="server" />
                     <div>
                         <div class="12u">
                             <div class="row uniform 50%">
                                 <div class="2u 12u(mobilep)">
                                     <div class="Div">
-                                        <asp:Label runat="server" Text="諮詢編號"></asp:Label>
+                                        <asp:Label runat="server" Text="<%$ Resources:Resource,AdviosryIdString%>"></asp:Label>
                                     </div>
-                                    <asp:TextBox runat="server" placeholder="系統自動帶入諮詢編號..."></asp:TextBox>
+                                    <asp:TextBox runat="server" placeholder="" ID="tbConsultSn"></asp:TextBox>
                                 </div>
                                 <div class="2u 12u(mobilep)">
                                     <div class="Div">
-                                        <asp:Label runat="server" Text="案件編號"></asp:Label>
+                                        <asp:Label runat="server" Text="<%$ Resources:Resource,ContractSnString%>"></asp:Label>
                                     </div>
-                                    <asp:TextBox runat="server" placeholder="系統自動帶入案件編號..."></asp:TextBox>
+                                    <asp:TextBox runat="server" placeholder="" ID="tbCaseSn"></asp:TextBox>
+                                </div>
+                                <div class="2u 12u(mobilep)">
+                                    <div class="Div">
+                                        <asp:Label runat="server" Text="開案日期選擇範圍(開始)" ID="labelContractSearchStartDate"></asp:Label>
+                                    </div>
+                                    <div>
+                                        <asp:TextBox runat="server" CssClass="dp" ID="tbContractSearchStartDate"></asp:TextBox>
+                                    </div>
+                                </div>
+                                <div class="2u 12u(mobilep)">
+                                    <div class="Div">
+                                        <asp:Label runat="server" Text="開案日期選擇範圍(結束)" ID="labelContractSearchEndDate"></asp:Label>
+                                    </div>
+                                    <div>
+                                        <asp:TextBox runat="server" CssClass="dp" ID="tbContractSearchEndDate"></asp:TextBox>
+                                    </div>
+                                </div>
+                                <div class="2u 12u(mobilep)">
+                                    <div class="Div">
+                                        <asp:Label runat="server" Text="結案日期選擇範圍(開始)" ID="labelClosedSearchStartDate"></asp:Label>
+                                    </div>
+                                    <div>
+                                        <asp:TextBox runat="server" CssClass="dp" ID="tbCloseSearchStartDate"></asp:TextBox>
+                                    </div>
+                                </div>
+                                <div class="2u 12u(mobilep)">
+                                    <div class="Div">
+                                        <asp:Label runat="server" Text="結案日期選擇範圍(結束)" ID="labelClosedSearchEndDate"></asp:Label>
+                                    </div>
+                                    <div>
+                                        <asp:TextBox runat="server" CssClass="dp" ID="tbCloseSearchEndDate"></asp:TextBox>
+                                    </div>
                                 </div>
 
-                                <div class="2u 12u(mobilep)">
-                                    <div class="Div">
-                                        <asp:Label runat="server" Text="開案日期選擇範圍(開始)"></asp:Label>
-                                    </div>
-                                    <div>
-                                        <asp:TextBox runat="server" CssClass="dp"></asp:TextBox>
-                                    </div>
-                                </div>
-                                <div class="2u 12u(mobilep)">
-                                    <div class="Div">
-                                        <asp:Label runat="server" Text="開案日期選擇範圍(結束)"></asp:Label>
-                                    </div>
-                                    <div>
-                                        <asp:TextBox runat="server"  CssClass="dp"></asp:TextBox>
-                                    </div>
-                                </div>
-                                 <div class="2u 12u(mobilep)">
-                                    <div class="Div">
-                                        <asp:Label runat="server" Text="結案日期選擇範圍(開始)"></asp:Label>
-                                    </div>
-                                    <div>
-                                        <asp:TextBox runat="server" CssClass="dp"></asp:TextBox>
-                                    </div>
-                                </div>
-                                <div class="2u 12u(mobilep)">
-                                    <div class="Div">
-                                        <asp:Label runat="server" Text="結案日期選擇範圍(結束)"></asp:Label>
-                                    </div>
-                                    <div> <asp:TextBox runat="server"  CssClass="dp"></asp:TextBox> </div>
-                                </div>
-                                
                             </div>
                         </div>
 
@@ -86,61 +88,63 @@
                             <div class="row uniform 50%">
                                 <div class="2u 12u(mobilep)">
                                     <div class="Div">
-                                        <asp:Label runat="server" Text="會員編號"></asp:Label>
+                                        <asp:Label runat="server" Text="<%$ Resources:Resource,BridalNameString%>"></asp:Label>
                                     </div>
-                                    <asp:TextBox runat="server" placeholder="系統自動帶入會員編號..."></asp:TextBox>
+                                    <asp:TextBox runat="server" placeholder="" ID="tbBridalName"></asp:TextBox>
                                 </div>
                                 <div class="2u 12u(mobilep)">
                                     <div class="Div">
-                                        <asp:Label runat="server" Text="方案"></asp:Label>
+                                        <asp:Label runat="server" Text="<%$ Resources:Resource,GroomNameString%>"></asp:Label>
                                     </div>
-                                    <asp:DropDownList runat="server" />
+                                    <asp:TextBox runat="server" placeholder="" ID="tbGroomName"></asp:TextBox>
                                 </div>
                                 <div class="2u 12u(mobilep)">
                                     <div class="Div">
-                                        <asp:Label runat="server" Text="狀態"></asp:Label>
+                                        <asp:Label runat="server" Text="<%$ Resources:Resource,ProjectString%>"></asp:Label>
                                     </div>
-                                    <asp:DropDownList runat="server" />
-
+                                    <asp:DropDownList runat="server" ID="ddlCategory" />
+                                </div>
+                                <div class="2u 12u(mobilep)">
+                                    <div class="Div">
+                                        <asp:Label runat="server" Text="<%$ Resources:Resource,StatusString%>"></asp:Label>
+                                    </div>
+                                    <asp:DropDownList runat="server" ID="ddlStatus" />
+                                </div>
+                                <div class="2u 12u(mobilep)">
+                                    <div class="Div">
+                                        <asp:Label runat="server" Text="<%$ Resources:Resource,CountryString%>"></asp:Label>
+                                    </div>
+                                    <asp:UpdatePanel runat="server">
+                                        <ContentTemplate>
+                                            <asp:DropDownList runat="server" ID="ddlCountry" OnSelectedIndexChanged="ddlCountry_SelectedIndexChanged" />
+                                        </ContentTemplate>
+                                    </asp:UpdatePanel>
+                                </div>
+                                <div class="2u 12u(mobilep)">
+                                    <div class="Div">
+                                        <asp:Label runat="server" Text="<%$ Resources:Resource,AreaString%>"></asp:Label>
+                                    </div>
+                                    <asp:UpdatePanel runat="server">
+                                        <ContentTemplate>
+                                            <asp:DropDownList runat="server" ID="ddlArea" OnSelectedIndexChanged="ddlArea_SelectedIndexChanged" />
+                                        </ContentTemplate>
+                                    </asp:UpdatePanel>
 
                                 </div>
                                 <div class="2u 12u(mobilep)">
                                     <div class="Div">
-                                        <asp:Label runat="server" Text="國家"></asp:Label>
+                                        <asp:Label runat="server" Text="<%$ Resources:Resource,LocateString%>"></asp:Label>
                                     </div>
-                                    <asp:DropDownList runat="server" />
-
+                                    <asp:DropDownList runat="server" ID="ddlLocation" />
                                 </div>
                                 <div class="2u 12u(mobilep)">
                                     <div class="Div">
-                                        <asp:Label runat="server" Text="地區"></asp:Label>
+                                        <asp:Label runat="server" Text="<%$ Resources:Resource,ProductSetString%>"></asp:Label>
                                     </div>
-                                    <asp:DropDownList runat="server" />
-
-
+                                    <asp:DropDownList runat="server" ID="ddlProductSet" />
                                 </div>
-                                <div class="2u 12u(mobilep)">
-                                    <div class="Div">
-                                        <asp:Label runat="server" Text="地點"></asp:Label>
-                                    </div>
-                                    <asp:DropDownList runat="server" />
-
-                                </div>
-                                
-
                             </div>
                         </div>
-                         <div class="12u">
-
-                            <div class="row uniform 50%">
-                                <div class="2u 12u(mobilep)">
-                                    <div class="Div">
-                                        <asp:Label runat="server" Text="套餐"></asp:Label>
-                                    </div>
-                                    <asp:DropDownList runat="server" />
-
-                                </div>
-                                </div></div>
                     </div>
 
                     <!-- Btn -->
@@ -149,14 +153,17 @@
                         <ul class="actions">
 
                             <li>
-                                <asp:Button runat="server" Text="<%$ Resources:Resource,CreateString%>" ID="LinkCaseMCreate" PostBackUrl="~/CaseMgt/CaseMCreate.aspx" />
+                                <asp:Button runat="server" Text="<%$ Resources:Resource,CreateString%>"
+                                    ID="btnCreate" PostBackUrl="~/CaseMgt/CaseMCreate.aspx" />
                             </li>
                             <li>
-                                <asp:Button runat="server" CssClass="button alt" Text="<%$ Resources:Resource,SearchString%>" />
+                                <asp:Button runat="server" CssClass="button alt" Text="<%$ Resources:Resource,SearchString%>"
+                                    ID="btnSearch" OnClick="btnSearch_Click" />
                             </li>
 
                         </ul>
                     </div>
+                    <asp:Label runat="server" ID="labelWarnString" ForeColor="Red" Visible="false" />
                     <hr />
                     <!-- Table -->
 
@@ -164,50 +171,43 @@
                         <div class="12u">
 
                             <div class="table-wrapper">
-                                <table class="alt">
-                                    <thead>
-                                        <tr>
-                                            <th>諮詢編號</th>
-                                            <th>案件編號</th>
-                                            <th>開案日期</th>
-                                            <th>會員編號</th>
-                                            <th>狀態</th>
-                                            <th>結案日期</th>
-                                            <th>國家</th>
-                                            <th>地區</th>
-                                            <th>地點</th>
-                                            <th>套餐</th>
-
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>CU00001</td>
-                                            <td>Joye</td>
-                                            <td>小讌</td>
-                                            <td>1234321</td>
-                                            <td>1234321</td>
-                                            <td>1234321</td>
-                                            <td>1234321</td>
-                                            <td>1234321</td>
-                                            <td>1234321</td>
-                                            <td>1234321</td>
-                                        </tr>
-                                        <tr>
-                                            <td>CU00001</td>
-                                            <td>Joye</td>
-                                            <td>小讌</td>
-                                            <td>1234321</td>
-                                            <td>1234321</td>
-                                            <td>1234321</td>
-                                            <td>1234321</td>
-                                            <td>1234321</td>
-                                            <td>1234321</td>
-                                            <td>1234321</td>
-                                        </tr>
-                                    </tbody>
-
-                                </table>
+                                <asp:DataGrid runat="server" ID="dataGrid" AutoGenerateColumns="false"
+                                    AllowPaging="true" AllowSorting="true" OnPageIndexChanged="dataGrid_PageIndexChanged"
+                                    OnItemDataBound="dataGrid_ItemDataBound" OnSelectedIndexChanged="dataGrid_SelectedIndexChanged"
+                                    OnDeleteCommand="dataGrid_DeleteCommand"
+                                    DataKeyField="Id" OnSortCommand="dataGrid_SortCommand" Font-Size="Small">
+                                    <HeaderStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                    <PagerStyle Mode="NumericPages" HorizontalAlign="Center" VerticalAlign="Middle" />
+                                    <Columns>
+                                        <asp:ButtonColumn Text="<%$ Resources:Resource,SearchString%>" CommandName="Select" />
+                                        <asp:BoundColumn Visible="false" DataField="Id" />
+                                        <asp:TemplateColumn HeaderText="<%$ Resources:Resource,AdviosryIdString%>">
+                                            <ItemTemplate>
+                                                <asp:HyperLink runat="server" ID="linkConsult" Text="" />
+                                                <asp:Label runat="server" ID="labelConsultId" Text="" Visible="false" />
+                                            </ItemTemplate>
+                                        </asp:TemplateColumn>
+                                        <asp:BoundColumn HeaderText="<%$ Resources:Resource,ContractSnString%>" DataField="Sn" />
+                                        <asp:TemplateColumn HeaderText="<%$ Resources:Resource,BridalNameString%>">
+                                            <ItemTemplate>
+                                                <asp:HyperLink runat="server" ID="linkCustomerName" Text="" />
+                                                <asp:Label runat="server" ID="labelCustomerId" Text="" Visible="false" />
+                                            </ItemTemplate>
+                                        </asp:TemplateColumn>
+                                        <asp:BoundColumn HeaderText="<%$ Resources:Resource,BridalNameString%>" DataField="CustomerName" />
+                                        <asp:BoundColumn HeaderText="<%$ Resources:Resource,GroomNameString%>" DataField="PartnerName" />
+                                        <asp:BoundColumn HeaderText="<%$ Resources:Resource,ContractDateString%>" DataField="StartTime" />
+                                        <asp:BoundColumn HeaderText="<%$ Resources:Resource,StatusString%>" DataField="StatusName" />
+                                        <asp:BoundColumn HeaderText="<%$ Resources:Resource,AppointmentDateString%>" DataField="BookingDate" />
+                                        <asp:BoundColumn HeaderText="<%$ Resources:Resource,CountryString%>" DataField="CountryName" />
+                                        <asp:BoundColumn HeaderText="<%$ Resources:Resource,AreaString%>" DataField="AreaName" />
+                                        <asp:BoundColumn HeaderText="<%$ Resources:Resource,LocateString%>" DataField="ChurchName" />
+                                        <asp:BoundColumn HeaderText="<%$ Resources:Resource,ProductSetString%>" DataField="SetName" />
+                                        <asp:ButtonColumn CommandName="Delete"
+                                            HeaderText="<%$ Resources:Resource,DeleteString%>"
+                                            Text="<%$ Resources:Resource,DeleteString%>" />
+                                    </Columns>
+                                </asp:DataGrid>
                             </div>
                             <hr />
                         </div>
@@ -240,7 +240,7 @@
         <script src="../assets/js/datepicker.js"></script>
         <script src="../assets/js/jquery-1.10.2.js"></script>
         <script src="../assets/js/jquery-ui.js"></script>
-       
+
 
     </form>
 

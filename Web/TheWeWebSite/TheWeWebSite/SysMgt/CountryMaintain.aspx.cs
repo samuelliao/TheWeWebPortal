@@ -45,7 +45,7 @@ namespace TheWeWebSite.SysMgt
             ddlLang.Items.Add(new ListItem(Resources.Resource.SimplifiedChineseString, "zh-CN"));
             ddlLang.Items.Add(new ListItem(Resources.Resource.EnglishString, "en"));
             ddlLang.Items.Add(new ListItem(Resources.Resource.JapaneseString, "ja-JP"));
-            ddlLang.SelectedIndex = new ResourceUtil().OutputLangNameNumber(SysProperty.CultureCode);
+            ddlLang.SelectedIndex = new ResourceUtil().OutputLangNameNumber(((string)Session["CultureCode"]));
         }
         private void InitialCurrencyList()
         {
@@ -80,7 +80,7 @@ namespace TheWeWebSite.SysMgt
         {
             string id = dgCountry.DataKeys[(int)e.Item.ItemIndex].ToString();
             string sqlTxt = "UPDATE [dbo].[Country] SET IsDelete = 1"
-                + ", UpdateAccId=N'" + SysProperty.AccountInfo["Id"].ToString() + "'"
+                + ", UpdateAccId=N'" + ((DataRow)Session["AccountInfo"])["Id"].ToString() + "'"
                 + ", UpdateTime='" + DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss") + "'"
                 + " Where Id = '" + id + "'";
             try
@@ -120,7 +120,7 @@ namespace TheWeWebSite.SysMgt
             updateLst.Add(new DbSearchObject("Code", AtrrTypeItem.String, AttrSymbolItem.Equal, ((TextBox)e.Item.Cells[5].Controls[0]).Text));
             updateLst.Add(new DbSearchObject("CurrencyId", AtrrTypeItem.String, AttrSymbolItem.Equal, ddl1.SelectedValue));
             updateLst.Add(new DbSearchObject("LangCode", AtrrTypeItem.String, AttrSymbolItem.Equal, ddl2.SelectedValue));
-            updateLst.Add(new DbSearchObject("UpdateAccId", AtrrTypeItem.String, AttrSymbolItem.Equal, SysProperty.AccountInfo["Id"].ToString()));
+            updateLst.Add(new DbSearchObject("UpdateAccId", AtrrTypeItem.String, AttrSymbolItem.Equal, ((DataRow)Session["AccountInfo"])["Id"].ToString()));
             updateLst.Add(new DbSearchObject("UpdateTime", AtrrTypeItem.String, AttrSymbolItem.Equal, DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss")));
             try
             {
@@ -219,7 +219,7 @@ namespace TheWeWebSite.SysMgt
                 "UpdateAccId"
                 , AtrrTypeItem.String
                 , AttrSymbolItem.Equal
-                , SysProperty.AccountInfo["Id"].ToString())
+                , ((DataRow)Session["AccountInfo"])["Id"].ToString())
                 );
             lst.Add(new DbSearchObject(
                 "Code"

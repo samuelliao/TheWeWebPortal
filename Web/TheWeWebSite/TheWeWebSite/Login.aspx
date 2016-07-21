@@ -12,39 +12,44 @@
 </head>
 <body class="landing">
     <form runat="server" style="background-color: Pink">
+        <asp:ScriptManager runat="server"></asp:ScriptManager>
         <div id="page-wrapper">
 
             <!-- Header -->
 
 
             <!-- Banner -->
-            <section id="banner">                
-                    <h2>
-                        <asp:Label runat="server" Text="The We Wedding"></asp:Label></h2>                    
-                    <div style="color: #000; margin-bottom: 10px; margin-left: auto; margin-right: auto; width: 15%;">
-                        <asp:DropDownList runat="server" ID="ddlStore" OnLoad="ddlStore_Load" />
-                    </div>
+            <section id="banner">
+                <h2>
+                    <asp:Label runat="server" Text="The We Wedding"></asp:Label></h2>
+                <div style="color: #000; margin-bottom: 10px; margin-left: auto; margin-right: auto; width: 15%;">
+                    <asp:UpdatePanel runat="server">
+                        <ContentTemplate>
+                            <asp:DropDownList runat="server" ID="ddlStore"/>
+                        </ContentTemplate>
+                    </asp:UpdatePanel>
+                </div>
 
-                    <div style="color: #000; margin-bottom: 10px; margin-left: auto; margin-right: auto; width: 15%;">
-                        <asp:TextBox runat="server" TextMode="SingleLine" ID="tbAccount" />
-                        <!--<asp:TextBox runat="server" placeholder="請輸入帳號..."></asp:TextBox>-->
-                    </div>
+                <div style="color: #000; margin-bottom: 10px; margin-left: auto; margin-right: auto; width: 15%;">
+                    <asp:TextBox runat="server" TextMode="SingleLine" ID="tbAccount" />
+                    <!--<asp:TextBox runat="server" placeholder="請輸入帳號..."></asp:TextBox>-->
+                </div>
 
 
-                    <div style="color: #000; margin-bottom: 10px; margin-left: auto; margin-right: auto; width: 15%;">
-                        <asp:TextBox runat="server" placeholder="請輸入密碼..." ID="tbPassword" TextMode="Password"></asp:TextBox>
-                    </div>
-                    <div>
-                        <asp:Label runat="server" ID="labelWarnText" ForeColor="Red" />
-                        <br />
-                        <asp:Button runat="server" CssClass="button alt" Text="<%$ Resources:Resource,LoginString%>" OnClick="btnLogin_Click" />
-                    </div>
+                <div style="color: #000; margin-bottom: 10px; margin-left: auto; margin-right: auto; width: 15%;">
+                    <asp:TextBox runat="server" Placeholder="請輸入密碼..." ID="tbPassword" TextMode="Password"></asp:TextBox>
+                </div>
+                <div>
+                    <asp:Label runat="server" ID="labelWarnText" ForeColor="Red" />
+                    <br />
+                    <asp:Button runat="server" CssClass="button alt" Text="<%$ Resources:Resource,LoginString%>" OnClick="btnLogin_Click" />
+                </div>
             </section>
 
 
 
             <!-- Footer -->
-            <footer id="footer" style="background-color:pink">
+            <footer id="footer" style="background-color: pink">
                 <ul class="copyright">
                     <li>rights.</li>
                     <li>The We Wedding</li>

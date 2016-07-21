@@ -17,7 +17,7 @@
 
         <section class="box title">
             <h3>
-                <asp:Label runat="server" Text="案件管理&nbsp;&nbsp;>&nbsp;&nbsp;時程維護&nbsp;&nbsp;>&nbsp;&nbsp;新增修改刪除(待修改)"></asp:Label></h3>
+                <asp:Label runat="server" Text="案件管理&nbsp;&nbsp;>&nbsp;&nbsp;時程維護&nbsp;&nbsp;>&nbsp;&nbsp;新增修改刪除(待修改)" ID="labelPageTitle"></asp:Label></h3>
         </section>
 
         <!-- Input -->
@@ -28,41 +28,41 @@
                     <div class="row uniform 50%">
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
-                                <asp:Label runat="server" Text="案件編號"></asp:Label>
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,Sntring%>"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server" placeholder=""></asp:TextBox>
+                            <asp:DropDownList runat="server" ID="ddlSn" />
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
-                                <asp:Label runat="server" Text="開案日期"></asp:Label>
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,ContractDateString%>"></asp:Label>
                             </div>
-                            <div> <asp:TextBox runat="server"  CssClass="dp"></asp:TextBox> </div>
+                            <div> <asp:TextBox runat="server"  CssClass="dp" ID="tbContractDate"></asp:TextBox> </div>
                         </div>
 
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
-                                <asp:Label runat="server" Text="新娘姓名"></asp:Label>
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,BridalString%>"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server" placeholder=""></asp:TextBox>
+                            <asp:TextBox runat="server" placeholder="<%$ Resources:Resource,NameInputString%>" ID="tbBridalName"></asp:TextBox>
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
-                                <asp:Label runat="server" Text="新郎姓名"></asp:Label>
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,GroomString%>"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server" placeholder=""></asp:TextBox>
+                            <asp:TextBox runat="server" placeholder="<%$ Resources:Resource,NameInputString%>" ID="tbGroomName"></asp:TextBox>
 
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
-                                <asp:Label runat="server" Text="國家"></asp:Label>
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,CountryString%>"></asp:Label>
                             </div>
-                            <asp:DropDownList runat="server" />
+                            <asp:DropDownList runat="server" ID="ddlCountry" />
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
-                                <asp:Label runat="server" Text="地區"></asp:Label>
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,AreaString%>"></asp:Label>
                             </div>
-                            <asp:DropDownList runat="server" />
+                            <asp:DropDownList runat="server" ID="ddlArea" />
                         </div>
                     </div>
                 </div>
@@ -71,15 +71,15 @@
                     <div class="row uniform 50%">
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
-                                <asp:Label runat="server" Text="地點"></asp:Label>
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,LocationString%>"></asp:Label>
                             </div>
-                            <asp:DropDownList runat="server" />
+                            <asp:DropDownList runat="server" ID="ddlLocation" />
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
-                                <asp:Label runat="server" Text="產品"></asp:Label>
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,ProductSetString%>"></asp:Label>
                             </div>
-                            <asp:DropDownList runat="server" />
+                            <asp:DropDownList runat="server"  ID="ddlProductSet"/>
                         </div>
 
                         <div class="2u 12u(mobilep)">
@@ -90,13 +90,13 @@
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
-                                <asp:Label runat="server" Text="會議日期"></asp:Label>
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,ConferenceDateString%>"></asp:Label>
                             </div>
-                            <div> <asp:TextBox runat="server"  CssClass="dp"></asp:TextBox> </div>
+                            <div> <asp:TextBox runat="server"  CssClass="dp" ID="tbConDate"></asp:TextBox> </div>
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
-                                <asp:Label runat="server" Text="會議狀態"></asp:Label>
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,StatusString%>"></asp:Label>
                             </div>
                             <asp:DropDownList runat="server" />
                         </div>
@@ -116,16 +116,20 @@
                 <ul class="actions">
 
                     <li>
-                        <asp:Button runat="server" Text="<%$ Resources:Resource,CreateString%>" ID="LinkCaseMCreate" PostBackUrl="~/SysMgt/CaseMCreate.aspx" />
+                        <asp:Button runat="server" Text="<%$ Resources:Resource,CreateString%>"
+                        ID="btnCreate" OnClick="btnCreate_Click" />
                     </li>
                     <li>
-                        <asp:Button runat="server" CssClass="button alt" Text="<%$ Resources:Resource,ModifyString%>" />
+                        <asp:Button runat="server" CssClass="button alt" Text="<%$ Resources:Resource,ModifyString%>" 
+                            ID="btnModify" OnClick="btnModify_Click"/>
                     </li>
                     <li>
-                        <asp:Button runat="server" CssClass="button alt" Text="<%$ Resources:Resource,ClearString%>" />
+                        <asp:Button runat="server" CssClass="button alt" Text="<%$ Resources:Resource,ClearString%>" 
+                            ID="btnClear" OnClick="btnClear_Click"/>
                     </li>
                     <li>
-                        <asp:Button runat="server" CssClass="button alt" Text="<%$ Resources:Resource,DeleteString%>" />
+                        <asp:Button runat="server" CssClass="button alt" Text="<%$ Resources:Resource,DeleteString%>" 
+                            ID="btnDelete" OnClick="btnDelete_Click"/>
                     </li>
 
                 </ul>

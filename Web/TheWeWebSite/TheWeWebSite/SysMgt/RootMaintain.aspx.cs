@@ -46,7 +46,7 @@ namespace TheWeWebSite.SysMgt
                     foreach (DataRow dr in ds.Tables[0].Rows)
                     {
                         ddlStore.Items.Add(new ListItem(
-                            (SysProperty.Util.OutputRelatedLangName(dr)
+                            (SysProperty.Util.OutputRelatedLangName(((string)Session["CultureCode"]), dr)
                             + "(" + dr["Sn"].ToString() + ")")
                             , dr["Id"].ToString()));
                     }
@@ -96,7 +96,7 @@ namespace TheWeWebSite.SysMgt
         {
             string id = dataGrid.DataKeys[(int)e.Item.ItemIndex].ToString();
             string sqlTxt = "UPDATE Permission SET IsDelete = 1"
-                + ", UpdateAccId=N'" + SysProperty.AccountInfo["Id"].ToString() + "'"
+                + ", UpdateAccId=N'" + ((DataRow)Session["AccountInfo"])["Id"].ToString() + "'"
                 + ", UpdateTime='" + DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss") + "'"
                 + " Where Id = '" + id + "'";
             try
@@ -212,8 +212,10 @@ namespace TheWeWebSite.SysMgt
                 return;
             }
             string id = dataGrid.DataKeys[dataGrid.SelectedIndex].ToString();
+            if (string.IsNullOrEmpty(id)) return;
             List<DbSearchObject> lst = PermissionDbObject();
             bool result = WriteBackPermission(false, lst, id);
+            if (!result) return;
             List<List<DbSearchObject>> lst2 = PermissionItemListFromTable(id);
             result = WriteBackPermissionItem(false, lst2, id);
             if (result) FreshScreen();
@@ -241,7 +243,7 @@ namespace TheWeWebSite.SysMgt
                 "UpdateAccId"
                 , AtrrTypeItem.String
                 , AttrSymbolItem.Equal
-                , SysProperty.AccountInfo["Id"].ToString())
+                , ((DataRow)Session["AccountInfo"])["Id"].ToString())
                 );
             lst.Add(new DbSearchObject(
                 "ObjectId"
@@ -318,7 +320,7 @@ namespace TheWeWebSite.SysMgt
                     , AtrrTypeItem.String
                     , AttrSymbolItem.Equal
                     , cnt.ToString()));
-                lst.Add(new DbSearchObject("UpdateAccId", AtrrTypeItem.String, AttrSymbolItem.Equal, SysProperty.AccountInfo["Id"].ToString()));
+                lst.Add(new DbSearchObject("UpdateAccId", AtrrTypeItem.String, AttrSymbolItem.Equal, ((DataRow)Session["AccountInfo"])["Id"].ToString()));
                 lst.Add(new DbSearchObject("UpdateTime", AtrrTypeItem.String, AttrSymbolItem.Equal, DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss")));
                 root.Add(lst);
             }
@@ -334,7 +336,7 @@ namespace TheWeWebSite.SysMgt
             {
                 string sqlTxt = "SELECT p.[Id],p.Name,p.Description,p.ObjectId"
                     + ",p.Type,p.[IsDelete],p.[UpdateAccId],p.[UpdateTime]"
-                    + ",e.Name as EmloyeeName,s." + new ResourceUtil().OutputLangNameToAttrName(SysProperty.CultureCode)
+                    + ",e.Name as EmloyeeName,s." + new ResourceUtil().OutputLangNameToAttrName(((string)Session["CultureCode"]))
                     + " as StoreName,s.Sn as StoreSn"
                     + " FROM[TheWe].[dbo].[Permission] as p"
                     + " left join Store as s on s.Id = p.ObjectId"

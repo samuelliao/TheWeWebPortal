@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -17,9 +18,11 @@ namespace TheWeWebSite
 
         public void StoreName()
         {
-            if (SysProperty.LocateStore != null)
+            if (((DataRow)Session["LocateStore"]) != null)
             {
-                labelStoreName.Text = SysProperty.Util.OutputRelatedLangName(SysProperty.LocateStore);
+                labelStoreName.Text = SysProperty.Util.OutputRelatedLangName(
+                    ((string)Session["CultureCode"])
+                    , ((DataRow)Session["LocateStore"]));
             }
             else labelStoreName.Text = string.Empty;
         }

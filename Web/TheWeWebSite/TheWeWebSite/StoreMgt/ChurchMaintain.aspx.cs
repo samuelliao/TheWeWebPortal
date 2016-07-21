@@ -43,7 +43,7 @@ namespace TheWeWebSite.StoreMgt
             ddlLang.Items.Add(new ListItem(Resources.Resource.SimplifiedChineseString, "zh-CN"));
             ddlLang.Items.Add(new ListItem(Resources.Resource.EnglishString, "en"));
             ddlLang.Items.Add(new ListItem(Resources.Resource.JapaneseString, "ja-JP"));
-            ddlLang.SelectedIndex = new ResourceUtil().OutputLangNameNumber(SysProperty.CultureCode);
+            ddlLang.SelectedIndex = new ResourceUtil().OutputLangNameNumber(((string)Session["CultureCode"]));
         }
 
         private void GetCountryList()
@@ -57,7 +57,7 @@ namespace TheWeWebSite.StoreMgt
                 foreach (DataRow dr in CountryDataSet.Tables[0].Rows)
                 {
                     ddlCountry.Items.Add(new ListItem(
-                        SysProperty.Util.OutputRelatedLangName(dr)
+                        SysProperty.Util.OutputRelatedLangName(((string)Session["CultureCode"]), dr)
                         , dr["Id"].ToString(), true));
                 }
             }
@@ -80,7 +80,7 @@ namespace TheWeWebSite.StoreMgt
                 foreach (DataRow dr in AreaDataSet.Tables[0].Rows)
                 {
                     ddlArea.Items.Add(new ListItem(
-                        SysProperty.Util.OutputRelatedLangName(dr)
+                        SysProperty.Util.OutputRelatedLangName(((string)Session["CultureCode"]), dr)
                         , dr["Id"].ToString(), true));
                 }
             }
@@ -99,7 +99,7 @@ namespace TheWeWebSite.StoreMgt
             foreach (DataRow dr in ChurchDataSet.Tables[0].Rows)
             {
                 ddlChruch.Items.Add(new ListItem(
-                    SysProperty.Util.OutputRelatedLangName(dr)
+                    SysProperty.Util.OutputRelatedLangName(((string)Session["CultureCode"]), dr)
                     , dr["Id"].ToString(), true));
             }
         }
@@ -229,7 +229,9 @@ namespace TheWeWebSite.StoreMgt
                         , SysProperty.Util.MsSqlTableConverter(MsSqlTable.Country), string.Empty);
                     foreach (DataRow dr in ds.Tables[0].Rows)
                     {
-                        dropDownList1.Items.Add(new ListItem(SysProperty.Util.OutputRelatedLangName(dr), dr["Id"].ToString()));
+                        dropDownList1.Items.Add(new ListItem(
+                            SysProperty.Util.OutputRelatedLangName(((string)Session["CultureCode"]), dr)
+                            , dr["Id"].ToString()));
                     }
                     dropDownList1.SelectedValue = dataItem1["CountryId"].ToString();
 
@@ -238,7 +240,9 @@ namespace TheWeWebSite.StoreMgt
                         , SysProperty.Util.MsSqlTableConverter(MsSqlTable.Area), " Where CountryId = '" + dataItem1["CountryId"].ToString() + "'");
                     foreach (DataRow dr in ds.Tables[0].Rows)
                     {
-                        dropDownList2.Items.Add(new ListItem(SysProperty.Util.OutputRelatedLangName(dr), dr["Id"].ToString()));
+                        dropDownList2.Items.Add(new ListItem(
+                            SysProperty.Util.OutputRelatedLangName(((string)Session["CultureCode"]), dr)
+                            , dr["Id"].ToString()));
                     }
                     dropDownList1.SelectedValue = dataItem1["AreaId"].ToString();
                 }
@@ -267,7 +271,9 @@ namespace TheWeWebSite.StoreMgt
                 , " Where CountryId='" + (sender as DropDownList).SelectedValue + "'");
             foreach (DataRow dr in ds.Tables[0].Rows)
             {
-                ddl.Items.Add(new ListItem(SysProperty.Util.OutputRelatedLangName(dr), dr["Id"].ToString()));
+                ddl.Items.Add(new ListItem(
+                    SysProperty.Util.OutputRelatedLangName(((string)Session["CultureCode"]), dr)
+                    , dr["Id"].ToString()));
             }
         }
         #endregion

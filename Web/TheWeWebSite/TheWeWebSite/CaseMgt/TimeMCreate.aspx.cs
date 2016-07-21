@@ -13,5 +13,25 @@ namespace TheWeWebSite.CaseMgt
         {
 
         }
+
+        protected void btnCreate_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void btnModify_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void btnClear_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void btnDelete_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
