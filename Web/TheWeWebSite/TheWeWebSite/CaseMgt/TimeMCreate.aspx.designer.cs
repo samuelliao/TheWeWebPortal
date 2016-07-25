@@ -13,6 +13,15 @@ namespace TheWeWebSite.CaseMgt {
     public partial class TimeMCreate {
         
         /// <summary>
+        /// ucHeader 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::TheWeWebSite.Header ucHeader;
+        
+        /// <summary>
         /// labelPageTitle 控制項。
         /// </summary>
         /// <remarks>
@@ -22,13 +31,13 @@ namespace TheWeWebSite.CaseMgt {
         protected global::System.Web.UI.WebControls.Label labelPageTitle;
         
         /// <summary>
-        /// ddlSn 控制項。
+        /// labelSn 控制項。
         /// </summary>
         /// <remarks>
         /// 自動產生的欄位。
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlSn;
+        protected global::System.Web.UI.WebControls.Label labelSn;
         
         /// <summary>
         /// tbContractDate 控制項。
@@ -37,7 +46,7 @@ namespace TheWeWebSite.CaseMgt {
         /// 自動產生的欄位。
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbContractDate;
+        protected global::System.Web.UI.WebControls.Label tbContractDate;
         
         /// <summary>
         /// tbBridalName 控制項。
@@ -46,7 +55,7 @@ namespace TheWeWebSite.CaseMgt {
         /// 自動產生的欄位。
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbBridalName;
+        protected global::System.Web.UI.WebControls.Label tbBridalName;
         
         /// <summary>
         /// tbGroomName 控制項。
@@ -55,43 +64,52 @@ namespace TheWeWebSite.CaseMgt {
         /// 自動產生的欄位。
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbGroomName;
+        protected global::System.Web.UI.WebControls.Label tbGroomName;
         
         /// <summary>
-        /// ddlCountry 控制項。
+        /// tbCountry 控制項。
         /// </summary>
         /// <remarks>
         /// 自動產生的欄位。
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlCountry;
+        protected global::System.Web.UI.WebControls.Label tbCountry;
         
         /// <summary>
-        /// ddlArea 控制項。
+        /// tbArea 控制項。
         /// </summary>
         /// <remarks>
         /// 自動產生的欄位。
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlArea;
+        protected global::System.Web.UI.WebControls.Label tbArea;
         
         /// <summary>
-        /// ddlLocation 控制項。
+        /// tbLocation 控制項。
         /// </summary>
         /// <remarks>
         /// 自動產生的欄位。
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlLocation;
+        protected global::System.Web.UI.WebControls.Label tbLocation;
         
         /// <summary>
-        /// ddlProductSet 控制項。
+        /// tbProductSet 控制項。
         /// </summary>
         /// <remarks>
         /// 自動產生的欄位。
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlProductSet;
+        protected global::System.Web.UI.WebControls.Label tbProductSet;
+        
+        /// <summary>
+        /// tvConf 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TreeView tvConf;
         
         /// <summary>
         /// tbConDate 控制項。
@@ -103,13 +121,31 @@ namespace TheWeWebSite.CaseMgt {
         protected global::System.Web.UI.WebControls.TextBox tbConDate;
         
         /// <summary>
-        /// btnCreate 控制項。
+        /// cbCompleted 控制項。
         /// </summary>
         /// <remarks>
         /// 自動產生的欄位。
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnCreate;
+        protected global::System.Web.UI.WebControls.CheckBox cbCompleted;
+        
+        /// <summary>
+        /// tbRemark 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tbRemark;
+        
+        /// <summary>
+        /// labelWarnString 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label labelWarnString;
         
         /// <summary>
         /// btnModify 控制項。
@@ -119,23 +155,5 @@ namespace TheWeWebSite.CaseMgt {
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnModify;
-        
-        /// <summary>
-        /// btnClear 控制項。
-        /// </summary>
-        /// <remarks>
-        /// 自動產生的欄位。
-        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnClear;
-        
-        /// <summary>
-        /// btnDelete 控制項。
-        /// </summary>
-        /// <remarks>
-        /// 自動產生的欄位。
-        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnDelete;
     }
 }

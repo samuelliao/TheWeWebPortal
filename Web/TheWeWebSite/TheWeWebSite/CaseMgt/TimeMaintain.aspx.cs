@@ -22,6 +22,8 @@ namespace TheWeWebSite.CaseMgt
                 {
                     labelPageTitle.Text = Resources.Resource.OrderMgtString + " > " + Resources.Resource.TimetableMaintainString;
                     InitialLabelText();
+                    InitialAllDropDownList();
+                    BindData();
                 }
             }
         }
@@ -38,6 +40,144 @@ namespace TheWeWebSite.CaseMgt
             labelConStartDate.Text = Resources.Resource.MeetingDateString + "(" + Resources.Resource.StartString + ")";
             labelConEndDate.Text = Resources.Resource.MeetingDateString + "(" + Resources.Resource.EndString + ")";
         }
+        #region DropDownList Control
+        public void InitialAllDropDownList()
+        {
+            AreaDropDownList(string.Empty);
+            CountryDropDownList();
+            LocationDropDownList(string.Empty, string.Empty);
+            ProductSetDropDownList();
+        }
+        public void CountryDropDownList()
+        {
+            ddlCountry.Items.Clear();
+            ddlCountry.Items.Add(new ListItem(Resources.Resource.CountrySelectRemindString, string.Empty));
+            try
+            {
+                List<DbSearchObject> lst = new List<DbSearchObject>();
+                lst.Add(new DbSearchObject("IsDelete", AtrrTypeItem.Bit, AttrSymbolItem.Equal, "0"));
+                DataSet ds = GetDataFromDb(SysProperty.Util.MsSqlTableConverter(MsSqlTable.Country), lst);
+                foreach (DataRow dr in ds.Tables[0].Rows)
+                {
+                    ddlCountry.Items.Add(new ListItem
+                        (SysProperty.Util.OutputRelatedLangName(((string)Session["CultureCode"]), dr)
+                        , dr["Id"].ToString()));
+                }
+            }
+            catch (Exception ex)
+            {
+                SysProperty.Log.Error(ex.Message);
+                ShowErrorMsg(ex.Message);
+            }
+        }
+
+        public void AreaDropDownList(string countryId)
+        {
+            ddlArea.Items.Clear();
+            ddlArea.Items.Add(new ListItem(Resources.Resource.AreaSelectRemindString, string.Empty));
+            try
+            {
+                List<DbSearchObject> lst = new List<DbSearchObject>();
+                lst.Add(new DbSearchObject("IsDelete", AtrrTypeItem.Bit, AttrSymbolItem.Equal, "0"));
+                if (!string.IsNullOrEmpty(countryId))
+                {
+                    lst.Add(new DbSearchObject("CountryId", AtrrTypeItem.String, AttrSymbolItem.Equal, countryId));
+                }
+                DataSet ds = GetDataFromDb(SysProperty.Util.MsSqlTableConverter(MsSqlTable.Area), lst);
+                foreach (DataRow dr in ds.Tables[0].Rows)
+                {
+                    ddlArea.Items.Add(new ListItem
+                        (SysProperty.Util.OutputRelatedLangName(((string)Session["CultureCode"]), dr)
+                        , dr["Id"].ToString()));
+                }
+            }
+            catch (Exception ex)
+            {
+                SysProperty.Log.Error(ex.Message);
+                ShowErrorMsg(ex.Message);
+            }
+        }
+
+        public void LocationDropDownList(string countryId, string areaId)
+        {
+            ddlLocation.Items.Clear();
+            ddlLocation.Items.Add(new ListItem(Resources.Resource.AreaSelectRemindString, string.Empty));
+            try
+            {
+                List<DbSearchObject> lst = new List<DbSearchObject>();
+                lst.Add(new DbSearchObject("IsDelete", AtrrTypeItem.Bit, AttrSymbolItem.Equal, "0"));
+                if (!string.IsNullOrEmpty(countryId))
+                {
+                    lst.Add(new DbSearchObject("CountryId", AtrrTypeItem.String, AttrSymbolItem.Equal, countryId));
+                }
+                if (!string.IsNullOrEmpty(areaId))
+                {
+                    lst.Add(new DbSearchObject("AreaId", AtrrTypeItem.String, AttrSymbolItem.Equal, areaId));
+                }
+
+                DataSet ds = GetDataFromDb(SysProperty.Util.MsSqlTableConverter(MsSqlTable.Church), lst);
+                foreach (DataRow dr in ds.Tables[0].Rows)
+                {
+                    ddlLocation.Items.Add(new ListItem
+                        (SysProperty.Util.OutputRelatedLangName(((string)Session["CultureCode"]), dr)
+                        , dr["Id"].ToString()));
+                }
+            }
+            catch (Exception ex)
+            {
+                SysProperty.Log.Error(ex.Message);
+                ShowErrorMsg(ex.Message);
+            }
+        }
+        private void ProductSetDropDownList()
+        {
+            ddlProductSet.Items.Clear();
+            ddlProductSet.Items.Add(new ListItem(Resources.Resource.AreaSelectRemindString, string.Empty));
+            try
+            {
+                List<DbSearchObject> lst = new List<DbSearchObject>();
+                lst.Add(new DbSearchObject("IsDelete", AtrrTypeItem.Bit, AttrSymbolItem.Equal, "0"));
+                if (!string.IsNullOrEmpty(ddlCountry.SelectedValue))
+                {
+                    lst.Add(new DbSearchObject("CountryId", AtrrTypeItem.String, AttrSymbolItem.Equal, ddlCountry.SelectedValue));
+                }
+                if (!string.IsNullOrEmpty(ddlArea.SelectedValue))
+                {
+                    lst.Add(new DbSearchObject("AreaId", AtrrTypeItem.String, AttrSymbolItem.Equal, ddlArea.SelectedValue));
+                }
+                if (!string.IsNullOrEmpty(ddlLocation.SelectedValue))
+                {
+                    lst.Add(new DbSearchObject("ChurchId", AtrrTypeItem.String, AttrSymbolItem.Equal, ddlLocation.SelectedValue));
+                }
+                DataSet ds = GetDataFromDb(SysProperty.Util.MsSqlTableConverter(MsSqlTable.ProductSet), lst);
+                if (SysProperty.Util.IsDataSetEmpty(ds)) return;
+                foreach (DataRow dr in ds.Tables[0].Rows)
+                {
+                    ddlProductSet.Items.Add(new ListItem
+                        (SysProperty.Util.OutputRelatedLangName(((string)Session["CultureCode"]), dr)
+                        , dr["Id"].ToString()));
+                }
+            }
+            catch (Exception ex)
+            {
+                SysProperty.Log.Error(ex.Message);
+                ShowErrorMsg(ex.Message);
+            }
+        }
+
+        #region DropDownList Selected Index Change Control
+        protected void ddlCountry_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            AreaDropDownList(ddlCountry.SelectedValue);
+            LocationDropDownList(ddlCountry.SelectedValue, ddlArea.SelectedValue);
+        }
+
+        protected void ddlArea_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            LocationDropDownList(ddlCountry.SelectedValue, ddlArea.SelectedValue);
+        }
+        #endregion
+        #endregion
 
         protected void btnSearch_Click(object sender, EventArgs e)
         {
@@ -116,15 +256,17 @@ namespace TheWeWebSite.CaseMgt
         protected void dataGrid_SelectedIndexChanged(object sender, EventArgs e)
         {
             string id = dataGrid.DataKeys[dataGrid.SelectedIndex].ToString();
-            Session["CustomerId"] = id;
-            Server.Transfer("CustomerMCreate.aspx", true);
+            Session["OrderId"] = id;
+            Server.Transfer("TimeMCreate.aspx", true);
         }
 
         protected void dataGrid_SortCommand(object source, DataGridSortCommandEventArgs e)
         {
             if (DS == null)
             {
-                GetCaseList("Order by c." + e.SortExpression + " " + SysProperty.Util.GetSortDirection(e.SortExpression), OtherConditionString);
+                string storeId = ((DataRow)Session["LocateStore"]) == null ? string.Empty : ((DataRow)Session["LocateStore"])["Id"].ToString();
+                GetCaseList(storeId, OtherConditionString
+                    + " Order by c." + e.SortExpression + " " + SysProperty.Util.GetSortDirection(e.SortExpression));
             }
             if (DS != null)
             {
@@ -138,18 +280,38 @@ namespace TheWeWebSite.CaseMgt
             DataRowView dataItem1 = (DataRowView)e.Item.DataItem;
             if (dataItem1 != null)
             {
-                HyperLink hyperLink1 = (HyperLink)e.Item.FindControl("linkConsult");
+                LinkButton hyperLink1 = (LinkButton)e.Item.FindControl("linkConsult");
                 hyperLink1.Text = dataItem1["ConsultSn"].ToString();
-                Label label1 = (Label)e.Item.FindControl("labelConsultId");
-                label1.Text = dataItem1["ConsultId"].ToString();
+                hyperLink1.CommandArgument = dataItem1["ConsultId"].ToString();
 
-                HyperLink hyperLink2 = (HyperLink)e.Item.FindControl("linkContract");
+                LinkButton hyperLink2 = (LinkButton)e.Item.FindControl("linkContract");
+                hyperLink2.CommandArgument = dataItem1["Id"].ToString();
                 hyperLink2.Text = dataItem1["Sn"].ToString();
 
-                HyperLink hyperLink3 = (HyperLink)e.Item.FindControl("linkCustomerName");
+                LinkButton hyperLink3 = (LinkButton)e.Item.FindControl("linkCustomerName");
                 hyperLink3.Text = dataItem1["CustomerName"].ToString();
-                Label label3 = (Label)e.Item.FindControl("labelCustomerId");
-                label3.Text = dataItem1["CustomerId"].ToString();
+                hyperLink3.CommandArgument = dataItem1["CustomerId"].ToString();
+
+
+                Label label4 = (Label)e.Item.FindControl("labelConference");
+                label4.Text = SysProperty.Util.OutputRelatedLangName(Session["CultureCode"].ToString()
+                    , dataItem1["StatusName"].ToString()
+                    , dataItem1["StatusCnName"].ToString()
+                    , dataItem1["StatusEngName"].ToString()
+                    , dataItem1["StatusJpName"].ToString());
+
+                ((Label)e.Item.FindControl("labelCountry")).Text = SysProperty.Util.OutputRelatedLangName(Session["CultureCode"].ToString()
+                    , SysProperty.GetCountryById(dataItem1["CountryId"].ToString()));
+                ((Label)e.Item.FindControl("labelArea")).Text = SysProperty.Util.OutputRelatedLangName(Session["CultureCode"].ToString()
+                    , SysProperty.GetAreaById(dataItem1["AreaId"].ToString()));
+                ((Label)e.Item.FindControl("labelLocation")).Text = SysProperty.Util.OutputRelatedLangName(Session["CultureCode"].ToString()
+                    , SysProperty.GetChurchById(dataItem1["ChurchId"].ToString()));
+
+                ((Label)e.Item.FindControl("labelSet")).Text = SysProperty.Util.OutputRelatedLangName(Session["CultureCode"].ToString()
+                    , dataItem1["SetName"].ToString()
+                    , dataItem1["SetCnName"].ToString()
+                    , dataItem1["SetEngName"].ToString()
+                    , dataItem1["SetJpName"].ToString());
             }
         }
 
@@ -173,18 +335,16 @@ namespace TheWeWebSite.CaseMgt
         private void GetCaseList(string storeId, string otherCondition)
         {
             string sqlTxt = "SELECT o.[Id] as Id,[ConsultId], c.Sn As ConsultSn,o.[Sn],o.[StartTime]"
-                + ",o.[CustomerId],cus.Name AS CustomerName,o.[StatusId], ci.Name As StatusName, ci.JpName AS StatusJpName"
+                + ",o.[CustomerId],cus.Name AS CustomerName,o.[ConferenceCategory], ci.Name As StatusName, ci.JpName AS StatusJpName"
                 + ", ci.CnName AS StatusCnName, ci.EngName AS StatusEngName,[CloseTime],o.[CountryId],o.[AreaId],"
-                + "o.[ChurchId],loc.Name AS ChurchName,loc.JpName AS ChurchJpName, loc.CnName As ChurchCnName"
-                + ",loc.EngName AS ChurchEngName,[SetId], p.Name AS SetName, p.EngName AS SetEngName,o.Category"
-                + ", p.JpName AS SetJpName, p.CnName AS SetCnName,BookingDate,o.PartnerId, pr.Name AS PartnerName"
+                + "o.[ChurchId],SetId, p.Name AS SetName, p.EngName AS SetEngName"
+                + ", p.JpName AS SetJpName, p.CnName AS SetCnName,o.BookingDate,o.PartnerId, pr.Name AS PartnerName"
                 + " FROM[TheWe].[dbo].[OrderInfo] as o"
-                + " inner join Consultation as c on c.Id = o.ConsultId"
-                + " inner join vwEN_Customer as cus on cus.Id = o.CustomerId"
-                + " inner join Church as loc on loc.Id = o.ChurchId"
-                + " inner join ProductSet as p on p.Id = o.SetId"
-                + " inner join ConferenceItem as ci on ci.Id = o.StatusId"
-                + " inner join vwEN_Partner as pr on pr.Id = o.PartnerId"
+                + " Left join Consultation as c on c.Id = o.ConsultId"
+                + " Left join vwEN_Customer as cus on cus.Id = o.CustomerId"
+                + " Left join ProductSet as p on p.Id = o.SetId"
+                + " Left join ConferenceItem as ci on ci.Id = o.ConferenceCategory"
+                + " Left join vwEN_Partner as pr on pr.Id = o.PartnerId"
                 + " WHERE o.IsDelete = 0"
                 + (string.IsNullOrEmpty(storeId) ? string.Empty : " And o.StoreId='" + storeId + "'")
                 + otherCondition;
@@ -253,5 +413,23 @@ namespace TheWeWebSite.CaseMgt
             }
         }
         #endregion
+
+        protected void linkConsult_Click(object sender, EventArgs e)
+        {
+            Session["ConsultId"] = ((LinkButton)sender).CommandArgument;
+            Server.Transfer("AdvisoryMCreate.aspx");
+        }
+
+        protected void linkContract_Click(object sender, EventArgs e)
+        {
+            Session["OrderId"] = ((LinkButton)sender).CommandArgument;
+            Server.Transfer("CaseMCreate.aspx");
+        }
+
+        protected void linkCustomerName_Click(object sender, EventArgs e)
+        {
+            Session["CustomerId"] = ((LinkButton)sender).CommandArgument;
+            Server.Transfer("CustomerMCreate.aspx");
+        }
     }
 }

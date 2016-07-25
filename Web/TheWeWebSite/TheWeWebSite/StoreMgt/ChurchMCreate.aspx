@@ -16,50 +16,71 @@
 
         <section class="box title">
             <h3>
-                <asp:Label runat="server" Text="開店管理&nbsp;&nbsp;>&nbsp;&nbsp;教堂資料庫&nbsp;&nbsp;>&nbsp;&nbsp;新增修改刪除(待修改)"></asp:Label></h3>
+                <asp:Label runat="server" Text="" ID="labelPageTitle"></asp:Label></h3>
         </section>
 
         <!-- Input -->
         <section class="insert">
+            <asp:ScriptManager runat="server"></asp:ScriptManager>
             <div>
                 <div class="12u">
-
                     <div class="row uniform 50%">
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
-                                <asp:Label runat="server" Text="教堂編號"></asp:Label>
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,SnString%>"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server" placeholder=""></asp:TextBox>
+                            <asp:TextBox runat="server" ID="tbSn"></asp:TextBox>
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
-                                <asp:Label runat="server" Text="國家名稱"></asp:Label>
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,CountryString%>"></asp:Label>
                             </div>
-                            <asp:DropDownList runat="server" />
+                            <asp:UpdatePanel runat="server">
+                                <ContentTemplate>
+                                    <asp:DropDownList runat="server" ID="ddlCountry" />
+                                </ContentTemplate>
+                            </asp:UpdatePanel>
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
-                                <asp:Label runat="server" Text="地區名稱"></asp:Label>
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,AreaString%>"></asp:Label>
                             </div>
-                            <asp:DropDownList runat="server" />
+                            <asp:UpdatePanel runat="server">
+                                <ContentTemplate>
+                                    <asp:DropDownList runat="server" ID="ddlArea" />
+                                </ContentTemplate>
+                            </asp:UpdatePanel>
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
-                                <asp:Label runat="server" Text="地點名稱"></asp:Label>
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,NameString%>"></asp:Label>
                             </div>
-                            <asp:DropDownList runat="server" />
+                            <asp:TextBox runat="server" ID="tbName" />
+                        </div>
+
+                        <div class="2u 12u(mobilep)">
+                            <div class="Div">
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,CnNameString%>"></asp:Label>
+                            </div>
+                            <asp:TextBox runat="server" ID="tbCnName" placeholder="<%$ Resources:Resource,NameInputString%>"></asp:TextBox>
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
-                                <asp:Label runat="server" Text="教堂名稱"></asp:Label>
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,EnglishNameString%>"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server" placeholder=""></asp:TextBox>
+                            <asp:TextBox runat="server" ID="tbEngName" placeholder="<%$ Resources:Resource,NameInputString%>"></asp:TextBox>
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
-                                <asp:Label runat="server" Text="容納人數"></asp:Label>
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,JpNameString%>"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server" placeholder=""></asp:TextBox>
+                            <asp:TextBox runat="server" ID="tbJpName" placeholder="<%$ Resources:Resource,NameInputString%>"></asp:TextBox>
+                        </div>
+                        <div class="2u 12u(mobilep)">
+                            <div class="Div">
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,CapacitiesString%>"></asp:Label>
+                            </div>
+                            <asp:TextBox runat="server" placeholder="" ID="tbCapacities"></asp:TextBox>
                         </div>
                     </div>
                 </div>
@@ -69,55 +90,91 @@
                     <div class="row uniform 50%">
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
-                                <asp:Label runat="server" Text="聖潔之道長度"></asp:Label>
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,RedCarpetLengthString%>"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server" placeholder=""></asp:TextBox>
+                            <asp:TextBox runat="server" placeholder="" ID="tbRedCarpetLength"></asp:TextBox>
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
-                                <asp:Label runat="server" Text="聖潔之道類型"></asp:Label>
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,RedCarpetTypeString%>"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server" placeholder=""></asp:TextBox>
-                        </div>
-                       <div class="2u 12u(mobilep)">
-                            <div class="Div">
-                                <asp:Label runat="server" Text="天井高度"></asp:Label>
-                            </div>
-                            <asp:TextBox runat="server" placeholder=""></asp:TextBox>
+                            <asp:TextBox runat="server" placeholder="" ID="tbRedCarpetType"></asp:TextBox>
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
-                                <asp:Label runat="server" Text="婚禮時間"></asp:Label>
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,PatioHeightString%>"></asp:Label>
                             </div>
-                                <asp:DropDownList runat="server" />
+                            <asp:TextBox runat="server" placeholder="" ID="tbPatioHeight"></asp:TextBox>
+                        </div>
+                        <div class="2u 12u(mobilep)">
+                            <div class="Div">
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,PriceString%>"></asp:Label>
+                            </div>
+                            <asp:TextBox runat="server" placeholder="" ID="tbPrice"></asp:TextBox>
                         </div>
                     </div>
                 </div>
 
                 <div class="12u">
                     <div class="row uniform 50%">
-
-                        <div class="2u 12u(mobilep)">
+                        <div class="4u 12u(mobilep)">
                             <div class="Div">
-                                <asp:Label runat="server" Text="售價"></asp:Label>
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,WeddingAppointmentTimeString%>"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server" placeholder=""></asp:TextBox>
+                            <div style="overflow-y: auto; height: 200px">
+                                <asp:UpdatePanel runat="server">
+                                    <ContentTemplate>
+                                        <asp:GridView ID="dgBookTable" runat="server"
+                                            ShowFooter="True" AutoGenerateColumns="False"
+                                            OnRowDeleting="dgBookTable_RowDeleting" Font-Size="Small">
+                                            <Columns>
+                                                <asp:TemplateField HeaderText="<%$ Resources:Resource,StartString%>">
+                                                    <ItemTemplate>
+                                                        <asp:TextBox ID="tbStart" runat="server"></asp:TextBox>
+                                                    </ItemTemplate>
+                                                </asp:TemplateField>
+                                                <asp:TemplateField HeaderText="<%$ Resources:Resource,StartString%>">
+                                                    <ItemTemplate>
+                                                        <asp:TextBox ID="tbEnd" runat="server"></asp:TextBox>
+                                                    </ItemTemplate>
+                                                    <FooterStyle HorizontalAlign="Right" />
+                                                    <FooterTemplate>
+                                                        <asp:Button ID="btnAddRow" runat="server"
+                                                            Text="Add New Row" OnClick="btnAddRow_Click" />
+                                                    </FooterTemplate>
+                                                </asp:TemplateField>
+                                                <asp:CommandField ShowDeleteButton="True" />
+                                            </Columns>
+                                        </asp:GridView>
+                                    </ContentTemplate>
+                                </asp:UpdatePanel>
+                            </div>
                         </div>
-
-                        <div style="margin-top: 1.6em">
-                            <asp:CheckBox runat="server" Text="餐點" />
+                        <div class="4u 12u(mobilep)">
+                            <div style="margin-top: 1.6em">
+                                <span class="image fit">
+                                    <asp:Image runat="server" ID="ImageMeal" ImageUrl="../assets/img/logo_clear.jpg" />
+                                </span>
+                                <div class="align-center">
+                                    <asp:Button runat="server" Text="<%$ Resources:Resource,UploadString%>" ID="btnUploadMeal" OnClick="btnUploadMeal_Click" />
+                                </div>
+                            </div>
                         </div>
                         <div class="4u 12u(mobilep)">
                             <div class="Div">
-                                <asp:Label runat="server" Text="服務項目及價格說明"></asp:Label>
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,ServiceAndPriceDescriptionString%>"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server" placeholder=""></asp:TextBox>
+                            <div style="overflow-y: auto; height: 200px">
+                                <asp:TextBox runat="server" placeholder="" ID="tbMealDescription" TextMode="MultiLine"></asp:TextBox>
+                            </div>
                         </div>
                         <div class="4u 12u(mobilep)">
                             <div class="Div">
-                                <asp:Label runat="server" Text="備註"></asp:Label>
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,RemarkString%>"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server" placeholder=""></asp:TextBox>
+                            <div style="overflow-y: auto; height: 200px">
+                                <asp:TextBox runat="server" placeholder="" TextMode="MultiLine" ID="tbRemark"></asp:TextBox>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -128,42 +185,44 @@
                     <div class="row no-collapse 50% uniform">
                         <div class="2u">
                             <div style="text-align: center">
-                                <asp:Label runat="server" Text="教堂照片1"></asp:Label>
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,PhotoString%>"></asp:Label>
                             </div>
                             <span class="image fit">
-                                <img src="../assets/img/logo_clear.jpg" alt="" /></span>
+                                <asp:Image runat="server" ID="imgPhoto1" ImageUrl="../assets/img/logo_clear.jpg" />
+                            </span>
                             <div class="align-center">
-                                <asp:Button runat="server" Text="<%$ Resources:Resource,UploadString%>" />
+                                <asp:Button runat="server" Text="<%$ Resources:Resource,UploadString%>" ID="btnPhoto1" OnClick="btnPhoto1_Click" />
                             </div>
                         </div>
                         <div class="2u">
                             <div style="text-align: center">
-                                <asp:Label runat="server" Text="教堂照片2"></asp:Label>
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,PhotoString%>"></asp:Label>
                             </div>
                             <span class="image fit">
-                                <img src="../assets/img/logo_clear.jpg" alt="" /></span>
+                                <asp:Image runat="server" ID="Image2" ImageUrl="../assets/img/logo_clear.jpg" />
+                            </span>
                             <div class="align-center">
-                                <asp:Button runat="server" Text="<%$ Resources:Resource,UploadString%>" />
+                                <asp:Button runat="server" Text="<%$ Resources:Resource,UploadString%>" ID="btnPhoto2" OnClick="btnPhoto2_Click" />
                             </div>
                         </div>
                         <div class="2u">
                             <div style="text-align: center">
-                                <asp:Label runat="server" Text="教堂照片3"></asp:Label>
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,PhotoString%>"></asp:Label>
                             </div>
                             <span class="image fit">
-                                <img src="../assets/img/logo_clear.jpg" alt="" /></span>
+                                <asp:Image runat="server" ID="Image3" ImageUrl="../assets/img/logo_clear.jpg" /></span>
                             <div class="align-center">
-                                <asp:Button runat="server" Text="<%$ Resources:Resource,UploadString%>" />
+                                <asp:Button runat="server" Text="<%$ Resources:Resource,UploadString%>" ID="btnPhoto3" OnClick="btnPhoto3_Click" />
                             </div>
                         </div>
                         <div class="2u">
                             <div style="text-align: center">
-                                <asp:Label runat="server" Text="教堂照片4"></asp:Label>
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,PhotoString%>"></asp:Label>
                             </div>
                             <span class="image fit">
-                                <img src="../assets/img/logo_clear.jpg" alt="" /></span>
+                                <asp:Image runat="server" ID="Image4" ImageUrl="../assets/img/logo_clear.jpg" /></span>
                             <div class="align-center">
-                                <asp:Button runat="server" Text="<%$ Resources:Resource,UploadString%>" />
+                                <asp:Button runat="server" Text="<%$ Resources:Resource,UploadString%>" ID="btnPhoto4" OnClick="btnPhoto4_Click" />
                             </div>
                         </div>
                     </div>
@@ -173,22 +232,30 @@
 
             </div>
             <!-- Btn -->
+            <asp:Label runat="server" ID="labelWarnString" ForeColor="Red" Visible="false" />
             <div class="Div btn">
                 <ul class="actions">
 
                     <li>
-                        <asp:Button runat="server" Text="<%$ Resources:Resource,CreateString%>" />
+                        <asp:Button runat="server" Text="<%$ Resources:Resource,CreateString%>"
+                            ID="btnCreate" OnClick="btnCreate_Click" />
                     </li>
                     <li>
-                        <asp:Button runat="server" CssClass="button alt" Text="<%$ Resources:Resource,ModifyString%>" />
+                        <asp:Button runat="server" CssClass="button alt" Text="<%$ Resources:Resource,ModifyString%>"
+                            ID="btnModify" OnClick="btnModify_Click" Visible="false" />
                     </li>
                     <li>
-                        <asp:Button runat="server" CssClass="button alt" Text="<%$ Resources:Resource,ClearString%>" />
+                        <asp:Button runat="server" CssClass="button alt" Text="<%$ Resources:Resource,ClearString%>"
+                            ID="btnClear" OnClick="btnClear_Click" />
                     </li>
                     <li>
-                        <asp:Button runat="server" CssClass="button alt" Text="<%$ Resources:Resource,DeleteString%>" />
+                        <asp:Button runat="server" CssClass="button alt" Text="<%$ Resources:Resource,DeleteString%>"
+                            ID="btnDelete" OnClick="btnDelete_Click" Visible="false" />
                     </li>
-
+                    <li>
+                        <asp:Button runat="server" CssClass="button alt" Text="<%$ Resources:Resource,CancelString%>"
+                            ID="btnCancel" OnClick="btnCancel_Click" />
+                    </li>
                 </ul>
             </div>
         </section>

@@ -96,7 +96,7 @@ namespace TheWeLib
                 bool result = CountryHashList.ContainsKey(id);
                 if (!result && HashTableNeedUpdate(CountryHashUpdateTime))
                 {
-                    UpdateAreas();
+                    UpdateCountries();
                     result = CountryHashList.ContainsKey(id);
                 }
                 return result;

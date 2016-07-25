@@ -621,4 +621,49 @@
   <data name="PlannedWeddingFilmDateString" xml:space="preserve">
     <value>預計拍攝日期</value>
   </data>
+  <data name="RedCarpetLengthString" xml:space="preserve">
+    <value>聖潔之道長度</value>
+  </data>
+  <data name="RedCarpetTypeString" xml:space="preserve">
+    <value>聖潔之道類型</value>
+  </data>
+  <data name="PatioHeightString" xml:space="preserve">
+    <value>天井高度</value>
+  </data>
+  <data name="WeddingAppointmentTimeString" xml:space="preserve">
+    <value>婚禮時間</value>
+  </data>
+  <data name="ServiceAndPriceDescriptionString" xml:space="preserve">
+    <value>服務項目及價格說明</value>
+  </data>
+  <data name="OverseaWeddingDateString" xml:space="preserve">
+    <value>海外婚禮日期</value>
+  </data>
+  <data name="OverseaWddingFilmingDateString" xml:space="preserve">
+    <value>海外婚紗拍攝日期</value>
+  </data>
+  <data name="DomesticWeddingFilmingDateString" xml:space="preserve">
+    <value>國內婚紗拍攝日期</value>
+  </data>
+  <data name="DiscountString" xml:space="preserve">
+    <value>折扣</value>
+  </data>
+  <data name="DomesticEngagementDateString" xml:space="preserve">
+    <value>國內訂婚日期</value>
+  </data>
+  <data name="DomesticWeddingDateString" xml:space="preserve">
+    <value>國內結婚日期</value>
+  </data>
+  <data name="DomesticMotheringDateString" xml:space="preserve">
+    <value>國內歸寧日期</value>
+  </data>
+  <data name="TotalPriceString" xml:space="preserve">
+    <value>總價</value>
+  </data>
+  <data name="ConferenceDateString" xml:space="preserve">
+    <value>會議日期</value>
+  </data>
+  <data name="CompleteString" xml:space="preserve">
+    <value>完成</value>
+  </data>
 </root>

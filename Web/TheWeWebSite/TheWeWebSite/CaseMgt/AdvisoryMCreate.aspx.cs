@@ -898,6 +898,11 @@ namespace TheWeWebSite.CaseMgt
                         , AttrSymbolItem.Equal
                         , ddlStatus.Items[0].Value));
             lst.Add(new DbSearchObject(
+                        "ConferenceCategory"
+                        , AtrrTypeItem.String
+                        , AttrSymbolItem.Equal
+                        , ddlStatus.Items[0].Value));
+            lst.Add(new DbSearchObject(
                         "StartTime"
                         , AtrrTypeItem.DateTime
                         , AttrSymbolItem.Equal
@@ -966,7 +971,7 @@ namespace TheWeWebSite.CaseMgt
             {
                 try
                 {
-                    result = SysProperty.GenDbCon.InsertDataInToTable
+                    result = result| SysProperty.GenDbCon.InsertDataInToTable
                         (SysProperty.Util.MsSqlTableConverter(MsSqlTable.InfoSource)
                         , SysProperty.Util.SqlQueryInsertInstanceConverter(item)
                         , SysProperty.Util.SqlQueryInsertValueConverter(item));

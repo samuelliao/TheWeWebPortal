@@ -24,6 +24,33 @@ namespace TheWeLib
                 (ds.Tables[0].Rows.Count == 0));
         }
 
+        public string ParseDateTime(string type, string str)
+        {
+            bool result = false;
+            DateTime dt = new DateTime();
+            result = DateTime.TryParse(str, out dt);
+            switch (type)
+            {
+                case "Time":
+                    return result ? dt.ToString("HH:mm:ss") : string.Empty;
+                case "Date":
+                    return result ? dt.ToString("yyyy/MM/dd") : string.Empty;
+                case "DateTime":
+                    return result ? dt.ToString("yyyy/MM/dd HH:mm:ss") : string.Empty;
+                default:
+                    return string.Empty;
+            }
+            
+        }
+
+        public decimal ParseMoney(string str)
+        {
+            bool result = false;
+            decimal dec = new decimal();
+            result = decimal.TryParse(str, out dec);
+            return result ? dec : 0;
+        }
+
         public string GetMD5(string inputStr)
         {
             MD5CryptoServiceProvider md5 = new MD5CryptoServiceProvider();
@@ -49,35 +76,52 @@ namespace TheWeLib
         {
             try
             {
+                return OutputRelatedLangName(cultureCode
+                    , dr["Name"].ToString()
+                    , dr["CnName"].ToString()
+                    , dr["EngName"].ToString()
+                    , dr["JpName"].ToString());
+            }
+            catch (Exception ex)
+            {
+                SysProperty.Log.Error(ex.Message);
+                return string.Empty;
+            }
+        }
+
+        public string OutputRelatedLangName(string cultureCode, string name, string cnName, string engName, string jpName)
+        {
+            try
+            {
                 string result = string.Empty;
                 switch (cultureCode)
                 {
                     case "zh-TW":
-                        result = !string.IsNullOrEmpty(dr["Name"].ToString()) ? dr["Name"].ToString() :
-                            !string.IsNullOrEmpty(dr["CnName"].ToString()) ? dr["CnName"].ToString() :
-                            !string.IsNullOrEmpty(dr["EngName"].ToString()) ? dr["EngName"].ToString() :
-                            !string.IsNullOrEmpty(dr["JpName"].ToString()) ? dr["JpName"].ToString() : string.Empty;
+                        result = !string.IsNullOrEmpty(name) ? name :
+                            !string.IsNullOrEmpty(cnName) ? cnName :
+                            !string.IsNullOrEmpty(engName) ? engName :
+                            !string.IsNullOrEmpty(jpName) ? jpName : string.Empty;
                         break;
                     case "zh-CHT":
                     case "zh-CHS":
                     case "zh-CN":
                     case "zh-HK":
-                        result = !string.IsNullOrEmpty(dr["CnName"].ToString()) ? dr["CnName"].ToString() :
-                            !string.IsNullOrEmpty(dr["Name"].ToString()) ? dr["Name"].ToString() :
-                            !string.IsNullOrEmpty(dr["EngName"].ToString()) ? dr["EngName"].ToString() :
-                            !string.IsNullOrEmpty(dr["JpName"].ToString()) ? dr["JpName"].ToString() : string.Empty;
+                        result = !string.IsNullOrEmpty(cnName) ? cnName :
+                            !string.IsNullOrEmpty(name) ? name :
+                            !string.IsNullOrEmpty(engName) ? engName :
+                            !string.IsNullOrEmpty(jpName) ? jpName : string.Empty;
                         break;
                     case "ja-JP":
-                        result = !string.IsNullOrEmpty(dr["JpName"].ToString()) ? dr["JpName"].ToString() :
-                            !string.IsNullOrEmpty(dr["CnName"].ToString()) ? dr["CnName"].ToString() :
-                            !string.IsNullOrEmpty(dr["Name"].ToString()) ? dr["Name"].ToString() :
-                            !string.IsNullOrEmpty(dr["EngName"].ToString()) ? dr["EngName"].ToString() : string.Empty;
+                        result = !string.IsNullOrEmpty(jpName) ? jpName :
+                            !string.IsNullOrEmpty(cnName) ? cnName :
+                            !string.IsNullOrEmpty(name) ? name :
+                            !string.IsNullOrEmpty(engName) ? engName : string.Empty;
                         break;
                     default:
-                        result = !string.IsNullOrEmpty(dr["EngName"].ToString()) ? dr["EngName"].ToString() :
-                            !string.IsNullOrEmpty(dr["CnName"].ToString()) ? dr["CnName"].ToString() :
-                            !string.IsNullOrEmpty(dr["Name"].ToString()) ? dr["Name"].ToString() :
-                            !string.IsNullOrEmpty(dr["JpName"].ToString()) ? dr["JpName"].ToString() : string.Empty;
+                        result = !string.IsNullOrEmpty(engName) ? engName :
+                            !string.IsNullOrEmpty(cnName) ? cnName :
+                            !string.IsNullOrEmpty(name) ? name :
+                            !string.IsNullOrEmpty(jpName) ? jpName : string.Empty;
                         break;
                 }
                 return result;
@@ -409,6 +453,8 @@ namespace TheWeLib
                     return "SnsMgt";
                 case MsSqlTable.vwEN_Consultation:
                     return "vwEN_Consultation";
+                case MsSqlTable.ChurchBookingTime:
+                    return "ChurchBookingTime";
                 default:
                     return string.Empty;
 

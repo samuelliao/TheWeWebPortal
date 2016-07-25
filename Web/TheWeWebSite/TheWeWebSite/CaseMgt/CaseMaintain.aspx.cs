@@ -168,15 +168,15 @@ namespace TheWeWebSite.CaseMgt
             {
                 List<DbSearchObject> lst = new List<DbSearchObject>();
                 lst.Add(new DbSearchObject("IsDelete", AtrrTypeItem.Bit, AttrSymbolItem.Equal, "0"));
-                if (string.IsNullOrEmpty(ddlCountry.SelectedValue))
+                if (!string.IsNullOrEmpty(ddlCountry.SelectedValue))
                 {
                     lst.Add(new DbSearchObject("CountryId", AtrrTypeItem.String, AttrSymbolItem.Equal, ddlCountry.SelectedValue));
                 }
-                if (string.IsNullOrEmpty(ddlArea.SelectedValue))
+                if (!string.IsNullOrEmpty(ddlArea.SelectedValue))
                 {
                     lst.Add(new DbSearchObject("AreaId", AtrrTypeItem.String, AttrSymbolItem.Equal, ddlArea.SelectedValue));
                 }
-                if (string.IsNullOrEmpty(ddlLocation.SelectedValue))
+                if (!string.IsNullOrEmpty(ddlLocation.SelectedValue))
                 {
                     lst.Add(new DbSearchObject("ChurchId", AtrrTypeItem.String, AttrSymbolItem.Equal, ddlLocation.SelectedValue));
                 }
@@ -238,7 +238,7 @@ namespace TheWeWebSite.CaseMgt
         {
             string whereStr = " Where IsDelete = 0"
                 + " And Name like '%" + name + "%'"
-                + " Or NickName like '%" + name + "%'"
+                + " Or Nickname like '%" + name + "%'"
                 + " Or EngName like '%" + name + "%'"
                 + (table == MsSqlTable.vwEN_Customer ? " Or Account like '%" + name + "%'" : string.Empty);
             return GetDataFromDb(SysProperty.Util.MsSqlTableConverter(table), whereStr);
@@ -249,19 +249,14 @@ namespace TheWeWebSite.CaseMgt
             string sqlTxt = "SELECT o.[Id] as Id,[ConsultId], c.Sn As ConsultSn,o.[Sn],o.[StartTime]"
                 + ",o.[CustomerId],cus.Name AS CustomerName,o.[StatusId], ci.Name As StatusName, ci.JpName AS StatusJpName"
                 + ", ci.CnName AS StatusCnName, ci.EngName AS StatusEngName,[CloseTime],o.[CountryId],o.[AreaId],"
-                + "o.[ChurchId],loc.Name AS ChurchName,loc.JpName AS ChurchJpName, loc.CnName As ChurchCnName"
-                + ",loc.EngName AS ChurchEngName,[SetId], p.Name AS SetName, p.EngName AS SetEngName,o.Category"
-                + ", p.JpName AS SetJpName, p.CnName AS SetCnName,o.BookingDate,o.PartnerId, pr.Name AS PartnerName"
-                + ",co.Name AS CountryName,a.Name AS AreaName"
+                + "o.[ChurchId],SetId, p.Name AS SetName, p.EngName AS SetEngName"
+                + ", p.JpName AS SetJpName, p.CnName AS SetCnName,o.BookingDate,o.PartnerId, pr.Name AS PartnerName"                
                 + " FROM[TheWe].[dbo].[OrderInfo] as o"
                 + " Left join Consultation as c on c.Id = o.ConsultId"
-                + " Left join vwEN_Customer as cus on cus.Id = o.CustomerId"
-                + " Left join Church as loc on loc.Id = o.ChurchId"
+                + " Left join vwEN_Customer as cus on cus.Id = o.CustomerId"                
                 + " Left join ProductSet as p on p.Id = o.SetId"
                 + " Left join ConferenceItem as ci on ci.Id = o.StatusId"
                 + " Left join vwEN_Partner as pr on pr.Id = o.PartnerId"
-                + " Left join Country as co on co.Id = o.CountryId"
-                + " Left join Area as a on a.Id = o.AreaId"
                 + " WHERE o.IsDelete = 0"
                 + (string.IsNullOrEmpty(storeId) ? string.Empty : " And o.StoreId='" + storeId + "'")
                 + otherCondition;
@@ -323,10 +318,42 @@ namespace TheWeWebSite.CaseMgt
 
         protected void dataGrid_ItemDataBound(object sender, DataGridItemEventArgs e)
         {
+            DataRowView dataItem1 = (DataRowView)e.Item.DataItem;
+            if (dataItem1 != null)
+            {
+                LinkButton hyperLink1 = (LinkButton)e.Item.FindControl("linkConsult");
+                hyperLink1.Text = dataItem1["ConsultSn"].ToString();
+                hyperLink1.CommandArgument = dataItem1["ConsultId"].ToString();
 
+                LinkButton hyperLink3 = (LinkButton)e.Item.FindControl("linkCustomerName");
+                hyperLink3.Text = dataItem1["CustomerName"].ToString();                
+                hyperLink3.CommandArgument = dataItem1["CustomerId"].ToString();
+
+                Label label4 = (Label)e.Item.FindControl("labelStatus");
+                label4.Text = SysProperty.Util.OutputRelatedLangName(Session["CultureCode"].ToString()
+                    , dataItem1["StatusName"].ToString()
+                    , dataItem1["StatusCnName"].ToString()
+                    , dataItem1["StatusEngName"].ToString()
+                    , dataItem1["StatusJpName"].ToString());
+
+                ((Label)e.Item.FindControl("labelCountry")).Text = SysProperty.Util.OutputRelatedLangName(Session["CultureCode"].ToString()
+                    , SysProperty.GetCountryById(dataItem1["CountryId"].ToString()));
+                ((Label)e.Item.FindControl("labelArea")).Text = SysProperty.Util.OutputRelatedLangName(Session["CultureCode"].ToString()
+                    , SysProperty.GetAreaById(dataItem1["AreaId"].ToString()));
+                ((Label)e.Item.FindControl("labelLocation")).Text = SysProperty.Util.OutputRelatedLangName(Session["CultureCode"].ToString()
+                    , SysProperty.GetChurchById(dataItem1["ChurchId"].ToString()));
+
+                ((Label)e.Item.FindControl("labelSet")).Text = SysProperty.Util.OutputRelatedLangName(Session["CultureCode"].ToString()
+                    , dataItem1["SetName"].ToString()
+                    , dataItem1["SetCnName"].ToString()
+                    , dataItem1["SetEngName"].ToString()
+                    , dataItem1["SetJpName"].ToString());
+            }
         }
         protected void dataGrid_SelectedIndexChanged(object sender, EventArgs e)
         {
+            Session["OrderId"] = dataGrid.DataKeys[dataGrid.SelectedIndex].ToString();
+            Server.Transfer("CaseCMaintain.aspx");
         }
         protected void dataGrid_SortCommand(object source, DataGridSortCommandEventArgs e)
         {
@@ -334,7 +361,7 @@ namespace TheWeWebSite.CaseMgt
             {
                 GetCaseList(
                     ((DataRow)Session["LocateStore"]) == null ? string.Empty : ((DataRow)Session["LocateStore"])["Id"].ToString()
-                    , "Order by c." + e.SortExpression + " " + SysProperty.Util.GetSortDirection(e.SortExpression));
+                    , OtherConditionString + " Order by c." + e.SortExpression + " " + SysProperty.Util.GetSortDirection(e.SortExpression));
             }
             if (CaseDataSet != null)
             {
@@ -433,6 +460,18 @@ namespace TheWeWebSite.CaseMgt
             OtherConditionString += ((string.IsNullOrEmpty(tbCloseSearchStartDate.Text)) ? string.Empty : " And CloseTime >='" + tbCloseSearchStartDate.Text + "'");
             OtherConditionString += ((string.IsNullOrEmpty(tbCloseSearchEndDate.Text)) ? string.Empty : " And CloseTime <='" + tbCloseSearchEndDate.Text + "'");
             BindData();
+        }
+
+        protected void linkConsult_Click(object sender, EventArgs e)
+        {
+            Session["ConsultId"] = ((LinkButton)sender).CommandArgument;
+            Server.Transfer("~/CaseMgt/AdvisoryMCreate.aspx");
+        }
+
+        protected void linkCustomerName_Click(object sender, EventArgs e)
+        {
+            Session["CustomerId"] = ((LinkButton)sender).CommandArgument;
+            Server.Transfer("~/CaseMgt/CustomerMCreate.aspx");
         }
     }
 }

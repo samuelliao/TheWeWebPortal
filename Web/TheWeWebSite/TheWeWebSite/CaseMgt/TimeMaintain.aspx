@@ -11,7 +11,7 @@
     <link href="../assets/css/font-awesome.min.css" rel="stylesheet" />
     <link href="../assets/css/main.css" rel="stylesheet" />
     <link href="../assets/css/calendar.css" rel="stylesheet" />
-        <link href="../assets/css/jquery-ui.css" rel="stylesheet"/>
+    <link href="../assets/css/jquery-ui.css" rel="stylesheet" />
 </head>
 <body class="landing">
     <form runat="server">
@@ -19,12 +19,8 @@
 
             <!-- Header -->
             <My:Header runat="server" ID="ucHeader" />
-
-
             <!-- Main -->
-
             <section id="main">
-
                 <!-- Text -->
                 <section class="box title">
                     <h3>
@@ -33,6 +29,7 @@
 
                 <!-- Input -->
                 <section class="box special">
+                    <asp:ScriptManager runat="server"></asp:ScriptManager>
                     <div>
                         <div class="12u">
 
@@ -47,23 +44,27 @@
                                     <div class="Div">
                                         <asp:Label runat="server" Text="開案日期選擇範圍(開始)" ID="labelContractStartDate"></asp:Label>
                                     </div>
-                                   <div> <asp:TextBox runat="server"  CssClass="dp" ID="tbContractStartDate"></asp:TextBox> </div>
+                                    <div>
+                                        <asp:TextBox runat="server" CssClass="dp" ID="tbContractStartDate"></asp:TextBox>
+                                    </div>
                                 </div>
                                 <div class="2u 12u(mobilep)">
                                     <div class="Div">
                                         <asp:Label runat="server" Text="開案日期選擇範圍(結束)" ID="labelContractEndDate"></asp:Label>
                                     </div>
-                                   <div> <asp:TextBox runat="server"  CssClass="dp" ID="tbContractEndDate"></asp:TextBox> </div>
+                                    <div>
+                                        <asp:TextBox runat="server" CssClass="dp" ID="tbContractEndDate"></asp:TextBox>
+                                    </div>
                                 </div>
                                 <div class="2u 12u(mobilep)">
                                     <div class="Div">
-                                        <asp:Label runat="server" Text="<%$ Resources:Resource,BridalString%>"></asp:Label>
+                                        <asp:Label runat="server" Text="<%$ Resources:Resource,BridalNameString%>"></asp:Label>
                                     </div>
                                     <asp:TextBox runat="server" placeholder="<%$ Resources:Resource,NameInputString%>" ID="tbBridalName"></asp:TextBox>
                                 </div>
                                 <div class="2u 12u(mobilep)">
                                     <div class="Div">
-                                        <asp:Label runat="server" Text="<%$ Resources:Resource,GroomString%>"></asp:Label>
+                                        <asp:Label runat="server" Text="<%$ Resources:Resource,GroomNameString%>"></asp:Label>
                                     </div>
                                     <asp:TextBox runat="server" placeholder="<%$ Resources:Resource,NameInputString%>" ID="tbGroomName"></asp:TextBox>
                                 </div>
@@ -71,10 +72,13 @@
                                     <div class="Div">
                                         <asp:Label runat="server" Text="<%$ Resources:Resource,CountryString%>"></asp:Label>
                                     </div>
-                                    <asp:DropDownList runat="server" ID="ddlCountry"/>
-
+                                    <asp:UpdatePanel runat="server">
+                                        <ContentTemplate>
+                                            <asp:DropDownList runat="server" ID="ddlCountry" OnSelectedIndexChanged="ddlCountry_SelectedIndexChanged" />
+                                        </ContentTemplate>
+                                    </asp:UpdatePanel>
                                 </div>
-                                
+
                             </div>
                         </div>
                         <div class="12u">
@@ -83,35 +87,44 @@
                                     <div class="Div">
                                         <asp:Label runat="server" Text="<%$ Resources:Resource,AreaString%>"></asp:Label>
                                     </div>
-                                    <asp:DropDownList runat="server" ID="ddlArea"/>
-
+                                    <asp:UpdatePanel runat="server">
+                                        <ContentTemplate>
+                                            <asp:DropDownList runat="server" ID="ddlArea" OnSelectedIndexChanged="ddlArea_SelectedIndexChanged" />
+                                        </ContentTemplate>
+                                    </asp:UpdatePanel>
                                 </div>
                                 <div class="2u 12u(mobilep)">
                                     <div class="Div">
-                                        <asp:Label runat="server" Text="<%$ Resources:Resource,LocationString%>"></asp:Label>
+                                        <asp:Label runat="server" Text="<%$ Resources:Resource,LocateString%>"></asp:Label>
                                     </div>
-                                    <asp:DropDownList runat="server" ID="ddlLocation"/>
-
+                                    <asp:UpdatePanel runat="server">
+                                        <ContentTemplate>
+                                            <asp:DropDownList runat="server" ID="ddlLocation" />
+                                        </ContentTemplate>
+                                    </asp:UpdatePanel>
                                 </div>
                                 <div class="2u 12u(mobilep)">
                                     <div class="Div">
                                         <asp:Label runat="server" Text="<%$ Resources:Resource,ProductSetString%>"></asp:Label>
                                     </div>
-                                    <asp:DropDownList runat="server" ID="ddlProductSet"/>
-
+                                    <asp:DropDownList runat="server" ID="ddlProductSet" />
                                 </div>
 
                                 <div class="2u 12u(mobilep)">
                                     <div class="Div">
                                         <asp:Label runat="server" Text="會議日期選擇範圍(開始)" ID="labelConStartDate"></asp:Label>
                                     </div>
-                                    <div> <asp:TextBox runat="server"  CssClass="dp" ID="tbConStartDate"></asp:TextBox> </div>
+                                    <div>
+                                        <asp:TextBox runat="server" CssClass="dp" ID="tbConStartDate"></asp:TextBox>
+                                    </div>
                                 </div>
                                 <div class="2u 12u(mobilep)">
                                     <div class="Div">
                                         <asp:Label runat="server" Text="會議日期選擇範圍(結束)" ID="labelConEndDate"></asp:Label>
                                     </div>
-                                    <div> <asp:TextBox runat="server"  CssClass="dp" ID="tbConEndDate"></asp:TextBox> </div>
+                                    <div>
+                                        <asp:TextBox runat="server" CssClass="dp" ID="tbConEndDate"></asp:TextBox>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -121,12 +134,8 @@
 
                     <div class="Div btn">
                         <ul class="actions">
-
                             <li>
-                                <asp:Button runat="server" Text="<%$ Resources:Resource,CreateString%>" ID="LinkTimeMCreate" PostBackUrl="~/CaseMgt/TimeMCreate.aspx" />
-                            </li>
-                            <li>
-                                <asp:Button runat="server" CssClass="button alt" Text="<%$ Resources:Resource,SearchString%>" 
+                                <asp:Button runat="server" CssClass="button alt" Text="<%$ Resources:Resource,SearchString%>"
                                     ID="btnSearch" OnClick="btnSearch_Click" />
                             </li>
                         </ul>
@@ -141,39 +150,56 @@
                         <div class="12u">
                             <div class="table-wrapper">
                                 <asp:DataGrid runat="server" ID="dataGrid" AllowPaging="true" AllowSorting="true" AutoGenerateColumns="false"
-                                 DataKeyField="Id" OnDeleteCommand="dataGrid_DeleteCommand" OnSelectedIndexChanged="dataGrid_SelectedIndexChanged"
-                                 OnSortCommand="dataGrid_SortCommand" OnItemDataBound="dataGrid_ItemDataBound" OnPageIndexChanged="dataGrid_PageIndexChanged"
-                                 Font-Size="Small">
+                                    DataKeyField="Id" OnDeleteCommand="dataGrid_DeleteCommand" OnSelectedIndexChanged="dataGrid_SelectedIndexChanged"
+                                    OnSortCommand="dataGrid_SortCommand" OnItemDataBound="dataGrid_ItemDataBound" OnPageIndexChanged="dataGrid_PageIndexChanged"
+                                    Font-Size="Small">
                                     <HeaderStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                     <PagerStyle Mode="NumericPages" VerticalAlign="Middle" HorizontalAlign="Center" />
                                     <Columns>
-                                        <asp:ButtonColumn Text="<%$ Resources:Resource,ModifyString%>" CommandName="Select"/>
+                                        <asp:ButtonColumn Text="<%$ Resources:Resource,ModifyString%>" CommandName="Select" />
                                         <asp:BoundColumn Visible="false" DataField="Id" />
-                                        <asp:TemplateColumn HeaderText="<%$ Resources:Resource,AdvisoryIdString%>">
+                                        <asp:TemplateColumn HeaderText="<%$ Resources:Resource,AdviosryIdString%>">
                                             <ItemTemplate>
-                                                <asp:HyperLink runat="server" ID="linkConsult" Text="" />
-                                                <asp:Label runat="server" ID="labelConsultId" Text="" Visible="false" />
+                                                <asp:LinkButton runat="server" ID="linkConsult" Text="" OnClick="linkConsult_Click" />
                                             </ItemTemplate>
                                         </asp:TemplateColumn>
                                         <asp:TemplateColumn HeaderText="<%$ Resources:Resource,ContractSnString%>">
                                             <ItemTemplate>
-                                                <asp:HyperLink runat="server" ID="linkContract" Text="" />
+                                                <asp:LinkButton runat="server" ID="linkContract" Text="" OnClick="linkContract_Click" />
                                             </ItemTemplate>
                                         </asp:TemplateColumn>
                                         <asp:TemplateColumn HeaderText="<%$ Resources:Resource,BridalNameString%>">
                                             <ItemTemplate>
-                                                <asp:HyperLink runat="server" ID="linkCustomerName" Text="" />
-                                                <asp:Label runat="server" ID="labelCustomerId" Text="" Visible="false" />
+                                                <asp:LinkButton runat="server" ID="linkCustomerName" Text="" OnClick="linkCustomerName_Click" />
                                             </ItemTemplate>
                                         </asp:TemplateColumn>
-                                        <asp:BoundColumn HeaderText="<%$ Resources:Resource,CustomerString%>" DataField="" />
-                                        <asp:BoundColumn HeaderText="<%$ Resources:Resource,CopntractDateString%>" DataField="StartTime" />                                        
-                                        <asp:BoundColumn HeaderText="<%$ Resources:Resource,StatusString%>" DataField="StatusName" />
+                                        <asp:BoundColumn HeaderText="<%$ Resources:Resource,ContractDateString%>" DataField="StartTime" />
+                                        <asp:TemplateColumn HeaderText="<%$ Resources:Resource,StatusString%>">
+                                            <ItemTemplate>
+                                                <asp:Label runat="server" ID="labelConference" Text="" Visible="true" />
+                                            </ItemTemplate>
+                                        </asp:TemplateColumn>
                                         <asp:BoundColumn HeaderText="<%$ Resources:Resource,AppointmentDateString%>" DataField="BookingDate" />
-                                        <asp:BoundColumn HeaderText="<%$ Resources:Resource,ContryString%>" DataField="CountryName" />
-                                        <asp:BoundColumn HeaderText="<%$ Resources:Resource,AreaString%>" DataField="AreaName" />
-                                        <asp:BoundColumn HeaderText="<%$ Resources:Resource,LocationString%>" DataField="LocationName" />
-                                        <asp:BoundColumn HeaderText="<%$ Resources:Resource,ProductSetString%>" DataField="ProductSetName" />
+                                        <asp:TemplateColumn HeaderText="<%$ Resources:Resource,CountryString%>">
+                                            <ItemTemplate>
+                                                <asp:Label runat="server" ID="labelCountry" />
+                                            </ItemTemplate>
+                                        </asp:TemplateColumn>
+                                        <asp:TemplateColumn HeaderText="<%$ Resources:Resource,AreaString%>">
+                                            <ItemTemplate>
+                                                <asp:Label runat="server" ID="labelArea" />
+                                            </ItemTemplate>
+                                        </asp:TemplateColumn>
+                                        <asp:TemplateColumn HeaderText="<%$ Resources:Resource,LocateString%>">
+                                            <ItemTemplate>
+                                                <asp:Label runat="server" ID="labelLocation" />
+                                            </ItemTemplate>
+                                        </asp:TemplateColumn>
+                                        <asp:TemplateColumn HeaderText="<%$ Resources:Resource,ProductSetString%>">
+                                            <ItemTemplate>
+                                                <asp:Label runat="server" ID="labelSet" />
+                                            </ItemTemplate>
+                                        </asp:TemplateColumn>
                                         <asp:ButtonColumn CommandName="Delete"
                                             HeaderText="<%$ Resources:Resource,DeleteString%>"
                                             Text="<%$ Resources:Resource,DeleteString%>" />

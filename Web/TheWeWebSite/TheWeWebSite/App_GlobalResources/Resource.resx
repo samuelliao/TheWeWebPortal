@@ -621,4 +621,49 @@
   <data name="PlannedWeddingFilmDateString" xml:space="preserve">
     <value>The Planned Wedding Filming Date</value>
   </data>
+  <data name="RedCarpetLengthString" xml:space="preserve">
+    <value>Red Carpet Lenght</value>
+  </data>
+  <data name="RedCarpetTypeString" xml:space="preserve">
+    <value>Red Carpet Type</value>
+  </data>
+  <data name="PatioHeightString" xml:space="preserve">
+    <value>Patio Height</value>
+  </data>
+  <data name="WeddingAppointmentTimeString" xml:space="preserve">
+    <value>Wedding Appointment Time</value>
+  </data>
+  <data name="ServiceAndPriceDescriptionString" xml:space="preserve">
+    <value>Service and Price Description</value>
+  </data>
+  <data name="OverseaWeddingDateString" xml:space="preserve">
+    <value>Oversea Wedding Date</value>
+  </data>
+  <data name="OverseaWddingFilmingDateString" xml:space="preserve">
+    <value>Oversea Wedding Filming Date</value>
+  </data>
+  <data name="DomesticWeddingFilmingDateString" xml:space="preserve">
+    <value>Domestic Wedding FilmingDate</value>
+  </data>
+  <data name="DiscountString" xml:space="preserve">
+    <value>Discount</value>
+  </data>
+  <data name="DomesticEngagementDateString" xml:space="preserve">
+    <value>Domestic Engagement Date</value>
+  </data>
+  <data name="DomesticWeddingDateString" xml:space="preserve">
+    <value>Domestic WeddingDate</value>
+  </data>
+  <data name="DomesticMotheringDateString" xml:space="preserve">
+    <value>Domestic Mothering Date</value>
+  </data>
+  <data name="TotalPriceString" xml:space="preserve">
+    <value>Total Price</value>
+  </data>
+  <data name="ConferenceDateString" xml:space="preserve">
+    <value>Conference Date</value>
+  </data>
+  <data name="CompleteString" xml:space="preserve">
+    <value>Complete</value>
+  </data>
 </root>
