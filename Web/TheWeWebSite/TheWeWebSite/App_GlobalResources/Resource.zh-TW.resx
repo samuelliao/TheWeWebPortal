@@ -786,4 +786,46 @@
   <data name="SnDuplicateErrorString" xml:space="preserve">
     <value>編號重覆</value>
   </data>
+  <data name="OutdoorShootingString" xml:space="preserve">
+    <value>外拍</value>
+  </data>
+  <data name="UsageStatusString" xml:space="preserve">
+    <value>使用狀態</value>
+  </data>
+  <data name="CorsageString" xml:space="preserve">
+    <value>胸花</value>
+  </data>
+  <data name="VeilString" xml:space="preserve">
+    <value>頭紗</value>
+  </data>
+  <data name="MaterialString" xml:space="preserve">
+    <value>質料</value>
+  </data>
+  <data name="GlovesString" xml:space="preserve">
+    <value>手套</value>
+  </data>
+  <data name="ShoulderString" xml:space="preserve">
+    <value>肩膀</value>
+  </data>
+  <data name="DressBackString" xml:space="preserve">
+    <value>後背</value>
+  </data>
+  <data name="NecklineString" xml:space="preserve">
+    <value>領口</value>
+  </data>
+  <data name="TypeString" xml:space="preserve">
+    <value>型態</value>
+  </data>
+  <data name="ColorString" xml:space="preserve">
+    <value>顏色</value>
+  </data>
+  <data name="CategoryString" xml:space="preserve">
+    <value>類別</value>
+  </data>
+  <data name="MaleString" xml:space="preserve">
+    <value>男</value>
+  </data>
+  <data name="FemaleString" xml:space="preserve">
+    <value>女</value>
+  </data>
 </root>

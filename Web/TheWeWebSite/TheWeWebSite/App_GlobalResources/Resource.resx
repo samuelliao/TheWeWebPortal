@@ -786,4 +786,46 @@
   <data name="SnDuplicateErrorString" xml:space="preserve">
     <value>SN is duplicated !!</value>
   </data>
+  <data name="OutdoorShootingString" xml:space="preserve">
+    <value>Outdoor Shooting</value>
+  </data>
+  <data name="UsageStatusString" xml:space="preserve">
+    <value>Usage Status</value>
+  </data>
+  <data name="CorsageString" xml:space="preserve">
+    <value>Corsage</value>
+  </data>
+  <data name="VeilString" xml:space="preserve">
+    <value>Veil</value>
+  </data>
+  <data name="MaterialString" xml:space="preserve">
+    <value>Material</value>
+  </data>
+  <data name="GlovesString" xml:space="preserve">
+    <value>Gloves</value>
+  </data>
+  <data name="ShoulderString" xml:space="preserve">
+    <value>Shoulder</value>
+  </data>
+  <data name="DressBackString" xml:space="preserve">
+    <value>DressBackString</value>
+  </data>
+  <data name="NecklineString" xml:space="preserve">
+    <value>Neckline</value>
+  </data>
+  <data name="TypeString" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="ColorString" xml:space="preserve">
+    <value>Color</value>
+  </data>
+  <data name="CategoryString" xml:space="preserve">
+    <value>CategoryString</value>
+  </data>
+  <data name="MaleString" xml:space="preserve">
+    <value>Male</value>
+  </data>
+  <data name="FemaleString" xml:space="preserve">
+    <value>Female</value>
+  </data>
 </root>

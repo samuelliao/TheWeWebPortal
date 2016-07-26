@@ -23,7 +23,7 @@ namespace TheWeWebSite.CaseMgt
                     if (Session["CustomerId"] != null)
                     {
                         labelPageTitle.Text = Resources.Resource.OrderMgtString
-                        + " > " + Resources.Resource.CustomerMaintainString
+                        + " > " + Resources.Resource.ChurchMaintainString
                         + " > " + Resources.Resource.ModifyString;
                         btnModify.Visible = true;
                         GetCustomerInfo(Session["CustomerId"].ToString());                        
@@ -31,7 +31,7 @@ namespace TheWeWebSite.CaseMgt
                     else
                     {
                         labelPageTitle.Text = Resources.Resource.OrderMgtString
-                        + " > " + Resources.Resource.CustomerMaintainString
+                        + " > " + Resources.Resource.ChurchMaintainString
                         + " > " + Resources.Resource.CreateString;
                         btnModify.Visible = false;
                     }

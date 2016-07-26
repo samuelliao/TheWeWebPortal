@@ -19,64 +19,58 @@
             <!-- Header -->
             <My:Header runat="server" ID="ucHeader" />
 
-
-
             <!-- Main -->
             <section id="main">
 
                 <!-- Text -->
                 <section class="box title">
                     <h3>
-                        <asp:Label runat="server" Text="開店管理&nbsp;&nbsp;>&nbsp;&nbsp;禮服維護(待修改)"></asp:Label></h3>
+                        <asp:Label runat="server" Text="" ID="labelPageTitle"></asp:Label></h3>
                 </section>
 
                 <!-- Input -->
 
                 <section class="box special">
+                    <asp:ScriptManager runat="server"></asp:ScriptManager>
                     <div>
-
                         <div class="12u">
                             <div class="row uniform 50%">
                                 <div class="2u 12u(mobilep)">
                                     <div class="Div">
-                                        <asp:Label runat="server" Text="禮服編號"></asp:Label>
+                                        <asp:Label runat="server" Text="<%$ Resources:Resource,SnString%>"></asp:Label>
                                     </div>
-                                    <asp:TextBox runat="server" placeholder="請輸入禮服編號..."></asp:TextBox>
+                                    <asp:TextBox runat="server" ID="tbSn"></asp:TextBox>
                                 </div>
                                 <div class="2u 12u(mobilep)">
                                     <div class="Div">
-                                        <asp:Label runat="server" Text="性別"></asp:Label>
+                                        <asp:Label runat="server" Text="<%$ Resources:Resource,GenderString%>"></asp:Label>
                                     </div>
-                                    <asp:DropDownList runat="server" />
+                                    <asp:DropDownList runat="server" ID="ddlGender" />
 
                                 </div>
                                 <div class="2u 12u(mobilep)">
                                     <div class="Div">
-                                        <asp:Label runat="server" Text="禮服類別"></asp:Label>
+                                        <asp:Label runat="server" Text="<%$ Resources:Resource,CategoryString%>"></asp:Label>
                                     </div>
-                                    <asp:DropDownList runat="server" />
-
+                                    <asp:DropDownList runat="server" ID="ddlDressCategory" />
                                 </div>
                                 <div class="2u 12u(mobilep)">
                                     <div class="Div">
-                                        <asp:Label runat="server" Text="禮服顏色"></asp:Label>
+                                        <asp:Label runat="server" Text="<%$ Resources:Resource,ColorString%>"></asp:Label>
                                     </div>
-                                    <asp:DropDownList runat="server" />
-
+                                    <asp:DropDownList runat="server" ID="ddlColor" />
                                 </div>
                                 <div class="2u 12u(mobilep)">
                                     <div class="Div">
-                                        <asp:Label runat="server" Text="型態"></asp:Label>
+                                        <asp:Label runat="server" Text="<%$ Resources:Resource,MaterialString%>"></asp:Label>
                                     </div>
-                                    <asp:DropDownList runat="server" />
-
+                                    <asp:DropDownList runat="server" ID="ddlMaterial" />
                                 </div>
                                 <div class="2u 12u(mobilep)">
                                     <div class="Div">
-                                        <asp:Label runat="server" Text="領口"></asp:Label>
+                                        <asp:Label runat="server" Text="<%$ Resources:Resource,TypeString%>"></asp:Label>
                                     </div>
-                                    <asp:DropDownList runat="server" />
-
+                                    <asp:DropDownList runat="server" ID="ddlDressType" />
                                 </div>
                             </div>
                         </div>
@@ -85,91 +79,59 @@
                             <div class="row uniform 50%">
                                 <div class="2u 12u(mobilep)">
                                     <div class="Div">
-                                        <asp:Label runat="server" Text="後背"></asp:Label>
+                                        <asp:Label runat="server" Text="<%$ Resources:Resource,WornString%>"></asp:Label>
                                     </div>
-                                    <asp:DropDownList runat="server" />
-
+                                    <asp:DropDownList runat="server" ID="ddlWorn" />
                                 </div>
                                 <div class="2u 12u(mobilep)">
                                     <div class="Div">
-                                        <asp:Label runat="server" Text="肩膀"></asp:Label>
+                                        <asp:Label runat="server" Text="<%$ Resources:Resource,NecklineString%>"></asp:Label>
                                     </div>
-                                    <asp:DropDownList runat="server" />
-
+                                    <asp:DropDownList runat="server" ID="ddlNeckLine" />
                                 </div>
                                 <div class="2u 12u(mobilep)">
                                     <div class="Div">
-                                        <asp:Label runat="server" Text="質料"></asp:Label>
+                                        <asp:Label runat="server" Text="<%$ Resources:Resource,DressBackString%>"></asp:Label>
                                     </div>
-                                    <asp:DropDownList runat="server" />
-
-                                </div>
-
-                                <div class="2u 12u(mobilep)">
-                                    <div class="Div">
-                                        <asp:Label runat="server" Text="頭紗"></asp:Label>
-                                    </div>
-                                    <asp:DropDownList runat="server" />
-
+                                    <asp:DropDownList runat="server" ID="ddlBack" />
                                 </div>
                                 <div class="2u 12u(mobilep)">
                                     <div class="Div">
-                                        <asp:Label runat="server" Text="配件"></asp:Label>
+                                        <asp:Label runat="server" Text="<%$ Resources:Resource,ShoulderString%>"></asp:Label>
                                     </div>
-                                    <asp:DropDownList runat="server" />
-
+                                    <asp:DropDownList runat="server" ID="ddlShoulder" />
                                 </div>
-                                <div class="2u 12u(mobilep)">
-                                    <div class="Div">
-                                        <asp:Label runat="server" Text="胸花"></asp:Label>
-                                    </div>
-                                    <asp:DropDownList runat="server" />
-
-                                </div>
-
                             </div>
                         </div>
                         <div class="12u">
                             <div class="row uniform 50%">
-
                                 <div class="2u 12u(mobilep)">
                                     <div class="Div">
-                                        <asp:Label runat="server" Text="手套"></asp:Label>
+                                        <asp:Label runat="server" Text="<%$ Resources:Resource,StatusString%>"></asp:Label>
                                     </div>
-                                    <asp:DropDownList runat="server" />
-
-                                </div>
-                                <div class="2u 12u(mobilep)">
-                                    <div class="Div">
-                                        <asp:Label runat="server" Text="狀態碼"></asp:Label>
-                                    </div>
-                                    <asp:DropDownList runat="server" />
+                                    <asp:DropDownList runat="server" ID="ddlStatus" />
 
                                 </div>
                                 <div class="2u 12u(mobilep)">
                                     <div class="Div">
-                                        <asp:Label runat="server" Text="使用狀態"></asp:Label>
+                                        <asp:Label runat="server" Text="<%$ Resources:Resource,UsageStatusString%>"></asp:Label>
                                     </div>
-                                    <asp:DropDownList runat="server" />
-
+                                    <asp:DropDownList runat="server" ID="ddlUseStatus" />
                                 </div>
                                 <div style="margin-top: 1.6em">
-                                    <asp:CheckBox runat="server" Text="可否外拍" />
+                                    <asp:CheckBox runat="server" Text="可否外拍" ID="cbOutPhoto" />
                                 </div>
                                 <div style="margin-top: 1.6em">
-                                    <asp:CheckBox runat="server" Text="加價款" />
+                                    <asp:CheckBox runat="server" Text="加價款" ID="cbAddPrice" />
                                 </div>
                                 <div style="margin-top: 1.6em">
-                                    <asp:CheckBox runat="server" Text="限國內婚宴" />
+                                    <asp:CheckBox runat="server" Text="限國內婚宴" ID="cbDomesticWedding" />
                                 </div>
                                 <div style="margin-top: 1.6em">
-                                    <asp:CheckBox runat="server" Text="大尺碼" />
+                                    <asp:CheckBox runat="server" Text="大尺碼" ID="cbBigSize" />
                                 </div>
-
                             </div>
                         </div>
-
-
                     </div>
 
 
@@ -182,11 +144,12 @@
                                 <asp:Button runat="server" Text="<%$ Resources:Resource,CreateString%>" ID="LinkDressMCreate" PostBackUrl="~/StoreMgt/DressMCreate.aspx" />
                             </li>
                             <li>
-                                <asp:Button runat="server" CssClass="button alt" Text="<%$ Resources:Resource,SearchString%>" />
+                                <asp:Button runat="server" CssClass="button alt" Text="<%$ Resources:Resource,SearchString%>" ID="btnSearch" OnClick="btnSearch_Click" />
                             </li>
 
                         </ul>
                     </div>
+                    <asp:Label runat="server" ID="labelWarnString" ForeColor="Red" Visible="false" />
                     <hr />
 
                     <!-- Table -->
@@ -194,55 +157,62 @@
                     <div class="row">
                         <div class="12u">
                             <div class="table-wrapper">
-                                <table class="alt">
-                                    <thead>
-                                        <tr>
-                                            <th>禮服編號</th>
-                                            <th>禮服類別</th>
-                                            <th>禮服顏色</th>
-                                            <th>型態</th>
-                                            <th>領口</th>
-                                            <th>後背</th>
-                                            <th>肩膀</th>
-                                            <th>質料</th>
-                                            <th>穿法</th>
-
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>CU00001</td>
-                                            <td>Joye</td>
-                                            <td>小讌</td>
-                                            <td>1234321</td>
-                                            <td>1234321</td>
-                                            <td>1234321</td>
-                                            <td>1234321</td>
-                                            <td>1234321</td>
-                                            <td>1234321</td>
-                                        </tr>
-                                        <tr>
-                                            <td>CU00001</td>
-                                            <td>Joye</td>
-                                            <td>小讌</td>
-                                            <td>1234321</td>
-                                            <td>1234321</td>
-                                            <td>1234321</td>
-                                            <td>1234321</td>
-                                            <td>1234321</td>
-                                            <td>1234321</td>
-                                        </tr>
-                                    </tbody>
-
-                                </table>
+                                <asp:UpdatePanel runat="server">
+                                    <ContentTemplate>
+                                        <asp:DataGrid runat="server" ID="dataGrid" AllowPaging="true" AllowSorting="true"
+                                            AutoGenerateColumns="false" DataKeyField="Id"
+                                            OnDeleteCommand="dataGrid_DeleteCommand" OnItemDataBound="dataGrid_ItemDataBound"
+                                            OnPageIndexChanged="dataGrid_PageIndexChanged" OnSelectedIndexChanged="dataGrid_SelectedIndexChanged"
+                                            OnSortCommand="dataGrid_SortCommand">
+                                            <HeaderStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                            <PagerStyle Mode="NumericPages" />
+                                            <Columns>
+                                                <asp:ButtonColumn Text="<%$ Resources:Resource,SearchString%>" CommandName="Select" />
+                                                <asp:BoundColumn DataField="Id" Visible="false" />
+                                                <asp:BoundColumn DataField="Sn" HeaderText="<%$ Resources:Resource,SnString%>" />
+                                                <asp:TemplateColumn HeaderText="<%$ Resources:Resource,CategoryString%>">
+                                                    <ItemTemplate>
+                                                        <asp:Label runat="server" ID="labelCategory" />
+                                                    </ItemTemplate>
+                                                </asp:TemplateColumn>
+                                                <asp:BoundColumn DataField="Color" HeaderText="<%$ Resources:Resource,ColorString%>" />
+                                                <asp:BoundColumn DataField="Material" HeaderText="<%$ Resources:Resource,MaterialString%>" />
+                                                <asp:TemplateColumn HeaderText="<%$ Resources:Resource,TypeString%>">
+                                                    <ItemTemplate>
+                                                        <asp:Label runat="server" ID="labelType" />
+                                                    </ItemTemplate>
+                                                </asp:TemplateColumn>
+                                                <asp:TemplateColumn HeaderText="<%$ Resources:Resource,NecklineString%>">
+                                                    <ItemTemplate>
+                                                        <asp:Label runat="server" ID="labelNeckline" />
+                                                    </ItemTemplate>
+                                                </asp:TemplateColumn>
+                                                <asp:TemplateColumn HeaderText="<%$ Resources:Resource,DressbackString%>">
+                                                    <ItemTemplate>
+                                                        <asp:Label runat="server" ID="labelDressBack" />
+                                                    </ItemTemplate>
+                                                </asp:TemplateColumn>
+                                                <asp:TemplateColumn HeaderText="<%$ Resources:Resource,ShoulderString%>">
+                                                    <ItemTemplate>
+                                                        <asp:Label runat="server" ID="labelShoulder" />
+                                                    </ItemTemplate>
+                                                </asp:TemplateColumn>
+                                                <asp:TemplateColumn HeaderText="<%$ Resources:Resource,WornString%>">
+                                                    <ItemTemplate>
+                                                        <asp:Label runat="server" ID="labelWorn" />
+                                                    </ItemTemplate>
+                                                </asp:TemplateColumn>
+                                                <asp:ButtonColumn CommandName="Delete"
+                                                    HeaderText="<%$ Resources:Resource,DeleteString%>"
+                                                    Text="<%$ Resources:Resource,DeleteString%>" />
+                                            </Columns>
+                                        </asp:DataGrid>
+                                    </ContentTemplate>
+                                </asp:UpdatePanel>
                             </div>
                             <hr />
                         </div>
                     </div>
-
-
-
-
                 </section>
             </section>
 

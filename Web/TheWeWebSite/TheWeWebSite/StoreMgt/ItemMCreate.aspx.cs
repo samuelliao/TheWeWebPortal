@@ -479,7 +479,7 @@ namespace TheWeWebSite.StoreMgt
                 string cultureCode = Session["CultureCode"].ToString();
                 DropDownList ddlService = (DropDownList)e.Row.FindControl("ddlServiceItem");
                 ddlService.Items.Add(new ListItem(Resources.Resource.ServiceItemSelectRemindString, string.Empty));
-                DataSet ds = SysProperty.GenDbCon.GetDataFromTable("Select * From ServiceItem Where IsDelete = 0 And Type = 0");
+                DataSet ds = SysProperty.GenDbCon.GetDataFromTable("Select * From ServiceItem Where IsDelete = 0 And IsGeneral = 1");
                 if (SysProperty.Util.IsDataSetEmpty(ds)) return;
                 foreach (DataRow dr in ds.Tables[0].Rows)
                 {
@@ -489,7 +489,7 @@ namespace TheWeWebSite.StoreMgt
                         ));
                 }
                 if (string.IsNullOrEmpty(ddlLocate.SelectedValue)) return;
-                ds = SysProperty.GenDbCon.GetDataFromTable("Select * From ServiceItem Where Type = 1 And SupplierId = '"+ddlLocate.SelectedValue+"'");
+                ds = SysProperty.GenDbCon.GetDataFromTable("Select * From ServiceItem Where IsGeneral = 0 And SupplierId = '" + ddlLocate.SelectedValue+"'");
                 if (SysProperty.Util.IsDataSetEmpty(ds)) return;
                 foreach (DataRow dr in ds.Tables[0].Rows)
                 {
@@ -508,7 +508,7 @@ namespace TheWeWebSite.StoreMgt
             result = decimal.TryParse(((TextBox)sender).Text, out dec);
             if (result)
             {
-                tbPrice.Text = (decimal.Parse(tbPrice.Text) + dec).ToString();
+                tbPrice.Text = (SysProperty.Util.ParseMoney(tbPrice.Text) + dec).ToString();
             }
         }
         #endregion        

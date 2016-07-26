@@ -198,7 +198,7 @@ namespace TheWeWebSite.CaseMgt
 
         private void ServiceCategoryDropDownList()
         {
-            ddlCategory.Items.Add(new ListItem(Resources.Resource.AreaSelectRemindString, string.Empty));
+            ddlCategory.Items.Add(new ListItem(Resources.Resource.SeletionRemindString, string.Empty));
             List<DbSearchObject> lst = new List<DbSearchObject>();
             lst.Add(new DbSearchObject("IsDelete", AtrrTypeItem.Bit, AttrSymbolItem.Equal, "0"));
             lst.Add(new DbSearchObject("TypeLv", AtrrTypeItem.Integer, AttrSymbolItem.Equal, "0"));

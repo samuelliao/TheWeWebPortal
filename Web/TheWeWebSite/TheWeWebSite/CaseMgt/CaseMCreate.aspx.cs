@@ -1229,7 +1229,7 @@ namespace TheWeWebSite.CaseMgt
                 string cultureCode = Session["CultureCode"].ToString();
                 DropDownList ddlService = (DropDownList)e.Row.FindControl("ddlServiceItem");
                 ddlService.Items.Add(new ListItem(Resources.Resource.ServiceItemSelectRemindString, string.Empty));
-                DataSet ds = SysProperty.GenDbCon.GetDataFromTable("Select * From ServiceItem Where IsDelete = 0 And Type = 0");
+                DataSet ds = SysProperty.GenDbCon.GetDataFromTable("Select * From ServiceItem Where IsDelete = 0 And IsGeneral = 1");
                 if (SysProperty.Util.IsDataSetEmpty(ds)) return;
                 foreach (DataRow dr in ds.Tables[0].Rows)
                 {
@@ -1239,7 +1239,7 @@ namespace TheWeWebSite.CaseMgt
                         ));
                 }
                 if (string.IsNullOrEmpty(ddlLocate.SelectedValue)) return;
-                ds = SysProperty.GenDbCon.GetDataFromTable("Select * From ServiceItem Where Type = 1 And SupplierId = '" + ddlLocate.SelectedValue + "'");
+                ds = SysProperty.GenDbCon.GetDataFromTable("Select * From ServiceItem Where IsGeneral = 0 And SupplierId = '" + ddlLocate.SelectedValue + "'");
                 if (SysProperty.Util.IsDataSetEmpty(ds)) return;
                 foreach (DataRow dr in ds.Tables[0].Rows)
                 {
@@ -1258,7 +1258,7 @@ namespace TheWeWebSite.CaseMgt
             result = decimal.TryParse(((TextBox)sender).Text, out dec);
             if (result)
             {
-                tbTotalPrice.Text = (decimal.Parse(tbTotalPrice.Text) + dec).ToString();
+                tbTotalPrice.Text = (SysProperty.Util.ParseMoney(tbTotalPrice.Text) + dec).ToString();
             }
         }
         #endregion                
@@ -1290,7 +1290,7 @@ namespace TheWeWebSite.CaseMgt
             result = decimal.TryParse(((TextBox)sender).Text, out dec);
             if (result)
             {
-                tbTotalPrice.Text = (decimal.Parse(tbTotalPrice.Text) - dec).ToString();
+                tbTotalPrice.Text = (SysProperty.Util.ParseMoney(tbTotalPrice.Text) - dec).ToString();
             }
         }
 
@@ -1301,8 +1301,8 @@ namespace TheWeWebSite.CaseMgt
             result = decimal.TryParse(((TextBox)sender).Text, out dec);
             if (result)
             {
-                tbPayOff.Text = (decimal.Parse(tbTotalPrice.Text)
-                    - (dec + decimal.Parse(tbDeposit2.Text)))
+                tbPayOff.Text = (SysProperty.Util.ParseMoney(tbTotalPrice.Text)
+                    - (dec + SysProperty.Util.ParseMoney(tbDeposit2.Text)))
                     .ToString();
                 tbDeposit1Date.Text = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss");
             }
@@ -1316,7 +1316,7 @@ namespace TheWeWebSite.CaseMgt
             if (result)
             {
                 tbPayOff.Text = (dec
-                    - (decimal.Parse(tbDeposit1.Text) + decimal.Parse(tbDeposit2.Text)))
+                    - (SysProperty.Util.ParseMoney(tbDeposit1.Text) + SysProperty.Util.ParseMoney(tbDeposit2.Text)))
                     .ToString();
             }
         }
@@ -1328,8 +1328,8 @@ namespace TheWeWebSite.CaseMgt
             result = decimal.TryParse(((TextBox)sender).Text, out dec);
             if (result)
             {
-                tbPayOff.Text = (decimal.Parse(tbTotalPrice.Text)
-                    - (dec + decimal.Parse(tbDeposit1.Text)))
+                tbPayOff.Text = (SysProperty.Util.ParseMoney(tbTotalPrice.Text)
+                    - (dec + SysProperty.Util.ParseMoney(tbDeposit1.Text)))
                     .ToString();
                 tbDeposit2Date.Text = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss");
             }
