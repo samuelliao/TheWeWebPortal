@@ -56,6 +56,7 @@ namespace TheWeLib
         ConsultLocation = 10,
         ConsultServiceItem = 11,
         ChurchBookingTime = 12,
+        WeddingCategory = 13,
         Country = 15,
         Currency = 16,
         Customer = 17,

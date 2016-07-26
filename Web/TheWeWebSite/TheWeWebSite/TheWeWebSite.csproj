@@ -40,6 +40,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AjaxControlToolkit, Version=16.1.0.0, Culture=neutral, PublicKeyToken=28f01b0e84b6d53e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\Users\Samuel\Documents\ASP.NET AJAX Control Toolkit\Bin\AjaxControlToolkit.dll</HintPath>
+    </Reference>
     <Reference Include="log4net">
       <HintPath>.\log4net.dll</HintPath>
     </Reference>
@@ -90,7 +94,6 @@
     <Content Include="CaseMgt\TimeMaintain.aspx" />
     <Content Include="CaseMgt\TimeMCreate.aspx" />
     <Content Include="css\main.css" />
-    <Content Include="DatePicker.ascx" />
     <Content Include="Header.ascx" />
     <Content Include="Login.aspx" />
     <Content Include="Main\Calendar.aspx" />
@@ -141,6 +144,11 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_GlobalResources\Resource.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resource.resx</DependentUpon>
+    </Compile>
     <Compile Include="App_GlobalResources\Resource.zh-CN.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -150,11 +158,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resource.zh-TW.resx</DependentUpon>
-    </Compile>
-    <Compile Include="App_GlobalResources\Resource1.designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resource.resx</DependentUpon>
     </Compile>
     <Compile Include="CaseMgt\AdvisoryMaintain.aspx.cs">
       <DependentUpon>AdvisoryMaintain.aspx</DependentUpon>

@@ -53,8 +53,9 @@ namespace TheWeWebSite.StoreMgt
         }
         private void TransferToOtherPage()
         {
-            Server.Transfer("ChurchMaintain.aspx", true);
+            ViewState.Remove("CurrentTable");
             Session.Remove("ChurchId");
+            Server.Transfer("ChurchMaintain.aspx", true);
         }
 
         #region Photo Control
@@ -234,7 +235,8 @@ namespace TheWeWebSite.StoreMgt
                     , SysProperty.Util.SqlQueryConditionConverter(lst));
                 if (SysProperty.Util.IsDataSetEmpty(ds)) return string.Empty;
                 return ds.Tables[0].Rows[0]["Id"].ToString();
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 SysProperty.Log.Error(ex.Message);
                 ShowErrorMsg(ex.Message);
@@ -261,6 +263,7 @@ namespace TheWeWebSite.StoreMgt
             tbRemark.Text = dr["Remark"].ToString();
             ddlCountry.SelectedValue = dr["CountryId"].ToString();
             ddlArea.SelectedValue = dr["AreaId"].ToString();
+            SetChurchBookingTime(id);
         }
 
         private DataSet GetChurchBookingTime(string id)
@@ -268,7 +271,7 @@ namespace TheWeWebSite.StoreMgt
             try
             {
                 if (string.IsNullOrEmpty(id)) return null;
-                string sql = "Select * From ChurchBookingTime Where IsDelete = 0 And ChurchId = '" + id + "'";
+                string sql = "Select * From ChurchBookingTime Where IsDelete = 0 And ChurchId = '" + id + "' Order by StartTime";
                 return SysProperty.GenDbCon.GetDataFromTable(sql);
             }
             catch (Exception ex)
@@ -283,7 +286,18 @@ namespace TheWeWebSite.StoreMgt
         {
             DataSet ds = GetChurchBookingTime(id);
             if (SysProperty.Util.IsDataSetEmpty(ds)) return;
-
+            int cnt = 0;
+            foreach (DataRow dr in ds.Tables[0].Rows)
+            {
+                if (dgBookTable.Rows.Count == 0)
+                {
+                    AddNewRow();
+                }
+                ((TextBox)dgBookTable.Rows[cnt].FindControl("tbStart")).Text = SysProperty.Util.ParseDateTime("Time", dr["StartTime"].ToString());
+                ((TextBox)dgBookTable.Rows[cnt].FindControl("tbEnd")).Text = SysProperty.Util.ParseDateTime("Time", dr["EndTime"].ToString());
+                cnt++;
+                AddNewRow();
+            }
         }
 
         #region Appointment Time Table
@@ -312,11 +326,9 @@ namespace TheWeWebSite.StoreMgt
         {
             DataTable dt = new DataTable();
             DataRow dr = null;
-            dt.Columns.Add(new DataColumn("RowNumber", typeof(string)));
             dt.Columns.Add(new DataColumn("Col1", typeof(string)));
             dt.Columns.Add(new DataColumn("Col2", typeof(string)));
             dr = dt.NewRow();
-            dr["RowNumber"] = 1;
             dr["Col1"] = string.Empty;
             dr["Col2"] = string.Empty;
             dt.Rows.Add(dr);
@@ -339,9 +351,9 @@ namespace TheWeWebSite.StoreMgt
                     for (int i = 1; i <= dtCurrentTable.Rows.Count; i++)
                     {
                         TextBox TextStart =
-                          (TextBox)dgBookTable.Rows[rowIndex].Cells[1].FindControl("tbStart");
+                          (TextBox)dgBookTable.Rows[rowIndex].Cells[0].FindControl("tbStart");
                         TextBox TextEnd =
-                          (TextBox)dgBookTable.Rows[rowIndex].Cells[2].FindControl("tbEnd");
+                          (TextBox)dgBookTable.Rows[rowIndex].Cells[1].FindControl("tbEnd");
                         drCurrentRow = dtCurrentTable.NewRow();
 
                         dtCurrentTable.Rows[i - 1]["Col1"] = TextStart.Text;
@@ -372,8 +384,8 @@ namespace TheWeWebSite.StoreMgt
                 {
                     for (int i = 0; i < dt.Rows.Count; i++)
                     {
-                        TextBox TextStart = (TextBox)dgBookTable.Rows[rowIndex].Cells[1].FindControl("tbStart");
-                        TextBox TextEnd = (TextBox)dgBookTable.Rows[rowIndex].Cells[2].FindControl("tbEnd");
+                        TextBox TextStart = (TextBox)dgBookTable.Rows[rowIndex].Cells[0].FindControl("tbStart");
+                        TextBox TextEnd = (TextBox)dgBookTable.Rows[rowIndex].Cells[1].FindControl("tbEnd");
                         if (TextStart == null) continue;
                         if (TextEnd == null) continue;
                         TextStart.Text = dt.Rows[i]["Col1"] == null ? string.Empty : dt.Rows[i]["Col1"].ToString();
@@ -396,8 +408,8 @@ namespace TheWeWebSite.StoreMgt
                 {
                     for (int i = 1; i <= dtCurrentTable.Rows.Count; i++)
                     {
-                        TextBox TextStart = (TextBox)dgBookTable.Rows[rowIndex].Cells[1].FindControl("tbStart");
-                        TextBox TextEnd = (TextBox)dgBookTable.Rows[rowIndex].Cells[2].FindControl("tbEnd");
+                        TextBox TextStart = (TextBox)dgBookTable.Rows[rowIndex].Cells[0].FindControl("tbStart");
+                        TextBox TextEnd = (TextBox)dgBookTable.Rows[rowIndex].Cells[1].FindControl("tbEnd");
                         drCurrentRow = dtCurrentTable.NewRow();
                         dtCurrentTable.Rows[i - 1]["Col1"] = TextStart.Text;
                         dtCurrentTable.Rows[i - 1]["Col2"] = TextEnd.Text;
@@ -495,7 +507,7 @@ namespace TheWeWebSite.StoreMgt
                 , tbRedCarpetLength.Text
                 ));
             lst.Add(new DbSearchObject(
-                "RedCarpetType"
+                "RedCarpetCategory"
                 , AtrrTypeItem.String
                 , AttrSymbolItem.Equal
                 , tbRedCarpetType.Text
@@ -521,14 +533,14 @@ namespace TheWeWebSite.StoreMgt
             List<DbSearchObject> lst = new List<DbSearchObject>();
             if (ViewState["CurrentTable"] != null)
             {
-                DataTable table = (DataTable)ViewState["CurrentTable"];
+                //DataTable table = (DataTable)ViewState["CurrentTable"];
                 string str = string.Empty;
-                if (table.Rows.Count > 0)
+                if (dgBookTable.Rows.Count > 0)
                 {
-                    foreach (DataRow dr in table.Rows)
+                    foreach (GridViewRow dr in dgBookTable.Rows)
                     {
                         lst = new List<DbSearchObject>();
-                        str = SysProperty.Util.ParseDateTime("Time", dr["Col1"].ToString());
+                        str = SysProperty.Util.ParseDateTime("Time", ((TextBox)dr.Cells[0].FindControl("tbStart")).Text);
                         if (string.IsNullOrEmpty(str)) continue;
                         lst.Add(new DbSearchObject(
                             "StartTime"
@@ -536,7 +548,7 @@ namespace TheWeWebSite.StoreMgt
                             , AttrSymbolItem.Equal
                             , str
                             ));
-                        str = SysProperty.Util.ParseDateTime("Time", dr["Col2"].ToString());
+                        str = SysProperty.Util.ParseDateTime("Time", ((TextBox)dr.Cells[1].FindControl("tbEnd")).Text);
                         if (string.IsNullOrEmpty(str)) continue;
                         lst.Add(new DbSearchObject(
                             "EndTime"
@@ -544,12 +556,24 @@ namespace TheWeWebSite.StoreMgt
                             , AttrSymbolItem.Equal
                             , str
                             ));
+                        lst.Add(new DbSearchObject(
+                            "ChurchId"
+                            , AtrrTypeItem.String
+                            , AttrSymbolItem.Equal
+                            , id
+                            ));
+                        lst.Add(new DbSearchObject(
+                            "UpdateAccId"
+                            , AtrrTypeItem.String
+                            , AttrSymbolItem.Equal
+                            , ((DataRow)Session["AccountInfo"])["Id"].ToString()
+                            ));
                         result.Add(lst);
                     }
                 }
             }
             return result;
-        }        
+        }
 
         private bool WriteBackChurch(bool isInsert, List<DbSearchObject> lst, string id)
         {
@@ -566,7 +590,7 @@ namespace TheWeWebSite.StoreMgt
                         , SysProperty.Util.SqlQueryUpdateConverter(lst)
                         , " Where Id = '" + id + "'"));
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 SysProperty.Log.Error(ex.Message);
                 ShowErrorMsg(ex.Message);
@@ -577,12 +601,13 @@ namespace TheWeWebSite.StoreMgt
         private bool WriteBackAppointment(bool isInsert, List<List<DbSearchObject>> lst, string id)
         {
             bool result = true;
-            try {
+            try
+            {
                 if (!isInsert)
                 {
                     SysProperty.GenDbCon.ModifyDataInToTable("DELETE FROM[dbo].[ChurchBookingTime] WHERE ChurchId = '" + id + "'");
                 }
-                foreach(List<DbSearchObject> item in lst)
+                foreach (List<DbSearchObject> item in lst)
                 {
                     result = result | SysProperty.GenDbCon.InsertDataInToTable
                         (SysProperty.Util.MsSqlTableConverter(MsSqlTable.ChurchBookingTime)
@@ -590,7 +615,7 @@ namespace TheWeWebSite.StoreMgt
                         , SysProperty.Util.SqlQueryInsertValueConverter(item));
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 SysProperty.Log.Error(ex.Message);
                 ShowErrorMsg(ex.Message);

@@ -114,7 +114,7 @@ namespace TheWeWebSite
             else
             {
                 labelWarnText.Visible = false;
-                Server.Transfer("Main/Case.aspx", true);
+                Response.Redirect("Main/Case.aspx");
             }
         }
 

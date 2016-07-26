@@ -158,44 +158,44 @@
                                     <Columns>
                                         <asp:ButtonColumn Text="<%$ Resources:Resource,ModifyString%>" CommandName="Select" />
                                         <asp:BoundColumn Visible="false" DataField="Id" />
-                                        <asp:TemplateColumn HeaderText="<%$ Resources:Resource,AdviosryIdString%>">
+                                        <asp:TemplateColumn HeaderText="<%$ Resources:Resource,AdviosryIdString%>" SortExpression="ConsultId">
                                             <ItemTemplate>
                                                 <asp:LinkButton runat="server" ID="linkConsult" Text="" OnClick="linkConsult_Click" />
                                             </ItemTemplate>
                                         </asp:TemplateColumn>
-                                        <asp:TemplateColumn HeaderText="<%$ Resources:Resource,ContractSnString%>">
+                                        <asp:TemplateColumn HeaderText="<%$ Resources:Resource,ContractSnString%>" SortExpression="Sn">
                                             <ItemTemplate>
                                                 <asp:LinkButton runat="server" ID="linkContract" Text="" OnClick="linkContract_Click" />
                                             </ItemTemplate>
                                         </asp:TemplateColumn>
-                                        <asp:TemplateColumn HeaderText="<%$ Resources:Resource,BridalNameString%>">
+                                        <asp:TemplateColumn HeaderText="<%$ Resources:Resource,BridalNameString%>" SortExpression="CustomerId">
                                             <ItemTemplate>
                                                 <asp:LinkButton runat="server" ID="linkCustomerName" Text="" OnClick="linkCustomerName_Click" />
                                             </ItemTemplate>
                                         </asp:TemplateColumn>
-                                        <asp:BoundColumn HeaderText="<%$ Resources:Resource,ContractDateString%>" DataField="StartTime" />
-                                        <asp:TemplateColumn HeaderText="<%$ Resources:Resource,StatusString%>">
+                                        <asp:BoundColumn HeaderText="<%$ Resources:Resource,ContractDateString%>" DataField="StartTime" SortExpression="StartTime" />
+                                        <asp:TemplateColumn HeaderText="<%$ Resources:Resource,StatusString%>" SortExpression="ConferenceCategory">
                                             <ItemTemplate>
                                                 <asp:Label runat="server" ID="labelConference" Text="" Visible="true" />
                                             </ItemTemplate>
                                         </asp:TemplateColumn>
-                                        <asp:BoundColumn HeaderText="<%$ Resources:Resource,AppointmentDateString%>" DataField="BookingDate" />
-                                        <asp:TemplateColumn HeaderText="<%$ Resources:Resource,CountryString%>">
+                                        <asp:BoundColumn HeaderText="<%$ Resources:Resource,AppointmentDateString%>" DataField="BookingDate" SortExpression="BookingDate" />
+                                        <asp:TemplateColumn HeaderText="<%$ Resources:Resource,CountryString%>" SortExpression="CountryId">
                                             <ItemTemplate>
-                                                <asp:Label runat="server" ID="labelCountry" />
+                                                <asp:Label runat="server" ID="labelCountry"/>
                                             </ItemTemplate>
                                         </asp:TemplateColumn>
-                                        <asp:TemplateColumn HeaderText="<%$ Resources:Resource,AreaString%>">
+                                        <asp:TemplateColumn HeaderText="<%$ Resources:Resource,AreaString%>" SortExpression="AreaId">
                                             <ItemTemplate>
                                                 <asp:Label runat="server" ID="labelArea" />
                                             </ItemTemplate>
                                         </asp:TemplateColumn>
-                                        <asp:TemplateColumn HeaderText="<%$ Resources:Resource,LocateString%>">
+                                        <asp:TemplateColumn HeaderText="<%$ Resources:Resource,LocateString%>" SortExpression="ChurchId">
                                             <ItemTemplate>
                                                 <asp:Label runat="server" ID="labelLocation" />
                                             </ItemTemplate>
                                         </asp:TemplateColumn>
-                                        <asp:TemplateColumn HeaderText="<%$ Resources:Resource,ProductSetString%>">
+                                        <asp:TemplateColumn HeaderText="<%$ Resources:Resource,ProductSetString%>" SortExpression="SetId">
                                             <ItemTemplate>
                                                 <asp:Label runat="server" ID="labelSet" />
                                             </ItemTemplate>

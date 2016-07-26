@@ -256,7 +256,7 @@
     <value>Wedding Item</value>
   </data>
   <data name="ChurchMaintainString" xml:space="preserve">
-    <value>Church</value>
+    <value>Church Database</value>
   </data>
   <data name="EmployeeMaintainString" xml:space="preserve">
     <value>Employee</value>
@@ -665,5 +665,125 @@
   </data>
   <data name="CompleteString" xml:space="preserve">
     <value>Complete</value>
+  </data>
+  <data name="IsReplyString" xml:space="preserve">
+    <value>Reply?</value>
+  </data>
+  <data name="YesString" xml:space="preserve">
+    <value>Yes</value>
+  </data>
+  <data name="NoString" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="StaffString" xml:space="preserve">
+    <value>Staff</value>
+  </data>
+  <data name="RoomStyleString" xml:space="preserve">
+    <value>Room Style</value>
+  </data>
+  <data name="WeddingStyleString" xml:space="preserve">
+    <value>Wedding Style</value>
+  </data>
+  <data name="BridalMakeupString" xml:space="preserve">
+    <value>Bridal's Makeup</value>
+  </data>
+  <data name="GroomMakeupString" xml:space="preserve">
+    <value>Groom's Makeup</value>
+  </data>
+  <data name="FilmingTimeString" xml:space="preserve">
+    <value>Filming Time</value>
+  </data>
+  <data name="FilmingLocationString" xml:space="preserve">
+    <value>Filming Location</value>
+  </data>
+  <data name="PhotoNumberString" xml:space="preserve">
+    <value>Number of Photos</value>
+  </data>
+  <data name="TransportationString" xml:space="preserve">
+    <value>Transportation</value>
+  </data>
+  <data name="RoomTypeString" xml:space="preserve">
+    <value>Room Type</value>
+  </data>
+  <data name="StayNightString" xml:space="preserve">
+    <value>Nights</value>
+  </data>
+  <data name="ChurchArrangementsString" xml:space="preserve">
+    <value>Church Arrangements</value>
+  </data>
+  <data name="BouquetCorsageString" xml:space="preserve">
+    <value>Material of Bouquet &amp; Corsage </value>
+  </data>
+  <data name="CostString" xml:space="preserve">
+    <value>Cost</value>
+  </data>
+  <data name="WeddingPerformanceString" xml:space="preserve">
+    <value>Wedding Performance</value>
+  </data>
+  <data name="PastorString" xml:space="preserve">
+    <value>Pastor</value>
+  </data>
+  <data name="WeddingCertificateString" xml:space="preserve">
+    <value>Marriage Certificate</value>
+  </data>
+  <data name="RingPillowString" xml:space="preserve">
+    <value>Ring Pillow</value>
+  </data>
+  <data name="LoungeString" xml:space="preserve">
+    <value>Lounge</value>
+  </data>
+  <data name="DressIroningString" xml:space="preserve">
+    <value>Dress Ironing</value>
+  </data>
+  <data name="WeddingPensString" xml:space="preserve">
+    <value>Wedding Pens</value>
+  </data>
+  <data name="ChurchFeeString" xml:space="preserve">
+    <value>Church Fee</value>
+  </data>
+  <data name="BreakfastString" xml:space="preserve">
+    <value>Breakfast</value>
+  </data>
+  <data name="LunchString" xml:space="preserve">
+    <value>Lunch</value>
+  </data>
+  <data name="CandlelightDinnerString" xml:space="preserve">
+    <value>Candlelight Dinner</value>
+  </data>
+  <data name="LegalWeddingString" xml:space="preserve">
+    <value>Legal Wedding</value>
+  </data>
+  <data name="WeddingRehersalString" xml:space="preserve">
+    <value>WeddingRehersalString</value>
+  </data>
+  <data name="AdditionalItemString" xml:space="preserve">
+    <value>Additional Item</value>
+  </data>
+  <data name="MeetingString" xml:space="preserve">
+    <value>Meeting</value>
+  </data>
+  <data name="ProjectSelectionRemindString" xml:space="preserve">
+    <value>Please Select a Project</value>
+  </data>
+  <data name="DressString" xml:space="preserve">
+    <value>Dress</value>
+  </data>
+  <data name="WeddingTypeSelectRemindString" xml:space="preserve">
+    <value>Please Select a Wedding Type</value>
+  </data>
+  <data name="NumberString" xml:space="preserve">
+    <value>Number</value>
+  </data>
+  <data name="ItemString" xml:space="preserve">
+    <value>Item</value>
+  </data>
+  <data name="ServiceItemSelectRemindString" xml:space="preserve">
+    <value>Please select an item</value>
+  </data>
+  <data name="ChineseString" xml:space="preserve">
+    <value>Chinese</value>
+  </data>
+  <data name="SnDuplicateErrorString" xml:space="preserve">
+    <value>SN is duplicated !!</value>
   </data>
 </root>

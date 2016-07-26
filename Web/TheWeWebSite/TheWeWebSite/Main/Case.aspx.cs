@@ -133,19 +133,19 @@ namespace TheWeWebSite.Main
         protected void linkConsult_Click(object sender, EventArgs e)
         {
             Session["ConsultId"] = ((LinkButton)sender).CommandArgument;
-            Server.Transfer("~/CaseMgt/AdvisoryMCreate.aspx");
+            Response.Redirect("~/CaseMgt/AdvisoryMCreate.aspx");
         }
 
         protected void linkContract_Click(object sender, EventArgs e)
         {
             Session["OrderId"] = ((LinkButton)sender).CommandArgument;
-            Server.Transfer("~/CaseMgt/CaseMCreate.aspx");
+            Response.Redirect("~/CaseMgt/CaseMCreate.aspx");
         }
 
         protected void linkCustomerName_Click(object sender, EventArgs e)
         {
             Session["CustomerId"] = ((LinkButton)sender).CommandArgument;
-            Server.Transfer("~/CaseMgt/CustomerMCreate.aspx");
+            Response.Redirect("~/CaseMgt/CustomerMCreate.aspx");
         }
     }
 }

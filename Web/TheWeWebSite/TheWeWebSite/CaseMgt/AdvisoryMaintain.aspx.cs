@@ -90,7 +90,7 @@ namespace TheWeWebSite.CaseMgt
         {
             string id = dataGrid.DataKeys[dataGrid.SelectedIndex].ToString();
             Session["ConsultId"] = id;
-            Server.Transfer("AdvisoryMCreate.aspx", true);
+            Response.Redirect("~/CaseMgt/AdvisoryMCreate.aspx", true);
         }
 
         protected void dataGrid_SortCommand(object source, DataGridSortCommandEventArgs e)

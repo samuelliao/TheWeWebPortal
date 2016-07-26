@@ -353,7 +353,7 @@ namespace TheWeWebSite.CaseMgt
         protected void dataGrid_SelectedIndexChanged(object sender, EventArgs e)
         {
             Session["OrderId"] = dataGrid.DataKeys[dataGrid.SelectedIndex].ToString();
-            Server.Transfer("CaseCMaintain.aspx");
+            Response.Redirect("CaseMCreate.aspx");
         }
         protected void dataGrid_SortCommand(object source, DataGridSortCommandEventArgs e)
         {

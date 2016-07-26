@@ -133,7 +133,7 @@
                                                         <asp:TextBox ID="tbStart" runat="server"></asp:TextBox>
                                                     </ItemTemplate>
                                                 </asp:TemplateField>
-                                                <asp:TemplateField HeaderText="<%$ Resources:Resource,StartString%>">
+                                                <asp:TemplateField HeaderText="<%$ Resources:Resource,EndString%>">
                                                     <ItemTemplate>
                                                         <asp:TextBox ID="tbEnd" runat="server"></asp:TextBox>
                                                     </ItemTemplate>

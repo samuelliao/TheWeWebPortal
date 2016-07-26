@@ -666,4 +666,124 @@
   <data name="CompleteString" xml:space="preserve">
     <value>完成</value>
   </data>
+  <data name="IsReplyString" xml:space="preserve">
+    <value>是否回覆</value>
+  </data>
+  <data name="YesString" xml:space="preserve">
+    <value>是</value>
+  </data>
+  <data name="NoString" xml:space="preserve">
+    <value>否</value>
+  </data>
+  <data name="StaffString" xml:space="preserve">
+    <value>工作人員</value>
+  </data>
+  <data name="RoomStyleString" xml:space="preserve">
+    <value>房型</value>
+  </data>
+  <data name="WeddingStyleString" xml:space="preserve">
+    <value>婚禮類型</value>
+  </data>
+  <data name="BridalMakeupString" xml:space="preserve">
+    <value>新娘髮妝</value>
+  </data>
+  <data name="GroomMakeupString" xml:space="preserve">
+    <value>新娘髮妝</value>
+  </data>
+  <data name="FilmingTimeString" xml:space="preserve">
+    <value>拍攝時間</value>
+  </data>
+  <data name="FilmingLocationString" xml:space="preserve">
+    <value>拍攝地點</value>
+  </data>
+  <data name="PhotoNumberString" xml:space="preserve">
+    <value>照片張數</value>
+  </data>
+  <data name="TransportationString" xml:space="preserve">
+    <value>移動方式</value>
+  </data>
+  <data name="RoomTypeString" xml:space="preserve">
+    <value>房型</value>
+  </data>
+  <data name="StayNightString" xml:space="preserve">
+    <value>住宿天數</value>
+  </data>
+  <data name="ChurchArrangementsString" xml:space="preserve">
+    <value>教堂佈置</value>
+  </data>
+  <data name="BouquetCorsageString" xml:space="preserve">
+    <value>新娘捧花, 新郎胸花</value>
+  </data>
+  <data name="CostString" xml:space="preserve">
+    <value>成本</value>
+  </data>
+  <data name="WeddingPerformanceString" xml:space="preserve">
+    <value>婚禮演奏</value>
+  </data>
+  <data name="PastorString" xml:space="preserve">
+    <value>牧師</value>
+  </data>
+  <data name="WeddingCertificateString" xml:space="preserve">
+    <value>結婚證書</value>
+  </data>
+  <data name="RingPillowString" xml:space="preserve">
+    <value>戒枕</value>
+  </data>
+  <data name="LoungeString" xml:space="preserve">
+    <value>新娘休息室</value>
+  </data>
+  <data name="DressIroningString" xml:space="preserve">
+    <value>熨燙禮服</value>
+  </data>
+  <data name="WeddingPensString" xml:space="preserve">
+    <value>簽名筆</value>
+  </data>
+  <data name="ChurchFeeString" xml:space="preserve">
+    <value>教堂使用費</value>
+  </data>
+  <data name="BreakfastString" xml:space="preserve">
+    <value>早餐</value>
+  </data>
+  <data name="LunchString" xml:space="preserve">
+    <value>午餐</value>
+  </data>
+  <data name="CandlelightDinnerString" xml:space="preserve">
+    <value>燭光晚餐</value>
+  </data>
+  <data name="LegalWeddingString" xml:space="preserve">
+    <value>合法婚禮</value>
+  </data>
+  <data name="WeddingRehersalString" xml:space="preserve">
+    <value>婚禮彩排</value>
+  </data>
+  <data name="AdditionalItemString" xml:space="preserve">
+    <value>附加項目</value>
+  </data>
+  <data name="MeetingString" xml:space="preserve">
+    <value>抵達後的開會討論</value>
+  </data>
+  <data name="ProjectSelectionRemindString" xml:space="preserve">
+    <value>請選擇一種方案</value>
+  </data>
+  <data name="DressString" xml:space="preserve">
+    <value>禮服</value>
+  </data>
+  <data name="WeddingTypeSelectRemindString" xml:space="preserve">
+    <value>請選擇婚禮類型</value>
+  </data>
+  <data name="NumberString" xml:space="preserve">
+    <value>數量</value>
+  </data>
+  <data name="ItemString" xml:space="preserve">
+    <value>項目</value>
+  </data>
+  <data name="ServiceItemSelectRemindString" xml:space="preserve">
+    <value>請選擇附加項目</value>
+  </data>
+  <data name="ChineseString" xml:space="preserve">
+    <value>中文</value>
+  </data>
+  <data name="SnDuplicateErrorString" xml:space="preserve">
+    <value>編號重覆</value>
+  </data>
 </root>

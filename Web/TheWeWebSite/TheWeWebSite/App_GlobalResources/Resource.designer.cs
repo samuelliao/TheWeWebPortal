@@ -106,6 +106,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   查詢類似 Additional Item 的當地語系化字串。
+        /// </summary>
+        internal static string AdditionalItemString {
+            get {
+                return ResourceManager.GetString("AdditionalItemString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查詢類似 Please input a address 的當地語系化字串。
         /// </summary>
         internal static string AddressInputString {
@@ -187,6 +196,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   查詢類似 Material of Bouquet &amp; Corsage  的當地語系化字串。
+        /// </summary>
+        internal static string BouquetCorsageString {
+            get {
+                return ResourceManager.GetString("BouquetCorsageString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查詢類似 Breakfast 的當地語系化字串。
+        /// </summary>
+        internal static string BreakfastString {
+            get {
+                return ResourceManager.GetString("BreakfastString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查詢類似 Bridal&apos;s Birthday 的當地語系化字串。
         /// </summary>
         internal static string BridalBdayString {
@@ -228,6 +255,15 @@ namespace Resources {
         internal static string BridalEngNameString {
             get {
                 return ResourceManager.GetString("BridalEngNameString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查詢類似 Bridal&apos;s Makeup 的當地語系化字串。
+        /// </summary>
+        internal static string BridalMakeupString {
+            get {
+                return ResourceManager.GetString("BridalMakeupString", resourceCulture);
             }
         }
         
@@ -286,6 +322,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   查詢類似 Candlelight Dinner 的當地語系化字串。
+        /// </summary>
+        internal static string CandlelightDinnerString {
+            get {
+                return ResourceManager.GetString("CandlelightDinnerString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查詢類似 Capacities 的當地語系化字串。
         /// </summary>
         internal static string CapacitiesString {
@@ -313,7 +358,34 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   查詢類似 Church 的當地語系化字串。
+        ///   查詢類似 Chinese 的當地語系化字串。
+        /// </summary>
+        internal static string ChineseString {
+            get {
+                return ResourceManager.GetString("ChineseString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查詢類似 Church Arrangements 的當地語系化字串。
+        /// </summary>
+        internal static string ChurchArrangementsString {
+            get {
+                return ResourceManager.GetString("ChurchArrangementsString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查詢類似 Church Fee 的當地語系化字串。
+        /// </summary>
+        internal static string ChurchFeeString {
+            get {
+                return ResourceManager.GetString("ChurchFeeString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查詢類似 Church Database 的當地語系化字串。
         /// </summary>
         internal static string ChurchMaintainString {
             get {
@@ -502,6 +574,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   查詢類似 Cost 的當地語系化字串。
+        /// </summary>
+        internal static string CostString {
+            get {
+                return ResourceManager.GetString("CostString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查詢類似 Input the country name 的當地語系化字串。
         /// </summary>
         internal static string CountryNameInputString {
@@ -673,11 +754,29 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   查詢類似 Dress Ironing 的當地語系化字串。
+        /// </summary>
+        internal static string DressIroningString {
+            get {
+                return ResourceManager.GetString("DressIroningString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查詢類似 Dress 的當地語系化字串。
         /// </summary>
         internal static string DressMaintainString {
             get {
                 return ResourceManager.GetString("DressMaintainString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查詢類似 Dress 的當地語系化字串。
+        /// </summary>
+        internal static string DressString {
+            get {
+                return ResourceManager.GetString("DressString", resourceCulture);
             }
         }
         
@@ -763,6 +862,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   查詢類似 Filming Location 的當地語系化字串。
+        /// </summary>
+        internal static string FilmingLocationString {
+            get {
+                return ResourceManager.GetString("FilmingLocationString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查詢類似 Filming Time 的當地語系化字串。
+        /// </summary>
+        internal static string FilmingTimeString {
+            get {
+                return ResourceManager.GetString("FilmingTimeString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查詢類似 Financial Mgt 的當地語系化字串。
         /// </summary>
         internal static string FinMgtString {
@@ -813,6 +930,15 @@ namespace Resources {
         internal static string GroomEngNameString {
             get {
                 return ResourceManager.GetString("GroomEngNameString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查詢類似 Groom&apos;s Makeup 的當地語系化字串。
+        /// </summary>
+        internal static string GroomMakeupString {
+            get {
+                return ResourceManager.GetString("GroomMakeupString", resourceCulture);
             }
         }
         
@@ -871,6 +997,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   查詢類似 Reply? 的當地語系化字串。
+        /// </summary>
+        internal static string IsReplyString {
+            get {
+                return ResourceManager.GetString("IsReplyString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查詢類似 Is Valid 的當地語系化字串。
         /// </summary>
         internal static string IsValidString {
@@ -885,6 +1020,15 @@ namespace Resources {
         internal static string ItemPackageString {
             get {
                 return ResourceManager.GetString("ItemPackageString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查詢類似 Item 的當地語系化字串。
+        /// </summary>
+        internal static string ItemString {
+            get {
+                return ResourceManager.GetString("ItemString", resourceCulture);
             }
         }
         
@@ -943,6 +1087,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   查詢類似 Legal Wedding 的當地語系化字串。
+        /// </summary>
+        internal static string LegalWeddingString {
+            get {
+                return ResourceManager.GetString("LegalWeddingString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查詢類似 Location 的當地語系化字串。
         /// </summary>
         internal static string LocateString {
@@ -997,6 +1150,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   查詢類似 Lounge 的當地語系化字串。
+        /// </summary>
+        internal static string LoungeString {
+            get {
+                return ResourceManager.GetString("LoungeString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查詢類似 Lunch 的當地語系化字串。
+        /// </summary>
+        internal static string LunchString {
+            get {
+                return ResourceManager.GetString("LunchString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查詢類似 Main 的當地語系化字串。
         /// </summary>
         internal static string MainPageString {
@@ -1020,6 +1191,15 @@ namespace Resources {
         internal static string MeetingDateString {
             get {
                 return ResourceManager.GetString("MeetingDateString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查詢類似 Meeting 的當地語系化字串。
+        /// </summary>
+        internal static string MeetingString {
+            get {
+                return ResourceManager.GetString("MeetingString", resourceCulture);
             }
         }
         
@@ -1114,6 +1294,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   查詢類似 No 的當地語系化字串。
+        /// </summary>
+        internal static string NoString {
+            get {
+                return ResourceManager.GetString("NoString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查詢類似 Number 的當地語系化字串。
+        /// </summary>
+        internal static string NumberString {
+            get {
+                return ResourceManager.GetString("NumberString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查詢類似 Operation 的當地語系化字串。
         /// </summary>
         internal static string OperationString {
@@ -1204,6 +1402,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   查詢類似 Pastor 的當地語系化字串。
+        /// </summary>
+        internal static string PastorString {
+            get {
+                return ResourceManager.GetString("PastorString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查詢類似 Patio Height 的當地語系化字串。
         /// </summary>
         internal static string PatioHeightString {
@@ -1236,6 +1443,15 @@ namespace Resources {
         internal static string PhoneString {
             get {
                 return ResourceManager.GetString("PhoneString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查詢類似 Number of Photos 的當地語系化字串。
+        /// </summary>
+        internal static string PhotoNumberString {
+            get {
+                return ResourceManager.GetString("PhotoNumberString", resourceCulture);
             }
         }
         
@@ -1290,6 +1506,15 @@ namespace Resources {
         internal static string ProductSetString {
             get {
                 return ResourceManager.GetString("ProductSetString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查詢類似 Please Select a Project 的當地語系化字串。
+        /// </summary>
+        internal static string ProjectSelectionRemindString {
+            get {
+                return ResourceManager.GetString("ProjectSelectionRemindString", resourceCulture);
             }
         }
         
@@ -1375,6 +1600,33 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   查詢類似 Ring Pillow 的當地語系化字串。
+        /// </summary>
+        internal static string RingPillowString {
+            get {
+                return ResourceManager.GetString("RingPillowString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查詢類似 Room Style 的當地語系化字串。
+        /// </summary>
+        internal static string RoomStyleString {
+            get {
+                return ResourceManager.GetString("RoomStyleString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查詢類似 Room Type 的當地語系化字串。
+        /// </summary>
+        internal static string RoomTypeString {
+            get {
+                return ResourceManager.GetString("RoomTypeString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查詢類似 Sales Mgt 的當地語系化字串。
         /// </summary>
         internal static string SalesMgtString {
@@ -1447,11 +1699,29 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   查詢類似 Please select an item 的當地語系化字串。
+        /// </summary>
+        internal static string ServiceItemSelectRemindString {
+            get {
+                return ResourceManager.GetString("ServiceItemSelectRemindString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查詢類似 Simplified Chinese 的當地語系化字串。
         /// </summary>
         internal static string SimplifiedChineseString {
             get {
                 return ResourceManager.GetString("SimplifiedChineseString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查詢類似 Sn is duplicated  的當地語系化字串。
+        /// </summary>
+        internal static string SnDuplicateErrorString {
+            get {
+                return ResourceManager.GetString("SnDuplicateErrorString", resourceCulture);
             }
         }
         
@@ -1510,6 +1780,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   查詢類似 Staff 的當地語系化字串。
+        /// </summary>
+        internal static string StaffString {
+            get {
+                return ResourceManager.GetString("StaffString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查詢類似 Start Date 的當地語系化字串。
         /// </summary>
         internal static string StartDateString {
@@ -1533,6 +1812,15 @@ namespace Resources {
         internal static string StatusString {
             get {
                 return ResourceManager.GetString("StatusString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查詢類似 Nights 的當地語系化字串。
+        /// </summary>
+        internal static string StayNightString {
+            get {
+                return ResourceManager.GetString("StayNightString", resourceCulture);
             }
         }
         
@@ -1618,6 +1906,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   查詢類似 Transportation 的當地語系化字串。
+        /// </summary>
+        internal static string TransportationString {
+            get {
+                return ResourceManager.GetString("TransportationString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查詢類似 Input the unit 的當地語系化字串。
         /// </summary>
         internal static string UnitInputString {
@@ -1681,11 +1978,38 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   查詢類似 Marriage Certificate 的當地語系化字串。
+        /// </summary>
+        internal static string WeddingCertificateString {
+            get {
+                return ResourceManager.GetString("WeddingCertificateString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查詢類似 Wedding Item 的當地語系化字串。
         /// </summary>
         internal static string WeddingItemMaintainString {
             get {
                 return ResourceManager.GetString("WeddingItemMaintainString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查詢類似 Wedding Pens 的當地語系化字串。
+        /// </summary>
+        internal static string WeddingPensString {
+            get {
+                return ResourceManager.GetString("WeddingPensString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查詢類似 Wedding Performance 的當地語系化字串。
+        /// </summary>
+        internal static string WeddingPerformanceString {
+            get {
+                return ResourceManager.GetString("WeddingPerformanceString", resourceCulture);
             }
         }
         
@@ -1699,11 +2023,47 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   查詢類似 WeddingRehersalString 的當地語系化字串。
+        /// </summary>
+        internal static string WeddingRehersalString {
+            get {
+                return ResourceManager.GetString("WeddingRehersalString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查詢類似 Wedding Style 的當地語系化字串。
+        /// </summary>
+        internal static string WeddingStyleString {
+            get {
+                return ResourceManager.GetString("WeddingStyleString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查詢類似 Please Select a Wedding Type 的當地語系化字串。
+        /// </summary>
+        internal static string WeddingTypeSelectRemindString {
+            get {
+                return ResourceManager.GetString("WeddingTypeSelectRemindString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查詢類似 Work Reminder 的當地語系化字串。
         /// </summary>
         internal static string WorkReminderString {
             get {
                 return ResourceManager.GetString("WorkReminderString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查詢類似 Yes 的當地語系化字串。
+        /// </summary>
+        internal static string YesString {
+            get {
+                return ResourceManager.GetString("YesString", resourceCulture);
             }
         }
     }

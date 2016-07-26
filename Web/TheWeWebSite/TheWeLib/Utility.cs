@@ -27,20 +27,36 @@ namespace TheWeLib
         public string ParseDateTime(string type, string str)
         {
             bool result = false;
+            string time = string.Empty;
             DateTime dt = new DateTime();
             result = DateTime.TryParse(str, out dt);
             switch (type)
             {
                 case "Time":
-                    return result ? dt.ToString("HH:mm:ss") : string.Empty;
+                    time = result ? dt.ToString("HH:mm:ss") : string.Empty;
+                    break;
                 case "Date":
-                    return result ? dt.ToString("yyyy/MM/dd") : string.Empty;
+                    time = result ? dt.ToString("yyyy/MM/dd") : string.Empty;
+                    break;
                 case "DateTime":
-                    return result ? dt.ToString("yyyy/MM/dd HH:mm:ss") : string.Empty;
+                    time = result ? dt.ToString("yyyy/MM/dd HH:mm:ss") : string.Empty;
+                    break;
                 default:
-                    return string.Empty;
+                    time = string.Empty;
+                    break;
             }
-            
+            if (result)
+            {
+                if (dt > new DateTime(1900, 12, 31))
+                {
+                    return time;
+                }
+                else
+                {
+                    return string.Empty;
+                }
+            }
+            return time;
         }
 
         public decimal ParseMoney(string str)
@@ -232,7 +248,8 @@ namespace TheWeLib
             {
                 case AtrrTypeItem.Integer:
                 case AtrrTypeItem.Bit:
-                    str = obj.AttrValue;
+
+                    str = string.IsNullOrEmpty(obj.AttrValue) ? "0" : obj.AttrValue;
                     break;
                 case AtrrTypeItem.String:
                 case AtrrTypeItem.DateTime:
@@ -252,7 +269,8 @@ namespace TheWeLib
             {
                 case AtrrTypeItem.Integer:
                 case AtrrTypeItem.Bit:
-                    cond += AttrSymbolConverter(obj.AttrSymbol) + obj.AttrValue;
+                    cond += AttrSymbolConverter(obj.AttrSymbol)
+                        + (string.IsNullOrEmpty(obj.AttrValue) ? "0" : obj.AttrValue);
                     break;
                 case AtrrTypeItem.DateTime:
                 case AtrrTypeItem.Date:
@@ -455,6 +473,8 @@ namespace TheWeLib
                     return "vwEN_Consultation";
                 case MsSqlTable.ChurchBookingTime:
                     return "ChurchBookingTime";
+                case MsSqlTable.WeddingCategory:
+                    return "WeddingCategory";
                 default:
                     return string.Empty;
 

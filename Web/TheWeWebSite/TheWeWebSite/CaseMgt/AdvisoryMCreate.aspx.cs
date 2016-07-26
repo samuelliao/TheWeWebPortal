@@ -545,6 +545,12 @@ namespace TheWeWebSite.CaseMgt
                     ));
             }
             lst.Add(new DbSearchObject(
+               "IsReply"
+               , AtrrTypeItem.Bit
+               , AttrSymbolItem.Equal
+               , cbReply.Checked ? "1" : "0"
+               ));
+            lst.Add(new DbSearchObject(
                 "GroomMsgerId"
                 , AtrrTypeItem.String
                 , AttrSymbolItem.Equal
@@ -1163,6 +1169,7 @@ namespace TheWeWebSite.CaseMgt
                         tbGroomBday.Text = string.Empty;
                     }
                 }
+                cbReply.Checked = bool.Parse(dr["IsReply"].ToString());
                 tbGroomEmail.Text = dr["GroomEmail"].ToString();
                 tbGroomEngName.Text = dr["GroomEngName"].ToString();
                 tbGroomMsgId.Text = dr["GroomMsgerId"].ToString();
@@ -1563,6 +1570,11 @@ namespace TheWeWebSite.CaseMgt
                 return false;
             }
         }
-        #endregion 
+        #endregion
+
+        protected void tbBookingDate_TextChanged(object sender, EventArgs e)
+        {
+            cbReply.Checked = true;
+        }
     }
 }

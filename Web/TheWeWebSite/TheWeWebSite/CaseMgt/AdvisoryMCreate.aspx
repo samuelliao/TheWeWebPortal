@@ -1,5 +1,7 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="AdvisoryMCreate.aspx.cs" Inherits="TheWeWebSite.CaseMgt.AdvisoryMCreate" %>
 
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
+
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -36,9 +38,17 @@
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,IsReplyString%>"></asp:Label>
+                            </div>
+                            <div>
+                                <asp:CheckBox runat="server" ID="cbReply" Text="Reply"></asp:CheckBox>
+                            </div>
+                        </div>
+                        <div class="2u 12u(mobilep)">
+                            <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,AppointmentDateString%>"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server" ID="tbBookingDate" CssClass="dp"></asp:TextBox>
+                            <asp:TextBox runat="server" ID="tbBookingDate" CssClass="dp" OnTextChanged="tbBookingDate_TextChanged"></asp:TextBox>                            
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">

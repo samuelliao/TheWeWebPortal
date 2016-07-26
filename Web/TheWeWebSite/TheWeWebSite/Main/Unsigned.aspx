@@ -25,7 +25,7 @@
                 <!-- Text -->
                 <section class="box title">
                     <h3>
-                        <asp:Label runat="server" Text="首頁&nbsp;&nbsp;>&nbsp;&nbsp;未簽約(待修改)"></asp:Label></h3>
+                        <asp:Label runat="server" Text="" ID="labelPageTitle"></asp:Label></h3>
                 </section>
 
                 <!-- Input -->
@@ -34,51 +34,36 @@
                     <div class="row">
                         <div class="12u">
                             <div class="table-wrapper">
-                                <table class="alt">
-                                    <thead>
-                                        <tr>
-                                            <th>諮詢編號</th>
-                                            <th>顧問</th>
-                                            <th>諮詢者</th>
-                                            <th>電話</th>
-                                            <th>預約日期</th>
-                                            <th>內容說明</th>
-                                            <th>最後一次回覆時間</th>
-                                            <th>備註</th>
-                                            <th>回覆</th>
-                                            <th>行程表</th>
-
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>CU00001</td>
-                                            <td>Joye</td>
-                                            <td>小讌</td>
-                                            <td>1234321</td>
-                                            <td>1234321</td>
-                                            <td>1234321</td>
-                                            <td>1234321</td>
-                                            <td>1234321</td>
-                                            <td>1234321</td>
-                                            <td>1234321</td>
-                                        </tr>
-                                        <tr>
-                                            <td>CU00001</td>
-                                            <td>Joye</td>
-                                            <td>小讌</td>
-                                            <td>1234321</td>
-                                            <td>1234321</td>
-                                            <td>1234321</td>
-                                            <td>1234321</td>
-                                            <td>1234321</td>
-                                            <td>1234321</td>
-                                            <td>1234321</td>
-                                        </tr>
-                                    </tbody>
-
-                                </table>
+                                <asp:DataGrid runat="server" ID="dataGrid" AutoGenerateColumns="false"
+                                    AllowPaging="true" AllowSorting="true" OnPageIndexChanged="dataGrid_PageIndexChanged"
+                                    OnSelectedIndexChanged="dataGrid_SelectedIndexChanged" OnItemDataBound="dataGrid_ItemDataBound"
+                                    DataKeyField="Id" OnSortCommand="dataGrid_SortCommand" Font-Size="Small">
+                                    <HeaderStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                    <PagerStyle Mode="NumericPages" HorizontalAlign="Center" VerticalAlign="Middle" />
+                                    <Columns>
+                                        <asp:BoundColumn Visible="false" DataField="Id" />
+                                        <asp:TemplateColumn HeaderText="<%$ Resources:Resource,AdviosryIdString%>" SortExpression="Sn">
+                                             <ItemTemplate>
+                                                <asp:LinkButton runat="server" ID="linkConsult" Text="" OnClick="linkConsult_Click" />
+                                            </ItemTemplate>
+                                        </asp:TemplateColumn>
+                                        <asp:BoundColumn HeaderText="<%$ Resources:Resource,EmployeeString%>" DataField="EmployeeName" SortExpression="EmployeeName" />
+                                        <asp:BoundColumn HeaderText="<%$ Resources:Resource,BridalNameString%>" DataField="BridalName" SortExpression="BridalName" />                                        
+                                        <asp:BoundColumn HeaderText="<%$ Resources:Resource,PhoneString%>" DataField="BridalPhone" SortExpression="BridalPhone" />
+                                        <asp:BoundColumn HeaderText="<%$ Resources:Resource,StartDateString%>" DataField="ConsultDate" SortExpression="ConsultDate" />                                        
+                                        <asp:BoundColumn HeaderText="<%$ Resources:Resource,AppointmentDateString%>" DataField="BookingDate" SortExpression="BookingDate" />
+                                        <asp:BoundColumn HeaderText="<%$ Resources:Resource,ContentString%>" DataField="ContactMethod" SortExpression="ContactMethod" />
+                                        <asp:BoundColumn HeaderText="<%$ Resources:Resource,LastReceivedTimeString%>" DataField="LastReceivedDate" SortExpression="LastReceivedDate" />                                        
+                                        <asp:BoundColumn HeaderText="<%$ Resources:Resource,RemarkString%>" DataField="Remark" SortExpression="Remark" />
+                                        <asp:TemplateColumn HeaderText="<%$ Resources:Resource,IsReplyString%>" SortExpression="IsReply" >
+                                            <ItemTemplate>
+                                                <asp:Label runat="server" ID="labelIsReply" Text="" />
+                                            </ItemTemplate>
+                                        </asp:TemplateColumn>
+                                    </Columns>
+                                </asp:DataGrid>
                             </div>
+                            <asp:Label runat="server" ID="labelWarnString" ForeColor="Red" Visible="false" />
                             <hr />
                         </div>
                     </div>

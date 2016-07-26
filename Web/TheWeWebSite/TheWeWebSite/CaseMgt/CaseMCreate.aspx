@@ -19,11 +19,12 @@
 
         <section class="box title">
             <h3>
-                <asp:Label runat="server" Text="案件管理&nbsp;&nbsp;>&nbsp;&nbsp;簽約維護&nbsp;&nbsp;>&nbsp;&nbsp;新增修改刪除(待修改)"></asp:Label></h3>
+                <asp:Label runat="server" Text="" ID="labelPageTitle"></asp:Label></h3>
         </section>
 
         <!-- Input -->
         <section class="insert">
+            <asp:ScriptManager runat="server"></asp:ScriptManager>
             <div>
                 <div class="12u">
 
@@ -32,13 +33,13 @@
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,AdviosryIdString%>"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server" placeholder="系統自動帶入諮詢編號..."></asp:TextBox>
+                            <asp:TextBox runat="server" ID="tbAdvisorySn"></asp:TextBox>
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,CaseIdString%>"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server" placeholder="系統自動帶入案件編號..."></asp:TextBox>
+                            <asp:TextBox runat="server" ID="tbCaseSn"></asp:TextBox>
                         </div>
 
 
@@ -46,13 +47,13 @@
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,MemberIdString%>"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server" placeholder="系統自動帶入會員編號..."></asp:TextBox>
+                            <asp:TextBox runat="server" ID="tbCustomerSn"></asp:TextBox>
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,StatusString%>"></asp:Label>
                             </div>
-                            <asp:DropDownList runat="server" />
+                            <asp:DropDownList runat="server" ID="ddlStatus" OnSelectedIndexChanged="ddlStatus_SelectedIndexChanged" />
 
                         </div>
                         <div class="2u 12u(mobilep)">
@@ -60,16 +61,16 @@
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,ContractDateString%>"></asp:Label>
                             </div>
                             <div>
-                                <asp:TextBox runat="server" CssClass="dp"></asp:TextBox>
+                                <asp:TextBox runat="server" CssClass="dp" ID="tbContractTime"></asp:TextBox>
                             </div>
 
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
-                                <asp:Label runat="server" Text="<%$ Resources:Resource,AppointDateString%>"></asp:Label>
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,AppointmentDateString%>"></asp:Label>
                             </div>
                             <div>
-                                <asp:TextBox runat="server" CssClass="dp"></asp:TextBox>
+                                <asp:TextBox runat="server" CssClass="dp" ID="tbAppointDate"></asp:TextBox>
                             </div>
 
                         </div>
@@ -83,39 +84,68 @@
                                 <asp:Label runat="server" Text="結案日期"></asp:Label>
                             </div>
                             <div>
-                                <asp:TextBox runat="server" CssClass="dp"></asp:TextBox>
+                                <asp:UpdatePanel runat="server">
+                                    <ContentTemplate>
+                                        <asp:TextBox runat="server" CssClass="dp" ID="tbCloseDay"></asp:TextBox>
+                                    </ContentTemplate>
+                                </asp:UpdatePanel>
                             </div>
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
-                                <asp:Label runat="server" Text="方案"></asp:Label>
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,ProjectString%>"></asp:Label>
                             </div>
-                            <asp:DropDownList runat="server" />
+                            <asp:UpdatePanel runat="server">
+                                <ContentTemplate>
+                                    <asp:DropDownList runat="server" ID="ddlOrderType" AutoPostBack="true"
+                                        OnSelectedIndexChanged="ddlOrderType_SelectedIndexChanged" />
+                                </ContentTemplate>
+                            </asp:UpdatePanel>
                         </div>
 
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
-                                <asp:Label runat="server" Text="國家"></asp:Label>
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,CountryString%>"></asp:Label>
                             </div>
-                            <asp:DropDownList runat="server" />
+                            <asp:UpdatePanel runat="server">
+                                <ContentTemplate>
+                                    <asp:DropDownList runat="server" ID="ddlCountry" AutoPostBack="true"
+                                        OnSelectedIndexChanged="ddlCountry_SelectedIndexChanged" />
+                                </ContentTemplate>
+                            </asp:UpdatePanel>
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
-                                <asp:Label runat="server" Text="地區"></asp:Label>
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,AreaString%>"></asp:Label>
                             </div>
-                            <asp:DropDownList runat="server" />
+                            <asp:UpdatePanel runat="server">
+                                <ContentTemplate>
+                                    <asp:DropDownList runat="server" ID="ddlArea" AutoPostBack="true"
+                                        OnSelectedIndexChanged="ddlArea_SelectedIndexChanged" />
+                                </ContentTemplate>
+                            </asp:UpdatePanel>
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
-                                <asp:Label runat="server" Text="地點"></asp:Label>
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,LocateString%>"></asp:Label>
                             </div>
-                            <asp:DropDownList runat="server" />
+                            <asp:UpdatePanel runat="server">
+                                <ContentTemplate>
+                                    <asp:DropDownList runat="server" ID="ddlLocate" AutoPostBack="true"
+                                        OnSelectedIndexChanged="ddlLocate_SelectedIndexChanged" />
+                                </ContentTemplate>
+                            </asp:UpdatePanel>
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
-                                <asp:Label runat="server" Text="套餐"></asp:Label>
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,ProductSetString%>"></asp:Label>
                             </div>
-                            <asp:DropDownList runat="server" />
+                            <asp:UpdatePanel runat="server">
+                                <ContentTemplate>
+                                    <asp:DropDownList runat="server" ID="ddlProductSet" AutoPostBack="true"
+                                        OnSelectedIndexChanged="ddlProductSet_SelectedIndexChanged" />
+                                </ContentTemplate>
+                            </asp:UpdatePanel>
                         </div>
                     </div>
                 </div>
@@ -124,43 +154,41 @@
                     <div class="row uniform 50%">
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
-                                <asp:Label runat="server" Text="新娘姓名"></asp:Label>
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,BridalNameString%>"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server" placeholder="系統自動帶入諮詢編號..."></asp:TextBox>
+                            <asp:TextBox runat="server" ID="tbBridalName"></asp:TextBox>
                         </div>
-
-
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
-                                <asp:Label runat="server" Text="新娘生日"></asp:Label>
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,BridalBdayString%>"></asp:Label>
                             </div>
                             <div>
-                                <asp:TextBox runat="server" CssClass="dp"></asp:TextBox>
+                                <asp:TextBox runat="server" CssClass="dp" ID="tbBridalBday"></asp:TextBox>
                             </div>
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
-                                <asp:Label runat="server" Text="新娘通訊軟體類型"></asp:Label>
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,BridalCommunicationTypeString%>"></asp:Label>
                             </div>
-                            <asp:DropDownList runat="server" />
+                            <asp:DropDownList runat="server" ID="ddlBridalMsgerType" />
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
-                                <asp:Label runat="server" Text="新娘通訊軟體ID"></asp:Label>
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,BridalCommunicationIdString%>"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server" placeholder="系統自動帶入諮詢編號..."></asp:TextBox>
+                            <asp:TextBox runat="server" ID="tbBridalMsgerId"></asp:TextBox>
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
-                                <asp:Label runat="server" Text="新娘暱稱"></asp:Label>
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,BridalNicknameString%>"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server" placeholder="系統自動帶入諮詢編號..."></asp:TextBox>
+                            <asp:TextBox runat="server" ID="tbBridalNickname"></asp:TextBox>
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
-                                <asp:Label runat="server" Text="新娘護照英文"></asp:Label>
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,BridalPassportString%>"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server" placeholder="系統自動帶入會員編號..."></asp:TextBox>
+                            <asp:TextBox runat="server" ID="tbBridalPassportName"></asp:TextBox>
                         </div>
 
                     </div>
@@ -170,45 +198,45 @@
                     <div class="row uniform 50%">
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
-                                <asp:Label runat="server" Text="新郎姓名"></asp:Label>
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,GroomNameString%>"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server" placeholder="系統自動帶入案件編號..."></asp:TextBox>
+                            <asp:TextBox runat="server" ID="tbGroomName"></asp:TextBox>
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
-                                <asp:Label runat="server" Text="新郎生日"></asp:Label>
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,GroomBdayString%>"></asp:Label>
                             </div>
                             <div>
-                                <asp:TextBox runat="server" CssClass="dp"></asp:TextBox>
+                                <asp:TextBox runat="server" CssClass="dp" ID="tbGroomBday"></asp:TextBox>
                             </div>
                         </div>
 
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
-                                <asp:Label runat="server" Text="新郎通訊軟體類型"></asp:Label>
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,GroomCommunicationTypeString%>"></asp:Label>
                             </div>
-                            <asp:DropDownList runat="server" />
+                            <asp:DropDownList runat="server" ID="ddlGroomMsgerType" />
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
-                                <asp:Label runat="server" Text="新郎通訊軟體ID"></asp:Label>
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,GroomCommunicationIdString%>"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server" placeholder="系統自動帶入案件編號..."></asp:TextBox>
+                            <asp:TextBox runat="server" ID="tbGroomMsgerId"></asp:TextBox>
                         </div>
 
 
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
-                                <asp:Label runat="server" Text="新郎暱稱"></asp:Label>
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,GroomNicknameString%>"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server" placeholder="..."></asp:TextBox>
+                            <asp:TextBox runat="server" ID="tbGroomNickname"></asp:TextBox>
                         </div>
 
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
-                                <asp:Label runat="server" Text="新郎護照英文"></asp:Label>
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,GroomPassportString%>"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server" placeholder="系統自動帶入諮詢編號..."></asp:TextBox>
+                            <asp:TextBox runat="server" ID="tbGroomPassportName"></asp:TextBox>
 
                         </div>
                     </div>
@@ -218,42 +246,42 @@
                     <div class="row uniform 50%">
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
-                                <asp:Label runat="server" Text="地址"></asp:Label>
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,AddressString%>"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server" placeholder="系統自動帶入諮詢編號..."></asp:TextBox>
+                            <asp:TextBox runat="server" ID="tbAddress"></asp:TextBox>
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
-                                <asp:Label runat="server" Text="備註"></asp:Label>
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,RemarkString%>"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server" placeholder="系統自動帶入案件編號..."></asp:TextBox>
+                            <asp:TextBox runat="server" ID="tbRemark"></asp:TextBox>
                         </div>
 
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
-                                <asp:Label runat="server" Text="介紹人"></asp:Label>
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,ReferralsString%>"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server" placeholder="系統自動帶入諮詢編號..."></asp:TextBox>
+                            <asp:TextBox runat="server" ID="tbReferrals"></asp:TextBox>
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
-                                <asp:Label runat="server" Text="簡訊手機"></asp:Label>
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,PhoneString%>"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server" placeholder="系統自動帶入諮詢編號..."></asp:TextBox>
+                            <asp:TextBox runat="server" ID="tbPhone"></asp:TextBox>
 
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
-                                <asp:Label runat="server" Text="簡訊稱呼"></asp:Label>
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,SnsTitleString%>"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server" placeholder="系統自動帶入會員編號..."></asp:TextBox>
+                            <asp:TextBox runat="server" ID="tbMsgerTitle"></asp:TextBox>
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
-                                <asp:Label runat="server" Text="海外婚禮日期"></asp:Label>
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,OverseaWeddingDateString%>"></asp:Label>
                             </div>
                             <div>
-                                <asp:TextBox runat="server" CssClass="dp"></asp:TextBox>
+                                <asp:TextBox runat="server" CssClass="dp" ID="tbOverseaWeddingDate"></asp:TextBox>
                             </div>
                         </div>
                     </div>
@@ -263,51 +291,51 @@
                     <div class="row uniform 50%">
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
-                                <asp:Label runat="server" Text="海外婚紗拍攝日期"></asp:Label>
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,OverseaWddingFilmingDateString%>"></asp:Label>
                             </div>
                             <div>
-                                <asp:TextBox runat="server" CssClass="dp"></asp:TextBox>
+                                <asp:TextBox runat="server" CssClass="dp" ID="tbOverSeaWedFilmDate"></asp:TextBox>
                             </div>
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
-                                <asp:Label runat="server" Text="國內婚紗拍攝日期"></asp:Label>
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,DomesticWeddingFilmingDateString%>"></asp:Label>
                             </div>
                             <div>
-                                <asp:TextBox runat="server" CssClass="dp"></asp:TextBox>
+                                <asp:TextBox runat="server" CssClass="dp" ID="tbDomesticWedFilmDate"></asp:TextBox>
                             </div>
                         </div>
 
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
-                                <asp:Label runat="server" Text="國內訂婚日期"></asp:Label>
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,DomesticEngagementDateString%>"></asp:Label>
                             </div>
                             <div>
-                                <asp:TextBox runat="server" CssClass="dp"></asp:TextBox>
+                                <asp:TextBox runat="server" CssClass="dp" ID="tbDomesticEngagementDate"></asp:TextBox>
                             </div>
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
-                                <asp:Label runat="server" Text="國內結婚日期"></asp:Label>
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,DomesticWeddingDateString%>"></asp:Label>
                             </div>
                             <div>
-                                <asp:TextBox runat="server" CssClass="dp"></asp:TextBox>
+                                <asp:TextBox runat="server" CssClass="dp" ID="tbDomesticWeddingDate"></asp:TextBox>
                             </div>
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
-                                <asp:Label runat="server" Text="國內歸寧日期"></asp:Label>
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,DomesticMotheringDateString%>"></asp:Label>
                             </div>
                             <div>
-                                <asp:TextBox runat="server" CssClass="dp"></asp:TextBox>
+                                <asp:TextBox runat="server" CssClass="dp" ID="tbDomesticMotheringDate"></asp:TextBox>
                             </div>
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
-                                <asp:Label runat="server" Text="國內補請日期"></asp:Label>
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,DomesticWeddingReceptionDateString%>"></asp:Label>
                             </div>
                             <div>
-                                <asp:TextBox runat="server" CssClass="dp"></asp:TextBox>
+                                <asp:TextBox runat="server" CssClass="dp" ID="tbDomesticWeddReceptionDate"></asp:TextBox>
                             </div>
                         </div>
                     </div>
@@ -316,64 +344,84 @@
                 <div class="12u">
 
                     <div class="row uniform 50%">
-                         <div class="2u 12u(mobilep)">
+                        <div class="2u 12u(mobilep)">
                             <div class="Div">
-                                <asp:Label runat="server" Text="訂單金額"></asp:Label>
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,PriceString%>"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server" placeholder="系統自動帶入諮詢編號..."></asp:TextBox>
+                            <asp:UpdatePanel runat="server">
+                                <ContentTemplate>
+                                    <asp:TextBox runat="server" ID="tbContractPrice" OnTextChanged="tbContractPrice_TextChanged" AutoPostBack="true"></asp:TextBox>
+                                </ContentTemplate>
+                            </asp:UpdatePanel>
 
                         </div>
-                         <div class="2u 12u(mobilep)">
+                        <div class="2u 12u(mobilep)">
                             <div class="Div">
-                                <asp:Label runat="server" Text="折扣"></asp:Label>
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,DiscountString%>"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server" placeholder="系統自動帶入諮詢編號..."></asp:TextBox>
+                            <asp:UpdatePanel runat="server">
+                                <ContentTemplate>
+                                    <asp:TextBox runat="server" ID="tbDiscount" OnTextChanged="tbDiscount_TextChanged" AutoPostBack="true"></asp:TextBox>
+                                </ContentTemplate>
+                            </asp:UpdatePanel>
+                        </div>
+                        <div class="2u 12u(mobilep)">
+                            <div class="Div">
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,TotalPriceString%>"></asp:Label>
+                            </div>
+                            <asp:UpdatePanel runat="server">
+                                <ContentTemplate>
+                                    <asp:TextBox runat="server" ID="tbTotalPrice" OnTextChanged="tbTotalPrice_TextChanged" AutoPostBack="true"></asp:TextBox>
+                                </ContentTemplate>
+                            </asp:UpdatePanel>
 
                         </div>
-                         <div class="2u 12u(mobilep)">
-                            <div class="Div">
-                                <asp:Label runat="server" Text="總價"></asp:Label>
-                            </div>
-                            <asp:TextBox runat="server" placeholder="系統自動帶入諮詢編號..."></asp:TextBox>
-
-                        </div>
-                         <div class="2u 12u(mobilep)">
+                        <div class="2u 12u(mobilep)">
                             <div class="Div">
                                 <asp:Label runat="server" Text="訂金"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server" placeholder="系統自動帶入諮詢編號..."></asp:TextBox>
+                            <asp:UpdatePanel runat="server">
+                                <ContentTemplate>
+                                    <asp:TextBox runat="server" ID="tbDeposit1" OnTextChanged="tbDeposit1_TextChanged" AutoPostBack="true"></asp:TextBox>
+                                </ContentTemplate>
+                            </asp:UpdatePanel>
 
                         </div>
-                         <div class="2u 12u(mobilep)">
+                        <div class="2u 12u(mobilep)">
                             <div class="Div">
                                 <asp:Label runat="server" Text="二次付款"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server" placeholder="系統自動帶入諮詢編號..."></asp:TextBox>
+                            <asp:UpdatePanel runat="server">
+                                <ContentTemplate>
+                                    <asp:TextBox runat="server" ID="tbDeposit2" OnTextChanged="tbDeposit2_TextChanged" AutoPostBack="true"></asp:TextBox>
+                                </ContentTemplate>
+                            </asp:UpdatePanel>
 
                         </div>
-                         <div class="2u 12u(mobilep)">
+                        <div class="2u 12u(mobilep)">
                             <div class="Div">
                                 <asp:Label runat="server" Text="尾款"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server" placeholder="系統自動帶入諮詢編號..."></asp:TextBox>
-
+                            <asp:UpdatePanel runat="server">
+                                <ContentTemplate>
+                                    <asp:TextBox runat="server" ID="tbPayOff"></asp:TextBox>
+                                </ContentTemplate>
+                            </asp:UpdatePanel>
                         </div>
-
-
-
                     </div>
                 </div>
-
                 <div class="12u">
-
                     <div class="row uniform 50%">
-
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
                                 <asp:Label runat="server" Text="訂金付款日期"></asp:Label>
                             </div>
                             <div>
-                                <asp:TextBox runat="server" CssClass="dp"></asp:TextBox>
+                                <asp:UpdatePanel runat="server">
+                                    <ContentTemplate>
+                                        <asp:TextBox runat="server" CssClass="dp" ID="tbDeposit1Date"></asp:TextBox>
+                                    </ContentTemplate>
+                                </asp:UpdatePanel>
                             </div>
                         </div>
                         <div class="2u 12u(mobilep)">
@@ -381,7 +429,11 @@
                                 <asp:Label runat="server" Text="二次付款日期"></asp:Label>
                             </div>
                             <div>
-                                <asp:TextBox runat="server" CssClass="dp"></asp:TextBox>
+                                <asp:UpdatePanel runat="server">
+                                    <ContentTemplate>
+                                        <asp:TextBox runat="server" CssClass="dp" ID="tbDeposit2Date"></asp:TextBox>
+                                    </ContentTemplate>
+                                </asp:UpdatePanel>
                             </div>
                         </div>
                         <div class="2u 12u(mobilep)">
@@ -389,44 +441,88 @@
                                 <asp:Label runat="server" Text="尾款付款日期"></asp:Label>
                             </div>
                             <div>
-                                <asp:TextBox runat="server" CssClass="dp"></asp:TextBox>
+                                <asp:UpdatePanel runat="server">
+                                    <ContentTemplate>
+                                        <asp:TextBox runat="server" CssClass="dp" ID="tbPayOffDate"></asp:TextBox>
+                                    </ContentTemplate>
+                                </asp:UpdatePanel>
                             </div>
                         </div>
 
-                         <!-- 照片 -->
-                            <div class="row no-collapse 50% uniform">
-                                <div class="5u">
-                                    <div style="text-align: center">
-                                        <asp:Label runat="server" Text="合照照片"></asp:Label>
-                                    </div>
-                                    <span class="image fit">
-                                        <img src="../assets/img/logo_clear.jpg" alt="" /></span>
+                        <!-- 照片 -->
+                        <div class="row no-collapse 50% uniform">
+                            <div class="5u">
+                                <div style="text-align: center">
+                                    <asp:Label runat="server" Text="合照照片"></asp:Label>
                                 </div>
-                                <div class="Div btn">
-                                    <asp:Button runat="server" Text="<%$ Resources:Resource,UploadString%>" />
-                                </div>
+                                <span class="image fit">
+                                    <img src="../assets/img/logo_clear.jpg" alt="" /></span>
                             </div>
+                            <div class="Div btn">
+                                <asp:Button runat="server" Text="<%$ Resources:Resource,UploadString%>" ID="btnUpload" OnClick="btnUpload_Click" />
+                            </div>
+                        </div>
                     </div>
 
                 </div>
             </div>
+            <div style="margin-top: 1.5em">
+                <div class="12u">
+                    <div class="table-wrapper">
+                        <asp:Label runat="server" ID="labelTitle" Text="<%$ Resources:Resource,AdditionalItemString%>" />
+                        <asp:UpdatePanel runat="server">
+                            <ContentTemplate>
+                                <asp:GridView ID="dgServiceItem" runat="server"
+                                    ShowFooter="True" AutoGenerateColumns="False" OnRowDataBound="dgServiceItem_RowDataBound"
+                                    OnRowDeleting="dgServiceItem_RowDeleting" Font-Size="Small">
+                                    <Columns>
+                                        <asp:TemplateField HeaderText="<%$ Resources:Resource,ItemString%>">
+                                            <ItemTemplate>
+                                                <asp:DropDownList runat="server" ID="ddlServiceItem" />
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
+                                        <asp:TemplateField HeaderText="<%$ Resources:Resource,NumberString%>">
+                                            <ItemTemplate>
+                                                <asp:TextBox ID="tbNumber" runat="server"></asp:TextBox>
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
+                                        <asp:TemplateField HeaderText="<%$ Resources:Resource,PriceString%>">
+                                            <ItemTemplate>
+                                                <asp:TextBox ID="tbPrice" runat="server" OnTextChanged="tbPrice_TextChanged" AutoPostBack="true"></asp:TextBox>
+                                            </ItemTemplate>
+                                            <FooterStyle HorizontalAlign="Right" />
+                                            <FooterTemplate>
+                                                <asp:Button ID="btnAddRow" runat="server"
+                                                    Text="Add New Row" OnClick="btnAddRow_Click" />
+                                            </FooterTemplate>
+                                        </asp:TemplateField>
+                                        <asp:CommandField ShowDeleteButton="True" />
+                                    </Columns>
+                                </asp:GridView>
+                            </ContentTemplate>
+                        </asp:UpdatePanel>
+                    </div>
+                </div>
+            </div>
+            <asp:Label runat="server" ID="labelWarnString" ForeColor="Red" Visible="false" />
             <!-- Btn -->
             <div class="Div btn">
                 <ul class="actions">
-
                     <li>
-                        <asp:Button runat="server" Text="<%$ Resources:Resource,CreateString%>" ID="LinkCaseMCreate" PostBackUrl="~/CaseMgt/CaseMCreate.aspx" />
+                        <asp:Button runat="server" CssClass="button alt" Text="<%$ Resources:Resource,CreateString%>" ID="btnCreate" OnClick="btnCreate_Click" />
                     </li>
                     <li>
-                        <asp:Button runat="server" CssClass="button alt" Text="<%$ Resources:Resource,ModifyString%>" />
+                        <asp:Button runat="server" CssClass="button alt" Text="<%$ Resources:Resource,ModifyString%>" ID="btnModify" OnClick="btnModify_Click" />
                     </li>
                     <li>
-                        <asp:Button runat="server" CssClass="button alt" Text="<%$ Resources:Resource,ClearString%>" />
+                        <asp:Button runat="server" CssClass="button alt" Text="<%$ Resources:Resource,ClearString%>" ID="btnClear" OnClick="btnClear_Click" />
                     </li>
                     <li>
-                        <asp:Button runat="server" CssClass="button alt" Text="<%$ Resources:Resource,DeleteString%>" />
+                        <asp:Button runat="server" CssClass="button alt" Text="<%$ Resources:Resource,DeleteString%>" ID="btnDelete" OnClick="btnDelete_Click" />
                     </li>
-
+                    <li>
+                        <asp:Button runat="server" CssClass="button alt" Text="<%$ Resources:Resource,CancelString%>" ID="btnCancel" OnClick="btnCancel_Click" />
+                    </li>
                 </ul>
             </div>
         </section>
