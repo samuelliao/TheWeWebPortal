@@ -119,7 +119,7 @@
                                     <asp:DropDownList runat="server" ID="ddlUseStatus" />
                                 </div>
                                 <div style="margin-top: 1.6em">
-                                    <asp:CheckBox runat="server" Text="可否外拍" ID="cbOutPhoto" />
+                                    <asp:CheckBox runat="server" Text="<%$ Resources:Resource,OutdoorShootingString%>" ID="cbOutPhoto" />
                                 </div>
                                 <div style="margin-top: 1.6em">
                                     <asp:CheckBox runat="server" Text="加價款" ID="cbAddPrice" />
@@ -128,7 +128,7 @@
                                     <asp:CheckBox runat="server" Text="限國內婚宴" ID="cbDomesticWedding" />
                                 </div>
                                 <div style="margin-top: 1.6em">
-                                    <asp:CheckBox runat="server" Text="大尺碼" ID="cbBigSize" />
+                                    <asp:CheckBox runat="server" Text="<%$ Resources:Resource,BigSizeString%>" ID="cbBigSize" />
                                 </div>
                             </div>
                         </div>
@@ -169,35 +169,35 @@
                                             <Columns>
                                                 <asp:ButtonColumn Text="<%$ Resources:Resource,SearchString%>" CommandName="Select" />
                                                 <asp:BoundColumn DataField="Id" Visible="false" />
-                                                <asp:BoundColumn DataField="Sn" HeaderText="<%$ Resources:Resource,SnString%>" />
-                                                <asp:TemplateColumn HeaderText="<%$ Resources:Resource,CategoryString%>">
+                                                <asp:BoundColumn DataField="Sn" HeaderText="<%$ Resources:Resource,SnString%>" SortExpression="Sn" />
+                                                <asp:TemplateColumn HeaderText="<%$ Resources:Resource,CategoryString%>" SortExpression="Category">
                                                     <ItemTemplate>
                                                         <asp:Label runat="server" ID="labelCategory" />
                                                     </ItemTemplate>
                                                 </asp:TemplateColumn>
-                                                <asp:BoundColumn DataField="Color" HeaderText="<%$ Resources:Resource,ColorString%>" />
-                                                <asp:BoundColumn DataField="Material" HeaderText="<%$ Resources:Resource,MaterialString%>" />
-                                                <asp:TemplateColumn HeaderText="<%$ Resources:Resource,TypeString%>">
+                                                <asp:BoundColumn DataField="Color" HeaderText="<%$ Resources:Resource,ColorString%>" SortExpression="Color" />
+                                                <asp:BoundColumn DataField="Material" HeaderText="<%$ Resources:Resource,MaterialString%>" SortExpression="Material" />
+                                                <asp:TemplateColumn HeaderText="<%$ Resources:Resource,TypeString%>" SortExpression="Type">
                                                     <ItemTemplate>
                                                         <asp:Label runat="server" ID="labelType" />
                                                     </ItemTemplate>
                                                 </asp:TemplateColumn>
-                                                <asp:TemplateColumn HeaderText="<%$ Resources:Resource,NecklineString%>">
+                                                <asp:TemplateColumn HeaderText="<%$ Resources:Resource,NecklineString%>" SortExpression="Neckline">
                                                     <ItemTemplate>
                                                         <asp:Label runat="server" ID="labelNeckline" />
                                                     </ItemTemplate>
                                                 </asp:TemplateColumn>
-                                                <asp:TemplateColumn HeaderText="<%$ Resources:Resource,DressbackString%>">
+                                                <asp:TemplateColumn HeaderText="<%$ Resources:Resource,DressbackString%>" SortExpression="Back">
                                                     <ItemTemplate>
                                                         <asp:Label runat="server" ID="labelDressBack" />
                                                     </ItemTemplate>
                                                 </asp:TemplateColumn>
-                                                <asp:TemplateColumn HeaderText="<%$ Resources:Resource,ShoulderString%>">
+                                                <asp:TemplateColumn HeaderText="<%$ Resources:Resource,ShoulderString%>" SortExpression="Shoulder">
                                                     <ItemTemplate>
                                                         <asp:Label runat="server" ID="labelShoulder" />
                                                     </ItemTemplate>
                                                 </asp:TemplateColumn>
-                                                <asp:TemplateColumn HeaderText="<%$ Resources:Resource,WornString%>">
+                                                <asp:TemplateColumn HeaderText="<%$ Resources:Resource,WornString%>" SortExpression="Worn">
                                                     <ItemTemplate>
                                                         <asp:Label runat="server" ID="labelWorn" />
                                                     </ItemTemplate>

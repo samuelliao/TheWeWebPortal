@@ -828,4 +828,19 @@
   <data name="FemaleString" xml:space="preserve">
     <value>女</value>
   </data>
+  <data name="GenderString" xml:space="preserve">
+    <value>性別</value>
+  </data>
+  <data name="WornString" xml:space="preserve">
+    <value>穿法</value>
+  </data>
+  <data name="TrailingString" xml:space="preserve">
+    <value>拖尾</value>
+  </data>
+  <data name="SupplierString" xml:space="preserve">
+    <value>供應商</value>
+  </data>
+  <data name="BigSizeString" xml:space="preserve">
+    <value>大尺碼</value>
+  </data>
 </root>

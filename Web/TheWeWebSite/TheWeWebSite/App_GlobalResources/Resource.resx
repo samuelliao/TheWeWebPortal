@@ -828,4 +828,19 @@
   <data name="FemaleString" xml:space="preserve">
     <value>Female</value>
   </data>
+  <data name="GenderString" xml:space="preserve">
+    <value>Gender</value>
+  </data>
+  <data name="WornString" xml:space="preserve">
+    <value>Worn</value>
+  </data>
+  <data name="TrailingString" xml:space="preserve">
+    <value>Trailing</value>
+  </data>
+  <data name="SupplierString" xml:space="preserve">
+    <value>Supplier</value>
+  </data>
+  <data name="BigSizeString" xml:space="preserve">
+    <value>Plus Size</value>
+  </data>
 </root>

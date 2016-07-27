@@ -45,7 +45,7 @@
                                     <div class="Div">
                                         <asp:Label runat="server" Text="<%$ Resources:Resource,CurrencyRateString%>"></asp:Label>
                                     </div>
-                                    <asp:TextBox runat="server" placeholder="<%$ Resources:Resource,CurrencyRateInputString%>" ID="tbRate" />
+                                    <asp:TextBox runat="server" placeholder="<%$ Resources:Resource,CurrencyRateInputString%>" ID="tbRate" style="text-align:right" />
                                     <asp:RegularExpressionValidator ID="RegularExpressionValidator1" ControlToValidate="tbRate" runat="server" ErrorMessage="Only Numbers allowed" ValidationExpression="\d+[.]*\d*"></asp:RegularExpressionValidator>
                                 </div>
 
@@ -77,14 +77,21 @@
                                     AutoGenerateColumns="false" DataKeyField="Id" OnCancelCommand="dgCurrency_CancelCommand"
                                     OnDeleteCommand="dgCurrency_DeleteCommand" OnEditCommand="dgCurrency_EditCommand"
                                     OnPageIndexChanged="dgCurrency_PageIndexChanged" OnUpdateCommand="dgCurrency_UpdateCommand"
-                                    OnSortCommand="dgCurrency_SortCommand">
+                                    OnSortCommand="dgCurrency_SortCommand" OnItemDataBound="dgCurrency_ItemDataBound">
                                     <HeaderStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                     <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
                                     <PagerStyle Mode="NumericPages" />
                                     <Columns>
                                         <asp:BoundColumn DataField="Id" Visible="false" />
                                         <asp:BoundColumn HeaderText="<%$ Resources:Resource,CurrencyString%>" DataField="Name" SortExpression="Name" />
-                                        <asp:BoundColumn HeaderText="<%$ Resources:Resource,CurrencyRateString%>" DataField="Rate" SortExpression="Rate" />
+                                        <asp:TemplateColumn HeaderText="<%$ Resources:Resource,CurrencyRateString%>" SortExpression="Rate" >
+                                            <ItemTemplate>
+                                                <asp:Label runat="server" ID="labelRate" />
+                                            </ItemTemplate>
+                                            <EditItemTemplate>
+                                                <asp:TextBox runat="server" ID="tbRate" style="text-align:right" />
+                                            </EditItemTemplate>
+                                        </asp:TemplateColumn>
                                         <asp:BoundColumn HeaderText="<%$ Resources:Resource,UpdateTimeString%>" DataField="UpdateTime" SortExpression="UpdateTime" />
                                         <asp:BoundColumn HeaderText="<%$ Resources:Resource,EmployeeString%>" DataField="EmployeeName" SortExpression="EmployeeName" />
                                         <asp:EditCommandColumn EditText="<%$ Resources:Resource,ModifyString%>"

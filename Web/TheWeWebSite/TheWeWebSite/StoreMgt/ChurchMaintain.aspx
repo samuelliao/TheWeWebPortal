@@ -116,7 +116,11 @@
                                                 </ItemTemplate>
                                             </asp:TemplateColumn>
                                             <asp:BoundColumn HeaderText="<%$ Resources:Resource,CapacitiesString%>" DataField="Capacities" />
-                                            <asp:BoundColumn HeaderText="<%$ Resources:Resource,PriceString%>" DataField="Price" />
+                                            <asp:TemplateColumn HeaderText="<%$ Resources:Resource,PriceString%>">
+                                                <ItemTemplate>
+                                                    <asp:Label runat="server" ID="dgLabelPrice" />
+                                                </ItemTemplate>
+                                            </asp:TemplateColumn>
                                             <asp:BoundColumn HeaderText="<%$ Resources:Resource,RemarkString%>" DataField="Remark"></asp:BoundColumn>
                                             <asp:ButtonColumn CommandName="Delete"
                                                 HeaderText="<%$ Resources:Resource,DeleteString%>"

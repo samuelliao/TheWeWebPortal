@@ -86,13 +86,13 @@ namespace TheWeLib.DbControl
             if (string.IsNullOrEmpty(tableName)
                     || string.IsNullOrEmpty(sn))
                 return false;
-            string sql = "Select Sn From " + tableName + " Where Sn ='sn'";
+            string sql = "Select Sn From " + tableName + " Where Sn ='" + sn + "'";
             try
             {
                 DataSet ds = GetDataFromTable(sql);
                 if (ds != null && ds.Tables[0].Rows.Count > 0)
-                    return false;
-                else return true;
+                    return true;
+                else return false;
             }
             catch (Exception ex)
             {

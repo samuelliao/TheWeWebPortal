@@ -13,6 +13,15 @@ namespace TheWeWebSite.StoreMgt {
     public partial class DressMCreate {
         
         /// <summary>
+        /// ucHeader 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::TheWeWebSite.Header ucHeader;
+        
+        /// <summary>
         /// labelPageTitle 控制項。
         /// </summary>
         /// <remarks>
@@ -20,6 +29,15 @@ namespace TheWeWebSite.StoreMgt {
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label labelPageTitle;
+        
+        /// <summary>
+        /// labelWarnString 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label labelWarnString;
         
         /// <summary>
         /// tbSn 控制項。
@@ -166,6 +184,24 @@ namespace TheWeWebSite.StoreMgt {
         protected global::System.Web.UI.WebControls.DropDownList ddlUseStatus;
         
         /// <summary>
+        /// tbFitting 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tbFitting;
+        
+        /// <summary>
+        /// tbOthers 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tbOthers;
+        
+        /// <summary>
         /// tbCost 控制項。
         /// </summary>
         /// <remarks>
@@ -175,6 +211,15 @@ namespace TheWeWebSite.StoreMgt {
         protected global::System.Web.UI.WebControls.TextBox tbCost;
         
         /// <summary>
+        /// RegularExpressionValidator1 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidator1;
+        
+        /// <summary>
         /// tbCustomPrice 控制項。
         /// </summary>
         /// <remarks>
@@ -182,6 +227,15 @@ namespace TheWeWebSite.StoreMgt {
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox tbCustomPrice;
+        
+        /// <summary>
+        /// RegularExpressionValidator2 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidator2;
         
         /// <summary>
         /// ddlSupplier 控制項。
@@ -202,6 +256,15 @@ namespace TheWeWebSite.StoreMgt {
         protected global::System.Web.UI.WebControls.TextBox tbRentPrice;
         
         /// <summary>
+        /// RegularExpressionValidator3 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidator3;
+        
+        /// <summary>
         /// tbPrice 控制項。
         /// </summary>
         /// <remarks>
@@ -211,13 +274,13 @@ namespace TheWeWebSite.StoreMgt {
         protected global::System.Web.UI.WebControls.TextBox tbPrice;
         
         /// <summary>
-        /// tbOthers 控制項。
+        /// RegularExpressionValidator4 控制項。
         /// </summary>
         /// <remarks>
         /// 自動產生的欄位。
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbOthers;
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidator4;
         
         /// <summary>
         /// cbOutPhoto 控制項。
@@ -238,6 +301,15 @@ namespace TheWeWebSite.StoreMgt {
         protected global::System.Web.UI.WebControls.TextBox tbOutPhotoPrice;
         
         /// <summary>
+        /// RegularExpressionValidator5 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidator5;
+        
+        /// <summary>
         /// cbPlusItem 控制項。
         /// </summary>
         /// <remarks>
@@ -254,6 +326,15 @@ namespace TheWeWebSite.StoreMgt {
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox tbPlusItemPrice;
+        
+        /// <summary>
+        /// RegularExpressionValidator6 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidator6;
         
         /// <summary>
         /// cbDomesticWedding 控制項。
@@ -317,15 +398,6 @@ namespace TheWeWebSite.StoreMgt {
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnUpload5;
-        
-        /// <summary>
-        /// labelWarnString 控制項。
-        /// </summary>
-        /// <remarks>
-        /// 自動產生的欄位。
-        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label labelWarnString;
         
         /// <summary>
         /// btnCreate 控制項。

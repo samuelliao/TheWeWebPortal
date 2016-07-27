@@ -242,7 +242,7 @@ namespace TheWeWebSite.StoreMgt
         protected void btnClear_Click(object sender, EventArgs e)
         {
             tbBridalHairStyle.Text = string.Empty;
-            tbCorsage.Text = string.Empty;
+            tbCorsage.Text = string.Empty;            
             tbCost.Text = string.Empty;
             tbDecorate.Text = string.Empty;
             tbFilmLocation.Text = string.Empty;
@@ -606,7 +606,7 @@ namespace TheWeWebSite.StoreMgt
             tbEngName.Text = dr["EngName"].ToString();
             tbBridalHairStyle.Text = dr["BridalMakeup"].ToString();
             tbCorsage.Text = dr["Corsage"].ToString();
-            tbCost.Text = dr["Cost"].ToString();
+            tbCost.Text = SysProperty.Util.ParseMoney(dr["Cost"].ToString()).ToString("#0.00");
             tbDecorate.Text = dr["Decoration"].ToString();
             tbFilmLocation.Text = dr["FilmingLocation"].ToString();
             tbFilmTime.Text = dr["WeddingFilmingTime"].ToString();
@@ -614,7 +614,7 @@ namespace TheWeWebSite.StoreMgt
             tbMovemont.Text = dr["Moves"].ToString();
             tbPerformence.Text = dr["Performence"].ToString();
             tbPhotoNumber.Text = dr["PhotosNum"].ToString();
-            tbPrice.Text = dr["Price"].ToString();
+            tbPrice.Text = SysProperty.Util.ParseMoney(dr["Price"].ToString()).ToString("#0.00");
             tbRoom.Text = dr["RoomId"].ToString();
             tbSn.Text = dr["Sn"].ToString();
             tbStay.Text = dr["StayNight"].ToString();
@@ -653,7 +653,7 @@ namespace TheWeWebSite.StoreMgt
                 }
                 ((DropDownList)dgServiceItem.Rows[cnt].FindControl("ddlServiceItem")).SelectedValue = dr["ItemId"].ToString();
                 ((TextBox)dgServiceItem.Rows[cnt].FindControl("tbNumber")).Text = dr["Number"].ToString();
-                ((TextBox)dgServiceItem.Rows[cnt].FindControl("tbPrice")).Text = dr["Price"].ToString();
+                ((TextBox)dgServiceItem.Rows[cnt].FindControl("tbPrice")).Text = SysProperty.Util.ParseMoney(dr["Price"].ToString()).ToString("#0.00");
                 cnt++;
                 AddNewRow();
             }

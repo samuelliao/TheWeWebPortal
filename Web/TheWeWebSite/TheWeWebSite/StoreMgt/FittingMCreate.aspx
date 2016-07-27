@@ -30,7 +30,7 @@
                             <div class="Div">
                                 <asp:Label runat="server" Text="配件編號"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server" placeholder=""></asp:TextBox>
+                            <asp:TextBox runat="server" ></asp:TextBox>
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
@@ -73,39 +73,39 @@
                             <div class="Div">
                                 <asp:Label runat="server" Text="對應物件編號"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server" placeholder=""></asp:TextBox>
+                            <asp:TextBox runat="server" ></asp:TextBox>
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
                                 <asp:Label runat="server" Text="顏色"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server" placeholder=""></asp:TextBox>
+                            <asp:TextBox runat="server" ></asp:TextBox>
                         </div>
 
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
                                 <asp:Label runat="server" Text="顏色"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server" placeholder=""></asp:TextBox>
+                            <asp:TextBox runat="server" ></asp:TextBox>
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
                                 <asp:Label runat="server" Text="材質"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server" placeholder=""></asp:TextBox>
+                            <asp:TextBox runat="server" ></asp:TextBox>
 
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
                                 <asp:Label runat="server" Text="材質"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server" placeholder=""></asp:TextBox>
+                            <asp:TextBox runat="server" ></asp:TextBox>
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
                                 <asp:Label runat="server" Text="長度"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server" placeholder=""></asp:TextBox>
+                            <asp:TextBox runat="server" ></asp:TextBox>
                         </div>
                     </div>
                 </div>
@@ -122,7 +122,7 @@
                             <div class="Div">
                                 <asp:Label runat="server" Text="成本價"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server" placeholder=""></asp:TextBox>
+                            <asp:TextBox runat="server" ></asp:TextBox>
                         </div>
 
                         <div class="2u 12u(mobilep)">
@@ -135,20 +135,20 @@
                             <div class="Div">
                                 <asp:Label runat="server" Text="出租價格"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server" placeholder=""></asp:TextBox>
+                            <asp:TextBox runat="server" ></asp:TextBox>
 
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
                                 <asp:Label runat="server" Text="加選價格"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server" placeholder=""></asp:TextBox>
+                            <asp:TextBox runat="server" ></asp:TextBox>
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
                                 <asp:Label runat="server" Text="販售價格"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server" placeholder=""></asp:TextBox>
+                            <asp:TextBox runat="server" ></asp:TextBox>
                         </div>
                     </div>
                     

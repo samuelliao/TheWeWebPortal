@@ -399,6 +399,11 @@ namespace TheWeWebSite.CaseMgt
 
         protected void btnCreate_Click(object sender, EventArgs e)
         {
+            if (SysProperty.GenDbCon.IsSnDuplicate(SysProperty.Util.MsSqlTableConverter(MsSqlTable.OrderInfo), tbCaseSn.Text))
+            {
+                ShowErrorMsg(Resources.Resource.SnDuplicateErrorString);
+                return;
+            }
             if (Session["CustomerId"] != null) return;
             string customerId = Session["CustomerId"].ToString();
             List<DbSearchObject> partnerInfo = PartnerDbObject();
@@ -491,13 +496,13 @@ namespace TheWeWebSite.CaseMgt
             tbAppointDate.Text = SysProperty.Util.ParseDateTime("DateTime", dr["BookingDate"].ToString());
             tbCaseSn.Text = dr["Sn"].ToString();
             tbCloseDay.Text = SysProperty.Util.ParseDateTime("DateTime", dr["CloseTime"].ToString());
-            tbContractPrice.Text = dr["Price"].ToString();
+            tbContractPrice.Text = SysProperty.Util.ParseMoney(dr["Price"].ToString()).ToString("#0.00");
             tbContractTime.Text = SysProperty.Util.ParseDateTime("DateTime", dr["StartTime"].ToString());
-            tbDeposit1.Text = dr["DepositFirst"].ToString();
+            tbDeposit1.Text = SysProperty.Util.ParseMoney(dr["DepositFirst"].ToString()).ToString("#0.00");
             tbDeposit1Date.Text = SysProperty.Util.ParseDateTime("DateTime", dr["DepositFirstDate"].ToString());
-            tbDeposit2.Text = dr["DepositSecond"].ToString();
+            tbDeposit2.Text = SysProperty.Util.ParseMoney(dr["DepositSecond"].ToString()).ToString("#0.00");
             tbDeposit2Date.Text = SysProperty.Util.ParseDateTime("DateTime", dr["DepositSecondDate"].ToString());
-            tbDiscount.Text = dr["Discount"].ToString();
+            tbDiscount.Text = SysProperty.Util.ParseMoney(dr["Discount"].ToString()).ToString("#0.00");
             tbDomesticEngagementDate.Text = SysProperty.Util.ParseDateTime("Date", dr["LocalEngagementDate"].ToString());
             tbDomesticMotheringDate.Text = SysProperty.Util.ParseDateTime("Date", dr["LocalMotheringDate"].ToString());
             tbDomesticWeddingDate.Text = SysProperty.Util.ParseDateTime("Date", dr["LocalWeddingDate"].ToString());
@@ -508,13 +513,15 @@ namespace TheWeWebSite.CaseMgt
             tbPayOffDate.Text = SysProperty.Util.ParseDateTime("DateTime", dr["BalancePayementDate"].ToString());
             tbReferrals.Text = dr["Referral"].ToString();
             tbRemark.Text = dr["Remark"].ToString();
-            tbTotalPrice.Text = string.IsNullOrEmpty(dr["TotalPrice"].ToString()) ? tbContractPrice.Text : dr["TotalPrice"].ToString();
+            tbTotalPrice.Text = string.IsNullOrEmpty(dr["TotalPrice"].ToString()) 
+                ? tbContractPrice.Text 
+                : SysProperty.Util.ParseMoney(dr["TotalPrice"].ToString()).ToString("#0.00");
 
-            tbPayOff.Text = "" + (SysProperty.Util.ParseMoney(tbTotalPrice.Text) - (
+            tbPayOff.Text = (SysProperty.Util.ParseMoney(tbTotalPrice.Text) - (
                 SysProperty.Util.ParseMoney(tbDiscount.Text)
                 + SysProperty.Util.ParseMoney(tbDeposit1.Text)
                 + SysProperty.Util.ParseMoney(tbDeposit2.Text)
-                ));
+                )).ToString("#0.00");
 
             ddlStatus.SelectedValue = dr["StatusId"].ToString();
             ddlProductSet.SelectedValue = dr["SetId"].ToString();
@@ -573,8 +580,7 @@ namespace TheWeWebSite.CaseMgt
                 }
                 ((DropDownList)dgServiceItem.Rows[cnt].FindControl("ddlServiceItem")).SelectedValue = dr["ItemId"].ToString();
                 ((TextBox)dgServiceItem.Rows[cnt].FindControl("tbNumber")).Text = dr["Number"].ToString();
-                ((TextBox)dgServiceItem.Rows[cnt].FindControl("tbNumber")).ReadOnly = true;
-                ((TextBox)dgServiceItem.Rows[cnt].FindControl("tbPrice")).Text = dr["Price"].ToString();
+                ((TextBox)dgServiceItem.Rows[cnt].FindControl("tbPrice")).Text = SysProperty.Util.ParseMoney(dr["Price"].ToString()).ToString("#0.00");
                 cnt++;
                 AddNewRow();
             }
@@ -593,11 +599,8 @@ namespace TheWeWebSite.CaseMgt
                     AddNewRow();
                 }
                 ((DropDownList)dgServiceItem.Rows[cnt].FindControl("ddlServiceItem")).SelectedValue = dr["ItemId"].ToString();
-                ((DropDownList)dgServiceItem.Rows[cnt].FindControl("ddlServiceItem")).Enabled = false;
                 ((TextBox)dgServiceItem.Rows[cnt].FindControl("tbNumber")).Text = dr["Number"].ToString();
-                ((TextBox)dgServiceItem.Rows[cnt].FindControl("tbNumber")).ReadOnly = true;
                 ((TextBox)dgServiceItem.Rows[cnt].FindControl("tbPrice")).Text = "0";
-                ((TextBox)dgServiceItem.Rows[cnt].FindControl("tbPrice")).ReadOnly = true;
                 cnt++;
                 AddNewRow();
             }

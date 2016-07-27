@@ -148,6 +148,11 @@ namespace TheWeWebSite.StoreMgt
 
         protected void btnCreate_Click(object sender, EventArgs e)
         {
+            if (SysProperty.GenDbCon.IsSnDuplicate(SysProperty.Util.MsSqlTableConverter(MsSqlTable.Church), tbSn.Text))
+            {
+                ShowErrorMsg(Resources.Resource.SnDuplicateErrorString);
+                return;
+            }
             bool result = false;
             List<DbSearchObject> lst = ChurchDbObject();
             result = WriteBackChurch(true, lst, string.Empty);
@@ -257,7 +262,7 @@ namespace TheWeWebSite.StoreMgt
             tbCapacities.Text = dr["Capacities"].ToString();
             tbPatioHeight.Text = dr["PatioHeight"].ToString();
             tbMealDescription.Text = dr["Description"].ToString();
-            tbPrice.Text = dr["Price"].ToString();
+            tbPrice.Text = SysProperty.Util.ParseMoney(dr["Price"].ToString()).ToString("#0.00");
             tbRedCarpetLength.Text = dr["RedCarpetLong"].ToString();
             tbRedCarpetType.Text = dr["RedCarpetCategory"].ToString();
             tbRemark.Text = dr["Remark"].ToString();
@@ -293,8 +298,7 @@ namespace TheWeWebSite.StoreMgt
                 {
                     AddNewRow();
                 }
-                ((TextBox)dgBookTable.Rows[cnt].FindControl("tbStart")).Text = SysProperty.Util.ParseDateTime("Time", dr["StartTime"].ToString());
-                ((TextBox)dgBookTable.Rows[cnt].FindControl("tbEnd")).Text = SysProperty.Util.ParseDateTime("Time", dr["EndTime"].ToString());
+                ((TextBox)dgBookTable.Rows[cnt].FindControl("tbStart")).Text = SysProperty.Util.ParseDateTime("Time", dr["StartTime"].ToString());                
                 cnt++;
                 AddNewRow();
             }
@@ -327,10 +331,8 @@ namespace TheWeWebSite.StoreMgt
             DataTable dt = new DataTable();
             DataRow dr = null;
             dt.Columns.Add(new DataColumn("Col1", typeof(string)));
-            dt.Columns.Add(new DataColumn("Col2", typeof(string)));
             dr = dt.NewRow();
             dr["Col1"] = string.Empty;
-            dr["Col2"] = string.Empty;
             dt.Rows.Add(dr);
 
             ViewState["CurrentTable"] = dt;
@@ -352,12 +354,9 @@ namespace TheWeWebSite.StoreMgt
                     {
                         TextBox TextStart =
                           (TextBox)dgBookTable.Rows[rowIndex].Cells[0].FindControl("tbStart");
-                        TextBox TextEnd =
-                          (TextBox)dgBookTable.Rows[rowIndex].Cells[1].FindControl("tbEnd");
                         drCurrentRow = dtCurrentTable.NewRow();
 
                         dtCurrentTable.Rows[i - 1]["Col1"] = TextStart.Text;
-                        dtCurrentTable.Rows[i - 1]["Col2"] = TextEnd.Text;
                         rowIndex++;
                     }
                     dtCurrentTable.Rows.Add(drCurrentRow);
@@ -385,11 +384,8 @@ namespace TheWeWebSite.StoreMgt
                     for (int i = 0; i < dt.Rows.Count; i++)
                     {
                         TextBox TextStart = (TextBox)dgBookTable.Rows[rowIndex].Cells[0].FindControl("tbStart");
-                        TextBox TextEnd = (TextBox)dgBookTable.Rows[rowIndex].Cells[1].FindControl("tbEnd");
                         if (TextStart == null) continue;
-                        if (TextEnd == null) continue;
                         TextStart.Text = dt.Rows[i]["Col1"] == null ? string.Empty : dt.Rows[i]["Col1"].ToString();
-                        TextEnd.Text = dt.Rows[i]["Col2"] == null ? string.Empty : dt.Rows[i]["Col2"].ToString();
                         rowIndex++;
                     }
                 }
@@ -409,10 +405,8 @@ namespace TheWeWebSite.StoreMgt
                     for (int i = 1; i <= dtCurrentTable.Rows.Count; i++)
                     {
                         TextBox TextStart = (TextBox)dgBookTable.Rows[rowIndex].Cells[0].FindControl("tbStart");
-                        TextBox TextEnd = (TextBox)dgBookTable.Rows[rowIndex].Cells[1].FindControl("tbEnd");
                         drCurrentRow = dtCurrentTable.NewRow();
                         dtCurrentTable.Rows[i - 1]["Col1"] = TextStart.Text;
-                        dtCurrentTable.Rows[i - 1]["Col2"] = TextEnd.Text;
                         rowIndex++;
                     }
 
@@ -544,14 +538,6 @@ namespace TheWeWebSite.StoreMgt
                         if (string.IsNullOrEmpty(str)) continue;
                         lst.Add(new DbSearchObject(
                             "StartTime"
-                            , AtrrTypeItem.Date
-                            , AttrSymbolItem.Equal
-                            , str
-                            ));
-                        str = SysProperty.Util.ParseDateTime("Time", ((TextBox)dr.Cells[1].FindControl("tbEnd")).Text);
-                        if (string.IsNullOrEmpty(str)) continue;
-                        lst.Add(new DbSearchObject(
-                            "EndTime"
                             , AtrrTypeItem.Date
                             , AttrSymbolItem.Equal
                             , str

@@ -144,6 +144,27 @@ namespace TheWeWebSite.StoreMgt
             dgChurch.CurrentPageIndex = e.NewPageIndex;
             BindData(ConditionGen());
         }
+
+        protected void dgChurch_ItemDataBound(object sender, DataGridItemEventArgs e)
+        {
+            DataRowView dataItem1 = (DataRowView)e.Item.DataItem;
+            if (dataItem1 != null)
+            {
+                Label label = (Label)e.Item.FindControl("dgLabelCountry");
+                label.Text = SysProperty.Util.OutputRelatedLangName(
+                    Session["CultureCode"].ToString()
+                    , SysProperty.GetCountryById(dataItem1["CountryId"].ToString()));
+                Label label2 = (Label)e.Item.FindControl("dgLabelArea");
+                label2.Text = SysProperty.Util.OutputRelatedLangName(
+                    Session["CultureCode"].ToString()
+                    , SysProperty.GetAreaById(dataItem1["AreaId"].ToString()));
+                Label label3 = (Label)e.Item.FindControl("dgLabelChurch");
+                label3.Text = SysProperty.Util.OutputRelatedLangName(
+                    Session["CultureCode"].ToString()
+                    , SysProperty.GetChurchById(dataItem1["Id"].ToString()));
+                ((Label)e.Item.FindControl("dgLabelPrice")).Text = SysProperty.Util.ParseMoney(dataItem1["Price"].ToString()).ToString("#0.00");
+            }
+        }
         #endregion
 
         #region Button Control
@@ -173,26 +194,6 @@ namespace TheWeWebSite.StoreMgt
             }
             return condStr;
         }        
-        #endregion
-
-        protected void dgChurch_ItemDataBound(object sender, DataGridItemEventArgs e)
-        {
-            DataRowView dataItem1 = (DataRowView)e.Item.DataItem;
-            if (dataItem1 != null)
-            {
-                Label label = (Label)e.Item.FindControl("dgLabelCountry");
-                label.Text = SysProperty.Util.OutputRelatedLangName(
-                    Session["CultureCode"].ToString()
-                    , SysProperty.GetCountryById(dataItem1["CountryId"].ToString()));
-                Label label2 = (Label)e.Item.FindControl("dgLabelArea");
-                label2.Text = SysProperty.Util.OutputRelatedLangName(
-                    Session["CultureCode"].ToString()
-                    , SysProperty.GetAreaById(dataItem1["AreaId"].ToString()));
-                Label label3 = (Label)e.Item.FindControl("dgLabelChurch");
-                label3.Text = SysProperty.Util.OutputRelatedLangName(
-                    Session["CultureCode"].ToString()
-                    , SysProperty.GetChurchById(dataItem1["Id"].ToString()));
-            }
-        }        
+        #endregion              
     }
 }

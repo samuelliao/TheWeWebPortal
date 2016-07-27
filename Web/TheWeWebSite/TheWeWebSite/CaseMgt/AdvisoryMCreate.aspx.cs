@@ -363,6 +363,11 @@ namespace TheWeWebSite.CaseMgt
 
         protected void btnCreate_Click(object sender, EventArgs e)
         {
+            if (SysProperty.GenDbCon.IsSnDuplicate(SysProperty.Util.MsSqlTableConverter(MsSqlTable.Consultation), tbSn.Text))
+            {
+                ShowErrorMsg(Resources.Resource.SnDuplicateErrorString);
+                return;
+            }
             List<DbSearchObject> lst = ConsultDbObject();
             lst.Add(new DbSearchObject(
                 "ConsultDate"

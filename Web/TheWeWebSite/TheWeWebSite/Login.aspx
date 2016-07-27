@@ -34,12 +34,11 @@
 
                 <div style="color: #000; margin-bottom: 10px; margin-left: auto; margin-right: auto; width: 15%;">
                     <asp:TextBox runat="server" TextMode="SingleLine" ID="tbAccount" />
-                    <!--<asp:TextBox runat="server" placeholder="請輸入帳號..."></asp:TextBox>-->
                 </div>
 
 
                 <div style="color: #000; margin-bottom: 10px; margin-left: auto; margin-right: auto; width: 15%;">
-                    <asp:TextBox runat="server" Placeholder="請輸入密碼..." ID="tbPassword" TextMode="Password"></asp:TextBox>
+                    <asp:TextBox runat="server" ID="tbPassword" TextMode="Password"></asp:TextBox>
                 </div>
                 <div>
                     <asp:Label runat="server" ID="labelWarnText" ForeColor="Red" />

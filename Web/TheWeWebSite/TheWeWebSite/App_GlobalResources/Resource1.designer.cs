@@ -196,6 +196,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   查詢類似 Plus Size 的當地語系化字串。
+        /// </summary>
+        internal static string BigSizeString {
+            get {
+                return ResourceManager.GetString("BigSizeString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查詢類似 Material of Bouquet &amp; Corsage  的當地語系化字串。
         /// </summary>
         internal static string BouquetCorsageString {
@@ -930,6 +939,15 @@ namespace Resources {
         internal static string FinMgtString {
             get {
                 return ResourceManager.GetString("FinMgtString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查詢類似 Gender 的當地語系化字串。
+        /// </summary>
+        internal static string GenderString {
+            get {
+                return ResourceManager.GetString("GenderString", resourceCulture);
             }
         }
         
@@ -1969,6 +1987,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   查詢類似 Supplier 的當地語系化字串。
+        /// </summary>
+        internal static string SupplierString {
+            get {
+                return ResourceManager.GetString("SupplierString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查詢類似 System Mgt 的當地語系化字串。
         /// </summary>
         internal static string SysMgtString {
@@ -2001,6 +2028,15 @@ namespace Resources {
         internal static string TraditionalChineseString {
             get {
                 return ResourceManager.GetString("TraditionalChineseString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查詢類似 Trailing 的當地語系化字串。
+        /// </summary>
+        internal static string TrailingString {
+            get {
+                return ResourceManager.GetString("TrailingString", resourceCulture);
             }
         }
         
@@ -2181,6 +2217,15 @@ namespace Resources {
         internal static string WorkReminderString {
             get {
                 return ResourceManager.GetString("WorkReminderString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查詢類似 Worn 的當地語系化字串。
+        /// </summary>
+        internal static string WornString {
+            get {
+                return ResourceManager.GetString("WornString", resourceCulture);
             }
         }
         

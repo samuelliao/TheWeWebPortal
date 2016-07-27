@@ -45,7 +45,7 @@
                                         <asp:Label runat="server" Text="開案日期選擇範圍(開始)" ID="labelContractStartDate"></asp:Label>
                                     </div>
                                     <div>
-                                        <asp:TextBox runat="server" CssClass="dp" ID="tbContractStartDate"></asp:TextBox>
+                                        <asp:TextBox runat="server" CssClass="dp" style="text-align:right" ID="tbContractStartDate"></asp:TextBox>
                                     </div>
                                 </div>
                                 <div class="2u 12u(mobilep)">
@@ -53,7 +53,7 @@
                                         <asp:Label runat="server" Text="開案日期選擇範圍(結束)" ID="labelContractEndDate"></asp:Label>
                                     </div>
                                     <div>
-                                        <asp:TextBox runat="server" CssClass="dp" ID="tbContractEndDate"></asp:TextBox>
+                                        <asp:TextBox runat="server" CssClass="dp" style="text-align:right" ID="tbContractEndDate"></asp:TextBox>
                                     </div>
                                 </div>
                                 <div class="2u 12u(mobilep)">
@@ -115,7 +115,7 @@
                                         <asp:Label runat="server" Text="會議日期選擇範圍(開始)" ID="labelConStartDate"></asp:Label>
                                     </div>
                                     <div>
-                                        <asp:TextBox runat="server" CssClass="dp" ID="tbConStartDate"></asp:TextBox>
+                                        <asp:TextBox runat="server" style="text-align:right" CssClass="dp" ID="tbConStartDate"></asp:TextBox>
                                     </div>
                                 </div>
                                 <div class="2u 12u(mobilep)">
@@ -123,7 +123,7 @@
                                         <asp:Label runat="server" Text="會議日期選擇範圍(結束)" ID="labelConEndDate"></asp:Label>
                                     </div>
                                     <div>
-                                        <asp:TextBox runat="server" CssClass="dp" ID="tbConEndDate"></asp:TextBox>
+                                        <asp:TextBox runat="server" style="text-align:right" CssClass="dp" ID="tbConEndDate"></asp:TextBox>
                                     </div>
                                 </div>
                             </div>

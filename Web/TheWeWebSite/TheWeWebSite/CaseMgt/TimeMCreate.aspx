@@ -104,7 +104,7 @@
                             <div>
                                 <asp:UpdatePanel runat="server">
                                     <ContentTemplate>
-                                        <asp:TextBox runat="server" CssClass="dp" ID="tbConDate"></asp:TextBox>
+                                        <asp:TextBox runat="server" style="text-align:right" CssClass="dp" ID="tbConDate"></asp:TextBox>
                                     </ContentTemplate>
                                 </asp:UpdatePanel>
                             </div>

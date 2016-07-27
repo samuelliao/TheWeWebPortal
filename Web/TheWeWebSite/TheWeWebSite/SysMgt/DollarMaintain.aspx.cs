@@ -147,7 +147,7 @@ namespace TheWeWebSite.SysMgt
         {
             List<DbSearchObject> updateLst = new List<DbSearchObject>();
             updateLst.Add(new DbSearchObject("Name", AtrrTypeItem.String, AttrSymbolItem.Equal, ((TextBox)e.Item.Cells[1].Controls[0]).Text));
-            updateLst.Add(new DbSearchObject("Rate", AtrrTypeItem.String, AttrSymbolItem.Equal, ((TextBox)e.Item.Cells[2].Controls[0]).Text));
+            updateLst.Add(new DbSearchObject("Rate", AtrrTypeItem.String, AttrSymbolItem.Equal, ((TextBox)e.Item.Cells[2].FindControl("tbRate")).Text));
             updateLst.Add(new DbSearchObject("UpdateAccId", AtrrTypeItem.String, AttrSymbolItem.Equal, ((DataRow)Session["AccountInfo"])["Id"].ToString()));
             updateLst.Add(new DbSearchObject("UpdateTime", AtrrTypeItem.String, AttrSymbolItem.Equal, DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss")));
             try
@@ -184,6 +184,24 @@ namespace TheWeWebSite.SysMgt
         {
             labelWarnStr.Text = msg;
             labelWarnStr.Visible = !string.IsNullOrEmpty(msg);
+        }
+
+        protected void dgCurrency_ItemDataBound(object sender, DataGridItemEventArgs e)
+        {
+            DataRowView dataItem1 = (DataRowView)e.Item.DataItem;
+            if (dataItem1 != null)
+            {
+                if (e.Item.ItemType == ListItemType.EditItem)
+                {
+                    TextBox text = (TextBox)e.Item.FindControl("tbRate");
+                    text.Text = SysProperty.Util.ParseMoney(dataItem1["Rate"].ToString()).ToString("#0.00");
+                }
+                else
+                {
+                    Label label = (Label)e.Item.FindControl("labelRate");
+                    label.Text = SysProperty.Util.ParseMoney(dataItem1["Rate"].ToString()).ToString("#0.00");
+                }
+            }
         }
     }
 }

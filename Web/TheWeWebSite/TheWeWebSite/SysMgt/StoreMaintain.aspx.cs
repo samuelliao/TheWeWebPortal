@@ -21,8 +21,6 @@ namespace TheWeWebSite.SysMgt
                 {
                     SysProperty.DataSetSortType = true;
                     labelPageTitle.Text = Resources.Resource.SysMgtString + " > " + Resources.Resource.StoreString;
-                    labelPageTitle.Text = string.Empty;
-                    labelPageTitle.Visible = false;
                     InitialLangList();
                     InitialCountryList();
                     InitialAreaList(string.Empty);

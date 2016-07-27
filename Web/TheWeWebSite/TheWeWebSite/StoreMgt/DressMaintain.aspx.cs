@@ -42,6 +42,9 @@ namespace TheWeWebSite.StoreMgt
             ShoulderList();
             StatusCodeList();
             UseStatusList();
+            ColorList();
+            MaterialList();
+            GenderList();
         }
         
         #region DropDownList Control
@@ -216,39 +219,19 @@ namespace TheWeWebSite.StoreMgt
             DataRowView dataItem1 = (DataRowView)e.Item.DataItem;
             if (dataItem1 != null)
             {
-                LinkButton hyperLink1 = (LinkButton)e.Item.FindControl("linkConsult");
-                hyperLink1.Text = dataItem1["ConsultSn"].ToString();
-                hyperLink1.CommandArgument = dataItem1["ConsultId"].ToString();
+                ((Label)e.Item.FindControl("labelCategory")).Text = ddlDressCategory.Items.FindByValue(dataItem1["Category"].ToString()).Text;
+                ((Label)e.Item.FindControl("labelType")).Text = ddlDressType.Items.FindByValue(dataItem1["Type"].ToString()).Text;
+                ((Label)e.Item.FindControl("labelNeckline")).Text = ddlNeckLine.Items.FindByValue(dataItem1["Neckline"].ToString()).Text;
+                ((Label)e.Item.FindControl("labelDressBack")).Text = ddlBack.Items.FindByValue(dataItem1["Back"].ToString()).Text;
+                ((Label)e.Item.FindControl("labelShoulder")).Text = ddlShoulder.Items.FindByValue(dataItem1["Shoulder"].ToString()).Text;
+                ((Label)e.Item.FindControl("labelWorn")).Text = ddlWorn.Items.FindByValue(dataItem1["Worn"].ToString()).Text;
 
-                LinkButton hyperLink3 = (LinkButton)e.Item.FindControl("linkCustomerName");
-                hyperLink3.Text = dataItem1["CustomerName"].ToString();
-                hyperLink3.CommandArgument = dataItem1["CustomerId"].ToString();
-
-                Label label4 = (Label)e.Item.FindControl("labelStatus");
-                label4.Text = SysProperty.Util.OutputRelatedLangName(Session["CultureCode"].ToString()
-                    , dataItem1["StatusName"].ToString()
-                    , dataItem1["StatusCnName"].ToString()
-                    , dataItem1["StatusEngName"].ToString()
-                    , dataItem1["StatusJpName"].ToString());
-
-                ((Label)e.Item.FindControl("labelCountry")).Text = SysProperty.Util.OutputRelatedLangName(Session["CultureCode"].ToString()
-                    , SysProperty.GetCountryById(dataItem1["CountryId"].ToString()));
-                ((Label)e.Item.FindControl("labelArea")).Text = SysProperty.Util.OutputRelatedLangName(Session["CultureCode"].ToString()
-                    , SysProperty.GetAreaById(dataItem1["AreaId"].ToString()));
-                ((Label)e.Item.FindControl("labelLocation")).Text = SysProperty.Util.OutputRelatedLangName(Session["CultureCode"].ToString()
-                    , SysProperty.GetChurchById(dataItem1["ChurchId"].ToString()));
-
-                ((Label)e.Item.FindControl("labelSet")).Text = SysProperty.Util.OutputRelatedLangName(Session["CultureCode"].ToString()
-                    , dataItem1["SetName"].ToString()
-                    , dataItem1["SetCnName"].ToString()
-                    , dataItem1["SetEngName"].ToString()
-                    , dataItem1["SetJpName"].ToString());
             }
         }
         protected void dataGrid_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Session["OrderId"] = dataGrid.DataKeys[dataGrid.SelectedIndex].ToString();
-            Response.Redirect("CaseMCreate.aspx");
+            Session["DressId"] = dataGrid.DataKeys[dataGrid.SelectedIndex].ToString();
+            Response.Redirect("DressMCreate.aspx");
         }
         protected void dataGrid_SortCommand(object source, DataGridSortCommandEventArgs e)
         {
@@ -256,7 +239,7 @@ namespace TheWeWebSite.StoreMgt
             {
                 GetDressList(
                     ((DataRow)Session["LocateStore"]) == null ? string.Empty : ((DataRow)Session["LocateStore"])["Id"].ToString()
-                    , OtherConditionString + " Order by c." + e.SortExpression + " " + SysProperty.Util.GetSortDirection(e.SortExpression));
+                    , OtherConditionString + " Order by " + e.SortExpression + " " + SysProperty.Util.GetSortDirection(e.SortExpression));
             }
             if (DS != null)
             {
@@ -324,7 +307,7 @@ namespace TheWeWebSite.StoreMgt
         private void GetDressList(string storeId, string condStr)
         {
             string sqlTxt = "Select * From Dress Where IsDelete=0 "
-                + (string.IsNullOrEmpty(storeId) ? string.Empty : " And o.StoreId='" + storeId + "' ")
+                + (string.IsNullOrEmpty(storeId) ? string.Empty : " And StoreId='" + storeId + "' ")
                 + condStr;
             DS = (DataSet)GetDataSetFromTable(sqlTxt);
         }

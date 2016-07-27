@@ -65,19 +65,35 @@ namespace TheWeWebSite.StoreMgt
             TrailingList();
             CorsageList();
             GenderList();
+            DressBackList();
         }
 
         #region DropDownList Control
+        private void DressBackList()
+        {
+            ddlBack.Items.Clear();
+            ddlBack.Items.Add(new ListItem(Resources.Resource.SeletionRemindString, string.Empty));
+            string sql = "Select * From DressBack Where IsDelete = 0";
+            DataSet ds = GetDataSetFromTable(sql);
+            if (SysProperty.Util.IsDataSetEmpty(ds)) return;
+            foreach (DataRow dr in ds.Tables[0].Rows)
+            {
+                ddlBack.Items.Add(new ListItem(
+                    SysProperty.Util.OutputRelatedLangName(Session["CultureCode"].ToString(), dr)
+                    , dr["Id"].ToString()
+                    ));
+            }
+        }
         private void VeilList()
         {
-            ddlDressType.Items.Clear();
-            ddlDressType.Items.Add(new ListItem(Resources.Resource.SeletionRemindString, string.Empty));
+            ddlVeil.Items.Clear();
+            ddlVeil.Items.Add(new ListItem(Resources.Resource.SeletionRemindString, string.Empty));
             string sql = "Select * From DressVeil where IsDelete = 0";
             DataSet ds = GetDataSetFromTable(sql);
             if (SysProperty.Util.IsDataSetEmpty(ds)) return;
             foreach (DataRow dr in ds.Tables[0].Rows)
             {
-                ddlDressType.Items.Add(new ListItem(
+                ddlVeil.Items.Add(new ListItem(
                     dr["Sn"].ToString()
                     , dr["Id"].ToString()
                     ));
@@ -117,7 +133,7 @@ namespace TheWeWebSite.StoreMgt
         {
             ddlGloves.Items.Clear();
             ddlGloves.Items.Add(new ListItem(Resources.Resource.SeletionRemindString, string.Empty));
-            string sql = "Select * From DressCategory where IsDelete = 0 And Type='Dress'";
+            string sql = "Select * From DressGloves where IsDelete = 0";
             DataSet ds = GetDataSetFromTable(sql);
             if (SysProperty.Util.IsDataSetEmpty(ds)) return;
             foreach (DataRow dr in ds.Tables[0].Rows)
@@ -252,13 +268,18 @@ namespace TheWeWebSite.StoreMgt
         {
             ddlGender.Items.Clear();
             ddlGender.Items.Add(new ListItem(Resources.Resource.FemaleString, "0"));
-            ddlGender.Items.Add(new ListItem(Resources.Resource.MainPageString, "1"));
+            ddlGender.Items.Add(new ListItem(Resources.Resource.MaleString, "1"));
         }
         #endregion
 
         #region Button Control
         protected void btnCreate_Click(object sender, EventArgs e)
         {
+            if (SysProperty.GenDbCon.IsSnDuplicate(SysProperty.Util.MsSqlTableConverter(MsSqlTable.Dress), tbSn.Text))
+            {
+                ShowErrorMsg(Resources.Resource.SnDuplicateErrorString);
+                return;
+            }
             bool result = WriteBackInfo(true, DressInfoDbObject(), string.Empty);
             if (result)
             {
@@ -267,9 +288,9 @@ namespace TheWeWebSite.StoreMgt
         }
 
         protected void btnModify_Click(object sender, EventArgs e)
-        {
+        {            
             if (Session["DressId"] == null) return;
-            bool result = WriteBackInfo(true, DressInfoDbObject(), Session["DressId"].ToString());
+            bool result = WriteBackInfo(false, DressInfoDbObject(), Session["DressId"].ToString());
             if (result)
             {
                 TransferToOtherPage();
@@ -283,6 +304,7 @@ namespace TheWeWebSite.StoreMgt
             tbCustomPrice.Text = string.Empty;
             tbMaterial.Text = string.Empty;
             tbOthers.Text = string.Empty;
+            tbFitting.Text = string.Empty;
             tbOutPhotoPrice.Text = string.Empty;
             tbPlusItemPrice.Text = string.Empty;
             tbPrice.Text = string.Empty;
@@ -380,14 +402,13 @@ namespace TheWeWebSite.StoreMgt
             if (SysProperty.Util.IsDataSetEmpty(ds)) return;
             DataRow dr = ds.Tables[0].Rows[0];
             tbColor.Text = dr["Color"].ToString();
-            tbCost.Text = dr["Cost"].ToString();
-            tbCustomPrice.Text = dr["CustomPrice"].ToString();
+            tbCost.Text = SysProperty.Util.ParseMoney(dr["Cost"].ToString()).ToString("#0.00");
+            tbCustomPrice.Text = SysProperty.Util.ParseMoney(dr["CustomPrice"].ToString()).ToString("#0.00");
             tbMaterial.Text = dr["Material"].ToString();
-            tbOthers.Text = dr["Description"].ToString();
-            tbOutPhotoPrice.Text = dr["OutdoorPlusPrice"].ToString();
-            tbPlusItemPrice.Text = dr["PlusItemPlrice"].ToString();
-            tbPrice.Text = dr["SellsPrice"].ToString();
-            tbRentPrice.Text = dr["RentPrice"].ToString();
+            tbOthers.Text = dr["Description"].ToString();            
+            tbPrice.Text = SysProperty.Util.ParseMoney(dr["SellsPrice"].ToString()).ToString("#0.00");
+            tbRentPrice.Text = SysProperty.Util.ParseMoney(dr["RentPrice"].ToString()).ToString("#0.00");
+            tbFitting.Text = dr["Fitting"].ToString();
             tbSn.Text = dr["Sn"].ToString();
             ddlBack.SelectedValue = dr["Back"].ToString();
             ddlCorsage.SelectedValue = dr["Corsage"].ToString();
@@ -407,6 +428,22 @@ namespace TheWeWebSite.StoreMgt
             cbDomesticWedding.Checked = bool.Parse(dr["DomesticWedding"].ToString());
             cbOutPhoto.Checked = bool.Parse(dr["OutPicture"].ToString());
             cbPlusItem.Checked = bool.Parse(dr["AddPrice"].ToString());
+            if (cbPlusItem.Checked)
+            {
+                tbPlusItemPrice.Text = SysProperty.Util.ParseMoney(dr["PlusItemPlrice"].ToString()).ToString("#0.00");
+            }
+            else
+            {
+                tbPlusItemPrice.Text = string.Empty;
+            }
+            if (cbOutPhoto.Checked)
+            {
+                tbOutPhotoPrice.Text = SysProperty.Util.ParseMoney(dr["OutdoorPlusPrice"].ToString()).ToString("#0.00");
+            }
+            else
+            {
+                tbOutPhotoPrice.Text = string.Empty;
+            }            
         }
 
         private List<DbSearchObject> DressInfoDbObject()
@@ -419,13 +456,19 @@ namespace TheWeWebSite.StoreMgt
                 , tbColor.Text
                 ));
             lst.Add(new DbSearchObject(
+                "Fitting"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , tbFitting.Text
+                ));
+            lst.Add(new DbSearchObject(
                 "Cost"
                 , AtrrTypeItem.String
                 , AttrSymbolItem.Equal
                 , tbCost.Text
                 ));
             lst.Add(new DbSearchObject(
-                "CustomerPrice"
+                "CustomPrice"
                 , AtrrTypeItem.String
                 , AttrSymbolItem.Equal
                 , tbCustomPrice.Text
@@ -440,14 +483,26 @@ namespace TheWeWebSite.StoreMgt
                 "Description"
                 , AtrrTypeItem.String
                 , AttrSymbolItem.Equal
-                , tbCost.Text
+                , tbOthers.Text
                 ));
-            lst.Add(new DbSearchObject(
-                "OutdoorPlusPrice"
-                , AtrrTypeItem.String
-                , AttrSymbolItem.Equal
-                , tbOutPhotoPrice.Text
-                ));
+            if (cbOutPhoto.Checked)
+            {
+                lst.Add(new DbSearchObject(
+                    "OutdoorPlusPrice"
+                    , AtrrTypeItem.String
+                    , AttrSymbolItem.Equal
+                    , tbOutPhotoPrice.Text
+                    ));
+            }
+            if (cbPlusItem.Checked)
+            {
+                lst.Add(new DbSearchObject(
+                    "PlusItemPlrice"
+                    , AtrrTypeItem.String
+                    , AttrSymbolItem.Equal
+                    , tbPlusItemPrice.Text
+                    ));
+            }
             lst.Add(new DbSearchObject(
                 "SellsPrice"
                 , AtrrTypeItem.String
@@ -616,6 +671,19 @@ namespace TheWeWebSite.StoreMgt
                 , AttrSymbolItem.Equal
                 , cbPlusItem.Checked ? "1" : "0"
                 ));
+
+            lst.Add(new DbSearchObject(
+                "UpdateAccId"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , ((DataRow)Session["AccountInfo"])["Id"].ToString()
+                ));
+            lst.Add(new DbSearchObject(
+                "StoreId"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , ((DataRow)Session["LocateStore"])["Id"].ToString()
+                ));
             return lst;
         }
 
@@ -638,6 +706,16 @@ namespace TheWeWebSite.StoreMgt
                 ShowErrorMsg(ex.Message);
                 return false;
             }
+        }
+
+        protected void cbOutPhoto_CheckedChanged(object sender, EventArgs e)
+        {
+            tbOutPhotoPrice.Enabled = ((CheckBox)sender).Checked;
+        }
+
+        protected void cbPlusItem_CheckedChanged(object sender, EventArgs e)
+        {
+            tbPlusItemPrice.Enabled = ((CheckBox)sender).Checked;
         }
     }
 }

@@ -1,6 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ItemMCreate.aspx.cs" Inherits="TheWeWebSite.StoreMgt.ItemMCreate" %>
-
-<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
+<%@ Register TagPrefix="My" TagName="Header" Src="~/Header.ascx" %>
 
 <!DOCTYPE html>
 
@@ -16,7 +15,7 @@
     <form runat="server">
 
         <!-- Main -->
-
+        <My:Header runat="server" ID="ucHeader" />
         <section class="box title">
             <h3>
                 <asp:Label runat="server" Text="" ID="labelPageTitle"></asp:Label></h3>
@@ -33,7 +32,7 @@
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,SnString%>"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server" placeholder="" ID="tbSn"></asp:TextBox>
+                            <asp:TextBox runat="server"  ID="tbSn"></asp:TextBox>
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
@@ -110,13 +109,13 @@
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,BridalMakeupString%>"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server" placeholder="" ID="tbBridalHairStyle"></asp:TextBox>
+                            <asp:TextBox runat="server"  ID="tbBridalHairStyle"></asp:TextBox>
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,GroomMakeupString%>"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server" placeholder="" ID="tbGroomHairStyle"></asp:TextBox>
+                            <asp:TextBox runat="server"  ID="tbGroomHairStyle"></asp:TextBox>
                         </div>
                     </div>
                 </div>
@@ -126,38 +125,42 @@
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,FilmingTimeString%>"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server" placeholder="" ID="tbFilmTime"></asp:TextBox>
+                            <asp:TextBox runat="server"  ID="tbFilmTime" style="text-align:right"></asp:TextBox>
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,FilmingLocationString%>"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server" placeholder="" ID="tbFilmLocation"></asp:TextBox>
+                            <asp:TextBox runat="server"  ID="tbFilmLocation"></asp:TextBox>
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,TransportationString%>"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server" placeholder="" ID="tbMovemont"></asp:TextBox>
+                            <asp:TextBox runat="server"  ID="tbMovemont"></asp:TextBox>
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,PhotoNumberString%>"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server" placeholder="" ID="tbPhotoNumber"></asp:TextBox>
+                            <asp:TextBox runat="server"  ID="tbPhotoNumber" style="text-align:right"></asp:TextBox>
+                            <asp:RegularExpressionValidator ID="RegularExpressionValidator1" ControlToValidate="tbPhotoNumber" runat="server"
+                                 ErrorMessage="Only Numbers allowed" ValidationExpression="\d"></asp:RegularExpressionValidator>
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,StayNightString%>"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server" placeholder="" ID="tbStay"></asp:TextBox>
+                            <asp:TextBox runat="server"  ID="tbStay" style="text-align:right"></asp:TextBox>
+                            <asp:RegularExpressionValidator ID="RegularExpressionValidator2" ControlToValidate="tbStay" runat="server"
+                                 ErrorMessage="Only Numbers allowed" ValidationExpression="\d"></asp:RegularExpressionValidator>
                         </div>
 
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,RoomTypeString%>"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server" placeholder="" ID="tbRoom"></asp:TextBox>
+                            <asp:TextBox runat="server"  ID="tbRoom"></asp:TextBox>
                         </div>
                     </div>
                 </div>
@@ -167,7 +170,7 @@
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,BouquetCorsageString%>"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server" placeholder="" ID="tbCorsage"></asp:TextBox>
+                            <asp:TextBox runat="server"  ID="tbCorsage"></asp:TextBox>
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
@@ -179,19 +182,21 @@
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,ChurchArrangementsString%>"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server" placeholder="" ID="tbDecorate"></asp:TextBox>
+                            <asp:TextBox runat="server" ID="tbDecorate"></asp:TextBox>
                         </div>
                         <div class="4u 12u(mobilep)">
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,WeddingPerformanceString%>"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server" placeholder="" ID="tbPerformence"></asp:TextBox>
+                            <asp:TextBox runat="server" ID="tbPerformence"></asp:TextBox>
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,CostString%>"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server" placeholder="" ID="tbCost"></asp:TextBox>
+                            <asp:TextBox runat="server" ID="tbCost" style="text-align:right"></asp:TextBox>
+                            <asp:RegularExpressionValidator ID="RegularExpressionValidator3" ControlToValidate="tbCost" runat="server" 
+                                ErrorMessage="Only Numbers allowed" ValidationExpression="\d+[.]*\d*"></asp:RegularExpressionValidator>
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
@@ -199,7 +204,9 @@
                             </div>
                             <asp:UpdatePanel runat="server">
                                 <ContentTemplate>
-                                    <asp:TextBox runat="server" placeholder="" ID="tbPrice"></asp:TextBox>
+                                    <asp:TextBox runat="server" ID="tbPrice" style="text-align:right"></asp:TextBox>
+                                    <asp:RegularExpressionValidator ID="RegularExpressionValidator4" ControlToValidate="tbPrice" runat="server" 
+                                        ErrorMessage="Only Numbers allowed" ValidationExpression="\d+[.]*\d*"></asp:RegularExpressionValidator>
                                 </ContentTemplate>
                             </asp:UpdatePanel>                            
                         </div>
@@ -275,12 +282,13 @@
                                         </asp:TemplateField>
                                         <asp:TemplateField HeaderText="<%$ Resources:Resource,NumberString%>">
                                             <ItemTemplate>
-                                                <asp:TextBox ID="tbNumber" runat="server"></asp:TextBox>
+                                                <asp:TextBox ID="tbNumber" style="text-align:right" runat="server"></asp:TextBox>
                                             </ItemTemplate>
                                         </asp:TemplateField>
                                         <asp:TemplateField HeaderText="<%$ Resources:Resource,PriceString%>">
                                             <ItemTemplate>
-                                                <asp:TextBox ID="tbPrice" runat="server" OnTextChanged="tbPrice_TextChanged" AutoPostBack="true"></asp:TextBox>
+                                                <asp:TextBox ID="tbPrice" runat="server" style="text-align:right"
+                                                    OnTextChanged="tbPrice_TextChanged" AutoPostBack="true"></asp:TextBox>
                                             </ItemTemplate>
                                             <FooterStyle HorizontalAlign="Right" />
                                             <FooterTemplate>

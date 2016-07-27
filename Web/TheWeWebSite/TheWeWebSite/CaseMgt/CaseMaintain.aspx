@@ -52,15 +52,15 @@
                                         <asp:Label runat="server" Text="開案日期選擇範圍(開始)" ID="labelContractSearchStartDate"></asp:Label>
                                     </div>
                                     <div>
-                                        <asp:TextBox runat="server" CssClass="dp" ID="tbContractSearchStartDate"></asp:TextBox>
+                                        <asp:TextBox runat="server" style="text-align:right" CssClass="dp" ID="tbContractSearchStartDate"></asp:TextBox>
                                     </div>
                                 </div>
                                 <div class="2u 12u(mobilep)">
                                     <div class="Div">
-                                        <asp:Label runat="server" Text="開案日期選擇範圍(結束)" ID="labelContractSearchEndDate"></asp:Label>
+                                        <asp:Label runat="server"  Text="開案日期選擇範圍(結束)" ID="labelContractSearchEndDate"></asp:Label>
                                     </div>
                                     <div>
-                                        <asp:TextBox runat="server" CssClass="dp" ID="tbContractSearchEndDate"></asp:TextBox>
+                                        <asp:TextBox runat="server" CssClass="dp" style="text-align:right" ID="tbContractSearchEndDate"></asp:TextBox>
                                     </div>
                                 </div>
                                 <div class="2u 12u(mobilep)">
@@ -68,7 +68,7 @@
                                         <asp:Label runat="server" Text="結案日期選擇範圍(開始)" ID="labelClosedSearchStartDate"></asp:Label>
                                     </div>
                                     <div>
-                                        <asp:TextBox runat="server" CssClass="dp" ID="tbCloseSearchStartDate"></asp:TextBox>
+                                        <asp:TextBox runat="server" style="text-align:right" CssClass="dp" ID="tbCloseSearchStartDate"></asp:TextBox>
                                     </div>
                                 </div>
                                 <div class="2u 12u(mobilep)">
@@ -76,7 +76,7 @@
                                         <asp:Label runat="server" Text="結案日期選擇範圍(結束)" ID="labelClosedSearchEndDate"></asp:Label>
                                     </div>
                                     <div>
-                                        <asp:TextBox runat="server" CssClass="dp" ID="tbCloseSearchEndDate"></asp:TextBox>
+                                        <asp:TextBox runat="server" CssClass="dp" style="text-align:right" ID="tbCloseSearchEndDate"></asp:TextBox>
                                     </div>
                                 </div>
 
@@ -90,13 +90,13 @@
                                     <div class="Div">
                                         <asp:Label runat="server" Text="<%$ Resources:Resource,BridalNameString%>"></asp:Label>
                                     </div>
-                                    <asp:TextBox runat="server" placeholder="" ID="tbBridalName"></asp:TextBox>
+                                    <asp:TextBox runat="server"  ID="tbBridalName"></asp:TextBox>
                                 </div>
                                 <div class="2u 12u(mobilep)">
                                     <div class="Div">
                                         <asp:Label runat="server" Text="<%$ Resources:Resource,GroomNameString%>"></asp:Label>
                                     </div>
-                                    <asp:TextBox runat="server" placeholder="" ID="tbGroomName"></asp:TextBox>
+                                    <asp:TextBox runat="server"  ID="tbGroomName"></asp:TextBox>
                                 </div>
                                 <div class="2u 12u(mobilep)">
                                     <div class="Div">

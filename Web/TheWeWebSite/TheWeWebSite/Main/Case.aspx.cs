@@ -36,7 +36,7 @@ namespace TheWeWebSite.Main
             if (DS == null)
             {
                 string storeId = ((DataRow)Session["LocateStore"]) == null ? string.Empty : ((DataRow)Session["LocateStore"])["Id"].ToString();
-                GetCaseList(storeId, "Order by c." + e.SortExpression + " " + SysProperty.Util.GetSortDirection(e.SortExpression));
+                GetCaseList(storeId, "Order by o." + e.SortExpression + " " + SysProperty.Util.GetSortDirection(e.SortExpression));
             }
             if (DS != null)
             {
@@ -60,7 +60,7 @@ namespace TheWeWebSite.Main
 
                 LinkButton hyperLink3 = (LinkButton)e.Item.FindControl("linkCustomerName");
                 hyperLink3.Text = dataItem1["CustomerName"].ToString();
-                hyperLink3.CommandArgument= dataItem1["CustomerId"].ToString();
+                hyperLink3.CommandArgument = dataItem1["CustomerId"].ToString();
 
 
                 ((Label)e.Item.FindControl("labelPartnerName")).Text = dataItem1["PartnerName"].ToString();
@@ -75,7 +75,8 @@ namespace TheWeWebSite.Main
 
                 ((Label)e.Item.FindControl("labelLocation")).Text = SysProperty.Util.OutputRelatedLangName(Session["CultureCode"].ToString()
                     , SysProperty.GetChurchById(dataItem1["ChurchId"].ToString()))
-                    + "(" + SysProperty.GetCountryById(dataItem1["CountryId"].ToString()) + ")";
+                    + "(" + (SysProperty.Util.OutputRelatedLangName(Session["CultureCode"].ToString(),
+                    SysProperty.GetCountryById(dataItem1["CountryId"].ToString()))) + ")";
 
                 ((Label)e.Item.FindControl("labelSet")).Text = SysProperty.Util.OutputRelatedLangName(Session["CultureCode"].ToString()
                     , dataItem1["SetName"].ToString()

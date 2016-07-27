@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ChurchMCreate.aspx.cs" Inherits="TheWeWebSite.StoreMgt.ChurchMCreate" %>
-
+<%@ Register TagPrefix="My" TagName="Header" Src="~/Header.ascx" %>
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -13,6 +13,7 @@
     <form runat="server">
 
         <!-- Main -->
+        <My:Header runat="server" ID="ucHeader" />
 
         <section class="box title">
             <h3>
@@ -23,6 +24,7 @@
         <section class="insert">
             <asp:ScriptManager runat="server"></asp:ScriptManager>
             <div>
+                <asp:Label runat="server" ID="labelWarnString" ForeColor="Red" Visible="false" />
                 <div class="12u">
                     <div class="row uniform 50%">
                         <div class="2u 12u(mobilep)">
@@ -80,7 +82,8 @@
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,CapacitiesString%>"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server" placeholder="" ID="tbCapacities"></asp:TextBox>
+                            <asp:TextBox runat="server" style="text-align:right" ID="tbCapacities"></asp:TextBox>
+                            <asp:RegularExpressionValidator ID="RegularExpressionValidator1" ControlToValidate="tbCapacities" runat="server" ErrorMessage="Only Numbers allowed" ValidationExpression="\d"></asp:RegularExpressionValidator>
                         </div>
                     </div>
                 </div>
@@ -92,25 +95,28 @@
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,RedCarpetLengthString%>"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server" placeholder="" ID="tbRedCarpetLength"></asp:TextBox>
+                            <asp:TextBox runat="server" style="text-align:right" ID="tbRedCarpetLength"></asp:TextBox>
+                            <asp:RegularExpressionValidator ID="RegularExpressionValidator2" ControlToValidate="tbRedCarpetLength" runat="server" ErrorMessage="Only Numbers allowed" ValidationExpression="\d"></asp:RegularExpressionValidator>
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,RedCarpetTypeString%>"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server" placeholder="" ID="tbRedCarpetType"></asp:TextBox>
+                            <asp:TextBox runat="server"  ID="tbRedCarpetType"></asp:TextBox>
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,PatioHeightString%>"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server" placeholder="" ID="tbPatioHeight"></asp:TextBox>
+                            <asp:TextBox runat="server" style="text-align:right" ID="tbPatioHeight"></asp:TextBox>
+                            <asp:RegularExpressionValidator ID="RegularExpressionValidator3" ControlToValidate="tb{atioHeight" runat="server" ErrorMessage="Only Numbers allowed" ValidationExpression="\d"></asp:RegularExpressionValidator>
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,PriceString%>"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server" placeholder="" ID="tbPrice"></asp:TextBox>
+                            <asp:TextBox runat="server" style="text-align:right" ID="tbPrice"></asp:TextBox>
+                            <asp:RegularExpressionValidator ID="RegularExpressionValidator4" ControlToValidate="tbPrice" runat="server" ErrorMessage="Only Numbers allowed" ValidationExpression="\d+[.]*\d*"></asp:RegularExpressionValidator>
                         </div>
                     </div>
                 </div>
@@ -130,12 +136,7 @@
                                             <Columns>
                                                 <asp:TemplateField HeaderText="<%$ Resources:Resource,StartString%>">
                                                     <ItemTemplate>
-                                                        <asp:TextBox ID="tbStart" runat="server"></asp:TextBox>
-                                                    </ItemTemplate>
-                                                </asp:TemplateField>
-                                                <asp:TemplateField HeaderText="<%$ Resources:Resource,EndString%>">
-                                                    <ItemTemplate>
-                                                        <asp:TextBox ID="tbEnd" runat="server"></asp:TextBox>
+                                                        <asp:TextBox ID="tbStart" style="text-align:right" runat="server"></asp:TextBox>
                                                     </ItemTemplate>
                                                     <FooterStyle HorizontalAlign="Right" />
                                                     <FooterTemplate>
@@ -165,7 +166,7 @@
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,ServiceAndPriceDescriptionString%>"></asp:Label>
                             </div>
                             <div style="overflow-y: auto; height: 200px">
-                                <asp:TextBox runat="server" placeholder="" ID="tbMealDescription" TextMode="MultiLine"></asp:TextBox>
+                                <asp:TextBox runat="server"  ID="tbMealDescription" TextMode="MultiLine"></asp:TextBox>
                             </div>
                         </div>
                         <div class="4u 12u(mobilep)">
@@ -173,7 +174,7 @@
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,RemarkString%>"></asp:Label>
                             </div>
                             <div style="overflow-y: auto; height: 200px">
-                                <asp:TextBox runat="server" placeholder="" TextMode="MultiLine" ID="tbRemark"></asp:TextBox>
+                                <asp:TextBox runat="server"  TextMode="MultiLine" ID="tbRemark"></asp:TextBox>
                             </div>
                         </div>
                     </div>
@@ -232,7 +233,6 @@
 
             </div>
             <!-- Btn -->
-            <asp:Label runat="server" ID="labelWarnString" ForeColor="Red" Visible="false" />
             <div class="Div btn">
                 <ul class="actions">
 

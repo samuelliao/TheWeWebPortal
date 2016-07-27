@@ -31,6 +31,24 @@ namespace TheWeWebSite.SysMgt {
         protected global::System.Web.UI.WebControls.Label labelPageTitle;
         
         /// <summary>
+        /// labelWarnString 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label labelWarnString;
+        
+        /// <summary>
+        /// ddlStore 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlStore;
+        
+        /// <summary>
         /// tbAccount 控制項。
         /// </summary>
         /// <remarks>
@@ -58,15 +76,6 @@ namespace TheWeWebSite.SysMgt {
         protected global::System.Web.UI.WebControls.TextBox tbPwdConfirm;
         
         /// <summary>
-        /// tbEmployeeSn 控制項。
-        /// </summary>
-        /// <remarks>
-        /// 自動產生的欄位。
-        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbEmployeeSn;
-        
-        /// <summary>
         /// cbIsValid 控制項。
         /// </summary>
         /// <remarks>
@@ -76,12 +85,39 @@ namespace TheWeWebSite.SysMgt {
         protected global::System.Web.UI.WebControls.CheckBox cbIsValid;
         
         /// <summary>
-        /// LinkCaseMCreate 控制項。
+        /// btnCreate 控制項。
         /// </summary>
         /// <remarks>
         /// 自動產生的欄位。
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button LinkCaseMCreate;
+        protected global::System.Web.UI.WebControls.Button btnCreate;
+        
+        /// <summary>
+        /// btnModify 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnModify;
+        
+        /// <summary>
+        /// btnSearch 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnSearch;
+        
+        /// <summary>
+        /// dataGrid 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DataGrid dataGrid;
     }
 }

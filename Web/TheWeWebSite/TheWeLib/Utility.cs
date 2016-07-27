@@ -33,8 +33,7 @@ namespace TheWeLib
             switch (type)
             {
                 case "Time":
-                    time = result ? dt.ToString("HH:mm:ss") : string.Empty;
-                    break;
+                    return result ? dt.ToString("HH:mm") : string.Empty;
                 case "Date":
                     time = result ? dt.ToString("yyyy/MM/dd") : string.Empty;
                     break;

@@ -261,6 +261,7 @@ namespace TheWeWebSite.StoreMgt
                     , dataItem1["TypeCnName"].ToString()
                     , dataItem1["TypeEngName"].ToString()
                     , dataItem1["TypeJpName"].ToString());
+                ((Label)e.Item.FindControl("dgLabelPrice")).Text = SysProperty.Util.ParseMoney(dataItem1["Price"].ToString()).ToString("#0.00");
             }
         }
 

@@ -38,7 +38,7 @@
                                 <div class="Div">
                                     <asp:Label runat="server" Text="<%$ Resources:Resource,SnString%>"></asp:Label>
                                 </div>
-                                <asp:TextBox runat="server" ID="tbSn" placeholder=""></asp:TextBox>
+                                <asp:TextBox runat="server" ID="tbSn" ></asp:TextBox>
                             </div>
                             <div class="2u 12u(mobilep)">
                                     <div class="Div">
@@ -137,7 +137,11 @@
                                                 <asp:Label runat="server" ID="labelLocation" />
                                             </ItemTemplate>
                                         </asp:TemplateColumn>
-                                        <asp:BoundColumn HeaderText="<%$ Resources:Resource,PriceString%>" DataField="Price" SortExpression="Price" />
+                                        <asp:TemplateColumn HeaderText="<%$ Resources:Resource,PriceString%>" SortExpression="Price" >
+                                            <ItemTemplate>
+                                                <asp:Label runat="server" ID="dgLabelPrice" />
+                                            </ItemTemplate>
+                                        </asp:TemplateColumn>
                                         <asp:ButtonColumn CommandName="Delete"
                                             HeaderText="<%$ Resources:Resource,DeleteString%>"
                                             Text="<%$ Resources:Resource,DeleteString%>" />

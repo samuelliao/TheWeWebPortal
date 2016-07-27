@@ -80,7 +80,7 @@
                                     <div class="Div">
                                         <asp:Label runat="server" Text="<%$ Resources:Resource,MsgIdString%>"></asp:Label>
                                     </div>
-                                    <asp:TextBox runat="server" placeholder="" ID="tbMsgId"></asp:TextBox>
+                                    <asp:TextBox runat="server"  ID="tbMsgId"></asp:TextBox>
                                 </div>
                                 <div class="2u 12u(mobilep)">
                                     <div class="Div">

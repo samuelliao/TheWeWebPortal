@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="CustomerMCreate.aspx.cs" Inherits="TheWeWebSite.CaseMgt.CustomerMCreate" %>
-
+<%@ Register TagPrefix="My" TagName="Header" Src="~/Header.ascx" %>
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -14,6 +14,7 @@
     <form runat="server">
 
         <!-- Main -->
+        <My:Header runat="server" ID="ucHeader" />
 
         <section class="box title">
             <h3>
@@ -23,6 +24,7 @@
         <!-- Input -->
         <section class="insert">
             <div>
+                <asp:Label runat="server" ID="labelWarnString" ForeColor="Red" Visible="false" />
                 <div class="12u">
 
                     <div class="row uniform 50%">
@@ -49,7 +51,7 @@
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,BdayString%>"></asp:Label>
                             </div>
                             <div>
-                                <asp:TextBox runat="server" CssClass="dp" ID="tbBday"></asp:TextBox>
+                                <asp:TextBox runat="server" CssClass="dp" style="text-align:right" ID="tbBday"></asp:TextBox>
                             </div>
                         </div>
                         <div class="2u 12u(mobilep)">
@@ -73,7 +75,7 @@
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,MsgIdString%>"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server" placeholder="" ID="tbMsgId"></asp:TextBox>
+                            <asp:TextBox runat="server"  ID="tbMsgId"></asp:TextBox>
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
@@ -117,7 +119,6 @@
 
             <!-- Btn -->
             <div class="Div btn">
-                <asp:Label runat="server" Text="aaaaa" Visible="false" ForeColor="Red" ID="labelWarnMsg" />
                 <ul class="actions">
                     <li>
                         <asp:Button runat="server" Text="<%$ Resources:Resource,CreateString%>"
