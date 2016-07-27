@@ -46,7 +46,8 @@
                                         <asp:Label runat="server" Text="<%$ Resources:Resource,CurrencyRateString%>"></asp:Label>
                                     </div>
                                     <asp:TextBox runat="server" placeholder="<%$ Resources:Resource,CurrencyRateInputString%>" ID="tbRate" style="text-align:right" />
-                                    <asp:RegularExpressionValidator ID="RegularExpressionValidator1" ControlToValidate="tbRate" runat="server" ErrorMessage="Only Numbers allowed" ValidationExpression="\d+[.]*\d*"></asp:RegularExpressionValidator>
+                                    <asp:RegularExpressionValidator ID="RegularExpressionValidator1" ControlToValidate="tbRate"
+                                         runat="server" ErrorMessage="Only Numbers allowed" ValidationExpression="\d+[.]*\d*"></asp:RegularExpressionValidator>
                                 </div>
 
                                 <!-- Btn -->

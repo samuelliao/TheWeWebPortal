@@ -843,4 +843,46 @@
   <data name="BigSizeString" xml:space="preserve">
     <value>大尺碼</value>
   </data>
+  <data name="FittingMaintainString" xml:space="preserve">
+    <value>飾品管理</value>
+  </data>
+  <data name="RentPriceString" xml:space="preserve">
+    <value>租用價格</value>
+  </data>
+  <data name="SellingPriceString" xml:space="preserve">
+    <value>銷售價格</value>
+  </data>
+  <data name="LenghtString" xml:space="preserve">
+    <value>長度</value>
+  </data>
+  <data name="Lacestring" xml:space="preserve">
+    <value>花邊</value>
+  </data>
+  <data name="ShortString" xml:space="preserve">
+    <value>短</value>
+  </data>
+  <data name="ExtraShortString" xml:space="preserve">
+    <value>超短</value>
+  </data>
+  <data name="LongString" xml:space="preserve">
+    <value>長</value>
+  </data>
+  <data name="ExtraLongString" xml:space="preserve">
+    <value>超長</value>
+  </data>
+  <data name="MediumString" xml:space="preserve">
+    <value>中</value>
+  </data>
+  <data name="OptionalPriceString" xml:space="preserve">
+    <value>加選價格</value>
+  </data>
+  <data name="LengthString" xml:space="preserve">
+    <value>長度</value>
+  </data>
+  <data name="EarClipString" xml:space="preserve">
+    <value>耳夾</value>
+  </data>
+  <data name="EarPiercingString" xml:space="preserve">
+    <value>耳洞</value>
+  </data>
 </root>

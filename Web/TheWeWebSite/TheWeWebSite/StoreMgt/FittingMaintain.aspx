@@ -25,7 +25,7 @@
                 <!-- Text -->
                 <section class="box title">
                     <h3>
-                        <asp:Label runat="server" Text="開店管理&nbsp;&nbsp;>&nbsp;&nbsp;配件資料庫(待修改)"></asp:Label></h3>
+                        <asp:Label runat="server" Text="" ID="labelPageTitle"></asp:Label></h3>
                 </section>
 
                 <!-- Input -->
@@ -33,111 +33,112 @@
                 <section class="box special">
                     <div>
                         <div class="12u">
-
                             <div class="row uniform 50%">
                                 <div class="2u 12u(mobilep)">
                                     <div class="Div">
-                                        <asp:Label runat="server" Text="配件編號"></asp:Label>
+                                        <asp:Label runat="server" Text="<%$ Resources:Resource,SnString%>"></asp:Label>
                                     </div>
-                                    <asp:TextBox runat="server" ></asp:TextBox>
+                                    <asp:TextBox runat="server" ID="tbSn"></asp:TextBox>
                                 </div>
                                 <div class="2u 12u(mobilep)">
                                     <div class="Div">
-                                        <asp:Label runat="server" Text="配件分類"></asp:Label>
+                                        <asp:Label runat="server" Text="<%$ Resources:Resource,CategoryString%>"></asp:Label>
                                     </div>
-                                    <asp:DropDownList runat="server" />
+                                    <asp:UpdatePanel runat="server">
+                                        <ContentTemplate>
+                                            <asp:DropDownList runat="server" ID="ddlCategory" />
+                                        </ContentTemplate>
+                                    </asp:UpdatePanel>
                                 </div>
-
                                 <div class="2u 12u(mobilep)">
                                     <div class="Div">
-                                        <asp:Label runat="server" Text="配件細項分類"></asp:Label>
+                                        <asp:Label runat="server" Text="<%$ Resources:Resource,TypeString%>"></asp:Label>
                                     </div>
-                                    <asp:DropDownList runat="server" />
+                                    <asp:UpdatePanel runat="server">
+                                        <ContentTemplate>
+                                            <asp:DropDownList runat="server" ID="ddlType" />
+                                        </ContentTemplate>
+                                    </asp:UpdatePanel>
+                                </div>
+                                <div class="2u 12u(mobilep)">
+                                    <div class="Div">
+                                        <asp:Label runat="server" Text="<%$ Resources:Resource,StatusString%>"></asp:Label>
+                                    </div>
+                                    <asp:UpdatePanel runat="server">
+                                        <ContentTemplate>
+                                            <asp:DropDownList runat="server" ID="ddlStatus" />
+                                        </ContentTemplate>
+                                    </asp:UpdatePanel>
                                 </div>
                                 <!-- Btn -->
 
                                 <div class="Div btn">
                                     <ul class="actions">
-
                                         <li>
-                                            <asp:Button runat="server" Text="<%$ Resources:Resource,CreateString%>" ID="LinkFittingMCreate" PostBackUrl="~/StoreMgt/FittingMCreate.aspx" />
+                                            <asp:Button runat="server" Text="<%$ Resources:Resource,CreateString%>"
+                                                ID="LinkFittingMCreate" PostBackUrl="~/StoreMgt/FittingMCreate.aspx" />
                                         </li>
                                         <li>
-                                            <asp:Button runat="server" CssClass="button alt" Text="<%$ Resources:Resource,SearchString%>" />
+                                            <asp:Button runat="server" CssClass="button alt" Text="<%$ Resources:Resource,SearchString%>"
+                                                ID="btnSearch" OnClick="btnSearch_Click" />
                                         </li>
-
                                     </ul>
                                 </div>
-
                             </div>
                         </div>
                     </div>
-
-
+                    <asp:Label runat="server" ID="labelWarnString" ForeColor="Red" Visible="false" />
                     <hr />
                     <!-- Table -->
-
                     <div class="row">
                         <div class="12u">
-
                             <div class="table-wrapper">
-                                <table class="alt">
-                                    <thead>
-                                        <tr>
-                                            <th>諮詢編號</th>
-                                            <th>案件編號</th>
-                                            <th>開案日期</th>
-                                            <th>會員編號</th>
-                                            <th>狀態</th>
-                                            <th>結案日期</th>
-                                            <th>國家</th>
-                                            <th>地區</th>
-                                            <th>地點</th>
-                                            <th>套餐</th>
-
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>CU00001</td>
-                                            <td>Joye</td>
-                                            <td>小讌</td>
-                                            <td>1234321</td>
-                                            <td>1234321</td>
-                                            <td>1234321</td>
-                                            <td>1234321</td>
-                                            <td>1234321</td>
-                                            <td>1234321</td>
-                                            <td>1234321</td>
-                                        </tr>
-                                        <tr>
-                                            <td>CU00001</td>
-                                            <td>Joye</td>
-                                            <td>小讌</td>
-                                            <td>1234321</td>
-                                            <td>1234321</td>
-                                            <td>1234321</td>
-                                            <td>1234321</td>
-                                            <td>1234321</td>
-                                            <td>1234321</td>
-                                            <td>1234321</td>
-                                        </tr>
-                                    </tbody>
-
-                                </table>
+                                <asp:DataGrid runat="server" ID="dataGrid" AllowPaging="true" AllowSorting="true" DataKeyField="Id"
+                                    AutoGenerateColumns="true" OnItemDataBound="dataGrid_ItemDataBound"
+                                    OnDeleteCommand="dataGrid_DeleteCommand" OnPageIndexChanged="dataGrid_PageIndexChanged"
+                                    OnSelectedIndexChanged="dataGrid_SelectedIndexChanged" OnSortCommand="dataGrid_SortCommand">
+                                    <HeaderStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                    <PagerStyle VerticalAlign="Middle" Mode="NumericPages" />
+                                    <Columns>
+                                        <asp:ButtonColumn Text="<%$ Resources:Resource,SearchString%>" CommandName="Select" />
+                                        <asp:BoundColumn Visible="false" DataField="Id" />
+                                        <asp:BoundColumn HeaderText="<%$ Resources:Resource,SnString%>" DataField="Sn" SortExpression="Sn" />
+                                        <asp:TemplateColumn HeaderText="<%$ Resources:Resource,CategoryString%>">
+                                            <ItemTemplate>
+                                                <asp:Label runat="server" ID="dgLabelCategory" Text="" />
+                                            </ItemTemplate>
+                                        </asp:TemplateColumn>
+                                        <asp:TemplateColumn HeaderText="<%$ Resources:Resource,TypeString%>" SortExpression="Category">
+                                            <ItemTemplate>
+                                                <asp:Label runat="server" ID="dgLabelType" Text="" />
+                                            </ItemTemplate>
+                                        </asp:TemplateColumn>
+                                        <asp:TemplateColumn HeaderText="<%$ Resources:Resource,StatusString%>" SortExpression="StatusCode">
+                                            <ItemTemplate>
+                                                <asp:Label runat="server" ID="dgLabelStatus" Text="" />
+                                            </ItemTemplate>
+                                        </asp:TemplateColumn>
+                                        <asp:TemplateColumn HeaderText="<%$ Resources:Resource,SellingPriceString%>" SortExpression="SellsPrice">
+                                            <ItemTemplate>
+                                                <asp:Label runat="server" ID="dgLabelSalesPrice" style="text-align:right"/>
+                                            </ItemTemplate>
+                                        </asp:TemplateColumn>
+                                        <asp:TemplateColumn HeaderText="<%$ Resources:Resource,RentPriceString%>" SortExpression="RentPrice">
+                                            <ItemTemplate>
+                                                <asp:Label runat="server" ID="dgLabelRentPrice" style="text-align:right" />
+                                            </ItemTemplate>
+                                        </asp:TemplateColumn>
+                                        <asp:ButtonColumn CommandName="Delete"
+                                            HeaderText="<%$ Resources:Resource,DeleteString%>"
+                                            Text="<%$ Resources:Resource,DeleteString%>" />
+                                    </Columns>
+                                </asp:DataGrid>
                             </div>
                             <hr />
                         </div>
                     </div>
-
-
                 </section>
-
-
-
             </section>
-
-
             <!-- Footer -->
             <footer id="footer">
                 <ul class="copyright">

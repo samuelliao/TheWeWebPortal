@@ -17,39 +17,64 @@
 
         <section class="box title">
             <h3>
-                <asp:Label runat="server" Text="開店管理&nbsp;&nbsp;>&nbsp;&nbsp;配件資料庫&nbsp;&nbsp;>&nbsp;&nbsp;新增修改刪除(待修改)"></asp:Label></h3>
+                <asp:Label runat="server" Text="" ID="labelPageTitle"></asp:Label></h3>
         </section>
 
         <!-- Input -->
         <section class="insert">
+            <asp:ScriptManager runat="server"></asp:ScriptManager>
             <div>
+                <asp:Label runat="server" ID="labelWarnString" ForeColor="Red" Visible="false" />
                 <div class="12u">
-
                     <div class="row uniform 50%">
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
-                                <asp:Label runat="server" Text="配件編號"></asp:Label>
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,CategoryString%>"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server" ></asp:TextBox>
+                            <asp:DropDownList runat="server" ID="ddlCategory" AutoPostBack="true" OnSelectedIndexChanged="ddlCategory_SelectedIndexChanged" />
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
-                                <asp:Label runat="server" Text="配件分類"></asp:Label>
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,SnString%>"></asp:Label>
                             </div>
-                            <asp:DropDownList runat="server" />
-                        </div>
+                            <asp:TextBox runat="server" id="tbSn"></asp:TextBox>
+                        </div>                       
 
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
-                                <asp:Label runat="server" Text="配件細項分類"></asp:Label>
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,TypeString%>"></asp:Label>
                             </div>
-                            <asp:DropDownList runat="server" />
+                            <asp:UpdatePanel runat="server">
+                                <ContentTemplate>
+                                    <asp:DropDownList runat="server" ID="ddlType" />
+                                </ContentTemplate>
+                            </asp:UpdatePanel>                            
+                        </div>
+                        <div class="2u 12u(mobilep)" runat="server" id="divEarringType" visible="false">
+                            <div class="Div">
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,TypeString%>"></asp:Label>
+                            </div>
+                            <asp:UpdatePanel runat="server">
+                                <ContentTemplate>
+                                    <asp:DropDownList runat="server" ID="ddlEarringType" />
+                                </ContentTemplate>
+                            </asp:UpdatePanel>                            
+                        </div>
+                        <div class="2u 12u(mobilep)" runat="server" id="divGender" visible="false">
+                            <div class="Div">
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,GenderString%>"></asp:Label>
+                            </div>
+                            <asp:UpdatePanel runat="server">
+                                <ContentTemplate>
+                                    <asp:DropDownList runat="server" ID="ddlGender" />
+                                </ContentTemplate>
+                            </asp:UpdatePanel>                            
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
-                                <asp:Label runat="server" Text="物品狀況"></asp:Label>
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,StatusString%>"></asp:Label>
                             </div>
-                            <asp:DropDownList runat="server" />
+                            <asp:DropDownList runat="server" ID="ddlStatus" />
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
@@ -57,98 +82,96 @@
                             </div>
                             <asp:DropDownList runat="server" />
                         </div>
-                        <div class="2u 12u(mobilep)">
+                        <div class="2u 12u(mobilep)"  runat="server" id="divRelatedCategory" visible="false">
                             <div class="Div">
                                 <asp:Label runat="server" Text="對應物件"></asp:Label>
                             </div>
-                            <asp:DropDownList runat="server" />
+                            <asp:DropDownList runat="server" ID="ddlRelatedCategory"/>
                         </div>
                     </div>
                 </div>
 
                 <div class="12u">
-
                     <div class="row uniform 50%">
-                        <div class="2u 12u(mobilep)">
+                        <div class="2u 12u(mobilep)" runat="server" id="divRelatedSn" visible="false">
                             <div class="Div">
                                 <asp:Label runat="server" Text="對應物件編號"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server" ></asp:TextBox>
+                            <asp:TextBox runat="server" ID="tbRelatedSn"></asp:TextBox>
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
-                                <asp:Label runat="server" Text="顏色"></asp:Label>
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,ColorString%>"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server" ></asp:TextBox>
+                            <asp:TextBox runat="server" ID="tbColor1"></asp:TextBox>
                         </div>
 
-                        <div class="2u 12u(mobilep)">
+                        <div class="2u 12u(mobilep)"  runat="server" id="divColor2" visible="false">
                             <div class="Div">
-                                <asp:Label runat="server" Text="顏色"></asp:Label>
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,ColorString%>"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server" ></asp:TextBox>
+                            <asp:TextBox runat="server" ID="tbColor2" ></asp:TextBox>
                         </div>
-                        <div class="2u 12u(mobilep)">
+                        <div class="2u 12u(mobilep)" runat="server" id="divMaterial1">
                             <div class="Div">
-                                <asp:Label runat="server" Text="材質"></asp:Label>
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,MaterialString%>"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server" ></asp:TextBox>
-
+                            <asp:TextBox runat="server" ID="tbMaterial1" ></asp:TextBox>
                         </div>
-                        <div class="2u 12u(mobilep)">
+                        <div class="2u 12u(mobilep)" runat="server" id="divMaterial2" visible="false">
                             <div class="Div">
-                                <asp:Label runat="server" Text="材質"></asp:Label>
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,MaterialString%>"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server" ></asp:TextBox>
+                            <asp:TextBox runat="server" ID="tbMaterial2"></asp:TextBox>
                         </div>
-                        <div class="2u 12u(mobilep)">
+                        <div class="2u 12u(mobilep)"  runat="server" id="divLength" visible="false">
                             <div class="Div">
-                                <asp:Label runat="server" Text="長度"></asp:Label>
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,LengthString%>"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server" ></asp:TextBox>
+                            <asp:DropDownList runat="server" ID="ddlLength" />
                         </div>
                     </div>
                 </div>
                 <div class="12u">
 
                     <div class="row uniform 50%">
-                        <div class="2u 12u(mobilep)">
+                        <div class="2u 12u(mobilep)" runat="server" id="divLace" visible="false">
                             <div class="Div">
-                                <asp:Label runat="server" Text="花邊"></asp:Label>
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,LaceString%>"></asp:Label>
                             </div>
-                            <asp:DropDownList runat="server" />
+                            <asp:TextBox runat="server" ID="tbLace" />
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
-                                <asp:Label runat="server" Text="成本價"></asp:Label>
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,CostString%>"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server" ></asp:TextBox>
+                            <asp:TextBox runat="server" ID="tbCost" style="text-align:right"></asp:TextBox>
                         </div>
 
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
-                                <asp:Label runat="server" Text="供應商"></asp:Label>
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,SupplierString%>"></asp:Label>
                             </div>
-                            <asp:DropDownList runat="server" />
+                            <asp:DropDownList runat="server" ID="ddlSupplier"/>
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
-                                <asp:Label runat="server" Text="出租價格"></asp:Label>
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,RentPriceString%>"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server" ></asp:TextBox>
+                            <asp:TextBox runat="server" ID="tbRentPrice" style="text-align:right"></asp:TextBox>
 
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
-                                <asp:Label runat="server" Text="加選價格"></asp:Label>
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,OptionalPriceString%>"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server" ></asp:TextBox>
+                            <asp:TextBox runat="server" ID="tbOptionalPrice" style="text-align:right"></asp:TextBox>
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
-                                <asp:Label runat="server" Text="販售價格"></asp:Label>
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,SellingPriceString%>"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server" ></asp:TextBox>
+                            <asp:TextBox runat="server" ID="tbSalesPrice" style="text-align:right"></asp:TextBox>
                         </div>
                     </div>
                     
@@ -216,18 +239,20 @@
                 <ul class="actions">
 
                     <li>
-                        <asp:Button runat="server" Text="<%$ Resources:Resource,CreateString%>" />
+                        <asp:Button runat="server" Text="<%$ Resources:Resource,CreateString%>" ID="btnCreate" OnClick="btnCreate_Click" />
                     </li>
                     <li>
-                        <asp:Button runat="server" CssClass="button alt" Text="<%$ Resources:Resource,ModifyString%>" />
+                        <asp:Button runat="server" CssClass="button alt" Text="<%$ Resources:Resource,ModifyString%>" ID="btnModify" OnClick="btnModify_Click" />
                     </li>
                     <li>
-                        <asp:Button runat="server" CssClass="button alt" Text="<%$ Resources:Resource,ClearString%>" />
+                        <asp:Button runat="server" CssClass="button alt" Text="<%$ Resources:Resource,ClearString%>" ID="btnClear" OnClick="btnClear_Click" />
                     </li>
                     <li>
-                        <asp:Button runat="server" CssClass="button alt" Text="<%$ Resources:Resource,DeleteString%>" />
+                        <asp:Button runat="server" CssClass="button alt" Text="<%$ Resources:Resource,DeleteString%>" ID="btnDelete" OnClick="btnDelete_Click" />
                     </li>
-
+                    <li>
+                        <asp:Button runat="server" CssClass="button alt" Text="<%$ Resources:Resource,CancelString%>" ID="btnCancel" OnClick="btnCancel_Click" />
+                    </li>
                 </ul>
             </div>
         </section>

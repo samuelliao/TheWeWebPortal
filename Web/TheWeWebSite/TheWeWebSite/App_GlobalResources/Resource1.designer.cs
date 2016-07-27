@@ -826,6 +826,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   查詢類似 Clip-on Earrings 的當地語系化字串。
+        /// </summary>
+        internal static string EarClipString {
+            get {
+                return ResourceManager.GetString("EarClipString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查詢類似 Piercing Earrings 的當地語系化字串。
+        /// </summary>
+        internal static string EarPiercingString {
+            get {
+                return ResourceManager.GetString("EarPiercingString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查詢類似 Please input a email 的當地語系化字串。
         /// </summary>
         internal static string EmailInputString {
@@ -907,6 +925,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   查詢類似 Extra Long 的當地語系化字串。
+        /// </summary>
+        internal static string ExtraLongString {
+            get {
+                return ResourceManager.GetString("ExtraLongString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查詢類似 Extra Short 的當地語系化字串。
+        /// </summary>
+        internal static string ExtraShortString {
+            get {
+                return ResourceManager.GetString("ExtraShortString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查詢類似 Female 的當地語系化字串。
         /// </summary>
         internal static string FemaleString {
@@ -939,6 +975,15 @@ namespace Resources {
         internal static string FinMgtString {
             get {
                 return ResourceManager.GetString("FinMgtString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查詢類似 Fitting Maintain 的當地語系化字串。
+        /// </summary>
+        internal static string FittingMaintainString {
+            get {
+                return ResourceManager.GetString("FittingMaintainString", resourceCulture);
             }
         }
         
@@ -1123,6 +1168,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   查詢類似 Lace 的當地語系化字串。
+        /// </summary>
+        internal static string Lacestring {
+            get {
+                return ResourceManager.GetString("Lacestring", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查詢類似 Language Code 的當地語系化字串。
         /// </summary>
         internal static string LangCodeString {
@@ -1164,6 +1218,24 @@ namespace Resources {
         internal static string LegalWeddingString {
             get {
                 return ResourceManager.GetString("LegalWeddingString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查詢類似 Length 的當地語系化字串。
+        /// </summary>
+        internal static string LenghtString {
+            get {
+                return ResourceManager.GetString("LenghtString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查詢類似 Length 的當地語系化字串。
+        /// </summary>
+        internal static string LengthString {
+            get {
+                return ResourceManager.GetString("LengthString", resourceCulture);
             }
         }
         
@@ -1222,6 +1294,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   查詢類似 Long 的當地語系化字串。
+        /// </summary>
+        internal static string LongString {
+            get {
+                return ResourceManager.GetString("LongString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查詢類似 Lounge 的當地語系化字串。
         /// </summary>
         internal static string LoungeString {
@@ -1272,6 +1353,15 @@ namespace Resources {
         internal static string MealString {
             get {
                 return ResourceManager.GetString("MealString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查詢類似 Medium 的當地語系化字串。
+        /// </summary>
+        internal static string MediumString {
+            get {
+                return ResourceManager.GetString("MediumString", resourceCulture);
             }
         }
         
@@ -1416,6 +1506,15 @@ namespace Resources {
         internal static string OperationString {
             get {
                 return ResourceManager.GetString("OperationString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查詢類似 Optional Price 的當地語系化字串。
+        /// </summary>
+        internal static string OptionalPriceString {
+            get {
+                return ResourceManager.GetString("OptionalPriceString", resourceCulture);
             }
         }
         
@@ -1699,6 +1798,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   查詢類似 Rent Price 的當地語系化字串。
+        /// </summary>
+        internal static string RentPriceString {
+            get {
+                return ResourceManager.GetString("RentPriceString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查詢類似 Result 的當地語系化字串。
         /// </summary>
         internal static string ResultString {
@@ -1798,6 +1906,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   查詢類似 Selling Price 的當地語系化字串。
+        /// </summary>
+        internal static string SellingPriceString {
+            get {
+                return ResourceManager.GetString("SellingPriceString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查詢類似 Service and Price Description 的當地語系化字串。
         /// </summary>
         internal static string ServiceAndPriceDescriptionString {
@@ -1812,6 +1929,15 @@ namespace Resources {
         internal static string ServiceItemSelectRemindString {
             get {
                 return ResourceManager.GetString("ServiceItemSelectRemindString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查詢類似 Short 的當地語系化字串。
+        /// </summary>
+        internal static string ShortString {
+            get {
+                return ResourceManager.GetString("ShortString", resourceCulture);
             }
         }
         

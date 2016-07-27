@@ -843,4 +843,46 @@
   <data name="BigSizeString" xml:space="preserve">
     <value>Plus Size</value>
   </data>
+  <data name="FittingMaintainString" xml:space="preserve">
+    <value>Fitting Maintain</value>
+  </data>
+  <data name="RentPriceString" xml:space="preserve">
+    <value>Rent Price</value>
+  </data>
+  <data name="SellingPriceString" xml:space="preserve">
+    <value>Selling Price</value>
+  </data>
+  <data name="LenghtString" xml:space="preserve">
+    <value>Length</value>
+  </data>
+  <data name="Lacestring" xml:space="preserve">
+    <value>Lace</value>
+  </data>
+  <data name="ExtraShortString" xml:space="preserve">
+    <value>Extra Short</value>
+  </data>
+  <data name="ShortString" xml:space="preserve">
+    <value>Short</value>
+  </data>
+  <data name="LongString" xml:space="preserve">
+    <value>Long</value>
+  </data>
+  <data name="ExtraLongString" xml:space="preserve">
+    <value>Extra Long</value>
+  </data>
+  <data name="MediumString" xml:space="preserve">
+    <value>Medium</value>
+  </data>
+  <data name="OptionalPriceString" xml:space="preserve">
+    <value>Optional Price</value>
+  </data>
+  <data name="LengthString" xml:space="preserve">
+    <value>Length</value>
+  </data>
+  <data name="EarClipString" xml:space="preserve">
+    <value>Clip-on Earrings</value>
+  </data>
+  <data name="EarPiercingString" xml:space="preserve">
+    <value>Piercing Earrings</value>
+  </data>
 </root>
