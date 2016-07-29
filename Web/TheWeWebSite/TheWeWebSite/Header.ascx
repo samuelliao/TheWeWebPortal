@@ -20,7 +20,7 @@
                                 </li>
                             </ul>
                         </li>
-                        <li>
+                        <li  runat="server" id="liMainFunction">
                             <asp:LinkButton runat="server" Text="<%$ Resources:Resource,MainPageString%>" PostBackUrl="~/Main/Unsigned.aspx" ID="LinkMain" />
                             <ul>
                                 <li>
@@ -40,7 +40,7 @@
                                 </li>
                             </ul>
                         </li>
-                        <li>
+                        <li  runat="server" id="liStoreMgt">
                             <asp:LinkButton runat="server" Text="<%$ Resources:Resource,StoreMgtString%>" PostBackUrl="~/StoreMgt/ItemMaintain.aspx" ID="LinkItemMaintain" />
                             <ul>
                                 <li>
@@ -66,7 +66,7 @@
                                 </li>
                             </ul>
                         </li>
-                        <li>
+                        <li  runat="server" id="liOrderMgt">
                             <asp:LinkButton runat="server" Text="<%$ Resources:Resource,OrderMgtString%>" PostBackUrl="~/CaseMgt/CustomerMaintain.aspx" ID="LinkCaseMgt" />
                             <ul>
                                 <li>
@@ -83,16 +83,16 @@
                                 </li>
                             </ul>
                         </li>
-                        <li>
+                        <li  runat="server" id="liPurchaseMgt">
                             <asp:LinkButton runat="server" Text="<%$ Resources:Resource,PurchaseMgtString%>" ID="LinkPuchaseMgt" />
                         </li>
-                        <li>
+                        <li  runat="server" id="liSalesMgt">
                             <asp:LinkButton runat="server" Text="<%$ Resources:Resource,SalesMgtString%>" ID="LinkSalesMgtString" />
                         </li>
-                        <li>
+                        <li  runat="server" id="liFinMgt">
                             <asp:LinkButton runat="server" Text="<%$ Resources:Resource,FinMgtString%>" ID="LinkFinMgt" />
                         </li>
-                        <li>
+                        <li  runat="server" id="liSysMgt">
                             <asp:LinkButton runat="server" Text="<%$ Resources:Resource,SysMgtString%>" ID="LinkSysMgt" PostBackUrl="~/SysMgt/LoginMaintain.aspx" />
                             <ul>
                                 <li>

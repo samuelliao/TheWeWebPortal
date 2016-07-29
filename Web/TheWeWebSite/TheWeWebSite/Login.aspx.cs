@@ -138,5 +138,57 @@ namespace TheWeWebSite
                 Session["LocateStore"] = null;
             }
         }
+
+        private void GetCasePermission(string accId)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(accId))
+                {
+                    Session["PermissionItem"] = null;
+                }
+                else
+                {
+                    DataSet ds = SysProperty.GenDbCon.GetDataFromTable(string.Empty
+                    , SysProperty.Util.MsSqlTableConverter(MsSqlTable.Permission)
+                    , " Where IsDelete = 0 And ObjectId = '" + accId + "' And Type in ('Country','Store')");
+                    if (SysProperty.Util.IsDataSetEmpty(ds)) return;
+                    string permissionId = ds.Tables[0].Rows[0]["Id"].ToString();
+                    Session["PermissionItem"] = SysProperty.GenDbCon.GetDataFromTable(string.Empty
+                    , SysProperty.Util.MsSqlTableConverter(MsSqlTable.PermissionItem)
+                    , " Where IsDelete = 0 And PermissionId = '" + permissionId + "'");
+                }
+            }
+            catch (Exception ex)
+            {
+                Session["PermissionItem"] = null;
+            }
+        }
+
+        private void GetOperationPermission(string storeId)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(storeId))
+                {
+                    Session["Operation"] = null;
+                }
+                else
+                {
+                    DataSet ds = SysProperty.GenDbCon.GetDataFromTable(string.Empty
+                    , SysProperty.Util.MsSqlTableConverter(MsSqlTable.Permission)
+                    , " Where IsDelete = 0 And ObjectId = '" + storeId + "' And Type = 'Operation'");
+                    if (SysProperty.Util.IsDataSetEmpty(ds)) return;
+                    string permissionId = ds.Tables[0].Rows[0]["Id"].ToString();
+                    Session["Operation"] = SysProperty.GenDbCon.GetDataFromTable(string.Empty
+                    , SysProperty.Util.MsSqlTableConverter(MsSqlTable.PermissionItem)
+                    , " Where IsDelete = 0 And PermissionId = '" + permissionId + "'");
+                }
+            }
+            catch (Exception ex)
+            {
+                Session["Operation"] = null;
+            }
+        }
     }
 }

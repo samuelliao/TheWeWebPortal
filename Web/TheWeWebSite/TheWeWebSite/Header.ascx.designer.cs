@@ -58,6 +58,15 @@ namespace TheWeWebSite {
         protected global::System.Web.UI.WebControls.LinkButton LinkTimeMgt;
         
         /// <summary>
+        /// liMainFunction 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl liMainFunction;
+        
+        /// <summary>
         /// LinkMain 控制項。
         /// </summary>
         /// <remarks>
@@ -110,6 +119,15 @@ namespace TheWeWebSite {
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton LinkChurchReservtion;
+        
+        /// <summary>
+        /// liStoreMgt 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl liStoreMgt;
         
         /// <summary>
         /// LinkItemMaintain 控制項。
@@ -184,6 +202,15 @@ namespace TheWeWebSite {
         protected global::System.Web.UI.WebControls.LinkButton LinkEmployeeMaintain;
         
         /// <summary>
+        /// liOrderMgt 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl liOrderMgt;
+        
+        /// <summary>
         /// LinkCaseMgt 控制項。
         /// </summary>
         /// <remarks>
@@ -229,6 +256,15 @@ namespace TheWeWebSite {
         protected global::System.Web.UI.WebControls.LinkButton LinkTimeMaintain;
         
         /// <summary>
+        /// liPurchaseMgt 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl liPurchaseMgt;
+        
+        /// <summary>
         /// LinkPuchaseMgt 控制項。
         /// </summary>
         /// <remarks>
@@ -236,6 +272,15 @@ namespace TheWeWebSite {
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton LinkPuchaseMgt;
+        
+        /// <summary>
+        /// liSalesMgt 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl liSalesMgt;
         
         /// <summary>
         /// LinkSalesMgtString 控制項。
@@ -247,6 +292,15 @@ namespace TheWeWebSite {
         protected global::System.Web.UI.WebControls.LinkButton LinkSalesMgtString;
         
         /// <summary>
+        /// liFinMgt 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl liFinMgt;
+        
+        /// <summary>
         /// LinkFinMgt 控制項。
         /// </summary>
         /// <remarks>
@@ -254,6 +308,15 @@ namespace TheWeWebSite {
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton LinkFinMgt;
+        
+        /// <summary>
+        /// liSysMgt 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl liSysMgt;
         
         /// <summary>
         /// LinkSysMgt 控制項。
