@@ -891,4 +891,55 @@
   <data name="CaseString" xml:space="preserve">
     <value>Case</value>
   </data>
+  <data name="OtherItemCategoryString" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="OtherItemSnString" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="DescriptionString" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="ModelingSnString" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="TypeSelectRemindString" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="PassportIdString" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="LangSelectRemindString" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="EmpNameString" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="EmpOnboardDayString" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="EmpQuitDayString" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="EmergencyContactString" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="EmergencyContactTelString" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="BankString" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="BankBookString" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="SalaryString" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="InsuranceString" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="CreateItemString" xml:space="preserve">
+    <value></value>
+  </data>
 </root>

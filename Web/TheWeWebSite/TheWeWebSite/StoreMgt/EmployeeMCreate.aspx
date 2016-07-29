@@ -17,85 +17,81 @@
 
         <section class="box title">
             <h3>
-                <asp:Label runat="server" Text="開店管理&nbsp;&nbsp;>&nbsp;&nbsp;員工資料庫&nbsp;&nbsp;>&nbsp;&nbsp;新增修改刪除(待修改)"></asp:Label></h3>
+                <asp:Label runat="server" Text="" ID="labelPageTitle"></asp:Label></h3>
         </section>
 
         <!-- Input -->
         <section class="insert">
             <div>
+                <asp:Label runat="server" ID="labelWarnString" ForeColor="Red" Visible="false" />
+
                 <div class="12u">
                     <div class="row uniform 50%">
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
-                                <asp:Label runat="server" Text="員工編號"></asp:Label>
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,EmployeeSnString%>"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server" placeholder="請輸入員工編號..."></asp:TextBox>
+                            <asp:TextBox runat="server" placeholder="請輸入員工編號..." ID="tbEmpSn"></asp:TextBox>
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
-                                <asp:Label runat="server" Text="權限類別"></asp:Label>
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,CountryString%>"></asp:Label>
                             </div>
-                            <asp:DropDownList runat="server" />
+                            <asp:DropDownList runat="server" ID="ddlCountry" />
+                        </div>
+                        <div class="2u 12u(mobilep)">
+                            <div class="Div">
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,EmpNameString%>"></asp:Label>
+                            </div>
+                            <asp:TextBox runat="server" placeholder="請輸入姓名..." ID="tbEmpName"></asp:TextBox>
+                        </div>
+                        <div class="2u 12u(mobilep)">
+                            <div class="Div">
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,EmpOnboardDayString%>"></asp:Label>
+                            </div>
+                            <div>
+                                <asp:TextBox runat="server" CssClass="dp" ID="EmpOnBoardDay"></asp:TextBox>
+                            </div>
+                        </div>
+                        <div class="2u 12u(mobilep)">
+                            <div class="Div">
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,EmpQuitDayString%>"></asp:Label>
+                            </div>
+                            <div>
+                                <asp:TextBox runat="server" CssClass="dp" ID="EmpQuitDay"></asp:TextBox>
+                            </div>
+                        </div>
+                        <div class="2u 12u(mobilep)">
 
-                        </div>
-                        <div class="2u 12u(mobilep)">
                             <div class="Div">
-                                <asp:Label runat="server" Text="語系編號"></asp:Label>
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,PhoneString%>"></asp:Label>
                             </div>
-                            <asp:DropDownList runat="server" ID="ddlLang" />
-                        </div>
-                        <div class="2u 12u(mobilep)">
-                            <div class="Div">
-                                <asp:Label runat="server" Text="姓名"></asp:Label>
-                            </div>
-                            <asp:TextBox runat="server" placeholder="請輸入姓名..."></asp:TextBox>
-                        </div>
-                        <div class="2u 12u(mobilep)">
-                            <div class="Div">
-                                <asp:Label runat="server" Text="到職日期"></asp:Label>
-                            </div>
-                            <div>
-                                <asp:TextBox runat="server" CssClass="dp"></asp:TextBox>
-                            </div>
-                        </div>
-                        <div class="2u 12u(mobilep)">
-                            <div class="Div">
-                                <asp:Label runat="server" Text="離職日期"></asp:Label>
-                            </div>
-                            <div>
-                                <asp:TextBox runat="server" CssClass="dp"></asp:TextBox>
-                            </div>
+                            <asp:TextBox runat="server" placeholder="請輸入電話..." ID="tbEmpPhone"></asp:TextBox>
                         </div>
                     </div>
                 </div>
                 <div class="12u">
                     <div class="row uniform 50%">
-                        <div class="2u 12u(mobilep)">
 
-                            <div class="Div">
-                                <asp:Label runat="server" Text="電話"></asp:Label>
-                            </div>
-                            <asp:TextBox runat="server" placeholder="請輸入電話..."></asp:TextBox>
-                        </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
-                                <asp:Label runat="server" Text="生日"></asp:Label>
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,BdayString%>"></asp:Label>
                             </div>
                             <div>
-                                <asp:TextBox runat="server" CssClass="dp"></asp:TextBox>
+                                <asp:TextBox runat="server" CssClass="dp" ID="EmpBDay"></asp:TextBox>
                             </div>
                         </div>
-                        <div class="2u 12u(mobilep)">
+                        <div class="4u 12u(mobilep)">
                             <div class="Div">
-                                <asp:Label runat="server" Text="E-Mail"></asp:Label>
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,EmailString%>"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server" placeholder="請輸入E-Mail..."></asp:TextBox>
+                            <asp:TextBox runat="server" placeholder="請輸入E-Mail..." ID="tbEmpEmail"></asp:TextBox>
                         </div>
                         <div class="6u 12u(mobilep)">
                             <div class="Div">
-                                <asp:Label runat="server" Text="地址"></asp:Label>
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,AddressString%>"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server" placeholder="請輸入地址..."></asp:TextBox>
+                            <asp:TextBox runat="server" placeholder="請輸入地址..." ID="tbEmpAddress"></asp:TextBox>
                         </div>
 
                     </div>
@@ -105,41 +101,41 @@
                     <div class="row uniform 50%">
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
-                                <asp:Label runat="server" Text="護照英文名稱"></asp:Label>
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,PassportNameString%>"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server" placeholder="請輸入護照英文名稱..."></asp:TextBox>
+                            <asp:TextBox runat="server" placeholder="請輸入護照英文名稱..." ID="tbEmpPassportName"></asp:TextBox>
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
-                                <asp:Label runat="server" Text="護照號碼"></asp:Label>
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,PassportIdString%>"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server" placeholder="請輸入護照號碼..."></asp:TextBox>
+                            <asp:TextBox runat="server" placeholder="請輸入護照號碼..." ID="tbEmpPassportId"></asp:TextBox>
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
-                                <asp:Label runat="server" Text="緊急連絡人"></asp:Label>
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,EmergencyContactString%>"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server" placeholder="請輸入緊急連絡人..."></asp:TextBox>
+                            <asp:TextBox runat="server" placeholder="請輸入緊急連絡人..." ID="tbEmpEC"></asp:TextBox>
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
-                                <asp:Label runat="server" Text="緊急連絡人電話"></asp:Label>
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,EmergencyContactTelString%>"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server" placeholder="請輸入緊急連絡人電話..."></asp:TextBox>
+                            <asp:TextBox runat="server" placeholder="請輸入緊急連絡人電話..." ID="tbEmpECTel"></asp:TextBox>
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
-                                <asp:Label runat="server" Text="帳戶號碼"></asp:Label>
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,BankString%>"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server" placeholder="請輸入帳戶號碼..."></asp:TextBox>
+                            <asp:TextBox runat="server" placeholder="請輸入帳戶號碼..." ID="tbEmpBank"></asp:TextBox>
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
-                                <asp:Label runat="server" Text="存摺號碼"></asp:Label>
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,BankBookString%>"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server" placeholder="請輸入存摺號碼..."></asp:TextBox>
+                            <asp:TextBox runat="server" placeholder="請輸入存摺號碼..." ID="tbEmpBankBook"></asp:TextBox>
                         </div>
-                        
+
 
                     </div>
                 </div>
@@ -147,21 +143,21 @@
                     <div class="row uniform 50%">
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
-                                <asp:Label runat="server" Text="薪資"></asp:Label>
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,SalaryString%>"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server" placeholder="請輸入薪資..."></asp:TextBox>
+                            <asp:TextBox runat="server" placeholder="請輸入薪資..." ID="tbEmpSalary"></asp:TextBox>
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
-                                <asp:Label runat="server" Text="勞健保"></asp:Label>
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,InsuranceString%>"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server" placeholder="請輸入勞健保..."></asp:TextBox>
+                            <asp:TextBox runat="server" placeholder="請輸入勞健保..." ID="tbEmpInsurance"></asp:TextBox>
                         </div>
                         <div class="8u 12u(mobilep)">
                             <div class="Div">
-                                <asp:Label runat="server" Text="備註"></asp:Label>
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,RemarkString%>"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server" placeholder="備註..."></asp:TextBox>
+                            <asp:TextBox runat="server" placeholder="備註..." ID="tbEmpRemark"></asp:TextBox>
                         </div>
                     </div>
                 </div>
@@ -210,18 +206,20 @@
                 <ul class="actions">
 
                     <li>
-                        <asp:Button runat="server" Text="<%$ Resources:Resource,CreateString%>" />
+                        <asp:Button runat="server" CssClass="button alt" Text="<%$ Resources:Resource,CreateString%>" ID="btnCreate" OnClick="btnCreate_Click" />
                     </li>
                     <li>
-                        <asp:Button runat="server" CssClass="button alt" Text="<%$ Resources:Resource,ModifyString%>" />
+                        <asp:Button runat="server" CssClass="button alt" Text="<%$ Resources:Resource,ModifyString%>" ID="btnModify" OnClick="btnModify_Click" />
                     </li>
                     <li>
-                        <asp:Button runat="server" CssClass="button alt" Text="<%$ Resources:Resource,ClearString%>" />
+                        <asp:Button runat="server" CssClass="button alt" Text="<%$ Resources:Resource,ClearString%>" ID="btnClear" OnClick="btnClear_Click" />
                     </li>
                     <li>
-                        <asp:Button runat="server" CssClass="button alt" Text="<%$ Resources:Resource,DeleteString%>" />
+                        <asp:Button runat="server" CssClass="button alt" Text="<%$ Resources:Resource,DeleteString%>" ID="btnDelete" OnClick="btnDelete_Click" />
                     </li>
-
+                    <li>
+                        <asp:Button runat="server" CssClass="button alt" Text="<%$ Resources:Resource,CancelString%>" ID="btnCancel" OnClick="btnCancel_Click" />
+                    </li>
                 </ul>
             </div>
         </section>

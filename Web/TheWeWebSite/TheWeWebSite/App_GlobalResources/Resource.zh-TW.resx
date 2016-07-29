@@ -891,4 +891,55 @@
   <data name="PermissionCategroyString" xml:space="preserve">
     <value>權限類別</value>
   </data>
+  <data name="OtherItemCategoryString" xml:space="preserve">
+    <value>婚禮小物類別</value>
+  </data>
+  <data name="OtherItemSnString" xml:space="preserve">
+    <value>婚禮小物編號</value>
+  </data>
+  <data name="DescriptionString" xml:space="preserve">
+    <value>描述</value>
+  </data>
+  <data name="ModelingSnString" xml:space="preserve">
+    <value>造型編號</value>
+  </data>
+  <data name="TypeSelectRemindString" xml:space="preserve">
+    <value>請選擇型態編號</value>
+  </data>
+  <data name="PassportIdString" xml:space="preserve">
+    <value>護照號碼</value>
+  </data>
+  <data name="LangSelectRemindString" xml:space="preserve">
+    <value>請選擇語系編號</value>
+  </data>
+  <data name="EmpNameString" xml:space="preserve">
+    <value>員工姓名</value>
+  </data>
+  <data name="EmpOnboardDayString" xml:space="preserve">
+    <value>員工到職日期</value>
+  </data>
+  <data name="EmpQuitDayString" xml:space="preserve">
+    <value>員工離職日期</value>
+  </data>
+  <data name="EmergencyContactString" xml:space="preserve">
+    <value>緊急聯絡人</value>
+  </data>
+  <data name="EmergencyContactTelString" xml:space="preserve">
+    <value>緊急聯絡人電話</value>
+  </data>
+  <data name="BankString" xml:space="preserve">
+    <value>銀行帳戶</value>
+  </data>
+  <data name="BankBookString" xml:space="preserve">
+    <value>存摺帳號</value>
+  </data>
+  <data name="SalaryString" xml:space="preserve">
+    <value>薪資</value>
+  </data>
+  <data name="InsuranceString" xml:space="preserve">
+    <value>保險</value>
+  </data>
+  <data name="CreateItemString" xml:space="preserve">
+    <value>新增項目</value>
+  </data>
 </root>
