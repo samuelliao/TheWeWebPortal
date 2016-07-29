@@ -88,17 +88,17 @@
                             </div>
                             <asp:DropDownList runat="server" ID="ddlRelatedCategory"/>
                         </div>
-                    </div>
-                </div>
-
-                <div class="12u">
-                    <div class="row uniform 50%">
                         <div class="2u 12u(mobilep)" runat="server" id="divRelatedSn" visible="false">
                             <div class="Div">
                                 <asp:Label runat="server" Text="對應物件編號"></asp:Label>
                             </div>
                             <asp:TextBox runat="server" ID="tbRelatedSn"></asp:TextBox>
                         </div>
+                    </div>
+                </div>
+
+                <div class="12u">
+                    <div class="row uniform 50%">                        
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,ColorString%>"></asp:Label>

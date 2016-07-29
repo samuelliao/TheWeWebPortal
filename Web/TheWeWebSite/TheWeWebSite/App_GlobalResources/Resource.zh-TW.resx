@@ -885,4 +885,10 @@
   <data name="EarPiercingString" xml:space="preserve">
     <value>耳洞</value>
   </data>
+  <data name="CaseString" xml:space="preserve">
+    <value>案件</value>
+  </data>
+  <data name="PermissionCategroyString" xml:space="preserve">
+    <value>權限類別</value>
+  </data>
 </root>

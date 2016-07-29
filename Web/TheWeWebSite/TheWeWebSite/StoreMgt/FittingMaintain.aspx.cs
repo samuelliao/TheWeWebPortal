@@ -53,6 +53,10 @@ namespace TheWeWebSite.StoreMgt
                     ));
             }
         }
+        protected void ddlCategory_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            FittingTypeList();
+        }
         private void FittingTypeList()
         {
             ddlType.Items.Clear();
@@ -80,12 +84,12 @@ namespace TheWeWebSite.StoreMgt
         {
             ddlStatus.Items.Clear();
             ddlStatus.Items.Add(new ListItem(Resources.Resource.SeletionRemindString, string.Empty));
-            string sql = "Select * From DressStatus Where IsDelete = 0";
+            string sql = "Select * From DressStatusCode Where IsDelete = 0";
             DataSet ds = GetDataFromDb(sql);
             if (SysProperty.Util.IsDataSetEmpty(ds)) return;
             foreach (DataRow dr in ds.Tables[0].Rows)
             {
-                ddlCategory.Items.Add(new ListItem(
+                ddlStatus.Items.Add(new ListItem(
                     SysProperty.Util.OutputRelatedLangName(Session["CultureCode"].ToString(), dr)
                     , dr["Id"].ToString()
                     ));
@@ -177,7 +181,7 @@ namespace TheWeWebSite.StoreMgt
 
         private void BindData()
         {
-            if (string.IsNullOrEmpty(ddlCategory.SelectedValue))
+            if (!string.IsNullOrEmpty(ddlCategory.SelectedValue))
             {
                 GetFittingList(ddlCategory.SelectedValue, OtherCondStr, string.Empty);
                 dataGrid.DataSource = DS;
@@ -217,6 +221,6 @@ namespace TheWeWebSite.StoreMgt
                 ShowErrorMsg(ex.Message);
                 return false;
             }
-        }
+        }        
     }
 }

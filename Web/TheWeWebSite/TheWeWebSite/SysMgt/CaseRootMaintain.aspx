@@ -21,99 +21,149 @@
 
 
             <!-- Main -->
-            <section id="main">
-
-
+            <section id="main" runat="server">
                 <!-- Text -->
                 <section class="box title">
+                    <asp:ScriptManager runat="server"></asp:ScriptManager>
                     <h3>
-                        <asp:Label runat="server" Text="案件管理&nbsp;&nbsp;>&nbsp;&nbsp;權限案件(待修改)"></asp:Label></h3>
+                        <asp:Label runat="server" Text="" ID="labelPageTitle"></asp:Label></h3>
                 </section>
                 <!-- Input -->
                 <section class="box special">
-
                     <div>
+                        <asp:Label runat="server" ID="labelWarnString" ForeColor="Red" Visible="false" />
                         <div class="12u">
                             <div class="row uniform 50%">
                                 <div class="2u 12u(mobilep)">
                                     <div class="Div">
-                                        <asp:Label runat="server" Text="他員工姓名"></asp:Label>
+                                        <asp:Label runat="server" Text="<%$ Resources:Resource,CountryString%>"></asp:Label>
                                     </div>
-                                    <asp:TextBox runat="server" placeholder="請輸入他員工姓名..."></asp:TextBox>
+                                    <asp:UpdatePanel runat="server">
+                                        <ContentTemplate>
+                                            <asp:DropDownList runat="server" ID="ddlCountry" AutoPostBack="true" OnSelectedIndexChanged="ddlCountry_SelectedIndexChanged" />
+                                        </ContentTemplate>
+                                    </asp:UpdatePanel>
                                 </div>
                                 <div class="2u 12u(mobilep)">
                                     <div class="Div">
-                                        <asp:Label runat="server" Text="員工姓名"></asp:Label>
+                                        <asp:Label runat="server" Text="<%$ Resources:Resource,StoreString%>"></asp:Label>
                                     </div>
-                                    <asp:TextBox runat="server" placeholder="請輸入員工姓名..."></asp:TextBox>
+                                    <asp:UpdatePanel runat="server">
+                                        <ContentTemplate>
+                                            <asp:DropDownList runat="server" ID="ddlStore" AutoPostBack="true" OnSelectedIndexChanged="ddlStore_SelectedIndexChanged" />
+                                        </ContentTemplate>
+                                    </asp:UpdatePanel>
+                                </div>
+                                <div class="4u 12u(mobilep)">
+                                    <div class="Div">
+                                        <asp:Label runat="server" Text="<%$ Resources:Resource,EmployeeString%>"></asp:Label>
+                                    </div>
+                                    <asp:UpdatePanel runat="server">
+                                        <ContentTemplate>
+                                            <asp:DropDownList runat="server" ID="ddlEmployee" OnSelectedIndexChanged="ddlEmployee_SelectedIndexChanged" AutoPostBack="true" />
+                                        </ContentTemplate>
+                                    </asp:UpdatePanel>
                                 </div>
                                 <!-- Btn -->
-
                                 <div class="Div btn">
                                     <ul class="actions">
-
                                         <li>
-                                            <asp:Button runat="server" Text="<%$ Resources:Resource,CreateString%>" ID="LinkCaseMCreate" PostBackUrl="~/CaseMgt/CaseMCreate.aspx" />
+                                            <asp:Button runat="server" CssClass="button alt" Text="<%$ Resources:Resource,SearchString%>" ID="Button2" OnClick="btnSearch_Click" />
                                         </li>
-                                        <li>
-                                            <asp:Button runat="server" CssClass="button alt" Text="<%$ Resources:Resource,SearchString%>" />
-                                        </li>
-
                                     </ul>
                                 </div>
                             </div>
                         </div>
-
                     </div>
-
-
                     <hr />
-
                     <!-- Table -->
                     <div class="row">
                         <div class="12u">
+                            <div class="row uniform 50%">
+                                <div class="2u 12u(mobilep)">
+                                    <div class="Div">
+                                        <asp:Label runat="server" Text="<%$ Resources:Resource,CategoryString%>"></asp:Label>
+                                    </div>
+                                    <asp:UpdatePanel runat="server">
+                                        <ContentTemplate>
+                                            <asp:DropDownList runat="server" ID="ddlType" AutoPostBack="true" OnSelectedIndexChanged="ddlType_SelectedIndexChanged" />
+                                        </ContentTemplate>
+                                    </asp:UpdatePanel>
+                                </div>
+                                <div class="2u 12u(mobilep)">
+                                    <div class="Div">
+                                        <asp:Label runat="server" Text="<%$ Resources:Resource,StoreString%>"></asp:Label>
+                                    </div>
+                                    <asp:UpdatePanel runat="server">
+                                        <ContentTemplate>
+                                            <asp:Label runat="server" ID="tbStore" />
+                                        </ContentTemplate>
+                                    </asp:UpdatePanel>
+                                </div>
+                                <div class="2u 12u(mobilep)">
+                                    <div class="Div">
+                                        <asp:Label runat="server" Text="<%$ Resources:Resource,EmployeeString%>"></asp:Label>
+                                    </div>
+                                    <asp:UpdatePanel runat="server">
+                                        <ContentTemplate>
+                                            <asp:Label runat="server" ID="tbName" />
+                                        </ContentTemplate>
+                                    </asp:UpdatePanel>
+                                </div>
+                            </div>
+                            <div class="Div btn">
+                                <ul class="actions">
+                                    <li>
+                                        <asp:Button runat="server" Text="<%$ Resources:Resource,ModifyString%>" ID="btnModify" OnClick="btnModify_Click" />
+                                    </li>
+                                </ul>
+                            </div>
                             <div class="table-wrapper">
-                                <table class="alt">
-                                    <thead>
-                                        <tr>
-                                            <th>案件編號</th>
-                                            <th>進入</th>
-                                            <th>新增</th>
-                                            <th>修改</th>
-                                            <th>刪除</th>
-                                            <th>匯出</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>PJ00001</td>
-                                            <td>
-                                                <input type="checkbox" /></td>
-                                            <td>
-                                                <input type="checkbox" /></td>
-                                            <td>
-                                                <input type="checkbox" /></td>
-                                            <td>
-                                                <input type="checkbox" /></td>
-                                            <td>
-                                                <input type="checkbox" /></td>
-                                        </tr>
-                                        <tr>
-                                            <td>PJ00001</td>
-                                            <td>
-                                                <input type="checkbox" /></td>
-                                            <td>
-                                                <input type="checkbox" /></td>
-                                            <td>
-                                                <input type="checkbox" /></td>
-                                            <td>
-                                                <input type="checkbox" /></td>
-                                            <td>
-                                                <input type="checkbox" /></td>
-                                        </tr>
-                                    </tbody>
-
-                                </table>
+                                <asp:UpdatePanel runat="server">
+                                    <ContentTemplate>
+                                        <asp:GridView ID="dgServiceItem" runat="server" AutoGenerateColumns="False"
+                                            OnRowDataBound="dgServiceItem_RowDataBound" DataKeyNames="Id">
+                                            <Columns>
+                                                <asp:BoundField DataField="Id" Visible="false" />
+                                                <asp:TemplateField HeaderText="<%$ Resources:Resource,SnString%>">
+                                                    <ItemTemplate>
+                                                        <asp:Label runat="server" ID="dgLabelSn" />
+                                                    </ItemTemplate>
+                                                </asp:TemplateField>
+                                                <asp:TemplateField HeaderText="<%$ Resources:Resource,NameString%>">
+                                                    <ItemTemplate>
+                                                        <asp:Label runat="server" ID="dgLabelName" />
+                                                    </ItemTemplate>
+                                                </asp:TemplateField>
+                                                <asp:TemplateField HeaderText="<%$ Resources:Resource,ViewString%>">
+                                                    <ItemTemplate>
+                                                        <asp:CheckBox runat="server" ID="dgCbEntry" Checked="false" />
+                                                    </ItemTemplate>
+                                                </asp:TemplateField>
+                                                <asp:TemplateField HeaderText="<%$ Resources:Resource,CreateString%>">
+                                                    <ItemTemplate>
+                                                        <asp:CheckBox runat="server" ID="dgCbCreate" Checked="false" />
+                                                    </ItemTemplate>
+                                                </asp:TemplateField>
+                                                <asp:TemplateField HeaderText="<%$ Resources:Resource,ModifyString%>">
+                                                    <ItemTemplate>
+                                                        <asp:CheckBox runat="server" ID="dgCbModify" Checked="false" />
+                                                    </ItemTemplate>
+                                                </asp:TemplateField>
+                                                <asp:TemplateField HeaderText="<%$ Resources:Resource,DeleteString%>">
+                                                    <ItemTemplate>
+                                                        <asp:CheckBox runat="server" ID="dgCbDelete" Checked="false" />
+                                                    </ItemTemplate>
+                                                </asp:TemplateField>
+                                                <asp:TemplateField HeaderText="<%$ Resources:Resource,ExportString%>">
+                                                    <ItemTemplate>
+                                                        <asp:CheckBox runat="server" ID="dgCbExport" Checked="false" />
+                                                    </ItemTemplate>
+                                                </asp:TemplateField>
+                                            </Columns>
+                                        </asp:GridView>
+                                    </ContentTemplate>
+                                </asp:UpdatePanel>
                             </div>
                             <hr />
                         </div>
@@ -143,6 +193,19 @@
         <!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
         <script src="../assets/js/main.js"></script>
         <script src="../assets/js/table.js"></script>
+        <script language="javascript" type="text/javascript">
+            function divexpandcollapse(divname) {
+                var div = document.getElementById(divname);
+                var img = document.getElementById('img' + divname);
+                if (div.style.display == "none") {
+                    div.style.display = "inline";
+                    img.innerText = "-";
+                } else {
+                    div.style.display = "none";
+                    img.innerText = "+";
+                }
+            }
+        </script>
     </form>
 </body>
 </html>

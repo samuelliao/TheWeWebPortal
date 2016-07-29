@@ -367,6 +367,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   查詢類似 Case 的當地語系化字串。
+        /// </summary>
+        internal static string CaseString {
+            get {
+                return ResourceManager.GetString("CaseString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查詢類似 CategoryString 的當地語系化字串。
         /// </summary>
         internal static string CategoryString {
@@ -1632,6 +1641,15 @@ namespace Resources {
         internal static string PermissionCategoryString {
             get {
                 return ResourceManager.GetString("PermissionCategoryString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查詢類似 Permission Category 的當地語系化字串。
+        /// </summary>
+        internal static string PermissionCategroyString {
+            get {
+                return ResourceManager.GetString("PermissionCategroyString", resourceCulture);
             }
         }
         

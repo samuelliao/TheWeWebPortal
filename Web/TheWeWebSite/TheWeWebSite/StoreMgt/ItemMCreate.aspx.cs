@@ -24,7 +24,7 @@ namespace TheWeWebSite.StoreMgt
                     if (Session["SetId"] != null)
                     {
                         labelPageTitle.Text = Resources.Resource.OrderMgtString
-                        + " > " + Resources.Resource.CustomerMaintainString
+                        + " > " + Resources.Resource.ProductMaintainString
                         + " > " + Resources.Resource.ModifyString;
                         btnModify.Visible = true;
                         btnDelete.Visible = true;
@@ -33,7 +33,7 @@ namespace TheWeWebSite.StoreMgt
                     else
                     {
                         labelPageTitle.Text = Resources.Resource.OrderMgtString
-                        + " > " + Resources.Resource.CustomerMaintainString
+                        + " > " + Resources.Resource.ProductMaintainString
                         + " > " + Resources.Resource.CreateString;
                         btnModify.Visible = false;
                         btnDelete.Visible = false;

@@ -885,4 +885,10 @@
   <data name="EarPiercingString" xml:space="preserve">
     <value>Piercing Earrings</value>
   </data>
+  <data name="PermissionCategroyString" xml:space="preserve">
+    <value>Permission Category</value>
+  </data>
+  <data name="CaseString" xml:space="preserve">
+    <value>Case</value>
+  </data>
 </root>

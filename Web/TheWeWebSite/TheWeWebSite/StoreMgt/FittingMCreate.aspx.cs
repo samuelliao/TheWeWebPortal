@@ -18,7 +18,8 @@ namespace TheWeWebSite.StoreMgt
                 if (SysProperty.Util == null) Response.Redirect("../Login.aspx", true);
                 else
                 {
-                    if (Session["FittingId"] != null && Session["FittingCategory"]!=null)
+                    InitialControls();
+                    if (Session["FittingId"] != null && Session["FittingCategory"] != null)
                     {
                         labelPageTitle.Text = Resources.Resource.StoreMgtString
                         + " > " + Resources.Resource.FittingMaintainString
@@ -58,10 +59,13 @@ namespace TheWeWebSite.StoreMgt
             EarringDropDownList();
             LengthDropDownList();
             GenderList();
+            SupplierList();
+            RelatedCategory();
         }
 
         private void SetDivByAccessoryCategory(string category)
         {
+            ResetAllDivControl();
             switch (category)
             {
                 case "AccessoryMan":
@@ -104,6 +108,19 @@ namespace TheWeWebSite.StoreMgt
                 default:
                     break;
             }
+        }
+
+        private void ResetAllDivControl()
+        {
+            divColor2.Visible = false;
+            divEarringType.Visible = false;
+            divGender.Visible = false;
+            divLace.Visible = false;
+            divLength.Visible = false;
+            divMaterial1.Visible = true;
+            divMaterial2.Visible = false;
+            divRelatedCategory.Visible = false;
+            divRelatedSn.Visible = false;
         }
 
         #region DropDownList
@@ -171,12 +188,12 @@ namespace TheWeWebSite.StoreMgt
         {
             ddlStatus.Items.Clear();
             ddlStatus.Items.Add(new ListItem(Resources.Resource.SeletionRemindString, string.Empty));
-            string sql = "Select * From DressStatus Where IsDelete = 0";
+            string sql = "Select * From DressStatusCode Where IsDelete = 0";
             DataSet ds = GetDataFromDb(sql);
             if (SysProperty.Util.IsDataSetEmpty(ds)) return;
             foreach (DataRow dr in ds.Tables[0].Rows)
             {
-                ddlCategory.Items.Add(new ListItem(
+                ddlStatus.Items.Add(new ListItem(
                     SysProperty.Util.OutputRelatedLangName(Session["CultureCode"].ToString(), dr)
                     , dr["Id"].ToString()
                     ));
@@ -188,13 +205,43 @@ namespace TheWeWebSite.StoreMgt
             FittingTypeList();
             SetDivByAccessoryCategory(ddlCategory.SelectedValue);
         }
+        private void SupplierList()
+        {
+            ddlSupplier.Items.Clear();
+            ddlSupplier.Items.Add(new ListItem(Resources.Resource.SeletionRemindString, string.Empty));
+            string sql = "Select * From DressSupplier Where IsDelete = 0";
+            DataSet ds = GetDataFromDb(sql);
+            if (SysProperty.Util.IsDataSetEmpty(ds)) return;
+            foreach (DataRow dr in ds.Tables[0].Rows)
+            {
+                ddlSupplier.Items.Add(new ListItem(
+                    SysProperty.Util.OutputRelatedLangName(Session["CultureCode"].ToString(), dr)
+                    , dr["Id"].ToString()
+                    ));
+            }
+        }
+        private void RelatedCategory()
+        {
+            ddlRelatedCategory.Items.Clear();
+            ddlRelatedCategory.Items.Add(new ListItem(Resources.Resource.SeletionRemindString, string.Empty));
+            string sql = "select * from DressCategory Where Type in ('Accessory','Dress') Order by Sn";
+            DataSet ds = GetDataFromDb(sql);
+            if (SysProperty.Util.IsDataSetEmpty(ds)) return;
+            foreach (DataRow dr in ds.Tables[0].Rows)
+            {
+                ddlRelatedCategory.Items.Add(new ListItem(
+                    SysProperty.Util.OutputRelatedLangName(Session["CultureCode"].ToString(), dr)
+                    , dr["Description"].ToString()
+                    ));
+            }
+        }
         #endregion
 
         #region Button Control
         protected void btnCreate_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(tbSn.Text) || string.IsNullOrEmpty(ddlCategory.SelectedValue)) return;
-            if (SysProperty.GenDbCon.IsSnDuplicate(ddlCategory.SelectedValue ,tbSn.Text))
+            if (SysProperty.GenDbCon.IsSnDuplicate(ddlCategory.SelectedValue, tbSn.Text))
             {
                 ShowErrorMsg(Resources.Resource.SnDuplicateErrorString);
                 return;
@@ -276,6 +323,7 @@ namespace TheWeWebSite.StoreMgt
         {
             if (string.IsNullOrEmpty(tableName) || string.IsNullOrEmpty(id)) return;
             ddlCategory.SelectedValue = tableName;
+            FittingTypeList();
             SetDivByAccessoryCategory(tableName);
             string sql = "Select * From " + tableName + " Where Id='" + id + "'";
             DataSet ds = GetDataFromDb(sql);
@@ -289,7 +337,7 @@ namespace TheWeWebSite.StoreMgt
             tbColor1.Text = dr["Color"].ToString();
             tbMaterial1.Text = dr["Material"].ToString();
             ddlType.SelectedValue = dr["Category"].ToString();
-            ddlSupplier.SelectedValue = dr["Supplier"].ToString();
+            ddlSupplier.SelectedValue = dr["SupplierId"].ToString();
             ddlStatus.SelectedValue = dr["StatusCode"].ToString();
             try { tbColor2.Text = dr["Color2"].ToString(); }
             catch { tbColor2.Text = string.Empty; }
@@ -320,7 +368,8 @@ namespace TheWeWebSite.StoreMgt
                             tableName
                             , SysProperty.Util.SqlQueryUpdateConverter(lst)
                             , " Where Id = '" + id + "'");
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 SysProperty.Log.Error(ex.Message);
                 ShowErrorMsg(ex.Message);
@@ -427,13 +476,14 @@ namespace TheWeWebSite.StoreMgt
                     , tbRelatedSn.Text
                     ));
             }
-            if (divRelatedCategory.Visible)
+            if (divRelatedCategory.Visible 
+                && string.IsNullOrEmpty(ddlRelatedCategory.SelectedValue))
             {
                 lst.Add(new DbSearchObject(
                     "PairId"
                     , AtrrTypeItem.String
                     , AttrSymbolItem.Equal
-                    , ddlRelatedCategory.Text
+                    , ddlRelatedCategory.SelectedValue
                     ));
             }
             if (divGender.Visible)
@@ -472,6 +522,19 @@ namespace TheWeWebSite.StoreMgt
                     , ddlEarringType.SelectedValue
                     ));
             }
+
+            lst.Add(new DbSearchObject(
+                "StoreId"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , ((DataRow)Session["LocateStore"])["Id"].ToString()
+                ));
+            lst.Add(new DbSearchObject(
+                "UpdateAccId"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , ((DataRow)Session["AccountInfo"])["Id"].ToString()
+                ));
             return lst;
         }
 

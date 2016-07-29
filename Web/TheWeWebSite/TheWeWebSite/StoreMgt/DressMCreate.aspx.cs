@@ -52,9 +52,9 @@ namespace TheWeWebSite.StoreMgt
         }
         private void InitialControl()
         {
-            VeilList();
-            DressTypeList();
             DressCategoryList();
+            VeilList();
+            DressTypeList();            
             GlovesList();
             NecklineList();
             ShoulderList();
