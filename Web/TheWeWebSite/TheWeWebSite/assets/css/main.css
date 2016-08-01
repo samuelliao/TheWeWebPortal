@@ -2154,15 +2154,14 @@ input[type="radio"] {
     text-align: left;
     font-size: 1em;
     padding-left: 0.5em;
-    padding-bottom: 0;
-    padding-top: 0;
+    margin-top:-10px !important;
 }
 
 
 
     .Div.btn {
-        margin-top: 1.5em;
         text-align: right;
+        margin-top:15px !important;
     }
 
     .Check.Div{
@@ -2263,6 +2262,7 @@ input[type="radio"] {
     .box.special {
         padding: 20px;
         text-align: center;
+        margin-top:-8px;
     }
 
     .insert{
@@ -3772,3 +3772,5 @@ body.landing #main {
         padding: 2.5em 1em 3em 1em;
     }
 }
+
+
