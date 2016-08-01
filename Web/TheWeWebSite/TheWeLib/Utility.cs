@@ -150,6 +150,23 @@ namespace TheWeLib
             }
         }
 
+        public Dictionary<string, PermissionItem> AdminPermission()
+        {
+            Dictionary<string, PermissionItem> lst = new Dictionary<string, PermissionItem>();
+            for (int cnt = 0; cnt < 7; cnt++)
+            {
+                PermissionItem item = new PermissionItem();
+                item.CanCreate = true;
+                item.CanDelete = true;
+                item.CanModify = true;
+                item.CanExport = true;
+                item.CanEntry = true;
+                item.ObjectSn = cnt.ToString();
+                item.ObjectId = "7F8FF2CE-659B-4B7F-8B48-FF1778DC4ABC";
+                lst.Add(cnt.ToString(), item);
+            }
+            return lst;
+        }
         public Dictionary<string, PermissionItem> WebPermission(bool isOperation, DataSet permission)
         {
             try

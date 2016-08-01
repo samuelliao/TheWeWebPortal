@@ -173,6 +173,10 @@ namespace TheWeWebSite
                 if (string.IsNullOrEmpty(storeId))
                 {
                     Session["Operation"] = null;
+                    if (tbAccount.Text.ToLower() == "admin")
+                    {
+                        Session["Operation"] = SysProperty.Util.AdminPermission();
+                    }
                 }
                 else
                 {
