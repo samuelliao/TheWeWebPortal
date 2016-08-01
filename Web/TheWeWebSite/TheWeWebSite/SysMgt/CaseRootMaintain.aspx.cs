@@ -330,7 +330,9 @@ namespace TheWeWebSite.SysMgt
             {
                 foreach (GridViewRow dr in dgServiceItem.Rows)
                 {
-                    if (!NeedSyncToDB(dr)) continue;
+                    if (!NeedSyncToDB(dr
+                        , ((DataSet)Session["PermissionItem"])
+                        , dgServiceItem.DataKeys[dr.RowIndex].Value.ToString())) continue;
 
                     lst = new List<DbSearchObject>();
                     lst.Add(new DbSearchObject(
@@ -399,13 +401,15 @@ namespace TheWeWebSite.SysMgt
             return result;
         }
 
-        private bool NeedSyncToDB(GridViewRow dr)
+        private bool NeedSyncToDB(GridViewRow dr, DataSet ds, string objectId)
         {
-            return ((CheckBox)dr.FindControl("dgCbEntry")).Checked
-                || ((CheckBox)dr.FindControl("dgCbDelete")).Checked
-                || ((CheckBox)dr.FindControl("dgCbModify")).Checked
-                || ((CheckBox)dr.FindControl("dgCbCreate")).Checked
-                || ((CheckBox)dr.FindControl("dgCbExport")).Checked;
+            bool result = ((CheckBox)dr.FindControl("dgCbEntry")).Checked
+                | ((CheckBox)dr.FindControl("dgCbDelete")).Checked
+                | ((CheckBox)dr.FindControl("dgCbModify")).Checked
+                | ((CheckBox)dr.FindControl("dgCbCreate")).Checked
+                | ((CheckBox)dr.FindControl("dgCbExport")).Checked;
+            result = result | ds.Tables[0].Select("ObjectId = '" + objectId + "'").Length > 0;
+            return result;
         }
         #endregion
 

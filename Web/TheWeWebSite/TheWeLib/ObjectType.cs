@@ -16,6 +16,7 @@ namespace TheWeLib
         public string ObjectSn;
         public string ObjectId;
         public string Type;
+        public string PermissionId;
         public DateTime GetTime;
 
         public PermissionItem(DataRow dr)
@@ -28,6 +29,7 @@ namespace TheWeLib
             CanDelete = bool.Parse(dr["CanDelete"].ToString());
             CanModify = bool.Parse(dr["CanModify"].ToString());
             CanExport = bool.Parse(dr["CanExport"].ToString());
+            PermissionId = dr["PermissionId"].ToString();
             GetTime = DateTime.Now;
         }
         public PermissionItem() { GetTime = DateTime.Now; }
