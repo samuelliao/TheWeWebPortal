@@ -24,6 +24,7 @@ namespace TheWeWebSite.StoreMgt
                     labelPageTitle.Text = Resources.Resource.OrderMgtString
                         + " > " + Resources.Resource.StyleMaintainString;
                     InitialHairCategory();
+                    InitialControlWithPermission();
                     BindData();
                 }
             }
@@ -35,7 +36,15 @@ namespace TheWeWebSite.StoreMgt
             labelWarnString.Text = msg;
             labelWarnString.Visible = !string.IsNullOrEmpty(msg);
         }
-
+        private void InitialControlWithPermission()
+        {
+            PermissionUtil util = new PermissionUtil();
+            if (Session["Operation"] == null) Response.Redirect("~/Login.aspx");
+            PermissionItem item = util.GetPermissionByKey(Session["Operation"], util.GetOperationSnByPage(this.Page.AppRelativeVirtualPath));
+            LinkModelingMCreate.Visible = item.CanCreate;
+            LinkModelingMCreate.Enabled = item.CanCreate;
+            dataGrid.Columns[dataGrid.Columns.Count - 1].Visible = item.CanDelete;
+        }
         private void InitialHairCategory()
         {
             ddlCategory.Items.Clear();
@@ -151,7 +160,7 @@ namespace TheWeWebSite.StoreMgt
                     + " left join HairStyleCategory as b on b.Id=a.Type"
                     + " where a.IsDelete =0" + OtherConditionString
                     + (((DataRow)Session["LocateStore"]) == null ? string.Empty
-                    : " and c.StoreId = '" + ((DataRow)Session["LocateStore"])["Id"].ToString() + "'")
+                    : " and a.StoreId = '" + ((DataRow)Session["LocateStore"])["Id"].ToString() + "'")
                     + " " + sortStr;
                 DS = SysProperty.GenDbCon.GetDataFromTable(sql);
             }

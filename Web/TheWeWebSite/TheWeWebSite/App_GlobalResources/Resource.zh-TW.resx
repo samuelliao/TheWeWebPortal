@@ -253,7 +253,7 @@
     <value>造型資料庫</value>
   </data>
   <data name="WeddingItemMaintainString" xml:space="preserve">
-    <value>婚禮小物資料庫</value>
+    <value>婚禮週邊資料庫</value>
   </data>
   <data name="ChurchMaintainString" xml:space="preserve">
     <value>教堂資料庫</value>
@@ -892,10 +892,10 @@
     <value>權限類別</value>
   </data>
   <data name="OtherItemCategoryString" xml:space="preserve">
-    <value>婚禮小物類別</value>
+    <value>婚禮週邊類別</value>
   </data>
   <data name="OtherItemSnString" xml:space="preserve">
-    <value>婚禮小物編號</value>
+    <value>婚禮週邊編號</value>
   </data>
   <data name="DescriptionString" xml:space="preserve">
     <value>描述</value>
@@ -941,5 +941,11 @@
   </data>
   <data name="CreateItemString" xml:space="preserve">
     <value>新增項目</value>
+  </data>
+  <data name="OtherString" xml:space="preserve">
+    <value>其他</value>
+  </data>
+  <data name="FittingString" xml:space="preserve">
+    <value>配件</value>
   </data>
 </root>

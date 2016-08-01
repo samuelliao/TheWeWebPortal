@@ -33,6 +33,17 @@ namespace TheWeWebSite.SysMgt
             labelWarnStr.Visible = !string.IsNullOrEmpty(msg);
         }
         #region Initial
+        private void InitialControlWithPermission()
+        {
+            PermissionUtil util = new PermissionUtil();
+            if (Session["Operation"] == null) Response.Redirect("~/Login.aspx");
+            PermissionItem item = util.GetPermissionByKey(Session["Operation"], util.GetOperationSnByPage(this.Page.AppRelativeVirtualPath));
+            btnCreate.Visible = item.CanCreate;
+            btnCreate.Enabled = item.CanCreate;
+            btnUpdate.Visible = item.CanModify;
+            btnUpdate.Enabled = item.CanModify;
+            dataGrid.Columns[dataGrid.Columns.Count - 1].Visible = item.CanDelete;
+        }
         private void InitialStore()
         {
             ddlStore.Items.Clear();

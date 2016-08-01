@@ -253,7 +253,7 @@
     <value>Style</value>
   </data>
   <data name="WeddingItemMaintainString" xml:space="preserve">
-    <value>Wedding Item</value>
+    <value>Wedding Service Maintain</value>
   </data>
   <data name="ChurchMaintainString" xml:space="preserve">
     <value>Church Database</value>
@@ -937,9 +937,15 @@
     <value></value>
   </data>
   <data name="InsuranceString" xml:space="preserve">
-    <value></value>
+    <value>Insurance</value>
   </data>
   <data name="CreateItemString" xml:space="preserve">
     <value></value>
+  </data>
+  <data name="OtherString" xml:space="preserve">
+    <value>Other</value>
+  </data>
+  <data name="FittingString" xml:space="preserve">
+    <value>Fitting</value>
   </data>
 </root>

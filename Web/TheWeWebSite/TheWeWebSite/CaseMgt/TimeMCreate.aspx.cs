@@ -21,6 +21,7 @@ namespace TheWeWebSite.CaseMgt
                     SysProperty.DataSetSortType = true;
 
                     InitialConferenceItem();
+                    InitialControlWithPermission();
 
                     if (Session["OrderId"] != null)
                     {
@@ -41,7 +42,14 @@ namespace TheWeWebSite.CaseMgt
                 }
             }
         }
-
+        private void InitialControlWithPermission()
+        {
+            PermissionUtil util = new PermissionUtil();
+            if (Session["Operation"] == null) Response.Redirect("~/Login.aspx");
+            PermissionItem item = util.GetPermissionByKey(Session["Operation"], util.GetOperationSnByPage(this.Page.AppRelativeVirtualPath));
+            btnModify.Visible = item.CanModify;
+            btnModify.Enabled = item.CanModify;
+        }
         private void InitialConferenceItem()
         {
             try

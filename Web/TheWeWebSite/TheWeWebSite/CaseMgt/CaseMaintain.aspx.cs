@@ -23,6 +23,7 @@ namespace TheWeWebSite.CaseMgt
                     labelPageTitle.Text = Resources.Resource.OrderMgtString + " > " + Resources.Resource.OrderMgtString;
                     InitialAllDropDownList();
                     InitialLabelText();
+                    InitialControlWithPermission();
                     BindData();
                 }
             }
@@ -39,6 +40,15 @@ namespace TheWeWebSite.CaseMgt
             labelContractSearchEndDate.Text = Resources.Resource.ContractDateString + "(" + Resources.Resource.EndString + ")";
             labelClosedSearchStartDate.Text = Resources.Resource.ContractCloseDateString + "(" + Resources.Resource.StartString + ")";
             labelClosedSearchStartDate.Text = Resources.Resource.ContractCloseDateString + "(" + Resources.Resource.EndString + ")";
+        }
+        private void InitialControlWithPermission()
+        {
+            PermissionUtil util = new PermissionUtil();
+            if (Session["Operation"] == null) Response.Redirect("~/Login.aspx");
+            PermissionItem item = util.GetPermissionByKey(Session["Operation"], util.GetOperationSnByPage(this.Page.AppRelativeVirtualPath));
+            btnCreate.Visible = item.CanCreate;
+            btnCreate.Enabled = item.CanCreate;
+            dataGrid.Columns[dataGrid.Columns.Count - 1].Visible = item.CanDelete;
         }
 
         #region DropDownList Control

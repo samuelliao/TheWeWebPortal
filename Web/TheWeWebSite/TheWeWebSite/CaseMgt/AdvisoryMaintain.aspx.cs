@@ -22,6 +22,7 @@ namespace TheWeWebSite.CaseMgt
                 {
                     labelPageTitle.Text = Resources.Resource.OrderMgtString + " > " + Resources.Resource.TimetableMaintainString;
                     InitialLabelText();
+                    InitialControlWithPermission();
                     BindData();
                 }
             }
@@ -38,6 +39,15 @@ namespace TheWeWebSite.CaseMgt
             labelBookEndDate.Text = Resources.Resource.AppointmentDateString + "(" + Resources.Resource.EndString + ")";
             labelSearchStartDate.Text = Resources.Resource.StartDateString + "(" + Resources.Resource.StartString + ")";
             labelSearchStartDate.Text = Resources.Resource.StartDateString + "(" + Resources.Resource.EndString + ")";
+        }
+        private void InitialControlWithPermission()
+        {
+            PermissionUtil util = new PermissionUtil();
+            if (Session["Operation"] == null) Response.Redirect("~/Login.aspx");
+            PermissionItem item = util.GetPermissionByKey(Session["Operation"], util.GetOperationSnByPage(this.Page.AppRelativeVirtualPath));
+            LinkAdvisoryMCreate.Visible = item.CanCreate;
+            LinkAdvisoryMCreate.Enabled = item.CanCreate;
+            dataGrid.Columns[dataGrid.Columns.Count - 1].Visible = item.CanDelete;
         }
 
         protected void btnSearch_Click(object sender, EventArgs e)

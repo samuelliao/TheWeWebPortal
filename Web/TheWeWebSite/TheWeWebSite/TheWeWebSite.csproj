@@ -30,6 +30,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -260,6 +261,7 @@
     <Compile Include="Main\Unsigned.aspx.designer.cs">
       <DependentUpon>Unsigned.aspx</DependentUpon>
     </Compile>
+    <Compile Include="PermissionUtil.cs" />
     <Compile Include="remind.aspx.cs">
       <DependentUpon>remind.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

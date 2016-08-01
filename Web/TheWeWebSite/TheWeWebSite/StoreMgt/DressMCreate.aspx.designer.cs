@@ -76,6 +76,15 @@ namespace TheWeWebSite.StoreMgt {
         protected global::System.Web.UI.WebControls.TextBox tbColor;
         
         /// <summary>
+        /// tbColor2 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tbColor2;
+        
+        /// <summary>
         /// ddlDressType 控制項。
         /// </summary>
         /// <remarks>
@@ -83,6 +92,24 @@ namespace TheWeWebSite.StoreMgt {
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlDressType;
+        
+        /// <summary>
+        /// tbMaterial 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tbMaterial;
+        
+        /// <summary>
+        /// tbMaterial2 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tbMaterial2;
         
         /// <summary>
         /// ddlNeckline 控制項。
@@ -110,15 +137,6 @@ namespace TheWeWebSite.StoreMgt {
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlShoulder;
-        
-        /// <summary>
-        /// tbMaterial 控制項。
-        /// </summary>
-        /// <remarks>
-        /// 自動產生的欄位。
-        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbMaterial;
         
         /// <summary>
         /// ddlWorn 控制項。

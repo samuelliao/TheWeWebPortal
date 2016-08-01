@@ -52,71 +52,75 @@
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,ColorString%>"></asp:Label>
                             </div>
                             <asp:TextBox runat="server" ID="tbColor" />
-
+                        </div>
+                        <div class="2u 12u(mobilep)">
+                            <div class="Div">
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,ColorString%>"></asp:Label>
+                            </div>
+                            <asp:TextBox runat="server" ID="tbColor2" />
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,TypeString%>"></asp:Label>
                             </div>
                             <asp:DropDownList runat="server" ID="ddlDressType" />
-
-                        </div>
-                        <div class="2u 12u(mobilep)">
-                            <div class="Div">
-                                <asp:Label runat="server" Text="<%$ Resources:Resource,NecklineString%>"></asp:Label>
-                            </div>
-                            <asp:DropDownList runat="server" ID="ddlNeckline" />
-
-                        </div>
+                        </div>                        
                     </div>
                 </div>
 
                 <div class="12u">
+                    <div class="2u 12u(mobilep)">
+                            <div class="Div">
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,MaterialString%>"></asp:Label>
+                            </div>
+                            <asp:TextBox runat="server" ID="tbMaterial"></asp:TextBox>
+                        </div>
+                    <div class="2u 12u(mobilep)">
+                            <div class="Div">
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,MaterialString%>"></asp:Label>
+                            </div>
+                            <asp:TextBox runat="server" ID="tbMaterial2"></asp:TextBox>
+                        </div>
+                    <div class="2u 12u(mobilep)">
+                            <div class="Div">
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,NecklineString%>"></asp:Label>
+                            </div>
+                            <asp:DropDownList runat="server" ID="ddlNeckline" />
+                        </div>
                     <div class="row uniform 50%">
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,DressBackString%>"></asp:Label>
                             </div>
                             <asp:DropDownList runat="server" ID="ddlBack" />
-
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,ShoulderString%>"></asp:Label>
                             </div>
                             <asp:DropDownList runat="server" ID="ddlShoulder" />
-
-                        </div>
-                        <div class="2u 12u(mobilep)">
-                            <div class="Div">
-                                <asp:Label runat="server" Text="<%$ Resources:Resource,MaterialString%>"></asp:Label>
-                            </div>
-                            <asp:TextBox runat="server" ID="tbMaterial"></asp:TextBox>
-
-                        </div>
+                        </div>                        
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,WornString%>"></asp:Label>
                             </div>
                             <asp:DropDownList runat="server" ID="ddlWorn" />
-
-                        </div>
-                        <div class="2u 12u(mobilep)">
-                            <div class="Div">
-                                <asp:Label runat="server" Text="<%$ Resources:Resource,VeilString%>"></asp:Label>
-                            </div>
-                            <asp:DropDownList runat="server" ID="ddlVeil" />
-                        </div>
+                        </div>                        
                     </div>
                 </div>
                 <div class="12u">
                     <div class="row uniform 50%">
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,VeilString%>"></asp:Label>
+                            </div>
+                            <asp:DropDownList runat="server" ID="ddlVeil" />
+                        </div>
+                        <div class="2u 12u(mobilep)">
+                            <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,TrailingString%>"></asp:Label>
                             </div>
                             <asp:DropDownList runat="server" ID="ddlTrailing" />
-
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
@@ -146,7 +150,7 @@
                         </div>
                         <div class="4u 12u(mobilep)">
                             <div class="Div">
-                                <asp:Label runat="server" Text="配件"></asp:Label>
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,FittingString%>"></asp:Label>
                             </div>
                             <div style="overflow-y: auto">
                                 <asp:TextBox runat="server" ID="tbFitting"></asp:TextBox>
@@ -154,7 +158,7 @@
                         </div>
                         <div class="4u 12u(mobilep)">
                             <div class="Div">
-                                <asp:Label runat="server" Text="其他"></asp:Label>
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,OtherString%>"></asp:Label>
                             </div>
                             <div style="overflow-y: auto;">
                                 <asp:TextBox runat="server" ID="tbOthers"></asp:TextBox>
@@ -188,7 +192,7 @@
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
-                                <asp:Label runat="server" Text="租金"></asp:Label>
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,RentPriceString%>"></asp:Label>
                             </div>
                             <asp:TextBox runat="server" ID="tbRentPrice" style="text-align:right"></asp:TextBox>
                             <asp:RegularExpressionValidator ID="RegularExpressionValidator3" ControlToValidate="tbRentPrice" runat="server"
@@ -197,7 +201,7 @@
 
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
-                                <asp:Label runat="server" Text="售價"></asp:Label>
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,SeillingPriceString%>"></asp:Label>
                             </div>
                             <asp:TextBox runat="server" ID="tbPrice" style="text-align:right"></asp:TextBox>
                             <asp:RegularExpressionValidator ID="RegularExpressionValidator4" ControlToValidate="tbPrice" runat="server"

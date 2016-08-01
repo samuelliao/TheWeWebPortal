@@ -22,6 +22,7 @@ namespace TheWeWebSite.CaseMgt
                     SysProperty.DataSetSortType = true;
 
                     InitialControls();
+                    InitialControlWithPermission();
 
                     if (Session["ConsultId"] != null)
                     {
@@ -53,6 +54,18 @@ namespace TheWeWebSite.CaseMgt
         }
 
         #region Control Initial
+        private void InitialControlWithPermission()
+        {
+            PermissionUtil util = new PermissionUtil();
+            if (Session["Operation"] == null) Response.Redirect("~/Login.aspx");
+            PermissionItem item = util.GetPermissionByKey(Session["Operation"], util.GetOperationSnByPage(this.Page.AppRelativeVirtualPath));
+            btnCreate.Visible = item.CanCreate;
+            btnCreate.Enabled = item.CanCreate;
+            btnDelete.Visible = item.CanDelete;
+            btnDelete.Enabled = item.CanDelete;
+            btnModify.Visible = item.CanModify;
+            btnModify.Enabled = item.CanModify;
+        }
         private void InitialControls()
         {
             InitialMsgerType();

@@ -20,9 +20,21 @@ namespace TheWeWebSite.SysMgt
                 else
                 {                    
                     labelPageTitle.Text = Resources.Resource.SysMgtString + " > " + Resources.Resource.CurrencyString;
+                    InitialControlWithPermission();
                     BindData();
                 }
             }
+        }
+
+        private void InitialControlWithPermission()
+        {
+            PermissionUtil util = new PermissionUtil();
+            if (Session["Operation"] == null) Response.Redirect("~/Login.aspx");
+            PermissionItem item = util.GetPermissionByKey(Session["Operation"], util.GetOperationSnByPage(this.Page.AppRelativeVirtualPath));
+            btnCreate.Visible = item.CanCreate;
+            btnCreate.Enabled = item.CanCreate;
+            dgCurrency.Columns[dgCurrency.Columns.Count - 1].Visible = item.CanDelete;
+            dgCurrency.Columns[dgCurrency.Columns.Count - 2].Visible = item.CanModify;
         }
         #region
         protected void btnCreate_Click(object sender, EventArgs e)

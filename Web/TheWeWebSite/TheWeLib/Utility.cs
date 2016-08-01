@@ -24,6 +24,7 @@ namespace TheWeLib
                 (ds.Tables[0].Rows.Count == 0));
         }
 
+        #region Instance Parser
         public string ParseDateTime(string type, string str)
         {
             bool result = false;
@@ -65,6 +66,7 @@ namespace TheWeLib
             result = decimal.TryParse(str, out dec);
             return result ? dec : 0;
         }
+        #endregion
 
         public string GetMD5(string inputStr)
         {
@@ -148,24 +150,35 @@ namespace TheWeLib
             }
         }
 
-        public bool VerifyBasicVariable(DataRow AccInfo)
+        public Dictionary<string, PermissionItem> OperationPermission(bool isOperation, DataSet permission)
         {
             try
             {
-                if (string.IsNullOrEmpty(SysProperty.DbConcString)) { return false; }
-                if (AccInfo == null
-                    || string.IsNullOrEmpty(AccInfo["Id"].ToString()))
+                Dictionary<string, PermissionItem> lst = new Dictionary<string, PermissionItem>();
+                if (IsDataSetEmpty(permission)) return null;
+                foreach(DataRow dr in permission.Tables[0].Rows)
                 {
-                    return false;
+                    lst.Add(
+                        (isOperation ? dr["ObjectSn"].ToString() : dr["ObjectId"].ToString())
+                        , new PermissionItem(dr));
                 }
-                return true;
+                PermissionItem item = new PermissionItem();
+                item.CanCreate = true;
+                item.CanDelete = true;
+                item.CanModify = true;
+                item.CanExport = true;
+                item.CanEntry = true;
+                item.ObjectSn = "0";
+                item.ObjectId = "7F8FF2CE-659B-4B7F-8B48-FF1778DC4ABC";
+                lst.Add("0", item);
+                return lst;
             }
             catch (Exception ex)
             {
                 SysProperty.Log.Error(ex.Message);
-                return false;
+                return null;
             }
-        }
+        }        
 
         #region DB Controller
         public string GetSortDirection(string column)

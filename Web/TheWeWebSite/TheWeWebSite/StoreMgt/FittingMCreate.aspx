@@ -146,6 +146,7 @@
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,CostString%>"></asp:Label>
                             </div>
                             <asp:TextBox runat="server" ID="tbCost" style="text-align:right"></asp:TextBox>
+                            <asp:RegularExpressionValidator ID="RegularExpressionValidator1" ControlToValidate="tbCost" runat="server" ErrorMessage="Only Numbers allowed" ValidationExpression="\d+[.]*\d*"></asp:RegularExpressionValidator>
                         </div>
 
                         <div class="2u 12u(mobilep)">
@@ -159,6 +160,7 @@
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,RentPriceString%>"></asp:Label>
                             </div>
                             <asp:TextBox runat="server" ID="tbRentPrice" style="text-align:right"></asp:TextBox>
+                            <asp:RegularExpressionValidator ID="RegularExpressionValidator2" ControlToValidate="tbRentPrice" runat="server" ErrorMessage="Only Numbers allowed" ValidationExpression="\d+[.]*\d*"></asp:RegularExpressionValidator>
 
                         </div>
                         <div class="2u 12u(mobilep)">
@@ -166,12 +168,14 @@
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,OptionalPriceString%>"></asp:Label>
                             </div>
                             <asp:TextBox runat="server" ID="tbOptionalPrice" style="text-align:right"></asp:TextBox>
+                            <asp:RegularExpressionValidator ID="RegularExpressionValidator3" ControlToValidate="tbOptionalPrice" runat="server" ErrorMessage="Only Numbers allowed" ValidationExpression="\d+[.]*\d*"></asp:RegularExpressionValidator>
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,SellingPriceString%>"></asp:Label>
                             </div>
                             <asp:TextBox runat="server" ID="tbSalesPrice" style="text-align:right"></asp:TextBox>
+                            <asp:RegularExpressionValidator ID="RegularExpressionValidator4" ControlToValidate="tbSalesPrice" runat="server" ErrorMessage="Only Numbers allowed" ValidationExpression="\d+[.]*\d*"></asp:RegularExpressionValidator>
                         </div>
                     </div>
                     

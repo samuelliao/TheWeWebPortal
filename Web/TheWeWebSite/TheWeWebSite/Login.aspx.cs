@@ -84,6 +84,8 @@ namespace TheWeWebSite
                 SysProperty.UpdateChurch();
                 Session["AccountInfo"] = ds.Tables[0].Rows[0];
                 GetLocateStoreInfo(ddlStore.SelectedValue);
+                GetOperationPermission(ddlStore.SelectedValue);
+                GetCasePermission(ds.Tables[0].Rows[0]["Id"].ToString());
                 return true;
             }
             else return false;
@@ -112,7 +114,7 @@ namespace TheWeWebSite
                 return;
             }
             else
-            {
+            {                
                 labelWarnText.Visible = false;
                 Response.Redirect("Main/Case.aspx");
             }
@@ -176,13 +178,12 @@ namespace TheWeWebSite
                 else
                 {
                     DataSet ds = SysProperty.GenDbCon.GetDataFromTable(string.Empty
-                    , SysProperty.Util.MsSqlTableConverter(MsSqlTable.Permission)
-                    , " Where IsDelete = 0 And ObjectId = '" + storeId + "' And Type = 'Operation'");
-                    if (SysProperty.Util.IsDataSetEmpty(ds)) return;
-                    string permissionId = ds.Tables[0].Rows[0]["Id"].ToString();
-                    Session["Operation"] = SysProperty.GenDbCon.GetDataFromTable(string.Empty
                     , SysProperty.Util.MsSqlTableConverter(MsSqlTable.PermissionItem)
-                    , " Where IsDelete = 0 And PermissionId = '" + permissionId + "'");
+                    , " Where IsDelete = 0 And PermissionId = "
+                    + "( Select TOP(1) Id From Permission Where IsDelete = 0 And ObjectId = '" + storeId + "' And Type = 'Operation')"
+                    + " Order by ObjectSn");
+                    if (SysProperty.Util.IsDataSetEmpty(ds)) Session["Operation"] = null;
+                    Session["Operation"] = SysProperty.Util.OperationPermission(true, ds);
                 }
             }
             catch (Exception ex)

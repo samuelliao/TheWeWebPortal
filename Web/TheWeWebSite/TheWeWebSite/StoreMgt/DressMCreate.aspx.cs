@@ -19,6 +19,8 @@ namespace TheWeWebSite.StoreMgt
                 else
                 {
                     InitialControl();
+                    InitialControlWithPermission();
+
                     if (Session["DressId"] != null)
                     {
                         labelPageTitle.Text = Resources.Resource.StoreMgtString
@@ -49,6 +51,18 @@ namespace TheWeWebSite.StoreMgt
         {
             Session.Remove("DressId");
             Response.Redirect("DressMaintain.aspx", true);
+        }
+        private void InitialControlWithPermission()
+        {
+            PermissionUtil util = new PermissionUtil();
+            if (Session["Operation"] == null) Response.Redirect("~/Login.aspx");
+            PermissionItem item = util.GetPermissionByKey(Session["Operation"], util.GetOperationSnByPage(this.Page.AppRelativeVirtualPath));
+            btnCreate.Visible = item.CanCreate;
+            btnCreate.Enabled = item.CanCreate;
+            btnDelete.Visible = item.CanDelete;
+            btnDelete.Enabled = item.CanDelete;
+            btnModify.Visible = item.CanModify;
+            btnModify.Enabled = item.CanModify;
         }
         private void InitialControl()
         {
@@ -402,9 +416,11 @@ namespace TheWeWebSite.StoreMgt
             if (SysProperty.Util.IsDataSetEmpty(ds)) return;
             DataRow dr = ds.Tables[0].Rows[0];
             tbColor.Text = dr["Color"].ToString();
+            tbColor2.Text = dr["Color2"].ToString();
             tbCost.Text = SysProperty.Util.ParseMoney(dr["Cost"].ToString()).ToString("#0.00");
             tbCustomPrice.Text = SysProperty.Util.ParseMoney(dr["CustomPrice"].ToString()).ToString("#0.00");
             tbMaterial.Text = dr["Material"].ToString();
+            tbMaterial2.Text = dr["Material2"].ToString();
             tbOthers.Text = dr["Description"].ToString();            
             tbPrice.Text = SysProperty.Util.ParseMoney(dr["SellsPrice"].ToString()).ToString("#0.00");
             tbRentPrice.Text = SysProperty.Util.ParseMoney(dr["RentPrice"].ToString()).ToString("#0.00");
@@ -456,6 +472,12 @@ namespace TheWeWebSite.StoreMgt
                 , tbColor.Text
                 ));
             lst.Add(new DbSearchObject(
+                "Color2"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , tbColor2.Text
+                ));
+            lst.Add(new DbSearchObject(
                 "Fitting"
                 , AtrrTypeItem.String
                 , AttrSymbolItem.Equal
@@ -472,6 +494,12 @@ namespace TheWeWebSite.StoreMgt
                 , AtrrTypeItem.String
                 , AttrSymbolItem.Equal
                 , tbCustomPrice.Text
+                ));
+            lst.Add(new DbSearchObject(
+                "Material2"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , tbMaterial2.Text
                 ));
             lst.Add(new DbSearchObject(
                 "Material"

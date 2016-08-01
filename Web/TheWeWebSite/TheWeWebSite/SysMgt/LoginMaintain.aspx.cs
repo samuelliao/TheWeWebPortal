@@ -32,7 +32,16 @@ namespace TheWeWebSite.SysMgt
             labelWarnString.Text = msg;
             labelWarnString.Visible = !string.IsNullOrEmpty(msg);
         }
-
+        private void InitialControlWithPermission()
+        {
+            PermissionUtil util = new PermissionUtil();
+            if (Session["Operation"] == null) Response.Redirect("~/Login.aspx");
+            PermissionItem item = util.GetPermissionByKey(Session["Operation"], util.GetOperationSnByPage(this.Page.AppRelativeVirtualPath));
+            btnCreate.Visible = item.CanCreate;
+            btnCreate.Enabled = item.CanCreate;
+            btnModify.Visible = item.CanModify;
+            btnModify.Enabled = item.CanModify;
+        }
         private void StoreList()
         {
             ddlStore.Items.Clear();

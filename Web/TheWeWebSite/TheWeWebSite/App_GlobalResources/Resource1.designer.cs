@@ -1078,6 +1078,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   查詢類似 Fitting 的當地語系化字串。
+        /// </summary>
+        internal static string FittingString {
+            get {
+                return ResourceManager.GetString("FittingString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查詢類似 Gender 的當地語系化字串。
         /// </summary>
         internal static string GenderString {
@@ -1204,7 +1213,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   查詢類似  的當地語系化字串。
+        ///   查詢類似 Insurance 的當地語系化字串。
         /// </summary>
         internal static string InsuranceString {
             get {
@@ -1659,6 +1668,15 @@ namespace Resources {
         internal static string OtherItemSnString {
             get {
                 return ResourceManager.GetString("OtherItemSnString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查詢類似 Other 的當地語系化字串。
+        /// </summary>
+        internal static string OtherString {
+            get {
+                return ResourceManager.GetString("OtherString", resourceCulture);
             }
         }
         
@@ -2446,7 +2464,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   查詢類似 Wedding Item 的當地語系化字串。
+        ///   查詢類似 Wedding Service Maintain 的當地語系化字串。
         /// </summary>
         internal static string WeddingItemMaintainString {
             get {

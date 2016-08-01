@@ -19,6 +19,7 @@ namespace TheWeWebSite.StoreMgt
                 else
                 {
                     InitialControl();
+                    InitialControlWithPermission();
                     if (Session["EmpId"] != null)
                     {
                         labelPageTitle.Text = Resources.Resource.StoreMgtString
@@ -49,6 +50,18 @@ namespace TheWeWebSite.StoreMgt
         {
             Session.Remove("EmpId");
             Response.Redirect("EmployeeMaintain.aspx", true);
+        }
+        private void InitialControlWithPermission()
+        {
+            PermissionUtil util = new PermissionUtil();
+            if (Session["Operation"] == null) Response.Redirect("~/Login.aspx");
+            PermissionItem item = util.GetPermissionByKey(Session["Operation"], util.GetOperationSnByPage(this.Page.AppRelativeVirtualPath));
+            btnCreate.Visible = item.CanCreate;
+            btnCreate.Enabled = item.CanCreate;
+            btnDelete.Visible = item.CanDelete;
+            btnDelete.Enabled = item.CanDelete;
+            btnModify.Visible = item.CanModify;
+            btnModify.Enabled = item.CanModify;
         }
         private void InitialControl()
         {
@@ -123,6 +136,7 @@ namespace TheWeWebSite.StoreMgt
             tbEmpSalary.Text = string.Empty;
             tbEmpRemark.Text = string.Empty;
             tbEmpPhone.Text = string.Empty;
+            tbAccount.Text = string.Empty;
         }
 
         protected void btnCancel_Click(object sender, EventArgs e)
@@ -187,7 +201,7 @@ namespace TheWeWebSite.StoreMgt
 
         private void SetEmpInfoData(string id)
         {
-            string sql = "Select * From Employee Where Id = '" + id + "'";
+            string sql = "Select * From vwEN_Employee Where Id = '" + id + "'";
             DataSet ds = GetDataSetFromTable(sql);
             if (SysProperty.Util.IsDataSetEmpty(ds)) return;
             DataRow dr = ds.Tables[0].Rows[0];
@@ -201,16 +215,15 @@ namespace TheWeWebSite.StoreMgt
             tbEmpName.Text = dr["Name"].ToString();
             tbEmpInsurance.Text = dr["InsuranceId"].ToString();
             tbEmpEmail.Text = dr["Email"].ToString();
-            tbEmpECTel.Text = dr["EmergencyContactTel"].ToString();
-            tbEmpEC.Text = dr["EmergencyContact"].ToString();
+            tbEmpECTel.Text = dr["EmContPhone"].ToString();
+            tbEmpEC.Text = dr["EmContName"].ToString();
             tbEmpBankBook.Text = dr["BankBookImg"].ToString();
             tbEmpBank.Text = dr["BankAccount"].ToString();
             EmpQuitDay.Text = dr["QuitDay"].ToString();
             EmpOnBoardDay.Text = dr["OnBoard"].ToString();
             EmpBDay.Text = dr["Bday"].ToString();
             ddlCountry.SelectedValue = dr["CountryId"].ToString();
-
-
+            tbAccount.Text = dr["Account"].ToString();
         }
 
         private List<DbSearchObject> EmployeeInfoDbObject()
@@ -248,13 +261,19 @@ namespace TheWeWebSite.StoreMgt
                 , tbEmpEmail.Text
                 ));
             lst.Add(new DbSearchObject(
-                "EmergencyContact"
+                "Account"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , tbAccount.Text
+                ));
+            lst.Add(new DbSearchObject(
+                "EmContName"
                 , AtrrTypeItem.String
                 , AttrSymbolItem.Equal
                 , tbEmpEC.Text
                 ));
             lst.Add(new DbSearchObject(
-                "EmergencyContactTel"
+                "EmContPhone"
                 , AtrrTypeItem.String
                 , AttrSymbolItem.Equal
                 , tbEmpECTel.Text

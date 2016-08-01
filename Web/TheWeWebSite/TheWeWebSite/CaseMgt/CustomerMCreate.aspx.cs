@@ -20,6 +20,7 @@ namespace TheWeWebSite.CaseMgt
                 else
                 {                    
                     InitialMsgerType();
+                    InitialControlWithPermission();
                     if (Session["CustomerId"] != null)
                     {
                         labelPageTitle.Text = Resources.Resource.OrderMgtString
@@ -68,6 +69,18 @@ namespace TheWeWebSite.CaseMgt
                 SysProperty.Log.Error(ex.Message);
                 ShowErrorMsg(ex.Message);
             }
+        }
+        private void InitialControlWithPermission()
+        {
+            PermissionUtil util = new PermissionUtil();
+            if (Session["Operation"] == null) Response.Redirect("~/Login.aspx");
+            PermissionItem item = util.GetPermissionByKey(Session["Operation"], util.GetOperationSnByPage(this.Page.AppRelativeVirtualPath));
+            btnCreate.Visible = item.CanCreate;
+            btnCreate.Enabled = item.CanCreate;
+            btnDelete.Visible = item.CanDelete;
+            btnDelete.Enabled = item.CanDelete;
+            btnModify.Visible = item.CanModify;
+            btnModify.Enabled = item.CanModify;
         }
         #endregion
 

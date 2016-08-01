@@ -24,32 +24,40 @@ namespace TheWeWebSite.StoreMgt
                     labelPageTitle.Text = Resources.Resource.OrderMgtString
                         + " > " + Resources.Resource.WeddingItemMaintainString;
                     InitialOthType();
+                    InitialControlWithPermission();
                     BindData();
                 }
             }
-
-
         }
         private void ShowErrorMsg(string msg)
         {
             labelWarnString.Text = msg;
             labelWarnString.Visible = !string.IsNullOrEmpty(msg);
         }
-
+        private void InitialControlWithPermission()
+        {
+            PermissionUtil util = new PermissionUtil();
+            if (Session["Operation"] == null) Response.Redirect("~/Login.aspx");
+            PermissionItem item = util.GetPermissionByKey(Session["Operation"], util.GetOperationSnByPage(this.Page.AppRelativeVirtualPath));
+            LinkOtherItemMCreate.Visible = item.CanCreate;
+            LinkOtherItemMCreate.Enabled = item.CanCreate;
+            dataGrid.Columns[dataGrid.Columns.Count - 1].Visible = item.CanDelete;
+        }
         private void InitialOthType()
         {
             ddlOthCategory.Items.Clear();
             try
             {
                 ddlOthCategory.Items.Add(new ListItem(Resources.Resource.TypeSelectRemindString, string.Empty, true));
-                string sql = "select DISTINCT Type from ServiceItem where CategroyId='4ec16237-2cb6-496f-ab85-8fa708aa4d55' and IsDelete =0";
+                string sql = "select * from ServiceItemCategory where TypeLv = 1 and IsDelete =0";
                 DataSet ds = SysProperty.GenDbCon.GetDataFromTable(sql);
                 if (SysProperty.Util.IsDataSetEmpty(ds)) return;
                 foreach (DataRow dr in ds.Tables[0].Rows)
                 {
                     ddlOthCategory.Items.Add(
                         new ListItem(
-                        dr["Type"].ToString()));
+                            SysProperty.Util.OutputRelatedLangName(Session["CultureCode"].ToString(), dr)
+                        , dr["Id"].ToString()));
                 }
             }
             catch (Exception ex)
@@ -112,7 +120,7 @@ namespace TheWeWebSite.StoreMgt
         {
             if (DS == null)
             {
-                GetCustomerList("Order by a." + e.SortExpression + " " + SysProperty.Util.GetSortDirection(e.SortExpression));
+                GetOtherItemList("Order by a." + e.SortExpression + " " + SysProperty.Util.GetSortDirection(e.SortExpression));
             }
             if (DS != null)
             {
@@ -140,33 +148,65 @@ namespace TheWeWebSite.StoreMgt
 
         private void BindData()
         {
-            GetCustomerList(string.Empty);
+            GetOtherItemList(string.Empty);
             dataGrid.DataSource = DS;
             dataGrid.AllowPaging = !SysProperty.Util.IsDataSetEmpty(DS);
             dataGrid.DataBind();
         }
 
-        private void GetCustomerList(string sortStr)
+        private void GetOtherItemList(string sortStr)
         {
             try
             {
-                string sql = "select a.[Id],a.[Sn]"
-                    + " ,a.[Name],a.[Description],a.[Type],a.[Price]"
-                    + " ,a.[SupplierId],a.[Cost],a.[StoreId],a.[CnName]"
-                    + " ,a.[EngName],a.[JpName],a.[IsDelete],a.[CategroyId]"
-                    + " ,a.[UpdateAccId],a.[UpdateTime]"
-                    + " from [TheWe].[dbo].[ServiceItem] as a "
-                    + " WHERE a.IsDelete = 0 AND CategroyId='4ec16237-2cb6-496f-ab85-8fa708aa4d55'" + OtherConditionString
-                    + (((DataRow)Session["LocateStore"]) == null ? string.Empty
-                    : " and c.StoreId = '" + ((DataRow)Session["LocateStore"])["Id"].ToString() + "'")
-                    + " " + sortStr;
-                DS = SysProperty.GenDbCon.GetDataFromTable(sql);
+                string sql = string.Empty;
+                string condStr = string.Empty;
+                if (string.IsNullOrEmpty(ddlOthCategory.SelectedValue))
+                {
+                    condStr = OtherConditionString + " And Category = '4ec16237-2cb6-496f-ab85-8fa708aa4d55'"
+                        + (((DataRow)Session["LocateStore"]) == null ? string.Empty
+                        : " and a.StoreId = '" + ((DataRow)Session["LocateStore"])["Id"].ToString() + "'");
+                    DS = GetServiceItem(condStr, sortStr);
+                    condStr = OtherConditionString + " And Category != '4ec16237-2cb6-496f-ab85-8fa708aa4d55'";
+                    DS.Merge(GetServiceItem(condStr, sortStr));
+                }
+                else if (ddlOthCategory.SelectedValue == "4ec16237-2cb6-496f-ab85-8fa708aa4d55")
+                {
+                    condStr = OtherConditionString
+                        + (((DataRow)Session["LocateStore"]) == null ? string.Empty
+                        : " and a.StoreId = '" + ((DataRow)Session["LocateStore"])["Id"].ToString() + "'");
+                    DS = GetServiceItem(condStr, sortStr);
+                }
+                else
+                {
+                    DS = GetServiceItem(condStr, sortStr);
+                }
             }
             catch (Exception ex)
             {
                 SysProperty.Log.Error(ex.Message);
                 ShowErrorMsg(ex.Message);
                 DS = null;
+            }
+        }
+
+        private DataSet GetServiceItem(string condStr, string sortStr)
+        {
+            try
+            {
+                string sql = "select a.[Id],a.[Sn]"
+                        + " ,a.[Name],a.[Description],a.[Type],a.[Price]"
+                        + " ,a.[SupplierId],a.[Cost],a.[StoreId],a.[CnName]"
+                        + " ,a.[EngName],a.[JpName],a.[IsDelete],a.[CategroyId]"
+                        + " ,a.[UpdateAccId],a.[UpdateTime]"
+                        + " from [TheWe].[dbo].[ServiceItem] as a "
+                        + " WHERE a.IsDelete = 0 " + condStr + " " + sortStr;
+                return SysProperty.GenDbCon.GetDataFromTable(sql);
+            }
+            catch(Exception ex)
+            {
+                SysProperty.Log.Error(ex.Message);
+                ShowErrorMsg(ex.Message);
+                return null;
             }
         }
     }
