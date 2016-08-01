@@ -19,6 +19,7 @@ namespace TheWeWebSite.CaseMgt
                 else
                 {
                     InitialControl();
+                    InitialControlWithPermission();
                     FirstGridViewRow();
                     if (Session["OrderId"] != null)
                     {
@@ -64,6 +65,18 @@ namespace TheWeWebSite.CaseMgt
             SetOrderTypeList();
             SetStatusList();
             SetProductSetList(ddlCountry.SelectedValue, ddlArea.SelectedValue, ddlCountry.SelectedValue, ddlOrderType.SelectedValue);
+        }
+        private void InitialControlWithPermission()
+        {
+            PermissionUtil util = new PermissionUtil();
+            if (Session["Operation"] == null) Response.Redirect("~/Login.aspx");
+            PermissionItem item = util.GetPermissionByKey(Session["Operation"], util.GetOperationSnByPage(this.Page.AppRelativeVirtualPath));
+            btnCreate.Visible = item.CanCreate;
+            btnCreate.Enabled = item.CanCreate;
+            btnDelete.Visible = item.CanDelete;
+            btnDelete.Enabled = item.CanDelete;
+            btnModify.Visible = item.CanModify;
+            btnModify.Enabled = item.CanModify;
         }
 
         #region DropDownList Setting

@@ -20,6 +20,7 @@ namespace TheWeWebSite.SysMgt
                 else
                 {
                     InitialLangList();
+                    InitialControlWithPermission();
                     labelPageTitle.Text = Resources.Resource.SysMgtString + " > " + Resources.Resource.UnitString;
                     BindData();
                 }
@@ -35,7 +36,16 @@ namespace TheWeWebSite.SysMgt
             ddlLang.Items.Add(new ListItem(Resources.Resource.JapaneseString, "ja-JP"));
             ddlLang.SelectedIndex = new ResourceUtil().OutputLangNameNumber(((string)Session["CultureCode"]));
         }
-
+        private void InitialControlWithPermission()
+        {
+            PermissionUtil util = new PermissionUtil();
+            if (Session["Operation"] == null) Response.Redirect("~/Login.aspx");
+            PermissionItem item = util.GetPermissionByKey(Session["Operation"], util.GetOperationSnByPage(this.Page.AppRelativeVirtualPath));
+            btnCreate.Visible = item.CanCreate;
+            btnCreate.Enabled = item.CanCreate;
+            dgUnit.Columns[dgUnit.Columns.Count - 1].Visible = item.CanDelete;
+            dgUnit.Columns[dgUnit.Columns.Count - 2].Visible = item.CanModify;
+        }
         private void GetUnitList()
         {
             string sqlTxt = "SELECT i.[Id],i.[Name],i.[CnName],i.[JpName],i.[EngName]"

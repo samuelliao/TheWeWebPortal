@@ -33,6 +33,11 @@ namespace TheWeWebSite.CaseMgt
             labelWarnString.Text = msg;
             labelWarnString.Visible = !string.IsNullOrEmpty(msg);
         }
+        private void InitialControlWithPermission()
+        {
+            PermissionUtil util = new PermissionUtil();
+            if (Session["Operation"] == null) Response.Redirect("~/Login.aspx");
+        }
         private void InitialLabelText()
         {
             labelContractStartDate.Text = Resources.Resource.ContractDateString + "(" + Resources.Resource.StartString + ")";

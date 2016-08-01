@@ -268,7 +268,7 @@
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,PhoneString%>"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server" ID="tbPhone"></asp:TextBox>
+                            <asp:TextBox runat="server" ID="tbPhone" style="text-align:right"></asp:TextBox>
 
                         </div>
                         <div class="2u 12u(mobilep)">

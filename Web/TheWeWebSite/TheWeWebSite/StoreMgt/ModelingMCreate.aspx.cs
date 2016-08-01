@@ -19,6 +19,7 @@ namespace TheWeWebSite.StoreMgt
                 else
                 {
                     InitialControl();
+                    InitialControlWithPermission();
                     if (Session["ModelingId"] != null)
                     {
                         labelPageTitle.Text = Resources.Resource.StoreMgtString
@@ -54,7 +55,18 @@ namespace TheWeWebSite.StoreMgt
         {
             TypeList();
         }
-
+        private void InitialControlWithPermission()
+        {
+            PermissionUtil util = new PermissionUtil();
+            if (Session["Operation"] == null) Response.Redirect("~/Login.aspx");
+            PermissionItem item = util.GetPermissionByKey(Session["Operation"], util.GetOperationSnByPage(this.Page.AppRelativeVirtualPath));
+            btnCreate.Visible = item.CanCreate;
+            btnCreate.Enabled = item.CanCreate;
+            btnDelete.Visible = item.CanDelete;
+            btnDelete.Enabled = item.CanDelete;
+            btnModify.Visible = item.CanModify;
+            btnModify.Enabled = item.CanModify;
+        }
         #region DropDownList Control
         private void TypeList()
         {

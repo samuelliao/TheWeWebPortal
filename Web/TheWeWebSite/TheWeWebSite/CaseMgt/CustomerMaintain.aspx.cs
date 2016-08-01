@@ -24,6 +24,7 @@ namespace TheWeWebSite.CaseMgt
                     labelPageTitle.Text = Resources.Resource.OrderMgtString
                         + " > " + Resources.Resource.CustomerMaintainString;
                     InitialMsgerType();
+                    InitialControlWithPermission();
                     BindData();
                 }
             }
@@ -34,7 +35,15 @@ namespace TheWeWebSite.CaseMgt
             labelWarnString.Text = msg;
             labelWarnString.Visible = !string.IsNullOrEmpty(msg);
         }
-
+        private void InitialControlWithPermission()
+        {
+            PermissionUtil util = new PermissionUtil();
+            if (Session["Operation"] == null) Response.Redirect("~/Login.aspx");
+            PermissionItem item = util.GetPermissionByKey(Session["Operation"], util.GetOperationSnByPage(this.Page.AppRelativeVirtualPath));
+            LinkCustomerMCreate.Visible = item.CanCreate;
+            LinkCustomerMCreate.Enabled = item.CanCreate;
+            dataGrid.Columns[dataGrid.Columns.Count - 1].Visible = item.CanDelete;
+        }
         private void InitialMsgerType()
         {
             ddlMsgerType.Items.Clear();

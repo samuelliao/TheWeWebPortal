@@ -22,6 +22,7 @@ namespace TheWeWebSite.StoreMgt
                 {
                     labelPageTitle.Text = Resources.Resource.StoreMgtString + " > " + Resources.Resource.FittingMaintainString;
                     InitialControls();
+                    InitialControlWithPermission();
                 }
             }
         }
@@ -30,7 +31,15 @@ namespace TheWeWebSite.StoreMgt
             labelWarnString.Text = msg;
             labelWarnString.Visible = !string.IsNullOrEmpty(msg);
         }
-
+        private void InitialControlWithPermission()
+        {
+            PermissionUtil util = new PermissionUtil();
+            if (Session["Operation"] == null) Response.Redirect("~/Login.aspx");
+            PermissionItem item = util.GetPermissionByKey(Session["Operation"], util.GetOperationSnByPage(this.Page.AppRelativeVirtualPath));
+            LinkFittingMCreate.Visible = item.CanCreate;
+            LinkFittingMCreate.Enabled = item.CanCreate;
+            dataGrid.Columns[dataGrid.Columns.Count - 1].Visible = item.CanDelete;
+        }
         private void InitialControls()
         {
             FittingCategoryList();

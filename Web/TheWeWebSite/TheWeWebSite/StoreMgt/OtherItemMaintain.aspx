@@ -50,7 +50,7 @@
                                     <div class="Div">
                                         <asp:Label runat="server" Text="<%$ Resources:Resource,TypeString%>"></asp:Label>
                                     </div>
-                                    <asp:DropDownList runat="server" id="ddlOthCategory"/>
+                                    <asp:DropDownList runat="server" ID="ddlOthCategory" />
                                 </div>
 
                                 <!-- Btn -->
@@ -63,7 +63,7 @@
                                         </li>
                                         <li>
                                             <asp:Button runat="server" CssClass="button alt" Text="<%$ Resources:Resource,SearchString%>"
-                                    ID="btnSearch" OnClick="btnSearch_Click" />
+                                                ID="btnSearch" OnClick="btnSearch_Click" />
                                         </li>
 
                                     </ul>
@@ -73,33 +73,30 @@
 
                     </div>
                     <asp:Label runat="server" ID="labelWarnString" ForeColor="Red" Visible="false" />
-
-
                     <hr />
-
                     <!-- Table -->
 
-                 <div class="row">
+                    <div class="row">
                         <div class="12u">
                             <div class="table-wrapper">
                                 <asp:DataGrid runat="server" ID="dataGrid" AllowPaging="true" AllowSorting="true" DataKeyField="Id"
-                                 AutoGenerateColumns="false" OnSelectedIndexChanged="dataGrid_SelectedIndexChanged" Font-Size="Small"
-                                 OnDeleteCommand="dataGrid_DeleteCommand" OnSortCommand="dataGrid_SortCommand" 
-                                 OnPageIndexChanged="dataGrid_PageIndexChanged" OnItemDataBound="dataGrid_ItemDataBound">
+                                    AutoGenerateColumns="false" OnSelectedIndexChanged="dataGrid_SelectedIndexChanged" Font-Size="Small"
+                                    OnDeleteCommand="dataGrid_DeleteCommand" OnSortCommand="dataGrid_SortCommand"
+                                    OnPageIndexChanged="dataGrid_PageIndexChanged" OnItemDataBound="dataGrid_ItemDataBound">
                                     <HeaderStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                     <PagerStyle Mode="NumericPages" VerticalAlign="Middle" HorizontalAlign="Center" />
-                                    <Columns>                                        
-                                        <asp:ButtonColumn Text="<%$ Resources:Resource,SearchString%>" CommandName="Select"/>
+                                    <Columns>
+                                        <asp:ButtonColumn Text="<%$ Resources:Resource,SearchString%>" CommandName="Select" />
                                         <asp:BoundColumn Visible="false" DataField="Id" />
-                                        <asp:BoundColumn HeaderText="<%$ Resources:Resource,OtherItemSnString%>" DataField="Sn" SortExpression="Sn"/>
-                                        <asp:BoundColumn HeaderText="<%$ Resources:Resource,NameString%>" DataField="Name" SortExpression="Name"/>
+                                        <asp:BoundColumn HeaderText="<%$ Resources:Resource,OtherItemSnString%>" DataField="Sn" SortExpression="Sn" />
+                                        <asp:BoundColumn HeaderText="<%$ Resources:Resource,NameString%>" DataField="Name" SortExpression="Name" />
                                         <asp:TemplateColumn HeaderText="<%$ Resources:Resource,TypeString%>" SortExpression="Type">
                                             <ItemTemplate>
                                                 <asp:Label runat="server" ID="dgLabelType" />
                                             </ItemTemplate>
                                         </asp:TemplateColumn>
-                                        <asp:BoundColumn HeaderText="<%$ Resources:Resource,PriceString%>" DataField="Price" SortExpression="Price"/>
-                                        <asp:BoundColumn HeaderText="<%$ Resources:Resource,DescriptionString%>" DataField="Description" SortExpression="Description"/>
+                                        <asp:BoundColumn HeaderText="<%$ Resources:Resource,PriceString%>" DataField="Price" SortExpression="Price" />
+                                        <asp:BoundColumn HeaderText="<%$ Resources:Resource,DescriptionString%>" DataField="Description" SortExpression="Description" />
                                         <asp:ButtonColumn CommandName="Delete"
                                             HeaderText="<%$ Resources:Resource,DeleteString%>"
                                             Text="<%$ Resources:Resource,DeleteString%>" />

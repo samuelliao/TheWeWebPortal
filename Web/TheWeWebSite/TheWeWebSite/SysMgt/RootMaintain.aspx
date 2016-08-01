@@ -91,19 +91,19 @@
                                                 <asp:TableCell Visible="false" />
                                                 <asp:TableCell Text="<%$ Resources:Resource,StoreMgtString%>" />
                                                 <asp:TableCell>
-                                                    <asp:CheckBox runat="server" Checked="true" />
+                                                    <asp:CheckBox runat="server" Checked="true" Text=" " />
                                                 </asp:TableCell>
                                                 <asp:TableCell>
-                                                    <asp:CheckBox runat="server" Checked="true" />
+                                                    <asp:CheckBox runat="server" Checked="true" Text=" " />
                                                 </asp:TableCell>
                                                 <asp:TableCell>
-                                                    <asp:CheckBox runat="server" Checked="true" />
+                                                    <asp:CheckBox runat="server" Checked="true" Text=" " />
                                                 </asp:TableCell>
                                                 <asp:TableCell>
-                                                    <asp:CheckBox runat="server" Checked="true" />
+                                                    <asp:CheckBox runat="server" Checked="true" Text=" " />
                                                 </asp:TableCell>
                                                 <asp:TableCell>
-                                                    <asp:CheckBox runat="server" Checked="true" />
+                                                    <asp:CheckBox runat="server" Checked="true" Text=" " />
                                                 </asp:TableCell>
                                             </asp:TableRow>
                                             <asp:TableRow>
@@ -111,19 +111,19 @@
                                                 <asp:TableCell Visible="false" />
                                                 <asp:TableCell Text="<%$ Resources:Resource,OrderMgtString%>" />
                                                 <asp:TableCell>
-                                                    <asp:CheckBox runat="server" Checked="true" />
+                                                    <asp:CheckBox runat="server" Checked="true" Text=" " />
                                                 </asp:TableCell>
                                                 <asp:TableCell>
-                                                    <asp:CheckBox runat="server" Checked="true" />
+                                                    <asp:CheckBox runat="server" Checked="true" Text=" " />
                                                 </asp:TableCell>
                                                 <asp:TableCell>
-                                                    <asp:CheckBox runat="server" Checked="true" />
+                                                    <asp:CheckBox runat="server" Checked="true" Text=" " />
                                                 </asp:TableCell>
                                                 <asp:TableCell>
-                                                    <asp:CheckBox runat="server" Checked="true" />
+                                                    <asp:CheckBox runat="server" Checked="true" Text=" " />
                                                 </asp:TableCell>
                                                 <asp:TableCell>
-                                                    <asp:CheckBox runat="server" Checked="true" />
+                                                    <asp:CheckBox runat="server" Checked="true" Text=" " />
                                                 </asp:TableCell>
                                             </asp:TableRow>
                                             <asp:TableRow>
@@ -131,19 +131,19 @@
                                                 <asp:TableCell Visible="false" />
                                                 <asp:TableCell Text="<%$ Resources:Resource,PurchaseMgtString%>" />
                                                 <asp:TableCell>
-                                                    <asp:CheckBox runat="server" Checked="true" />
+                                                    <asp:CheckBox runat="server" Checked="true" Text=" " />
                                                 </asp:TableCell>
                                                 <asp:TableCell>
-                                                    <asp:CheckBox runat="server" Checked="true" />
+                                                    <asp:CheckBox runat="server" Checked="true" Text=" " />
                                                 </asp:TableCell>
                                                 <asp:TableCell>
-                                                    <asp:CheckBox runat="server" Checked="true" />
+                                                    <asp:CheckBox runat="server" Checked="true" Text=" " />
                                                 </asp:TableCell>
                                                 <asp:TableCell>
-                                                    <asp:CheckBox runat="server" Checked="true" />
+                                                    <asp:CheckBox runat="server" Checked="true" Text=" " />
                                                 </asp:TableCell>
                                                 <asp:TableCell>
-                                                    <asp:CheckBox runat="server" Checked="true" />
+                                                    <asp:CheckBox runat="server" Checked="true" Text=" " />
                                                 </asp:TableCell>
                                             </asp:TableRow>
                                             <asp:TableRow>
@@ -151,19 +151,19 @@
                                                 <asp:TableCell Visible="false" />
                                                 <asp:TableCell Text="<%$ Resources:Resource,SalesMgtString%>" />
                                                 <asp:TableCell>
-                                                    <asp:CheckBox runat="server" Checked="true" />
+                                                    <asp:CheckBox runat="server" Checked="true" Text=" " />
                                                 </asp:TableCell>
                                                 <asp:TableCell>
-                                                    <asp:CheckBox runat="server" Checked="true" />
+                                                    <asp:CheckBox runat="server" Checked="true" Text=" " />
                                                 </asp:TableCell>
                                                 <asp:TableCell>
-                                                    <asp:CheckBox runat="server" Checked="true" />
+                                                    <asp:CheckBox runat="server" Checked="true" Text=" " />
                                                 </asp:TableCell>
                                                 <asp:TableCell>
-                                                    <asp:CheckBox runat="server" Checked="true" />
+                                                    <asp:CheckBox runat="server" Checked="true" Text=" " />
                                                 </asp:TableCell>
                                                 <asp:TableCell>
-                                                    <asp:CheckBox runat="server" Checked="true" />
+                                                    <asp:CheckBox runat="server" Checked="true" Text=" " />
                                                 </asp:TableCell>
                                             </asp:TableRow>
                                             <asp:TableRow>
@@ -171,19 +171,19 @@
                                                 <asp:TableCell Visible="false" />
                                                 <asp:TableCell Text="<%$ Resources:Resource,FinMgtString%>" />
                                                 <asp:TableCell>
-                                                    <asp:CheckBox runat="server" Checked="true" />
+                                                    <asp:CheckBox runat="server" Checked="true" Text=" " />
                                                 </asp:TableCell>
                                                 <asp:TableCell>
-                                                    <asp:CheckBox runat="server" Checked="true" />
+                                                    <asp:CheckBox runat="server" Checked="true" Text=" " />
                                                 </asp:TableCell>
                                                 <asp:TableCell>
-                                                    <asp:CheckBox runat="server" Checked="true" />
+                                                    <asp:CheckBox runat="server" Checked="true" Text=" " />
                                                 </asp:TableCell>
                                                 <asp:TableCell>
-                                                    <asp:CheckBox runat="server" Checked="true" />
+                                                    <asp:CheckBox runat="server" Checked="true" Text=" " />
                                                 </asp:TableCell>
                                                 <asp:TableCell>
-                                                    <asp:CheckBox runat="server" Checked="true" />
+                                                    <asp:CheckBox runat="server" Checked="true" Text=" " />
                                                 </asp:TableCell>
                                             </asp:TableRow>
                                             <asp:TableRow>
@@ -191,19 +191,19 @@
                                                 <asp:TableCell Visible="false" />
                                                 <asp:TableCell Text="<%$ Resources:Resource,SysMgtString%>" />
                                                 <asp:TableCell>
-                                                    <asp:CheckBox runat="server" Checked="true" />
+                                                    <asp:CheckBox runat="server" Checked="true" Text=" " />
                                                 </asp:TableCell>
                                                 <asp:TableCell>
-                                                    <asp:CheckBox runat="server" Checked="true" />
+                                                    <asp:CheckBox runat="server" Checked="true" Text=" " />
                                                 </asp:TableCell>
                                                 <asp:TableCell>
-                                                    <asp:CheckBox runat="server" Checked="true" />
+                                                    <asp:CheckBox runat="server" Checked="true" Text=" " />
                                                 </asp:TableCell>
                                                 <asp:TableCell>
-                                                    <asp:CheckBox runat="server" Checked="true" />
+                                                    <asp:CheckBox runat="server" Checked="true" Text=" " />
                                                 </asp:TableCell>
                                                 <asp:TableCell>
-                                                    <asp:CheckBox runat="server" Checked="true" />
+                                                    <asp:CheckBox runat="server" Checked="true" Text=" " />
                                                 </asp:TableCell>
                                             </asp:TableRow>
                                         </asp:Table>

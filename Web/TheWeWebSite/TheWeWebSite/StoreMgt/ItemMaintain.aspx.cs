@@ -22,6 +22,7 @@ namespace TheWeWebSite.StoreMgt
                 {
                     labelPageTitle.Text = Resources.Resource.StoreMgtString + " > " + Resources.Resource.ProductMaintainString;                    
                     InitialAllDropDownList();
+                    InitialControlWithPermission();
                     BindData();
                 }
             }
@@ -31,7 +32,15 @@ namespace TheWeWebSite.StoreMgt
             labelWarnString.Text = msg;
             labelWarnString.Visible = !string.IsNullOrEmpty(msg);
         }
-
+        private void InitialControlWithPermission()
+        {
+            PermissionUtil util = new PermissionUtil();
+            if (Session["Operation"] == null) Response.Redirect("~/Login.aspx");
+            PermissionItem item = util.GetPermissionByKey(Session["Operation"], util.GetOperationSnByPage(this.Page.AppRelativeVirtualPath));
+            LinkItemMCreate.Visible = item.CanCreate;
+            LinkItemMCreate.Enabled = item.CanCreate;
+            dataGrid.Columns[dataGrid.Columns.Count - 1].Visible = item.CanDelete;
+        }
         #region DropDownList Control
         public void InitialAllDropDownList()
         {
@@ -146,7 +155,7 @@ namespace TheWeWebSite.StoreMgt
         }
         private void ServiceCategoryDropDownList()
         {
-            ddlCategory.Items.Add(new ListItem(Resources.Resource.AreaSelectRemindString, string.Empty));
+            ddlCategory.Items.Add(new ListItem(Resources.Resource.SeletionRemindString, string.Empty));
             List<DbSearchObject> lst = new List<DbSearchObject>();
             lst.Add(new DbSearchObject("IsDelete", AtrrTypeItem.Bit, AttrSymbolItem.Equal, "0"));
             lst.Add(new DbSearchObject("TypeLv", AtrrTypeItem.Integer, AttrSymbolItem.Equal, "0"));

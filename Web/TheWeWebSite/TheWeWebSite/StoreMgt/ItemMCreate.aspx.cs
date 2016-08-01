@@ -20,6 +20,7 @@ namespace TheWeWebSite.StoreMgt
                 {
                     FirstGridViewRow();
                     InitialAllDropDownList();
+                    InitialControlWithPermission();
 
                     if (Session["SetId"] != null)
                     {
@@ -53,7 +54,18 @@ namespace TheWeWebSite.StoreMgt
             ViewState.Remove("CurrentTable");
             Response.Redirect("ItemMaintain.aspx", true);
         }
-
+        private void InitialControlWithPermission()
+        {
+            PermissionUtil util = new PermissionUtil();
+            if (Session["Operation"] == null) Response.Redirect("~/Login.aspx");
+            PermissionItem item = util.GetPermissionByKey(Session["Operation"], util.GetOperationSnByPage(this.Page.AppRelativeVirtualPath));
+            btnCreate.Visible = item.CanCreate;
+            btnCreate.Enabled = item.CanCreate;
+            btnDelete.Visible = item.CanDelete;
+            btnDelete.Enabled = item.CanDelete;
+            btnModify.Visible = item.CanModify;
+            btnModify.Enabled = item.CanModify;
+        }
         #region DropDownList Control
         public void InitialAllDropDownList()
         {

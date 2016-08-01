@@ -45,15 +45,7 @@
   <ItemGroup>
     <Compile Include="DataEncryption.cs" />
     <Compile Include="DbConn.cs" />
-    <Compile Include="DbControl\ApprovalRatingDAO.cs" />
-    <Compile Include="DbControl\AreaDAO.cs" />
-    <Compile Include="DbControl\ChurchDAO.cs" />
-    <Compile Include="DbControl\ConferenceItemDAO.cs" />
-    <Compile Include="DbControl\ConsultationDAO.cs" />
-    <Compile Include="DbControl\CountryDAO.cs" />
-    <Compile Include="DbControl\EmployeeDAO.cs" />
     <Compile Include="DbControl\GeneralDbDAO.cs" />
-    <Compile Include="DbControl\StoreDAO.cs" />
     <Compile Include="DbSearchObject.cs" />
     <Compile Include="ObjectType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

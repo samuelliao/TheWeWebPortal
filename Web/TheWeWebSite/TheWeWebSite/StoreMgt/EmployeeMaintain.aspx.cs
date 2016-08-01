@@ -24,6 +24,7 @@ namespace TheWeWebSite.StoreMgt
                     labelPageTitle.Text = Resources.Resource.OrderMgtString
                         + " > " + Resources.Resource.EmployeeMaintainString;
                     InitialOthType();
+                    InitialControlWithPermission();
                     BindData();
                 }
             }
@@ -35,7 +36,15 @@ namespace TheWeWebSite.StoreMgt
             labelWarnString.Text = msg;
             labelWarnString.Visible = !string.IsNullOrEmpty(msg);
         }
-
+        private void InitialControlWithPermission()
+        {
+            PermissionUtil util = new PermissionUtil();
+            if (Session["Operation"] == null) Response.Redirect("~/Login.aspx");
+            PermissionItem item = util.GetPermissionByKey(Session["Operation"], util.GetOperationSnByPage(this.Page.AppRelativeVirtualPath));
+            LinkEmployeeMCreate.Visible = item.CanCreate;
+            LinkEmployeeMCreate.Enabled = item.CanCreate;
+            dataGrid.Columns[dataGrid.Columns.Count - 1].Visible = item.CanDelete;
+        }
         private void InitialOthType()
         {
             ddlCountry.Items.Clear();
@@ -117,7 +126,7 @@ namespace TheWeWebSite.StoreMgt
         {
             if (DS == null)
             {
-                GetCustomerList("Order by a." + e.SortExpression + " " + SysProperty.Util.GetSortDirection(e.SortExpression));
+                GetEmployeeList("Order by a." + e.SortExpression + " " + SysProperty.Util.GetSortDirection(e.SortExpression));
             }
             if (DS != null)
             {
@@ -150,25 +159,25 @@ namespace TheWeWebSite.StoreMgt
 
         private void BindData()
         {
-            GetCustomerList(string.Empty);
+            GetEmployeeList(string.Empty);
             dataGrid.DataSource = DS;
             dataGrid.AllowPaging = !SysProperty.Util.IsDataSetEmpty(DS);
             dataGrid.DataBind();
         }
 
-        private void GetCustomerList(string sortStr)
+        private void GetEmployeeList(string sortStr)
         {
             try
             {
                 string sql = "select a.[Id],a.[CountryId],d.[Name] as [CountryName] ,a.[Sn],a.[Name],a.[Addr],a.[Phone]"
                     + " ,a.[Bday],a.[OnBoard],a.[QuitDay],a.[Salary],a.[CurrencyId],a.[Remark]"
                     + " ,a.[StoreId],b.[Name] as [StoreName],a.[IsValid],a.[IsDelete]"
-                    + " from [TheWe].[dbo].[Employee] as a"
+                    + " from [TheWe].[dbo].[vwEN_Employee] as a"
                     + " left join Store as b on b.[Id]=a.[StoreId]"
                     + " left join Country as d on d.[Id]=a.[CountryId]"
                     + " where a.[IsValid]=1 and a.[IsDelete]=0 " + OtherConditionString
                     + (((DataRow)Session["LocateStore"]) == null ? string.Empty
-                    : " and c.[StoreId] = '" + ((DataRow)Session["LocateStore"])["Id"].ToString() + "'")
+                    : " and a.[StoreId] = '" + ((DataRow)Session["LocateStore"])["Id"].ToString() + "'")
                     + " " + sortStr;
                 DS = SysProperty.GenDbCon.GetDataFromTable(sql);
             }

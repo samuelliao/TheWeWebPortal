@@ -31,7 +31,7 @@
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,EmployeeSnString%>"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server" placeholder="請輸入員工編號..." ID="tbEmpSn"></asp:TextBox>
+                            <asp:TextBox runat="server" placeholder="請輸入員工編號..." style="text-align:right" ID="tbEmpSn"></asp:TextBox>
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
@@ -47,10 +47,16 @@
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,AccountString%>"></asp:Label>
+                            </div>
+                            <asp:TextBox runat="server" ID="tbAccount"></asp:TextBox>
+                        </div>
+                        <div class="2u 12u(mobilep)">
+                            <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,EmpOnboardDayString%>"></asp:Label>
                             </div>
                             <div>
-                                <asp:TextBox runat="server" CssClass="dp" ID="EmpOnBoardDay"></asp:TextBox>
+                                <asp:TextBox runat="server" CssClass="dp" ID="EmpOnBoardDay" style="text-align:right"></asp:TextBox>
                             </div>
                         </div>
                         <div class="2u 12u(mobilep)">
@@ -58,27 +64,25 @@
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,EmpQuitDayString%>"></asp:Label>
                             </div>
                             <div>
-                                <asp:TextBox runat="server" CssClass="dp" ID="EmpQuitDay"></asp:TextBox>
+                                <asp:TextBox runat="server" CssClass="dp" ID="EmpQuitDay" style="text-align:right"></asp:TextBox>
                             </div>
-                        </div>
-                        <div class="2u 12u(mobilep)">
-
-                            <div class="Div">
-                                <asp:Label runat="server" Text="<%$ Resources:Resource,PhoneString%>"></asp:Label>
-                            </div>
-                            <asp:TextBox runat="server" placeholder="請輸入電話..." ID="tbEmpPhone"></asp:TextBox>
-                        </div>
+                        </div>                        
                     </div>
                 </div>
                 <div class="12u">
                     <div class="row uniform 50%">
-
+                        <div class="2u 12u(mobilep)">
+                            <div class="Div">
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,PhoneString%>"></asp:Label>
+                            </div>
+                            <asp:TextBox runat="server" placeholder="請輸入電話..." style="text-align:right" ID="tbEmpPhone"></asp:TextBox>
+                        </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,BdayString%>"></asp:Label>
                             </div>
                             <div>
-                                <asp:TextBox runat="server" CssClass="dp" ID="EmpBDay"></asp:TextBox>
+                                <asp:TextBox runat="server" CssClass="dp" ID="EmpBDay" style="text-align:right"></asp:TextBox>
                             </div>
                         </div>
                         <div class="4u 12u(mobilep)">
@@ -109,7 +113,7 @@
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,PassportIdString%>"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server" placeholder="請輸入護照號碼..." ID="tbEmpPassportId"></asp:TextBox>
+                            <asp:TextBox runat="server" placeholder="請輸入護照號碼..." style="text-align:right" ID="tbEmpPassportId"></asp:TextBox>
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
@@ -121,19 +125,19 @@
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,EmergencyContactTelString%>"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server" placeholder="請輸入緊急連絡人電話..." ID="tbEmpECTel"></asp:TextBox>
+                            <asp:TextBox runat="server" placeholder="請輸入緊急連絡人電話..." style="text-align:right" ID="tbEmpECTel"></asp:TextBox>
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,BankString%>"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server" placeholder="請輸入帳戶號碼..." ID="tbEmpBank"></asp:TextBox>
+                            <asp:TextBox runat="server" placeholder="請輸入帳戶號碼..." style="text-align:right" ID="tbEmpBank"></asp:TextBox>
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,BankBookString%>"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server" placeholder="請輸入存摺號碼..." ID="tbEmpBankBook"></asp:TextBox>
+                            <asp:TextBox runat="server" placeholder="請輸入存摺號碼..." style="text-align:right" ID="tbEmpBankBook"></asp:TextBox>
                         </div>
 
 
@@ -145,13 +149,14 @@
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,SalaryString%>"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server" placeholder="請輸入薪資..." ID="tbEmpSalary"></asp:TextBox>
+                            <asp:TextBox runat="server" placeholder="請輸入薪資..." style="text-align:right" ID="tbEmpSalary"></asp:TextBox>
+                            <asp:RegularExpressionValidator ID="RegularExpressionValidator1" ControlToValidate="tbEmpSalary" runat="server" ErrorMessage="Only Numbers allowed" ValidationExpression="\d+[.]*\d*"></asp:RegularExpressionValidator>
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,InsuranceString%>"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server" placeholder="請輸入勞健保..." ID="tbEmpInsurance"></asp:TextBox>
+                            <asp:TextBox runat="server" placeholder="請輸入勞健保..." style="text-align:right" ID="tbEmpInsurance"></asp:TextBox>
                         </div>
                         <div class="8u 12u(mobilep)">
                             <div class="Div">

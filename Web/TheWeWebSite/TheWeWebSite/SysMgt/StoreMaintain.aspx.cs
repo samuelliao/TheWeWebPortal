@@ -24,11 +24,21 @@ namespace TheWeWebSite.SysMgt
                     InitialLangList();
                     InitialCountryList();
                     InitialAreaList(string.Empty);
+                    InitialControlWithPermission();
                     BindData(string.Empty);
                 }
             }
         }
-
+        private void InitialControlWithPermission()
+        {
+            PermissionUtil util = new PermissionUtil();
+            if (Session["Operation"] == null) Response.Redirect("~/Login.aspx");
+            PermissionItem item = util.GetPermissionByKey(Session["Operation"], util.GetOperationSnByPage(this.Page.AppRelativeVirtualPath));
+            btnCreate.Visible = item.CanCreate;
+            btnCreate.Enabled = item.CanCreate;
+            dgStore.Columns[dgStore.Columns.Count - 1].Visible = item.CanDelete;
+            dgStore.Columns[dgStore.Columns.Count - 2].Visible = item.CanModify;
+        }
         #region DropDownList Control
         private void InitialAreaList(string countryId)
         {

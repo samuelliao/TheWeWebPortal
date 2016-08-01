@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -19,36 +20,52 @@ namespace TheWeWebSite
 
         public void SetOperationPermission()
         {
-            DataSet ds = ((DataSet)Session["Operation"]);
-            if (SysProperty.Util.IsDataSetEmpty(ds))
-            {
-                liSysMgt.Visible = false;
-            }
+            if(Session["Operation"]==null) liSysMgt.Visible = false;
+            Dictionary<string, PermissionItem> permission = ((Dictionary<string, PermissionItem>)Session["Operation"]);
+            if(permission==null) liSysMgt.Visible = false;
             else
-            {                
-                foreach(DataRow dr in ds.Tables[0].Rows)
+            {
+                SetHeaderLink(permission);
+                if (!CheckPermission(permission))
                 {
-                    switch (dr["ObjectSn"].ToString())
-                    {
-                        case "1":
-                            liStoreMgt.Visible = bool.Parse(dr["CanEntry"].ToString());
-                            break;
-                        case "2":
-                            liOrderMgt.Visible = bool.Parse(dr["CanEntry"].ToString());
-                            break;
-                        case "3":
-                            liPurchaseMgt.Visible = bool.Parse(dr["CanEntry"].ToString());
-                            break;
-                        case "4":
-                            liSalesMgt.Visible = bool.Parse(dr["CanEntry"].ToString());
-                            break;
-                        case "5":
-                            liFinMgt.Visible = bool.Parse(dr["CanEntry"].ToString());
-                            break;
-                        case "6":
-                            liSysMgt.Visible = bool.Parse(dr["CanEntry"].ToString());
-                            break;
-                    }
+                    Response.Redirect("~/Main/Case.aspx");
+                }
+            }
+        }
+
+        private bool CheckPermission(Dictionary<string, PermissionItem> permission)
+        {
+            PermissionUtil util = new PermissionUtil();
+            string sn = util.GetOperationSnByPage(this.Page.AppRelativeVirtualPath);
+            PermissionItem item = util.GetPermissionByKey(permission, sn);
+            if (item == null) return false;
+            return item.CanEntry;
+        }
+
+        private void SetHeaderLink(Dictionary<string, PermissionItem> permission)
+        {
+            foreach (KeyValuePair<string, PermissionItem> item in permission)
+            {
+                switch (item.Key.ToString())
+                {
+                    case "1":
+                        liStoreMgt.Visible = item.Value.CanEntry;
+                        break;
+                    case "2":
+                        liOrderMgt.Visible = item.Value.CanEntry;
+                        break;
+                    case "3":
+                        liPurchaseMgt.Visible = item.Value.CanEntry;
+                        break;
+                    case "4":
+                        liSalesMgt.Visible = item.Value.CanEntry;
+                        break;
+                    case "5":
+                        liFinMgt.Visible = item.Value.CanEntry;
+                        break;
+                    case "6":
+                        liSysMgt.Visible = item.Value.CanEntry;
+                        break;
                 }
             }
         }

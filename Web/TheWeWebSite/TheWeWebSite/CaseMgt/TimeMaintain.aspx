@@ -200,9 +200,6 @@
                                                 <asp:Label runat="server" ID="labelSet" />
                                             </ItemTemplate>
                                         </asp:TemplateColumn>
-                                        <asp:ButtonColumn CommandName="Delete"
-                                            HeaderText="<%$ Resources:Resource,DeleteString%>"
-                                            Text="<%$ Resources:Resource,DeleteString%>" />
                                     </Columns>
                                 </asp:DataGrid>
                             </div>

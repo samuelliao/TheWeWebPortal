@@ -23,9 +23,21 @@ namespace TheWeWebSite.SysMgt
                     labelPageTitle.Text = Resources.Resource.SysMgtString + " > " + Resources.Resource.AreaString;
                     InitialLangList();
                     InitialCountryList();
+                    InitialControlWithPermission();
                     BindData();
                 }
             }   
+        }
+
+        private void InitialControlWithPermission()
+        {
+            PermissionUtil util = new PermissionUtil();
+            if (Session["Operation"] == null) Response.Redirect("~/Login.aspx");
+            PermissionItem item = util.GetPermissionByKey(Session["Operation"], util.GetOperationSnByPage(this.Page.AppRelativeVirtualPath));
+            btnCreate.Visible = item.CanCreate;
+            btnCreate.Enabled = item.CanCreate;
+            dgArea.Columns[dgArea.Columns.Count - 1].Visible = item.CanDelete;
+            dgArea.Columns[dgArea.Columns.Count - 2].Visible = item.CanModify;
         }
 
         private void GetAreaList(string sortString)

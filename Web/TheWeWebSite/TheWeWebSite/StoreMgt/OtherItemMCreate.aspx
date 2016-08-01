@@ -29,7 +29,7 @@
                     <div class="row uniform 50%">
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
-                                <asp:Label runat="server" Text="<%$ Resources:Resource,OtherItemSnString%>"></asp:Label>
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,SnString%>"></asp:Label>
                             </div>
                             <asp:TextBox runat="server" placeholder="..." ID="tbOthSn"></asp:TextBox>
                         </div>
@@ -41,7 +41,7 @@
                         </div>
                         <div class="2u 12u(mobilep)" >
                             <div class="Div">
-                                <asp:Label runat="server" Text="<%$ Resources:Resource,OtherItemCategoryString%>"></asp:Label>
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,CategoryString%>"></asp:Label>
                             </div>
                             <asp:DropDownList runat="server" ID="ddlOthCategory" />
                         </div>
@@ -55,15 +55,22 @@
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,PriceString%>"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server" placeholder="..." ID="tbOthPrice"></asp:TextBox>
+                            <asp:TextBox runat="server" placeholder="..." ID="tbOthPrice" style="text-align:right"></asp:TextBox>
+                            <asp:RegularExpressionValidator ID="RegularExpressionValidator1" ControlToValidate="tbOthPrice" runat="server" ErrorMessage="Only Numbers allowed" ValidationExpression="\d+[.]*\d*"></asp:RegularExpressionValidator>
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,CostString%>"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server" placeholder="..." ID="tbOthCost"></asp:TextBox>
+                            <asp:TextBox runat="server" placeholder="..." ID="tbOthCost" style="text-align:right"></asp:TextBox>
+                            <asp:RegularExpressionValidator ID="RegularExpressionValidator2" ControlToValidate="tbOthCost" runat="server" ErrorMessage="Only Numbers allowed" ValidationExpression="\d+[.]*\d*"></asp:RegularExpressionValidator>
                         </div>
-                        
+                        <div class="2u 12u(mobilep)">
+                            <div class="Div">
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,StoreString%>" />
+                            </div>
+                            <asp:DropDownList runat="server" ID="ddlStore" />
+                        </div>
                     </div>
                 </div>
                 <div class="12u">
@@ -72,7 +79,7 @@
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,DescriptionString%>"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server" placeholder="..." ID="tbOthDescription"></asp:TextBox>
+                            <asp:TextBox runat="server" placeholder="..." ID="tbOthDescription" TextMode="MultiLine" Rows="6"></asp:TextBox>
                         </div>
                         
                     </div>
