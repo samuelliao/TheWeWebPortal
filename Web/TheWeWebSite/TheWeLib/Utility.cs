@@ -150,7 +150,7 @@ namespace TheWeLib
             }
         }
 
-        public Dictionary<string, PermissionItem> OperationPermission(bool isOperation, DataSet permission)
+        public Dictionary<string, PermissionItem> WebPermission(bool isOperation, DataSet permission)
         {
             try
             {
@@ -162,15 +162,19 @@ namespace TheWeLib
                         (isOperation ? dr["ObjectSn"].ToString() : dr["ObjectId"].ToString())
                         , new PermissionItem(dr));
                 }
-                PermissionItem item = new PermissionItem();
-                item.CanCreate = true;
-                item.CanDelete = true;
-                item.CanModify = true;
-                item.CanExport = true;
-                item.CanEntry = true;
-                item.ObjectSn = "0";
-                item.ObjectId = "7F8FF2CE-659B-4B7F-8B48-FF1778DC4ABC";
-                lst.Add("0", item);
+
+                if (isOperation)
+                {
+                    PermissionItem item = new PermissionItem();
+                    item.CanCreate = true;
+                    item.CanDelete = true;
+                    item.CanModify = true;
+                    item.CanExport = true;
+                    item.CanEntry = true;
+                    item.ObjectSn = "0";
+                    item.ObjectId = "7F8FF2CE-659B-4B7F-8B48-FF1778DC4ABC";
+                    lst.Add("0", item);
+                }
                 return lst;
             }
             catch (Exception ex)

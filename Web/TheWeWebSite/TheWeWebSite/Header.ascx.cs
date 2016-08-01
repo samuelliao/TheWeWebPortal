@@ -80,5 +80,11 @@ namespace TheWeWebSite
             }
             else labelStoreName.Text = string.Empty;
         }
+
+        protected void btnLogout_Click(object sender, EventArgs e)
+        {
+            Session.RemoveAll();
+            Response.Redirect("~/Login.aspx");
+        }
     }
 }

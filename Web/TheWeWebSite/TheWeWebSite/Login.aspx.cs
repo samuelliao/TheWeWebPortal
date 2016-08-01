@@ -26,9 +26,9 @@ namespace TheWeWebSite
             {
                 SysProperty.Log = NLog.LogManager.GetCurrentClassLogger();
             }
-            
+
             Session["CultureCode"] = CultureInfo.CurrentCulture.ToString();
-            
+
             if (!Page.IsPostBack)
             {
                 SysProperty.GenDbCon = new GeneralDbDAO();
@@ -74,8 +74,8 @@ namespace TheWeWebSite
             DataSet ds = SysProperty.GenDbCon.GetDataFromTable(string.Empty
                 , SysProperty.Util.MsSqlTableConverter(MsSqlTable.vwEN_Employee)
                 , " Where Account= N'" + acc.ToLower() + "'"
-                +(acc.ToLower().Equals("admin")?string.Empty:" and StoreId = '" + storeId + "'")
-                +" And IsDelete = 0 And IsValid = 1");
+                + (acc.ToLower().Equals("admin") ? string.Empty : " and StoreId = '" + storeId + "'")
+                + " And IsDelete = 0 And IsValid = 1");
             if (SysProperty.Util.IsDataSetEmpty(ds)) return false;
             if (new DataEncryption().GetMD5(pwd) == ds.Tables[0].Rows[0]["Password"].ToString())
             {
@@ -89,7 +89,7 @@ namespace TheWeWebSite
                 return true;
             }
             else return false;
-        }        
+        }
 
         protected void btnLogin_Click(object sender, EventArgs e)
         {
@@ -114,7 +114,7 @@ namespace TheWeWebSite
                 return;
             }
             else
-            {                
+            {
                 labelWarnText.Visible = false;
                 Response.Redirect("Main/Case.aspx");
             }
@@ -135,38 +135,37 @@ namespace TheWeWebSite
                     , " Where IsDelete = 0 And Id = '" + id + "'");
                     Session["LocateStore"] = ds.Tables[0].Rows[0];
                 }
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 Session["LocateStore"] = null;
             }
         }
-
         private void GetCasePermission(string accId)
         {
             try
             {
                 if (string.IsNullOrEmpty(accId))
                 {
-                    Session["PermissionItem"] = null;
+                    Session["CasePermission"] = null;
                 }
                 else
                 {
                     DataSet ds = SysProperty.GenDbCon.GetDataFromTable(string.Empty
-                    , SysProperty.Util.MsSqlTableConverter(MsSqlTable.Permission)
-                    , " Where IsDelete = 0 And ObjectId = '" + accId + "' And Type in ('Country','Store')");
-                    if (SysProperty.Util.IsDataSetEmpty(ds)) return;
-                    string permissionId = ds.Tables[0].Rows[0]["Id"].ToString();
-                    Session["PermissionItem"] = SysProperty.GenDbCon.GetDataFromTable(string.Empty
                     , SysProperty.Util.MsSqlTableConverter(MsSqlTable.PermissionItem)
-                    , " Where IsDelete = 0 And PermissionId = '" + permissionId + "'");
+                    , " Where IsDelete = 0 And PermissionId in "
+                    + "(Select Id From Permission Where IsDelete = 0 "
+                    + "And ObjectId = '" + accId + "' And Type in ('Country','Store'))"
+                    + " And Type in ('Country','Store')");
+                    if (SysProperty.Util.IsDataSetEmpty(ds)) Session["CasePermission"] = null;
+                    Session["CasePermission"] = SysProperty.Util.WebPermission(false, ds);
                 }
             }
             catch (Exception ex)
             {
-                Session["PermissionItem"] = null;
+                Session["CasePermission"] = null;
             }
         }
-
         private void GetOperationPermission(string storeId)
         {
             try
@@ -183,7 +182,7 @@ namespace TheWeWebSite
                     + "( Select TOP(1) Id From Permission Where IsDelete = 0 And ObjectId = '" + storeId + "' And Type = 'Operation')"
                     + " Order by ObjectSn");
                     if (SysProperty.Util.IsDataSetEmpty(ds)) Session["Operation"] = null;
-                    Session["Operation"] = SysProperty.Util.OperationPermission(true, ds);
+                    Session["Operation"] = SysProperty.Util.WebPermission(true, ds);
                 }
             }
             catch (Exception ex)

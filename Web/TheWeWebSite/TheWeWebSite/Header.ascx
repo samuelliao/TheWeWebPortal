@@ -125,7 +125,7 @@
                             </ul>
                         </li>
                         <li>
-                            <asp:LinkButton runat="server" Text="<%$ Resources:Resource,LogoutString%>" ID="LinkLogout" PostBackUrl="~/Login.aspx" />
+                            <asp:LinkButton runat="server" Text="<%$ Resources:Resource,LogoutString%>" ID="btnLogout" OnClick="btnLogout_Click" />
                         </li>
                     </ul>
                 </nav>
