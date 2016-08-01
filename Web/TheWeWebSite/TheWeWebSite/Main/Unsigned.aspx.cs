@@ -38,11 +38,21 @@ namespace TheWeWebSite.Main
                 LinkButton hyperLink1 = (LinkButton)e.Item.FindControl("linkConsult");
                 hyperLink1.Text = dataItem1["Sn"].ToString();
                 hyperLink1.CommandArgument = dataItem1["Id"].ToString();
+                hyperLink1.Enabled = IsHyperLinkEnable("AdvisoryMCreate");
 
                 ((Label)e.Item.FindControl("labelIsReply")).Text = bool.Parse(dataItem1["IsReply"].ToString()) 
                     ? Resources.Resource.YesString : Resources.Resource.NoString;
             }
         }
+        private bool IsHyperLinkEnable(string pageName)
+        {
+            PermissionUtil util = new PermissionUtil();
+            string sn = util.OperationSn(pageName);
+            PermissionItem item = util.GetPermissionByKey(Session["Operation"], sn);
+            if (item == null) return false;
+            return item.CanEntry;
+        }
+
         protected void dataGrid_SelectedIndexChanged(object sender, EventArgs e)
         {
             string id = dataGrid.DataKeys[dataGrid.SelectedIndex].ToString();

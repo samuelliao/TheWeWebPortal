@@ -99,7 +99,17 @@ namespace TheWeWebSite.StoreMgt
                 ShowErrorMsg(Resources.Resource.SnDuplicateErrorString);
                 return;
             }
-            bool result = WriteBackInfo(true, EmployeeInfoDbObject(), string.Empty);
+            List<DbSearchObject> lst = EmployeeInfoDbObject();
+            bool result = WriteBackInfo(true, lst, string.Empty);
+            if (!result) return;
+            string eid = GetCreatedDataId(MsSqlTable.vwEN_Employee, lst);
+            if (string.IsNullOrEmpty(eid)) return;
+            lst = PermissionDbObject(eid);
+            result = WriteBackPermission(lst);
+            if (!result) return;
+            string pid = GetCreatedDataId(MsSqlTable.Permission, lst);
+            if (!string.IsNullOrEmpty(pid)) return;
+            result = WriteBackPermissionItem(PermissionItemDbObject(pid), pid, "Store");
             if (result)
             {
                 TransferToOtherPage();
@@ -226,6 +236,7 @@ namespace TheWeWebSite.StoreMgt
             tbAccount.Text = dr["Account"].ToString();
         }
 
+        #region Db Instance
         private List<DbSearchObject> EmployeeInfoDbObject()
         {
             List<DbSearchObject> lst = new List<DbSearchObject>();
@@ -346,6 +357,102 @@ namespace TheWeWebSite.StoreMgt
                  ));
             return lst;
         }
+        private List<DbSearchObject> PermissionDbObject(string eid)
+        {
+            List<DbSearchObject> lst = new List<DbSearchObject>();
+            lst.Add(new DbSearchObject(
+                "ObjectId"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , eid
+                ));
+            lst.Add(new DbSearchObject(
+                "UpdateAccId"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , ((DataRow)Session["AccountInfo"])["Id"].ToString()
+                ));
+            lst.Add(new DbSearchObject(
+                "Type"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , "Store"
+                ));
+            lst.Add(new DbSearchObject(
+                "Name"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , tbAccount.Text
+                ));
+            return lst;
+        }
+        private List<DbSearchObject> PermissionItemDbObject(string pid)
+        {
+            List<DbSearchObject> lst = new List<DbSearchObject>();
+            lst = new List<DbSearchObject>();
+            lst.Add(new DbSearchObject(
+                "ObjectId"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , ((DataRow)Session["LocateStore"])["Sn"].ToString()
+                ));
+            lst.Add(new DbSearchObject(
+                "Type"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , "Store"
+                ));
+            lst.Add(new DbSearchObject(
+                "UpdateAccId"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , ((DataRow)Session["AccountInfo"])["Id"].ToString()
+                ));
+            lst.Add(new DbSearchObject(
+                "PermissionId"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , pid
+                ));
+            lst.Add(new DbSearchObject(
+                "ObjectSn"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , ((DataRow)Session["LocateStore"])["Sn"].ToString()
+                ));
+            lst.Add(new DbSearchObject(
+            "CanEntry"
+            , AtrrTypeItem.Bit
+            , AttrSymbolItem.Equal
+            , "1"
+            ));
+            lst.Add(new DbSearchObject(
+            "CanCreate"
+            , AtrrTypeItem.Bit
+            , AttrSymbolItem.Equal
+            , "1"
+            ));
+            lst.Add(new DbSearchObject(
+            "CanModify"
+            , AtrrTypeItem.Bit
+            , AttrSymbolItem.Equal
+            , "1"
+            ));
+            lst.Add(new DbSearchObject(
+            "CanDelete"
+            , AtrrTypeItem.Bit
+            , AttrSymbolItem.Equal
+            , "1"
+            ));
+            lst.Add(new DbSearchObject(
+            "CanExport"
+            , AtrrTypeItem.Bit
+            , AttrSymbolItem.Equal
+            , "1"
+            ));
+            return lst;
+        }
+        #endregion
 
         private bool WriteBackInfo(bool isInsert, List<DbSearchObject> lst, string id)
         {
@@ -368,7 +475,65 @@ namespace TheWeWebSite.StoreMgt
                 return false;
             }
         }
-
-
+        private string GetCreatedDataId(MsSqlTable table, List<DbSearchObject> lst)
+        {
+            try
+            {
+                DataSet ds = SysProperty.GenDbCon.GetDataFromTable("Id"
+                    , SysProperty.Util.MsSqlTableConverter(table)
+                    , SysProperty.Util.SqlQueryConditionConverter(lst));
+                if (SysProperty.Util.IsDataSetEmpty(ds)) return string.Empty;
+                return ds.Tables[0].Rows[0]["Id"].ToString();
+            }catch(Exception ex)
+            {
+                SysProperty.Log.Error(ex.Message);
+                ShowErrorMsg(ex.Message);
+                return string.Empty;
+            }
+        }
+        private bool WriteBackPermission(List<DbSearchObject> lst)
+        {
+            try
+            {
+                return SysProperty.GenDbCon.InsertDataInToTable(
+                        SysProperty.Util.MsSqlTableConverter(MsSqlTable.Permission)
+                        , SysProperty.Util.SqlQueryInsertInstanceConverter(lst)
+                        , SysProperty.Util.SqlQueryInsertValueConverter(lst));
+            }
+            catch (Exception ex)
+            {
+                SysProperty.Log.Error(ex.Message);
+                ShowErrorMsg(ex.Message);
+                return false;
+            }
+        }
+        private bool WriteBackPermissionItem(List<DbSearchObject> lst, string permissionId, string type)
+        {
+            try
+            {
+                bool result = true;
+                SysProperty.GenDbCon.ModifyDataInToTable("Delete From PermissionItem"
+                    + " Where PermissionId='" + permissionId + "' And Type = '" + type + "'");
+                    try
+                    {
+                        result = result & SysProperty.GenDbCon.InsertDataInToTable(
+                        SysProperty.Util.MsSqlTableConverter(MsSqlTable.PermissionItem)
+                        , SysProperty.Util.SqlQueryInsertInstanceConverter(lst)
+                        , SysProperty.Util.SqlQueryInsertValueConverter(lst));
+                    }
+                    catch (Exception ex)
+                    {
+                        SysProperty.Log.Error(ex.Message);
+                        ShowErrorMsg(ex.Message);
+                    }
+                return result;
+            }
+            catch (Exception ex)
+            {
+                SysProperty.Log.Error(ex.Message);
+                ShowErrorMsg(ex.Message);
+                return false;
+            }
+        }
     }
 }

@@ -29,6 +29,7 @@ namespace TheWeWebSite.CaseMgt
                         btnModify.Visible = true;
                         btnDelete.Visible = true;
                         SetOrderData(Session["OrderId"].ToString());
+                        SetByCasePermission();
                     }
                     else
                     {
@@ -77,6 +78,39 @@ namespace TheWeWebSite.CaseMgt
             btnDelete.Enabled = item.CanDelete;
             btnModify.Visible = item.CanModify;
             btnModify.Enabled = item.CanModify;
+        }
+
+        private void SetByCasePermission()
+        {
+            PermissionUtil util = new PermissionUtil();
+            // Find by store id.
+            PermissionItem StoreItem = util.GetPermissionByKey(
+                ((Dictionary<string, PermissionItem>)Session["CasePermission"])
+                , ((DataRow)Session["LocateStore"])["Id"].ToString());
+
+            // Find by CountryId
+            PermissionItem Countryitem = util.GetPermissionByKey(
+                ((Dictionary<string, PermissionItem>)Session["CasePermission"])
+                , ddlCountry.SelectedValue);
+
+            if (StoreItem == null && Countryitem == null) return;
+            if(StoreItem==null && Countryitem != null)
+            {
+                if (btnDelete.Visible) btnDelete.Visible = Countryitem.CanDelete;
+                if (btnModify.Visible) btnModify.Visible = Countryitem.CanModify;
+                if (btnCreate.Visible) btnCreate.Visible = Countryitem.CanCreate;
+            }
+            if (StoreItem != null && Countryitem == null)
+            {
+                if (btnDelete.Visible) btnDelete.Visible = StoreItem.CanDelete;
+                if (btnModify.Visible) btnModify.Visible = StoreItem.CanModify;
+                if (btnCreate.Visible) btnCreate.Visible = StoreItem.CanCreate;
+            }else
+            {
+                if (btnDelete.Visible) btnDelete.Visible = StoreItem.CanDelete & Countryitem.CanDelete;
+                if (btnModify.Visible) btnModify.Visible = StoreItem.CanModify & Countryitem.CanModify;
+                if (btnCreate.Visible) btnCreate.Visible = StoreItem.CanCreate & Countryitem.CanCreate;
+            }
         }
 
         #region DropDownList Setting
