@@ -948,4 +948,7 @@
   <data name="FittingString" xml:space="preserve">
     <value>配件</value>
   </data>
+  <data name="BlankFieldString" xml:space="preserve">
+    <value>欄位不得為空</value>
+  </data>
 </root>

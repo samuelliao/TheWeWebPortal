@@ -508,6 +508,8 @@ namespace TheWeLib
                     return "ChurchBookingTime";
                 case MsSqlTable.WeddingCategory:
                     return "WeddingCategory";
+                case MsSqlTable.RentRecord:
+                    return "RentRecord";
                 default:
                     return string.Empty;
 

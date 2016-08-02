@@ -158,7 +158,7 @@ namespace TheWeWebSite.StoreMgt
                 string sql = "select a.[Id],a.[Sn],b.[Name],a.[Type],a.[Img],a.[IsDelete],a.[UpdateAccId],a.[UpdateTime],a.[Description]"
                     + " from [TheWe].[dbo].[HairStyleItem] as a "
                     + " left join HairStyleCategory as b on b.Id=a.Type"
-                    + " where a.IsDelete =0" + OtherConditionString
+                    + " where a.IsDelete =0 " + OtherConditionString
                     + (((DataRow)Session["LocateStore"]) == null ? string.Empty
                     : " and a.StoreId = '" + ((DataRow)Session["LocateStore"])["Id"].ToString() + "'")
                     + " " + sortStr;

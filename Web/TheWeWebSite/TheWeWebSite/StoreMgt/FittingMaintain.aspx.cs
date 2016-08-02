@@ -129,7 +129,7 @@ namespace TheWeWebSite.StoreMgt
             DataRowView dataItem1 = (DataRowView)e.Item.DataItem;
             if (dataItem1 != null && Session["FittingCategory"] != null)
             {
-                ((Label)e.Item.FindControl("dgLabelCategory")).Text = Session["FittingCategory"].ToString();
+                ((Label)e.Item.FindControl("dgLabelCategory")).Text = ddlCategory.Items.FindByValue(Session["FittingCategory"].ToString()).Text;
                 if (!string.IsNullOrEmpty(dataItem1["Category"].ToString()))
                 {
                     ((Label)e.Item.FindControl("dgLabelType")).Text = ddlType.Items.FindByValue(dataItem1["Category"].ToString()).Text;

@@ -27,7 +27,7 @@ namespace TheWeWebSite.StoreMgt
                         + " > " + Resources.Resource.ModifyString;
                         btnModify.Visible = true;
                         btnDelete.Visible = true;
-                        SetOthItemInfoData(Session["ModelingId"].ToString());
+                        SetStyleInfoData(Session["ModelingId"].ToString());
                     }
                     else
                     {
@@ -71,16 +71,18 @@ namespace TheWeWebSite.StoreMgt
         private void TypeList()
         {
             ddlType.Items.Clear();
-            ddlType.Items.Add(new ListItem(Resources.Resource.SeletionRemindString, string.Empty, true));
             string sql = "select * from HairStyleCategory";
             DataSet ds = GetDataSetFromTable(sql);
-            if (SysProperty.Util.IsDataSetEmpty(ds)) return;
-            foreach (DataRow dr in ds.Tables[0].Rows)
+            if (!SysProperty.Util.IsDataSetEmpty(ds))
             {
-                ddlType.Items.Add(new ListItem(
-                    dr["Name"].ToString()
-                    , dr["Id"].ToString(), true));
+                foreach (DataRow dr in ds.Tables[0].Rows)
+                {
+                    ddlType.Items.Add(new ListItem(
+                        dr["Name"].ToString()
+                        , dr["Id"].ToString(), true));
+                }
             }
+            ddlType.Items.Add(new ListItem(Resources.Resource.CreateItemString, "CreateItem"));
         }
         #endregion
 
@@ -92,7 +94,10 @@ namespace TheWeWebSite.StoreMgt
                 ShowErrorMsg(Resources.Resource.SnDuplicateErrorString);
                 return;
             }
-            bool result = WriteBackInfo(true, OthItemInfoDbObject(), string.Empty);
+
+            string typeId = CreateNewStyleType(ddlType.SelectedValue);
+            if (string.IsNullOrEmpty(typeId)) return;
+            bool result = WriteBackInfo(MsSqlTable.HairStyleItem, true, StyleDbObject(typeId), string.Empty);
             if (result)
             {
                 TransferToOtherPage();
@@ -102,7 +107,9 @@ namespace TheWeWebSite.StoreMgt
         protected void btnModify_Click(object sender, EventArgs e)
         {
             if (Session["ModelingId"] == null) return;
-            bool result = WriteBackInfo(false, OthItemInfoDbObject(), Session["ModelingId"].ToString());
+            string typeId = CreateNewStyleType(ddlType.SelectedValue);
+            if (string.IsNullOrEmpty(typeId)) return;
+            bool result = WriteBackInfo(MsSqlTable.HairStyleItem, false, StyleDbObject(typeId), Session["ModelingId"].ToString());
             if (result)
             {
                 TransferToOtherPage();
@@ -170,22 +177,33 @@ namespace TheWeWebSite.StoreMgt
         }
         #endregion
 
-        private DataSet GetDataSetFromTable(string sql)
+        private string CreateNewStyleType(string ddlValue)
         {
-            try
+            bool result = true;
+            string typeId = string.Empty;
+            if (ddlValue == "CreateItem")
             {
-                if (string.IsNullOrEmpty(sql)) return null;
-                return SysProperty.GenDbCon.GetDataFromTable(sql);
+                if (string.IsNullOrEmpty(tbType.Text))
+                {
+                    ShowErrorMsg(Resources.Resource.BlankFieldString);
+                    return string.Empty;
+                }
+                else
+                {
+                    List<DbSearchObject> lst = HairStyleCategoryDbObject();
+                    result = WriteBackInfo(MsSqlTable.HairStyleCategory, true, lst, string.Empty);
+                    if (!result) return string.Empty;
+                    typeId = GetCreatedId(MsSqlTable.HairStyleCategory, lst);
+                }
             }
-            catch (Exception ex)
+            else
             {
-                SysProperty.Log.Error(ex.Message);
-                ShowErrorMsg(ex.Message);
-                return null;
+                typeId = ddlValue;
             }
+            return typeId;
         }
 
-        private void SetOthItemInfoData(string id)
+        private void SetStyleInfoData(string id)
         {
             string sql = "Select * From HairStyleItem Where Id = '" + id + "'";
             DataSet ds = GetDataSetFromTable(sql);
@@ -196,7 +214,8 @@ namespace TheWeWebSite.StoreMgt
             ddlType.SelectedValue = dr["Type"].ToString();
         }
 
-        private List<DbSearchObject> OthItemInfoDbObject()
+        #region Db Instance
+        private List<DbSearchObject> StyleDbObject(string typeId)
         {
             List<DbSearchObject> lst = new List<DbSearchObject>();
             lst.Add(new DbSearchObject(
@@ -216,22 +235,60 @@ namespace TheWeWebSite.StoreMgt
                 "Type"
                 , AtrrTypeItem.String
                 , AttrSymbolItem.Equal
-                , ddlType.SelectedValue
+                , typeId
+                ));
+            lst.Add(new DbSearchObject(
+                "UpdateAccId"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , ((DataRow)Session["AccountInfo"])["Id"].ToString()
+                ));
+            lst.Add(new DbSearchObject(
+                "StroeId"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , ((DataRow)Session["LocateStore"])["Id"].ToString()
                 ));
             return lst;
         }
+        private List<DbSearchObject> HairStyleCategoryDbObject()
+        {
+            List<DbSearchObject> lst = new List<DbSearchObject>();
+            lst.Add(new DbSearchObject(
+                "Name"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , tbType.Text
+                ));
 
-        private bool WriteBackInfo(bool isInsert, List<DbSearchObject> lst, string id)
+            lst.Add(new DbSearchObject(
+                "Description"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , tbType.Text
+                ));
+            lst.Add(new DbSearchObject(
+                "UpdateAccId"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , ((DataRow)Session["AccountInfo"])["Id"].ToString()
+                ));
+            return lst;
+        }
+        #endregion
+
+        #region Db Control
+        private bool WriteBackInfo(MsSqlTable table, bool isInsert, List<DbSearchObject> lst, string id)
         {
             try
             {
                 return isInsert ?
                     SysProperty.GenDbCon.InsertDataInToTable(
-                        SysProperty.Util.MsSqlTableConverter(MsSqlTable.HairStyleItem)
+                        SysProperty.Util.MsSqlTableConverter(table)
                         , SysProperty.Util.SqlQueryInsertInstanceConverter(lst)
                         , SysProperty.Util.SqlQueryInsertValueConverter(lst))
                         : SysProperty.GenDbCon.UpdateDataIntoTable(
-                            SysProperty.Util.MsSqlTableConverter(MsSqlTable.HairStyleItem)
+                            SysProperty.Util.MsSqlTableConverter(table)
                             , SysProperty.Util.SqlQueryUpdateConverter(lst)
                             , " Where Id = '" + id + "'");
             }
@@ -243,6 +300,43 @@ namespace TheWeWebSite.StoreMgt
             }
         }
 
+        private string GetCreatedId(MsSqlTable table, List<DbSearchObject> lst)
+        {
+            try
+            {
+                DataSet ds = SysProperty.GenDbCon.GetDataFromTable("Id"
+                    , SysProperty.Util.MsSqlTableConverter(table)
+                    , SysProperty.Util.SqlQueryConditionConverter(lst));
+                if (SysProperty.Util.IsDataSetEmpty(ds)) return string.Empty;
+                return ds.Tables[0].Rows[0]["Id"].ToString();
+            }
+            catch (Exception ex)
+            {
+                SysProperty.Log.Error(ex.Message);
+                ShowErrorMsg(ex.Message);
+                return string.Empty;
+            }
+        }
+        private DataSet GetDataSetFromTable(string sql)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(sql)) return null;
+                return SysProperty.GenDbCon.GetDataFromTable(sql);
+            }
+            catch (Exception ex)
+            {
+                SysProperty.Log.Error(ex.Message);
+                ShowErrorMsg(ex.Message);
+                return null;
+            }
+        }
+        #endregion
 
+        protected void ddlType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            tbType.Visible = ddlType.SelectedValue == "CreateItem";
+            tbType.Text = string.Empty;
+        }
     }
 }

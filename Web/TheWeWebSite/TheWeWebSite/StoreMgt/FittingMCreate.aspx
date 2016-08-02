@@ -46,7 +46,8 @@
                             </div>
                             <asp:UpdatePanel runat="server">
                                 <ContentTemplate>
-                                    <asp:DropDownList runat="server" ID="ddlType" />
+                                    <asp:DropDownList runat="server" ID="ddlType" AutoPostBack="true" OnSelectedIndexChanged="ddlType_SelectedIndexChanged" />
+                                    <asp:TextBox runat="server" ID="tbType" Visible="false" />
                                 </ContentTemplate>
                             </asp:UpdatePanel>                            
                         </div>
@@ -74,14 +75,12 @@
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,StatusString%>"></asp:Label>
                             </div>
-                            <asp:DropDownList runat="server" ID="ddlStatus" />
-                        </div>
-                        <div class="2u 12u(mobilep)">
-                            <div class="Div">
-                                <asp:Label runat="server" Text="出借紀錄"></asp:Label>
-                            </div>
-                            <asp:DropDownList runat="server" />
-                        </div>
+                            <asp:UpdatePanel runat="server">
+                                <ContentTemplate>
+                                    <asp:DropDownList runat="server" ID="ddlStatus" />
+                                </ContentTemplate>
+                            </asp:UpdatePanel>                            
+                        </div>                        
                         <div class="2u 12u(mobilep)"  runat="server" id="divRelatedCategory" visible="false">
                             <div class="Div">
                                 <asp:Label runat="server" Text="對應物件"></asp:Label>
@@ -105,7 +104,6 @@
                             </div>
                             <asp:TextBox runat="server" ID="tbColor1"></asp:TextBox>
                         </div>
-
                         <div class="2u 12u(mobilep)"  runat="server" id="divColor2" visible="false">
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,ColorString%>"></asp:Label>
@@ -130,11 +128,6 @@
                             </div>
                             <asp:DropDownList runat="server" ID="ddlLength" />
                         </div>
-                    </div>
-                </div>
-                <div class="12u">
-
-                    <div class="row uniform 50%">
                         <div class="2u 12u(mobilep)" runat="server" id="divLace" visible="false">
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,LaceString%>"></asp:Label>
@@ -143,18 +136,21 @@
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
-                                <asp:Label runat="server" Text="<%$ Resources:Resource,CostString%>"></asp:Label>
-                            </div>
-                            <asp:TextBox runat="server" ID="tbCost" style="text-align:right"></asp:TextBox>
-                            <asp:RegularExpressionValidator ID="RegularExpressionValidator1" ControlToValidate="tbCost" runat="server" ErrorMessage="Only Numbers allowed" ValidationExpression="\d+[.]*\d*"></asp:RegularExpressionValidator>
-                        </div>
-
-                        <div class="2u 12u(mobilep)">
-                            <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,SupplierString%>"></asp:Label>
                             </div>
                             <asp:DropDownList runat="server" ID="ddlSupplier"/>
                         </div>
+                    </div>
+                </div>
+                <div class="12u">
+                    <div class="row uniform 50%">                        
+                        <div class="2u 12u(mobilep)">
+                            <div class="Div">
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,CostString%>"></asp:Label>
+                            </div>
+                            <asp:TextBox runat="server" ID="tbCost" style="text-align:right"></asp:TextBox>
+                            <asp:RegularExpressionValidator ID="RegularExpressionValidator1" ControlToValidate="tbCost" runat="server" ErrorMessage="Only Numbers allowed" ValidationExpression="\d+[.]*\d*"></asp:RegularExpressionValidator>
+                        </div>                        
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,RentPriceString%>"></asp:Label>
@@ -176,9 +172,33 @@
                             </div>
                             <asp:TextBox runat="server" ID="tbSalesPrice" style="text-align:right"></asp:TextBox>
                             <asp:RegularExpressionValidator ID="RegularExpressionValidator4" ControlToValidate="tbSalesPrice" runat="server" ErrorMessage="Only Numbers allowed" ValidationExpression="\d+[.]*\d*"></asp:RegularExpressionValidator>
+                        </div>                        
+                    </div>                    
+                </div>
+                <div class="12u">
+                    <div class="row uniform 50%">
+                        <div class="4u 12u(mobilep)">
+                            <div class="Div">
+                                <asp:Label runat="server" Text="出借紀錄"></asp:Label>
+                            </div>
+                            <div style="overflow-y:auto; height:200px">
+                                <asp:UpdatePanel runat="server">
+                                    <ContentTemplate>
+                                        <asp:DataGrid runat="server" ID="dataGrid" AllowPaging="true" AllowSorting="false"
+                                         AutoGenerateColumns="false" DataKeyField="Id">
+                                            <HeaderStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                            <PagerStyle Mode="NumericPages" />
+                                            <Columns>
+                                                <asp:BoundColumn DataField="Id" Visible="false"></asp:BoundColumn>
+                                                <asp:BoundColumn HeaderText="<%$ Resources:Resource,StartString%>" DataField="RentStartTime" />
+                                                <asp:BoundColumn HeaderText="<%$ Resources:Resource,EndString%>" DataField="RentEndTime" />
+                                            </Columns>
+                                        </asp:DataGrid>
+                                    </ContentTemplate>
+                                </asp:UpdatePanel>                            
+                                </div>
                         </div>
                     </div>
-                    
                 </div>
                 <hr />
                 <!-- 照片 -->

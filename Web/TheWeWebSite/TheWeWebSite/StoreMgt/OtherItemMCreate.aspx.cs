@@ -53,7 +53,7 @@ namespace TheWeWebSite.StoreMgt
         }
         private void InitialControl()
         {
-            TypeList();
+            CategoryList();
             StoreList();
         }
         private void InitialControlWithPermission()
@@ -70,13 +70,14 @@ namespace TheWeWebSite.StoreMgt
         }
 
         #region DropDownList Control
-        private void TypeList()
+        private void CategoryList()
         {
+            ddlOthCategory.Items.Clear();
             ddlOthCategory.Items.Add(new ListItem(Resources.Resource.SeletionRemindString, string.Empty));
             List<DbSearchObject> lst = new List<DbSearchObject>();
             lst.Add(new DbSearchObject("IsDelete", AtrrTypeItem.Bit, AttrSymbolItem.Equal, "0"));
-            lst.Add(new DbSearchObject("TypeLv", AtrrTypeItem.Integer, AttrSymbolItem.Equal, "0"));
-            DataSet ds = GetDataFromDb(SysProperty.Util.MsSqlTableConverter(MsSqlTable.ServiceItemCategory), lst, " Order by Type");
+            lst.Add(new DbSearchObject("TypeLv", AtrrTypeItem.Integer, AttrSymbolItem.Equal, "1"));
+            DataSet ds = GetDataFromDb(SysProperty.Util.MsSqlTableConverter(MsSqlTable.ServiceItemCategory), lst, " Order by Sn");
             foreach (DataRow dr in ds.Tables[0].Rows)
             {
                 ddlOthCategory.Items.Add(new ListItem
@@ -84,18 +85,54 @@ namespace TheWeWebSite.StoreMgt
                     , dr["Id"].ToString()));
             }
         }
+        private void TypeList(string category)
+        {
+            ddlType.Items.Clear();
+            ddlType.Items.Add(new ListItem(Resources.Resource.SeletionRemindString, string.Empty));
+            List<DbSearchObject> lst = new List<DbSearchObject>();
+            lst.Add(new DbSearchObject("IsDelete", AtrrTypeItem.Bit, AttrSymbolItem.Equal, "0"));
+            lst.Add(new DbSearchObject("TypeLv", AtrrTypeItem.Integer, AttrSymbolItem.Equal, "2"));
+            if (!string.IsNullOrEmpty(category))
+                lst.Add(new DbSearchObject("Type", AtrrTypeItem.String, AttrSymbolItem.Equal, category));
+            DataSet ds = GetDataFromDb(SysProperty.Util.MsSqlTableConverter(MsSqlTable.ServiceItemCategory), lst, " Order by Sn");
+            if (!SysProperty.Util.IsDataSetEmpty(ds))
+            {
+                foreach (DataRow dr in ds.Tables[0].Rows)
+                {
+                    ddlType.Items.Add(new ListItem
+                        (SysProperty.Util.OutputRelatedLangName(((string)Session["CultureCode"]), dr)
+                        , dr["Id"].ToString()));
+                }
+            }
+            ddlType.Items.Add(new ListItem(Resources.Resource.CreateItemString, "CreateItem"));
+        }
         private void StoreList()
         {
             ddlStore.Items.Clear();
             DataSet ds = GetDataFromDb(SysProperty.Util.MsSqlTableConverter(MsSqlTable.Store), " Where IsDelete=0");
             if (SysProperty.Util.IsDataSetEmpty(ds)) return;
-            foreach(DataRow dr in ds.Tables[0].Rows)
+            foreach (DataRow dr in ds.Tables[0].Rows)
             {
                 ddlStore.Items.Add(new ListItem(
                     SysProperty.Util.OutputRelatedLangName(((string)Session["CultureCode"]), dr)
                     , dr["Id"].ToString()));
             }
         }
+
+        #region DropDownList Event
+        protected void ddlType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            tbType.Visible = ddlType.SelectedValue == "CreateItem";
+            tbType.Text = string.Empty;
+        }
+
+        protected void ddlOthCategory_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            TypeList(ddlOthCategory.SelectedValue);
+            btnCreate.Enabled = ddlOthCategory.SelectedIndex != 0;
+            btnModify.Enabled = ddlOthCategory.SelectedIndex != 0;
+        }
+        #endregion
         #endregion
 
         #region Button Control
@@ -106,7 +143,8 @@ namespace TheWeWebSite.StoreMgt
                 ShowErrorMsg(Resources.Resource.SnDuplicateErrorString);
                 return;
             }
-            bool result = WriteBackInfo(true, OthItemInfoDbObject(), string.Empty);
+            string typeId = CreateNewType(ddlType.SelectedValue);
+            bool result = WriteBackInfo(MsSqlTable.ServiceItem, true, OthItemInfoDbObject(typeId), string.Empty);
             if (result)
             {
                 TransferToOtherPage();
@@ -116,11 +154,40 @@ namespace TheWeWebSite.StoreMgt
         protected void btnModify_Click(object sender, EventArgs e)
         {
             if (Session["OthId"] == null) return;
-            bool result = WriteBackInfo(false, OthItemInfoDbObject(), Session["OthId"].ToString());
+            string typeId = CreateNewType(ddlType.SelectedValue);
+            bool result = WriteBackInfo(MsSqlTable.ServiceItem, false, OthItemInfoDbObject(typeId), Session["OthId"].ToString());
             if (result)
             {
                 TransferToOtherPage();
             }
+        }
+
+        private string CreateNewType(string ddlValue)
+        {
+            bool result = true;
+            string typeId = string.Empty;
+            if (ddlValue == "CreateItem")
+            {
+                if (string.IsNullOrEmpty(tbType.Text))
+                {
+                    ShowErrorMsg(Resources.Resource.BlankFieldString);
+                    return string.Empty;
+                }
+                else
+                {
+                    List<DbSearchObject> lst = CategoryDbObject(ddlOthCategory.SelectedValue);
+                    result = WriteBackInfo(
+                        MsSqlTable.ServiceItemCategory
+                        , true, lst, string.Empty);
+                    if (!result) return string.Empty;
+                    typeId = GetCreatedId(MsSqlTable.ServiceItemCategory, lst);
+                }
+            }
+            else
+            {
+                typeId = ddlValue;
+            }
+            return typeId;
         }
 
         protected void btnClear_Click(object sender, EventArgs e)
@@ -213,11 +280,12 @@ namespace TheWeWebSite.StoreMgt
             tbOthPrice.Text = SysProperty.Util.ParseMoney(dr["Price"].ToString()).ToString("#0.00");
             tbOthDescription.Text = dr["Description"].ToString();
             tbOthName.Text = dr["Name"].ToString();
-            ddlOthCategory.SelectedValue = dr["Type"].ToString();
+            ddlType.SelectedValue = dr["Type"].ToString();
+            ddlOthCategory.SelectedValue = dr["CategoryId"].ToString();
             ddlStore.SelectedValue = dr["StoreId"].ToString();
         }
 
-        private List<DbSearchObject> OthItemInfoDbObject()
+        private List<DbSearchObject> OthItemInfoDbObject(string typeId)
         {
             List<DbSearchObject> lst = new List<DbSearchObject>();
             lst.Add(new DbSearchObject(
@@ -226,7 +294,6 @@ namespace TheWeWebSite.StoreMgt
                 , AttrSymbolItem.Equal
                 , tbOthSn.Text
                 ));
-
             lst.Add(new DbSearchObject(
                 "Name"
                 , AtrrTypeItem.String
@@ -255,14 +322,17 @@ namespace TheWeWebSite.StoreMgt
                 "CategroyId"
                 , AtrrTypeItem.String
                 , AttrSymbolItem.Equal
-                , "4EC16237-2CB6-496F-AB85-8FA708AA4D55"
-                ));
-            lst.Add(new DbSearchObject(
-                "Type"
-                , AtrrTypeItem.String
-                , AttrSymbolItem.Equal
                 , ddlOthCategory.SelectedValue
                 ));
+            if (!string.IsNullOrEmpty(typeId))
+            {
+                lst.Add(new DbSearchObject(
+                    "Type"
+                    , AtrrTypeItem.String
+                    , AttrSymbolItem.Equal
+                    , typeId
+                    ));
+            }
             if (string.IsNullOrEmpty(ddlStore.SelectedValue))
             {
                 lst.Add(new DbSearchObject(
@@ -280,18 +350,78 @@ namespace TheWeWebSite.StoreMgt
                 ));
             return lst;
         }
+        private List<DbSearchObject> CategoryDbObject(string cid)
+        {
+            List<DbSearchObject> lst = new List<DbSearchObject>();
+            lst.Add(new DbSearchObject(
+                "Name"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , tbType.Text
+                ));
 
-        private bool WriteBackInfo(bool isInsert, List<DbSearchObject> lst, string id)
+            lst.Add(new DbSearchObject(
+                "Description"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , tbType.Text
+                ));
+            lst.Add(new DbSearchObject(
+                "Type"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , cid
+                ));
+            lst.Add(new DbSearchObject(
+                "TypeLv"
+                , AtrrTypeItem.Integer
+                , AttrSymbolItem.Equal
+                , "2"
+                ));
+            lst.Add(new DbSearchObject(
+                "Sn"
+                , AtrrTypeItem.Integer
+                , AttrSymbolItem.Equal
+                , (ddlType.Items.Count - 1).ToString()
+                ));
+            lst.Add(new DbSearchObject(
+                "UpdateAccId"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , ((DataRow)Session["AccountInfo"])["Id"].ToString()
+                ));
+            return lst;
+        }
+
+        #region Db Control
+        private string GetCreatedId(MsSqlTable table, List<DbSearchObject> lst)
+        {
+            try
+            {
+                DataSet ds = SysProperty.GenDbCon.GetDataFromTable("Id"
+                    , SysProperty.Util.MsSqlTableConverter(table)
+                    , SysProperty.Util.SqlQueryConditionConverter(lst));
+                if (SysProperty.Util.IsDataSetEmpty(ds)) return string.Empty;
+                return ds.Tables[0].Rows[0]["Id"].ToString();
+            }
+            catch (Exception ex)
+            {
+                SysProperty.Log.Error(ex.Message);
+                ShowErrorMsg(ex.Message);
+                return string.Empty;
+            }
+        }
+        private bool WriteBackInfo(MsSqlTable table, bool isInsert, List<DbSearchObject> lst, string id)
         {
             try
             {
                 return isInsert ?
                     SysProperty.GenDbCon.InsertDataInToTable(
-                        SysProperty.Util.MsSqlTableConverter(MsSqlTable.ServiceItem)
+                        SysProperty.Util.MsSqlTableConverter(table)
                         , SysProperty.Util.SqlQueryInsertInstanceConverter(lst)
                         , SysProperty.Util.SqlQueryInsertValueConverter(lst))
                         : SysProperty.GenDbCon.UpdateDataIntoTable(
-                            SysProperty.Util.MsSqlTableConverter(MsSqlTable.ServiceItem)
+                            SysProperty.Util.MsSqlTableConverter(table)
                             , SysProperty.Util.SqlQueryUpdateConverter(lst)
                             , " Where Id = '" + id + "'");
             }
@@ -331,5 +461,6 @@ namespace TheWeWebSite.StoreMgt
                 return null;
             }
         }
+        #endregion
     }
 }

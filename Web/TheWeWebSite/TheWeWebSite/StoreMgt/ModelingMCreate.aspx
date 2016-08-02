@@ -22,6 +22,7 @@
 
         <!-- Input -->
         <section class="insert">
+            <asp:ScriptManager runat="server"></asp:ScriptManager>
             <div>
                 <asp:Label runat="server" ID="labelWarnString" ForeColor="Red" Visible="false" />
 
@@ -29,15 +30,20 @@
                     <div class="row uniform 50%">
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
-                                <asp:Label runat="server" Text="<%$ Resources:Resource,DescriptionString%>"></asp:Label>
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,SnString%>"></asp:Label>
                             </div>
                             <asp:TextBox runat="server" placeholder="..." ID="tbSn"></asp:TextBox>
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
-                                <asp:Label runat="server" Text="<%$ Resources:Resource,DescriptionString%>"></asp:Label>
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,TypeString%>"></asp:Label>
                             </div>
-                            <asp:DropDownList runat="server" id="ddlType"/>
+                            <asp:UpdatePanel runat="server">
+                                <ContentTemplate>
+                                    <asp:DropDownList runat="server" ID="ddlType" AutoPostBack="true" OnSelectedIndexChanged="ddlType_SelectedIndexChanged" />
+                                    <asp:TextBox runat="server" ID="tbType" Visible="false" />
+                                </ContentTemplate>
+                            </asp:UpdatePanel>
                         </div>
                         <div class="6u 12u(mobilep)">
                             <div class="Div">
@@ -51,41 +57,41 @@
                 <section>
                     <div class="row no-collapse 50% uniform">
                         <div class="2u">
-                              <div style="text-align: center">
-                            <asp:Label runat="server" Text="正面照片"></asp:Label>
-                        </div>
+                            <div style="text-align: center">
+                                <asp:Label runat="server" Text="正面照片"></asp:Label>
+                            </div>
                             <span class="image fit">
                                 <img src="../assets/img/logo_clear.jpg" alt="" /></span>
                             <div class="align-center">
                                 <asp:Button runat="server" Text="<%$ Resources:Resource,UploadString%>" />
                             </div>
-                    </div>
-                    <div class="2u">
-                          <div style="text-align: center">
-                            <asp:Label runat="server" Text="背面照片"></asp:Label>
                         </div>
-                        <span class="image fit">
-                            <img src="../assets/img/logo_clear.jpg" alt="" /></span>
-                        <div class="align-center">
+                        <div class="2u">
+                            <div style="text-align: center">
+                                <asp:Label runat="server" Text="背面照片"></asp:Label>
+                            </div>
+                            <span class="image fit">
+                                <img src="../assets/img/logo_clear.jpg" alt="" /></span>
+                            <div class="align-center">
                                 <asp:Button runat="server" Text="<%$ Resources:Resource,UploadString%>" />
                             </div>
-                    </div>
-                    <div class="2u">
-                          <div style="text-align: center">
-                            <asp:Label runat="server" Text="側面照片"></asp:Label>
                         </div>
-                        <span class="image fit">
-                            <img src="../assets/img/logo_clear.jpg" alt="" /></span>
-                        <div class="align-center">
+                        <div class="2u">
+                            <div style="text-align: center">
+                                <asp:Label runat="server" Text="側面照片"></asp:Label>
+                            </div>
+                            <span class="image fit">
+                                <img src="../assets/img/logo_clear.jpg" alt="" /></span>
+                            <div class="align-center">
                                 <asp:Button runat="server" Text="<%$ Resources:Resource,UploadString%>" />
                             </div>
+                        </div>
                     </div>
-            </div>
-            </section>
+                </section>
 
             </div>
             <hr />
-             <!-- Btn -->
+            <!-- Btn -->
             <div class="Div btn">
                 <ul class="actions">
 

@@ -177,17 +177,11 @@ namespace TheWeWebSite.StoreMgt
         private void FittingTypeList()
         {
             ddlType.Items.Clear();
-            ddlType.Items.Add(new ListItem(Resources.Resource.SeletionRemindString, string.Empty));
             string sql = "select * from DressCategory Where IsDelete=0 And Type='"
                 + GetTypeNameFromCategory(ddlCategory.SelectedValue) + "' Order by Sn";
             DataSet ds = GetDataFromDb(sql);
-            if (SysProperty.Util.IsDataSetEmpty(ds))
+            if (!SysProperty.Util.IsDataSetEmpty(ds))
             {
-                ddlType.Enabled = false;
-            }
-            else
-            {
-                ddlType.Enabled = true;
                 foreach (DataRow dr in ds.Tables[0].Rows)
                 {
                     ddlType.Items.Add(new ListItem(
@@ -196,6 +190,12 @@ namespace TheWeWebSite.StoreMgt
                         ));
                 }
             }
+            ddlType.Items.Add(new ListItem(Resources.Resource.CreateItemString, "CreateItem"));
+        }
+        protected void ddlType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            tbType.Visible = ddlType.SelectedValue == "CreateItem";
+            tbType.Text = string.Empty;
         }
         private void StatusList()
         {
@@ -259,7 +259,9 @@ namespace TheWeWebSite.StoreMgt
                 ShowErrorMsg(Resources.Resource.SnDuplicateErrorString);
                 return;
             }
-            bool result = WriteBackData(ddlCategory.SelectedValue, AccessoryDbObject(), true, string.Empty);
+            string typeId = CreateNewType(ddlType.SelectedValue);
+            if (string.IsNullOrEmpty(typeId)) return;
+            bool result = WriteBackData(ddlCategory.SelectedValue, AccessoryDbObject(typeId), true, string.Empty);
             if (result)
             {
                 TransferToOtherPage();
@@ -270,11 +272,42 @@ namespace TheWeWebSite.StoreMgt
         {
             if (string.IsNullOrEmpty(tbSn.Text)) return;
             if (Session["FittingId"] == null || Session["FittingCategory"] == null) return;
-            bool result = WriteBackData(ddlCategory.SelectedValue, AccessoryDbObject(), false, Session["FittingId"].ToString());
+            string typeId = CreateNewType(ddlType.SelectedValue);
+            if (string.IsNullOrEmpty(typeId)) return;
+            bool result = WriteBackData(ddlCategory.SelectedValue, AccessoryDbObject(typeId), false, Session["FittingId"].ToString());
             if (result)
             {
+                UpdateRentRecords(typeId, Session["FittingId"].ToString());
                 TransferToOtherPage();
             }
+        }
+
+        private string CreateNewType(string ddlValue)
+        {
+            bool result = true;
+            string typeId = string.Empty;
+            if (ddlValue == "CreateItem")
+            {
+                if (string.IsNullOrEmpty(tbType.Text))
+                {
+                    ShowErrorMsg(Resources.Resource.BlankFieldString);
+                    return string.Empty;
+                }
+                else
+                {
+                    List<DbSearchObject> lst = DressCategoryDbObject();
+                    result = WriteBackData(
+                        SysProperty.Util.MsSqlTableConverter(MsSqlTable.DressCategory)
+                        , lst, true, string.Empty);
+                    if (!result) return string.Empty;
+                    typeId = GetCreatedId(MsSqlTable.DressCategory, lst);
+                }
+            }
+            else
+            {
+                typeId = ddlValue;
+            }
+            return typeId;
         }
 
         protected void btnClear_Click(object sender, EventArgs e)
@@ -366,31 +399,70 @@ namespace TheWeWebSite.StoreMgt
             catch { ddlLength.SelectedIndex = 0; }
             try { ddlRelatedCategory.SelectedValue = dr["PairId"].ToString(); }
             catch { ddlRelatedCategory.SelectedIndex = 0; }
+            BindRentRecordsTable(id);
         }
 
-        private bool WriteBackData(string tableName, List<DbSearchObject> lst, bool isInsert, string id)
+        #region Rent Records
+        private DataSet GetRentRecords(string dressId)
         {
-            try
+            string sql = "Select * From RentRecord Where DressId='"+dressId+"' order by RentStartTime DESC";
+            return GetDataFromDb(sql);
+        }        
+        private void BindRentRecordsTable(string dressId)
+        {
+            DataSet ds = GetRentRecords(dressId);
+            dataGrid.DataSource = ds;
+            dataGrid.DataBind();
+        }
+        private void UpdateRentRecords(string typeId, string dressId)
+        {
+            string status = CheckStatusForRent(ddlStatus.SelectedValue);
+            if(status == "Rent")
             {
-                return isInsert ?
-                    SysProperty.GenDbCon.InsertDataInToTable(
-                        tableName
-                        , SysProperty.Util.SqlQueryInsertInstanceConverter(lst)
-                        , SysProperty.Util.SqlQueryInsertValueConverter(lst))
-                        : SysProperty.GenDbCon.UpdateDataIntoTable(
-                            tableName
-                            , SysProperty.Util.SqlQueryUpdateConverter(lst)
-                            , " Where Id = '" + id + "'");
-            }
-            catch (Exception ex)
+                WriteBackData(
+                    SysProperty.Util.MsSqlTableConverter(MsSqlTable.RentRecord)
+                    , RentRecordDbObject(typeId, dressId, true)
+                    , true
+                    , string.Empty);
+            }else if(status == "Return")
             {
-                SysProperty.Log.Error(ex.Message);
-                ShowErrorMsg(ex.Message);
-                return false;
+                WriteBackData(
+                    SysProperty.Util.MsSqlTableConverter(MsSqlTable.RentRecord)
+                    , RentRecordDbObject(typeId, dressId, false)
+                    , false
+                    , dataGrid.DataKeys[0].ToString());
             }
         }
+        private string CheckStatusForRent(string ddlValue)
+        {
+            if (ddlValue.ToUpper() == "67F14E3B-5294-44EE-97CF-948BB2FC3031")
+            {
+                if (dataGrid.Items.Count > 0)
+                {
+                    if (!string.IsNullOrEmpty(SysProperty.Util.ParseDateTime("DateTime", dataGrid.Items[0].Cells[2].Text)))
+                    {
+                        return "Rent";
+                    }
+                } else
+                {
+                    return "Rent";
+                }
+            } else
+            {
+                if (dataGrid.Items.Count > 0)
+                {
+                    if (string.IsNullOrEmpty(SysProperty.Util.ParseDateTime("DateTime", dataGrid.Items[0].Cells[2].Text)))
+                    {
+                        return "Return";
+                    }
+                }
+            }
+            return string.Empty;
+        }
+        #endregion
 
-        private List<DbSearchObject> AccessoryDbObject()
+        #region Db Instance
+        private List<DbSearchObject> AccessoryDbObject(string typeId)
         {
             List<DbSearchObject> lst = new List<DbSearchObject>();
             lst.Add(new DbSearchObject(
@@ -441,7 +513,7 @@ namespace TheWeWebSite.StoreMgt
                     "Category"
                     , AtrrTypeItem.String
                     , AttrSymbolItem.Equal
-                    , ddlType.SelectedValue
+                    , typeId
                     ));
             }
             if (!string.IsNullOrEmpty(ddlSupplier.SelectedValue))
@@ -489,7 +561,7 @@ namespace TheWeWebSite.StoreMgt
                     , tbRelatedSn.Text
                     ));
             }
-            if (divRelatedCategory.Visible 
+            if (divRelatedCategory.Visible
                 && string.IsNullOrEmpty(ddlRelatedCategory.SelectedValue))
             {
                 lst.Add(new DbSearchObject(
@@ -550,8 +622,107 @@ namespace TheWeWebSite.StoreMgt
                 ));
             return lst;
         }
+        private List<DbSearchObject> DressCategoryDbObject()
+        {
+            List<DbSearchObject> lst = new List<DbSearchObject>();
+            lst.Add(new DbSearchObject(
+                "Name"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , tbType.Text
+                ));
+
+            lst.Add(new DbSearchObject(
+                "Description"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , ddlCategory.SelectedValue
+                ));
+            lst.Add(new DbSearchObject(
+                "Type"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , GetTypeNameFromCategory(ddlCategory.SelectedValue)
+                ));
+            lst.Add(new DbSearchObject(
+                "UpdateAccId"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , ((DataRow)Session["AccountInfo"])["Id"].ToString()
+                ));
+            return lst;
+        }
+        private List<DbSearchObject> RentRecordDbObject(string typeId, string id, bool isRent)
+        {
+            List<DbSearchObject> lst = new List<DbSearchObject>();
+            lst.Add(new DbSearchObject(
+                isRent ? "RentStartTime" : "RentEndTime"
+                , AtrrTypeItem.DateTime
+                , AttrSymbolItem.Equal
+                , DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss")
+                ));
+            lst.Add(new DbSearchObject(
+                "DressId"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , id
+                ));
+            lst.Add(new DbSearchObject(
+                "Category"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , typeId
+                ));
+            lst.Add(new DbSearchObject(
+                "UpdateAccId"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , ((DataRow)Session["AccountInfo"])["Id"].ToString()
+                ));
+            return lst;
+        }
+        #endregion
 
         #region Db General Control
+        private bool WriteBackData(string tableName, List<DbSearchObject> lst, bool isInsert, string id)
+        {
+            try
+            {
+                return isInsert ?
+                    SysProperty.GenDbCon.InsertDataInToTable(
+                        tableName
+                        , SysProperty.Util.SqlQueryInsertInstanceConverter(lst)
+                        , SysProperty.Util.SqlQueryInsertValueConverter(lst))
+                        : SysProperty.GenDbCon.UpdateDataIntoTable(
+                            tableName
+                            , SysProperty.Util.SqlQueryUpdateConverter(lst)
+                            , " Where Id = '" + id + "'");
+            }
+            catch (Exception ex)
+            {
+                SysProperty.Log.Error(ex.Message);
+                ShowErrorMsg(ex.Message);
+                return false;
+            }
+        }
+
+        private string GetCreatedId(MsSqlTable table, List<DbSearchObject> lst)
+        {
+            try
+            {
+                DataSet ds = SysProperty.GenDbCon.GetDataFromTable("Id"
+                    , SysProperty.Util.MsSqlTableConverter(table)
+                    , SysProperty.Util.SqlQueryConditionConverter(lst));
+                if (SysProperty.Util.IsDataSetEmpty(ds)) return string.Empty;
+                return ds.Tables[0].Rows[0]["Id"].ToString();
+            }
+            catch (Exception ex)
+            {
+                SysProperty.Log.Error(ex.Message);
+                ShowErrorMsg(ex.Message);
+                return string.Empty;
+            }
+        }
         private DataSet GetDataFromDb(string sql)
         {
             try

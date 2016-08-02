@@ -948,4 +948,7 @@
   <data name="FittingString" xml:space="preserve">
     <value>Fitting</value>
   </data>
+  <data name="BlankFieldString" xml:space="preserve">
+    <value>Field can not be empty</value>
+  </data>
 </root>

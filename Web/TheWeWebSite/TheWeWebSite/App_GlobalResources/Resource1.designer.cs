@@ -223,6 +223,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   查詢類似 Field can not be empty 的當地語系化字串。
+        /// </summary>
+        internal static string BlankFieldString {
+            get {
+                return ResourceManager.GetString("BlankFieldString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查詢類似 Material of Bouquet &amp; Corsage  的當地語系化字串。
         /// </summary>
         internal static string BouquetCorsageString {

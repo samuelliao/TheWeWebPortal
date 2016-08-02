@@ -43,13 +43,22 @@
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,CategoryString%>"></asp:Label>
                             </div>
-                            <asp:DropDownList runat="server" ID="ddlOthCategory" />
+                            <asp:UpdatePanel runat="server">
+                                <ContentTemplate>
+                                    <asp:DropDownList runat="server" ID="ddlOthCategory" AutoPostBack="true" OnSelectedIndexChanged="ddlOthCategory_SelectedIndexChanged" />
+                                </ContentTemplate>
+                            </asp:UpdatePanel>                            
                         </div>
-                        <div class="2u 12u(mobilep)" style="display:none">
+                        <div class="2u 12u(mobilep)">
                             <div class="Div">
-                                <asp:Label runat="server" Text="<%$ Resources:Resource,CreateItemString%>"></asp:Label>
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,Typetring%>"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server" placeholder="..." ID="tbCreateType"></asp:TextBox>
+                            <asp:UpdatePanel runat="server">
+                                <ContentTemplate>
+                                    <asp:DropDownList runat="server" ID="ddlType" AutoPostBack="true" OnSelectedIndexChanged="ddlType_SelectedIndexChanged"/>
+                                    <asp:TextBox runat="server" ID="tbType" Visible="false" />
+                                </ContentTemplate>
+                            </asp:UpdatePanel>                            
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
