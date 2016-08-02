@@ -51,7 +51,8 @@
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,BdayString%>"></asp:Label>
                             </div>
                             <div>
-                                <asp:TextBox runat="server" CssClass="dp" style="text-align:right" ID="tbBday"></asp:TextBox>
+                                <asp:TextBox runat="server" style="text-align:right" ID="tbBday"
+                                    Cssclass="date date-1" value="" placeholder="YYYY-MM-DD"></asp:TextBox>
                             </div>
                         </div>
                         <div class="2u 12u(mobilep)">

@@ -1,4 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="CaseMCreate.aspx.cs" Inherits="TheWeWebSite.CaseMgt.CaseMCreate" %>
+
 <%@ Register TagPrefix="My" TagName="Header" Src="~/Header.ascx" %>
 
 <!DOCTYPE html>
@@ -62,7 +63,8 @@
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,ContractDateString%>"></asp:Label>
                             </div>
                             <div>
-                                <asp:TextBox runat="server" style="text-align:right" CssClass="dp" ID="tbContractTime"></asp:TextBox>
+                                <asp:TextBox runat="server" Style="text-align: right" ID="tbContractTime"
+                                    CssClass="date date-1" value="" placeholder="YYYY-MM-DD HH:MM APM" data-timeformat="HH:MM"></asp:TextBox>
                             </div>
 
                         </div>
@@ -71,7 +73,8 @@
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,AppointmentDateString%>"></asp:Label>
                             </div>
                             <div>
-                                <asp:TextBox runat="server" style="text-align:right" CssClass="dp" ID="tbAppointDate"></asp:TextBox>
+                                <asp:TextBox runat="server" Style="text-align: right" ID="tbAppointDate"
+                                    CssClass="date date-1" value="" placeholder="YYYY-MM-DD HH:MM APM" data-timeformat="HH:MM"></asp:TextBox>
                             </div>
 
                         </div>
@@ -87,14 +90,15 @@
                             <div>
                                 <asp:UpdatePanel runat="server">
                                     <ContentTemplate>
-                                        <asp:TextBox runat="server" style="text-align:right" CssClass="dp" ID="tbCloseDay"></asp:TextBox>
+                                        <asp:TextBox runat="server" Style="text-align: right" ID="tbCloseDay"
+                                            CssClass="date date-1" value="" placeholder="YYYY-MM-DD HH:MM APM" data-timeformat="HH:MM"></asp:TextBox>
                                     </ContentTemplate>
                                 </asp:UpdatePanel>
                             </div>
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
-                                <asp:Label runat="server"  Text="<%$ Resources:Resource,ProjectString%>"></asp:Label>
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,ProjectString%>"></asp:Label>
                             </div>
                             <asp:UpdatePanel runat="server">
                                 <ContentTemplate>
@@ -164,7 +168,8 @@
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,BridalBdayString%>"></asp:Label>
                             </div>
                             <div>
-                                <asp:TextBox runat="server" CssClass="dp" style="text-align:right" ID="tbBridalBday"></asp:TextBox>
+                                <asp:TextBox runat="server" Style="text-align: right" ID="tbBridalBday"
+                                    CssClass="date date-1" value="" placeholder="YYYY-MM-DD"></asp:TextBox>
                             </div>
                         </div>
                         <div class="2u 12u(mobilep)">
@@ -208,7 +213,8 @@
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,GroomBdayString%>"></asp:Label>
                             </div>
                             <div>
-                                <asp:TextBox runat="server" CssClass="dp" style="text-align:right" ID="tbGroomBday"></asp:TextBox>
+                                <asp:TextBox runat="server" Style="text-align: right" ID="tbGroomBday"
+                                    CssClass="date date-1" value="" placeholder="YYYY-MM-DD"></asp:TextBox>
                             </div>
                         </div>
 
@@ -268,7 +274,7 @@
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,PhoneString%>"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server" ID="tbPhone" style="text-align:right"></asp:TextBox>
+                            <asp:TextBox runat="server" ID="tbPhone" Style="text-align: right"></asp:TextBox>
 
                         </div>
                         <div class="2u 12u(mobilep)">
@@ -282,7 +288,8 @@
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,OverseaWeddingDateString%>"></asp:Label>
                             </div>
                             <div>
-                                <asp:TextBox runat="server" CssClass="dp" style="text-align:right" ID="tbOverseaWeddingDate"></asp:TextBox>
+                                <asp:TextBox runat="server" Style="text-align: right" ID="tbOverseaWeddingDate"
+                                    CssClass="date date-1" value="" placeholder="YYYY-MM-DD HH:MM APM" data-timeformat="HH:MM"></asp:TextBox>
                             </div>
                         </div>
                     </div>
@@ -295,7 +302,8 @@
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,OverseaWddingFilmingDateString%>"></asp:Label>
                             </div>
                             <div>
-                                <asp:TextBox runat="server" CssClass="dp" style="text-align:right" ID="tbOverSeaWedFilmDate"></asp:TextBox>
+                                <asp:TextBox runat="server" Style="text-align: right" ID="tbOverSeaWedFilmDate"
+                                    CssClass="date date-1" value="" placeholder="YYYY-MM-DD"></asp:TextBox>
                             </div>
                         </div>
                         <div class="2u 12u(mobilep)">
@@ -303,7 +311,8 @@
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,DomesticWeddingFilmingDateString%>"></asp:Label>
                             </div>
                             <div>
-                                <asp:TextBox runat="server" CssClass="dp" style="text-align:right" ID="tbDomesticWedFilmDate"></asp:TextBox>
+                                <asp:TextBox runat="server" Style="text-align: right" ID="tbDomesticWedFilmDate"
+                                    CssClass="date date-1" value="" placeholder="YYYY-MM-DD"></asp:TextBox>
                             </div>
                         </div>
 
@@ -312,7 +321,8 @@
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,DomesticEngagementDateString%>"></asp:Label>
                             </div>
                             <div>
-                                <asp:TextBox runat="server" CssClass="dp" style="text-align:right" ID="tbDomesticEngagementDate"></asp:TextBox>
+                                <asp:TextBox runat="server" Style="text-align: right" ID="tbDomesticEngagementDate"
+                                    CssClass="date date-1" value="" placeholder="YYYY-MM-DD"></asp:TextBox>
                             </div>
                         </div>
                         <div class="2u 12u(mobilep)">
@@ -320,7 +330,8 @@
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,DomesticWeddingDateString%>"></asp:Label>
                             </div>
                             <div>
-                                <asp:TextBox runat="server" CssClass="dp" style="text-align:right" ID="tbDomesticWeddingDate"></asp:TextBox>
+                                <asp:TextBox runat="server" Style="text-align: right" ID="tbDomesticWeddingDate"
+                                    CssClass="date date-1" value="" placeholder="YYYY-MM-DD"></asp:TextBox>
                             </div>
                         </div>
                         <div class="2u 12u(mobilep)">
@@ -328,7 +339,8 @@
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,DomesticMotheringDateString%>"></asp:Label>
                             </div>
                             <div>
-                                <asp:TextBox runat="server" CssClass="dp" style="text-align:right" ID="tbDomesticMotheringDate"></asp:TextBox>
+                                <asp:TextBox runat="server" Style="text-align: right" ID="tbDomesticMotheringDate"
+                                    CssClass="date date-1" value="" placeholder="YYYY-MM-DD"></asp:TextBox>
                             </div>
                         </div>
                         <div class="2u 12u(mobilep)">
@@ -336,7 +348,8 @@
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,DomesticWeddingReceptionDateString%>"></asp:Label>
                             </div>
                             <div>
-                                <asp:TextBox runat="server" CssClass="dp" style="text-align:right" ID="tbDomesticWeddReceptionDate"></asp:TextBox>
+                                <asp:TextBox runat="server" Style="text-align: right" ID="tbDomesticWeddReceptionDate"
+                                    CssClass="date date-1" value="" placeholder="YYYY-MM-DD"></asp:TextBox>
                             </div>
                         </div>
                     </div>
@@ -351,7 +364,7 @@
                             </div>
                             <asp:UpdatePanel runat="server">
                                 <ContentTemplate>
-                                    <asp:TextBox runat="server" ID="tbContractPrice" style="text-align:right"
+                                    <asp:TextBox runat="server" ID="tbContractPrice" Style="text-align: right"
                                         OnTextChanged="tbContractPrice_TextChanged" AutoPostBack="true"></asp:TextBox>
                                     <asp:RegularExpressionValidator ID="RegularExpressionValidator1" ControlToValidate="tbContractPrice" runat="server" ErrorMessage="Only Numbers allowed" ValidationExpression="\d+[.]*\d*"></asp:RegularExpressionValidator>
                                 </ContentTemplate>
@@ -364,7 +377,7 @@
                             </div>
                             <asp:UpdatePanel runat="server">
                                 <ContentTemplate>
-                                    <asp:TextBox runat="server" ID="tbDiscount" style="text-align:right"
+                                    <asp:TextBox runat="server" ID="tbDiscount" Style="text-align: right"
                                         OnTextChanged="tbDiscount_TextChanged" AutoPostBack="true"></asp:TextBox>
                                     <asp:RegularExpressionValidator ID="RegularExpressionValidator2" ControlToValidate="tbDiscount" runat="server" ErrorMessage="Only Numbers allowed" ValidationExpression="\d+[.]*\d*"></asp:RegularExpressionValidator>
                                 </ContentTemplate>
@@ -376,7 +389,7 @@
                             </div>
                             <asp:UpdatePanel runat="server">
                                 <ContentTemplate>
-                                    <asp:TextBox runat="server" ID="tbTotalPrice" style="text-align:right"
+                                    <asp:TextBox runat="server" ID="tbTotalPrice" Style="text-align: right"
                                         OnTextChanged="tbTotalPrice_TextChanged" AutoPostBack="true"></asp:TextBox>
                                     <asp:RegularExpressionValidator ID="RegularExpressionValidator3" ControlToValidate="tbTotalPrice" runat="server" ErrorMessage="Only Numbers allowed" ValidationExpression="\d+[.]*\d*"></asp:RegularExpressionValidator>
                                 </ContentTemplate>
@@ -389,10 +402,10 @@
                             </div>
                             <asp:UpdatePanel runat="server">
                                 <ContentTemplate>
-                                    <asp:TextBox runat="server" ID="tbDeposit1" style="text-align:right"
+                                    <asp:TextBox runat="server" ID="tbDeposit1" Style="text-align: right"
                                         OnTextChanged="tbDeposit1_TextChanged" AutoPostBack="true"></asp:TextBox>
                                     <asp:RegularExpressionValidator ID="RegularExpressionValidator4" ControlToValidate="tbDeposit1" runat="server"
-                                         ErrorMessage="Only Numbers allowed" ValidationExpression="\d+[.]*\d*"></asp:RegularExpressionValidator>
+                                        ErrorMessage="Only Numbers allowed" ValidationExpression="\d+[.]*\d*"></asp:RegularExpressionValidator>
                                 </ContentTemplate>
                             </asp:UpdatePanel>
 
@@ -403,10 +416,10 @@
                             </div>
                             <asp:UpdatePanel runat="server">
                                 <ContentTemplate>
-                                    <asp:TextBox runat="server" ID="tbDeposit2" style="text-align:right"
+                                    <asp:TextBox runat="server" ID="tbDeposit2" Style="text-align: right"
                                         OnTextChanged="tbDeposit2_TextChanged" AutoPostBack="true"></asp:TextBox>
                                     <asp:RegularExpressionValidator ID="RegularExpressionValidator5" ControlToValidate="tbDeposit2" runat="server"
-                                         ErrorMessage="Only Numbers allowed" ValidationExpression="\d+[.]*\d*"></asp:RegularExpressionValidator>
+                                        ErrorMessage="Only Numbers allowed" ValidationExpression="\d+[.]*\d*"></asp:RegularExpressionValidator>
                                 </ContentTemplate>
                             </asp:UpdatePanel>
 
@@ -417,9 +430,9 @@
                             </div>
                             <asp:UpdatePanel runat="server">
                                 <ContentTemplate>
-                                    <asp:TextBox runat="server" ID="tbPayOff" style="text-align:right"></asp:TextBox>
+                                    <asp:TextBox runat="server" ID="tbPayOff" Style="text-align: right"></asp:TextBox>
                                     <asp:RegularExpressionValidator ID="RegularExpressionValidator6" ControlToValidate="tbPayOff" runat="server"
-                                         ErrorMessage="Only Numbers allowed" ValidationExpression="\d+[.]*\d*"></asp:RegularExpressionValidator>
+                                        ErrorMessage="Only Numbers allowed" ValidationExpression="\d+[.]*\d*"></asp:RegularExpressionValidator>
                                 </ContentTemplate>
                             </asp:UpdatePanel>
                         </div>
@@ -434,7 +447,8 @@
                             <div>
                                 <asp:UpdatePanel runat="server">
                                     <ContentTemplate>
-                                        <asp:TextBox runat="server" CssClass="dp" style="text-align:right" ID="tbDeposit1Date"></asp:TextBox>
+                                        <asp:TextBox runat="server" Style="text-align: right" ID="tbDeposit1Date"
+                                            CssClass="date date-1" value="" placeholder="YYYY-MM-DD HH:MM APM" data-timeformat="HH:MM"></asp:TextBox>
                                     </ContentTemplate>
                                 </asp:UpdatePanel>
                             </div>
@@ -446,7 +460,8 @@
                             <div>
                                 <asp:UpdatePanel runat="server">
                                     <ContentTemplate>
-                                        <asp:TextBox runat="server" CssClass="dp" style="text-align:right" ID="tbDeposit2Date"></asp:TextBox>
+                                        <asp:TextBox runat="server" Style="text-align: right" ID="tbDeposit2Date"
+                                            CssClass="date date-1" value="" placeholder="YYYY-MM-DD HH:MM APM" data-timeformat="HH:MM"></asp:TextBox>
                                     </ContentTemplate>
                                 </asp:UpdatePanel>
                             </div>
@@ -458,7 +473,8 @@
                             <div>
                                 <asp:UpdatePanel runat="server">
                                     <ContentTemplate>
-                                        <asp:TextBox runat="server" CssClass="dp" style="text-align:right" ID="tbPayOffDate"></asp:TextBox>
+                                        <asp:TextBox runat="server" Style="text-align: right" ID="tbPayOffDate"
+                                            CssClass="date date-1" value="" placeholder="YYYY-MM-DD HH:MM APM" data-timeformat="HH:MM"></asp:TextBox>
                                     </ContentTemplate>
                                 </asp:UpdatePanel>
                             </div>
@@ -518,7 +534,7 @@
                         </asp:UpdatePanel>
                     </div>
                 </div>
-            </div>            
+            </div>
             <!-- Btn -->
             <div class="Div btn">
                 <ul class="actions">
@@ -553,6 +569,8 @@
         <script src="../assets/js/datepicker.js"></script>
         <script src="../assets/js/jquery-1.10.2.js"></script>
         <script src="../assets/js/jquery-ui.js"></script>
+        <!-- datepicker -->
+        <script src="../assets/js/picker.js"></script>
     </form>
 </body>
 </html>

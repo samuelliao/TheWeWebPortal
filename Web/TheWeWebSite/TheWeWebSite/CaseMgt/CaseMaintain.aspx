@@ -52,7 +52,8 @@
                                         <asp:Label runat="server" Text="開案日期選擇範圍(開始)" ID="labelContractSearchStartDate"></asp:Label>
                                     </div>
                                     <div>
-                                        <asp:TextBox runat="server" style="text-align:right" CssClass="dp" ID="tbContractSearchStartDate"></asp:TextBox>
+                                        <asp:TextBox runat="server" style="text-align:right" ID="tbContractSearchStartDate"
+                                            Cssclass="date date-1" value="" placeholder="YYYY-MM-DD" ></asp:TextBox>
                                     </div>
                                 </div>
                                 <div class="2u 12u(mobilep)">
@@ -60,7 +61,8 @@
                                         <asp:Label runat="server"  Text="開案日期選擇範圍(結束)" ID="labelContractSearchEndDate"></asp:Label>
                                     </div>
                                     <div>
-                                        <asp:TextBox runat="server" CssClass="dp" style="text-align:right" ID="tbContractSearchEndDate"></asp:TextBox>
+                                        <asp:TextBox runat="server" style="text-align:right" ID="tbContractSearchEndDate"
+                                            Cssclass="date date-1" value="" placeholder="YYYY-MM-DD" ></asp:TextBox>
                                     </div>
                                 </div>
                                 <div class="2u 12u(mobilep)">
@@ -68,7 +70,8 @@
                                         <asp:Label runat="server" Text="結案日期選擇範圍(開始)" ID="labelClosedSearchStartDate"></asp:Label>
                                     </div>
                                     <div>
-                                        <asp:TextBox runat="server" style="text-align:right" CssClass="dp" ID="tbCloseSearchStartDate"></asp:TextBox>
+                                        <asp:TextBox runat="server" style="text-align:right" ID="tbCloseSearchStartDate"
+                                            Cssclass="date date-1" value="" placeholder="YYYY-MM-DD" ></asp:TextBox>
                                     </div>
                                 </div>
                                 <div class="2u 12u(mobilep)">
@@ -76,7 +79,8 @@
                                         <asp:Label runat="server" Text="結案日期選擇範圍(結束)" ID="labelClosedSearchEndDate"></asp:Label>
                                     </div>
                                     <div>
-                                        <asp:TextBox runat="server" CssClass="dp" style="text-align:right" ID="tbCloseSearchEndDate"></asp:TextBox>
+                                        <asp:TextBox runat="server" style="text-align:right" ID="tbCloseSearchEndDate"
+                                            Cssclass="date date-1" value="" placeholder="YYYY-MM-DD" ></asp:TextBox>
                                     </div>
                                 </div>
 

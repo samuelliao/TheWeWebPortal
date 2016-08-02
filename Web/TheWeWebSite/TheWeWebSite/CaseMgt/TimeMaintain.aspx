@@ -45,7 +45,8 @@
                                         <asp:Label runat="server" Text="開案日期選擇範圍(開始)" ID="labelContractStartDate"></asp:Label>
                                     </div>
                                     <div>
-                                        <asp:TextBox runat="server" CssClass="dp" style="text-align:right" ID="tbContractStartDate"></asp:TextBox>
+                                        <asp:TextBox runat="server" Cssclass="date date-1" value="" placeholder="YYYY-MM-DD"
+                                             style="text-align:right" ID="tbContractStartDate"></asp:TextBox>
                                     </div>
                                 </div>
                                 <div class="2u 12u(mobilep)">
@@ -53,7 +54,8 @@
                                         <asp:Label runat="server" Text="開案日期選擇範圍(結束)" ID="labelContractEndDate"></asp:Label>
                                     </div>
                                     <div>
-                                        <asp:TextBox runat="server" CssClass="dp" style="text-align:right" ID="tbContractEndDate"></asp:TextBox>
+                                        <asp:TextBox runat="server" Cssclass="date date-1" value="" placeholder="YYYY-MM-DD"
+                                            style="text-align:right" ID="tbContractEndDate"></asp:TextBox>
                                     </div>
                                 </div>
                                 <div class="2u 12u(mobilep)">
@@ -115,7 +117,8 @@
                                         <asp:Label runat="server" Text="會議日期選擇範圍(開始)" ID="labelConStartDate"></asp:Label>
                                     </div>
                                     <div>
-                                        <asp:TextBox runat="server" style="text-align:right" CssClass="dp" ID="tbConStartDate"></asp:TextBox>
+                                        <asp:TextBox runat="server" style="text-align:right"
+                                             Cssclass="date date-1" value="" placeholder="YYYY-MM-DD" ID="tbConStartDate"></asp:TextBox>
                                     </div>
                                 </div>
                                 <div class="2u 12u(mobilep)">
@@ -123,7 +126,8 @@
                                         <asp:Label runat="server" Text="會議日期選擇範圍(結束)" ID="labelConEndDate"></asp:Label>
                                     </div>
                                     <div>
-                                        <asp:TextBox runat="server" style="text-align:right" CssClass="dp" ID="tbConEndDate"></asp:TextBox>
+                                        <asp:TextBox runat="server" style="text-align:right" ID="tbConEndDate"
+                                            Cssclass="date date-1" value="" placeholder="YYYY-MM-DD"></asp:TextBox>
                                     </div>
                                 </div>
                             </div>
@@ -233,6 +237,8 @@
         <script src="../assets/js/datepicker.js"></script>
         <script src="../assets/js/jquery-1.10.2.js"></script>
         <script src="../assets/js/jquery-ui.js"></script>
+        <!-- datepicker -->
+        <script src="../assets/js/picker.js"></script>
     </form>
 </body>
 </html>

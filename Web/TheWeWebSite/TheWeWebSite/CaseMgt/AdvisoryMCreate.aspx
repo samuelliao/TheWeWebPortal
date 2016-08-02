@@ -51,15 +51,17 @@
                             </div>
                             <asp:UpdatePanel runat="server">
                                 <ContentTemplate>
-                                    <asp:TextBox runat="server" style="text-align:right" ID="tbBookingDate" CssClass="dp" OnTextChanged="tbBookingDate_TextChanged"></asp:TextBox>                            
+                                    <asp:TextBox runat="server" Style="text-align: right" ID="tbBookingDate" OnTextChanged="tbBookingDate_TextChanged"
+                                        Cssclass="date date-1" value="" placeholder="YYYY-MM-DD HH:MM APM" data-timeformat="HH:MM"></asp:TextBox>
                                 </ContentTemplate>
-                            </asp:UpdatePanel>                            
+                            </asp:UpdatePanel>
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,LastReceivedTimeString%>"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server" style="text-align:right" ID="tbLastReceived" CssClass="dp"></asp:TextBox>
+                            <asp:TextBox runat="server" Style="text-align: right" ID="tbLastReceived" Cssclass="date date-1" value=""
+                                 placeholder="YYYY-MM-DD HH:MM APM" data-timeformat="HH:MM"></asp:TextBox>
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
@@ -76,20 +78,20 @@
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,BridalNameString%>"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server"  ID="tbBridalName"></asp:TextBox>
+                            <asp:TextBox runat="server" ID="tbBridalName"></asp:TextBox>
                         </div>
 
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,BridalEngNameString%>"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server"  ID="tbBridalEngName"></asp:TextBox>
+                            <asp:TextBox runat="server" ID="tbBridalEngName"></asp:TextBox>
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,BridalPhoneString%>"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server"  ID="tbBridalPhone"></asp:TextBox>
+                            <asp:TextBox runat="server" ID="tbBridalPhone"></asp:TextBox>
 
                         </div>
                         <div class="2u 12u(mobilep)">
@@ -102,14 +104,15 @@
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,BridalCommunicationIdString%>"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server"  ID="tbBridalMsgId"></asp:TextBox>
+                            <asp:TextBox runat="server" ID="tbBridalMsgId"></asp:TextBox>
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,BridalBdayString%>"></asp:Label>
                             </div>
                             <div>
-                                <asp:TextBox runat="server" style="text-align:right" CssClass="dp" ID="tbBridalBday"></asp:TextBox>
+                                <asp:TextBox runat="server" Style="text-align: right" ID="tbBridalBday"
+                                    Cssclass="date date-1" value="" placeholder="YYYY-MM-DD" ></asp:TextBox>
                             </div>
                         </div>
 
@@ -123,13 +126,13 @@
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,BridalWorkString%>"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server"  ID="tbBridalWork"></asp:TextBox>
+                            <asp:TextBox runat="server" ID="tbBridalWork"></asp:TextBox>
                         </div>
                         <div class="4u 12u(mobilep)">
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,BridalEmailString%>"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server"  ID="tbBridalEmail"></asp:TextBox>
+                            <asp:TextBox runat="server" ID="tbBridalEmail"></asp:TextBox>
                         </div>
 
 
@@ -143,20 +146,20 @@
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,GroomNameString%>"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server"  ID="tbGroomName"></asp:TextBox>
+                            <asp:TextBox runat="server" ID="tbGroomName"></asp:TextBox>
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,GroomEngNameString%>"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server"  ID="tbGroomEngName"></asp:TextBox>
+                            <asp:TextBox runat="server" ID="tbGroomEngName"></asp:TextBox>
 
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,GroomPhoneString%>"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server"  ID="tbGroomPhone"></asp:TextBox>
+                            <asp:TextBox runat="server" ID="tbGroomPhone"></asp:TextBox>
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
@@ -168,14 +171,15 @@
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,GroomCommunicationIdString%>"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server"  ID="tbGroomMsgId"></asp:TextBox>
+                            <asp:TextBox runat="server" ID="tbGroomMsgId"></asp:TextBox>
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,GroomBdayString%>"></asp:Label>
                             </div>
                             <div>
-                                <asp:TextBox runat="server" style="text-align:right" CssClass="dp" ID="tbGroomBday"></asp:TextBox>
+                                <asp:TextBox runat="server" Style="text-align: right" ID="tbGroomBday"
+                                    Cssclass="date date-1" value="" placeholder="YYYY-MM-DD" ></asp:TextBox>
                             </div>
                         </div>
 
@@ -191,13 +195,13 @@
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,GroomWorkString%>"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server"  ID="tbGroomWork"></asp:TextBox>
+                            <asp:TextBox runat="server" ID="tbGroomWork"></asp:TextBox>
                         </div>
                         <div class="4u 12u(mobilep)">
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,GroomEmailString%>"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server"  ID="tbGroomEmail"></asp:TextBox>
+                            <asp:TextBox runat="server" ID="tbGroomEmail"></asp:TextBox>
                         </div>
 
                     </div>
@@ -275,7 +279,8 @@
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,PlannedWeddingFilmDateString%>"></asp:Label>
                             </div>
                             <div>
-                                <asp:TextBox runat="server" style="text-align:right" CssClass="dp" ID="tbWeddingFilm"></asp:TextBox>
+                                <asp:TextBox runat="server" Style="text-align: right" ID="tbWeddingFilm"
+                                    Cssclass="date date-1" value="" placeholder="YYYY-MM-DD" ></asp:TextBox>
                             </div>
                         </div>
                     </div>
@@ -288,7 +293,8 @@
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,PlannedWeddingDateString%>"></asp:Label>
                             </div>
                             <div>
-                                <asp:TextBox runat="server" style="text-align:right" CssClass="dp" ID="tbWeddingDate"></asp:TextBox>
+                                <asp:TextBox runat="server" Style="text-align: right" ID="tbWeddingDate"
+                                    Cssclass="date date-1" value="" placeholder="YYYY-MM-DD" ></asp:TextBox>
                             </div>
                         </div>
                         <div class="2u 12u(mobilep)">
@@ -296,7 +302,8 @@
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,DomesticWeddingReceptionDateString%>"></asp:Label>
                             </div>
                             <div>
-                                <asp:TextBox runat="server" CssClass="dp" style="text-align:right" ID="tbReception"></asp:TextBox>
+                                <asp:TextBox runat="server" Style="text-align: right" ID="tbReception"
+                                    Cssclass="date date-1" value="" placeholder="YYYY-MM-DD" ></asp:TextBox>
                             </div>
                         </div>
                         <div class="2u 12u(mobilep)">
@@ -357,6 +364,8 @@
         <script src="../assets/js/datepicker.js"></script>
         <script src="../assets/js/jquery-1.10.2.js"></script>
         <script src="../assets/js/jquery-ui.js"></script>
+        <!-- datepicker -->
+        <script src="../assets/js/picker.js"></script>
     </form>
 </body>
 </html>

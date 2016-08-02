@@ -136,7 +136,8 @@
                                             <Columns>
                                                 <asp:TemplateField HeaderText="<%$ Resources:Resource,StartString%>">
                                                     <ItemTemplate>
-                                                        <asp:TextBox ID="tbStart" style="text-align:right" runat="server"></asp:TextBox>
+                                                        <asp:TextBox ID="tbStart" style="text-align:right" runat="server"
+                                                            Cssclass="date date-1" value="HH:MM" data-type="time"></asp:TextBox>
                                                     </ItemTemplate>
                                                     <FooterStyle HorizontalAlign="Right" />
                                                     <FooterTemplate>

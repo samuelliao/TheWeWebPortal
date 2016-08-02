@@ -57,10 +57,7 @@
                                         <asp:Label runat="server" Text="<%$ Resources:Resource,BdayString%>"></asp:Label>
                                     </div>
                                     <div >
-                                        <asp:TextBox runat="server" Cssclass="date date-1" value="" placeholder="YYYY-MM-DD HH:MM APM" data-timeformat="HH:MM" ID="tbBday"></asp:TextBox>
-                                        <asp:TextBox runat="server" Cssclass="date date-1" value="" placeholder="YYYY-MM-DD"  ID="TextBox1"></asp:TextBox>
-                                        <asp:TextBox runat="server" Cssclass="date date-1" value="HH:MM" data-type="time" ID="TextBox2"></asp:TextBox>
-
+                                        <asp:TextBox runat="server" Cssclass="date date-1" value="" placeholder="YYYY-MM-DD" ID="tbBday"></asp:TextBox>
                                     </div>
                                 </div>
                                 <div class="2u 12u(mobilep)">

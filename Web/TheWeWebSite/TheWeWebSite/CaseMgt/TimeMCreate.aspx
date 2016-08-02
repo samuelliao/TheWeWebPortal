@@ -104,7 +104,8 @@
                             <div>
                                 <asp:UpdatePanel runat="server">
                                     <ContentTemplate>
-                                        <asp:TextBox runat="server" style="text-align:right" CssClass="dp" ID="tbConDate"></asp:TextBox>
+                                        <asp:TextBox runat="server" style="text-align:right" ID="tbConDate"
+                                            Cssclass="date date-1" value="" placeholder="YYYY-MM-DD HH:MM APM" data-timeformat="HH:MM"></asp:TextBox>
                                     </ContentTemplate>
                                 </asp:UpdatePanel>
                             </div>
@@ -153,9 +154,7 @@
         <!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
         <script src="../assets/js/main.js"></script>
         <!-- datepicker -->
-        <script src="../assets/js/datepicker.js"></script>
-        <script src="../assets/js/jquery-1.10.2.js"></script>
-        <script src="../assets/js/jquery-ui.js"></script>
+        <script src="../assets/js/picker.js"></script>
     </form>
 </body>
 </html>
