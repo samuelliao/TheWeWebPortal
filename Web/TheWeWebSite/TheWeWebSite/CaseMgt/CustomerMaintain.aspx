@@ -12,6 +12,7 @@
     <link href="../assets/css/main.css" rel="stylesheet" />
     <link href="../assets/css/calendar.css" rel="stylesheet" />
     <link href="../assets/css/jquery-ui.css" rel="stylesheet" />
+    <link href="../assets/css/datePicker.css" rel="stylesheet" />
 </head>
 <body class="landing">
     <form runat="server">
@@ -55,8 +56,11 @@
                                     <div class="Div">
                                         <asp:Label runat="server" Text="<%$ Resources:Resource,BdayString%>"></asp:Label>
                                     </div>
-                                    <div>
-                                        <asp:TextBox runat="server" CssClass="dp" ID="tbBday"></asp:TextBox>
+                                    <div >
+                                        <asp:TextBox runat="server" Cssclass="date date-1" value="" placeholder="YYYY-MM-DD HH:MM APM" data-timeformat="HH:MM" ID="tbBday"></asp:TextBox>
+                                        <asp:TextBox runat="server" Cssclass="date date-1" value="" placeholder="YYYY-MM-DD"  ID="TextBox1"></asp:TextBox>
+                                        <asp:TextBox runat="server" Cssclass="date date-1" value="HH:MM" data-type="time" ID="TextBox2"></asp:TextBox>
+
                                     </div>
                                 </div>
                                 <div class="2u 12u(mobilep)">
@@ -175,9 +179,8 @@
         <script src="../assets/js/main.js"></script>
         <script src="../assets/js/table.js"></script>
         <!-- datepicker -->
-        <script src="../assets/js/datepicker.js"></script>
-        <script src="../assets/js/jquery-1.10.2.js"></script>
-        <script src="../assets/js/jquery-ui.js"></script>
+        <script src="../assets/js/picker.js"></script>
+
     </form>
 </body>
 
