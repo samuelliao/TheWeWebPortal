@@ -948,4 +948,13 @@
   <data name="FittingString" xml:space="preserve">
     <value>配件</value>
   </data>
+  <data name="ImgFrontString" xml:space="preserve">
+    <value>正面照片</value>
+  </data>
+  <data name="ImgSideString" xml:space="preserve">
+    <value>側面照片</value>
+  </data>
+  <data name="ImgBackString" xml:space="preserve">
+    <value>背面照片</value>
+  </data>
 </root>

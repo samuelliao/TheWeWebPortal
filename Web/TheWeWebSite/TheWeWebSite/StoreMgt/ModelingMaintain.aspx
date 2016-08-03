@@ -41,7 +41,7 @@
                             </div>
                             <div class="2u 12u(mobilep)">
                                 <div class="Div">
-                                    <asp:Label runat="server" Text="<%$ Resources:Resource,TypeString%>" ></asp:Label>
+                                    <asp:Label runat="server" Text="<%$ Resources:Resource,CategoryString%>" ></asp:Label>
                                 </div>
                                             <asp:DropDownList runat="server" ID="ddlCategory" />
                             </div>
@@ -78,13 +78,13 @@
                                         <asp:ButtonColumn Text="<%$ Resources:Resource,SearchString%>" CommandName="Select"/>
                                         <asp:BoundColumn Visible="false" DataField="Id" />
                                         <asp:BoundColumn HeaderText="<%$ Resources:Resource,ModelingSnString%>" DataField="Sn" SortExpression="Sn"/>
-                                        <asp:TemplateColumn HeaderText="<%$ Resources:Resource,TypeString%>" SortExpression="Type">
+                                        <asp:TemplateColumn HeaderText="<%$ Resources:Resource,CategoryString%>" SortExpression="Type">
                                             <ItemTemplate>
                                                 <asp:Label runat="server" ID="dgLabelType" />
                                             </ItemTemplate>
                                         </asp:TemplateColumn>
                                         <asp:BoundColumn HeaderText="<%$ Resources:Resource,DescriptionString%>" DataField="Description" SortExpression="Description"/>
-                                        <asp:ButtonColumn CommandName="Delete"
+                                         <asp:ButtonColumn CommandName="Delete"
                                             HeaderText="<%$ Resources:Resource,DeleteString%>"
                                             Text="<%$ Resources:Resource,DeleteString%>" />
                                     </Columns>
