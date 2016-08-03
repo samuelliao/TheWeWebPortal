@@ -100,8 +100,8 @@ namespace TheWeWebSite.Main
                 foreach (DataRow dr in CalendarSet.Tables[0].Select("BookingDate='" + e.Day.Date + "'"))
                 {
                     if (string.IsNullOrEmpty(dr["BookingDate"].ToString())) continue;
-                    LinkButton link = new LinkButton();
-                    link.Text = dr["Name"].ToString() + " "
+                    HyperLink link = new HyperLink();
+                    link.Text = "<br/>" + dr["Name"].ToString() + " "
                         + SysProperty.Util.OutputRelatedLangName(
                             Session["CultureCode"].ToString()
                             , dr["StatusName"].ToString()
@@ -109,12 +109,35 @@ namespace TheWeWebSite.Main
                             , dr["StatusEngName"].ToString()
                             , dr["StatusJpName"].ToString());
                     link.ToolTip = dr["Hint"].ToString();
-                    link.CommandArgument = dr["Type"].ToString() + ";" + dr["Id"].ToString();
+                    //link.CommandArgument = dr["Type"].ToString() + ";" + dr["Id"].ToString();
                     link.Font.Size = FontUnit.Small;
-                    link.Click += new EventHandler(linkConsult_Click);
+                    link.Enabled = true;
+                    link.NavigateUrl = NavigaeUrl(dr["Type"].ToString(), dr["Id"].ToString());
+                    //link.Click += new EventHandler(linkConsult_Click);
                     e.Cell.Controls.Add(link);//將這些Link擺入對應得日期cell內
                 }
             }
+        }
+        private string NavigaeUrl(string type, string id)
+        {
+            string url = string.Empty;
+            switch (type)
+            {
+                case "Consultation":
+                    url = "~/CaseMgt/AdvisoryMCreate.aspx";
+                    break;
+                case "Order":
+                    url = "~/CaseMgt/CaseMCreate.aspx";
+                    break;
+                case "Schedule":
+                    url = "~/";
+                    break;
+                default:
+                    url = string.Empty;
+                    break;
+            }
+            url += "?Id=" + id;
+            return url;
         }
         #endregion
 

@@ -13,6 +13,10 @@ namespace TheWeWebSite.CaseMgt
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Request.QueryString["Id"] != null)
+            {
+                Session["OrderId"] = Request.QueryString["Id"].ToString();
+            }
             if (!Page.IsPostBack)
             {
                 if (SysProperty.Util == null) Response.Redirect("../Login.aspx", true);
@@ -531,7 +535,7 @@ namespace TheWeWebSite.CaseMgt
         private void SetOrderData(string id)
         {
             DataSet ds = GetOrderInfo(id);
-            if (SysProperty.Util.IsDataSetEmpty(ds)) return;
+            if (SysProperty.Util.IsDataSetEmpty(ds)) TransferToOtherPage();
 
             DataRow dr = ds.Tables[0].Rows[0];
             Session["CustomerId"] = dr["CustomerId"].ToString();

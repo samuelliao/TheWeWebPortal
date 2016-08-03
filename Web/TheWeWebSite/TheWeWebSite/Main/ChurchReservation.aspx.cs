@@ -121,7 +121,7 @@ namespace TheWeWebSite.Main
                     + " OR LocalFilmingDate='" + e.Day.Date + "'";
                 foreach (DataRow dr in CalendarSet.Tables[0].Select(condStr))
                 {
-                    LinkButton link = new LinkButton();
+                    HyperLink link = new HyperLink();
                     string store = SysProperty.Util.OutputRelatedLangName(
                             Session["CultureCode"].ToString()
                             , dr["StoreName"].ToString()
@@ -134,14 +134,14 @@ namespace TheWeWebSite.Main
                             , dr["TypeCnName"].ToString()
                             , dr["TypeEngName"].ToString()
                             , dr["TypeJpName"].ToString());
-                    link.Text = store + " " + type;
+                    link.Text = "<br/>" + store + " " + type;
                     link.ToolTip = SysProperty.Util.OutputRelatedLangName(
                             Session["CultureCode"].ToString()
                             , dr["ChurchName"].ToString()
                             , dr["ChurchCnName"].ToString()
                             , dr["ChurchEngName"].ToString()
                             , dr["ChurchJpName"].ToString());
-                    link.CommandArgument = dr["Id"].ToString();
+                    link.NavigateUrl = "~/CaseMgt/CaseMCreate.aspx?Id=" + dr["Id"].ToString();
                     link.Font.Size = FontUnit.Small;
                     e.Cell.Controls.Add(link);//將這些Link擺入對應得日期cell內
                 }

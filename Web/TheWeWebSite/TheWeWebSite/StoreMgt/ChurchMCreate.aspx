@@ -8,6 +8,7 @@
     <title>The We Wedding</title>
     <link href="../assets/css/font-awesome.min.css" rel="stylesheet" />
     <link href="../assets/css/main.css" rel="stylesheet" />
+    <link href="../assets/css/datePicker.css" rel="stylesheet" />
 </head>
 <body>
     <form runat="server">

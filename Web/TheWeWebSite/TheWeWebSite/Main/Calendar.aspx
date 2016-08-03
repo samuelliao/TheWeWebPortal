@@ -49,7 +49,10 @@
                                 <div class="10u 12u(mobilep)">
                                     <asp:UpdatePanel runat="server">
                                         <ContentTemplate>
-                                            <asp:Calendar runat="server" ID="calendar" OnPreRender="calendar_PreRender" OnDayRender="calendar_DayRender" OnVisibleMonthChanged="calendar_VisibleMonthChanged" SelectedDayStyle-BackColor="Pink" />
+                                            <asp:Calendar runat="server" ID="calendar" OnPreRender="calendar_PreRender" 
+                                                SelectedDate="<%# DateTime.Today %>"
+                                                OnDayRender="calendar_DayRender" OnVisibleMonthChanged="calendar_VisibleMonthChanged"
+                                                SelectedDayStyle-BackColor="Pink" NextPrevFormat="FullMonth"></asp:Calendar>
                                         </ContentTemplate>
                                     </asp:UpdatePanel>
                                 </div>

@@ -14,6 +14,10 @@ namespace TheWeWebSite.CaseMgt
         DataSet DS;
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Request.QueryString["Id"] != null)
+            {
+                Session["ConsultId"] = Request.QueryString["Id"].ToString();
+            }
             if (!Page.IsPostBack)
             {
                 if (SysProperty.Util == null) Response.Redirect("../Login.aspx", true);
@@ -299,7 +303,7 @@ namespace TheWeWebSite.CaseMgt
                 + " Where Id = '" + Session["ConsultId"].ToString() + "'";
                 if (((bool)InvokeDbControlFunction(sql, false)))
                 {
-                    TrasferToOtherPage();
+                    TransferToOtherPage();
                 }
             }
             catch (Exception ex)
@@ -370,7 +374,7 @@ namespace TheWeWebSite.CaseMgt
 
             if (result)
             {
-                TrasferToOtherPage();
+                TransferToOtherPage();
             }
         }
 
@@ -418,12 +422,12 @@ namespace TheWeWebSite.CaseMgt
 
             if (result)
             {
-                TrasferToOtherPage();
+                TransferToOtherPage();
             }
         }
         protected void btnCancel_Click(object sender, EventArgs e)
         {
-            TrasferToOtherPage();
+            TransferToOtherPage();
         }
         #endregion
 
@@ -1129,7 +1133,7 @@ namespace TheWeWebSite.CaseMgt
         }
         #endregion
 
-        private void TrasferToOtherPage()
+        private void TransferToOtherPage()
         {
             Session.Remove("ConsultId");
             Server.Transfer("AdvisoryMaintain.aspx", true);
@@ -1144,6 +1148,7 @@ namespace TheWeWebSite.CaseMgt
                 DS = SysProperty.GenDbCon.GetDataFromTable(string.Empty
                     , SysProperty.Util.MsSqlTableConverter(MsSqlTable.vwEN_Consultation)
                     , " Where Id='" + id + "'");
+                if (SysProperty.Util.IsDataSetEmpty(DS)) TransferToOtherPage();
                 SetAllControlValue(DS);
             }
             catch (Exception ex)
