@@ -261,7 +261,8 @@
         <script src="../assets/js/datepicker.js"></script>
         <script src="../assets/js/jquery-1.10.2.js"></script>
         <script src="../assets/js/jquery-ui.js"></script>
-
+        <!-- datepicker -->
+        <script src="../assets/js/picker.js"></script>
 
     </form>
 

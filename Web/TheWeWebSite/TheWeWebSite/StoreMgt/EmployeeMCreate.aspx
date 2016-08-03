@@ -24,7 +24,6 @@
         <section class="insert">
             <div>
                 <asp:Label runat="server" ID="labelWarnString" ForeColor="Red" Visible="false" />
-
                 <div class="12u">
                     <div class="row uniform 50%">
                         <div class="2u 12u(mobilep)">

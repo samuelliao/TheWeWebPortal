@@ -25,8 +25,8 @@
         <section class="insert">
             <asp:ScriptManager runat="server"></asp:ScriptManager>
             <div>
+                <asp:Label runat="server" ID="labelWarnString" ForeColor="Red" Visible="false" />
                 <div class="12u">
-
                     <div class="row uniform 50%">
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
@@ -132,8 +132,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            <asp:Label runat="server" ID="labelWarnString" ForeColor="Red" Visible="false" />
+            </div>            
             <!-- Btn -->
             <div class="Div btn">
                 <ul class="actions">

@@ -165,6 +165,8 @@
         <!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
         <script src="../assets/js/main.js"></script>
         <script src="../assets/js/table.js"></script>
+        <!-- datepicker -->
+        <script src="../assets/js/picker.js"></script>
     </form>
 </body>
 
