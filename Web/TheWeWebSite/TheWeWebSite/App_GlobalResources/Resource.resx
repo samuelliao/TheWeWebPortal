@@ -948,6 +948,15 @@
   <data name="FittingString" xml:space="preserve">
     <value>Fitting</value>
   </data>
+  <data name="ImgFrontString" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="ImgSideString" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="ImgBackString" xml:space="preserve">
+    <value></value>
+  </data>
   <data name="BlankFieldString" xml:space="preserve">
     <value>Field can not be empty</value>
   </data>

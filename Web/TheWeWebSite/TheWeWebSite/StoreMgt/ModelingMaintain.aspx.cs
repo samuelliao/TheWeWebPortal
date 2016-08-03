@@ -50,7 +50,7 @@ namespace TheWeWebSite.StoreMgt
             ddlCategory.Items.Clear();
             try
             {
-                ddlCategory.Items.Add(new ListItem(Resources.Resource.TypeSelectRemindString, string.Empty, true));
+                ddlCategory.Items.Add(new ListItem(Resources.Resource.SeletionRemindString, string.Empty, true));
                 string sql = "select * from HairStyleCategory";
                 DataSet ds = SysProperty.GenDbCon.GetDataFromTable(sql);
                 if (SysProperty.Util.IsDataSetEmpty(ds)) return;
@@ -155,7 +155,7 @@ namespace TheWeWebSite.StoreMgt
         {
             try
             {
-                string sql = "select a.[Id],a.[Sn],b.[Name],a.[Type],a.[Img],a.[IsDelete],a.[UpdateAccId],a.[UpdateTime],a.[Description]"
+                string sql = "select a.[Id],a.[Sn],b.[Name],a.[Type],a.[Img],a.[IsDelete],a.[UpdateAccId],a.[UpdateTime],a.[Description],a.[Img]"
                     + " from [TheWe].[dbo].[HairStyleItem] as a "
                     + " left join HairStyleCategory as b on b.Id=a.Type"
                     + " where a.IsDelete =0 " + OtherConditionString
