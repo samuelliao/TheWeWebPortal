@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
+using System.Globalization;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Security.Cryptography;
@@ -110,6 +111,10 @@ namespace TheWeLib
         {
             try
             {
+                if (string.IsNullOrEmpty(cultureCode))
+                {
+                    cultureCode = CultureInfo.CurrentCulture.ToString();
+                }
                 string result = string.Empty;
                 switch (cultureCode)
                 {

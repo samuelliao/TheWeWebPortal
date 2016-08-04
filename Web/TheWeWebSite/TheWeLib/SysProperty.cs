@@ -20,7 +20,7 @@ namespace TheWeLib
         public static Utility Util;        
         public static bool DataSetSortType;
         public static int HashTableUpdatePeriod = 60000;
-
+        public static string ImgRootFolderpath;
         private static Hashtable CountryHashList;
         private static Hashtable AreaHashList;
         private static Hashtable ChurchHashList;

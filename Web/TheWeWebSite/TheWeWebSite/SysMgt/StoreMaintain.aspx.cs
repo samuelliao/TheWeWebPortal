@@ -103,6 +103,7 @@ namespace TheWeWebSite.SysMgt
                     + " as CountryName"
                     + ",a." + new ResourceUtil().OutputLangNameToAttrName(((string)Session["CultureCode"]))
                     + " as AreaName"
+                    + ", s.HoldingCompany"
                     + " FROM[TheWe].[dbo].[Store] as s"
                     + " left join Employee as e on e.Id = s.UpdateAccId"
                     + " left join Country as c on c.Id = s.CountryId"
@@ -166,6 +167,7 @@ namespace TheWeWebSite.SysMgt
             {
                 DropDownList ddl1 = (DropDownList)dgStore.Items[dgStore.EditItemIndex].FindControl("ddlDgCountry");
                 DropDownList ddl2 = (DropDownList)dgStore.Items[dgStore.EditItemIndex].FindControl("ddlDgArea");
+                CheckBox cb = (CheckBox)dgStore.Items[dgStore.EditItemIndex].FindControl("cbDgHoldingCompany");
                 List<DbSearchObject> updateLst = new List<DbSearchObject>();
                 updateLst.Add(new DbSearchObject("Sn", AtrrTypeItem.String, AttrSymbolItem.Equal, ((TextBox)e.Item.Cells[1].Controls[0]).Text));
                 updateLst.Add(new DbSearchObject("Name", AtrrTypeItem.String, AttrSymbolItem.Equal, ((TextBox)e.Item.Cells[2].Controls[0]).Text));
@@ -173,8 +175,9 @@ namespace TheWeWebSite.SysMgt
                 updateLst.Add(new DbSearchObject("EngName", AtrrTypeItem.String, AttrSymbolItem.Equal, ((TextBox)e.Item.Cells[4].Controls[0]).Text));
                 updateLst.Add(new DbSearchObject("JpName", AtrrTypeItem.String, AttrSymbolItem.Equal, ((TextBox)e.Item.Cells[5].Controls[0]).Text));
                 updateLst.Add(new DbSearchObject("Addr", AtrrTypeItem.String, AttrSymbolItem.Equal, ((TextBox)e.Item.Cells[6].Controls[0]).Text));
-                updateLst.Add(new DbSearchObject("Description", AtrrTypeItem.String, AttrSymbolItem.Equal, ((TextBox)e.Item.Cells[9].Controls[0]).Text));
+                updateLst.Add(new DbSearchObject("Description", AtrrTypeItem.String, AttrSymbolItem.Equal, ((TextBox)e.Item.Cells[10].Controls[0]).Text));
                 updateLst.Add(new DbSearchObject("CountryId", AtrrTypeItem.String, AttrSymbolItem.Equal, ddl1.SelectedValue));
+                updateLst.Add(new DbSearchObject("HoldingCompany", AtrrTypeItem.Bit, AttrSymbolItem.Equal, (cb.Checked ? "1" : "0")));
                 updateLst.Add(new DbSearchObject("AreaId", AtrrTypeItem.String, AttrSymbolItem.Equal, ddl2.SelectedValue));
                 updateLst.Add(new DbSearchObject("UpdateAccId", AtrrTypeItem.String, AttrSymbolItem.Equal, ((DataRow)Session["AccountInfo"])["Id"].ToString()));
                 updateLst.Add(new DbSearchObject("UpdateTime", AtrrTypeItem.String, AttrSymbolItem.Equal, DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss")));
@@ -235,6 +238,8 @@ namespace TheWeWebSite.SysMgt
                             , dr["Id"].ToString()));
                     }
                     dropDownList2.SelectedValue = dataItem1["AreaId"].ToString();
+
+                    ((CheckBox)e.Item.FindControl("cbDgHoldingCompany")).Checked = bool.Parse(dataItem1["HoldingCompany"].ToString());
                 }
                 else
                 {
@@ -242,6 +247,7 @@ namespace TheWeWebSite.SysMgt
                     label.Text = dataItem1["CountryName"].ToString();
                     Label labe2 = (Label)e.Item.FindControl("labelDgArea");
                     labe2.Text = dataItem1["AreaName"].ToString();
+                    ((Label)e.Item.FindControl("labelDgHoldingCompany")).Text = bool.Parse(dataItem1["HoldingCompany"].ToString()) ? Resources.Resource.YesString : Resources.Resource.NoString;
                 }
             }
         }

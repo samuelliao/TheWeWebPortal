@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -56,13 +57,25 @@ namespace TheWeWebSite.StoreMgt
         {
             PermissionUtil util = new PermissionUtil();
             if (Session["Operation"] == null) Response.Redirect("~/Login.aspx");
-            PermissionItem item = util.GetPermissionByKey(Session["Operation"], util.GetOperationSnByPage(this.Page.AppRelativeVirtualPath));
-            btnCreate.Visible = item.CanCreate;
-            btnCreate.Enabled = item.CanCreate;
-            btnDelete.Visible = item.CanDelete;
-            btnDelete.Enabled = item.CanDelete;
-            btnModify.Visible = item.CanModify;
-            btnModify.Enabled = item.CanModify;
+            if (Session["LocateStore"] != null)
+            {
+                if (!bool.Parse(((DataRow)Session["LocateStore"])["HoldingCompany"].ToString()))
+                {
+                    btnCreate.Visible = false;
+                    btnDelete.Visible = false;
+                    btnModify.Visible = false;
+                }
+            }
+            else
+            {
+                PermissionItem item = util.GetPermissionByKey(Session["Operation"], util.GetOperationSnByPage(this.Page.AppRelativeVirtualPath));
+                btnCreate.Visible = item.CanCreate;
+                btnCreate.Enabled = item.CanCreate;
+                btnDelete.Visible = item.CanDelete;
+                btnDelete.Enabled = item.CanDelete;
+                btnModify.Visible = item.CanModify;
+                btnModify.Enabled = item.CanModify;
+            }
         }
         private void TransferToOtherPage()
         {
@@ -70,32 +83,6 @@ namespace TheWeWebSite.StoreMgt
             Session.Remove("ChurchId");
             Server.Transfer("ChurchMaintain.aspx", true);
         }
-
-        #region Photo Control
-        protected void btnPhoto1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        protected void btnPhoto2_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        protected void btnPhoto3_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        protected void btnPhoto4_Click(object sender, EventArgs e)
-        {
-
-        }
-        protected void btnUploadMeal_Click(object sender, EventArgs e)
-        {
-
-        }
-        #endregion
 
         #region Button Control
         protected void btnCancel_Click(object sender, EventArgs e)
@@ -282,6 +269,12 @@ namespace TheWeWebSite.StoreMgt
             ddlCountry.SelectedValue = dr["CountryId"].ToString();
             ddlArea.SelectedValue = dr["AreaId"].ToString();
             SetChurchBookingTime(id);
+
+            string imgPath = @dr["Img"].ToString();
+            if (string.IsNullOrEmpty(imgPath)) imgPath = SysProperty.ImgRootFolderpath + @"\Church\" + tbSn.Text;
+            string ImgFolderPath = imgPath;
+            RefreshImage(0, ImgFolderPath);
+            tbFolderPath.Text = ImgFolderPath;
         }
 
         private DataSet GetChurchBookingTime(string id)
@@ -531,6 +524,12 @@ namespace TheWeWebSite.StoreMgt
                 , AttrSymbolItem.Equal
                 , ((DataRow)Session["AccountInfo"])["Id"].ToString()
                 ));
+            lst.Add(new DbSearchObject(
+                "Img"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , @"Church\" + tbSn.Text
+                ));
             return lst;
         }
 
@@ -622,5 +621,73 @@ namespace TheWeWebSite.StoreMgt
             }
             return result;
         }
+
+        #region Image Related
+        private void RefreshImage(int type, string path)
+        {
+            switch (type)
+            {
+                case 1:
+                    ImgFront.ImageUrl = path + "/" + tbSn.Text + "_1.jpg?" + DateTime.Now.Ticks.ToString();
+                    break;
+                case 2:
+                    ImgBack.ImageUrl = path + "/" + tbSn.Text + "_2.jpg?" + DateTime.Now.Ticks.ToString();
+                    break;
+                case 3:
+                    ImgSide.ImageUrl = path + "/" + tbSn.Text + "_3.jpg?" + DateTime.Now.Ticks.ToString();
+                    break;
+                case 4:
+                    ImgOther1.ImageUrl = path + "/" + tbSn.Text + "_4.jpg?" + DateTime.Now.Ticks.ToString();
+                    break;
+                case 0:
+                default:
+                    ImgFront.ImageUrl = path + "/" + tbSn.Text + "_1.jpg?" + DateTime.Now.Ticks.ToString();
+                    ImgBack.ImageUrl = path + "/" + tbSn.Text + "_2.jpg?" + DateTime.Now.Ticks.ToString();
+                    ImgSide.ImageUrl = path + "/" + tbSn.Text + "_3.jpg?" + DateTime.Now.Ticks.ToString();
+                    ImgOther1.ImageUrl = path + "/" + tbSn.Text + "_4.jpg?" + DateTime.Now.Ticks.ToString();
+                    break;
+            }
+        }
+
+        protected void btnImgFrontUpload_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(tbFolderPath.Text)) return;
+            CheckFolder(SysProperty.ImgRootFolderpath + @"\Church\" + tbSn.Text);
+            ImgFrontUpload.PostedFile.SaveAs(tbFolderPath.Text + "/" + tbSn.Text + "_1.jpg");
+            RefreshImage(1, tbFolderPath.Text);
+        }
+
+        protected void btnImgBackUpload_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(tbFolderPath.Text)) return;
+            CheckFolder(SysProperty.ImgRootFolderpath + @"\Church\" + tbSn.Text);
+            ImgBackUpload.PostedFile.SaveAs(tbFolderPath.Text + "/" + tbSn.Text + "_2.jpg");
+            RefreshImage(2, tbFolderPath.Text);
+        }
+
+        protected void btnImgSideUpload_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(tbFolderPath.Text)) return;
+            CheckFolder(SysProperty.ImgRootFolderpath + @"\Church\" + tbSn.Text);
+            ImgSideUpload.PostedFile.SaveAs(tbFolderPath.Text + "/" + tbSn.Text + "_3.jpg");
+            RefreshImage(3, tbFolderPath.Text);
+        }
+
+        private void CheckFolder(string path)
+        {
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
+        }
+
+        protected void btnImgOther1_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(tbFolderPath.Text)) return;
+            CheckFolder(SysProperty.ImgRootFolderpath + @"\Church\" + tbSn.Text);
+            ImgSideUpload.PostedFile.SaveAs(tbFolderPath.Text + "/" + tbSn.Text + "_4.jpg");
+            RefreshImage(4, tbFolderPath.Text);
+        }
+        #endregion
     }
 }

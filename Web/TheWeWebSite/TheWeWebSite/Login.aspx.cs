@@ -34,6 +34,29 @@ namespace TheWeWebSite
                 SysProperty.GenDbCon = new GeneralDbDAO();
                 SysProperty.Util = new Utility();
                 InitialStoreList();
+                InitialImgFolderPath();
+            }
+        }
+
+        private void InitialImgFolderPath()
+        {
+            if (string.IsNullOrEmpty(SysProperty.ImgRootFolderpath))
+            {
+                System.Configuration.Configuration rootWebConfig1 =
+                System.Web.Configuration.WebConfigurationManager.OpenWebConfiguration(null);
+                if (0 < rootWebConfig1.AppSettings.Settings.Count)
+                {
+                    System.Configuration.KeyValueConfigurationElement customSetting =
+                        rootWebConfig1.AppSettings.Settings["ImgFolderPath"];
+                    if (null != customSetting)
+                    {
+                        SysProperty.ImgRootFolderpath = customSetting.Value;
+                    }
+                    else
+                    {
+                        SysProperty.ImgRootFolderpath = @"\\127.0.0.1\Photo";
+                    }
+                }
             }
         }
 

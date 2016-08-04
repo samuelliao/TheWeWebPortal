@@ -264,57 +264,75 @@
             <!-- 照片 -->
             <section>
                 <div class="row no-collapse 50% uniform">
-                    <div class="2u">
-                        <div style="text-align: center">
-                            <asp:Label runat="server" Text="正面照片"></asp:Label>
+                        <div class="2u">
+                            <div style="text-align: center">
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,ImgFrontString%>"></asp:Label>
+                                <asp:Label runat="server" Text="" ID="tbFolderPath" Visible="false"></asp:Label>
+                            </div>
+                            <span class="image fit">
+                                <asp:Image runat="server" ID="ImgFront" />
+                            </span>
+                            <div style="margin-bottom: 1.5em">
+                                <asp:FileUpload ID="ImgFrontUpload" runat="server" />
+                            </div>
+                            <div class="align-center">
+                                <asp:Button runat="server" Text="<%$ Resources:Resource,UploadString%>" ID="btnImgFrontUpload"
+                                    OnClick="btnImgFrontUpload_Click" />
+                            </div>
                         </div>
-                        <span class="image fit">
-                            <img src="../assets/img/logo_clear.jpg" alt="" /></span>
-                        <div class="align-center">
-                            <asp:Button runat="server" Text="<%$ Resources:Resource,UploadString%>" ID="btnUpload1" OnClick="btnUpload1_Click" />
+                        <div class="2u">
+                            <div style="text-align: center">
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,ImgBackString%>"></asp:Label>
+                            </div>
+                            <span class="image fit">
+                                <asp:Image runat="server" ID="ImgBack" /></span>
+                            <div style="margin-bottom: 1.5em">
+                                <asp:FileUpload ID="ImgBackUpload" runat="server" />
+                            </div>
+                            <div class="align-center">
+                                <asp:Button runat="server" Text="<%$ Resources:Resource,UploadString%>" ID="btnImgBackUpload" OnClick="btnImgBackUpload_Click" />
+                            </div>
+                        </div>
+                        <div class="2u">
+                            <div style="text-align: center">
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,ImgSideString%>"></asp:Label>
+                            </div>
+                            <span class="image fit">
+                                <asp:Image runat="server" ID="ImgSide" /></span>
+                            <div style="margin-bottom: 1.5em">
+                                <asp:FileUpload ID="ImgSideUpload" runat="server" />
+                            </div>
+                            <div class="align-center">
+                                <asp:Button runat="server" Text="<%$ Resources:Resource,UploadString%>" ID="btnImgSideUpload" OnClick="btnImgSideUpload_Click" />
+                            </div>
+                        </div>
+                        <div class="2u">
+                             <div style="text-align:center">
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,ImgOtherString%>"></asp:Label>
+                            </div>
+                            <span class="image fit">
+                                <asp:Image runat="server" ID="ImgOther1" /></span>
+                            <div style="margin-bottom: 1.5em">
+                                <asp:FileUpload ID="ImgOther1Upload" runat="server" />
+                            </div>
+                            <div class="align-center">
+                                <asp:Button runat="server" Text="<%$ Resources:Resource,UploadString%>" ID="btnImgOther1" OnClick="btnImgOther1_Click" />
+                            </div>
+                        </div>
+                        <div class="2u">
+                             <div style="text-align:center">
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,ImgOtherString%>"></asp:Label>
+                            </div>
+                            <span class="image fit">
+                                <asp:Image runat="server" ID="ImgOther2" /></span>
+                            <div style="margin-bottom: 1.5em">
+                                <asp:FileUpload ID="ImgOther2Upload" runat="server" />
+                            </div>
+                            <div class="align-center">
+                                <asp:Button runat="server" Text="<%$ Resources:Resource,UploadString%>" ID="btnImgOther2" OnClick="btnImgOther2_Click" />
+                            </div>
                         </div>
                     </div>
-                    <div class="2u">
-                        <div style="text-align: center">
-                            <asp:Label runat="server" Text="背面照片"></asp:Label>
-                        </div>
-                        <span class="image fit">
-                            <img src="../assets/img/logo_clear.jpg" alt="" /></span>
-                        <div class="align-center">
-                            <asp:Button runat="server" Text="<%$ Resources:Resource,UploadString%>" ID="btnUpload2" OnClick="btnUpload2_Click" />
-                        </div>
-                    </div>
-                    <div class="2u">
-                        <div style="text-align: center">
-                            <asp:Label runat="server" Text="側面照片"></asp:Label>
-                        </div>
-                        <span class="image fit">
-                            <img src="../assets/img/logo_clear.jpg" alt="" /></span>
-                        <div class="align-center">
-                            <asp:Button runat="server" Text="<%$ Resources:Resource,UploadString%>" ID="btnUpload3" OnClick="btnUpload3_Click" />
-                        </div>
-                    </div>
-                    <div class="2u">
-                        <div style="text-align: center">
-                            <asp:Label runat="server" Text="其他照片"></asp:Label>
-                        </div>
-                        <span class="image fit">
-                            <img src="../assets/img/logo_clear.jpg" alt="" /></span>
-                        <div class="align-center">
-                            <asp:Button runat="server" Text="<%$ Resources:Resource,UploadString%>" ID="btnUpload4" OnClick="btnUpload4_Click" />
-                        </div>
-                    </div>
-                    <div class="2u">
-                        <div style="text-align: center">
-                            <asp:Label runat="server" Text="其他照片"></asp:Label>
-                        </div>
-                        <span class="image fit">
-                            <img src="../assets/img/logo_clear.jpg" alt="" /></span>
-                        <div class="align-center">
-                            <asp:Button runat="server" Text="<%$ Resources:Resource,UploadString%>" ID="btnUpload5" OnClick="btnUpload5_Click" />
-                        </div>
-                    </div>
-                </div>
             </section>
             <hr />            
             <!-- Btn -->

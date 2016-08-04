@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -283,6 +284,12 @@ namespace TheWeWebSite.StoreMgt
             ddlType.SelectedValue = dr["Type"].ToString();
             ddlOthCategory.SelectedValue = dr["CategoryId"].ToString();
             ddlStore.SelectedValue = dr["StoreId"].ToString();
+
+            string imgPath = @dr["Img"].ToString();
+            if (string.IsNullOrEmpty(imgPath)) imgPath = SysProperty.ImgRootFolderpath + @"\Item\" + tbOthSn.Text;
+            string ImgFolderPath = imgPath;
+            RefreshImage(0, ImgFolderPath);
+            tbFolderPath.Text = ImgFolderPath;
         }
 
         private List<DbSearchObject> OthItemInfoDbObject(string typeId)
@@ -293,6 +300,12 @@ namespace TheWeWebSite.StoreMgt
                 , AtrrTypeItem.String
                 , AttrSymbolItem.Equal
                 , tbOthSn.Text
+                ));
+            lst.Add(new DbSearchObject(
+                "Img"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , @"Item\" + tbOthSn.Text
                 ));
             lst.Add(new DbSearchObject(
                 "Name"
@@ -460,6 +473,74 @@ namespace TheWeWebSite.StoreMgt
                 ShowErrorMsg(ex.Message);
                 return null;
             }
+        }
+        #endregion
+
+        #region Image Related
+        private void RefreshImage(int type, string path)
+        {
+            switch (type)
+            {
+                case 1:
+                    ImgFront.ImageUrl = path + "/" + tbOthSn.Text + "_1.jpg?" + DateTime.Now.Ticks.ToString();
+                    break;
+                case 2:
+                    ImgBack.ImageUrl = path + "/" + tbOthSn.Text + "_2.jpg?" + DateTime.Now.Ticks.ToString();
+                    break;
+                case 3:
+                    ImgSide.ImageUrl = path + "/" + tbOthSn.Text + "_3.jpg?" + DateTime.Now.Ticks.ToString();
+                    break;
+                case 4:
+                    ImgOther1.ImageUrl = path + "/" + tbOthSn.Text + "_4.jpg?" + DateTime.Now.Ticks.ToString();
+                    break;
+                case 0:
+                default:
+                    ImgFront.ImageUrl = path + "/" + tbOthSn.Text + "_1.jpg?" + DateTime.Now.Ticks.ToString();
+                    ImgBack.ImageUrl = path + "/" + tbOthSn.Text + "_2.jpg?" + DateTime.Now.Ticks.ToString();
+                    ImgSide.ImageUrl = path + "/" + tbOthSn.Text + "_3.jpg?" + DateTime.Now.Ticks.ToString();
+                    ImgOther1.ImageUrl = path + "/" + tbOthSn.Text + "_4.jpg?" + DateTime.Now.Ticks.ToString();
+                    break;
+            }
+        }
+
+        protected void btnImgFrontUpload_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(tbFolderPath.Text)) return;
+            CheckFolder(SysProperty.ImgRootFolderpath + @"\Item\" + tbOthSn.Text);
+            ImgFrontUpload.PostedFile.SaveAs(tbFolderPath.Text + "/" + tbOthSn.Text + "_1.jpg");
+            RefreshImage(1, tbFolderPath.Text);
+        }
+
+        protected void btnImgBackUpload_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(tbFolderPath.Text)) return;
+            CheckFolder(SysProperty.ImgRootFolderpath + @"\Item\" + tbOthSn.Text);
+            ImgBackUpload.PostedFile.SaveAs(tbFolderPath.Text + "/" + tbOthSn.Text + "_2.jpg");
+            RefreshImage(2, tbFolderPath.Text);
+        }
+
+        protected void btnImgSideUpload_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(tbFolderPath.Text)) return;
+            CheckFolder(SysProperty.ImgRootFolderpath + @"\Item\" + tbOthSn.Text);
+            ImgSideUpload.PostedFile.SaveAs(tbFolderPath.Text + "/" + tbOthSn.Text + "_3.jpg");
+            RefreshImage(3, tbFolderPath.Text);
+        }
+
+        private void CheckFolder(string path)
+        {
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
+        }
+
+        protected void btnImgOther1_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(tbFolderPath.Text)) return;
+            CheckFolder(SysProperty.ImgRootFolderpath + @"\Item\" + tbOthSn.Text);
+            ImgSideUpload.PostedFile.SaveAs(tbFolderPath.Text + "/" + tbOthSn.Text + "_4.jpg");
+            RefreshImage(4, tbFolderPath.Text);
         }
         #endregion
     }
