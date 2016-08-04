@@ -8,9 +8,8 @@
 <head runat="server">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>The We Wedding</title>
-    <link href="../assets/css/font-awesome.min.css" rel="stylesheet" />
-    <link href="../assets/css/main.css" rel="stylesheet" />
-    <link href="../assets/css/calendar.css" rel="stylesheet" />
+    <link href="../assets/css/Calendar.css" rel="stylesheet" />
+
 </head>
 
 <body class="landing">
@@ -41,21 +40,41 @@
                                     <asp:UpdatePanel runat="server">
                                         <ContentTemplate>
                                             <div style="overflow-y: auto; height: 500px">
-                                                <asp:TreeView runat="server" Height="100%" ID="tvEmployee" OnSelectedNodeChanged="tvEmployee_SelectedNodeChanged" SelectedNodeStyle-BackColor="Pink" />
+                                                <asp:TreeView
+                                                    runat="server" Height="100%"
+                                                    NodeIndent="20"
+                                                    NodeStyle-NodeSpacing="3"
+                                                    NodeStyle-CssClass="treeNode"
+                                                    RootNodeStyle-CssClass="rootNode"
+                                                    LeafNodeStyle-CssClass="leafNode"
+                                                    SelectedNodeStyle-BackColor="#f2a6a6"
+                                                    SelectedNodeStyle-Font-Bold="true"
+                                                    SelectedNodeStyle-ForeColor="#ffffff"
+                                                    ID="tvEmployee" OnSelectedNodeChanged="tvEmployee_SelectedNodeChanged">
+                                                    <LeafNodeStyle CssClass="leafNode" />
+                                                    <NodeStyle CssClass="treeNode" />
+                                                    <RootNodeStyle CssClass="rootNode" />
+                                                    <SelectedNodeStyle CssClass="selectNode" />
+                                                </asp:TreeView>
                                             </div>
                                         </ContentTemplate>
                                     </asp:UpdatePanel>
                                 </div>
                                 <div class="10u 12u(mobilep)">
-                                    <asp:UpdatePanel runat="server">
-                                        <ContentTemplate>
-                                            <asp:Calendar runat="server" ID="calendar" OnPreRender="calendar_PreRender" 
-                                                SelectedDate="<%# DateTime.Today %>"
-                                                OnDayRender="calendar_DayRender" OnVisibleMonthChanged="calendar_VisibleMonthChanged"
-                                                SelectedDayStyle-BackColor="Pink" NextPrevFormat="FullMonth"></asp:Calendar>
-                                        </ContentTemplate>
-                                    </asp:UpdatePanel>
+                                    <div class="cal">
+                                        <asp:UpdatePanel runat="server">
+                                            <ContentTemplate>
+                                                <asp:Calendar
+                                                    runat="server" ID="calendar" OnPreRender="calendar_PreRender" OnDayRender="calendar_DayRender" OnVisibleMonthChanged="calendar_VisibleMonthChanged" SelectedDayStyle-BackColor="Pink" NextPrevFormat="ShortMonth" >
+                                                    <OtherMonthDayStyle ForeColor="#CCCCCC" />
+                                                    <SelectedDayStyle BackColor="Pink" />
+                                                    <TitleStyle BackColor="#FFCCCC" Height="30px" />
+                                                </asp:Calendar>
+                                            </ContentTemplate>
+                                        </asp:UpdatePanel>
+                                    </div>
                                 </div>
+
                             </div>
                         </div>
                     </div>

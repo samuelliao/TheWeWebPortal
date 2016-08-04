@@ -9,8 +9,9 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>The We Wedding</title>
     <link href="../assets/css/font-awesome.min.css" rel="stylesheet" />
-    <link href="../assets/css/main.css" rel="stylesheet" />
-    <link href="../assets/css/calendar.css" rel="stylesheet" />
+    <link href="../assets/css/Calendar.css" rel="stylesheet" />
+
+
 </head>
 <body class="landing">
     <form runat="server">
@@ -33,23 +34,38 @@
                 <section class="box special">
                     <asp:ScriptManager runat="server"></asp:ScriptManager>
                     <!-- Calendar-->
-                    <div class="row">
-                        <asp:Label runat="server" ID="labelWarnString" ForeColor="Red" Visible="false" />
-                        <div class="12u">
-                            <div class="row uniform 50%">
-                                <div class="2u 12u(mobilep)">
+                    <asp:Label runat="server" ID="labelWarnString" ForeColor="Red" Visible="false" />
+                    <div class="12u">
+                        <div class="row uniform 50%">
+                            <div class="2u 12u(mobilep)">
+                                <asp:UpdatePanel runat="server">
+                                    <ContentTemplate>
+                                        <div style="overflow-y: auto; height: 500px">
+                                            <asp:TreeView runat="server"
+                                                NodeIndent="20"
+                                                NodeStyle-NodeSpacing="3"
+                                                NodeStyle-CssClass="treeNode"
+                                                RootNodeStyle-CssClass="rootNode"
+                                                LeafNodeStyle-CssClass="leafNode"
+                                                SelectedNodeStyle-BackColor="#f2a6a6"
+                                                SelectedNodeStyle-Font-Bold="true"
+                                                SelectedNodeStyle-ForeColor="#ffffff"
+                                                ID="tvChurch" OnSelectedNodeChanged="tvChurch_SelectedNodeChanged" />
+
+                                        </div>
+                                    </ContentTemplate>
+                                </asp:UpdatePanel>
+                            </div>
+                            <div class="10u 12u(mobilep)">
+                                <div class="cal">
                                     <asp:UpdatePanel runat="server">
                                         <ContentTemplate>
-                                            <div style="overflow-y: auto; height: 500px">
-                                                <asp:TreeView runat="server" Height="100%" ID="tvChurch" OnSelectedNodeChanged="tvChurch_SelectedNodeChanged" SelectedNodeStyle-BackColor="Pink" />
-                                            </div>
-                                        </ContentTemplate>
-                                    </asp:UpdatePanel>
-                                </div>
-                                <div class="10u 12u(mobilep)">
-                                    <asp:UpdatePanel runat="server">
-                                        <ContentTemplate>
-                                            <asp:Calendar runat="server" ID="calendar" OnPreRender="calendar_PreRender" OnDayRender="calendar_DayRender" OnVisibleMonthChanged="calendar_VisibleMonthChanged" SelectedDayStyle-BackColor="Pink" />
+                                            <asp:Calendar runat="server" ID="calendar"
+                                                OnPreRender="calendar_PreRender" OnDayRender="calendar_DayRender" OnVisibleMonthChanged="calendar_VisibleMonthChanged" SelectedDayStyle-BackColor="Pink" NextPrevFormat="ShortMonth">
+                                                <OtherMonthDayStyle ForeColor="#CCCCCC" />
+                                                <SelectedDayStyle BackColor="Pink" />
+                                                <TitleStyle BackColor="#FFCCCC" Height="30px" />
+                                            </asp:Calendar>
                                         </ContentTemplate>
                                     </asp:UpdatePanel>
                                 </div>
