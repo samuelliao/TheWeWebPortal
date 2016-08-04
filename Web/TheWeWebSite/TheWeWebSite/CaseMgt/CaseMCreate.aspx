@@ -86,7 +86,7 @@
                     <div class="row uniform 50%">
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
-                                <asp:Label runat="server" Text="結案日期"></asp:Label>
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,ContractCloseDateString%>"></asp:Label>
                             </div>
                             <div>
                                 <asp:UpdatePanel runat="server">
@@ -485,13 +485,18 @@
                         <div class="row no-collapse 50% uniform">
                             <div class="5u">
                                 <div style="text-align: center">
-                                    <asp:Label runat="server" Text="合照照片"></asp:Label>
+                                    <asp:Label runat="server" Text="<%$ Resources:Resource,PhotoString%>"></asp:Label>
+                                    <asp:Label runat="server" Text="" ID="tbFolderPath" Visible="false"></asp:Label>
                                 </div>
                                 <span class="image fit">
-                                    <img src="../assets/img/logo_clear.jpg" alt="" /></span>
-                            </div>
-                            <div class="Div btn">
-                                <asp:Button runat="server" Text="<%$ Resources:Resource,UploadString%>" ID="btnUpload" OnClick="btnUpload_Click" />
+                                    <asp:Image runat="server" ID="ImgFront" />
+                                </span>
+                                <div style="margin-bottom: 1.5em">
+                                    <asp:FileUpload ID="ImgUpload" runat="server" />
+                                </div>
+                                <div class="align-center">
+                                    <asp:Button runat="server" Text="<%$ Resources:Resource,UploadString%>" ID="btnUpload" OnClick="btnUpload_Click" />
+                                </div>
                             </div>
                         </div>
                     </div>

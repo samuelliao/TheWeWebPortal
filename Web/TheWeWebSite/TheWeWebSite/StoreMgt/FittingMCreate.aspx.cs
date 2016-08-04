@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -400,14 +401,20 @@ namespace TheWeWebSite.StoreMgt
             try { ddlRelatedCategory.SelectedValue = dr["PairId"].ToString(); }
             catch { ddlRelatedCategory.SelectedIndex = 0; }
             BindRentRecordsTable(id);
+
+            string imgPath = @dr["Img"].ToString();
+            if (string.IsNullOrEmpty(imgPath)) imgPath = SysProperty.ImgRootFolderpath + @"\" + tableName + @"\" + tbSn.Text;
+            string ImgFolderPath = imgPath;
+            RefreshImage(0, ImgFolderPath);
+            tbFolderPath.Text = ImgFolderPath;
         }
 
         #region Rent Records
         private DataSet GetRentRecords(string dressId)
         {
-            string sql = "Select * From RentRecord Where DressId='"+dressId+"' order by RentStartTime DESC";
+            string sql = "Select * From RentRecord Where DressId='" + dressId + "' order by RentStartTime DESC";
             return GetDataFromDb(sql);
-        }        
+        }
         private void BindRentRecordsTable(string dressId)
         {
             DataSet ds = GetRentRecords(dressId);
@@ -417,14 +424,15 @@ namespace TheWeWebSite.StoreMgt
         private void UpdateRentRecords(string typeId, string dressId)
         {
             string status = CheckStatusForRent(ddlStatus.SelectedValue);
-            if(status == "Rent")
+            if (status == "Rent")
             {
                 WriteBackData(
                     SysProperty.Util.MsSqlTableConverter(MsSqlTable.RentRecord)
                     , RentRecordDbObject(typeId, dressId, true)
                     , true
                     , string.Empty);
-            }else if(status == "Return")
+            }
+            else if (status == "Return")
             {
                 WriteBackData(
                     SysProperty.Util.MsSqlTableConverter(MsSqlTable.RentRecord)
@@ -443,11 +451,13 @@ namespace TheWeWebSite.StoreMgt
                     {
                         return "Rent";
                     }
-                } else
+                }
+                else
                 {
                     return "Rent";
                 }
-            } else
+            }
+            else
             {
                 if (dataGrid.Items.Count > 0)
                 {
@@ -507,6 +517,15 @@ namespace TheWeWebSite.StoreMgt
                 , AttrSymbolItem.Equal
                 , tbSn.Text
                 ));
+            if (!string.IsNullOrEmpty(ddlCategory.SelectedValue))
+            {
+                lst.Add(new DbSearchObject(
+                    "Img"
+                    , AtrrTypeItem.String
+                    , AttrSymbolItem.Equal
+                    , ddlCategory.SelectedValue + @"\" + tbSn.Text
+                    ));
+            }
             if (!string.IsNullOrEmpty(ddlType.SelectedValue))
             {
                 lst.Add(new DbSearchObject(
@@ -748,6 +767,91 @@ namespace TheWeWebSite.StoreMgt
                 ShowErrorMsg(ex.Message);
                 return false;
             }
+        }
+        #endregion
+
+        #region Image Related
+        private void RefreshImage(int type, string path)
+        {
+            switch (type)
+            {
+                case 1:
+                    ImgFront.ImageUrl = path + "/" + tbSn.Text + "_1.jpg?" + DateTime.Now.Ticks.ToString();
+                    break;
+                case 2:
+                    ImgBack.ImageUrl = path + "/" + tbSn.Text + "_2.jpg?" + DateTime.Now.Ticks.ToString();
+                    break;
+                case 3:
+                    ImgSide.ImageUrl = path + "/" + tbSn.Text + "_3.jpg?" + DateTime.Now.Ticks.ToString();
+                    break;
+                case 4:
+                    ImgOther1.ImageUrl = path + "/" + tbSn.Text + "_4.jpg?" + DateTime.Now.Ticks.ToString();
+                    break;
+                case 5:
+                    ImgOther2.ImageUrl = path + "/" + tbSn.Text + "_5.jpg?" + DateTime.Now.Ticks.ToString();
+                    break;
+                case 0:
+                default:
+                    ImgFront.ImageUrl = path + "/" + tbSn.Text + "_1.jpg?" + DateTime.Now.Ticks.ToString();
+                    ImgBack.ImageUrl = path + "/" + tbSn.Text + "_2.jpg?" + DateTime.Now.Ticks.ToString();
+                    ImgSide.ImageUrl = path + "/" + tbSn.Text + "_3.jpg?" + DateTime.Now.Ticks.ToString();
+                    ImgOther1.ImageUrl = path + "/" + tbSn.Text + "_4.jpg?" + DateTime.Now.Ticks.ToString();
+                    ImgOther2.ImageUrl = path + "/" + tbSn.Text + "_5.jpg?" + DateTime.Now.Ticks.ToString();
+                    break;
+            }
+        }
+
+        protected void btnImgFrontUpload_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(tbFolderPath.Text)) return;
+            if (string.IsNullOrEmpty(ddlCategory.SelectedValue)) return;
+            CheckFolder(SysProperty.ImgRootFolderpath + @"\" + ddlCategory.SelectedValue + @"\" + tbSn.Text);
+            ImgFrontUpload.PostedFile.SaveAs(tbFolderPath.Text + "/" + tbSn.Text + "_1.jpg");
+            RefreshImage(1, tbFolderPath.Text);
+        }
+
+        protected void btnImgBackUpload_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(tbFolderPath.Text)) return;
+            if (string.IsNullOrEmpty(ddlCategory.SelectedValue)) return;
+            CheckFolder(SysProperty.ImgRootFolderpath + @"\" + ddlCategory.SelectedValue + @"\" + tbSn.Text);
+            ImgBackUpload.PostedFile.SaveAs(tbFolderPath.Text + "/" + tbSn.Text + "_2.jpg");
+            RefreshImage(2, tbFolderPath.Text);
+        }
+
+        protected void btnImgSideUpload_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(tbFolderPath.Text)) return;
+            if (string.IsNullOrEmpty(ddlCategory.SelectedValue)) return;
+            CheckFolder(SysProperty.ImgRootFolderpath + @"\" + ddlCategory.SelectedValue + @"\" + tbSn.Text);
+            ImgSideUpload.PostedFile.SaveAs(tbFolderPath.Text + "/" + tbSn.Text + "_3.jpg");
+            RefreshImage(3, tbFolderPath.Text);
+        }
+
+        private void CheckFolder(string path)
+        {
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
+        }
+
+        protected void btnImgOther2_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(tbFolderPath.Text)) return;
+            if (string.IsNullOrEmpty(ddlCategory.SelectedValue)) return;
+            CheckFolder(SysProperty.ImgRootFolderpath + @"\" + ddlCategory.SelectedValue + @"\" + tbSn.Text);
+            ImgSideUpload.PostedFile.SaveAs(tbFolderPath.Text + "/" + tbSn.Text + "_5.jpg");
+            RefreshImage(5, tbFolderPath.Text);
+        }
+
+        protected void btnImgOther1_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(tbFolderPath.Text)) return;
+            if (string.IsNullOrEmpty(ddlCategory.SelectedValue)) return;
+            CheckFolder(SysProperty.ImgRootFolderpath + @"\" + ddlCategory.SelectedValue + @"\" + tbSn.Text);
+            ImgSideUpload.PostedFile.SaveAs(tbFolderPath.Text + "/" + tbSn.Text + "_4.jpg");
+            RefreshImage(4, tbFolderPath.Text);
         }
         #endregion
     }

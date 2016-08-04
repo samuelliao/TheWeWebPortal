@@ -1213,6 +1213,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   查詢類似 Holding Company 的當地語系化字串。
+        /// </summary>
+        internal static string HoldingCompanyString {
+            get {
+                return ResourceManager.GetString("HoldingCompanyString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查詢類似 How to know 的當地語系化字串。
         /// </summary>
         internal static string HowToKnowString {
@@ -1222,7 +1231,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   查詢類似  的當地語系化字串。
+        ///   查詢類似 Back View 的當地語系化字串。
         /// </summary>
         internal static string ImgBackString {
             get {
@@ -1231,7 +1240,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   查詢類似  的當地語系化字串。
+        ///   查詢類似 Front View 的當地語系化字串。
         /// </summary>
         internal static string ImgFrontString {
             get {
@@ -1240,7 +1249,16 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   查詢類似  的當地語系化字串。
+        ///   查詢類似 Other Image 的當地語系化字串。
+        /// </summary>
+        internal static string ImgOtherString {
+            get {
+                return ResourceManager.GetString("ImgOtherString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查詢類似 Side View 的當地語系化字串。
         /// </summary>
         internal static string ImgSideString {
             get {
@@ -2010,6 +2028,15 @@ namespace Resources {
         internal static string RentPriceString {
             get {
                 return ResourceManager.GetString("RentPriceString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查詢類似 Rent Records 的當地語系化字串。
+        /// </summary>
+        internal static string RentRecordString {
+            get {
+                return ResourceManager.GetString("RentRecordString", resourceCulture);
             }
         }
         

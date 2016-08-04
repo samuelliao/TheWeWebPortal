@@ -192,11 +192,10 @@ namespace TheWeWebSite.StoreMgt
             tbSn.Text = dr["Sn"].ToString();
             tbDescription.Text = dr["Description"].ToString();
             ddlType.SelectedValue = dr["Type"].ToString();
-
-            string ImgFolderPath = "~/" + MakeRelative(@dr["Img"].ToString(), @"C:\Jason_project\TheWeWebPortal\Web\TheWeWebSite\TheWeWebSite\");
-            ImgFront.ImageUrl = ImgFolderPath + "/" + tbSn.Text + "_1.jpg";
-            ImgBack.ImageUrl = ImgFolderPath + "/" + tbSn.Text + "_2.jpg";
-            ImgSide.ImageUrl = ImgFolderPath + "/" + tbSn.Text + "_3.jpg";
+            string imgPath = @dr["Img"].ToString();
+            if (string.IsNullOrEmpty(imgPath)) imgPath = Path.Combine(SysProperty.ImgRootFolderpath, @"HairStyleItem\" + tbSn.Text);
+            string ImgFolderPath = imgPath;
+            RefreshImage(0, ImgFolderPath);
             tbFolderPath.Text = ImgFolderPath;
         }
 
@@ -230,7 +229,7 @@ namespace TheWeWebSite.StoreMgt
                 , ((DataRow)Session["AccountInfo"])["Id"].ToString()
                 ));
             lst.Add(new DbSearchObject(
-                "StroeId"
+                "StoreId"
                 , AtrrTypeItem.String
                 , AttrSymbolItem.Equal
                 , ((DataRow)Session["LocateStore"])["Id"].ToString()
@@ -239,7 +238,7 @@ namespace TheWeWebSite.StoreMgt
                 "Img"
                 , AtrrTypeItem.String
                 , AttrSymbolItem.Equal
-                , @"C:\Jason_project\TheWeWebPortal\Web\TheWeWebSite\TheWeWebSite\photo\HairStyleItem\" + tbSn.Text
+                , @"HairStyleItem\" + tbSn.Text
                 ));
             return lst;
         }
@@ -330,61 +329,61 @@ namespace TheWeWebSite.StoreMgt
             tbType.Visible = ddlType.SelectedValue == "CreateItem";
             tbType.Text = string.Empty;
         }
+
+        #region Image Related
+        private void RefreshImage(int type, string path)
+        {
+            switch (type)
+            {
+                case 1:
+                    ImgFront.ImageUrl = path + "/" + tbSn.Text + "_1.jpg?" + DateTime.Now.Ticks.ToString();
+                    break;
+                case 2:
+                    ImgBack.ImageUrl = path + "/" + tbSn.Text + "_2.jpg?" + DateTime.Now.Ticks.ToString();
+                    break;
+                case 3:
+                    ImgSide.ImageUrl = path + "/" + tbSn.Text + "_3.jpg?" + DateTime.Now.Ticks.ToString();
+                    break;
+                case 0:
+                default:
+                    ImgFront.ImageUrl = path + "/" + tbSn.Text + "_1.jpg?" + DateTime.Now.Ticks.ToString();
+                    ImgBack.ImageUrl = path + "/" + tbSn.Text + "_2.jpg?" + DateTime.Now.Ticks.ToString();
+                    ImgSide.ImageUrl = path + "/" + tbSn.Text + "_3.jpg?" + DateTime.Now.Ticks.ToString();
+                    break;
+            }
+        }
+
         protected void btnImgFrontUpload_Click(object sender, EventArgs e)
         {
-            if (Directory.Exists(@"C:\Jason_project\TheWeWebPortal\Web\TheWeWebSite\TheWeWebSite\photo\HairStyleItem\" + tbSn.Text))
-            {
-                ImgFrontUpload.PostedFile.SaveAs(Server.MapPath(tbFolderPath.Text) + "/" + tbSn.Text + "_1.jpg");
-                Response.Redirect(Request.Url.AbsoluteUri);
-            }
-            else
-            {
-                Directory.CreateDirectory(@"C:\Jason_project\TheWeWebPortal\Web\TheWeWebSite\TheWeWebSite\photo\HairStyleItem\" + tbSn.Text);
-                ImgFrontUpload.PostedFile.SaveAs(Server.MapPath(tbFolderPath.Text) + "/" + tbSn.Text + "_1.jpg");
-                Response.Redirect(Request.Url.AbsoluteUri);
-            }
-            Response.AddHeader("Refresh", "0");
+            if (string.IsNullOrEmpty(tbFolderPath.Text)) return;
+            CheckFolder(SysProperty.ImgRootFolderpath + @"\HairStyleItem\" + tbSn.Text);
+            ImgFrontUpload.PostedFile.SaveAs(tbFolderPath.Text + "/" + tbSn.Text + "_1.jpg");
+            RefreshImage(1, tbFolderPath.Text);
         }
 
         protected void btnImgBackUpload_Click(object sender, EventArgs e)
         {
-
-
-            if (Directory.Exists(@"C:\Jason_project\TheWeWebPortal\Web\TheWeWebSite\TheWeWebSite\photo\HairStyleItem\" + tbSn.Text))
-            {
-                ImgBackUpload.PostedFile.SaveAs(Server.MapPath(tbFolderPath.Text) + "/" + tbSn.Text + "_2.jpg");
-                Response.Redirect(Request.Url.AbsoluteUri);
-            }
-            else
-            {
-                Directory.CreateDirectory(@"C:\Jason_project\TheWeWebPortal\Web\TheWeWebSite\TheWeWebSite\photo\HairStyleItem\" + tbSn.Text);
-                ImgBackUpload.PostedFile.SaveAs(Server.MapPath(tbFolderPath.Text) + "/" + tbSn.Text + "_2.jpg");
-                Response.Redirect(Request.Url.AbsoluteUri);
-            }
-            Response.AddHeader("Refresh", "0");
+            if (string.IsNullOrEmpty(tbFolderPath.Text)) return;
+            CheckFolder(SysProperty.ImgRootFolderpath + @"\HairStyleItem\" + tbSn.Text);
+            ImgBackUpload.PostedFile.SaveAs(tbFolderPath.Text + "/" + tbSn.Text + "_2.jpg");
+            RefreshImage(2, tbFolderPath.Text);
         }
 
         protected void btnImgSideUpload_Click(object sender, EventArgs e)
         {
-            if (Directory.Exists(@"C:\Jason_project\TheWeWebPortal\Web\TheWeWebSite\TheWeWebSite\photo\HairStyleItem\" + tbSn.Text))
-            {
-                ImgSideUpload.PostedFile.SaveAs(Server.MapPath(tbFolderPath.Text) + "/" + tbSn.Text + "_3.jpg");
-                Response.Redirect(Request.Url.AbsoluteUri);
-            }
-            else
-            {
-                Directory.CreateDirectory(@"C:\Jason_project\TheWeWebPortal\Web\TheWeWebSite\TheWeWebSite\photo\HairStyleItem\" + tbSn.Text);
-                ImgSideUpload.PostedFile.SaveAs(Server.MapPath(tbFolderPath.Text) + "/" + tbSn.Text + "_3.jpg");
-                Response.Redirect(Request.Url.AbsoluteUri);
-            }
-            Response.AddHeader("Refresh", "0");
+            if (string.IsNullOrEmpty(tbFolderPath.Text)) return;
+            CheckFolder(SysProperty.ImgRootFolderpath + @"\HairStyleItem\" + tbSn.Text);
+            ImgSideUpload.PostedFile.SaveAs(tbFolderPath.Text + "/" + tbSn.Text + "_3.jpg");
+            RefreshImage(3, tbFolderPath.Text);
         }
 
-        public static string MakeRelative(string filePath, string referencePath)
+        private void CheckFolder(string path)
         {
-            var fileUri = new Uri(filePath);
-            var referenceUri = new Uri(referencePath);
-            return referenceUri.MakeRelativeUri(fileUri).ToString();
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
         }
+        #endregion
     }
 }

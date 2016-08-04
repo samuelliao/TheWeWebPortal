@@ -126,6 +126,14 @@
                                                 <asp:BoundColumn DataField="EngName" HeaderText="<%$ Resources:Resource,EnglishNameString%>" SortExpression="EngName" />
                                                 <asp:BoundColumn DataField="JpName" HeaderText="<%$ Resources:Resource,JpNameString%>" SortExpression="JpName" />
                                                 <asp:BoundColumn DataField="Addr" HeaderText="<%$ Resources:Resource,AddressString%>" SortExpression="Addr" />
+                                                <asp:TemplateColumn HeaderText="<%$ Resources:Resource,HoldingCompanyString%>" SortExpression="HoldingCompany">
+                                                    <ItemTemplate>
+                                                        <asp:Label runat="server" ID="labelDgHoldingCompany" />
+                                                    </ItemTemplate>
+                                                    <EditItemTemplate>
+                                                        <asp:CheckBox runat="server" ID="cbDgHoldingCompany" />
+                                                    </EditItemTemplate>
+                                                </asp:TemplateColumn>
                                                 <asp:TemplateColumn HeaderText="<%$ Resources:Resource,CountryString%>" SortExpression="CountryName">
                                                     <EditItemTemplate>
                                                         <asp:DropDownList runat="server" ID="ddlDgCountry" OnSelectedIndexChanged="ddlDgCountry_SelectedIndexChanged" Width="200px" />
@@ -134,7 +142,7 @@
                                                         <asp:Label runat="server" ID="labelDgCountry" />
                                                     </ItemTemplate>
                                                 </asp:TemplateColumn>
-                                                <asp:TemplateColumn HeaderText="<%$ Resources:Resource,CountryString%>" SortExpression="AreaName">
+                                                <asp:TemplateColumn HeaderText="<%$ Resources:Resource,AreaString%>" SortExpression="AreaName">
                                                     <EditItemTemplate>
                                                         <asp:DropDownList runat="server" ID="ddlDgArea" Width="200px" />
                                                     </EditItemTemplate>

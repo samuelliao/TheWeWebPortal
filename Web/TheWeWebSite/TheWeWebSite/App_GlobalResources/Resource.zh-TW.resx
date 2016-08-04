@@ -960,4 +960,13 @@
   <data name="ImgBackString" xml:space="preserve">
     <value>背面照片</value>
   </data>
+  <data name="HoldingCompanyString" xml:space="preserve">
+    <value>控股公司</value>
+  </data>
+  <data name="ImgOtherString" xml:space="preserve">
+    <value>其他照片</value>
+  </data>
+  <data name="RentRecordString" xml:space="preserve">
+    <value>租用紀錄</value>
+  </data>
 </root>

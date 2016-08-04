@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -494,12 +495,7 @@ namespace TheWeWebSite.CaseMgt
             {
                 TransferToOtherPage();
             }
-        }
-
-        protected void btnUpload_Click(object sender, EventArgs e)
-        {
-
-        }
+        }        
         #endregion        
 
         #region Set modified data
@@ -580,7 +576,13 @@ namespace TheWeWebSite.CaseMgt
             ddlCountry.SelectedValue = dr["CountryId"].ToString();
             ddlArea.SelectedValue = dr["AreaId"].ToString();
             ddlLocate.SelectedValue = dr["ChurchId"].ToString();
-            
+
+            string imgPath = @dr["Img"].ToString();
+            if (string.IsNullOrEmpty(imgPath)) imgPath = Path.Combine(SysProperty.ImgRootFolderpath, @"OrderInfo\" + tbCaseSn.Text);
+            string ImgFolderPath = imgPath;
+            RefreshImage(ImgFolderPath);
+            tbFolderPath.Text = ImgFolderPath;
+
             SetOrderServiceItem(id);
         }
 
@@ -854,6 +856,12 @@ namespace TheWeWebSite.CaseMgt
                 , ddlStatus.SelectedValue
                 ));
             }
+            lst.Add(new DbSearchObject(
+                "Img"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , @"OrdeInfo\" + tbCaseSn.Text
+                ));
             return lst;
         }
         private List<DbSearchObject> CustomerDbObject()
@@ -1397,6 +1405,29 @@ namespace TheWeWebSite.CaseMgt
             if (result)
             {
                 tbTotalPrice.Text = (dec).ToString();
+            }
+        }
+        #endregion
+
+        #region Photo
+        protected void btnUpload_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(tbFolderPath.Text)) return;
+            CheckFolder(SysProperty.ImgRootFolderpath + @"\OrderInfo\" + tbCaseSn.Text);
+            ImgUpload.PostedFile.SaveAs(tbFolderPath.Text + "/" + tbCaseSn.Text + "_1.jpg");
+            RefreshImage(tbFolderPath.Text);
+        }
+
+        private void RefreshImage(string path)
+        {
+            ImgFront.ImageUrl = path + "/" + tbCaseSn.Text + "_1.jpg?" + DateTime.Now.Ticks.ToString();
+        }
+
+        private void CheckFolder(string path)
+        {
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
             }
         }
         #endregion

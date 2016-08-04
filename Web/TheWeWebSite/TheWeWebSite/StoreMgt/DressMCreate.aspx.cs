@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -367,33 +368,6 @@ namespace TheWeWebSite.StoreMgt
         }
         #endregion
 
-        #region Photo Control
-        protected void btnUpload1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        protected void btnUpload2_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        protected void btnUpload3_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        protected void btnUpload4_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        protected void btnUpload5_Click(object sender, EventArgs e)
-        {
-
-        }
-        #endregion
-
         private DataSet GetDataSetFromTable(string sql)
         {
             try
@@ -444,6 +418,13 @@ namespace TheWeWebSite.StoreMgt
             cbDomesticWedding.Checked = bool.Parse(dr["DomesticWedding"].ToString());
             cbOutPhoto.Checked = bool.Parse(dr["OutPicture"].ToString());
             cbPlusItem.Checked = bool.Parse(dr["AddPrice"].ToString());
+
+            string imgPath = @dr["Img"].ToString();
+            if (string.IsNullOrEmpty(imgPath)) imgPath = SysProperty.ImgRootFolderpath + @"\Dress\" + tbSn.Text;
+            string ImgFolderPath = imgPath;
+            RefreshImage(0, ImgFolderPath);
+            tbFolderPath.Text = ImgFolderPath;
+
             if (cbPlusItem.Checked)
             {
                 tbPlusItemPrice.Text = SysProperty.Util.ParseMoney(dr["PlusItemPlrice"].ToString()).ToString("#0.00");
@@ -712,6 +693,12 @@ namespace TheWeWebSite.StoreMgt
                 , AttrSymbolItem.Equal
                 , ((DataRow)Session["LocateStore"])["Id"].ToString()
                 ));
+            lst.Add(new DbSearchObject(
+                "Img"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , @"Dress\" + tbSn.Text
+                ));
             return lst;
         }
 
@@ -745,5 +732,85 @@ namespace TheWeWebSite.StoreMgt
         {
             tbPlusItemPrice.Enabled = ((CheckBox)sender).Checked;
         }
+
+        #region Image Related
+        private void RefreshImage(int type, string path)
+        {
+            switch (type)
+            {
+                case 1:
+                    ImgFront.ImageUrl = path + "/" + tbSn.Text + "_1.jpg?" + DateTime.Now.Ticks.ToString();
+                    break;
+                case 2:
+                    ImgBack.ImageUrl = path + "/" + tbSn.Text + "_2.jpg?" + DateTime.Now.Ticks.ToString();
+                    break;
+                case 3:
+                    ImgSide.ImageUrl = path + "/" + tbSn.Text + "_3.jpg?" + DateTime.Now.Ticks.ToString();
+                    break;
+                case 4:
+                    ImgOther1.ImageUrl = path + "/" + tbSn.Text + "_4.jpg?" + DateTime.Now.Ticks.ToString();
+                    break;
+                case 5:
+                    ImgOther2.ImageUrl = path + "/" + tbSn.Text + "_5.jpg?" + DateTime.Now.Ticks.ToString();
+                    break;
+                case 0:
+                default:
+                    ImgFront.ImageUrl = path + "/" + tbSn.Text + "_1.jpg?" + DateTime.Now.Ticks.ToString();
+                    ImgBack.ImageUrl = path + "/" + tbSn.Text + "_2.jpg?" + DateTime.Now.Ticks.ToString();
+                    ImgSide.ImageUrl = path + "/" + tbSn.Text + "_3.jpg?" + DateTime.Now.Ticks.ToString();
+                    ImgOther1.ImageUrl = path + "/" + tbSn.Text + "_4.jpg?" + DateTime.Now.Ticks.ToString();
+                    ImgOther2.ImageUrl = path + "/" + tbSn.Text + "_5.jpg?" + DateTime.Now.Ticks.ToString();
+                    break;
+            }
+        }
+
+        protected void btnImgFrontUpload_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(tbFolderPath.Text)) return;
+            CheckFolder(SysProperty.ImgRootFolderpath + @"\Dress\" + tbSn.Text);
+            ImgFrontUpload.PostedFile.SaveAs(tbFolderPath.Text + "/" + tbSn.Text + "_1.jpg");
+            RefreshImage(1, tbFolderPath.Text);
+        }
+
+        protected void btnImgBackUpload_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(tbFolderPath.Text)) return;
+            CheckFolder(SysProperty.ImgRootFolderpath + @"\Dress\" + tbSn.Text);
+            ImgBackUpload.PostedFile.SaveAs(tbFolderPath.Text + "/" + tbSn.Text + "_2.jpg");
+            RefreshImage(2, tbFolderPath.Text);
+        }
+
+        protected void btnImgSideUpload_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(tbFolderPath.Text)) return;
+            CheckFolder(SysProperty.ImgRootFolderpath + @"\Dress\" + tbSn.Text);
+            ImgSideUpload.PostedFile.SaveAs(tbFolderPath.Text + "/" + tbSn.Text + "_3.jpg");
+            RefreshImage(3, tbFolderPath.Text);
+        }
+
+        private void CheckFolder(string path)
+        {
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
+        }
+
+        protected void btnImgOther2_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(tbFolderPath.Text)) return;
+            CheckFolder(SysProperty.ImgRootFolderpath + @"\Dress\" + tbSn.Text);
+            ImgSideUpload.PostedFile.SaveAs(tbFolderPath.Text + "/" + tbSn.Text + "_5.jpg");
+            RefreshImage(5, tbFolderPath.Text);
+        }
+
+        protected void btnImgOther1_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(tbFolderPath.Text)) return;
+            CheckFolder(SysProperty.ImgRootFolderpath + @"\Dress\" + tbSn.Text);
+            ImgSideUpload.PostedFile.SaveAs(tbFolderPath.Text + "/" + tbSn.Text + "_4.jpg");
+            RefreshImage(4, tbFolderPath.Text);
+        }
+        #endregion
     }
 }

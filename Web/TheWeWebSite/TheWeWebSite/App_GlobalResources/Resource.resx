@@ -949,15 +949,24 @@
     <value>Fitting</value>
   </data>
   <data name="ImgFrontString" xml:space="preserve">
-    <value></value>
+    <value>Front View</value>
   </data>
   <data name="ImgSideString" xml:space="preserve">
-    <value></value>
+    <value>Side View</value>
   </data>
   <data name="ImgBackString" xml:space="preserve">
-    <value></value>
+    <value>Back View</value>
   </data>
   <data name="BlankFieldString" xml:space="preserve">
     <value>Field can not be empty</value>
+  </data>
+  <data name="HoldingCompanyString" xml:space="preserve">
+    <value>Holding Company</value>
+  </data>
+  <data name="ImgOtherString" xml:space="preserve">
+    <value>Other Image</value>
+  </data>
+  <data name="RentRecordString" xml:space="preserve">
+    <value>Rent Records</value>
   </data>
 </root>

@@ -38,11 +38,20 @@ namespace TheWeWebSite.StoreMgt
         private void InitialControlWithPermission()
         {
             PermissionUtil util = new PermissionUtil();
-            if (Session["Operation"] == null) Response.Redirect("~/Login.aspx");
-            PermissionItem item = util.GetPermissionByKey(Session["Operation"], util.GetOperationSnByPage(this.Page.AppRelativeVirtualPath));
-            btnCreate.Visible = item.CanCreate;
-            btnCreate.Enabled = item.CanCreate;
-            dgChurch.Columns[dgChurch.Columns.Count - 1].Visible = item.CanDelete;
+            if (Session["Operation"] == null) Response.Redirect("~/Login.aspx");            
+            if (Session["LocateStore"] != null)
+            {
+                if (!bool.Parse(((DataRow)Session["LocateStore"])["HoldingCompany"].ToString())){
+                    btnCreate.Visible = false;
+                    dgChurch.Columns[dgChurch.Columns.Count - 1].Visible = false;
+                }
+            }else
+            {
+                PermissionItem item = util.GetPermissionByKey(Session["Operation"], util.GetOperationSnByPage(this.Page.AppRelativeVirtualPath));
+                btnCreate.Visible = item.CanCreate;
+                btnCreate.Enabled = item.CanCreate;
+                dgChurch.Columns[dgChurch.Columns.Count - 1].Visible = item.CanDelete;
+            }
         }
         private void InitialAllList()
         {
