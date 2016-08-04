@@ -12,9 +12,6 @@ namespace TheWeLib
     public static class SysProperty
     {
         public static string DbConcString;
-        //public static string CultureCode;
-        //public static DataRow AccountInfo;
-        //public static DataRow LocateStore;
         public static Logger Log;
         public static GeneralDbDAO GenDbCon = new GeneralDbDAO();
         public static Utility Util;        

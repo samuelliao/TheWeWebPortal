@@ -110,7 +110,7 @@
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,PatioHeightString%>"></asp:Label>
                             </div>
                             <asp:TextBox runat="server" style="text-align:right" ID="tbPatioHeight"></asp:TextBox>
-                            <asp:RegularExpressionValidator ID="RegularExpressionValidator3" ControlToValidate="tb{atioHeight" runat="server" ErrorMessage="Only Numbers allowed" ValidationExpression="\d"></asp:RegularExpressionValidator>
+                            <asp:RegularExpressionValidator ID="RegularExpressionValidator3" ControlToValidate="tbPatioHeight" runat="server" ErrorMessage="Only Numbers allowed" ValidationExpression="\d"></asp:RegularExpressionValidator>
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
@@ -154,13 +154,18 @@
                             </div>
                         </div>
                         <div class="4u 12u(mobilep)">
-                            <div style="margin-top: 1.6em">
-                                <span class="image fit">
-                                    <asp:Image runat="server" ID="ImageMeal" ImageUrl="../assets/img/logo_clear.jpg" />
-                                </span>
-                                <div class="align-center">
-                                    <asp:Button runat="server" Text="<%$ Resources:Resource,UploadString%>" ID="btnUploadMeal" OnClick="btnUploadMeal_Click" />
-                                </div>
+                            <div style="text-align: center">
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,MealString%>"></asp:Label>
+                            </div>
+                            <span class="image fit">
+                                <asp:Image runat="server" ID="ImgMeal" />
+                            </span>
+                            <div style="margin-bottom: 1.5em">
+                                <asp:FileUpload ID="ImgMealUpload" runat="server" />
+                            </div>
+                            <div class="align-center">
+                                <asp:Button runat="server" Text="<%$ Resources:Resource,UploadString%>" ID="btnUploadMeal"
+                                    OnClick="btnUploadMeal_Click" />
                             </div>
                         </div>
                         <div class="4u 12u(mobilep)">
@@ -257,7 +262,7 @@
                     </li>
                     <li>
                         <asp:Button runat="server" CssClass="button alt" Text="<%$ Resources:Resource,ModifyString%>"
-                            ID="btnModify" OnClick="btnModify_Click" Visible="false" />
+                            ID="btnModify" OnClick="btnModify_Click" />
                     </li>
                     <li>
                         <asp:Button runat="server" CssClass="button alt" Text="<%$ Resources:Resource,ClearString%>"
@@ -265,7 +270,7 @@
                     </li>
                     <li>
                         <asp:Button runat="server" CssClass="button alt" Text="<%$ Resources:Resource,DeleteString%>"
-                            ID="btnDelete" OnClick="btnDelete_Click" Visible="false" />
+                            ID="btnDelete" OnClick="btnDelete_Click" />
                     </li>
                     <li>
                         <asp:Button runat="server" CssClass="button alt" Text="<%$ Resources:Resource,CancelString%>"

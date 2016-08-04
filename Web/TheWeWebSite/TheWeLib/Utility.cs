@@ -475,6 +475,8 @@ namespace TheWeLib
                     return "ProductSet";
                 case MsSqlTable.ProductSetServiceItem:
                     return "ProductSetServiceItem";
+                case MsSqlTable.ProductSetChurchServiceItem:
+                    return "ProductSetChurchServiceItem";
                 case MsSqlTable.ReadMe:
                     return "ReadMe";
                 case MsSqlTable.RelDressAccessory:

@@ -38,14 +38,16 @@ namespace TheWeWebSite.StoreMgt
         private void InitialControlWithPermission()
         {
             PermissionUtil util = new PermissionUtil();
-            if (Session["Operation"] == null) Response.Redirect("~/Login.aspx");            
+            if (Session["Operation"] == null) Response.Redirect("~/Login.aspx");
             if (Session["LocateStore"] != null)
             {
-                if (!bool.Parse(((DataRow)Session["LocateStore"])["HoldingCompany"].ToString())){
+                if (!bool.Parse(((DataRow)Session["LocateStore"])["HoldingCompany"].ToString()))
+                {
                     btnCreate.Visible = false;
                     dgChurch.Columns[dgChurch.Columns.Count - 1].Visible = false;
                 }
-            }else
+            }
+            else
             {
                 PermissionItem item = util.GetPermissionByKey(Session["Operation"], util.GetOperationSnByPage(this.Page.AppRelativeVirtualPath));
                 btnCreate.Visible = item.CanCreate;
@@ -211,7 +213,7 @@ namespace TheWeWebSite.StoreMgt
                     + " Or CnName like '%" + tbName.Text + "%')";
             }
             return condStr;
-        }        
-        #endregion              
+        }
+        #endregion
     }
 }

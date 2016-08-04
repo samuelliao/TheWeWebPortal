@@ -28,8 +28,6 @@ namespace TheWeWebSite.StoreMgt
                         labelPageTitle.Text = Resources.Resource.StoreMgtString
                         + " > " + Resources.Resource.ChurchMaintainString
                         + " > " + Resources.Resource.ModifyString;
-                        btnModify.Visible = true;
-                        btnDelete.Visible = true;
                         SetChurchData(Session["ChurchId"].ToString());
                     }
                     else
@@ -40,6 +38,7 @@ namespace TheWeWebSite.StoreMgt
                         btnModify.Visible = false;
                         btnDelete.Visible = false;
                     }
+                    
                 }
             }
         }
@@ -64,6 +63,7 @@ namespace TheWeWebSite.StoreMgt
                     btnCreate.Visible = false;
                     btnDelete.Visible = false;
                     btnModify.Visible = false;
+                    btnClear.Visible = false;
                 }
             }
             else
@@ -275,6 +275,39 @@ namespace TheWeWebSite.StoreMgt
             string ImgFolderPath = imgPath;
             RefreshImage(0, ImgFolderPath);
             tbFolderPath.Text = ImgFolderPath;
+
+            if (Session["LocateStore"] != null)
+            {
+                if (!bool.Parse(((DataRow)Session["LocateStore"])["HoldingCompany"].ToString()))
+                {
+                    tbSn.Enabled = false;
+                    tbRemark.Enabled = false;
+                    tbRedCarpetType.Enabled = false;
+                    tbRedCarpetLength.Enabled = false;
+                    tbPrice.Enabled = false;
+                    tbPatioHeight.Enabled = false;
+                    tbName.Enabled = false;
+                    tbMealDescription.Enabled = false;
+                    tbJpName.Enabled = false;
+                    tbFolderPath.Enabled = false;
+                    tbEngName.Enabled = false;
+                    tbCnName.Enabled = false;
+                    tbCapacities.Enabled = false;
+                    ddlArea.Enabled = false;
+                    ddlCountry.Enabled = false;
+                    btnImgBackUpload.Visible = false;
+                    btnImgFrontUpload.Visible = false;
+                    btnImgOther1.Visible = false;
+                    btnImgSideUpload.Visible = false;
+                    btnUploadMeal.Visible = false;
+                    ImgBackUpload.Visible = false;
+                    ImgFrontUpload.Visible = false;
+                    ImgMealUpload.Visible = false;
+                    ImgOther1Upload.Visible = false;
+                    ImgSideUpload.Visible = false;
+                    dgBookTable.Enabled = false;
+                }
+            }
         }
 
         private DataSet GetChurchBookingTime(string id)
@@ -431,6 +464,7 @@ namespace TheWeWebSite.StoreMgt
         }
         #endregion
 
+        #region Db Instance
         private List<DbSearchObject> ChurchDbObject()
         {
             List<DbSearchObject> lst = new List<DbSearchObject>();
@@ -572,6 +606,7 @@ namespace TheWeWebSite.StoreMgt
             }
             return result;
         }
+        #endregion
 
         private bool WriteBackChurch(bool isInsert, List<DbSearchObject> lst, string id)
         {
@@ -639,12 +674,16 @@ namespace TheWeWebSite.StoreMgt
                 case 4:
                     ImgOther1.ImageUrl = path + "/" + tbSn.Text + "_4.jpg?" + DateTime.Now.Ticks.ToString();
                     break;
+                case 5:
+                    ImgMeal.ImageUrl = path + "/" + tbSn.Text + "_meal.jpg?" + DateTime.Now.Ticks.ToString();
+                    break;
                 case 0:
                 default:
                     ImgFront.ImageUrl = path + "/" + tbSn.Text + "_1.jpg?" + DateTime.Now.Ticks.ToString();
                     ImgBack.ImageUrl = path + "/" + tbSn.Text + "_2.jpg?" + DateTime.Now.Ticks.ToString();
                     ImgSide.ImageUrl = path + "/" + tbSn.Text + "_3.jpg?" + DateTime.Now.Ticks.ToString();
                     ImgOther1.ImageUrl = path + "/" + tbSn.Text + "_4.jpg?" + DateTime.Now.Ticks.ToString();
+                    ImgMeal.ImageUrl = path + "/" + tbSn.Text + "_meal.jpg?" + DateTime.Now.Ticks.ToString();
                     break;
             }
         }
@@ -687,6 +726,14 @@ namespace TheWeWebSite.StoreMgt
             CheckFolder(SysProperty.ImgRootFolderpath + @"\Church\" + tbSn.Text);
             ImgSideUpload.PostedFile.SaveAs(tbFolderPath.Text + "/" + tbSn.Text + "_4.jpg");
             RefreshImage(4, tbFolderPath.Text);
+        }
+
+        protected void btnUploadMeal_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(tbFolderPath.Text)) return;
+            CheckFolder(SysProperty.ImgRootFolderpath + @"\Church\" + tbSn.Text);
+            ImgMealUpload.PostedFile.SaveAs(tbFolderPath.Text + "/" + tbSn.Text + "_meal.jpg");
+            RefreshImage(5, tbFolderPath.Text);
         }
         #endregion
     }

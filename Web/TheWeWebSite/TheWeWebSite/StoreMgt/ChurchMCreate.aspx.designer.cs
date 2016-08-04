@@ -193,13 +193,22 @@ namespace TheWeWebSite.StoreMgt {
         protected global::System.Web.UI.WebControls.GridView dgBookTable;
         
         /// <summary>
-        /// ImageMeal 控制項。
+        /// ImgMeal 控制項。
         /// </summary>
         /// <remarks>
         /// 自動產生的欄位。
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Image ImageMeal;
+        protected global::System.Web.UI.WebControls.Image ImgMeal;
+        
+        /// <summary>
+        /// ImgMealUpload 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.FileUpload ImgMealUpload;
         
         /// <summary>
         /// btnUploadMeal 控制項。
