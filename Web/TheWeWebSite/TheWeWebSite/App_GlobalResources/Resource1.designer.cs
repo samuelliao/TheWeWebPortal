@@ -1222,6 +1222,33 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   查詢類似  的當地語系化字串。
+        /// </summary>
+        internal static string ImgBackString {
+            get {
+                return ResourceManager.GetString("ImgBackString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查詢類似  的當地語系化字串。
+        /// </summary>
+        internal static string ImgFrontString {
+            get {
+                return ResourceManager.GetString("ImgFrontString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查詢類似  的當地語系化字串。
+        /// </summary>
+        internal static string ImgSideString {
+            get {
+                return ResourceManager.GetString("ImgSideString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查詢類似 Insurance 的當地語系化字串。
         /// </summary>
         internal static string InsuranceString {
