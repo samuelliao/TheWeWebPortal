@@ -31,6 +31,24 @@ namespace TheWeWebSite.StoreMgt {
         protected global::System.Web.UI.WebControls.Label labelPageTitle;
         
         /// <summary>
+        /// ddlStore 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlStore;
+        
+        /// <summary>
+        /// labelBaseId 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label labelBaseId;
+        
+        /// <summary>
         /// tbSn 控制項。
         /// </summary>
         /// <remarks>
@@ -265,6 +283,15 @@ namespace TheWeWebSite.StoreMgt {
         protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidator3;
         
         /// <summary>
+        /// divForStore 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divForStore;
+        
+        /// <summary>
         /// tbPrice 控制項。
         /// </summary>
         /// <remarks>
@@ -281,6 +308,24 @@ namespace TheWeWebSite.StoreMgt {
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
         protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidator4;
+        
+        /// <summary>
+        /// divForHoldingCompany 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divForHoldingCompany;
+        
+        /// <summary>
+        /// PriceTable 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView PriceTable;
         
         /// <summary>
         /// cbChurchCost 控制項。
@@ -409,13 +454,31 @@ namespace TheWeWebSite.StoreMgt {
         protected global::System.Web.UI.WebControls.Label labelTitle;
         
         /// <summary>
-        /// dgServiceItem 控制項。
+        /// dgChurchServiceItem 控制項。
         /// </summary>
         /// <remarks>
         /// 自動產生的欄位。
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView dgServiceItem;
+        protected global::System.Web.UI.WebControls.GridView dgChurchServiceItem;
+        
+        /// <summary>
+        /// label1 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label label1;
+        
+        /// <summary>
+        /// dgCutomServiceItem 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView dgCutomServiceItem;
         
         /// <summary>
         /// labelWarnString 控制項。

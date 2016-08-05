@@ -360,7 +360,7 @@ namespace TheWeWebSite.CaseMgt
                 return;
             }
             result = WriteBackSourceInfo(false, SourceInfoDbObject(id), id);
-            
+
             if (!result)
             {
                 WriteBackSourceInfo(false, new List<List<DbSearchObject>>(), id);
@@ -450,7 +450,7 @@ namespace TheWeWebSite.CaseMgt
                 "StoreId"
                 , AtrrTypeItem.String
                 , AttrSymbolItem.Equal
-                , (((DataRow)Session["LocateStore"]) == null ? string.Empty : ((DataRow)Session["LocateStore"])["Id"].ToString())
+                , ((DataRow)Session["LocateStore"])["Id"].ToString()
                 ));
             lst.Add(new DbSearchObject(
                 "EmployeeId"
@@ -939,7 +939,7 @@ namespace TheWeWebSite.CaseMgt
                         "StoreId"
                         , AtrrTypeItem.DateTime
                         , AttrSymbolItem.Equal
-                        , ((DataRow)Session["LocateStore"]) == null ? string.Empty : ((DataRow)Session["LocateStore"])["Id"].ToString()));
+                        , ((DataRow)Session["LocateStore"])["Id"].ToString()));
 
             return lst;
         }
@@ -999,7 +999,7 @@ namespace TheWeWebSite.CaseMgt
             {
                 try
                 {
-                    result = result| SysProperty.GenDbCon.InsertDataInToTable
+                    result = result | SysProperty.GenDbCon.InsertDataInToTable
                         (SysProperty.Util.MsSqlTableConverter(MsSqlTable.InfoSource)
                         , SysProperty.Util.SqlQueryInsertInstanceConverter(item)
                         , SysProperty.Util.SqlQueryInsertValueConverter(item));

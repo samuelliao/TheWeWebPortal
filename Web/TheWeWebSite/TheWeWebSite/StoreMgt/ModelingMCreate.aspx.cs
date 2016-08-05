@@ -193,7 +193,8 @@ namespace TheWeWebSite.StoreMgt
             tbDescription.Text = dr["Description"].ToString();
             ddlType.SelectedValue = dr["Type"].ToString();
             string imgPath = @dr["Img"].ToString();
-            if (string.IsNullOrEmpty(imgPath)) imgPath = Path.Combine(SysProperty.ImgRootFolderpath, @"HairStyleItem\" + tbSn.Text);
+            if (string.IsNullOrEmpty(imgPath)) imgPath = SysProperty.ImgRootFolderpath + @"\HairStyleItem\" + tbSn.Text;
+            else imgPath = SysProperty.ImgRootFolderpath + imgPath;
             string ImgFolderPath = imgPath;
             RefreshImage(0, ImgFolderPath);
             tbFolderPath.Text = ImgFolderPath;

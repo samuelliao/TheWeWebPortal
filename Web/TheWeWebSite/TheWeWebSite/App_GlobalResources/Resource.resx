@@ -756,8 +756,8 @@
   <data name="WeddingRehersalString" xml:space="preserve">
     <value>WeddingRehersalString</value>
   </data>
-  <data name="AdditionalItemString" xml:space="preserve">
-    <value>Additional Item</value>
+  <data name="CustomAdditionalItemString" xml:space="preserve">
+    <value>Custom Additional Item</value>
   </data>
   <data name="MeetingString" xml:space="preserve">
     <value>Meeting</value>
@@ -968,5 +968,11 @@
   </data>
   <data name="RentRecordString" xml:space="preserve">
     <value>Rent Records</value>
+  </data>
+  <data name="StoreLevelString" xml:space="preserve">
+    <value>Level</value>
+  </data>
+  <data name="ChurchAdditionalItemString" xml:space="preserve">
+    <value>Church Additional Item</value>
   </data>
 </root>

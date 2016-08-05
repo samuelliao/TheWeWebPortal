@@ -29,6 +29,12 @@
                     <div class="row uniform 50%">
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,StoreString%>"></asp:Label>
+                            </div>
+                            <asp:DropDownList runat="server" ID="ddlStore" />
+                        </div>
+                        <div class="2u 12u(mobilep)">
+                            <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,SnString%>"></asp:Label>
                             </div>
                             <asp:TextBox runat="server" ID="tbSn"></asp:TextBox>
@@ -201,10 +207,10 @@
 
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
-                                <asp:Label runat="server" Text="<%$ Resources:Resource,SeillingPriceString%>"></asp:Label>
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,SellingPriceString%>"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server" ID="tbPrice" style="text-align:right"></asp:TextBox>
-                            <asp:RegularExpressionValidator ID="RegularExpressionValidator4" ControlToValidate="tbPrice" runat="server"
+                            <asp:TextBox runat="server" ID="tbSellsPrice" style="text-align:right"></asp:TextBox>
+                            <asp:RegularExpressionValidator ID="RegularExpressionValidator4" ControlToValidate="tbSellsPrice" runat="server"
                                  ErrorMessage="Only Numbers allowed" ValidationExpression="\d+[.]*\d*"></asp:RegularExpressionValidator>
                         </div>
                     </div>
@@ -226,8 +232,8 @@
                             </div>
                             <asp:UpdatePanel runat="server">
                                 <ContentTemplate>
-                                    <asp:TextBox runat="server" ID="tbOutPhotoPrice" style="text-align:right" Enabled="false"></asp:TextBox>
-                                    <asp:RegularExpressionValidator ID="RegularExpressionValidator5" ControlToValidate="tbOutPhotoPrice" runat="server"
+                                    <asp:TextBox runat="server" ID="tbOutdoorPlusPrice" style="text-align:right" Enabled="false"></asp:TextBox>
+                                    <asp:RegularExpressionValidator ID="RegularExpressionValidator5" ControlToValidate="tbOutdoorPlusPrice" runat="server"
                                          ErrorMessage="Only Numbers allowed" ValidationExpression="\d+[.]*\d*"></asp:RegularExpressionValidator>
                                 </ContentTemplate>
                             </asp:UpdatePanel>

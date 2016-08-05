@@ -40,7 +40,7 @@ namespace TheWeWebSite.Main
                 hyperLink1.CommandArgument = dataItem1["Id"].ToString();
                 hyperLink1.Enabled = IsHyperLinkEnable("AdvisoryMCreate");
 
-                ((Label)e.Item.FindControl("labelIsReply")).Text = bool.Parse(dataItem1["IsReply"].ToString()) 
+                ((Label)e.Item.FindControl("labelIsReply")).Text = bool.Parse(dataItem1["IsReply"].ToString())
                     ? Resources.Resource.YesString : Resources.Resource.NoString;
             }
         }
@@ -65,7 +65,8 @@ namespace TheWeWebSite.Main
             if (DS == null)
             {
                 GetConsultList(
-                    (((DataRow)Session["LocateStore"]) == null ? string.Empty : ((DataRow)Session["LocateStore"])["Id"].ToString())
+                    (bool.Parse(((DataRow)Session["LocateStore"])["HoldingCompany"].ToString())
+                    ? string.Empty : ((DataRow)Session["LocateStore"])["Id"].ToString())
                     , "Order by c." + e.SortExpression + " " + SysProperty.Util.GetSortDirection(e.SortExpression));
             }
             if (DS != null)
@@ -84,7 +85,8 @@ namespace TheWeWebSite.Main
 
         private void BindData()
         {
-            string storeId = ((DataRow)Session["LocateStore"]) == null ? string.Empty : ((DataRow)Session["LocateStore"])["Id"].ToString();
+            string storeId = bool.Parse(((DataRow)Session["LocateStore"])["HoldingCompany"].ToString())
+                ? string.Empty : ((DataRow)Session["LocateStore"])["Id"].ToString();
             GetConsultList(storeId, string.Empty);
             dataGrid.DataSource = DS;
             dataGrid.AllowPaging = !SysProperty.Util.IsDataSetEmpty(DS);

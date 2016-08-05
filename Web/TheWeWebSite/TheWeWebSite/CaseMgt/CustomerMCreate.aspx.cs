@@ -170,7 +170,7 @@ namespace TheWeWebSite.CaseMgt
                 "CountryId"
                 , AtrrTypeItem.String
                 , AttrSymbolItem.Equal
-                , (((DataRow)Session["LocateStore"]) == null ? string.Empty : ((DataRow)Session["LocateStore"])["CountryId"].ToString())
+                , (((DataRow)Session["LocateStore"])["CountryId"].ToString())
                 ));
             lst.Add(new DbSearchObject(
                 "Sn"
@@ -232,7 +232,7 @@ namespace TheWeWebSite.CaseMgt
                 "StoreId"
                 , AtrrTypeItem.String
                 , AttrSymbolItem.Equal
-                , (((DataRow)Session["LocateStore"]) == null ? string.Empty : ((DataRow)Session["LocateStore"])["Id"].ToString())
+                , (((DataRow)Session["LocateStore"])["Id"].ToString())
                 ));
             lst.Add(new DbSearchObject(
                 "Gender"

@@ -182,7 +182,8 @@ namespace TheWeWebSite.CaseMgt
                     + " FROM[TheWe].[dbo].[vwEN_Customer] as c"
                     + " left join Messenger as m on m.Id = c.MessengerType"
                     + " where c.IsDelete = 0 " + OtherConditionString
-                    + (((DataRow)Session["LocateStore"]) == null ? string.Empty 
+                    + (bool.Parse(((DataRow)Session["LocateStore"])["HoldingCompany"].ToString())
+                    ? string.Empty 
                     : " and c.StoreId = '" + ((DataRow)Session["LocateStore"])["Id"].ToString() + "'")
                     + " "+ sortStr;
                 DS = SysProperty.GenDbCon.GetDataFromTable(sql);

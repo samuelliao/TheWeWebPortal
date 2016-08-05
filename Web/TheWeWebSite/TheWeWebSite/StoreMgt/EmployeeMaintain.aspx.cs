@@ -176,7 +176,8 @@ namespace TheWeWebSite.StoreMgt
                     + " left join Store as b on b.[Id]=a.[StoreId]"
                     + " left join Country as d on d.[Id]=a.[CountryId]"
                     + " where a.[IsValid]=1 and a.[IsDelete]=0 " + OtherConditionString
-                    + (((DataRow)Session["LocateStore"]) == null ? string.Empty
+                    + (bool.Parse(((DataRow)Session["LocateStore"])["HoldingCompany"].ToString())
+                    ? string.Empty
                     : " and a.[StoreId] = '" + ((DataRow)Session["LocateStore"])["Id"].ToString() + "'")
                     + " " + sortStr;
                 DS = SysProperty.GenDbCon.GetDataFromTable(sql);

@@ -517,6 +517,8 @@ namespace TheWeLib
                     return "WeddingCategory";
                 case MsSqlTable.RentRecord:
                     return "RentRecord";
+                case MsSqlTable.StoreLvSetPrice:
+                    return "StoreLvSetPrice";
                 default:
                     return string.Empty;
 

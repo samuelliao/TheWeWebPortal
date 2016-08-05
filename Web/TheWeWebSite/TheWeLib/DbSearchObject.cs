@@ -123,7 +123,8 @@ namespace TheWeLib
         vwEN_Customer = 77,
         SnsMgt = 78,
         ProductSetChurchServiceItem = 79,
-        vwEN_Consultation = 80
+        vwEN_Consultation = 80,
+        StoreLvSetPrice = 81
     }
 
     public enum LanguageCode

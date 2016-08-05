@@ -54,9 +54,14 @@ namespace TheWeWebSite
                     }
                     else
                     {
-                        SysProperty.ImgRootFolderpath = @"\\127.0.0.1\Photo";
+                        
                     }
                 }
+            }
+
+            if (string.IsNullOrEmpty(SysProperty.ImgRootFolderpath))
+            {
+                SysProperty.ImgRootFolderpath = @"\\127.0.0.1\Photo";
             }
         }
 
@@ -96,8 +101,7 @@ namespace TheWeWebSite
         {
             DataSet ds = SysProperty.GenDbCon.GetDataFromTable(string.Empty
                 , SysProperty.Util.MsSqlTableConverter(MsSqlTable.vwEN_Employee)
-                , " Where Account= N'" + acc.ToLower() + "'"
-                + (acc.ToLower().Equals("admin") ? string.Empty : " and StoreId = '" + storeId + "'")
+                , " Where Account= N'" + acc.ToLower() + "' and StoreId = '" + storeId + "'"
                 + " And IsDelete = 0 And IsValid = 1");
             if (SysProperty.Util.IsDataSetEmpty(ds)) return false;
             if (new DataEncryption().GetMD5(pwd) == ds.Tables[0].Rows[0]["Password"].ToString())
@@ -123,7 +127,7 @@ namespace TheWeWebSite
                 labelWarnText.Visible = true;
                 return;
             }
-            if (string.IsNullOrEmpty(ddlStore.SelectedValue) && !tbAccount.Text.ToLower().Equals("admin"))
+            if (string.IsNullOrEmpty(ddlStore.SelectedValue))
             {
                 labelWarnText.Text = Resources.Resource.LoginStoreNotSelectedString;
                 labelWarnText.Visible = true;
@@ -196,10 +200,6 @@ namespace TheWeWebSite
                 if (string.IsNullOrEmpty(storeId))
                 {
                     Session["Operation"] = null;
-                    if (tbAccount.Text.ToLower() == "admin")
-                    {
-                        Session["Operation"] = SysProperty.Util.AdminPermission();
-                    }
                 }
                 else
                 {

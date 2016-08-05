@@ -37,11 +37,20 @@ namespace TheWeWebSite.StoreMgt
         private void InitialControlWithPermission()
         {
             PermissionUtil util = new PermissionUtil();
-            if (Session["Operation"] == null) Response.Redirect("~/Login.aspx");
-            PermissionItem item = util.GetPermissionByKey(Session["Operation"], util.GetOperationSnByPage(this.Page.AppRelativeVirtualPath));
-            LinkOtherItemMCreate.Visible = item.CanCreate;
-            LinkOtherItemMCreate.Enabled = item.CanCreate;
-            dataGrid.Columns[dataGrid.Columns.Count - 1].Visible = item.CanDelete;
+            if (Session["Operation"] == null) Response.Redirect("~/Login.aspx");            
+            if (!bool.Parse(((DataRow)Session["LocateStore"])["HoldingCompany"].ToString()))
+            {
+                LinkOtherItemMCreate.Visible = false;
+                LinkOtherItemMCreate.Enabled = false;
+                dataGrid.Columns[dataGrid.Columns.Count - 1].Visible = false;
+            }
+            else
+            {
+                PermissionItem item = util.GetPermissionByKey(Session["Operation"], util.GetOperationSnByPage(this.Page.AppRelativeVirtualPath));
+                LinkOtherItemMCreate.Visible = item.CanCreate;
+                LinkOtherItemMCreate.Enabled = item.CanCreate;
+                dataGrid.Columns[dataGrid.Columns.Count - 1].Visible = item.CanDelete;
+            }
         }
         private void InitialOthType()
         {
@@ -163,8 +172,9 @@ namespace TheWeWebSite.StoreMgt
                 if (string.IsNullOrEmpty(ddlOthCategory.SelectedValue))
                 {
                     condStr = OtherConditionString + " And Category = '4ec16237-2cb6-496f-ab85-8fa708aa4d55'"
-                        + (((DataRow)Session["LocateStore"]) == null ? string.Empty
-                        : " and a.StoreId = '" + ((DataRow)Session["LocateStore"])["Id"].ToString() + "'");
+                        + (bool.Parse(((DataRow)Session["LocateStore"])["HoldingCompany"].ToString())
+                            ? string.Empty
+                            : " and a.StoreId = '" + ((DataRow)Session["LocateStore"])["Id"].ToString() + "'");
                     DS = GetServiceItem(condStr, sortStr);
                     condStr = OtherConditionString + " And Category != '4ec16237-2cb6-496f-ab85-8fa708aa4d55'";
                     DS.Merge(GetServiceItem(condStr, sortStr));
@@ -172,8 +182,9 @@ namespace TheWeWebSite.StoreMgt
                 else if (ddlOthCategory.SelectedValue == "4ec16237-2cb6-496f-ab85-8fa708aa4d55")
                 {
                     condStr = OtherConditionString
-                        + (((DataRow)Session["LocateStore"]) == null ? string.Empty
-                        : " and a.StoreId = '" + ((DataRow)Session["LocateStore"])["Id"].ToString() + "'");
+                        + (bool.Parse(((DataRow)Session["LocateStore"])["HoldingCompany"].ToString())
+                            ? string.Empty
+                            : " and a.StoreId = '" + ((DataRow)Session["LocateStore"])["Id"].ToString() + "'");
                     DS = GetServiceItem(condStr, sortStr);
                 }
                 else
@@ -202,7 +213,7 @@ namespace TheWeWebSite.StoreMgt
                         + " WHERE a.IsDelete = 0 " + condStr + " " + sortStr;
                 return SysProperty.GenDbCon.GetDataFromTable(sql);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 SysProperty.Log.Error(ex.Message);
                 ShowErrorMsg(ex.Message);

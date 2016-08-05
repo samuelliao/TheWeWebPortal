@@ -106,15 +106,6 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   查詢類似 Additional Item 的當地語系化字串。
-        /// </summary>
-        internal static string AdditionalItemString {
-            get {
-                return ResourceManager.GetString("AdditionalItemString", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   查詢類似 Please input a address 的當地語系化字串。
         /// </summary>
         internal static string AddressInputString {
@@ -417,6 +408,15 @@ namespace Resources {
         internal static string ChineseString {
             get {
                 return ResourceManager.GetString("ChineseString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查詢類似 Church Additional Item 的當地語系化字串。
+        /// </summary>
+        internal static string ChurchAdditionalItemString {
+            get {
+                return ResourceManager.GetString("ChurchAdditionalItemString", resourceCulture);
             }
         }
         
@@ -741,6 +741,15 @@ namespace Resources {
         internal static string CurrencyString {
             get {
                 return ResourceManager.GetString("CurrencyString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查詢類似 Custom Additional Item 的當地語系化字串。
+        /// </summary>
+        internal static string CustomAdditionalItemString {
+            get {
+                return ResourceManager.GetString("CustomAdditionalItemString", resourceCulture);
             }
         }
         
@@ -2307,6 +2316,15 @@ namespace Resources {
         internal static string StayNightString {
             get {
                 return ResourceManager.GetString("StayNightString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查詢類似 Level 的當地語系化字串。
+        /// </summary>
+        internal static string StoreLevelString {
+            get {
+                return ResourceManager.GetString("StoreLevelString", resourceCulture);
             }
         }
         

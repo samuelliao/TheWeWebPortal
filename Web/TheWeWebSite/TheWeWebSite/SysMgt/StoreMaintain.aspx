@@ -64,6 +64,12 @@
                                         </div>    
                                         <div class="2u 12u(mobilep)">
                                             <div class="Div">
+                                                <asp:Label runat="server" Text="<%$ Resources:Resource,StoreLevelString%>" ForeColor="Red"></asp:Label>
+                                            </div>
+                                            <asp:DropDownList runat="server" ID="ddlLv" />
+                                        </div>
+                                        <div class="2u 12u(mobilep)">
+                                            <div class="Div">
                                                 <asp:Label runat="server" Text="<%$ Resources:Resource,SnString%>" ForeColor="Red"></asp:Label>
                                             </div>
                                             <asp:TextBox runat="server" placeholder="<%$ Resources:Resource,SnInputString%>" ID="tbSn" Width="200px"></asp:TextBox>
@@ -126,12 +132,12 @@
                                                 <asp:BoundColumn DataField="EngName" HeaderText="<%$ Resources:Resource,EnglishNameString%>" SortExpression="EngName" />
                                                 <asp:BoundColumn DataField="JpName" HeaderText="<%$ Resources:Resource,JpNameString%>" SortExpression="JpName" />
                                                 <asp:BoundColumn DataField="Addr" HeaderText="<%$ Resources:Resource,AddressString%>" SortExpression="Addr" />
-                                                <asp:TemplateColumn HeaderText="<%$ Resources:Resource,HoldingCompanyString%>" SortExpression="HoldingCompany">
+                                                <asp:TemplateColumn HeaderText="<%$ Resources:Resource,StoreLevelString%>" SortExpression="GradeLv">
                                                     <ItemTemplate>
                                                         <asp:Label runat="server" ID="labelDgHoldingCompany" />
                                                     </ItemTemplate>
                                                     <EditItemTemplate>
-                                                        <asp:CheckBox runat="server" ID="cbDgHoldingCompany" />
+                                                        <asp:DropDownList runat="server" ID="ddlDgHoldingCompany" />
                                                     </EditItemTemplate>
                                                 </asp:TemplateColumn>
                                                 <asp:TemplateColumn HeaderText="<%$ Resources:Resource,CountryString%>" SortExpression="CountryName">

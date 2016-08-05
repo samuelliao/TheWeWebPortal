@@ -25,9 +25,7 @@ namespace TheWeWebSite.StoreMgt
                     {
                         labelPageTitle.Text = Resources.Resource.StoreMgtString
                         + " > " + Resources.Resource.FittingMaintainString
-                        + " > " + Resources.Resource.ModifyString;
-                        btnModify.Visible = true;
-                        btnDelete.Visible = true;
+                        + " > " + Resources.Resource.ModifyString;                        
                         SetAllData(Session["FittingCategory"].ToString(), Session["FittingId"].ToString());
                     }
                     else
@@ -63,18 +61,30 @@ namespace TheWeWebSite.StoreMgt
             GenderList();
             SupplierList();
             RelatedCategory();
+            StoreList();
         }
         private void InitialControlWithPermission()
         {
             PermissionUtil util = new PermissionUtil();
             if (Session["Operation"] == null) Response.Redirect("~/Login.aspx");
-            PermissionItem item = util.GetPermissionByKey(Session["Operation"], util.GetOperationSnByPage(this.Page.AppRelativeVirtualPath));
-            btnCreate.Visible = item.CanCreate;
-            btnCreate.Enabled = item.CanCreate;
-            btnDelete.Visible = item.CanDelete;
-            btnDelete.Enabled = item.CanDelete;
-            btnModify.Visible = item.CanModify;
-            btnModify.Enabled = item.CanModify;
+            if (Session["LocateStore"] != null)
+            {
+                if (!bool.Parse(((DataRow)Session["LocateStore"])["HoldingCompany"].ToString()))
+                {
+                    btnCreate.Visible = false;
+                    btnClear.Visible = false;
+                }
+            }
+            else
+            {
+                PermissionItem item = util.GetPermissionByKey(Session["Operation"], util.GetOperationSnByPage(this.Page.AppRelativeVirtualPath));
+                btnCreate.Visible = item.CanCreate;
+                btnCreate.Enabled = item.CanCreate;
+                btnDelete.Visible = item.CanDelete;
+                btnDelete.Enabled = item.CanDelete;
+                btnModify.Visible = item.CanModify;
+                btnModify.Enabled = item.CanModify;
+            }
         }
 
         private void SetDivByAccessoryCategory(string category)
@@ -138,6 +148,20 @@ namespace TheWeWebSite.StoreMgt
         }
 
         #region DropDownList
+        private void StoreList()
+        {
+            ddlStore.Items.Clear();
+            string sql = "select * from Store Where IsDelete=0";
+            DataSet ds = GetDataFromDb(sql);
+            if (SysProperty.Util.IsDataSetEmpty(ds)) return;
+            foreach (DataRow dr in ds.Tables[0].Rows)
+            {
+                ddlStore.Items.Add(new ListItem(
+                    SysProperty.Util.OutputRelatedLangName(Session["CultureCode"].ToString(), dr)
+                    , dr["Id"].ToString()
+                    ));
+            }
+        }
         private void GenderList()
         {
             ddlGender.Items.Clear();
@@ -386,6 +410,7 @@ namespace TheWeWebSite.StoreMgt
             ddlType.SelectedValue = dr["Category"].ToString();
             ddlSupplier.SelectedValue = dr["SupplierId"].ToString();
             ddlStatus.SelectedValue = dr["StatusCode"].ToString();
+            ddlStore.SelectedValue = Session["LocateStore"] == null ? string.Empty : ((DataRow)Session["LocateStore"])["Id"].ToString();
             try { tbColor2.Text = dr["Color2"].ToString(); }
             catch { tbColor2.Text = string.Empty; }
             try { tbMaterial2.Text = dr["Material2"].ToString(); }
@@ -404,9 +429,45 @@ namespace TheWeWebSite.StoreMgt
 
             string imgPath = @dr["Img"].ToString();
             if (string.IsNullOrEmpty(imgPath)) imgPath = SysProperty.ImgRootFolderpath + @"\" + tableName + @"\" + tbSn.Text;
+            else imgPath = SysProperty.ImgRootFolderpath + imgPath;
             string ImgFolderPath = imgPath;
             RefreshImage(0, ImgFolderPath);
             tbFolderPath.Text = ImgFolderPath;
+
+            if (Session["LocateStore"] != null)
+            {
+                if (!bool.Parse(((DataRow)Session["LocateStore"])["HoldingCompany"].ToString()))
+                {
+                    tbColor1.Enabled = false;
+                    tbColor2.Enabled = false;
+                    tbCost.Enabled = false;
+                    tbFolderPath.Enabled = false;
+                    tbLace.Enabled = false;
+                    tbMaterial1.Enabled = false;
+                    tbMaterial2.Enabled = false;
+                    tbRelatedSn.Enabled = false;
+                    tbSn.Enabled = false;
+                    tbType.Enabled = false;
+                    ddlCategory.Enabled = false;
+                    ddlEarringType.Enabled = false;
+                    ddlGender.Enabled = false;
+                    ddlLength.Enabled = false;
+                    ddlRelatedCategory.Enabled = false;
+                    ddlStore.Enabled = false;
+                    ddlSupplier.Enabled = false;
+                    ddlType.Enabled = false;
+                    btnImgBackUpload.Visible = false;
+                    btnImgFrontUpload.Visible = false;
+                    btnImgOther1.Visible = false;
+                    btnImgOther2.Visible = false;
+                    btnImgSideUpload.Visible = false;
+                    ImgBackUpload.Visible = false;
+                    ImgFrontUpload.Visible = false;
+                    ImgSideUpload.Visible = false;
+                    ImgOther1Upload.Visible = false;
+                    ImgOther2Upload.Visible = false;
+                }
+            }
         }
 
         #region Rent Records
@@ -627,12 +688,15 @@ namespace TheWeWebSite.StoreMgt
                     ));
             }
 
-            lst.Add(new DbSearchObject(
-                "StoreId"
-                , AtrrTypeItem.String
-                , AttrSymbolItem.Equal
-                , ((DataRow)Session["LocateStore"])["Id"].ToString()
-                ));
+            if (string.IsNullOrEmpty(ddlStore.SelectedValue))
+            {
+                lst.Add(new DbSearchObject(
+                    "StoreId"
+                    , AtrrTypeItem.String
+                    , AttrSymbolItem.Equal
+                    , ddlStore.SelectedValue
+                    ));
+            }
             lst.Add(new DbSearchObject(
                 "UpdateAccId"
                 , AtrrTypeItem.String

@@ -40,6 +40,15 @@ namespace TheWeWebSite.StoreMgt {
         protected global::System.Web.UI.WebControls.Label labelWarnString;
         
         /// <summary>
+        /// ddlStore 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlStore;
+        
+        /// <summary>
         /// tbSn 控制項。
         /// </summary>
         /// <remarks>
@@ -283,13 +292,13 @@ namespace TheWeWebSite.StoreMgt {
         protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidator3;
         
         /// <summary>
-        /// tbPrice 控制項。
+        /// tbSellsPrice 控制項。
         /// </summary>
         /// <remarks>
         /// 自動產生的欄位。
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbPrice;
+        protected global::System.Web.UI.WebControls.TextBox tbSellsPrice;
         
         /// <summary>
         /// RegularExpressionValidator4 控制項。
@@ -310,13 +319,13 @@ namespace TheWeWebSite.StoreMgt {
         protected global::System.Web.UI.WebControls.CheckBox cbOutPhoto;
         
         /// <summary>
-        /// tbOutPhotoPrice 控制項。
+        /// tbOutdoorPlusPrice 控制項。
         /// </summary>
         /// <remarks>
         /// 自動產生的欄位。
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbOutPhotoPrice;
+        protected global::System.Web.UI.WebControls.TextBox tbOutdoorPlusPrice;
         
         /// <summary>
         /// RegularExpressionValidator5 控制項。

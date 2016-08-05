@@ -756,8 +756,8 @@
   <data name="WeddingRehersalString" xml:space="preserve">
     <value>婚禮彩排</value>
   </data>
-  <data name="AdditionalItemString" xml:space="preserve">
-    <value>附加項目</value>
+  <data name="CustomAdditionalItemString" xml:space="preserve">
+    <value>自訂附加項目</value>
   </data>
   <data name="MeetingString" xml:space="preserve">
     <value>抵達後的開會討論</value>
@@ -968,5 +968,11 @@
   </data>
   <data name="RentRecordString" xml:space="preserve">
     <value>租用紀錄</value>
+  </data>
+  <data name="StoreLevelString" xml:space="preserve">
+    <value>級別</value>
+  </data>
+  <data name="ChurchAdditionalItemString" xml:space="preserve">
+    <value>教堂附加項目</value>
   </data>
 </root>

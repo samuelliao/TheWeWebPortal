@@ -43,7 +43,7 @@ namespace TheWeWebSite.StoreMgt
             PermissionItem item = util.GetPermissionByKey(Session["Operation"], util.GetOperationSnByPage(this.Page.AppRelativeVirtualPath));
             LinkModelingMCreate.Visible = item.CanCreate;
             LinkModelingMCreate.Enabled = item.CanCreate;
-            dataGrid.Columns[dataGrid.Columns.Count - 1].Visible = item.CanDelete;
+            dataGrid.Columns[dataGrid.Columns.Count - 1].Visible = item.CanDelete;            
         }
         private void InitialHairCategory()
         {
@@ -59,7 +59,7 @@ namespace TheWeWebSite.StoreMgt
                     ddlCategory.Items.Add(
                         new ListItem(
                         dr["Name"].ToString()
-                        ,  dr["Id"].ToString(), true));
+                        , dr["Id"].ToString(), true));
                 }
             }
             catch (Exception ex)
@@ -159,7 +159,8 @@ namespace TheWeWebSite.StoreMgt
                     + " from [TheWe].[dbo].[HairStyleItem] as a "
                     + " left join HairStyleCategory as b on b.Id=a.Type"
                     + " where a.IsDelete =0 " + OtherConditionString
-                    + (((DataRow)Session["LocateStore"]) == null ? string.Empty
+                    + (bool.Parse(((DataRow)Session["LocateStore"])["HoldingCompany"].ToString())
+                    ? string.Empty
                     : " and a.StoreId = '" + ((DataRow)Session["LocateStore"])["Id"].ToString() + "'")
                     + " " + sortStr;
                 DS = SysProperty.GenDbCon.GetDataFromTable(sql);

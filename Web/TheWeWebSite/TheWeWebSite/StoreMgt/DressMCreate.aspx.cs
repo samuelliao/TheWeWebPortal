@@ -21,14 +21,11 @@ namespace TheWeWebSite.StoreMgt
                 {
                     InitialControl();
                     InitialControlWithPermission();
-
                     if (Session["DressId"] != null)
                     {
                         labelPageTitle.Text = Resources.Resource.StoreMgtString
                         + " > " + Resources.Resource.DressString
                         + " > " + Resources.Resource.ModifyString;
-                        btnModify.Visible = true;
-                        btnDelete.Visible = true;
                         SetDressInfoData(Session["DressId"].ToString());
                     }
                     else
@@ -38,6 +35,7 @@ namespace TheWeWebSite.StoreMgt
                         + " > " + Resources.Resource.CreateString;
                         btnModify.Visible = false;
                         btnDelete.Visible = false;
+                        ddlStore.SelectedValue = Session["LocateStore"] == null ? string.Empty : ((DataRow)Session["LocateStore"])["Id"].ToString();
                     }
                 }
             }
@@ -64,13 +62,18 @@ namespace TheWeWebSite.StoreMgt
             btnDelete.Enabled = item.CanDelete;
             btnModify.Visible = item.CanModify;
             btnModify.Enabled = item.CanModify;
+            if (!bool.Parse(((DataRow)Session["LocateStore"])["HoldingCompany"].ToString()))
+            {
+                btnCreate.Visible = false;
+            }
         }
         private void InitialControl()
         {
             DressCategoryList();
             VeilList();
-            DressTypeList();            
+            DressTypeList();
             GlovesList();
+            StoreList();
             NecklineList();
             ShoulderList();
             StatusCodeList();
@@ -84,6 +87,20 @@ namespace TheWeWebSite.StoreMgt
         }
 
         #region DropDownList Control
+        private void StoreList()
+        {
+            ddlStore.Items.Clear();
+            string sql = "Select * From Store Where IsDelete = 0";
+            DataSet ds = GetDataSetFromTable(sql);
+            if (SysProperty.Util.IsDataSetEmpty(ds)) return;
+            foreach (DataRow dr in ds.Tables[0].Rows)
+            {
+                ddlStore.Items.Add(new ListItem(
+                    SysProperty.Util.OutputRelatedLangName(Session["CultureCode"].ToString(), dr)
+                    , dr["Id"].ToString()
+                    ));
+            }
+        }
         private void DressBackList()
         {
             ddlBack.Items.Clear();
@@ -295,7 +312,7 @@ namespace TheWeWebSite.StoreMgt
                 ShowErrorMsg(Resources.Resource.SnDuplicateErrorString);
                 return;
             }
-            bool result = WriteBackInfo(true, DressInfoDbObject(), string.Empty);
+            bool result = WriteBackInfo(true, DressInfoMainDbObject(), string.Empty);
             if (result)
             {
                 TransferToOtherPage();
@@ -303,9 +320,9 @@ namespace TheWeWebSite.StoreMgt
         }
 
         protected void btnModify_Click(object sender, EventArgs e)
-        {            
+        {
             if (Session["DressId"] == null) return;
-            bool result = WriteBackInfo(false, DressInfoDbObject(), Session["DressId"].ToString());
+            bool result = WriteBackInfo(false, DressInfoMainDbObject(), Session["DressId"].ToString());
             if (result)
             {
                 TransferToOtherPage();
@@ -320,9 +337,9 @@ namespace TheWeWebSite.StoreMgt
             tbMaterial.Text = string.Empty;
             tbOthers.Text = string.Empty;
             tbFitting.Text = string.Empty;
-            tbOutPhotoPrice.Text = string.Empty;
+            tbOutdoorPlusPrice.Text = string.Empty;
             tbPlusItemPrice.Text = string.Empty;
-            tbPrice.Text = string.Empty;
+            tbSellsPrice.Text = string.Empty;
             tbRentPrice.Text = string.Empty;
             tbSn.Text = string.Empty;
             ddlBack.SelectedIndex = 0;
@@ -395,8 +412,8 @@ namespace TheWeWebSite.StoreMgt
             tbCustomPrice.Text = SysProperty.Util.ParseMoney(dr["CustomPrice"].ToString()).ToString("#0.00");
             tbMaterial.Text = dr["Material"].ToString();
             tbMaterial2.Text = dr["Material2"].ToString();
-            tbOthers.Text = dr["Description"].ToString();            
-            tbPrice.Text = SysProperty.Util.ParseMoney(dr["SellsPrice"].ToString()).ToString("#0.00");
+            tbOthers.Text = dr["Description"].ToString();
+            tbSellsPrice.Text = SysProperty.Util.ParseMoney(dr["SellsPrice"].ToString()).ToString("#0.00");
             tbRentPrice.Text = SysProperty.Util.ParseMoney(dr["RentPrice"].ToString()).ToString("#0.00");
             tbFitting.Text = dr["Fitting"].ToString();
             tbSn.Text = dr["Sn"].ToString();
@@ -418,16 +435,18 @@ namespace TheWeWebSite.StoreMgt
             cbDomesticWedding.Checked = bool.Parse(dr["DomesticWedding"].ToString());
             cbOutPhoto.Checked = bool.Parse(dr["OutPicture"].ToString());
             cbPlusItem.Checked = bool.Parse(dr["AddPrice"].ToString());
+            ddlStore.SelectedValue = dr["StoreId"].ToString();
 
             string imgPath = @dr["Img"].ToString();
             if (string.IsNullOrEmpty(imgPath)) imgPath = SysProperty.ImgRootFolderpath + @"\Dress\" + tbSn.Text;
+            else imgPath = SysProperty.ImgRootFolderpath + imgPath;
             string ImgFolderPath = imgPath;
             RefreshImage(0, ImgFolderPath);
             tbFolderPath.Text = ImgFolderPath;
 
             if (cbPlusItem.Checked)
             {
-                tbPlusItemPrice.Text = SysProperty.Util.ParseMoney(dr["PlusItemPlrice"].ToString()).ToString("#0.00");
+                tbPlusItemPrice.Text = SysProperty.Util.ParseMoney(dr["PlusItemPrice"].ToString()).ToString("#0.00");
             }
             else
             {
@@ -435,15 +454,57 @@ namespace TheWeWebSite.StoreMgt
             }
             if (cbOutPhoto.Checked)
             {
-                tbOutPhotoPrice.Text = SysProperty.Util.ParseMoney(dr["OutdoorPlusPrice"].ToString()).ToString("#0.00");
+                tbOutdoorPlusPrice.Text = SysProperty.Util.ParseMoney(dr["OutdoorPlusPrice"].ToString()).ToString("#0.00");
             }
             else
             {
-                tbOutPhotoPrice.Text = string.Empty;
-            }            
+                tbOutdoorPlusPrice.Text = string.Empty;
+            }
+
+            if (Session["LocateStore"] != null)
+            {
+                if (!bool.Parse(((DataRow)Session["LocateStore"])["HoldingCompany"].ToString()))
+                {
+                    tbColor.Enabled = false;
+                    tbColor2.Enabled = false;
+                    tbFitting.Enabled = false;
+                    tbMaterial.Enabled = false;
+                    tbMaterial2.Enabled = false;
+                    tbOthers.Enabled = false;
+                    tbSn.Enabled = false;
+                    cbBigSize.Enabled = false;
+                    cbDomesticWedding.Enabled = false;
+                    cbOutPhoto.Enabled = false;
+                    cbPlusItem.Enabled = false;
+                    btnClear.Visible = false;
+                    btnImgBackUpload.Visible = false;
+                    btnImgFrontUpload.Visible = false;
+                    btnImgOther1.Visible = false;
+                    btnImgOther2.Visible = false;
+                    btnImgSideUpload.Visible = false;
+                    ImgBackUpload.Visible = false;
+                    ImgFrontUpload.Visible = false;
+                    ImgOther1Upload.Visible = false;
+                    ImgOther2Upload.Visible = false;
+                    ImgSideUpload.Visible = false;
+                    ddlBack.Enabled = false;
+                    ddlCorsage.Enabled = false;
+                    ddlDressCategory.Enabled = false;
+                    ddlDressType.Enabled = false;
+                    ddlGender.Enabled = false;
+                    ddlGloves.Enabled = false;
+                    ddlNeckline.Enabled = false;
+                    ddlShoulder.Enabled = false;
+                    ddlSupplier.Enabled = false;
+                    ddlTrailing.Enabled = false;
+                    ddlVeil.Enabled = false;
+                    ddlWorn.Enabled = false;
+                    ddlStore.Enabled = false;
+                }
+            }
         }
 
-        private List<DbSearchObject> DressInfoDbObject()
+        private List<DbSearchObject> DressInfoMainDbObject()
         {
             List<DbSearchObject> lst = new List<DbSearchObject>();
             lst.Add(new DbSearchObject(
@@ -500,13 +561,13 @@ namespace TheWeWebSite.StoreMgt
                     "OutdoorPlusPrice"
                     , AtrrTypeItem.String
                     , AttrSymbolItem.Equal
-                    , tbOutPhotoPrice.Text
+                    , tbOutdoorPlusPrice.Text
                     ));
             }
             if (cbPlusItem.Checked)
             {
                 lst.Add(new DbSearchObject(
-                    "PlusItemPlrice"
+                    "PlusItemPrice"
                     , AtrrTypeItem.String
                     , AttrSymbolItem.Equal
                     , tbPlusItemPrice.Text
@@ -516,7 +577,7 @@ namespace TheWeWebSite.StoreMgt
                 "SellsPrice"
                 , AtrrTypeItem.String
                 , AttrSymbolItem.Equal
-                , tbPrice.Text
+                , tbSellsPrice.Text
                 ));
             lst.Add(new DbSearchObject(
                 "RentPrice"
@@ -691,7 +752,7 @@ namespace TheWeWebSite.StoreMgt
                 "StoreId"
                 , AtrrTypeItem.String
                 , AttrSymbolItem.Equal
-                , ((DataRow)Session["LocateStore"])["Id"].ToString()
+                , ddlStore.SelectedValue
                 ));
             lst.Add(new DbSearchObject(
                 "Img"
@@ -715,17 +776,18 @@ namespace TheWeWebSite.StoreMgt
                             SysProperty.Util.MsSqlTableConverter(MsSqlTable.Dress)
                             , SysProperty.Util.SqlQueryUpdateConverter(lst)
                             , " Where Id = '" + id + "'");
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 SysProperty.Log.Error(ex.Message);
                 ShowErrorMsg(ex.Message);
                 return false;
             }
-        }
+        }        
 
         protected void cbOutPhoto_CheckedChanged(object sender, EventArgs e)
         {
-            tbOutPhotoPrice.Enabled = ((CheckBox)sender).Checked;
+            tbOutdoorPlusPrice.Enabled = ((CheckBox)sender).Checked;
         }
 
         protected void cbPlusItem_CheckedChanged(object sender, EventArgs e)

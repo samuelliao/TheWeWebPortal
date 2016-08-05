@@ -269,7 +269,8 @@ namespace TheWeWebSite.CaseMgt
         {
             if (DS == null)
             {
-                string storeId = ((DataRow)Session["LocateStore"]) == null ? string.Empty : ((DataRow)Session["LocateStore"])["Id"].ToString();
+                string storeId = bool.Parse(((DataRow)Session["LocateStore"])["HoldingCompany"].ToString())
+                    ? string.Empty : ((DataRow)Session["LocateStore"])["Id"].ToString();
                 GetCaseList(storeId, OtherConditionString
                     + " Order by c." + e.SortExpression + " " + SysProperty.Util.GetSortDirection(e.SortExpression));
             }
@@ -329,7 +330,8 @@ namespace TheWeWebSite.CaseMgt
 
         private void BindData()
         {
-            string storeId = ((DataRow)Session["LocateStore"]) == null ? string.Empty : ((DataRow)Session["LocateStore"])["Id"].ToString();
+            string storeId = bool.Parse(((DataRow)Session["LocateStore"])["HoldingCompany"].ToString())
+                ? string.Empty : ((DataRow)Session["LocateStore"])["Id"].ToString();
             GetCaseList(storeId, OtherConditionString);
             dataGrid.DataSource = DS;
             dataGrid.AllowPaging = !SysProperty.Util.IsDataSetEmpty(DS);

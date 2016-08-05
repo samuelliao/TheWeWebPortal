@@ -18,8 +18,9 @@ namespace TheWeWebSite.StoreMgt
                 if (SysProperty.Util == null) Response.Redirect("../Login.aspx", true);
                 else
                 {
-                    FirstGridViewRow();
                     InitialAllDropDownList();
+                    FirstGridViewRow_dgChurchServiceItem();
+                    FirstGridViewRow_dgCutomServiceItem();
                     InitialControlWithPermission();
 
                     if (Session["SetId"] != null)
@@ -75,6 +76,30 @@ namespace TheWeWebSite.StoreMgt
             ServiceCategoryDropDownList();
             WeddingTypeDropDownList();
             StaffDropDownList();
+            StoreList();
+        }
+        private void StoreList()
+        {
+            ddlStore.Items.Clear();
+            try
+            {
+                List<DbSearchObject> lst = new List<DbSearchObject>();
+                lst.Add(new DbSearchObject("IsDelete", AtrrTypeItem.Bit, AttrSymbolItem.Equal, "0"));
+                DataSet ds = GetDataFromDb(SysProperty.Util.MsSqlTableConverter(MsSqlTable.Store), lst);
+                foreach (DataRow dr in ds.Tables[0].Rows)
+                {
+                    ddlStore.Items.Add(new ListItem
+                        (SysProperty.Util.OutputRelatedLangName(((string)Session["CultureCode"]), dr)
+                        + "(" + dr["Sn"].ToString() + ")"
+                        , dr["Id"].ToString()));
+                }
+                ddlStore.SelectedValue = ((DataRow)Session["LocateStore"])["Id"].ToString();
+            }
+            catch (Exception ex)
+            {
+                SysProperty.Log.Error(ex.Message);
+                ShowErrorMsg(ex.Message);
+            }
         }
         private void WeddingTypeDropDownList()
         {
@@ -207,18 +232,18 @@ namespace TheWeWebSite.StoreMgt
         {
             AreaDropDownList(ddlCountry.SelectedValue);
             LocationDropDownList(ddlCountry.SelectedValue, ddlArea.SelectedValue);
-            FirstGridViewRow();
+            FirstGridViewRow_dgChurchServiceItem();
         }
 
         protected void ddlArea_SelectedIndexChanged(object sender, EventArgs e)
         {
             LocationDropDownList(ddlCountry.SelectedValue, ddlArea.SelectedValue);
-            FirstGridViewRow();
+            FirstGridViewRow_dgChurchServiceItem();
         }
 
         protected void ddlLocate_SelectedIndexChanged(object sender, EventArgs e)
         {
-            FirstGridViewRow();
+            FirstGridViewRow_dgChurchServiceItem();
         }
         #endregion
         #endregion
@@ -252,34 +277,41 @@ namespace TheWeWebSite.StoreMgt
 
         protected void btnClear_Click(object sender, EventArgs e)
         {
-            tbBridalHairStyle.Text = string.Empty;
-            tbCorsage.Text = string.Empty;            
-            tbCost.Text = string.Empty;
-            tbDecorate.Text = string.Empty;
-            tbFilmLocation.Text = string.Empty;
-            tbFilmTime.Text = string.Empty;
-            tbGroomHairStyle.Text = string.Empty;
-            tbMovemont.Text = string.Empty;
-            tbPerformence.Text = string.Empty;
-            tbPhotoNumber.Text = string.Empty;
-            tbPrice.Text = string.Empty;
-            tbRoom.Text = string.Empty;
-            tbSn.Text = string.Empty;
-            tbStay.Text = string.Empty;
-            cbBreakfast.Checked = false;
-            cbCertificate.Checked = false;
-            cbChurchCost.Checked = false;
-            cbDinner.Checked = false;
-            cbIroning.Checked = false;
-            cbLegal.Checked = false;
-            cbLounge.Checked = false;
-            cbLunch.Checked = false;
-            cbMeeting.Checked = false;
-            cbPastor.Checked = false;
-            cbPen.Checked = false;
-            cbPillow.Checked = false;
-            cbRehersal.Checked = false;
-            FirstGridViewRow();
+            if (Session["LocateStore"] != null)
+            {
+                if (bool.Parse(((DataRow)Session["LocateStore"])["HoldingCompany"].ToString()))
+                {
+                    tbBridalHairStyle.Text = string.Empty;
+                    tbCorsage.Text = string.Empty;
+                    tbCost.Text = "0";
+                    tbDecorate.Text = string.Empty;
+                    tbFilmLocation.Text = string.Empty;
+                    tbFilmTime.Text = string.Empty;
+                    tbGroomHairStyle.Text = string.Empty;
+                    tbMovemont.Text = string.Empty;
+                    tbPerformence.Text = string.Empty;
+                    tbPhotoNumber.Text = string.Empty;
+                    tbRoom.Text = string.Empty;
+                    tbSn.Text = string.Empty;
+                    tbStay.Text = string.Empty;
+                    cbBreakfast.Checked = false;
+                    cbCertificate.Checked = false;
+                    cbChurchCost.Checked = false;
+                    cbDinner.Checked = false;
+                    cbIroning.Checked = false;
+                    cbLegal.Checked = false;
+                    cbLounge.Checked = false;
+                    cbLunch.Checked = false;
+                    cbMeeting.Checked = false;
+                    cbPastor.Checked = false;
+                    cbPen.Checked = false;
+                    cbPillow.Checked = false;
+                    cbRehersal.Checked = false;
+                    FirstGridViewRow_dgChurchServiceItem();
+                }
+            }
+            FirstGridViewRow_dgCutomServiceItem();
+            tbPrice.Text = tbCost.Text;
         }
 
         protected void btnModify_Click(object sender, EventArgs e)
@@ -289,7 +321,13 @@ namespace TheWeWebSite.StoreMgt
             if (string.IsNullOrEmpty(id)) return;
             bool result = WriteBackInfo(MsSqlTable.ProductSet, false, SetDbObject(), " Where Id='" + id + "'");
             if (!result) return;
-            result = WriteBackServiceItem(false, ServiceItemDbObject(id), id);
+            if (bool.Parse(((DataRow)Session["LocateStore"])["HoldingCompany"].ToString())
+                && ddlStore.SelectedValue == ((DataRow)Session["LocateStore"])["Id"].ToString())
+            {
+                result = WriteBackServiceItem(MsSqlTable.ProductSetChurchServiceItem, false, ServiceItemDbObject("Church", id), id);
+                result = WriteBackStoreLvPrice(false, StoreLvPriceDbObject(id));
+            }
+            result = WriteBackServiceItem(MsSqlTable.ProductSetServiceItem, false, ServiceItemDbObject("Custom", id), id);
             if (result)
             {
                 TransferToOtherPage();
@@ -313,7 +351,13 @@ namespace TheWeWebSite.StoreMgt
             if (!result) return;
             string id = GetCreateSetId(lst);
             if (string.IsNullOrEmpty(id)) return;
-            result = WriteBackServiceItem(true, ServiceItemDbObject(id), id);
+            if (bool.Parse(((DataRow)Session["LocateStore"])["HoldingCompany"].ToString())
+                && ddlStore.SelectedValue == ((DataRow)Session["LocateStore"])["Id"].ToString())
+            {
+                result = WriteBackServiceItem(MsSqlTable.ProductSetServiceItem, false, ServiceItemDbObject("Church", id), id);
+                result = WriteBackStoreLvPrice(true, StoreLvPriceDbObject(id));
+            }
+            result = WriteBackServiceItem(MsSqlTable.ProductSetChurchServiceItem, false, ServiceItemDbObject("Custom", id), id);
             if (result)
             {
                 TransferToOtherPage();
@@ -321,29 +365,8 @@ namespace TheWeWebSite.StoreMgt
         }
         #endregion
 
-        #region Service Item Table
-        protected void dgBookTable_RowDeleting(object sender, GridViewDeleteEventArgs e)
-        {
-            SetRowData();
-            if (ViewState["CurrentTable"] != null)
-            {
-                DataTable dt = (DataTable)ViewState["CurrentTable"];
-                DataRow drCurrentRow = null;
-                int rowIndex = Convert.ToInt32(e.RowIndex);
-                if (dt.Rows.Count > 1)
-                {
-                    dt.Rows.Remove(dt.Rows[rowIndex]);
-                    drCurrentRow = dt.NewRow();
-                    ViewState["CurrentTable"] = dt;
-                    dgServiceItem.DataSource = dt;
-                    dgServiceItem.DataBind();
-
-                    SetPreviousData();
-                }
-            }
-        }
-
-        private void FirstGridViewRow()
+        #region Church Service Item Table
+        private void FirstGridViewRow_dgChurchServiceItem()
         {
             DataTable dt = new DataTable();
             DataRow dr = null;
@@ -357,11 +380,11 @@ namespace TheWeWebSite.StoreMgt
             dt.Rows.Add(dr);
 
             ViewState["CurrentTable"] = dt;
-            dgServiceItem.DataSource = dt;
-            dgServiceItem.DataBind();
+            dgChurchServiceItem.DataSource = dt;
+            dgChurchServiceItem.DataBind();
         }
 
-        private void AddNewRow()
+        private void AddNewRow_dgChurchServiceItem()
         {
             int rowIndex = 0;
 
@@ -374,11 +397,11 @@ namespace TheWeWebSite.StoreMgt
                     for (int i = 1; i <= dtCurrentTable.Rows.Count; i++)
                     {
                         DropDownList DdlItem =
-                            (DropDownList)dgServiceItem.Rows[rowIndex].Cells[0].FindControl("ddlServiceItem");
+                            (DropDownList)dgChurchServiceItem.Rows[rowIndex].Cells[0].FindControl("ddlServiceItem");
                         TextBox TextStart =
-                          (TextBox)dgServiceItem.Rows[rowIndex].Cells[1].FindControl("tbNumber");
+                          (TextBox)dgChurchServiceItem.Rows[rowIndex].Cells[1].FindControl("tbNumber");
                         TextBox TextEnd =
-                          (TextBox)dgServiceItem.Rows[rowIndex].Cells[2].FindControl("tbPrice");
+                          (TextBox)dgChurchServiceItem.Rows[rowIndex].Cells[2].FindControl("tbPrice");
 
 
                         drCurrentRow = dtCurrentTable.NewRow();
@@ -390,18 +413,18 @@ namespace TheWeWebSite.StoreMgt
                     dtCurrentTable.Rows.Add(drCurrentRow);
                     ViewState["CurrentTable"] = dtCurrentTable;
 
-                    dgServiceItem.DataSource = dtCurrentTable;
-                    dgServiceItem.DataBind();
+                    dgChurchServiceItem.DataSource = dtCurrentTable;
+                    dgChurchServiceItem.DataBind();
                 }
             }
             else
             {
                 Response.Write("ViewState is null");
             }
-            SetPreviousData();
+            SetPreviousData_dgChurchServiceItem();
         }
 
-        private void SetPreviousData()
+        private void SetPreviousData_dgChurchServiceItem()
         {
             int rowIndex = 0;
             if (ViewState["CurrentTable"] != null)
@@ -411,9 +434,9 @@ namespace TheWeWebSite.StoreMgt
                 {
                     for (int i = 0; i < dt.Rows.Count; i++)
                     {
-                        DropDownList DdlItem = (DropDownList)dgServiceItem.Rows[rowIndex].Cells[0].FindControl("ddlServiceItem");
-                        TextBox TextStart = (TextBox)dgServiceItem.Rows[rowIndex].Cells[1].FindControl("tbNumber");
-                        TextBox TextEnd = (TextBox)dgServiceItem.Rows[rowIndex].Cells[2].FindControl("tbPrice");
+                        DropDownList DdlItem = (DropDownList)dgChurchServiceItem.Rows[rowIndex].Cells[0].FindControl("ddlServiceItem");
+                        TextBox TextStart = (TextBox)dgChurchServiceItem.Rows[rowIndex].Cells[1].FindControl("tbNumber");
+                        TextBox TextEnd = (TextBox)dgChurchServiceItem.Rows[rowIndex].Cells[2].FindControl("tbPrice");
                         if (TextStart == null) continue;
                         if (TextEnd == null) continue;
                         DdlItem.SelectedValue = dt.Rows[i]["Col1"].ToString();
@@ -425,7 +448,7 @@ namespace TheWeWebSite.StoreMgt
             }
         }
 
-        private void SetRowData()
+        private void SetRowData_dgChurchServiceItem()
         {
             int rowIndex = 0;
 
@@ -437,9 +460,9 @@ namespace TheWeWebSite.StoreMgt
                 {
                     for (int i = 1; i <= dtCurrentTable.Rows.Count; i++)
                     {
-                        DropDownList DdlItem = (DropDownList)dgServiceItem.Rows[rowIndex].Cells[0].FindControl("ddlServiceItem");
-                        TextBox TextNumber = (TextBox)dgServiceItem.Rows[rowIndex].Cells[1].FindControl("tbNumber");
-                        TextBox TextPrice = (TextBox)dgServiceItem.Rows[rowIndex].Cells[2].FindControl("tbPrice");
+                        DropDownList DdlItem = (DropDownList)dgChurchServiceItem.Rows[rowIndex].Cells[0].FindControl("ddlServiceItem");
+                        TextBox TextNumber = (TextBox)dgChurchServiceItem.Rows[rowIndex].Cells[1].FindControl("tbNumber");
+                        TextBox TextPrice = (TextBox)dgChurchServiceItem.Rows[rowIndex].Cells[2].FindControl("tbPrice");
                         drCurrentRow = dtCurrentTable.NewRow();
                         dtCurrentTable.Rows[i - 1]["Col1"] = DdlItem.SelectedValue;
                         dtCurrentTable.Rows[i - 1]["Col2"] = TextNumber.Text;
@@ -456,14 +479,14 @@ namespace TheWeWebSite.StoreMgt
             }
         }
 
-        protected void btnAddRow_Click(object sender, EventArgs e)
+        protected void btnAddRowChurchServiceItem_Click(object sender, EventArgs e)
         {
-            AddNewRow();
+            AddNewRow_dgChurchServiceItem();
         }
 
-        protected void dgServiceItem_RowDeleting(object sender, GridViewDeleteEventArgs e)
+        protected void dgChurchServiceItem_RowDeleting(object sender, GridViewDeleteEventArgs e)
         {
-            SetRowData();
+            SetRowData_dgChurchServiceItem();
             if (ViewState["CurrentTable"] != null)
             {
                 DataTable dt = (DataTable)ViewState["CurrentTable"];
@@ -474,38 +497,27 @@ namespace TheWeWebSite.StoreMgt
                     dt.Rows.Remove(dt.Rows[rowIndex]);
                     drCurrentRow = dt.NewRow();
                     ViewState["CurrentTable"] = dt;
-                    dgServiceItem.DataSource = dt;
-                    dgServiceItem.DataBind();
+                    dgChurchServiceItem.DataSource = dt;
+                    dgChurchServiceItem.DataBind();
 
-                    SetPreviousData();
+                    SetPreviousData_dgChurchServiceItem();
                 }
             }
         }
-        protected void dgServiceItem_RowDataBound(object sender, GridViewRowEventArgs e)
+        protected void dgChurchServiceItem_RowDataBound(object sender, GridViewRowEventArgs e)
         {
             DataRowView dataItem1 = (DataRowView)e.Row.DataItem;
             if (dataItem1 != null)
             {
-                if (Session["CultureCode"] == null) return;
-                string cultureCode = Session["CultureCode"].ToString();
                 DropDownList ddlService = (DropDownList)e.Row.FindControl("ddlServiceItem");
                 ddlService.Items.Add(new ListItem(Resources.Resource.ServiceItemSelectRemindString, string.Empty));
-                DataSet ds = SysProperty.GenDbCon.GetDataFromTable("Select * From ServiceItem Where IsDelete = 0 And IsGeneral = 1");
-                if (SysProperty.Util.IsDataSetEmpty(ds)) return;
-                foreach (DataRow dr in ds.Tables[0].Rows)
-                {
-                    ddlService.Items.Add(new ListItem(
-                        SysProperty.Util.OutputRelatedLangName(cultureCode, dr)
-                        , dr["Id"].ToString()
-                        ));
-                }
                 if (string.IsNullOrEmpty(ddlLocate.SelectedValue)) return;
-                ds = SysProperty.GenDbCon.GetDataFromTable("Select * From ServiceItem Where IsGeneral = 0 And SupplierId = '" + ddlLocate.SelectedValue+"'");
+                DataSet ds = SysProperty.GenDbCon.GetDataFromTable("Select * From ServiceItem Where IsGeneral = 0 And IsDelete=0 And SupplierId = '" + ddlLocate.SelectedValue + "'");
                 if (SysProperty.Util.IsDataSetEmpty(ds)) return;
                 foreach (DataRow dr in ds.Tables[0].Rows)
                 {
                     ddlService.Items.Add(new ListItem(
-                        SysProperty.Util.OutputRelatedLangName(cultureCode, dr)
+                        SysProperty.Util.OutputRelatedLangName(Session["CultureCode"].ToString(), dr)
                         , dr["Id"].ToString()
                         ));
                 }
@@ -542,6 +554,10 @@ namespace TheWeWebSite.StoreMgt
             string sqlTxt = "Select * From " + tableName + whereString;
             return (DataSet)InvokeDbControlFunction(sqlTxt, true);
         }
+        private DataSet GetDataFromDb(string sql)
+        {
+            return (DataSet)InvokeDbControlFunction(sql, true);
+        }
         private Object InvokeDbControlFunction(string sql, bool isSelect)
         {
             try
@@ -567,17 +583,32 @@ namespace TheWeWebSite.StoreMgt
             return ds.Tables[0].Rows[0]["Id"].ToString();
         }
 
-        private bool WriteBackServiceItem(bool isInsert, List<List<DbSearchObject>> lst, string id)
+        private bool WriteBackServiceItem(MsSqlTable table, bool isInsert, List<List<DbSearchObject>> lst, string id)
         {
             string condStr = " Where SetId = '" + id + "'";
             if (!isInsert)
             {
-                SysProperty.GenDbCon.ModifyDataInToTable("Delete From ProductSetServiceItem " + condStr);
+                SysProperty.GenDbCon.ModifyDataInToTable("Delete From " + SysProperty.Util.MsSqlTableConverter(table) + " " + condStr);
             }
             bool result = true;
             foreach (List<DbSearchObject> item in lst)
             {
-                result = result | WriteBackInfo(MsSqlTable.ProductSetServiceItem, true, item, condStr);
+                result = result | WriteBackInfo(table, true, item, condStr);
+            }
+            return result;
+        }
+
+        private bool WriteBackStoreLvPrice(bool isInsert, List<List<DbSearchObject>> lst)
+        {
+            string condStr = "";
+            bool result = true;
+            foreach (List<DbSearchObject> item in lst)
+            {
+                if (!isInsert)
+                {
+                    condStr = " Where Id = '" + item.Find(s => s.AttrName == "Id").AttrValue + "'";
+                }
+                result = result & WriteBackInfo(MsSqlTable.StoreLvSetPrice, isInsert, item, condStr);
             }
             return result;
         }
@@ -611,13 +642,17 @@ namespace TheWeWebSite.StoreMgt
             DataSet ds = GetDataFromDb(SysProperty.Util.MsSqlTableConverter(MsSqlTable.ProductSet), " Where Id='" + id + "'");
             if (SysProperty.Util.IsDataSetEmpty(ds)) return;
             DataRow dr = ds.Tables[0].Rows[0];
+            ddlStore.SelectedValue = dr["StoreId"].ToString();
+            ddlArea.SelectedValue = dr["AreaId"].ToString();
+            ddlCategory.SelectedValue = dr["Category"].ToString();
+            ddlCountry.SelectedValue = dr["CountryId"].ToString();
+            ddlLocate.SelectedValue = dr["ChurchId"].ToString();
             tbName.Text = dr["Name"].ToString();
             tbCnName.Text = dr["CnName"].ToString();
             tbJpName.Text = dr["JpName"].ToString();
             tbEngName.Text = dr["EngName"].ToString();
             tbBridalHairStyle.Text = dr["BridalMakeup"].ToString();
             tbCorsage.Text = dr["Corsage"].ToString();
-            tbCost.Text = SysProperty.Util.ParseMoney(dr["Cost"].ToString()).ToString("#0.00");
             tbDecorate.Text = dr["Decoration"].ToString();
             tbFilmLocation.Text = dr["FilmingLocation"].ToString();
             tbFilmTime.Text = dr["WeddingFilmingTime"].ToString();
@@ -625,9 +660,8 @@ namespace TheWeWebSite.StoreMgt
             tbMovemont.Text = dr["Moves"].ToString();
             tbPerformence.Text = dr["Performence"].ToString();
             tbPhotoNumber.Text = dr["PhotosNum"].ToString();
-            tbPrice.Text = SysProperty.Util.ParseMoney(dr["Price"].ToString()).ToString("#0.00");
             tbRoom.Text = dr["RoomId"].ToString();
-            tbSn.Text = dr["Sn"].ToString();
+            tbSn.Text = dr["Sn"].ToString() + "-" + SplitString(ddlStore.SelectedItem.Text, "(", 1).Replace(")", "");
             tbStay.Text = dr["StayNight"].ToString();
             cbBreakfast.Checked = bool.Parse(dr["Breakfast"].ToString());
             cbCertificate.Checked = bool.Parse(dr["Certificate"].ToString());
@@ -642,13 +676,102 @@ namespace TheWeWebSite.StoreMgt
             cbPen.Checked = bool.Parse(dr["SignPen"].ToString());
             cbPillow.Checked = bool.Parse(dr["RingPillow"].ToString());
             cbRehersal.Checked = bool.Parse(dr["Rehearsal"].ToString());
-            ddlArea.SelectedValue = dr["AreaId"].ToString();
-            ddlCategory.SelectedValue = dr["Category"].ToString();
-            ddlCountry.SelectedValue = dr["CountryId"].ToString();
-            ddlLocate.SelectedValue = dr["ChurchId"].ToString();
             ddlStaff.SelectedValue = dr["Staff"].ToString();
             ddlWeddingType.SelectedValue = dr["WeddingCategory"].ToString();
+            labelBaseId.Text = dr["BaseId"].ToString();
+
+            tbCost.Text = SysProperty.Util.ParseMoney(dr["Cost"].ToString()).ToString("#0.00");
+            tbPrice.Text = SysProperty.Util.ParseMoney(dr["Price"].ToString()).ToString("#0.00");
+            if (string.IsNullOrEmpty(labelBaseId.Text))
+            {
+                if (!bool.Parse(((DataRow)Session["LocateStore"])["HoldingCompany"].ToString()))
+                {
+                    labelBaseId.Text = id;
+                    GetCostAndPrice(string.IsNullOrEmpty(labelBaseId.Text)
+                        , labelBaseId.Text
+                        , SplitString(ddlStore.SelectedItem.Text, "(", 1).Replace(")", ""));
+                }
+            }
+
+            if (string.IsNullOrEmpty(labelBaseId.Text))
+            {
+                DisplayLevelPriceTable(true);
+                BindPriceData(id);
+            }
+            else { DisplayLevelPriceTable(false); }
             SetServiceItemTable(id);
+            FirstGridViewRow_dgChurchServiceItem();
+            SetServiceChurchItemTable(string.IsNullOrEmpty(labelBaseId.Text) ? id : labelBaseId.Text);
+
+            SetControlWithPermission();
+        }
+
+        private void GetCostAndPrice(bool hasBased, string setId, string storeId)
+        {
+            if (!bool.Parse(((DataRow)Session["LocateStore"])["HoldingCompany"].ToString()))
+            {
+                if (storeId != ((DataRow)Session["LocateStore"])["Id"].ToString())
+                {
+                    string condSql = " Where IsDelete=0 And SetId='" + setId
+                        + "' And StoreLv=" + ((DataRow)Session["LocateStore"])["GradeLv"].ToString();
+                    DataSet ds = GetDataFromDb("StoreLvSetPrice", condSql);
+                    if (SysProperty.Util.IsDataSetEmpty(ds)) return;
+                    tbCost.Text = SysProperty.Util.ParseMoney(ds.Tables[0].Rows[0]["Price"].ToString()).ToString("#0.00");
+                    tbPrice.Text = tbCost.Text;
+                }
+            }
+
+        }
+
+        private void SetControlWithPermission()
+        {
+            if (!string.IsNullOrEmpty(labelBaseId.Text))
+            {
+                tbBridalHairStyle.Enabled = false;
+                tbCnName.Enabled = false;
+                tbCorsage.Enabled = false;
+                tbCost.Enabled = false;
+                tbDecorate.Enabled = false;
+                tbEngName.Enabled = false;
+                tbFilmLocation.Enabled = false;
+                tbFilmTime.Enabled = false;
+                tbGroomHairStyle.Enabled = false;
+                tbJpName.Enabled = false;
+                tbMovemont.Enabled = false;
+                tbName.Enabled = false;
+                tbPerformence.Enabled = false;
+                tbPhotoNumber.Enabled = false;
+                tbRoom.Enabled = false;
+                tbSn.Enabled = false;
+                tbStay.Enabled = false;
+                ddlArea.Enabled = false;
+                ddlCategory.Enabled = false;
+                ddlCountry.Enabled = false;
+                ddlLocate.Enabled = false;
+                ddlStaff.Enabled = false;
+                ddlStore.Enabled = false;
+                ddlWeddingType.Enabled = false;
+                cbBreakfast.Enabled = false;
+                cbCertificate.Enabled = false;
+                cbChurchCost.Enabled = false;
+                cbDinner.Enabled = false;
+                cbIroning.Enabled = false;
+                cbLegal.Enabled = false;
+                cbLounge.Enabled = false;
+                cbLunch.Enabled = false;
+                cbMeeting.Enabled = false;
+                cbPastor.Enabled = false;
+                cbPen.Enabled = false;
+                cbPillow.Enabled = false;
+                cbRehersal.Enabled = false;
+                dgChurchServiceItem.Enabled = false;
+                dgChurchServiceItem.ShowFooter = false;
+            }
+
+            if (ddlStore.SelectedValue != ((DataRow)Session["LocateStore"])["Id"].ToString())
+            {
+                btnModify.Visible = false;
+            }
         }
 
         private void SetServiceItemTable(string id)
@@ -658,70 +781,88 @@ namespace TheWeWebSite.StoreMgt
             int cnt = 0;
             foreach (DataRow dr in ds.Tables[0].Rows)
             {
-                if (dgServiceItem.Rows.Count == 0)
+                if (dgCutomServiceItem.Rows.Count == 0)
                 {
-                    AddNewRow();
+                    AddNewRow_dgCutomServiceItem();
                 }
-                ((DropDownList)dgServiceItem.Rows[cnt].FindControl("ddlServiceItem")).SelectedValue = dr["ItemId"].ToString();
-                ((TextBox)dgServiceItem.Rows[cnt].FindControl("tbNumber")).Text = dr["Number"].ToString();
-                ((TextBox)dgServiceItem.Rows[cnt].FindControl("tbPrice")).Text = SysProperty.Util.ParseMoney(dr["Price"].ToString()).ToString("#0.00");
+                ((DropDownList)dgCutomServiceItem.Rows[cnt].FindControl("ddlServiceItem")).SelectedValue = dr["ItemId"].ToString();
+                ((TextBox)dgCutomServiceItem.Rows[cnt].FindControl("tbNumber")).Text = dr["Number"].ToString();
+                ((TextBox)dgCutomServiceItem.Rows[cnt].FindControl("tbPrice")).Text = SysProperty.Util.ParseMoney(dr["Price"].ToString()).ToString("#0.00");
                 cnt++;
-                AddNewRow();
+                AddNewRow_dgCutomServiceItem();
+            }
+        }
+        private void SetServiceChurchItemTable(string id)
+        {
+            DataSet ds = SysProperty.GenDbCon.GetDataFromTable("Select * From ProductSetChurchServiceItem Where IsDelete = 0 And SetId='" + id + "'");
+            if (SysProperty.Util.IsDataSetEmpty(ds)) return;
+            int cnt = 0;
+            foreach (DataRow dr in ds.Tables[0].Rows)
+            {
+                if (dgChurchServiceItem.Rows.Count == 0)
+                {
+                    AddNewRow_dgChurchServiceItem();
+                }
+                ((DropDownList)dgChurchServiceItem.Rows[cnt].FindControl("ddlServiceItem")).SelectedValue = dr["ItemId"].ToString();
+                ((TextBox)dgChurchServiceItem.Rows[cnt].FindControl("tbNumber")).Text = dr["Number"].ToString();
+                ((TextBox)dgChurchServiceItem.Rows[cnt].FindControl("tbPrice")).Text = SysProperty.Util.ParseMoney(dr["Price"].ToString()).ToString("#0.00");
+                cnt++;
+                AddNewRow_dgChurchServiceItem();
             }
         }
         #endregion
 
         #region Db Instance
-        private List<List<DbSearchObject>> ServiceItemDbObject(string id)
+        private List<List<DbSearchObject>> ServiceItemDbObject(string type, string id)
         {
             List<List<DbSearchObject>> result = new List<List<DbSearchObject>>();
             List<DbSearchObject> lst = new List<DbSearchObject>();
-            if (ViewState["CurrentTable"] != null)
-            {
                 string str = string.Empty;
-                if (dgServiceItem.Rows.Count > 0)
+            GridView gridView;
+            if (type == "Custom") gridView = dgCutomServiceItem;
+            else gridView = dgChurchServiceItem;
+            if (gridView.Rows.Count > 0)
+            {
+                foreach (GridViewRow dr in gridView.Rows)
                 {
-                    foreach (GridViewRow dr in dgServiceItem.Rows)
-                    {
-                        lst = new List<DbSearchObject>();
-                        str = ((DropDownList)dr.Cells[0].FindControl("ddlServiceItem")).SelectedValue;
-                        if (string.IsNullOrEmpty(str)) continue;
-                        lst.Add(new DbSearchObject(
-                            "ItemId"
-                            , AtrrTypeItem.Date
-                            , AttrSymbolItem.Equal
-                            , str
-                            ));
-                        str = ((TextBox)dr.Cells[1].FindControl("tbNumber")).Text;
-                        if (string.IsNullOrEmpty(str)) continue;
-                        lst.Add(new DbSearchObject(
-                            "Number"
-                            , AtrrTypeItem.Date
-                            , AttrSymbolItem.Equal
-                            , str
-                            ));
-                        str = ((TextBox)dr.Cells[2].FindControl("tbPrice")).Text;
-                        if (string.IsNullOrEmpty(str)) continue;
-                        lst.Add(new DbSearchObject(
-                            "Price"
-                            , AtrrTypeItem.Date
-                            , AttrSymbolItem.Equal
-                            , str
-                            ));
-                        lst.Add(new DbSearchObject(
-                            "SetId"
-                            , AtrrTypeItem.String
-                            , AttrSymbolItem.Equal
-                            , id
-                            ));
-                        lst.Add(new DbSearchObject(
-                            "UpdateAccId"
-                            , AtrrTypeItem.String
-                            , AttrSymbolItem.Equal
-                            , ((DataRow)Session["AccountInfo"])["Id"].ToString()
-                            ));
-                        result.Add(lst);
-                    }
+                    lst = new List<DbSearchObject>();
+                    str = ((DropDownList)dr.Cells[0].FindControl("ddlServiceItem")).SelectedValue;
+                    if (string.IsNullOrEmpty(str)) continue;
+                    lst.Add(new DbSearchObject(
+                        "ItemId"
+                        , AtrrTypeItem.String
+                        , AttrSymbolItem.Equal
+                        , str
+                        ));
+                    str = ((TextBox)dr.Cells[1].FindControl("tbNumber")).Text;
+                    if (string.IsNullOrEmpty(str)) continue;
+                    lst.Add(new DbSearchObject(
+                        "Number"
+                        , AtrrTypeItem.String
+                        , AttrSymbolItem.Equal
+                        , str
+                        ));
+                    str = ((TextBox)dr.Cells[2].FindControl("tbPrice")).Text;
+                    if (string.IsNullOrEmpty(str)) continue;
+                    lst.Add(new DbSearchObject(
+                        "Price"
+                        , AtrrTypeItem.String
+                        , AttrSymbolItem.Equal
+                        , str
+                        ));
+                    lst.Add(new DbSearchObject(
+                        "SetId"
+                        , AtrrTypeItem.String
+                        , AttrSymbolItem.Equal
+                        , id
+                        ));
+                    lst.Add(new DbSearchObject(
+                        "UpdateAccId"
+                        , AtrrTypeItem.String
+                        , AttrSymbolItem.Equal
+                        , ((DataRow)Session["AccountInfo"])["Id"].ToString()
+                        ));
+                    result.Add(lst);
                 }
             }
             return result;
@@ -732,10 +873,22 @@ namespace TheWeWebSite.StoreMgt
             List<DbSearchObject> lst = new List<DbSearchObject>();
             #region TextBox
             lst.Add(new DbSearchObject(
+                "Cost"
+                , AtrrTypeItem.Integer
+                , AttrSymbolItem.Equal
+                , tbCost.Text
+                ));
+            lst.Add(new DbSearchObject(
+            "Price"
+            , AtrrTypeItem.Integer
+            , AttrSymbolItem.Equal
+            , tbPrice.Text
+            ));
+            lst.Add(new DbSearchObject(
                 "Sn"
                 , AtrrTypeItem.String
                 , AttrSymbolItem.Equal
-                , tbSn.Text
+                , SplitString(tbSn.Text, "-", 0)
                 ));
             lst.Add(new DbSearchObject(
                 "Name"
@@ -774,22 +927,10 @@ namespace TheWeWebSite.StoreMgt
                 , tbGroomHairStyle.Text
                 ));
             lst.Add(new DbSearchObject(
-                "Cost"
-                , AtrrTypeItem.Integer
-                , AttrSymbolItem.Equal
-                , tbCost.Text
-                ));
-            lst.Add(new DbSearchObject(
                 "Corsage"
                 , AtrrTypeItem.String
                 , AttrSymbolItem.Equal
                 , tbCorsage.Text
-                ));
-            lst.Add(new DbSearchObject(
-                "Price"
-                , AtrrTypeItem.Integer
-                , AttrSymbolItem.Equal
-                , tbPrice.Text
                 ));
             lst.Add(new DbSearchObject(
                 "WeddingFilmingTime"
@@ -964,8 +1105,280 @@ namespace TheWeWebSite.StoreMgt
                 , cbRehersal.Checked ? "1" : "0"
                 ));
             #endregion
+            lst.Add(new DbSearchObject(
+                "StoreId"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , ddlStore.SelectedValue
+                ));
+            lst.Add(new DbSearchObject(
+                "UpdateAccId"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , ((DataRow)Session["AccountInfo"])["Id"].ToString()
+                ));
+            if (!string.IsNullOrEmpty(labelBaseId.Text))
+            {
+                lst.Add(new DbSearchObject(
+                    "BaseId"
+                    , AtrrTypeItem.String
+                    , AttrSymbolItem.Equal
+                    , labelBaseId.Text
+                    ));
+            }
             return lst;
         }
-        #endregion        
+
+        private List<List<DbSearchObject>> StoreLvPriceDbObject(string setId)
+        {
+            List<List<DbSearchObject>> result = new List<List<DbSearchObject>>();
+            List<DbSearchObject> lst = new List<DbSearchObject>();
+            string str = string.Empty;
+            if (PriceTable.Rows.Count > 0)
+            {
+                foreach (GridViewRow dr in PriceTable.Rows)
+                {
+                    lst = new List<DbSearchObject>();
+                    str = PriceTable.DataKeys[dr.RowIndex].Value.ToString();
+                    if (!string.IsNullOrEmpty(str))
+                    {
+                        lst.Add(new DbSearchObject(
+                            "Id"
+                            , AtrrTypeItem.String
+                            , AttrSymbolItem.Equal
+                            , str
+                            ));
+                    }
+                    str = dr.Cells[1].Text;
+                    if (string.IsNullOrEmpty(str)) continue;
+                    lst.Add(new DbSearchObject(
+                        "StoreLv"
+                        , AtrrTypeItem.String
+                        , AttrSymbolItem.Equal
+                        , str
+                        ));
+                    str = ((TextBox)dr.Cells[2].FindControl("tbStorePrice")).Text;
+                    if (string.IsNullOrEmpty(str)) continue;
+                    lst.Add(new DbSearchObject(
+                        "Price"
+                        , AtrrTypeItem.String
+                        , AttrSymbolItem.Equal
+                        , str
+                        ));
+                    lst.Add(new DbSearchObject(
+                        "SetId"
+                        , AtrrTypeItem.String
+                        , AttrSymbolItem.Equal
+                        , setId
+                        ));
+                    lst.Add(new DbSearchObject(
+                        "UpdateAccId"
+                        , AtrrTypeItem.String
+                        , AttrSymbolItem.Equal
+                        , ((DataRow)Session["AccountInfo"])["Id"].ToString()
+                        ));
+                    result.Add(lst);
+                }
+            }
+            return result;
+        }
+        #endregion
+
+        #region Custom Service Item Table
+        protected void dgCutomServiceItem_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            DataRowView dataItem1 = (DataRowView)e.Row.DataItem;
+            if (dataItem1 != null)
+            {
+                DropDownList ddlService = (DropDownList)e.Row.FindControl("ddlServiceItem");
+                ddlService.Items.Add(new ListItem(Resources.Resource.ServiceItemSelectRemindString, string.Empty));
+                DataSet ds = SysProperty.GenDbCon.GetDataFromTable("Select * From ServiceItem Where IsGeneral = 1 And IsDelete = 0");
+                if (SysProperty.Util.IsDataSetEmpty(ds)) return;
+                foreach (DataRow dr in ds.Tables[0].Rows)
+                {
+                    ddlService.Items.Add(new ListItem(
+                        SysProperty.Util.OutputRelatedLangName(Session["CultureCode"].ToString(), dr)
+                        , dr["Id"].ToString()
+                        ));
+                }
+                ddlService.SelectedIndex = 0;
+            }
+        }
+
+        protected void dgCutomServiceItem_RowDeleting(object sender, GridViewDeleteEventArgs e)
+        {
+            SetRowData_dgCutomServiceItem();
+            if (ViewState["CurrentTable2"] != null)
+            {
+                DataTable dt = (DataTable)ViewState["CurrentTable2"];
+                DataRow drCurrentRow = null;
+                int rowIndex = Convert.ToInt32(e.RowIndex);
+                if (dt.Rows.Count > 1)
+                {
+                    dt.Rows.Remove(dt.Rows[rowIndex]);
+                    drCurrentRow = dt.NewRow();
+                    ViewState["CurrentTable2"] = dt;
+                    dgCutomServiceItem.DataSource = dt;
+                    dgCutomServiceItem.DataBind();
+
+                    SetPreviousData_dgCutomServiceItem();
+                }
+            }
+        }
+
+        private void FirstGridViewRow_dgCutomServiceItem()
+        {
+            DataTable dt = new DataTable();
+            DataRow dr = null;
+            dt.Columns.Add(new DataColumn("Col1", typeof(string)));
+            dt.Columns.Add(new DataColumn("Col2", typeof(string)));
+            dt.Columns.Add(new DataColumn("Col3", typeof(string)));
+            dr = dt.NewRow();
+            dr["Col1"] = string.Empty;
+            dr["Col2"] = string.Empty;
+            dr["Col3"] = string.Empty;
+            dt.Rows.Add(dr);
+
+            ViewState["CurrentTable2"] = dt;
+            dgCutomServiceItem.DataSource = dt;
+            dgCutomServiceItem.DataBind();
+        }
+
+        private void AddNewRow_dgCutomServiceItem()
+        {
+            int rowIndex = 0;
+
+            if (ViewState["CurrentTable2"] != null)
+            {
+                DataTable dtCurrentTable = (DataTable)ViewState["CurrentTable2"];
+                DataRow drCurrentRow = null;
+                if (dtCurrentTable.Rows.Count > 0)
+                {
+                    for (int i = 1; i <= dtCurrentTable.Rows.Count; i++)
+                    {
+                        DropDownList DdlItem =
+                            (DropDownList)dgCutomServiceItem.Rows[rowIndex].Cells[0].FindControl("ddlServiceItem");
+                        TextBox TextStart =
+                          (TextBox)dgCutomServiceItem.Rows[rowIndex].Cells[1].FindControl("tbNumber");
+                        TextBox TextEnd =
+                          (TextBox)dgCutomServiceItem.Rows[rowIndex].Cells[2].FindControl("tbPrice");
+
+
+                        drCurrentRow = dtCurrentTable.NewRow();
+                        dtCurrentTable.Rows[i - 1]["Col1"] = DdlItem.SelectedValue;
+                        dtCurrentTable.Rows[i - 1]["Col2"] = TextStart.Text;
+                        dtCurrentTable.Rows[i - 1]["Col3"] = TextEnd.Text;
+                        rowIndex++;
+                    }
+                    dtCurrentTable.Rows.Add(drCurrentRow);
+                    ViewState["CurrentTable2"] = dtCurrentTable;
+
+                    dgCutomServiceItem.DataSource = dtCurrentTable;
+                    dgCutomServiceItem.DataBind();
+                }
+            }
+            else
+            {
+                Response.Write("ViewState is null");
+            }
+            SetPreviousData_dgCutomServiceItem();
+        }
+
+        private void SetPreviousData_dgCutomServiceItem()
+        {
+            int rowIndex = 0;
+            if (ViewState["CurrentTable2"] != null)
+            {
+                DataTable dt = (DataTable)ViewState["CurrentTable2"];
+                if (dt.Rows.Count > 0)
+                {
+                    for (int i = 0; i < dt.Rows.Count; i++)
+                    {
+                        DropDownList DdlItem = (DropDownList)dgCutomServiceItem.Rows[rowIndex].Cells[0].FindControl("ddlServiceItem");
+                        TextBox TextStart = (TextBox)dgCutomServiceItem.Rows[rowIndex].Cells[1].FindControl("tbNumber");
+                        TextBox TextEnd = (TextBox)dgCutomServiceItem.Rows[rowIndex].Cells[2].FindControl("tbPrice");
+                        if (TextStart == null) continue;
+                        if (TextEnd == null) continue;
+                        DdlItem.SelectedValue = dt.Rows[i]["Col1"].ToString();
+                        TextStart.Text = dt.Rows[i]["Col2"] == null ? string.Empty : dt.Rows[i]["Col2"].ToString();
+                        TextEnd.Text = dt.Rows[i]["Col3"] == null ? string.Empty : dt.Rows[i]["Col3"].ToString();
+                        rowIndex++;
+                    }
+                }
+            }
+        }
+
+        private void SetRowData_dgCutomServiceItem()
+        {
+            int rowIndex = 0;
+
+            if (ViewState["CurrentTable2"] != null)
+            {
+                DataTable dtCurrentTable = (DataTable)ViewState["CurrentTable2"];
+                DataRow drCurrentRow = null;
+                if (dtCurrentTable.Rows.Count > 0)
+                {
+                    for (int i = 1; i <= dtCurrentTable.Rows.Count; i++)
+                    {
+                        DropDownList DdlItem = (DropDownList)dgCutomServiceItem.Rows[rowIndex].Cells[0].FindControl("ddlServiceItem");
+                        TextBox TextNumber = (TextBox)dgCutomServiceItem.Rows[rowIndex].Cells[1].FindControl("tbNumber");
+                        TextBox TextPrice = (TextBox)dgCutomServiceItem.Rows[rowIndex].Cells[2].FindControl("tbPrice");
+                        drCurrentRow = dtCurrentTable.NewRow();
+                        dtCurrentTable.Rows[i - 1]["Col1"] = DdlItem.SelectedValue;
+                        dtCurrentTable.Rows[i - 1]["Col2"] = TextNumber.Text;
+                        dtCurrentTable.Rows[i - 1]["Col3"] = TextPrice.Text;
+                        rowIndex++;
+                    }
+
+                    ViewState["CurrentTable2"] = dtCurrentTable;
+                }
+            }
+            else
+            {
+                Response.Write("ViewState is null");
+            }
+        }
+
+        protected void btnAddRowCutomServiceItem_Click(object sender, EventArgs e)
+        {
+            AddNewRow_dgCutomServiceItem();
+        }
+        #endregion
+
+        private string SplitString(string str, string splitExp, int index)
+        {
+            return str.Contains(splitExp) ? str.Split(splitExp.ToCharArray())[index] : str;
+        }
+
+        #region Price Table
+        private void DisplayLevelPriceTable(bool isDisplay)
+        {
+            divForHoldingCompany.Visible = isDisplay;
+            divForStore.Visible = !isDisplay;
+        }
+
+        private void BindPriceData(string setId)
+        {
+            string sql = "IF((Select COUNT(*) From StoreLvSetPrice Where IsDelete=0 And SetId = '" + setId + "') != 0)"
+                + " BEGIN"
+                + " SELECT Id,[Price],[StoreLv] FROM StoreLvSetPrice Where IsDelete = 0 And SetId = '" + setId + "' Order by StoreLv"
+                + " END"
+                + " ELSE"
+                + " BEGIN"
+                + " Select Distinct GradeLv As StoreLv, '' As Id, 0 as Price From Store Where IsDelete = 0 And GradeLv!=0 Order by GradeLv"
+                + " END";
+            DataSet ds = GetDataFromDb(sql);
+            PriceTable.DataSource = ds;
+            PriceTable.DataBind();
+        }
+        protected void PriceTable_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            DataRowView dataItem1 = (DataRowView)e.Row.DataItem;
+            if (dataItem1 != null)
+            {
+                ((TextBox)e.Row.FindControl("tbStorePrice")).Text = SysProperty.Util.ParseMoney(dataItem1["Price"].ToString()).ToString("#0.00");
+            }
+        }
+        #endregion
     }
 }
