@@ -585,12 +585,7 @@ namespace TheWeWebSite.StoreMgt
                 , AttrSymbolItem.Equal
                 , tbRentPrice.Text
                 ));
-            lst.Add(new DbSearchObject(
-                "Sn"
-                , AtrrTypeItem.String
-                , AttrSymbolItem.Equal
-                , tbSn.Text
-                ));
+           
             if (!string.IsNullOrEmpty(ddlBack.SelectedValue))
             {
                 lst.Add(new DbSearchObject(

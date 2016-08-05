@@ -470,12 +470,6 @@ namespace TheWeWebSite.StoreMgt
         {
             List<DbSearchObject> lst = new List<DbSearchObject>();
             lst.Add(new DbSearchObject(
-                "Sn"
-                , AtrrTypeItem.String
-                , AttrSymbolItem.Equal
-                , tbSn.Text
-                ));
-            lst.Add(new DbSearchObject(
                 "Name"
                 , AtrrTypeItem.String
                 , AttrSymbolItem.Equal

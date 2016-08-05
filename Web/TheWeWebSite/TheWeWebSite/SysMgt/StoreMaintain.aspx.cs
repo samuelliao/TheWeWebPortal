@@ -430,12 +430,7 @@ namespace TheWeWebSite.SysMgt
                 , AttrSymbolItem.Equal
                 , tbRemark.Text)
                 );
-            lst.Add(new DbSearchObject(
-                "Sn"
-                , AtrrTypeItem.String
-                , AttrSymbolItem.Equal
-                , tbSn.Text)
-                );
+
             lst.Add(new DbSearchObject("HoldingCompany", AtrrTypeItem.Bit, AttrSymbolItem.Equal, (ddlLv.SelectedValue == "0" ? "1" : "0")));
             lst.Add(new DbSearchObject("GradeLv", AtrrTypeItem.String, AttrSymbolItem.Equal, ddlLv.SelectedValue));
             return lst;

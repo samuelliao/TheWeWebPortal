@@ -2140,6 +2140,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   查詢類似  的當地語系化字串。
+        /// </summary>
+        internal static string SeillingPriceString {
+            get {
+                return ResourceManager.GetString("SeillingPriceString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查詢類似 Select any store 的當地語系化字串。
         /// </summary>
         internal static string SelectStoreString {
