@@ -172,11 +172,7 @@ namespace TheWeWebSite.CaseMgt
                 , AttrSymbolItem.Equal
                 , (((DataRow)Session["LocateStore"]) == null ? string.Empty : ((DataRow)Session["LocateStore"])["CountryId"].ToString())
                 ));
-            lst.Add(new DbSearchObject(
-                "Sn"
-                , AtrrTypeItem.String
-                , AttrSymbolItem.Equal
-                , tbSn.Text));
+            
             lst.Add(new DbSearchObject(
                 "EngName"
                 , AtrrTypeItem.String

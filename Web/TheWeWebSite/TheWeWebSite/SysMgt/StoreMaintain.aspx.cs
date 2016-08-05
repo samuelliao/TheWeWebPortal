@@ -415,12 +415,7 @@ namespace TheWeWebSite.SysMgt
                 , AttrSymbolItem.Equal
                 , tbRemark.Text)
                 );
-            lst.Add(new DbSearchObject(
-                "Sn"
-                , AtrrTypeItem.String
-                , AttrSymbolItem.Equal
-                , tbSn.Text)
-                );
+
             return lst;
         }
 

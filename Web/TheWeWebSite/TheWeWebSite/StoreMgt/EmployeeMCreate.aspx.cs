@@ -240,12 +240,6 @@ namespace TheWeWebSite.StoreMgt
         private List<DbSearchObject> EmployeeInfoDbObject()
         {
             List<DbSearchObject> lst = new List<DbSearchObject>();
-            lst.Add(new DbSearchObject(
-                "Sn"
-                , AtrrTypeItem.String
-                , AttrSymbolItem.Equal
-                , tbEmpSn.Text
-                ));
 
             lst.Add(new DbSearchObject(
                 "PassportName"

@@ -969,4 +969,7 @@
   <data name="RentRecordString" xml:space="preserve">
     <value>Rent Records</value>
   </data>
+  <data name="SeillingPriceString" xml:space="preserve">
+    <value></value>
+  </data>
 </root>

@@ -969,4 +969,7 @@
   <data name="RentRecordString" xml:space="preserve">
     <value>租用紀錄</value>
   </data>
+  <data name="SeillingPriceString" xml:space="preserve">
+    <value>售價</value>
+  </data>
 </root>

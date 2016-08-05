@@ -19,7 +19,7 @@
             <!-- Header -->
             <My:Header runat="server" ID="ucHeader" />
 
-            <!-- Main --
+            <!-- Main -->
 
             <section id="main">
                 <!-- Text -->

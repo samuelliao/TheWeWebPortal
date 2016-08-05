@@ -511,12 +511,6 @@ namespace TheWeWebSite.StoreMgt
                 , AttrSymbolItem.Equal
                 , tbSalesPrice.Text
                 ));
-            lst.Add(new DbSearchObject(
-                "Sn"
-                , AtrrTypeItem.String
-                , AttrSymbolItem.Equal
-                , tbSn.Text
-                ));
             if (!string.IsNullOrEmpty(ddlCategory.SelectedValue))
             {
                 lst.Add(new DbSearchObject(
