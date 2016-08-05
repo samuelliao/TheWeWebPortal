@@ -123,6 +123,9 @@ namespace TheWeWebSite.StoreMgt
                     SysProperty.Util.OutputRelatedLangName(((string)Session["CultureCode"]), dr)
                     , dr["Id"].ToString()));
             }
+
+            ddlStore.SelectedValue = ((DataRow)Session["LocateStore"])["Id"].ToString();
+            ddlStore.Enabled = false;
         }
 
         #region DropDownList Event
@@ -198,12 +201,15 @@ namespace TheWeWebSite.StoreMgt
 
         protected void btnClear_Click(object sender, EventArgs e)
         {
-            tbOthSn.Text = string.Empty;
-            tbOthName.Text = string.Empty;
+            if (bool.Parse(((DataRow)Session["LocateStore"])["HoldingCompany"].ToString()))
+            {
+                tbOthSn.Text = string.Empty;
+                tbOthName.Text = string.Empty;                
+                tbOthCost.Text = string.Empty;
+                ddlOthCategory.SelectedIndex = 0;
+                ddlStore.SelectedIndex = 0;
+            }
             tbOthPrice.Text = string.Empty;
-            tbOthCost.Text = string.Empty;
-            ddlOthCategory.SelectedIndex = 0;
-            ddlStore.SelectedIndex = 0;
         }
 
         protected void btnCancel_Click(object sender, EventArgs e)
@@ -296,6 +302,27 @@ namespace TheWeWebSite.StoreMgt
             string ImgFolderPath = imgPath;
             RefreshImage(0, ImgFolderPath);
             tbFolderPath.Text = ImgFolderPath;
+
+            if (!bool.Parse(((DataRow)Session["LocateStore"])["HoldingCompany"].ToString()))
+            {
+                tbFolderPath.Enabled = false;
+                tbOthCost.Enabled = false;
+                tbOthDescription.Enabled = false;
+                tbOthName.Enabled = false;
+                tbOthSn.Enabled = false;
+                tbType.Enabled = false;
+                ddlOthCategory.Enabled = false;
+                ddlStore.Enabled = false;
+                ddlType.Enabled = false;
+                btnImgBackUpload.Visible = false;
+                btnImgFrontUpload.Visible = false;
+                btnImgOther1.Visible = false;
+                btnImgSideUpload.Visible = false;
+                ImgSideUpload.Visible = false;
+                ImgOther1Upload.Visible = false;
+                ImgFrontUpload.Visible = false;
+                ImgBackUpload.Visible = false;
+            }
         }
 
         private List<DbSearchObject> OthItemInfoDbObject(string typeId)
