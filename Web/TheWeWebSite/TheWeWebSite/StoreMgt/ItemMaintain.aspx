@@ -83,7 +83,6 @@
 
                             <div class="Div btn">
                                 <ul class="actions">
-
                                     <li>
                                         <asp:Button runat="server" Text="<%$ Resources:Resource,CreateString%>" ID="LinkItemMCreate" PostBackUrl="~/StoreMgt/ItemMCreate.aspx" />
                                     </li>

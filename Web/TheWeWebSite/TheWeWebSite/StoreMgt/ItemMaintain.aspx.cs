@@ -20,7 +20,7 @@ namespace TheWeWebSite.StoreMgt
                 if (SysProperty.Util == null) Response.Redirect("../Login.aspx", true);
                 else
                 {
-                    labelPageTitle.Text = Resources.Resource.StoreMgtString + " > " + Resources.Resource.ProductMaintainString;                    
+                    labelPageTitle.Text = Resources.Resource.StoreMgtString + " > " + Resources.Resource.ProductMaintainString;
                     InitialAllDropDownList();
                     InitialControlWithPermission();
                     BindData();
@@ -36,11 +36,20 @@ namespace TheWeWebSite.StoreMgt
         {
             PermissionUtil util = new PermissionUtil();
             if (Session["Operation"] == null) Response.Redirect("~/Login.aspx");
-            PermissionItem item = util.GetPermissionByKey(Session["Operation"], util.GetOperationSnByPage(this.Page.AppRelativeVirtualPath));
-            LinkItemMCreate.Visible = item.CanCreate;
-            LinkItemMCreate.Enabled = item.CanCreate;
-            dataGrid.Columns[dataGrid.Columns.Count - 1].Visible = item.CanDelete;
+            if (!bool.Parse(((DataRow)Session["LocateStore"])["HoldingCompany"].ToString()))
+            {
+                LinkItemMCreate.Visible = false;
+                LinkItemMCreate.Enabled = false;
+            }
+            else
+            {
+                PermissionItem item = util.GetPermissionByKey(Session["Operation"], util.GetOperationSnByPage(this.Page.AppRelativeVirtualPath));
+                LinkItemMCreate.Visible = item.CanCreate;
+                LinkItemMCreate.Enabled = item.CanCreate;
+                dataGrid.Columns[dataGrid.Columns.Count - 1].Visible = item.CanDelete;
+            }
         }
+
         #region DropDownList Control
         public void InitialAllDropDownList()
         {
@@ -334,9 +343,10 @@ namespace TheWeWebSite.StoreMgt
                 + " FROM[TheWe].[dbo].[ProductSet] as p"
                 + " Left join WeddingCategory as w on w.Id = p.WeddingCategory"
                 + " Left join ServiceItemCategory as s on s.Id = p.Category"
-                + " Where p.IsDelete = 0"
-                 + " " + condStr
-                 + " " + sortStr;
+                + " Where p.IsDelete = 0 And (p.BaseId is null OR"
+                + " p.StoreId = '" + ((DataRow)Session["LocateStore"])["Id"].ToString() + "')"
+                + " " + condStr
+                + " " + sortStr;
             try
             {
                 DS = SysProperty.GenDbCon.GetDataFromTable(sqlTxt);

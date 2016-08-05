@@ -975,4 +975,10 @@
   <data name="ChurchAdditionalItemString" xml:space="preserve">
     <value>教堂附加項目</value>
   </data>
+  <data name="ImgIdCardFrontString" xml:space="preserve">
+    <value>身份證正面</value>
+  </data>
+  <data name="ImgIdCardBackString" xml:space="preserve">
+    <value>身份證背面</value>
+  </data>
 </root>

@@ -87,7 +87,7 @@ namespace TheWeWebSite
             {
                 return SysProperty.GenDbCon.GetDataFromTable("*"
                     , SysProperty.Util.MsSqlTableConverter(MsSqlTable.Store)
-                    , " Where IsDelete = 0");
+                    , " Where IsDelete = 0 Order by GradeLv, EngName");
             }
             catch (Exception ex)
             {

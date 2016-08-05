@@ -1258,6 +1258,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   查詢類似 Id Card Back Image 的當地語系化字串。
+        /// </summary>
+        internal static string ImgIdCardBackString {
+            get {
+                return ResourceManager.GetString("ImgIdCardBackString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查詢類似 Id Card Front Image 的當地語系化字串。
+        /// </summary>
+        internal static string ImgIdCardFrontString {
+            get {
+                return ResourceManager.GetString("ImgIdCardFrontString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查詢類似 Other Image 的當地語系化字串。
         /// </summary>
         internal static string ImgOtherString {
@@ -2136,15 +2154,6 @@ namespace Resources {
         internal static string SearchString {
             get {
                 return ResourceManager.GetString("SearchString", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查詢類似  的當地語系化字串。
-        /// </summary>
-        internal static string SeillingPriceString {
-            get {
-                return ResourceManager.GetString("SeillingPriceString", resourceCulture);
             }
         }
         

@@ -29,9 +29,15 @@
                     <div class="row uniform 50%">
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,StoreString%>"></asp:Label>
+                            </div>
+                            <asp:DropDownList runat="server" ID="ddlStore" Enabled="false" />
+                        </div>
+                        <div class="2u 12u(mobilep)">
+                            <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,EmployeeSnString%>"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server" style="text-align:right" ID="tbEmpSn" ReadOnly="true"></asp:TextBox>
+                            <asp:TextBox runat="server" Style="text-align: right" ID="tbEmpSn" ReadOnly="true"></asp:TextBox>
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
@@ -43,7 +49,7 @@
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,EmpNameString%>"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server" placeholder="請輸入姓名..." ID="tbEmpName"></asp:TextBox>
+                            <asp:TextBox runat="server" ID="tbEmpName"></asp:TextBox>
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
@@ -56,36 +62,36 @@
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,EmpOnboardDayString%>"></asp:Label>
                             </div>
                             <div>
-                                <asp:TextBox runat="server" ID="EmpOnBoardDay" style="text-align:right"
-                                    Cssclass="date date-1" value="" placeholder="YYYY-MM-DD"></asp:TextBox>
+                                <asp:TextBox runat="server" ID="EmpOnBoardDay" Style="text-align: right"
+                                    CssClass="date date-1" value="" placeholder="YYYY-MM-DD"></asp:TextBox>
                             </div>
                         </div>
-                        <div class="2u 12u(mobilep)">
-                            <div class="Div">
-                                <asp:Label runat="server" Text="<%$ Resources:Resource,EmpQuitDayString%>"></asp:Label>
-                            </div>
-                            <div>
-                                <asp:TextBox runat="server" ID="EmpQuitDay" style="text-align:right"
-                                    Cssclass="date date-1" value="" placeholder="YYYY-MM-DD"></asp:TextBox>
-                            </div>
-                        </div>                        
                     </div>
                 </div>
                 <div class="12u">
                     <div class="row uniform 50%">
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,EmpQuitDayString%>"></asp:Label>
+                            </div>
+                            <div>
+                                <asp:TextBox runat="server" ID="EmpQuitDay" Style="text-align: right"
+                                    CssClass="date date-1" value="" placeholder="YYYY-MM-DD"></asp:TextBox>
+                            </div>
+                        </div>
+                        <div class="2u 12u(mobilep)">
+                            <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,PhoneString%>"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server" style="text-align:right" ID="tbEmpPhone"></asp:TextBox>
+                            <asp:TextBox runat="server" Style="text-align: right" ID="tbEmpPhone"></asp:TextBox>
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,BdayString%>"></asp:Label>
                             </div>
                             <div>
-                                <asp:TextBox runat="server" ID="EmpBDay" style="text-align:right"
-                                    Cssclass="date date-1" value="" placeholder="YYYY-MM-DD"></asp:TextBox>
+                                <asp:TextBox runat="server" ID="EmpBDay" Style="text-align: right"
+                                    CssClass="date date-1" value="" placeholder="YYYY-MM-DD"></asp:TextBox>
                             </div>
                         </div>
                         <div class="4u 12u(mobilep)">
@@ -94,13 +100,12 @@
                             </div>
                             <asp:TextBox runat="server" ID="tbEmpEmail"></asp:TextBox>
                         </div>
-                        <div class="6u 12u(mobilep)">
+                        <div class="4u 12u(mobilep)">
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,AddressString%>"></asp:Label>
                             </div>
                             <asp:TextBox runat="server" ID="tbEmpAddress"></asp:TextBox>
                         </div>
-
                     </div>
                 </div>
 
@@ -116,7 +121,7 @@
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,PassportIdString%>"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server" style="text-align:right" ID="tbEmpPassportId"></asp:TextBox>
+                            <asp:TextBox runat="server" Style="text-align: right" ID="tbEmpPassportId"></asp:TextBox>
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
@@ -128,19 +133,19 @@
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,EmergencyContactTelString%>"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server" style="text-align:right" ID="tbEmpECTel"></asp:TextBox>
+                            <asp:TextBox runat="server" Style="text-align: right" ID="tbEmpECTel"></asp:TextBox>
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,BankString%>"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server" style="text-align:right" ID="tbEmpBank"></asp:TextBox>
+                            <asp:TextBox runat="server" Style="text-align: right" ID="tbEmpBank"></asp:TextBox>
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,BankBookString%>"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server" style="text-align:right" ID="tbEmpBankBook"></asp:TextBox>
+                            <asp:TextBox runat="server" Style="text-align: right" ID="tbEmpBankBook"></asp:TextBox>
                         </div>
 
 
@@ -152,14 +157,14 @@
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,SalaryString%>"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server" style="text-align:right" ID="tbEmpSalary"></asp:TextBox>
+                            <asp:TextBox runat="server" Style="text-align: right" ID="tbEmpSalary"></asp:TextBox>
                             <asp:RegularExpressionValidator ID="RegularExpressionValidator1" ControlToValidate="tbEmpSalary" runat="server" ErrorMessage="Only Numbers allowed" ValidationExpression="\d+[.]*\d*"></asp:RegularExpressionValidator>
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,InsuranceString%>"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server" style="text-align:right" ID="tbEmpInsurance"></asp:TextBox>
+                            <asp:TextBox runat="server" Style="text-align: right" ID="tbEmpInsurance"></asp:TextBox>
                         </div>
                         <div class="8u 12u(mobilep)">
                             <div class="Div">
@@ -177,35 +182,46 @@
                 <div class="row no-collapse 50% uniform">
                     <div class="2u">
                         <div style="text-align: center">
-                            <asp:Label runat="server" Text="員工照片"></asp:Label>
+                            <asp:Label runat="server" Text="<%$ Resources:Resource,ImgFrontString%>"></asp:Label>
+                            <asp:Label runat="server" Text="" ID="tbFolderPath" Visible="false"></asp:Label>
                         </div>
                         <span class="image fit">
-                            <img src="../assets/img/logo_clear.jpg" alt="" /></span>
+                            <asp:Image runat="server" ID="ImgSide" /></span>
+                        <div style="margin-bottom: 1.5em">
+                            <asp:FileUpload ID="ImgSideUpload" runat="server" />
+                        </div>
                         <div class="align-center">
-                            <asp:Button runat="server" Text="<%$ Resources:Resource,UploadString%>" />
+                            <asp:Button runat="server" Text="<%$ Resources:Resource,UploadString%>" ID="btnImgSideUpload" OnClick="btnImgSideUpload_Click" />
                         </div>
                     </div>
                     <div class="2u">
                         <div style="text-align: center">
-                            <asp:Label runat="server" Text="身分證正面"></asp:Label>
+                            <asp:Label runat="server" Text="<%$ Resources:Resource,ImgIdCardFrontString%>"></asp:Label>                            
                         </div>
                         <span class="image fit">
-                            <img src="../assets/img/logo_clear.jpg" alt="" /></span>
+                            <asp:Image runat="server" ID="ImgFront" />
+                        </span>
+                        <div style="margin-bottom: 1.5em">
+                            <asp:FileUpload ID="ImgFrontUpload" runat="server" />
+                        </div>
                         <div class="align-center">
-                            <asp:Button runat="server" Text="<%$ Resources:Resource,UploadString%>" />
+                            <asp:Button runat="server" Text="<%$ Resources:Resource,UploadString%>" ID="btnImgFrontxUpload"
+                                OnClick="btnImgFrontUpload_Click" />
                         </div>
                     </div>
                     <div class="2u">
                         <div style="text-align: center">
-                            <asp:Label runat="server" Text="身分證背面"></asp:Label>
+                            <asp:Label runat="server" Text="<%$ Resources:Resource,ImgIdCardBackString%>"></asp:Label>
                         </div>
                         <span class="image fit">
-                            <img src="../assets/img/logo_clear.jpg" alt="" /></span>
+                            <asp:Image runat="server" ID="ImgBack" /></span>
+                        <div style="margin-bottom: 1.5em">
+                            <asp:FileUpload ID="ImgBackUpload" runat="server" />
+                        </div>
                         <div class="align-center">
-                            <asp:Button runat="server" Text="<%$ Resources:Resource,UploadString%>" />
+                            <asp:Button runat="server" Text="<%$ Resources:Resource,UploadString%>" ID="btnImgBackUpload" OnClick="btnImgBackUpload_Click" />
                         </div>
                     </div>
-
                 </div>
             </section>
             <hr />

@@ -67,6 +67,7 @@ namespace TheWeWebSite.StoreMgt
             btnModify.Visible = item.CanModify;
             btnModify.Enabled = item.CanModify;
         }
+
         #region DropDownList Control
         public void InitialAllDropDownList()
         {
@@ -661,7 +662,7 @@ namespace TheWeWebSite.StoreMgt
             tbPerformence.Text = dr["Performence"].ToString();
             tbPhotoNumber.Text = dr["PhotosNum"].ToString();
             tbRoom.Text = dr["RoomId"].ToString();
-            tbSn.Text = dr["Sn"].ToString() + "-" + SplitString(ddlStore.SelectedItem.Text, "(", 1).Replace(")", "");
+            tbSn.Text = dr["Sn"].ToString();
             tbStay.Text = dr["StayNight"].ToString();
             cbBreakfast.Checked = bool.Parse(dr["Breakfast"].ToString());
             cbCertificate.Checked = bool.Parse(dr["Certificate"].ToString());
@@ -771,6 +772,7 @@ namespace TheWeWebSite.StoreMgt
             if (ddlStore.SelectedValue != ((DataRow)Session["LocateStore"])["Id"].ToString())
             {
                 btnModify.Visible = false;
+                btnDelete.Visible = false;
             }
         }
 

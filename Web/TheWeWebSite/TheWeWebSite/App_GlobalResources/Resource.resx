@@ -975,4 +975,10 @@
   <data name="ChurchAdditionalItemString" xml:space="preserve">
     <value>Church Additional Item</value>
   </data>
+  <data name="ImgIdCardFrontString" xml:space="preserve">
+    <value>Id Card Front Image</value>
+  </data>
+  <data name="ImgIdCardBackString" xml:space="preserve">
+    <value>Id Card Back Image</value>
+  </data>
 </root>

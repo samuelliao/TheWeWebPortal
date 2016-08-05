@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -62,22 +63,57 @@ namespace TheWeWebSite.StoreMgt
             btnDelete.Enabled = item.CanDelete;
             btnModify.Visible = item.CanModify;
             btnModify.Enabled = item.CanModify;
+            if (bool.Parse(((DataRow)Session["LocateStore"])["HoldingCompany"].ToString()))
+            {
+                ddlStore.Enabled = true;
+            }
         }
         private void InitialControl()
+        {
+            CountryList();
+            StoreList();
+        }
+        private void StoreList()
+        {
+            ddlStore.Items.Clear();
+            try
+            {
+                string sql = "select * from Store Where IsDelete = 0 order by Sn";
+                DataSet ds = SysProperty.GenDbCon.GetDataFromTable(sql);
+                if (SysProperty.Util.IsDataSetEmpty(ds)) return;
+                foreach (DataRow dr in ds.Tables[0].Rows)
+                {
+                    ddlStore.Items.Add(
+                        new ListItem(
+                            SysProperty.Util.OutputRelatedLangName(
+                                Session["CultureCode"].ToString(), dr)
+                                + "(" + dr["Sn"].ToString() + ")"
+                            , dr["Id"].ToString(), true));
+                }
+                ddlStore.SelectedValue = ((DataRow)Session["LocateStore"])["Id"].ToString();
+            }
+            catch (Exception ex)
+            {
+                SysProperty.Log.Error(ex.Message);
+                ShowErrorMsg(ex.Message);
+            }
+        }
+        private void CountryList()
         {
             ddlCountry.Items.Clear();
             try
             {
                 ddlCountry.Items.Add(new ListItem(Resources.Resource.CountrySelectRemindString, string.Empty, true));
-                string sql = "select * from Country";
+                string sql = "select * from Country Where IsDelete = 0 order by Name";
                 DataSet ds = SysProperty.GenDbCon.GetDataFromTable(sql);
                 if (SysProperty.Util.IsDataSetEmpty(ds)) return;
                 foreach (DataRow dr in ds.Tables[0].Rows)
                 {
                     ddlCountry.Items.Add(
                         new ListItem(
-                        dr["Name"].ToString()
-                    , dr["Id"].ToString(), true));
+                            SysProperty.Util.OutputRelatedLangName(
+                                Session["CultureCode"].ToString(), dr)
+                            , dr["Id"].ToString(), true));
                 }
             }
             catch (Exception ex)
@@ -85,11 +121,7 @@ namespace TheWeWebSite.StoreMgt
                 SysProperty.Log.Error(ex.Message);
                 ShowErrorMsg(ex.Message);
             }
-
-
         }
-
-
 
         #region Button Control
         protected void btnCreate_Click(object sender, EventArgs e)
@@ -162,6 +194,8 @@ namespace TheWeWebSite.StoreMgt
                 string sql = "UPDATE Employee SET IsDelete = 1"
                 + ", UpdateAccId=N'" + ((DataRow)Session["AccountInfo"])["Id"].ToString() + "'"
                 + ", UpdateTime='" + DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss") + "'"
+                + ", QuitDay='" + DateTime.Now.ToString("yyyy / MM / dd HH: mm: ss") + "'"
+                + ", IsValid = 0"
                 + " Where Id = '" + Session["EmpId"].ToString() + "'";
                 if (SysProperty.GenDbCon.ModifyDataInToTable(sql))
                 {
@@ -217,7 +251,7 @@ namespace TheWeWebSite.StoreMgt
             DataRow dr = ds.Tables[0].Rows[0];
             tbEmpAddress.Text = dr["Addr"].ToString();
             tbEmpSn.Text = dr["Sn"].ToString();
-            tbEmpSalary.Text = dr["Salary"].ToString();
+            tbEmpSalary.Text = SysProperty.Util.ParseMoney(dr["Salary"].ToString()).ToString("#0.00");
             tbEmpRemark.Text = dr["Remark"].ToString();
             tbEmpPhone.Text = dr["Phone"].ToString();
             tbEmpPassportName.Text = dr["PassportName"].ToString();
@@ -234,6 +268,14 @@ namespace TheWeWebSite.StoreMgt
             EmpBDay.Text = dr["Bday"].ToString();
             ddlCountry.SelectedValue = dr["CountryId"].ToString();
             tbAccount.Text = dr["Account"].ToString();
+            ddlStore.SelectedValue = dr["StoreId"].ToString();
+
+            string imgPath = @dr["PhotoImg"].ToString();
+            if (string.IsNullOrEmpty(imgPath)) imgPath = SysProperty.ImgRootFolderpath + @"\Employee\" + tbEmpSn.Text;
+            else imgPath = SysProperty.ImgRootFolderpath + imgPath;
+            string ImgFolderPath = imgPath;
+            RefreshImage(0, ImgFolderPath);
+            tbFolderPath.Text = ImgFolderPath;
         }
 
         #region Db Instance
@@ -349,6 +391,18 @@ namespace TheWeWebSite.StoreMgt
                  , AttrSymbolItem.Equal
                  , ddlCountry.SelectedValue
                  ));
+            lst.Add(new DbSearchObject(
+                "StoreId"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , ddlStore.SelectedValue
+                ));
+            lst.Add(new DbSearchObject(
+                "PhotoImg"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , @"Employee\" + tbEmpSn.Text
+                ));
             return lst;
         }
         private List<DbSearchObject> PermissionDbObject(string eid)
@@ -412,7 +466,7 @@ namespace TheWeWebSite.StoreMgt
                 "ObjectSn"
                 , AtrrTypeItem.String
                 , AttrSymbolItem.Equal
-                , ((DataRow)Session["LocateStore"])["Sn"].ToString()
+                , ddlStore.SelectedValue
                 ));
             lst.Add(new DbSearchObject(
             "CanEntry"
@@ -478,7 +532,8 @@ namespace TheWeWebSite.StoreMgt
                     , SysProperty.Util.SqlQueryConditionConverter(lst));
                 if (SysProperty.Util.IsDataSetEmpty(ds)) return string.Empty;
                 return ds.Tables[0].Rows[0]["Id"].ToString();
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 SysProperty.Log.Error(ex.Message);
                 ShowErrorMsg(ex.Message);
@@ -508,18 +563,18 @@ namespace TheWeWebSite.StoreMgt
                 bool result = true;
                 SysProperty.GenDbCon.ModifyDataInToTable("Delete From PermissionItem"
                     + " Where PermissionId='" + permissionId + "' And Type = '" + type + "'");
-                    try
-                    {
-                        result = result & SysProperty.GenDbCon.InsertDataInToTable(
-                        SysProperty.Util.MsSqlTableConverter(MsSqlTable.PermissionItem)
-                        , SysProperty.Util.SqlQueryInsertInstanceConverter(lst)
-                        , SysProperty.Util.SqlQueryInsertValueConverter(lst));
-                    }
-                    catch (Exception ex)
-                    {
-                        SysProperty.Log.Error(ex.Message);
-                        ShowErrorMsg(ex.Message);
-                    }
+                try
+                {
+                    result = result & SysProperty.GenDbCon.InsertDataInToTable(
+                    SysProperty.Util.MsSqlTableConverter(MsSqlTable.PermissionItem)
+                    , SysProperty.Util.SqlQueryInsertInstanceConverter(lst)
+                    , SysProperty.Util.SqlQueryInsertValueConverter(lst));
+                }
+                catch (Exception ex)
+                {
+                    SysProperty.Log.Error(ex.Message);
+                    ShowErrorMsg(ex.Message);
+                }
                 return result;
             }
             catch (Exception ex)
@@ -529,5 +584,61 @@ namespace TheWeWebSite.StoreMgt
                 return false;
             }
         }
+
+        #region Image Related
+        private void RefreshImage(int type, string path)
+        {
+            switch (type)
+            {
+                case 2:
+                    ImgFront.ImageUrl = path + "/" + tbEmpSn.Text + "_2.jpg?" + DateTime.Now.Ticks.ToString();
+                    break;
+                case 3:
+                    ImgBack.ImageUrl = path + "/" + tbEmpSn.Text + "_3.jpg?" + DateTime.Now.Ticks.ToString();
+                    break;
+                case 1:
+                    ImgSide.ImageUrl = path + "/" + tbEmpSn.Text + "_1.jpg?" + DateTime.Now.Ticks.ToString();
+                    break;
+                case 0:
+                default:
+                    ImgFront.ImageUrl = path + "/" + tbEmpSn.Text + "_2.jpg?" + DateTime.Now.Ticks.ToString();
+                    ImgBack.ImageUrl = path + "/" + tbEmpSn.Text + "_3.jpg?" + DateTime.Now.Ticks.ToString();
+                    ImgSide.ImageUrl = path + "/" + tbEmpSn.Text + "_1.jpg?" + DateTime.Now.Ticks.ToString();
+                    break;
+            }
+        }
+
+        protected void btnImgFrontUpload_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(tbFolderPath.Text)) return;
+            CheckFolder(SysProperty.ImgRootFolderpath + @"\Employee\" + tbEmpSn.Text);
+            ImgFrontUpload.PostedFile.SaveAs(tbFolderPath.Text + "/" + tbEmpSn.Text + "_2.jpg");
+            RefreshImage(2, tbFolderPath.Text);
+        }
+
+        protected void btnImgBackUpload_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(tbFolderPath.Text)) return;
+            CheckFolder(SysProperty.ImgRootFolderpath + @"\Employee\" + tbEmpSn.Text);
+            ImgBackUpload.PostedFile.SaveAs(tbFolderPath.Text + "/" + tbEmpSn.Text + "_3.jpg");
+            RefreshImage(3, tbFolderPath.Text);
+        }
+
+        protected void btnImgSideUpload_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(tbFolderPath.Text)) return;
+            CheckFolder(SysProperty.ImgRootFolderpath + @"\Employee\" + tbEmpSn.Text);
+            ImgSideUpload.PostedFile.SaveAs(tbFolderPath.Text + "/" + tbEmpSn.Text + "_1.jpg");
+            RefreshImage(1, tbFolderPath.Text);
+        }
+
+        private void CheckFolder(string path)
+        {
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
+        }
+        #endregion
     }
 }
