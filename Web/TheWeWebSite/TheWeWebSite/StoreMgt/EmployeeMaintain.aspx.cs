@@ -28,9 +28,8 @@ namespace TheWeWebSite.StoreMgt
                     BindData();
                 }
             }
-
-
         }
+
         private void ShowErrorMsg(string msg)
         {
             labelWarnString.Text = msg;
@@ -39,11 +38,26 @@ namespace TheWeWebSite.StoreMgt
         private void InitialControlWithPermission()
         {
             PermissionUtil util = new PermissionUtil();
-            if (Session["Operation"] == null) Response.Redirect("~/Login.aspx");
-            PermissionItem item = util.GetPermissionByKey(Session["Operation"], util.GetOperationSnByPage(this.Page.AppRelativeVirtualPath));
-            LinkEmployeeMCreate.Visible = item.CanCreate;
-            LinkEmployeeMCreate.Enabled = item.CanCreate;
-            dataGrid.Columns[dataGrid.Columns.Count - 1].Visible = item.CanDelete;
+            if (Session["Operation"] == null) Response.Redirect("~/Login.aspx");            
+            bool holder = IsEmployeeStoreHolder(((DataRow)Session["AccountInfo"]));
+            if (holder)
+            {
+                PermissionItem item = util.GetPermissionByKey(Session["Operation"], util.GetOperationSnByPage(this.Page.AppRelativeVirtualPath));
+                LinkEmployeeMCreate.Visible = item.CanCreate;
+                LinkEmployeeMCreate.Enabled = item.CanCreate;
+                dataGrid.Columns[dataGrid.Columns.Count - 1].Visible = item.CanDelete;
+            }
+            else
+            {
+                LinkEmployeeMCreate.Enabled = false;
+                LinkEmployeeMCreate.Enabled = true;
+                dataGrid.Columns[dataGrid.Columns.Count - 1].Visible = false;
+                dataGrid.Columns[0].Visible = false;
+            }
+        }
+        private bool IsEmployeeStoreHolder(DataRow acc)
+        {
+            return bool.Parse(acc["StoreHolder"].ToString());
         }
         private void InitialOthType()
         {
@@ -171,7 +185,7 @@ namespace TheWeWebSite.StoreMgt
             {
                 string sql = "select a.[Id],a.[CountryId],d.[Name] as [CountryName] ,a.[Sn],a.[Name],a.[Addr],a.[Phone]"
                     + " ,a.[Bday],a.[OnBoard],a.[QuitDay],a.[Salary],a.[CurrencyId],a.[Remark]"
-                    + " ,a.[StoreId],b.[Name] as [StoreName],a.[IsValid],a.[IsDelete]"
+                    + " ,a.[StoreId],b.[Name] as [StoreName],a.[IsValid],a.[IsDelete], a.Account"
                     + " from [TheWe].[dbo].[vwEN_Employee] as a"
                     + " left join Store as b on b.[Id]=a.[StoreId]"
                     + " left join Country as d on d.[Id]=a.[CountryId]"

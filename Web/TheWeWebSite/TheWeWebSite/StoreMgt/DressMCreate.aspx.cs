@@ -35,7 +35,10 @@ namespace TheWeWebSite.StoreMgt
                         + " > " + Resources.Resource.CreateString;
                         btnModify.Visible = false;
                         btnDelete.Visible = false;
-                        ddlStore.SelectedValue = Session["LocateStore"] == null ? string.Empty : ((DataRow)Session["LocateStore"])["Id"].ToString();
+                        btnClear.Visible = false;
+                        ddlStore.SelectedValue = Session["LocateStore"] == null 
+                            ? string.Empty 
+                            : ((DataRow)Session["LocateStore"])["Id"].ToString();
                     }
                 }
             }
@@ -446,7 +449,8 @@ namespace TheWeWebSite.StoreMgt
 
             if (cbPlusItem.Checked)
             {
-                tbPlusItemPrice.Text = SysProperty.Util.ParseMoney(dr["PlusItemPrice"].ToString()).ToString("#0.00");
+                tbPlusItemPrice.Text = SysProperty.Util.ParseMoney
+                    (dr["PlusItemPrice"].ToString()).ToString("#0.00");
             }
             else
             {
@@ -454,7 +458,8 @@ namespace TheWeWebSite.StoreMgt
             }
             if (cbOutPhoto.Checked)
             {
-                tbOutdoorPlusPrice.Text = SysProperty.Util.ParseMoney(dr["OutdoorPlusPrice"].ToString()).ToString("#0.00");
+                tbOutdoorPlusPrice.Text = SysProperty.Util.ParseMoney
+                    (dr["OutdoorPlusPrice"].ToString()).ToString("#0.00");
             }
             else
             {
@@ -465,6 +470,7 @@ namespace TheWeWebSite.StoreMgt
             {
                 if (!bool.Parse(((DataRow)Session["LocateStore"])["HoldingCompany"].ToString()))
                 {
+                    #region Disbale all the control, excluding control that related to price.
                     tbColor.Enabled = false;
                     tbColor2.Enabled = false;
                     tbFitting.Enabled = false;
@@ -500,6 +506,7 @@ namespace TheWeWebSite.StoreMgt
                     ddlVeil.Enabled = false;
                     ddlWorn.Enabled = false;
                     ddlStore.Enabled = false;
+                    #endregion
                 }
             }
         }

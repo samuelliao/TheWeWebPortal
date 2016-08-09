@@ -7,10 +7,10 @@
 // </自動產生的>
 //------------------------------------------------------------------------------
 
-namespace TheWeWebSite.StoreMgt {
+namespace TheWeWebSite.Setting {
     
     
-    public partial class EmployeeMCreate {
+    public partial class AccInfoSetting {
         
         /// <summary>
         /// ucHeader 控制項。
@@ -40,22 +40,13 @@ namespace TheWeWebSite.StoreMgt {
         protected global::System.Web.UI.WebControls.Label labelWarnString;
         
         /// <summary>
-        /// ddlStore 控制項。
+        /// EmpOnBoardDay 控制項。
         /// </summary>
         /// <remarks>
         /// 自動產生的欄位。
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlStore;
-        
-        /// <summary>
-        /// cbStoreHolder 控制項。
-        /// </summary>
-        /// <remarks>
-        /// 自動產生的欄位。
-        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox cbStoreHolder;
+        protected global::System.Web.UI.WebControls.Label EmpOnBoardDay;
         
         /// <summary>
         /// tbEmpSn 控制項。
@@ -64,7 +55,7 @@ namespace TheWeWebSite.StoreMgt {
         /// 自動產生的欄位。
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbEmpSn;
+        protected global::System.Web.UI.WebControls.Label tbEmpSn;
         
         /// <summary>
         /// labelPw 控制項。
@@ -74,15 +65,6 @@ namespace TheWeWebSite.StoreMgt {
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label labelPw;
-        
-        /// <summary>
-        /// ddlCountry 控制項。
-        /// </summary>
-        /// <remarks>
-        /// 自動產生的欄位。
-        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlCountry;
         
         /// <summary>
         /// tbEmpName 控制項。
@@ -100,25 +82,25 @@ namespace TheWeWebSite.StoreMgt {
         /// 自動產生的欄位。
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbAccount;
+        protected global::System.Web.UI.WebControls.Label tbAccount;
         
         /// <summary>
-        /// EmpOnBoardDay 控制項。
+        /// tbPwd 控制項。
         /// </summary>
         /// <remarks>
         /// 自動產生的欄位。
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox EmpOnBoardDay;
+        protected global::System.Web.UI.WebControls.TextBox tbPwd;
         
         /// <summary>
-        /// EmpQuitDay 控制項。
+        /// tbPwdConfirm 控制項。
         /// </summary>
         /// <remarks>
         /// 自動產生的欄位。
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox EmpQuitDay;
+        protected global::System.Web.UI.WebControls.TextBox tbPwdConfirm;
         
         /// <summary>
         /// tbEmpPhone 控制項。
@@ -211,42 +193,6 @@ namespace TheWeWebSite.StoreMgt {
         protected global::System.Web.UI.WebControls.TextBox tbEmpBankBook;
         
         /// <summary>
-        /// tbEmpSalary 控制項。
-        /// </summary>
-        /// <remarks>
-        /// 自動產生的欄位。
-        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbEmpSalary;
-        
-        /// <summary>
-        /// RegularExpressionValidator1 控制項。
-        /// </summary>
-        /// <remarks>
-        /// 自動產生的欄位。
-        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidator1;
-        
-        /// <summary>
-        /// tbEmpInsurance 控制項。
-        /// </summary>
-        /// <remarks>
-        /// 自動產生的欄位。
-        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbEmpInsurance;
-        
-        /// <summary>
-        /// tbEmpRemark 控制項。
-        /// </summary>
-        /// <remarks>
-        /// 自動產生的欄位。
-        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbEmpRemark;
-        
-        /// <summary>
         /// tbFolderPath 控制項。
         /// </summary>
         /// <remarks>
@@ -337,15 +283,6 @@ namespace TheWeWebSite.StoreMgt {
         protected global::System.Web.UI.WebControls.Button btnImgBackUpload;
         
         /// <summary>
-        /// btnCreate 控制項。
-        /// </summary>
-        /// <remarks>
-        /// 自動產生的欄位。
-        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnCreate;
-        
-        /// <summary>
         /// btnModify 控制項。
         /// </summary>
         /// <remarks>
@@ -353,32 +290,5 @@ namespace TheWeWebSite.StoreMgt {
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnModify;
-        
-        /// <summary>
-        /// btnClear 控制項。
-        /// </summary>
-        /// <remarks>
-        /// 自動產生的欄位。
-        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnClear;
-        
-        /// <summary>
-        /// btnDelete 控制項。
-        /// </summary>
-        /// <remarks>
-        /// 自動產生的欄位。
-        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnDelete;
-        
-        /// <summary>
-        /// btnCancel 控制項。
-        /// </summary>
-        /// <remarks>
-        /// 自動產生的欄位。
-        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnCancel;
     }
 }

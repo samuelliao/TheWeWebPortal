@@ -187,6 +187,7 @@ namespace TheWeLib
 
                 if (isOperation)
                 {
+                    // Add MainPage inside
                     PermissionItem item = new PermissionItem();
                     item.CanCreate = true;
                     item.CanDelete = true;
@@ -196,6 +197,17 @@ namespace TheWeLib
                     item.ObjectSn = "0";
                     item.ObjectId = "7F8FF2CE-659B-4B7F-8B48-FF1778DC4ABC";
                     lst.Add("0", item);
+
+                    // Add Setting page inside
+                    item = new PermissionItem();
+                    item.CanCreate = true;
+                    item.CanDelete = true;
+                    item.CanModify = true;
+                    item.CanExport = true;
+                    item.CanEntry = true;
+                    item.ObjectSn = "7";
+                    item.ObjectId = "7F8FF2CE-659B-4B7F-8B48-FF1778DC4ABC";
+                    lst.Add("7", item);
                 }
                 return lst;
             }

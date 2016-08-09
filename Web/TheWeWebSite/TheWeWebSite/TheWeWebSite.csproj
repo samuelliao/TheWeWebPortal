@@ -115,6 +115,7 @@
     <Content Include="css\header.css" />
     <Content Include="css\month.css" />
     <Content Include="css\tablestyle.css" />
+    <Content Include="Setting\AccInfoSetting.aspx" />
     <Content Include="StoreMgt\ChurchMaintain.aspx" />
     <Content Include="StoreMgt\ChurchMCreate.aspx" />
     <Content Include="StoreMgt\DressMaintain.aspx" />
@@ -273,6 +274,13 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ResourceUtil.cs" />
+    <Compile Include="Setting\AccInfoSetting.aspx.cs">
+      <DependentUpon>AccInfoSetting.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Setting\AccInfoSetting.aspx.designer.cs">
+      <DependentUpon>AccInfoSetting.aspx</DependentUpon>
+    </Compile>
     <Compile Include="StoreMgt\ChurchMaintain.aspx.cs">
       <DependentUpon>ChurchMaintain.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

@@ -29,6 +29,7 @@ namespace TheWeWebSite.StoreMgt
                         btnModify.Visible = true;
                         btnDelete.Visible = true;
                         SetEmpInfoData(Session["EmpId"].ToString());
+                        CheckStoreHolderPermission();
                     }
                     else
                     {
@@ -68,11 +69,23 @@ namespace TheWeWebSite.StoreMgt
                 ddlStore.Enabled = true;
             }
         }
+        private void CheckStoreHolderPermission()
+        {
+            DataRow user = Session["AccountInfo"] as DataRow;
+            bool holder = bool.Parse(user["StoreHolder"].ToString());
+            if (!holder)
+            {
+                TransferToOtherPage();
+            }
+        }
+
         private void InitialControl()
         {
             CountryList();
             StoreList();
         }
+        
+        #region DropDownList Control
         private void StoreList()
         {
             ddlStore.Items.Clear();
@@ -122,16 +135,18 @@ namespace TheWeWebSite.StoreMgt
                 ShowErrorMsg(ex.Message);
             }
         }
+        #endregion
 
         #region Button Control
         protected void btnCreate_Click(object sender, EventArgs e)
         {
-            if (SysProperty.GenDbCon.IsSnDuplicate(SysProperty.Util.MsSqlTableConverter(MsSqlTable.Employee), tbEmpSn.Text))
+            if (SysProperty.GenDbCon.IsSnDuplicate(
+                SysProperty.Util.MsSqlTableConverter(MsSqlTable.Employee), tbEmpSn.Text))
             {
                 ShowErrorMsg(Resources.Resource.SnDuplicateErrorString);
                 return;
             }
-            List<DbSearchObject> lst = EmployeeInfoDbObject();
+            List<DbSearchObject> lst = EmployeeInfoDbObject(true);
             bool result = WriteBackInfo(true, lst, string.Empty);
             if (!result) return;
             string eid = GetCreatedDataId(MsSqlTable.vwEN_Employee, lst);
@@ -140,7 +155,7 @@ namespace TheWeWebSite.StoreMgt
             result = WriteBackPermission(lst);
             if (!result) return;
             string pid = GetCreatedDataId(MsSqlTable.Permission, lst);
-            if (!string.IsNullOrEmpty(pid)) return;
+            if (string.IsNullOrEmpty(pid)) return;
             result = WriteBackPermissionItem(PermissionItemDbObject(pid), pid, "Store");
             if (result)
             {
@@ -151,7 +166,7 @@ namespace TheWeWebSite.StoreMgt
         protected void btnModify_Click(object sender, EventArgs e)
         {
             if (Session["EmpId"] == null) return;
-            bool result = WriteBackInfo(false, EmployeeInfoDbObject(), Session["EmpId"].ToString());
+            bool result = WriteBackInfo(false, EmployeeInfoDbObject(string.IsNullOrEmpty(labelPw.Text)), Session["EmpId"].ToString());
             if (result)
             {
                 TransferToOtherPage();
@@ -209,24 +224,7 @@ namespace TheWeWebSite.StoreMgt
             }
         }
         #endregion
-
-        #region Photo Control
-        protected void btnUpload1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        protected void btnUpload2_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        protected void btnUpload3_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        #endregion
+      
 
         private DataSet GetDataSetFromTable(string sql)
         {
@@ -250,6 +248,7 @@ namespace TheWeWebSite.StoreMgt
             if (SysProperty.Util.IsDataSetEmpty(ds)) return;
             DataRow dr = ds.Tables[0].Rows[0];
             tbEmpAddress.Text = dr["Addr"].ToString();
+            labelPw.Text = string.IsNullOrEmpty(dr["AccInfo"].ToString()) ? string.Empty : "1";
             tbEmpSn.Text = dr["Sn"].ToString();
             tbEmpSalary.Text = SysProperty.Util.ParseMoney(dr["Salary"].ToString()).ToString("#0.00");
             tbEmpRemark.Text = dr["Remark"].ToString();
@@ -261,11 +260,12 @@ namespace TheWeWebSite.StoreMgt
             tbEmpEmail.Text = dr["Email"].ToString();
             tbEmpECTel.Text = dr["EmContPhone"].ToString();
             tbEmpEC.Text = dr["EmContName"].ToString();
+            cbStoreHolder.Checked = bool.Parse(dr["StoreHolder"].ToString());
             tbEmpBankBook.Text = dr["BankBookImg"].ToString();
             tbEmpBank.Text = dr["BankAccount"].ToString();
-            EmpQuitDay.Text = dr["QuitDay"].ToString();
-            EmpOnBoardDay.Text = dr["OnBoard"].ToString();
-            EmpBDay.Text = dr["Bday"].ToString();
+            EmpQuitDay.Text = SysProperty.Util.ParseDateTime("Date", dr["QuitDay"].ToString());
+            EmpOnBoardDay.Text = SysProperty.Util.ParseDateTime("Date", dr["OnBoard"].ToString());
+            EmpBDay.Text = SysProperty.Util.ParseDateTime("Date", dr["Bday"].ToString());
             ddlCountry.SelectedValue = dr["CountryId"].ToString();
             tbAccount.Text = dr["Account"].ToString();
             ddlStore.SelectedValue = dr["StoreId"].ToString();
@@ -279,10 +279,24 @@ namespace TheWeWebSite.StoreMgt
         }
 
         #region Db Instance
-        private List<DbSearchObject> EmployeeInfoDbObject()
+        private List<DbSearchObject> EmployeeInfoDbObject(bool isCreate)
         {
             List<DbSearchObject> lst = new List<DbSearchObject>();
-
+            if (isCreate)
+            {
+                lst.Add(new DbSearchObject(
+                "AccInfo"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , SysProperty.Util.GetMD5(tbAccount.Text)
+                ));
+            }
+            lst.Add(new DbSearchObject(
+                "StoreHolder"
+                , AtrrTypeItem.Bit
+                , AttrSymbolItem.Equal
+                , cbStoreHolder.Checked ? "1" : "0"
+                ));
             lst.Add(new DbSearchObject(
                 "PassportName"
                 , AtrrTypeItem.String
@@ -442,7 +456,7 @@ namespace TheWeWebSite.StoreMgt
                 "ObjectId"
                 , AtrrTypeItem.String
                 , AttrSymbolItem.Equal
-                , ((DataRow)Session["LocateStore"])["Sn"].ToString()
+                , ddlStore.SelectedValue
                 ));
             lst.Add(new DbSearchObject(
                 "Type"
@@ -466,7 +480,7 @@ namespace TheWeWebSite.StoreMgt
                 "ObjectSn"
                 , AtrrTypeItem.String
                 , AttrSymbolItem.Equal
-                , ddlStore.SelectedValue
+                , (ddlStore.SelectedItem.Text.Split('('))[1].Replace(")", "")
                 ));
             lst.Add(new DbSearchObject(
             "CanEntry"

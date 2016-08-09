@@ -36,13 +36,13 @@
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,AdviosryIdString%>"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server" ID="tbAdvisorySn"></asp:TextBox>
+                            <asp:TextBox runat="server" ReadOnly="true" ID="tbAdvisorySn"></asp:TextBox>
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,CaseIdString%>"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server" ID="tbCaseSn"></asp:TextBox>
+                            <asp:TextBox runat="server" ReadOnly="true" ID="tbCaseSn"></asp:TextBox>
                         </div>
 
 
@@ -50,7 +50,7 @@
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,MemberIdString%>"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server" ID="tbCustomerSn"></asp:TextBox>
+                            <asp:TextBox runat="server" ReadOnly="true" ID="tbCustomerSn"></asp:TextBox>
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">

@@ -97,11 +97,38 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   查詢類似 Account Setting 的當地語系化字串。
+        /// </summary>
+        internal static string AccountSettingString {
+            get {
+                return ResourceManager.GetString("AccountSettingString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查詢類似 Account 的當地語系化字串。
         /// </summary>
         internal static string AccountString {
             get {
                 return ResourceManager.GetString("AccountString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查詢類似 Addtional Purchase Price 的當地語系化字串。
+        /// </summary>
+        internal static string AdditionalPurchasePriceString {
+            get {
+                return ResourceManager.GetString("AdditionalPurchasePriceString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查詢類似 Additional Purchase 的當地語系化字串。
+        /// </summary>
+        internal static string AdditionalPurchaseString {
+            get {
+                return ResourceManager.GetString("AdditionalPurchaseString", resourceCulture);
             }
         }
         
@@ -781,6 +808,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   查詢類似 Custom Price 的當地語系化字串。
+        /// </summary>
+        internal static string CustomPriceString {
+            get {
+                return ResourceManager.GetString("CustomPriceString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查詢類似 Delete 的當地語系化字串。
         /// </summary>
         internal static string DeleteString {
@@ -840,6 +876,15 @@ namespace Resources {
         internal static string DomesticWeddingFilmingDateString {
             get {
                 return ResourceManager.GetString("DomesticWeddingFilmingDateString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查詢類似 Domestic Wedding Only 的當地語系化字串。
+        /// </summary>
+        internal static string DomesticWeddingOnlyString {
+            get {
+                return ResourceManager.GetString("DomesticWeddingOnlyString", resourceCulture);
             }
         }
         
@@ -1537,6 +1582,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   查詢類似 Manager 的當地語系化字串。
+        /// </summary>
+        internal static string ManagerString {
+            get {
+                return ResourceManager.GetString("ManagerString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查詢類似 Material 的當地語系化字串。
         /// </summary>
         internal static string MaterialString {
@@ -1762,6 +1816,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   查詢類似 Outdoor Photo Price 的當地語系化字串。
+        /// </summary>
+        internal static string OutdoorShootingPriceString {
+            get {
+                return ResourceManager.GetString("OutdoorShootingPriceString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查詢類似 Outdoor Shooting 的當地語系化字串。
         /// </summary>
         internal static string OutdoorShootingString {
@@ -1848,6 +1911,15 @@ namespace Resources {
         internal static string PasswordString {
             get {
                 return ResourceManager.GetString("PasswordString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查詢類似 Password validation error 的當地語系化字串。
+        /// </summary>
+        internal static string PasswordValidationErrorString {
+            get {
+                return ResourceManager.GetString("PasswordValidationErrorString", resourceCulture);
             }
         }
         
@@ -2199,6 +2271,15 @@ namespace Resources {
         internal static string ServiceItemSelectRemindString {
             get {
                 return ResourceManager.GetString("ServiceItemSelectRemindString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查詢類似 Setting 的當地語系化字串。
+        /// </summary>
+        internal static string SettingString {
+            get {
+                return ResourceManager.GetString("SettingString", resourceCulture);
             }
         }
         

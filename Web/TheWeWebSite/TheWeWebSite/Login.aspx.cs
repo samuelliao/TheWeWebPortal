@@ -104,7 +104,7 @@ namespace TheWeWebSite
                 , " Where Account= N'" + acc.ToLower() + "' and StoreId = '" + storeId + "'"
                 + " And IsDelete = 0 And IsValid = 1");
             if (SysProperty.Util.IsDataSetEmpty(ds)) return false;
-            if (new DataEncryption().GetMD5(pwd) == ds.Tables[0].Rows[0]["Password"].ToString())
+            if (new DataEncryption().GetMD5(pwd) == ds.Tables[0].Rows[0]["AccInfo"].ToString())
             {
                 SysProperty.UpdateCountries();
                 SysProperty.UpdateAreas();
