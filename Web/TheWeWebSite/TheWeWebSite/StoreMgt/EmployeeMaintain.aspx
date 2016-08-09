@@ -39,7 +39,7 @@
                                     <div class="Div">
                                         <asp:Label runat="server" Text="<%$ Resources:Resource,EmployeeSnString%>"></asp:Label>
                                     </div>
-                                    <asp:TextBox runat="server" placeholder="請輸入員工編號..." ID="tbEmpSn"></asp:TextBox>
+                                    <asp:TextBox runat="server" ID="tbEmpSn"></asp:TextBox>
                                 </div>
                                 <div class="2u 12u(mobilep)">
                                     <div class="Div">
@@ -108,7 +108,7 @@
                                                 <asp:Label runat="server" ID="dgLabelStoreId" />
                                             </ItemTemplate>
                                         </asp:TemplateColumn>
-                                        <asp:BoundColumn HeaderText="<%$ Resources:Resource,PhoneString%>" DataField="Phone" SortExpression="Phone"/>
+                                        <asp:BoundColumn HeaderText="<%$ Resources:Resource,AccountString%>" DataField="Account" SortExpression="Account"/>
 
                                         <asp:ButtonColumn CommandName="Delete"
                                             HeaderText="<%$ Resources:Resource,DeleteString%>"

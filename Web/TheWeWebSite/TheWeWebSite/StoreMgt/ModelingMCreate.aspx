@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ModelingMCreate.aspx.cs" Inherits="TheWeWebSite.StoreMgt.ModelingMCreate" %>
-
+<%@ Register TagPrefix="My" TagName="Header" Src="~/Header.ascx" %>
 
 <!DOCTYPE html>
 
@@ -14,7 +14,7 @@
     <form runat="server">
 
         <!-- Main -->
-
+        <My:Header runat="server" ID="ucHeader" />
         <section class="box title">
             <h3>
                 <asp:Label runat="server" Text="" ID="labelPageTitle"></asp:Label></h3>

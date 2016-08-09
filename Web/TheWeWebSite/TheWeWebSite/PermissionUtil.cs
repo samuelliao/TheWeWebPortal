@@ -20,7 +20,7 @@ namespace TheWeWebSite
 
         public string GetOperationSnByPage(string pagePath)
         {
-            if (string.IsNullOrEmpty(pagePath)) return "7";
+            if (string.IsNullOrEmpty(pagePath)) return "8";
             string pageName = System.IO.Path.GetFileNameWithoutExtension(pagePath);
             return OperationSn(pageName);
         }
@@ -67,8 +67,10 @@ namespace TheWeWebSite
                 case "StoreMaintain":
                 case "UnitMaintain":
                     return "6";
-                default:
+                case "AccInfoSetting":
                     return "7";
+                default:
+                    return "8";
             }
         }
     }

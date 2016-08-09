@@ -293,7 +293,7 @@ namespace TheWeWebSite.StoreMgt
             tbOthDescription.Text = dr["Description"].ToString();
             tbOthName.Text = dr["Name"].ToString();
             ddlType.SelectedValue = dr["Type"].ToString();
-            ddlOthCategory.SelectedValue = dr["CategoryId"].ToString();
+            ddlOthCategory.SelectedValue = dr["CategroyId"].ToString();
             ddlStore.SelectedValue = dr["StoreId"].ToString();
 
             string imgPath = @dr["Img"].ToString();
@@ -302,6 +302,13 @@ namespace TheWeWebSite.StoreMgt
             string ImgFolderPath = imgPath;
             RefreshImage(0, ImgFolderPath);
             tbFolderPath.Text = ImgFolderPath;
+
+            if (bool.Parse(dr["IsGeneral"].ToString()))
+            {
+                btnModify.Visible = false;
+                btnDelete.Visible = false;
+                btnClear.Visible = false;
+            }
 
             if (!bool.Parse(((DataRow)Session["LocateStore"])["HoldingCompany"].ToString()))
             {

@@ -184,7 +184,7 @@
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
-                                <asp:Label runat="server" Text="訂製價"></asp:Label>
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,CustomPriceString%>"></asp:Label>
                             </div>
                             <asp:TextBox runat="server" ID="tbCustomPrice" style="text-align:right"></asp:TextBox>
                             <asp:RegularExpressionValidator ID="RegularExpressionValidator2" ControlToValidate="tbCustomPrice" runat="server"
@@ -228,7 +228,7 @@
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
-                                <asp:Label runat="server" Text="外拍加價金額"></asp:Label>
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,OutdoorShootingPriceString%>""></asp:Label>
                             </div>
                             <asp:UpdatePanel runat="server">
                                 <ContentTemplate>
@@ -241,13 +241,13 @@
                         <div style="margin-top: 1.6em">
                             <asp:UpdatePanel runat="server">
                                 <ContentTemplate>
-                                    <asp:CheckBox runat="server" Text="加價款" ID="cbPlusItem" OnCheckedChanged="cbPlusItem_CheckedChanged" AutoPostBack="true" />
+                                    <asp:CheckBox runat="server" Text="<%$ Resources:Resource,AdditionalPurchaseString%>" ID="cbPlusItem" OnCheckedChanged="cbPlusItem_CheckedChanged" AutoPostBack="true" />
                                 </ContentTemplate>
                             </asp:UpdatePanel>
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
-                                <asp:Label runat="server" Text="加價款加價金額"></asp:Label>
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,AdditionalPurchasePriceString%>"></asp:Label>
                             </div>
                             <asp:UpdatePanel runat="server">
                                 <ContentTemplate>
@@ -258,7 +258,7 @@
                             </asp:UpdatePanel>
                         </div>
                         <div style="margin-top: 1.6em">
-                            <asp:CheckBox runat="server" Text="限國內婚宴" ID="cbDomesticWedding" />
+                            <asp:CheckBox runat="server" Text="<%$ Resources:Resource,DomesticWeddingOnlyString%>" ID="cbDomesticWedding" />
                         </div>
                         <div style="margin-top: 1.6em">
                             <asp:CheckBox runat="server" Text="<%$ Resources:Resource,BigSizeString%>" ID="cbBigSize" />

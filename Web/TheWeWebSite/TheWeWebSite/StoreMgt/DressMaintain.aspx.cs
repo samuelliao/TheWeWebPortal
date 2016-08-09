@@ -37,10 +37,19 @@ namespace TheWeWebSite.StoreMgt
         {
             PermissionUtil util = new PermissionUtil();
             if (Session["Operation"] == null) Response.Redirect("~/Login.aspx");
-            PermissionItem item = util.GetPermissionByKey(Session["Operation"], util.GetOperationSnByPage(this.Page.AppRelativeVirtualPath));
-            LinkDressMCreate.Visible = item.CanCreate;
-            LinkDressMCreate.Enabled = item.CanCreate;
-            dataGrid.Columns[dataGrid.Columns.Count - 1].Visible = item.CanDelete;
+            if (bool.Parse(((DataRow)Session["LocateStore"])["HoldingCompany"].ToString()))
+            {
+                PermissionItem item = util.GetPermissionByKey(Session["Operation"], util.GetOperationSnByPage(this.Page.AppRelativeVirtualPath));
+                LinkDressMCreate.Visible = item.CanCreate;
+                LinkDressMCreate.Enabled = item.CanCreate;
+                dataGrid.Columns[dataGrid.Columns.Count - 1].Visible = item.CanDelete;
+            }
+            else
+            {
+                LinkDressMCreate.Enabled = false;
+                LinkDressMCreate.Visible = false;
+                dataGrid.Columns[dataGrid.Columns.Count - 1].Visible = false;
+            }
         }
         private void InitialControls()
         {
@@ -308,7 +317,7 @@ namespace TheWeWebSite.StoreMgt
 
         private void BindData()
         {
-            string storeId = !bool.Parse(((DataRow)Session["LocateStore"])["HoldingCompany"].ToString())
+            string storeId = bool.Parse(((DataRow)Session["LocateStore"])["HoldingCompany"].ToString())
                 ? string.Empty : ((DataRow)Session["LocateStore"])["Id"].ToString();
             GetDressList(storeId, OtherConditionString);
             dataGrid.DataSource = DS;

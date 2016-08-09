@@ -171,12 +171,12 @@ namespace TheWeWebSite.StoreMgt
                 string condStr = string.Empty;
                 if (string.IsNullOrEmpty(ddlOthCategory.SelectedValue))
                 {
-                    condStr = OtherConditionString + " And Category = '4ec16237-2cb6-496f-ab85-8fa708aa4d55'"
+                    condStr = OtherConditionString + " And CategroyId = '4ec16237-2cb6-496f-ab85-8fa708aa4d55'"
                         + (bool.Parse(((DataRow)Session["LocateStore"])["HoldingCompany"].ToString())
                             ? string.Empty
                             : " and a.StoreId = '" + ((DataRow)Session["LocateStore"])["Id"].ToString() + "'");
                     DS = GetServiceItem(condStr, sortStr);
-                    condStr = OtherConditionString + " And Category != '4ec16237-2cb6-496f-ab85-8fa708aa4d55'";
+                    condStr = OtherConditionString + " And IsGeneral = 1";
                     DS.Merge(GetServiceItem(condStr, sortStr));
                 }
                 else if (ddlOthCategory.SelectedValue == "4ec16237-2cb6-496f-ab85-8fa708aa4d55")
@@ -208,7 +208,7 @@ namespace TheWeWebSite.StoreMgt
                         + " ,a.[Name],a.[Description],a.[Type],a.[Price]"
                         + " ,a.[SupplierId],a.[Cost],a.[StoreId],a.[CnName]"
                         + " ,a.[EngName],a.[JpName],a.[IsDelete],a.[CategroyId]"
-                        + " ,a.[UpdateAccId],a.[UpdateTime]"
+                        + " ,a.[UpdateAccId],a.[UpdateTime],a.IsGeneral"
                         + " from [TheWe].[dbo].[ServiceItem] as a "
                         + " WHERE a.IsDelete = 0 " + condStr + " " + sortStr;
                 return SysProperty.GenDbCon.GetDataFromTable(sql);

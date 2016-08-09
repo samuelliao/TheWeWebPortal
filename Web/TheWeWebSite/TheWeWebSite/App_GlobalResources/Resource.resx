@@ -981,4 +981,31 @@
   <data name="ImgIdCardBackString" xml:space="preserve">
     <value>Id Card Back Image</value>
   </data>
+  <data name="SettingString" xml:space="preserve">
+    <value>Setting</value>
+  </data>
+  <data name="AccountSettingString" xml:space="preserve">
+    <value>Account Setting</value>
+  </data>
+  <data name="ManagerString" xml:space="preserve">
+    <value>Manager</value>
+  </data>
+  <data name="PasswordValidationErrorString" xml:space="preserve">
+    <value>Password validation error</value>
+  </data>
+  <data name="CustomPriceString" xml:space="preserve">
+    <value>Custom Price</value>
+  </data>
+  <data name="OutdoorShootingPriceString" xml:space="preserve">
+    <value>Outdoor Photo Price</value>
+  </data>
+  <data name="AdditionalPurchaseString" xml:space="preserve">
+    <value>Additional Purchase</value>
+  </data>
+  <data name="AdditionalPurchasePriceString" xml:space="preserve">
+    <value>Addtional Purchase Price</value>
+  </data>
+  <data name="DomesticWeddingOnlyString" xml:space="preserve">
+    <value>Domestic Wedding Only</value>
+  </data>
 </root>
