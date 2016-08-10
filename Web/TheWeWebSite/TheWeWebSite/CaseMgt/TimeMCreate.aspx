@@ -84,7 +84,6 @@
                     </div>
                 </div>
                 <div class="12u">
-
                     <div class="row uniform 50%">
                         <div class="4u 12u(mobilep)">
                             <div class="Div">
@@ -142,6 +141,64 @@
                             ID="btnModify" OnClick="btnModify_Click" />
                     </li>
                 </ul>
+            </div>
+            <div>
+                <div class="12u">
+                    <div class="row uniform 50%">
+                        <div class="2u 12u(mobilep)">
+                            <div class="Div">
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,SnString%>"></asp:Label>
+                            </div>
+                            <asp:Label runat="server" ID="label1" />
+                        </div>
+                        <div class="2u 12u(mobilep)">
+                            <div class="Div">
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,ContractDateString%>"></asp:Label>
+                            </div>
+                            <div>
+                                <asp:Label runat="server" ID="Label2"></asp:Label>
+                            </div>
+                        </div>
+
+                        <div class="2u 12u(mobilep)">
+                            <div class="Div">
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,BridalNameString%>"></asp:Label>
+                            </div>
+                            <asp:Label runat="server" ID="Label3"></asp:Label>
+                        </div>
+                        <div class="2u 12u(mobilep)">
+                            <div class="Div">
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,GroomNameString%>"></asp:Label>
+                            </div>
+                            <asp:Label runat="server" ID="Label4"></asp:Label>
+
+                        </div>
+                        <div class="2u 12u(mobilep)">
+                            <div class="Div">
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,CountryString%>"></asp:Label>
+                            </div>
+                            <asp:Label runat="server" ID="Label5" />
+                        </div>
+                        <div class="2u 12u(mobilep)">
+                            <div class="Div">
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,AreaString%>"></asp:Label>
+                            </div>
+                            <asp:Label runat="server" ID="Label6" />
+                        </div>
+                        <div class="2u 12u(mobilep)">
+                            <div class="Div">
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,LocateString%>"></asp:Label>
+                            </div>
+                            <asp:Label runat="server" ID="Label7" />
+                        </div>
+                        <div class="2u 12u(mobilep)">
+                            <div class="Div">
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,ProductSetString%>"></asp:Label>
+                            </div>
+                            <asp:Label runat="server" ID="Label8" />
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
 

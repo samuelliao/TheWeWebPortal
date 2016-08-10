@@ -37,6 +37,7 @@
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,SnString%>"></asp:Label>
                             </div>
                             <asp:TextBox runat="server" ID="tbSn" ReadOnly="true"></asp:TextBox>
+                            <asp:Label runat="server" ID="labelConsultDate" Visible="false" />
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
@@ -53,7 +54,7 @@
                             <asp:UpdatePanel runat="server">
                                 <ContentTemplate>
                                     <asp:TextBox runat="server" Style="text-align: right" ID="tbBookingDate" OnTextChanged="tbBookingDate_TextChanged"
-                                        Cssclass="date date-1" value="" placeholder="YYYY-MM-DD HH:MM APM" data-timeformat="HH:MM"></asp:TextBox>
+                                        CssClass="date date-1" value="" placeholder="YYYY-MM-DD HH:MM APM" data-timeformat="HH:MM"></asp:TextBox>
                                 </ContentTemplate>
                             </asp:UpdatePanel>
                         </div>
@@ -61,8 +62,8 @@
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,LastReceivedTimeString%>"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server" Style="text-align: right" ID="tbLastReceived" Cssclass="date date-1" value=""
-                                 placeholder="YYYY-MM-DD HH:MM APM" data-timeformat="HH:MM"></asp:TextBox>
+                            <asp:TextBox runat="server" Style="text-align: right" ID="tbLastReceived" CssClass="date date-1" value=""
+                                placeholder="YYYY-MM-DD HH:MM APM" data-timeformat="HH:MM"></asp:TextBox>
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
@@ -113,7 +114,7 @@
                             </div>
                             <div>
                                 <asp:TextBox runat="server" Style="text-align: right" ID="tbBridalBday"
-                                    Cssclass="date date-1" value="" placeholder="YYYY-MM-DD" ></asp:TextBox>
+                                    CssClass="date date-1" value="" placeholder="YYYY-MM-DD"></asp:TextBox>
                             </div>
                         </div>
 
@@ -180,7 +181,7 @@
                             </div>
                             <div>
                                 <asp:TextBox runat="server" Style="text-align: right" ID="tbGroomBday"
-                                    Cssclass="date date-1" value="" placeholder="YYYY-MM-DD" ></asp:TextBox>
+                                    CssClass="date date-1" value="" placeholder="YYYY-MM-DD"></asp:TextBox>
                             </div>
                         </div>
 
@@ -281,7 +282,7 @@
                             </div>
                             <div>
                                 <asp:TextBox runat="server" Style="text-align: right" ID="tbWeddingFilm"
-                                    Cssclass="date date-1" value="" placeholder="YYYY-MM-DD" ></asp:TextBox>
+                                    CssClass="date date-1" value="" placeholder="YYYY-MM-DD"></asp:TextBox>
                             </div>
                         </div>
                     </div>
@@ -295,7 +296,7 @@
                             </div>
                             <div>
                                 <asp:TextBox runat="server" Style="text-align: right" ID="tbWeddingDate"
-                                    Cssclass="date date-1" value="" placeholder="YYYY-MM-DD" ></asp:TextBox>
+                                    CssClass="date date-1" value="" placeholder="YYYY-MM-DD"></asp:TextBox>
                             </div>
                         </div>
                         <div class="2u 12u(mobilep)">
@@ -304,7 +305,7 @@
                             </div>
                             <div>
                                 <asp:TextBox runat="server" Style="text-align: right" ID="tbReception"
-                                    Cssclass="date date-1" value="" placeholder="YYYY-MM-DD" ></asp:TextBox>
+                                    CssClass="date date-1" value="" placeholder="YYYY-MM-DD"></asp:TextBox>
                             </div>
                         </div>
                         <div class="2u 12u(mobilep)">
@@ -344,6 +345,10 @@
                     <li>
                         <asp:Button runat="server" CssClass="button alt" Text="<%$ Resources:Resource,DeleteString%>"
                             ID="btnDelete" OnClick="btnDelete_Click" Visible="false" />
+                    </li>
+                    <li>
+                        <asp:Button runat="server" CssClass="button alt" Text="<%$ Resources:Resource,ExportString%>"
+                            ID="btnExport" OnClick="btnExport_Click" Visible="false" />
                     </li>
                     <li>
                         <asp:Button runat="server" CssClass="button alt" Text="<%$ Resources:Resource,CancelString%>"

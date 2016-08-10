@@ -393,9 +393,6 @@
   <data name="UnitInputString" xml:space="preserve">
     <value>請輸入單位</value>
   </data>
-  <data name="AdviosryIdString" xml:space="preserve">
-    <value>未簽約編號</value>
-  </data>
   <data name="CaseIdString" xml:space="preserve">
     <value>案件編號</value>
   </data>
@@ -1007,5 +1004,26 @@
   </data>
   <data name="DomesticWeddingOnlyString" xml:space="preserve">
     <value>限國內婚宴</value>
+  </data>
+  <data name="CreationTimeString" xml:space="preserve">
+    <value>建立日期</value>
+  </data>
+  <data name="BasicInfoString" xml:space="preserve">
+    <value>基本資訊</value>
+  </data>
+  <data name="AdvanceInfoString" xml:space="preserve">
+    <value>進階資訊</value>
+  </data>
+  <data name="AdviosryIdString" xml:space="preserve">
+    <value>未簽約編號</value>
+  </data>
+  <data name="BridalString" xml:space="preserve">
+    <value>新娘</value>
+  </data>
+  <data name="GroomString" xml:space="preserve">
+    <value>新郎</value>
+  </data>
+  <data name="WorkString" xml:space="preserve">
+    <value>工作</value>
   </data>
 </root>

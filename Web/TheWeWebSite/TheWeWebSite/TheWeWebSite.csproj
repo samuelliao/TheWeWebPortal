@@ -41,6 +41,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DocX, Version=1.0.0.22, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\DocX.1.0.0.22\lib\net40\DocX.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="log4net">
       <HintPath>.\log4net.dll</HintPath>
     </Reference>
@@ -92,7 +96,6 @@
     <Content Include="CaseMgt\CustomerMCreate.aspx" />
     <Content Include="CaseMgt\TimeMaintain.aspx" />
     <Content Include="CaseMgt\TimeMCreate.aspx" />
-    <Content Include="css\main.css" />
     <Content Include="Header.ascx" />
     <Content Include="Login.aspx" />
     <Content Include="Main\Calendar.aspx" />
@@ -101,20 +104,6 @@
     <Content Include="Main\CustomerCalendar.aspx" />
     <Content Include="Main\Unsigned.aspx" />
     <Content Include="remind.aspx" />
-    <Content Include="css\bootstrap.css" />
-    <Content Include="css\btn_1.css" />
-    <Content Include="css\btn_2.css" />
-    <Content Include="css\btn_3.css" />
-    <Content Include="css\btn_4.css" />
-    <Content Include="css\btn_5.css" />
-    <Content Include="css\btn_6.css" />
-    <Content Include="css\btn_7.css" />
-    <Content Include="css\btn_8.css" />
-    <Content Include="css\content.css" />
-    <Content Include="css\footer.css" />
-    <Content Include="css\header.css" />
-    <Content Include="css\month.css" />
-    <Content Include="css\tablestyle.css" />
     <Content Include="Setting\AccInfoSetting.aspx" />
     <Content Include="StoreMgt\ChurchMaintain.aspx" />
     <Content Include="StoreMgt\ChurchMCreate.aspx" />
@@ -144,6 +133,11 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_GlobalResources\Resource.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resource.resx</DependentUpon>
+    </Compile>
     <Compile Include="App_GlobalResources\Resource.zh-CN.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -153,11 +147,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resource.zh-TW.resx</DependentUpon>
-    </Compile>
-    <Compile Include="App_GlobalResources\Resource1.designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resource.resx</DependentUpon>
     </Compile>
     <Compile Include="CaseMgt\AdvisoryMaintain.aspx.cs">
       <DependentUpon>AdvisoryMaintain.aspx</DependentUpon>
@@ -264,6 +253,8 @@
     <Compile Include="Main\Unsigned.aspx.designer.cs">
       <DependentUpon>Unsigned.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Output\AdvisoryDoc.cs" />
+    <Compile Include="Output\GroupPhotoNotification.cs" />
     <Compile Include="PermissionUtil.cs" />
     <Compile Include="remind.aspx.cs">
       <DependentUpon>remind.aspx</DependentUpon>
@@ -469,6 +460,7 @@
     </Content>
     <Content Include="packages.config" />
     <Content Include="assets\img\Chees.psd" />
+    <None Include="Properties\PublishProfiles\Test.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -485,7 +477,7 @@
   <ItemGroup>
     <Content Include="App_GlobalResources\Resource.resx">
       <Generator>GlobalResourceProxyGenerator</Generator>
-      <LastGenOutput>Resource1.designer.cs</LastGenOutput>
+      <LastGenOutput>Resource.designer.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <ItemGroup>

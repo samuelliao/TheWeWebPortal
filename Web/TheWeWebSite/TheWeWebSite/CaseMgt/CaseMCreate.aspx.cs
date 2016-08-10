@@ -514,7 +514,7 @@ namespace TheWeWebSite.CaseMgt
                     + ",[LocalMotheringDate],[LocalReceptionDate],[BalancePayementDate]"
                     + ",o.[ServiceType],o.[IsDelete],o.[UpdateAccId],o.[UpdateTime],o.[ServiceType]"
                     + ",[WeddingRecord],[DynamicRecord],[BridalSecretary],[WeddingPerform],[WeddingType]"
-                    + ",[WeddingDecorate],[WeddingHost],[TotalPrice],[Discount],o.[Remark],[Referral]"
+                    + ",[WeddingDecorate],[WeddingHost],[TotalPrice],[Discount],o.[Remark],[Referral],o.Img"
                     + " FROM[TheWe].[dbo].[OrderInfo] as o"
                     + " Left join Consultation as c on c.Id = o.ConsultId"
                     + " Where o.IsDelete = 0 And o.Id = '" + id + "'";

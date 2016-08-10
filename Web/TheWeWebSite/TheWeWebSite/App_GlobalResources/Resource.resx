@@ -913,7 +913,7 @@
     <value></value>
   </data>
   <data name="EmpNameString" xml:space="preserve">
-    <value></value>
+    <value>Employee Name</value>
   </data>
   <data name="EmpOnboardDayString" xml:space="preserve">
     <value></value>
@@ -928,10 +928,10 @@
     <value></value>
   </data>
   <data name="BankString" xml:space="preserve">
-    <value></value>
+    <value>Bank Account</value>
   </data>
   <data name="BankBookString" xml:space="preserve">
-    <value></value>
+    <value>Bank Book</value>
   </data>
   <data name="SalaryString" xml:space="preserve">
     <value></value>
@@ -1007,5 +1007,23 @@
   </data>
   <data name="DomesticWeddingOnlyString" xml:space="preserve">
     <value>Domestic Wedding Only</value>
+  </data>
+  <data name="CreationTimeString" xml:space="preserve">
+    <value>Creation Date</value>
+  </data>
+  <data name="BasicInfoString" xml:space="preserve">
+    <value>Basic Information</value>
+  </data>
+  <data name="AdvanceInfoString" xml:space="preserve">
+    <value>Advance Information</value>
+  </data>
+  <data name="BridalString" xml:space="preserve">
+    <value>Bridal</value>
+  </data>
+  <data name="GroomString" xml:space="preserve">
+    <value>Groom</value>
+  </data>
+  <data name="WorkString" xml:space="preserve">
+    <value>Vocation</value>
   </data>
 </root>

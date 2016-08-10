@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.IO;
 using System.Linq;
+using System.Text;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using TheWeLib;
+using TheWeWebSite.Output;
 
 namespace TheWeWebSite.CaseMgt
 {
@@ -69,6 +72,8 @@ namespace TheWeWebSite.CaseMgt
             btnDelete.Enabled = item.CanDelete;
             btnModify.Visible = item.CanModify;
             btnModify.Enabled = item.CanModify;
+            btnExport.Enabled = item.CanExport;
+            btnExport.Visible = item.CanExport;
         }
         private void InitialControls()
         {
@@ -292,6 +297,12 @@ namespace TheWeWebSite.CaseMgt
         #endregion
 
         #region Button Control
+        protected void btnExport_Click(object sender, EventArgs e)
+        {
+            GenerateDoc(tbSn.Text, DateTime.Parse(labelConsultDate.Text)
+                , tbBridalName.Text, tbBridalEngName.Text, tbBridalPhone.Text, tbBridalMsgId.Text + "(" + ddlBridalMsgerType.SelectedItem.Text + ")", tbBridalBday.Text, tbBridalWork.Text, tbBridalEmail.Text
+                , tbGroomName.Text, tbGroomEngName.Text, tbGroomPhone.Text, tbGroomMsgId.Text + "(" + ddlGroomMsgerType.SelectedItem.Text + ")", tbGroomBday.Text, tbGroomWork.Text, tbGroomEmail.Text);
+        }
         protected void btnDelete_Click(object sender, EventArgs e)
         {
             try
@@ -431,6 +442,7 @@ namespace TheWeWebSite.CaseMgt
         }
         #endregion
 
+        #region DB Control
         #region DB Insatnce Object
         private List<DbSearchObject> ConsultDbObject()
         {
@@ -1095,8 +1107,7 @@ namespace TheWeWebSite.CaseMgt
             }
         }
 
-
-        #region DB Control
+        #region DB Related
         private DataSet GetDataFromDb(string tableName, List<DbSearchObject> lst)
         {
             string sqlTxt = "Select * From " + tableName + SysProperty.Util.SqlQueryConditionConverter(lst);
@@ -1133,6 +1144,8 @@ namespace TheWeWebSite.CaseMgt
         }
         #endregion
 
+        #endregion
+
         private void TransferToOtherPage()
         {
             Session.Remove("ConsultId");
@@ -1164,34 +1177,14 @@ namespace TheWeWebSite.CaseMgt
             if (!SysProperty.Util.IsDataSetEmpty(ds))
             {
                 DataRow dr = ds.Tables[0].Rows[0];
-                if (!string.IsNullOrEmpty(dr["BridalBday"].ToString()))
-                {
-                    if (DateTime.Parse(dr["BridalBday"].ToString()) > new DateTime(1900, 12, 31))
-                    {
-                        tbBridalBday.Text = DateTime.Parse(dr["BridalBday"].ToString()).ToString("yyyy/MM/dd");
-                    }
-                    else
-                    {
-                        tbBridalBday.Text = string.Empty;
-                    }
-                }
+                tbBridalBday.Text = SysProperty.Util.ParseDateTime("Date", dr["BridalBday"].ToString());
                 tbBridalEmail.Text = dr["BridalEmail"].ToString();
                 tbBridalEngName.Text = dr["BridalEngName"].ToString();
                 tbBridalMsgId.Text = dr["BridalMsgerId"].ToString();
                 tbBridalName.Text = dr["BridalName"].ToString();
                 tbBridalPhone.Text = dr["BridalPhone"].ToString();
                 tbBridalWork.Text = dr["BridalWork"].ToString();
-                if (!string.IsNullOrEmpty(dr["GroomBday"].ToString()))
-                {
-                    if (DateTime.Parse(dr["GroomBday"].ToString()) > new DateTime(1900, 12, 31))
-                    {
-                        tbGroomBday.Text = DateTime.Parse(dr["GroomBday"].ToString()).ToString("yyyy/MM/dd");
-                    }
-                    else
-                    {
-                        tbGroomBday.Text = string.Empty;
-                    }
-                }
+                tbGroomBday.Text = SysProperty.Util.ParseDateTime("Date", dr["GroomBday"].ToString());
                 cbReply.Checked = bool.Parse(dr["IsReply"].ToString());
                 tbGroomEmail.Text = dr["GroomEmail"].ToString();
                 tbGroomEngName.Text = dr["GroomEngName"].ToString();
@@ -1199,48 +1192,13 @@ namespace TheWeWebSite.CaseMgt
                 tbGroomName.Text = dr["GroomName"].ToString();
                 tbGroomPhone.Text = dr["GroomPhone"].ToString();
                 tbGroomWork.Text = dr["GroomWork"].ToString();
-
-                if (DateTime.Parse(dr["LastReceivedDate"].ToString()) > new DateTime(1900, 12, 31))
-                {
-                    tbLastReceived.Text = DateTime.Parse(dr["LastReceivedDate"].ToString()).ToString("yyyy/MM/dd");
-                }
-                else
-                {
-                    tbLastReceived.Text = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss");
-                }
-                if (DateTime.Parse(dr["BookingDate"].ToString()) > new DateTime(1900, 12, 31))
-                {
-                    tbBookingDate.Text = DateTime.Parse(dr["BookingDate"].ToString()).ToString("yyyy/MM/dd");
-                }
-                else
-                {
-                    tbBookingDate.Text = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss");
-                }
-                if (DateTime.Parse(dr["ReceptionDate"].ToString()) > new DateTime(1900, 12, 31))
-                {
-                    tbReception.Text = DateTime.Parse(dr["ReceptionDate"].ToString()).ToString("yyyy/MM/dd");
-                }
-                else
-                {
-                    tbReception.Text = string.Empty;
-                }
-                if (DateTime.Parse(dr["WeddingDate"].ToString()) > new DateTime(1900, 12, 31))
-                {
-                    tbWeddingDate.Text = DateTime.Parse(dr["WeddingDate"].ToString()).ToString("yyyy/MM/dd");
-                }
-                else
-                {
-                    tbWeddingDate.Text = string.Empty;
-                }
-                if (DateTime.Parse(dr["FilmingDate"].ToString()) > new DateTime(1900, 12, 31))
-                {
-                    tbWeddingFilm.Text = DateTime.Parse(dr["FilmingDate"].ToString()).ToString("yyyy/MM/dd");
-                }
-                else
-                {
-                    tbWeddingFilm.Text = string.Empty;
-                }
+                tbLastReceived.Text = SysProperty.Util.ParseDateTime("DateTime", dr["LastReceivedDate"].ToString());
+                tbBookingDate.Text = SysProperty.Util.ParseDateTime("DateTime", dr["BookingDate"].ToString());
+                tbReception.Text = SysProperty.Util.ParseDateTime("Date", dr["ReceptionDate"].ToString());
+                tbWeddingDate.Text = SysProperty.Util.ParseDateTime("Date", dr["WeddingDate"].ToString());
+                tbWeddingFilm.Text = SysProperty.Util.ParseDateTime("Date", dr["FilmingDate"].ToString());
                 tbSn.Text = dr["Sn"].ToString();
+                labelConsultDate.Text = SysProperty.Util.ParseDateTime("Date", dr["ConsultDate"].ToString());
                 tbRemark.Text = dr["Remark"].ToString();
                 ddlBridalMsgerType.SelectedValue = dr["BridalMsgerType"].ToString();
                 ddlGroomMsgerType.SelectedValue = dr["GroomMsgerType"].ToString();
@@ -1352,9 +1310,10 @@ namespace TheWeWebSite.CaseMgt
             {
                 try
                 {
-                    if (dr["ChurchId"] != null || !string.IsNullOrEmpty(dr["ChurchId"].ToString()))
+                    if (dr["ChurchId"] != null)
                     {
-                        cblLocation.Items.FindByValue(dr["ChurchId"].ToString()).Selected = true;
+                        if (!string.IsNullOrEmpty(dr["ChurchId"].ToString()))
+                            cblLocation.Items.FindByValue(dr["ChurchId"].ToString()).Selected = true;
                     }
                 }
                 catch (Exception ex)
@@ -1598,6 +1557,34 @@ namespace TheWeWebSite.CaseMgt
         protected void tbBookingDate_TextChanged(object sender, EventArgs e)
         {
             cbReply.Checked = true;
+        }
+
+        public void GenerateDoc(string sn, DateTime time
+            , string bridalName, string bridalEngName, string bridalPhone, string bridalMsg, string bridalBday, string bridalWork, string bridalMail
+            , string groomName, string groomEngName, string groomPhone, string groomMsg, string groomBday, string groomWork, string groomMail)
+        {
+            //Response.Redirect("~/Output/Download.aspx");
+            //Response.AddHeader("Content-Disposition", "attachment; filename=" + sn + ".docx");
+            string filePath = new GroupPhotoNotification().CreateGroupPhoto(sn, bridalName, groomName, "", new DateTime());
+            Uri uri = new Uri(filePath); // Here I get the error
+            string fName = Path.GetFullPath(uri.LocalPath);
+            FileInfo fileInfo = new FileInfo(fName);
+            if (fileInfo.Exists)
+            {
+                Response.Clear();
+                Response.ClearContent();
+                Response.ClearHeaders();
+
+                Response.Buffer = true;
+                Response.ContentType = "application/msword";
+                //Response.ContentType = "application/Octet-stream";
+                Response.ContentEncoding = System.Text.UnicodeEncoding.UTF8;
+                Response.Charset = "UTF-8";
+                Response.AddHeader("Content-Disposition", "attachment;filename=" + fileInfo.Name);
+                Response.AddHeader("Content-Length", fileInfo.Length.ToString());
+                Response.WriteFile(filePath);
+                Response.End();
+            }
         }
     }
 }
