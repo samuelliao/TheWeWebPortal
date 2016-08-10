@@ -85,8 +85,8 @@ namespace TheWeWebSite.CaseMgt
         }
         private void TransferToOtherPage()
         {
-            Server.Transfer("CaseMaintain.aspx", true);
             Session.Remove("OrderId");
+            Server.Transfer("TimeMaintain.aspx", true);
         }
 
         protected void btnModify_Click(object sender, EventArgs e)
@@ -97,6 +97,10 @@ namespace TheWeWebSite.CaseMgt
             bool result = WriteBackData(MsSqlTable.ConferenceInfo, ConferenceItemDbObject(itemId, orderId), orderId, itemId);
             if (!result) return;
             result = WriteBackData(MsSqlTable.OrderInfo, OrderInfoDbObject(itemId), orderId, itemId);
+        }
+        protected void btnCancel_Click(object sender, EventArgs e)
+        {
+            TransferToOtherPage();
         }
 
         private DataSet GetOrderInfo(string id)

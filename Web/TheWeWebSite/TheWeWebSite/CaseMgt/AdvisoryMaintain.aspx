@@ -53,6 +53,11 @@
                                 </div>
                                 <asp:TextBox runat="server"  ID="tbGroomName"></asp:TextBox>
                             </div>
+                                           
+                        </div>
+                    </div>
+                    <div class="12u">
+                        <div class="row uniform 50%">
                             <div class="2u 12u(mobilep)">
                                 <div class="Div">
                                     <asp:Label runat="server" Text="開案日期選擇範圍(開始)" ID="labelSearchStartDate"></asp:Label>
@@ -70,11 +75,7 @@
                                     <asp:TextBox runat="server" style="text-align:right" Cssclass="date date-1" value="" placeholder="YYYY-MM-DD"
                                         ID="tbSearchEndDate"></asp:TextBox>
                                 </div>
-                            </div>                            
-                        </div>
-                    </div>
-                    <div class="12u">
-                        <div class="row uniform 50%">
+                            </div>             
                             <div class="2u 12u(mobilep)">
                                 <div class="Div">
                                     <asp:Label runat="server" Text="會議日期選擇範圍(開始)" ID="labelBookStartDate"></asp:Label>

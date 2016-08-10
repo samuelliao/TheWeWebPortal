@@ -1,5 +1,4 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ModelingMCreate.aspx.cs" Inherits="TheWeWebSite.StoreMgt.ModelingMCreate" %>
-<%@ Register TagPrefix="My" TagName="Header" Src="~/Header.ascx" %>
 
 <!DOCTYPE html>
 
@@ -14,7 +13,6 @@
     <form runat="server">
 
         <!-- Main -->
-        <My:Header runat="server" ID="ucHeader" />
         <section class="box title">
             <h3>
                 <asp:Label runat="server" Text="" ID="labelPageTitle"></asp:Label></h3>
@@ -32,7 +30,7 @@
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,SnString%>"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server" placeholder="..." ID="tbSn" ReadOnly="true"></asp:TextBox>
+                            <asp:TextBox runat="server" placeholder="<%$ Resources:Resource,SystemSnString%>" ID="tbSn" Enabled="false"></asp:TextBox>
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
@@ -41,7 +39,8 @@
                             <asp:UpdatePanel runat="server">
                                 <ContentTemplate>
                                     <asp:DropDownList runat="server" ID="ddlType" AutoPostBack="true" OnSelectedIndexChanged="ddlType_SelectedIndexChanged" />
-                                    <asp:TextBox runat="server" ID="tbType" Visible="false" />
+                                    <div style="padding-top:10px">
+                                    <asp:TextBox runat="server" ID="tbType" Visible="false"/></div>
                                 </ContentTemplate>
                             </asp:UpdatePanel>
                         </div>
@@ -49,7 +48,7 @@
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,DescriptionString%>"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server" placeholder="..." ID="tbDescription"></asp:TextBox>
+                            <asp:TextBox runat="server"  ID="tbDescription"></asp:TextBox>
                         </div>
                     </div>
                 </div>
@@ -63,7 +62,7 @@
 
                             </div>
                             <span class="image fit">
-                                <asp:Image runat="server" ID="ImgFront" />
+                                <asp:Image runat="server" ID="ImgFront"/>
                             </span>
                             <div style="margin-bottom: 1.5em">
                                 <asp:FileUpload ID="ImgFrontUpload" runat="server" />

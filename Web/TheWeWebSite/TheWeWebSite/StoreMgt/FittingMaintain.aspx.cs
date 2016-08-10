@@ -20,7 +20,7 @@ namespace TheWeWebSite.StoreMgt
                 if (SysProperty.Util == null) Response.Redirect("../Login.aspx", true);
                 else
                 {
-                    labelPageTitle.Text = Resources.Resource.StoreMgtString + " > " + Resources.Resource.FittingMaintainString;
+                    labelPageTitle.Text = Resources.Resource.StoreMgtString + " > " + Resources.Resource.AccessoryMaintainString;
                     InitialControls();
                     InitialControlWithPermission();
                 }

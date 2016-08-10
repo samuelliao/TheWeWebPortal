@@ -1,6 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="CaseMCreate.aspx.cs" Inherits="TheWeWebSite.CaseMgt.CaseMCreate" %>
 
-<%@ Register TagPrefix="My" TagName="Header" Src="~/Header.ascx" %>
 
 <!DOCTYPE html>
 
@@ -18,7 +17,6 @@
     <form runat="server">
 
         <!-- Main -->
-        <My:Header runat="server" ID="ucHeader" />
         <section class="box title">
             <h3>
                 <asp:Label runat="server" Text="" ID="labelPageTitle"></asp:Label></h3>
@@ -36,13 +34,13 @@
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,AdviosryIdString%>"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server" ReadOnly="true" ID="tbAdvisorySn"></asp:TextBox>
+                            <asp:TextBox runat="server" Enabled="false" ID="tbAdvisorySn"></asp:TextBox>
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,CaseIdString%>"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server" ReadOnly="true" ID="tbCaseSn"></asp:TextBox>
+                            <asp:TextBox runat="server" Enabled="false" ID="tbCaseSn"></asp:TextBox>
                         </div>
 
 
@@ -50,7 +48,7 @@
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,MemberIdString%>"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server" ReadOnly="true" ID="tbCustomerSn"></asp:TextBox>
+                            <asp:TextBox runat="server" Enabled="false" ID="tbCustomerSn"></asp:TextBox>
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">

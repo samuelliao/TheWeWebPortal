@@ -1,6 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ItemMCreate.aspx.cs" Inherits="TheWeWebSite.StoreMgt.ItemMCreate" %>
 
-<%@ Register TagPrefix="My" TagName="Header" Src="~/Header.ascx" %>
 
 <!DOCTYPE html>
 
@@ -10,13 +9,11 @@
     <title>The We Wedding</title>
     <link href="../assets/css/font-awesome.min.css" rel="stylesheet" />
     <link href="../assets/css/main.css" rel="stylesheet" />
-    <link href="../assets/css/calendar.css" rel="stylesheet" />
 </head>
 <body>
     <form runat="server">
 
         <!-- Main -->
-        <My:Header runat="server" ID="ucHeader" />
         <section class="box title">
             <h3>
                 <asp:Label runat="server" Text="" ID="labelPageTitle"></asp:Label></h3>
@@ -26,20 +23,20 @@
         <section class="insert">
             <asp:ScriptManager runat="server"></asp:ScriptManager>
             <div>
-                <div class="12u">                    
+                <div class="12u">
                     <div class="row uniform 50%">
                         <div class="2u 12u(mobilep)">
-                        <div class="Div">
-                            <asp:Label runat="server" Text="<%$ Resources:Resource,StoreString%>"></asp:Label>
+                            <div class="Div">
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,StoreString%>"></asp:Label>
+                            </div>
+                            <asp:DropDownList runat="server" ID="ddlStore" Enabled="false" />
+                            <asp:Label runat="server" ID="labelBaseId" Visible="false" />
                         </div>
-                        <asp:DropDownList runat="server" ID="ddlStore" Enabled="false"/>
-                        <asp:Label runat="server" ID="labelBaseId" Visible="false" />
-                    </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,SnString%>"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server" ReadOnly="true" ID="tbSn"></asp:TextBox>
+                            <asp:TextBox runat="server" Enabled="false" ID="tbSn"></asp:TextBox>
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
@@ -164,6 +161,9 @@
                         </div>
                     </div>
                 </div>
+
+
+
                 <div class="12u">
                     <div class="row uniform 50%">
                         <div class="2u 12u(mobilep)">
@@ -190,6 +190,11 @@
                             </div>
                             <asp:TextBox runat="server" ID="tbDecorate"></asp:TextBox>
                         </div>
+                    </div>
+                </div>
+
+                <div class="12u">
+                    <div class="row uniform 50%">
                         <div class="4u 12u(mobilep)">
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,WeddingPerformanceString%>"></asp:Label>

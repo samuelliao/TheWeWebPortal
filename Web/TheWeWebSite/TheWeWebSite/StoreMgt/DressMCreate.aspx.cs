@@ -24,14 +24,14 @@ namespace TheWeWebSite.StoreMgt
                     if (Session["DressId"] != null)
                     {
                         labelPageTitle.Text = Resources.Resource.StoreMgtString
-                        + " > " + Resources.Resource.DressString
+                        + " > " + Resources.Resource.DressMaintainString
                         + " > " + Resources.Resource.ModifyString;
                         SetDressInfoData(Session["DressId"].ToString());
                     }
                     else
                     {
                         labelPageTitle.Text = Resources.Resource.StoreMgtString
-                        + " > " + Resources.Resource.DressString
+                        + " > " + Resources.Resource.DressMaintainString
                         + " > " + Resources.Resource.CreateString;
                         btnModify.Visible = false;
                         btnDelete.Visible = false;

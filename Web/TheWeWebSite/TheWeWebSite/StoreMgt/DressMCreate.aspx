@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="DressMCreate.aspx.cs" Inherits="TheWeWebSite.StoreMgt.DressMCreate" %>
-<%@ Register TagPrefix="My" TagName="Header" Src="~/Header.ascx" %>
+
 
 <!DOCTYPE html>
 
@@ -14,7 +14,6 @@
     <form runat="server">
 
         <!-- Main -->
-        <My:Header runat="server" ID="ucHeader" />
         <section class="box title">
             <h3>
                 <asp:Label runat="server" Text="" ID="labelPageTitle"></asp:Label></h3>
@@ -23,99 +22,100 @@
         <!-- Input -->
         <section class="insert">
             <asp:ScriptManager runat="server"></asp:ScriptManager>
-            <div>
-                <asp:Label runat="server" ID="labelWarnString" ForeColor="Red" Visible="false" />
-                <div class="12u">
-                    <div class="row uniform 50%">
-                        <div class="2u 12u(mobilep)">
-                            <div class="Div">
-                                <asp:Label runat="server" Text="<%$ Resources:Resource,StoreString%>"></asp:Label>
-                            </div>
-                            <asp:DropDownList runat="server" ID="ddlStore" />
+            <asp:Label runat="server" ID="labelWarnString" ForeColor="Red" Visible="false" />
+            <div class="12u">
+                <div class="row uniform 50%">
+                    <div class="2u 12u(mobilep)">
+                        <div class="Div">
+                            <asp:Label runat="server" Text="<%$ Resources:Resource,StoreString%>"></asp:Label>
                         </div>
-                        <div class="2u 12u(mobilep)">
-                            <div class="Div">
-                                <asp:Label runat="server" Text="<%$ Resources:Resource,SnString%>"></asp:Label>
-                            </div>
-                            <asp:TextBox runat="server" ID="tbSn" ReadOnly="true"></asp:TextBox>
-                        </div>
-                        <div class="2u 12u(mobilep)">
-                            <div class="Div">
-                                <asp:Label runat="server" Text="<%$ Resources:Resource,GenderString%>"></asp:Label>
-                            </div>
-                            <asp:DropDownList runat="server" ID="ddlGender" />
-
-                        </div>
-                        <div class="2u 12u(mobilep)">
-                            <div class="Div">
-                                <asp:Label runat="server" Text="<%$ Resources:Resource,CategoryString%>"></asp:Label>
-                            </div>
-                            <asp:DropDownList runat="server" ID="ddlDressCategory" />
-
-                        </div>
-                        <div class="2u 12u(mobilep)">
-                            <div class="Div">
-                                <asp:Label runat="server" Text="<%$ Resources:Resource,ColorString%>"></asp:Label>
-                            </div>
-                            <asp:TextBox runat="server" ID="tbColor" />
-                        </div>
-                        <div class="2u 12u(mobilep)">
-                            <div class="Div">
-                                <asp:Label runat="server" Text="<%$ Resources:Resource,ColorString%>"></asp:Label>
-                            </div>
-                            <asp:TextBox runat="server" ID="tbColor2" />
-                        </div>
-                        <div class="2u 12u(mobilep)">
-                            <div class="Div">
-                                <asp:Label runat="server" Text="<%$ Resources:Resource,TypeString%>"></asp:Label>
-                            </div>
-                            <asp:DropDownList runat="server" ID="ddlDressType" />
-                        </div>                        
+                        <asp:DropDownList runat="server" ID="ddlStore" />
                     </div>
-                </div>
+                    <div class="2u 12u(mobilep)">
+                        <div class="Div">
+                            <asp:Label runat="server" Text="<%$ Resources:Resource,SnString%>"></asp:Label>
+                        </div>
+                        <asp:TextBox runat="server" ID="tbSn" Enabled="false"></asp:TextBox>
+                    </div>
+                    <div class="2u 12u(mobilep)">
+                        <div class="Div">
+                            <asp:Label runat="server" Text="<%$ Resources:Resource,GenderString%>"></asp:Label>
+                        </div>
+                        <asp:DropDownList runat="server" ID="ddlGender" />
 
+                    </div>
+                    <div class="2u 12u(mobilep)">
+                        <div class="Div">
+                            <asp:Label runat="server" Text="<%$ Resources:Resource,CategoryString%>"></asp:Label>
+                        </div>
+                        <asp:DropDownList runat="server" ID="ddlDressCategory" />
+
+                    </div>
+                    <div class="2u 12u(mobilep)">
+                        <div class="Div">
+                            <asp:Label runat="server" Text="<%$ Resources:Resource,ColorString%>"></asp:Label>
+                        </div>
+                        <asp:TextBox runat="server" ID="tbColor" />
+                    </div>
+                    <div class="2u 12u(mobilep)">
+                        <div class="Div">
+                            <asp:Label runat="server" Text="<%$ Resources:Resource,ColorString%>"></asp:Label>
+                        </div>
+                        <asp:TextBox runat="server" ID="tbColor2" />
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="12u">
+                <div class="row uniform 50%">
+                    <div class="2u 12u(mobilep)">
+                        <div class="Div">
+                            <asp:Label runat="server" Text="<%$ Resources:Resource,TypeString%>"></asp:Label>
+                        </div>
+                        <asp:DropDownList runat="server" ID="ddlDressType" />
+                    </div>
+                    <div class="2u 12u(mobilep)">
+                        <div class="Div">
+                            <asp:Label runat="server" Text="<%$ Resources:Resource,MaterialString%>"></asp:Label>
+                        </div>
+                        <asp:TextBox runat="server" ID="tbMaterial"></asp:TextBox>
+                    </div>
+                    <div class="2u 12u(mobilep)">
+                        <div class="Div">
+                            <asp:Label runat="server" Text="<%$ Resources:Resource,MaterialString%>"></asp:Label>
+                        </div>
+                        <asp:TextBox runat="server" ID="tbMaterial2"></asp:TextBox>
+                    </div>
+                    <div class="2u 12u(mobilep)">
+                        <div class="Div">
+                            <asp:Label runat="server" Text="<%$ Resources:Resource,NecklineString%>"></asp:Label>
+                        </div>
+                        <asp:DropDownList runat="server" ID="ddlNeckline" />
+                    </div>
+                    <div class="2u 12u(mobilep)">
+                        <div class="Div">
+                            <asp:Label runat="server" Text="<%$ Resources:Resource,DressBackString%>"></asp:Label>
+                        </div>
+                        <asp:DropDownList runat="server" ID="ddlBack" />
+                    </div>
+                    <div class="2u 12u(mobilep)">
+                        <div class="Div">
+                            <asp:Label runat="server" Text="<%$ Resources:Resource,ShoulderString%>"></asp:Label>
+                        </div>
+                        <asp:DropDownList runat="server" ID="ddlShoulder" />
+                    </div>
+
+
+                </div>
                 <div class="12u">
-                    <div class="2u 12u(mobilep)">
-                            <div class="Div">
-                                <asp:Label runat="server" Text="<%$ Resources:Resource,MaterialString%>"></asp:Label>
-                            </div>
-                            <asp:TextBox runat="server" ID="tbMaterial"></asp:TextBox>
-                        </div>
-                    <div class="2u 12u(mobilep)">
-                            <div class="Div">
-                                <asp:Label runat="server" Text="<%$ Resources:Resource,MaterialString%>"></asp:Label>
-                            </div>
-                            <asp:TextBox runat="server" ID="tbMaterial2"></asp:TextBox>
-                        </div>
-                    <div class="2u 12u(mobilep)">
-                            <div class="Div">
-                                <asp:Label runat="server" Text="<%$ Resources:Resource,NecklineString%>"></asp:Label>
-                            </div>
-                            <asp:DropDownList runat="server" ID="ddlNeckline" />
-                        </div>
                     <div class="row uniform 50%">
-                        <div class="2u 12u(mobilep)">
-                            <div class="Div">
-                                <asp:Label runat="server" Text="<%$ Resources:Resource,DressBackString%>"></asp:Label>
-                            </div>
-                            <asp:DropDownList runat="server" ID="ddlBack" />
-                        </div>
-                        <div class="2u 12u(mobilep)">
-                            <div class="Div">
-                                <asp:Label runat="server" Text="<%$ Resources:Resource,ShoulderString%>"></asp:Label>
-                            </div>
-                            <asp:DropDownList runat="server" ID="ddlShoulder" />
-                        </div>                        
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,WornString%>"></asp:Label>
                             </div>
                             <asp:DropDownList runat="server" ID="ddlWorn" />
-                        </div>                        
-                    </div>
-                </div>
-                <div class="12u">
-                    <div class="row uniform 50%">
+                        </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,VeilString%>"></asp:Label>
@@ -148,26 +148,31 @@
                             <asp:DropDownList runat="server" ID="ddlStatus" />
 
                         </div>
-                        <div class="2u 12u(mobilep)">
-                            <div class="Div">
-                                <asp:Label runat="server" Text="<%$ Resources:Resource,UsageStatusString%>"></asp:Label>
-                            </div>
-                            <asp:DropDownList runat="server" ID="ddlUseStatus" />
-                        </div>
-                        <div class="4u 12u(mobilep)">
-                            <div class="Div">
-                                <asp:Label runat="server" Text="<%$ Resources:Resource,FittingString%>"></asp:Label>
-                            </div>
-                            <div style="overflow-y: auto">
-                                <asp:TextBox runat="server" ID="tbFitting"></asp:TextBox>
-                            </div>
-                        </div>
-                        <div class="4u 12u(mobilep)">
-                            <div class="Div">
-                                <asp:Label runat="server" Text="<%$ Resources:Resource,OtherString%>"></asp:Label>
-                            </div>
-                            <div style="overflow-y: auto;">
-                                <asp:TextBox runat="server" ID="tbOthers"></asp:TextBox>
+
+                        <div class="12u">
+                            <div class="row uniform 50%">
+                                <div class="2u 12u(mobilep)">
+                                    <div class="Div">
+                                        <asp:Label runat="server" Text="<%$ Resources:Resource,UsageStatusString%>"></asp:Label>
+                                    </div>
+                                    <asp:DropDownList runat="server" ID="ddlUseStatus" />
+                                </div>
+                                <div class="4u 12u(mobilep)">
+                                    <div class="Div">
+                                        <asp:Label runat="server" Text="<%$ Resources:Resource,FittingString%>"></asp:Label>
+                                    </div>
+                                    <div style="overflow-y: auto">
+                                        <asp:TextBox runat="server" ID="tbFitting"></asp:TextBox>
+                                    </div>
+                                </div>
+                                <div class="4u 12u(mobilep)">
+                                    <div class="Div">
+                                        <asp:Label runat="server" Text="<%$ Resources:Resource,OtherString%>"></asp:Label>
+                                    </div>
+                                    <div style="overflow-y: auto;">
+                                        <asp:TextBox runat="server" ID="tbOthers"></asp:TextBox>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -178,17 +183,17 @@
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,CostString%>"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server" ID="tbCost" style="text-align:right"></asp:TextBox>
+                            <asp:TextBox runat="server" ID="tbCost" Style="text-align: right"></asp:TextBox>
                             <asp:RegularExpressionValidator ID="RegularExpressionValidator1" ControlToValidate="tbCost"
-                                 runat="server" ErrorMessage="Only Numbers allowed" ValidationExpression="\d+[.]*\d*"></asp:RegularExpressionValidator>
+                                runat="server" ErrorMessage="Only Numbers allowed" ValidationExpression="\d+[.]*\d*"></asp:RegularExpressionValidator>
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,CustomPriceString%>"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server" ID="tbCustomPrice" style="text-align:right"></asp:TextBox>
+                            <asp:TextBox runat="server" ID="tbCustomPrice" Style="text-align: right"></asp:TextBox>
                             <asp:RegularExpressionValidator ID="RegularExpressionValidator2" ControlToValidate="tbCustomPrice" runat="server"
-                                 ErrorMessage="Only Numbers allowed" ValidationExpression="\d+[.]*\d*"></asp:RegularExpressionValidator>
+                                ErrorMessage="Only Numbers allowed" ValidationExpression="\d+[.]*\d*"></asp:RegularExpressionValidator>
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
@@ -200,18 +205,18 @@
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,RentPriceString%>"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server" ID="tbRentPrice" style="text-align:right"></asp:TextBox>
+                            <asp:TextBox runat="server" ID="tbRentPrice" Style="text-align: right"></asp:TextBox>
                             <asp:RegularExpressionValidator ID="RegularExpressionValidator3" ControlToValidate="tbRentPrice" runat="server"
-                                 ErrorMessage="Only Numbers allowed" ValidationExpression="\d+[.]*\d*"></asp:RegularExpressionValidator>
+                                ErrorMessage="Only Numbers allowed" ValidationExpression="\d+[.]*\d*"></asp:RegularExpressionValidator>
                         </div>
 
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,SellingPriceString%>"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server" ID="tbSellsPrice" style="text-align:right"></asp:TextBox>
+                            <asp:TextBox runat="server" ID="tbSellsPrice" Style="text-align: right"></asp:TextBox>
                             <asp:RegularExpressionValidator ID="RegularExpressionValidator4" ControlToValidate="tbSellsPrice" runat="server"
-                                 ErrorMessage="Only Numbers allowed" ValidationExpression="\d+[.]*\d*"></asp:RegularExpressionValidator>
+                                ErrorMessage="Only Numbers allowed" ValidationExpression="\d+[.]*\d*"></asp:RegularExpressionValidator>
                         </div>
                     </div>
                 </div>
@@ -228,13 +233,13 @@
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
-                                <asp:Label runat="server" Text="<%$ Resources:Resource,OutdoorShootingPriceString%>""></asp:Label>
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,OutdoorShootingPriceString%>"></asp:Label>
                             </div>
                             <asp:UpdatePanel runat="server">
                                 <ContentTemplate>
-                                    <asp:TextBox runat="server" ID="tbOutdoorPlusPrice" style="text-align:right" Enabled="false"></asp:TextBox>
+                                    <asp:TextBox runat="server" ID="tbOutdoorPlusPrice" Style="text-align: right" Enabled="false"></asp:TextBox>
                                     <asp:RegularExpressionValidator ID="RegularExpressionValidator5" ControlToValidate="tbOutdoorPlusPrice" runat="server"
-                                         ErrorMessage="Only Numbers allowed" ValidationExpression="\d+[.]*\d*"></asp:RegularExpressionValidator>
+                                        ErrorMessage="Only Numbers allowed" ValidationExpression="\d+[.]*\d*"></asp:RegularExpressionValidator>
                                 </ContentTemplate>
                             </asp:UpdatePanel>
                         </div>
@@ -251,9 +256,9 @@
                             </div>
                             <asp:UpdatePanel runat="server">
                                 <ContentTemplate>
-                                    <asp:TextBox runat="server" ID="tbPlusItemPrice" style="text-align:right" Enabled="false"></asp:TextBox>
+                                    <asp:TextBox runat="server" ID="tbPlusItemPrice" Style="text-align: right" Enabled="false"></asp:TextBox>
                                     <asp:RegularExpressionValidator ID="RegularExpressionValidator6" ControlToValidate="tbPlusItemPrice" runat="server"
-                                         ErrorMessage="Only Numbers allowed" ValidationExpression="\d+[.]*\d*"></asp:RegularExpressionValidator>
+                                        ErrorMessage="Only Numbers allowed" ValidationExpression="\d+[.]*\d*"></asp:RegularExpressionValidator>
                                 </ContentTemplate>
                             </asp:UpdatePanel>
                         </div>
@@ -270,77 +275,77 @@
             <!-- 照片 -->
             <section>
                 <div class="row no-collapse 50% uniform">
-                        <div class="2u">
-                            <div style="text-align: center">
-                                <asp:Label runat="server" Text="<%$ Resources:Resource,ImgFrontString%>"></asp:Label>
-                                <asp:Label runat="server" Text="" ID="tbFolderPath" Visible="false"></asp:Label>
-                            </div>
-                            <span class="image fit">
-                                <asp:Image runat="server" ID="ImgFront" />
-                            </span>
-                            <div style="margin-bottom: 1.5em">
-                                <asp:FileUpload ID="ImgFrontUpload" runat="server" />
-                            </div>
-                            <div class="align-center">
-                                <asp:Button runat="server" Text="<%$ Resources:Resource,UploadString%>" ID="btnImgFrontUpload"
-                                    OnClick="btnImgFrontUpload_Click" />
-                            </div>
+                    <div class="2u">
+                        <div style="text-align: center">
+                            <asp:Label runat="server" Text="<%$ Resources:Resource,ImgFrontString%>"></asp:Label>
+                            <asp:Label runat="server" Text="" ID="tbFolderPath" Visible="false"></asp:Label>
                         </div>
-                        <div class="2u">
-                            <div style="text-align: center">
-                                <asp:Label runat="server" Text="<%$ Resources:Resource,ImgBackString%>"></asp:Label>
-                            </div>
-                            <span class="image fit">
-                                <asp:Image runat="server" ID="ImgBack" /></span>
-                            <div style="margin-bottom: 1.5em">
-                                <asp:FileUpload ID="ImgBackUpload" runat="server" />
-                            </div>
-                            <div class="align-center">
-                                <asp:Button runat="server" Text="<%$ Resources:Resource,UploadString%>" ID="btnImgBackUpload" OnClick="btnImgBackUpload_Click" />
-                            </div>
+                        <span class="image fit">
+                            <asp:Image runat="server" ID="ImgFront" />
+                        </span>
+                        <div style="margin-bottom: 1.5em">
+                            <asp:FileUpload ID="ImgFrontUpload" runat="server" />
                         </div>
-                        <div class="2u">
-                            <div style="text-align: center">
-                                <asp:Label runat="server" Text="<%$ Resources:Resource,ImgSideString%>"></asp:Label>
-                            </div>
-                            <span class="image fit">
-                                <asp:Image runat="server" ID="ImgSide" /></span>
-                            <div style="margin-bottom: 1.5em">
-                                <asp:FileUpload ID="ImgSideUpload" runat="server" />
-                            </div>
-                            <div class="align-center">
-                                <asp:Button runat="server" Text="<%$ Resources:Resource,UploadString%>" ID="btnImgSideUpload" OnClick="btnImgSideUpload_Click" />
-                            </div>
-                        </div>
-                        <div class="2u">
-                             <div style="text-align:center">
-                                <asp:Label runat="server" Text="<%$ Resources:Resource,ImgOtherString%>"></asp:Label>
-                            </div>
-                            <span class="image fit">
-                                <asp:Image runat="server" ID="ImgOther1" /></span>
-                            <div style="margin-bottom: 1.5em">
-                                <asp:FileUpload ID="ImgOther1Upload" runat="server" />
-                            </div>
-                            <div class="align-center">
-                                <asp:Button runat="server" Text="<%$ Resources:Resource,UploadString%>" ID="btnImgOther1" OnClick="btnImgOther1_Click" />
-                            </div>
-                        </div>
-                        <div class="2u">
-                             <div style="text-align:center">
-                                <asp:Label runat="server" Text="<%$ Resources:Resource,ImgOtherString%>"></asp:Label>
-                            </div>
-                            <span class="image fit">
-                                <asp:Image runat="server" ID="ImgOther2" /></span>
-                            <div style="margin-bottom: 1.5em">
-                                <asp:FileUpload ID="ImgOther2Upload" runat="server" />
-                            </div>
-                            <div class="align-center">
-                                <asp:Button runat="server" Text="<%$ Resources:Resource,UploadString%>" ID="btnImgOther2" OnClick="btnImgOther2_Click" />
-                            </div>
+                        <div class="align-center">
+                            <asp:Button runat="server" Text="<%$ Resources:Resource,UploadString%>" ID="btnImgFrontUpload"
+                                OnClick="btnImgFrontUpload_Click" />
                         </div>
                     </div>
+                    <div class="2u">
+                        <div style="text-align: center">
+                            <asp:Label runat="server" Text="<%$ Resources:Resource,ImgBackString%>"></asp:Label>
+                        </div>
+                        <span class="image fit">
+                            <asp:Image runat="server" ID="ImgBack" /></span>
+                        <div style="margin-bottom: 1.5em">
+                            <asp:FileUpload ID="ImgBackUpload" runat="server" />
+                        </div>
+                        <div class="align-center">
+                            <asp:Button runat="server" Text="<%$ Resources:Resource,UploadString%>" ID="btnImgBackUpload" OnClick="btnImgBackUpload_Click" />
+                        </div>
+                    </div>
+                    <div class="2u">
+                        <div style="text-align: center">
+                            <asp:Label runat="server" Text="<%$ Resources:Resource,ImgSideString%>"></asp:Label>
+                        </div>
+                        <span class="image fit">
+                            <asp:Image runat="server" ID="ImgSide" /></span>
+                        <div style="margin-bottom: 1.5em">
+                            <asp:FileUpload ID="ImgSideUpload" runat="server" />
+                        </div>
+                        <div class="align-center">
+                            <asp:Button runat="server" Text="<%$ Resources:Resource,UploadString%>" ID="btnImgSideUpload" OnClick="btnImgSideUpload_Click" />
+                        </div>
+                    </div>
+                    <div class="2u">
+                        <div style="text-align: center">
+                            <asp:Label runat="server" Text="<%$ Resources:Resource,ImgOtherString%>"></asp:Label>
+                        </div>
+                        <span class="image fit">
+                            <asp:Image runat="server" ID="ImgOther1" /></span>
+                        <div style="margin-bottom: 1.5em">
+                            <asp:FileUpload ID="ImgOther1Upload" runat="server" />
+                        </div>
+                        <div class="align-center">
+                            <asp:Button runat="server" Text="<%$ Resources:Resource,UploadString%>" ID="btnImgOther1" OnClick="btnImgOther1_Click" />
+                        </div>
+                    </div>
+                    <div class="2u">
+                        <div style="text-align: center">
+                            <asp:Label runat="server" Text="<%$ Resources:Resource,ImgOtherString%>"></asp:Label>
+                        </div>
+                        <span class="image fit">
+                            <asp:Image runat="server" ID="ImgOther2" /></span>
+                        <div style="margin-bottom: 1.5em">
+                            <asp:FileUpload ID="ImgOther2Upload" runat="server" />
+                        </div>
+                        <div class="align-center">
+                            <asp:Button runat="server" Text="<%$ Resources:Resource,UploadString%>" ID="btnImgOther2" OnClick="btnImgOther2_Click" />
+                        </div>
+                    </div>
+                </div>
             </section>
-            <hr />            
+            <hr />
             <!-- Btn -->
             <div class="Div btn">
                 <ul class="actions">

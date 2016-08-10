@@ -20,7 +20,7 @@ namespace TheWeWebSite.CaseMgt
                 if (SysProperty.Util == null) Response.Redirect("../Login.aspx", true);
                 else
                 {
-                    labelPageTitle.Text = Resources.Resource.OrderMgtString + " > " + Resources.Resource.OrderMgtString;
+                    labelPageTitle.Text = Resources.Resource.OrderMgtString + " > " + Resources.Resource.ContractMaintainString;
                     InitialAllDropDownList();
                     InitialLabelText();
                     InitialControlWithPermission();

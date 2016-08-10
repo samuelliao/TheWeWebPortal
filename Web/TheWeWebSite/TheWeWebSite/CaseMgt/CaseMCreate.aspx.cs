@@ -29,7 +29,7 @@ namespace TheWeWebSite.CaseMgt
                     if (Session["OrderId"] != null)
                     {
                         labelPageTitle.Text = Resources.Resource.OrderMgtString
-                        + " > " + Resources.Resource.OrderMgtString
+                        + " > " + Resources.Resource.ContractMaintainString
                         + " > " + Resources.Resource.ModifyString;
                         btnModify.Visible = true;
                         btnDelete.Visible = true;
@@ -39,7 +39,7 @@ namespace TheWeWebSite.CaseMgt
                     else
                     {
                         labelPageTitle.Text = Resources.Resource.OrderMgtString
-                        + " > " + Resources.Resource.OrderMgtString
+                        + " > " + Resources.Resource.ContractMaintainString
                         + " > " + Resources.Resource.CreateString;
                         btnModify.Visible = false;
                         btnDelete.Visible = false;

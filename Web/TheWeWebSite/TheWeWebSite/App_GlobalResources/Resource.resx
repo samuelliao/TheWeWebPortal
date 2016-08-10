@@ -1026,4 +1026,10 @@
   <data name="WorkString" xml:space="preserve">
     <value>Vocation</value>
   </data>
+  <data name="AdditionalItemString" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="SystemSnString" xml:space="preserve">
+    <value></value>
+  </data>
 </root>

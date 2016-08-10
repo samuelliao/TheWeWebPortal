@@ -13,15 +13,6 @@ namespace TheWeWebSite.CaseMgt {
     public partial class AdvisoryMCreate {
         
         /// <summary>
-        /// ucHeader 控制項。
-        /// </summary>
-        /// <remarks>
-        /// 自動產生的欄位。
-        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
-        /// </remarks>
-        protected global::TheWeWebSite.Header ucHeader;
-        
-        /// <summary>
         /// labelPageTitle 控制項。
         /// </summary>
         /// <remarks>
@@ -229,6 +220,42 @@ namespace TheWeWebSite.CaseMgt {
         protected global::System.Web.UI.WebControls.TextBox tbGroomEmail;
         
         /// <summary>
+        /// tbWeddingFilm 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tbWeddingFilm;
+        
+        /// <summary>
+        /// tbWeddingDate 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tbWeddingDate;
+        
+        /// <summary>
+        /// tbReception 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tbReception;
+        
+        /// <summary>
+        /// tbRemark 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tbRemark;
+        
+        /// <summary>
         /// cblAdvisory 控制項。
         /// </summary>
         /// <remarks>
@@ -274,33 +301,6 @@ namespace TheWeWebSite.CaseMgt {
         protected global::System.Web.UI.WebControls.CheckBoxList cblWeddingPlanner;
         
         /// <summary>
-        /// tbWeddingFilm 控制項。
-        /// </summary>
-        /// <remarks>
-        /// 自動產生的欄位。
-        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbWeddingFilm;
-        
-        /// <summary>
-        /// tbWeddingDate 控制項。
-        /// </summary>
-        /// <remarks>
-        /// 自動產生的欄位。
-        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbWeddingDate;
-        
-        /// <summary>
-        /// tbReception 控制項。
-        /// </summary>
-        /// <remarks>
-        /// 自動產生的欄位。
-        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbReception;
-        
-        /// <summary>
         /// ddlSourceInfo 控制項。
         /// </summary>
         /// <remarks>
@@ -308,15 +308,6 @@ namespace TheWeWebSite.CaseMgt {
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBoxList ddlSourceInfo;
-        
-        /// <summary>
-        /// tbRemark 控制項。
-        /// </summary>
-        /// <remarks>
-        /// 自動產生的欄位。
-        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbRemark;
         
         /// <summary>
         /// labelWarnString 控制項。

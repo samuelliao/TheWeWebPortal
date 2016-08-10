@@ -1,5 +1,4 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="EmployeeMCreate.aspx.cs" Inherits="TheWeWebSite.StoreMgt.EmployeeMCreate" %>
-<%@ Register TagPrefix="My" TagName="Header" Src="~/Header.ascx" %>
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -15,7 +14,6 @@
     <form runat="server">
 
         <!-- Main -->
-        <My:Header runat="server" ID="ucHeader" />
         <section class="box title">
             <h3>
                 <asp:Label runat="server" Text="" ID="labelPageTitle"></asp:Label></h3>
@@ -43,7 +41,7 @@
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,EmployeeSnString%>"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server" Style="text-align: right" ID="tbEmpSn" ReadOnly="false"></asp:TextBox>
+                            <asp:TextBox runat="server" Style="text-align: right" ID="tbEmpSn" Enabled="false"></asp:TextBox>
                             <asp:Label runat="server" ID="labelPw" Visible="false" />
                         </div>
                         <div class="2u 12u(mobilep)">
@@ -171,7 +169,7 @@
                             </div>
                             <asp:TextBox runat="server" Style="text-align: right" ID="tbEmpInsurance"></asp:TextBox>
                         </div>
-                        <div class="8u 12u(mobilep)">
+                        <div class="4u 12u(mobilep)">
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,RemarkString%>"></asp:Label>
                             </div>

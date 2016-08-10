@@ -2085,60 +2085,8 @@ textarea {
     padding: 0.75em 1em;
 }
 
-input[type="checkbox"],
-input[type="radio"] {
-    -moz-appearance: none;
-    -webkit-appearance: none;
-    display: block;
-}
-
-    input[type="checkbox"] + label,
-    input[type="radio"] + label {
-        text-decoration: none;
-        font-size: 1em;
-        font-weight: 100;
-        padding-left: 2.55em;
-        padding-right: 0.75em;
-        position: relative;
-    }
-
-        input[type="checkbox"] + label:before,
-        input[type="radio"] + label:before {
-        }
 
 
-        input[type="checkbox"] + label:before,
-        input[type="radio"] + label:before {
-            background: #f8f8f8;
-            border: solid 1px #e5e5e5;
-            content: '';
-            display: inline-block;
-            height: 1.8em;
-            left: 0;
-            line-height: 1.725em;
-            position: absolute;
-            text-align: center;
-            top: 0;
-            width: 1.8em;
-        }
-
-    input[type="checkbox"]:checked + label:before,
-    input[type="radio"]:checked + label:before {
-        background: #f2a6a6;
-        border-color: #f2a6a6;
-        color: #ffffff;
-        content: "O";
-    }
-
-    input[type="checkbox"]:focus + label:before,
-    input[type="radio"]:focus + label:before {
-        border-color: #e89980;
-        box-shadow: 0 0 0 1px #e89980;
-    }
-
-    input[type="checkbox"] + label:before {
-        border-radius: 6px;
-    }
 
     input[type="radio"] + label:before {
         border-radius: 100%;
@@ -2186,6 +2134,60 @@ input[type="radio"] {
 
 .Check.Div {
 }
+
+
+
+input[type="checkbox"]{
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    display: block;
+
+}
+
+    input[type="checkbox"] + label {
+        text-decoration: none;
+        font-size: 1em;
+        font-weight: 100;
+        padding-left: 2.55em;
+        padding-right: 0.75em;
+        position: relative;
+
+    }
+
+
+
+        input[type="checkbox"] + label:before {
+            background: #f8f8f8;
+            border: solid 1px #e5e5e5;
+            content: '';
+            display: inline-block;
+            height: 1.8em;
+            left: 0;
+            line-height: 1.725em;
+            position: absolute;
+            text-align: center;
+            top: 0;
+            width: 1.8em;
+        }
+
+    input[type="checkbox"]:checked + label:before{
+        background: #f2a6a6;
+        border-color: #f2a6a6;
+        color: #ffffff;
+        content: "O";
+
+    }
+
+    input[type="checkbox"]:focus + label:before{
+        border-color: #e89980;
+        box-shadow: 0 0 0 1px #e89980;
+    }
+
+    input[type="checkbox"] + label:before {
+        border-radius: 6px;
+    
+    }
+
 
 /* Box */
 .box {
@@ -3751,3 +3753,177 @@ body.landing #main {
     }
 
     
+    /* --------- date picker --------- */
+.date-picker {
+	font-family: Arial;
+	font-size: 13px;
+	color: #675c5c;
+	text-align: center;
+	border: 1px solid #ffafaf;
+	background: #fff;
+	border-radius: 5px;
+	box-shadow: 6px 6px 12px rgba(0, 0, 0, 0.1);
+}
+.date-picker:before, .date-picker:after {
+	content: "";
+    display: block;
+    position: absolute;
+    top: -9px;
+    left: 8px;
+    border: 8px solid #ccc;
+    border-width: 0px 8px 8px;
+    border-color: transparent transparent #ffafaf;
+}
+
+/* ------ months ------ */
+.date-picker .cal-month th {
+	padding: 14px;
+}
+
+.week-end {
+	color: #ffafaf;
+}
+.disabled {
+	color: #aaa;
+}
+.week-end.next-month, .week-end.prev-month {
+	color: #ddd;
+}
+.cal-month tbody td:not(.disabled):not(.week-no):hover {
+	background-color:#675c5c;
+	color: #fff;
+}
+.selected-day {
+	background-color: #719de2;
+}
+.today {
+	border: 1px solid #ffafaf;
+	background-color: #ffafaf;
+
+}
+.event:after {
+	content: "";
+	position: absolute;
+	left: 1px;
+	top: 1px;
+	width: 0;
+	height: 0;
+	border: 3px solid #ccc;
+	border-color: #ccc transparent transparent #ccc;
+}
+.week-no {
+	color: #999;
+	padding-right: 6px;
+}
+
+/* ------ the UI for the picker (next, prev, month, year and time) ------ */
+.dp-title, .dp-footer {
+	text-align: center;
+	font-size: 1.5em;
+    margin:10px;
+    background: #ffafaf;
+}
+.dp-title {
+    border-radius: 3px 3px 0 0;
+    height:1.5em;
+}
+.dp-label {
+}
+.dp-label-month {
+
+}
+.dp-label:hover {
+    color: #000;
+}
+/* bigger buttons */
+.dp-prev, .dp-next {
+	display: block;
+    position: relative;
+    outline: none;
+
+    width: 30px;
+    height: 30px;
+    text-indent: 30px;
+    white-space: nowrap;
+    border: none;
+
+    margin: -4px -1px;
+
+    opacity: .5;
+}
+.dp-prev:after, .dp-next:after {
+	content: "";
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 0px;
+	height: 0px;
+	margin: -6px -12px;
+
+	border: 6px solid #000;
+}
+.dp-prev:after {
+	border-color: transparent #000 transparent transparent;
+}
+
+.dp-next:after {
+	border-color: transparent transparent transparent #000;
+	margin: -6px 0px;
+
+}
+.dp-prev[disabled]:after, .dp-next[disabled]:after {
+	visibility: hidden;
+}
+.dp-prev:hover, .dp-next:hover {
+	opacity: 1;
+}
+
+
+.date-picker { /* options.datePickerClass; the picker itself */
+	position: absolute;
+}
+.previous-month, .next-month { /* option.prevMonthClass ,... */
+	color: #ddd; /* days outside of current month */
+}
+.disabled { /* options.disabledClass */
+	color: #666;
+	/*text-decoration: line-through;*/
+}
+
+/* --- the UI for the picker (next, prev, month, year and time) --- */
+.dp-title, .dp-footer { /* defined in HTML of option.header and option.footer */
+	text-align: center;
+	width: 15em; /* good for time picker or year/month only */
+}
+.dp-label {
+	position: relative;
+	display: inline-block;
+	overflow: hidden;
+    margin-top:0.1em;
+}
+
+.dp-title select, .dp-footer select {
+	position: absolute;
+	left: 0; /* cover text but... */
+	top: 0;
+	opacity: 0; /* ...make other text visible */
+}
+.dp-prev, .dp-next { /* options.nextButtonClass, ... */
+	overflow: hidden;
+	background-color: transparent;
+	padding: 0;
+
+	float: left; /* will be overwritten for .dp-next */
+
+	width: 0px; /* draw arrow with borders */
+	height: 0px;
+	border: 6px solid #000;
+	border-color: transparent #000 transparent transparent;
+}
+.dp-next {
+	border-color: transparent transparent transparent #000;
+	float: right;
+}
+.dp-prev[disabled], .dp-next[disabled] {
+	border-color: transparent; /* or display:none */
+}
