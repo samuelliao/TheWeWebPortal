@@ -1,5 +1,4 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="OtherItemMCreate.aspx.cs" Inherits="TheWeWebSite.StoreMgt.OtherItemMCreate" %>
-<%@ Register TagPrefix="My" TagName="Header" Src="~/Header.ascx" %>
 
 <!DOCTYPE html>
 
@@ -14,7 +13,6 @@
     <form runat="server">
 
         <!-- Main -->
-        <My:Header runat="server" ID="ucHeader" />
         <section class="box title">
             <h3>
                 <asp:Label runat="server" Text="" ID="labelPageTitle"></asp:Label></h3>
@@ -32,7 +30,7 @@
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,SnString%>"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server" ReadOnly="true" ID="tbOthSn"></asp:TextBox>
+                            <asp:TextBox runat="server" Enabled="false" ID="tbOthSn"></asp:TextBox>
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
@@ -75,21 +73,22 @@
                             <asp:TextBox runat="server" placeholder="..." ID="tbOthCost" style="text-align:right"></asp:TextBox>
                             <asp:RegularExpressionValidator ID="RegularExpressionValidator2" ControlToValidate="tbOthCost" runat="server" ErrorMessage="Only Numbers allowed" ValidationExpression="\d+[.]*\d*"></asp:RegularExpressionValidator>
                         </div>
+                        
+                    </div>
+                </div>
+                <div class="12u">
+                    <div class="row uniform 50%">
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,StoreString%>" />
                             </div>
                             <asp:DropDownList runat="server" ID="ddlStore" />
                         </div>
-                    </div>
-                </div>
-                <div class="12u">
-                    <div class="row uniform 50%">
                         <div class="6u 12u(mobilep)">
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,DescriptionString%>"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server" placeholder="..." ID="tbOthDescription" TextMode="MultiLine" Rows="6"></asp:TextBox>
+                            <asp:TextBox runat="server" placeholder="..." ID="tbOthDescription" TextMode="MultiLine" Rows="3"></asp:TextBox>
                         </div>
                         
                     </div>

@@ -79,8 +79,8 @@
                                         <asp:BoundColumn DataField="CnName" HeaderText="<%$ Resources:Resource,CnNameString%>" />
                                         <asp:BoundColumn DataField="EngName" HeaderText="<%$ Resources:Resource,EnglishNameString%>" />
                                         <asp:BoundColumn DataField="JpName" HeaderText="<%$ Resources:Resource,JpNameString%>" />                                        
-                                        <asp:BoundColumn HeaderText="<%$ Resources:Resource,UpdateTimeString%>" DataField="UpdateTime" ReadOnly="true" />
-                                        <asp:BoundColumn HeaderText="<%$ Resources:Resource,EmployeeString%>" DataField="EmployeeName" ReadOnly="true" />
+                                        <asp:BoundColumn HeaderText="<%$ Resources:Resource,UpdateTimeString%>" DataField="UpdateTime" Enabled="false" />
+                                        <asp:BoundColumn HeaderText="<%$ Resources:Resource,EmployeeString%>" DataField="EmployeeName" Enabled="false" />
                                         <asp:EditCommandColumn EditText="<%$ Resources:Resource,ModifyString%>"
                                             CancelText="<%$ Resources:Resource,CancelString%>"
                                             UpdateText="<%$ Resources:Resource,UpdateString%>"

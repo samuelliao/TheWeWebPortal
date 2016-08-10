@@ -31,7 +31,7 @@ namespace TheWeWebSite.CaseMgt
                     if (Session["ConsultId"] != null)
                     {
                         labelPageTitle.Text = Resources.Resource.OrderMgtString
-                        + " > " + Resources.Resource.CustomerMaintainString
+                        + " > " + Resources.Resource.ConsultMaintainString
                         + " > " + Resources.Resource.ModifyString;
                         btnModify.Visible = true;
                         btnDelete.Visible = true;
@@ -40,7 +40,7 @@ namespace TheWeWebSite.CaseMgt
                     else
                     {
                         labelPageTitle.Text = Resources.Resource.OrderMgtString
-                        + " > " + Resources.Resource.CustomerMaintainString
+                        + " > " + Resources.Resource.ConsultMaintainString
                         + " > " + Resources.Resource.CreateString;
                         btnModify.Visible = false;
                         btnClear.Visible = false;
@@ -435,11 +435,7 @@ namespace TheWeWebSite.CaseMgt
         private List<DbSearchObject> ConsultDbObject()
         {
             List<DbSearchObject> lst = new List<DbSearchObject>();
-            lst.Add(new DbSearchObject(
-                "Sn"
-                , AtrrTypeItem.String
-                , AttrSymbolItem.Equal
-                , tbSn.Text));
+
             lst.Add(new DbSearchObject(
                 "Remark"
                 , AtrrTypeItem.String

@@ -20,7 +20,7 @@ namespace TheWeWebSite.StoreMgt
                 if (SysProperty.Util == null) Response.Redirect("../Login.aspx", true);
                 else
                 {
-                    labelPageTitle.Text = Resources.Resource.StoreMgtString + " > " + Resources.Resource.FittingMaintainString;
+                    labelPageTitle.Text = Resources.Resource.StoreMgtString + " > " + Resources.Resource.AccessoryMaintainString;
                     InitialControls();
                     InitialControlWithPermission();
                 }
@@ -201,7 +201,7 @@ namespace TheWeWebSite.StoreMgt
 
         private void GetFittingList(string tableName, string condStr, string sortStr)
         {
-            string storeStr = Session["LocateStore"] != null ? " And StoreId ='" + ((DataRow)Session["LocateStore"])["Id"].ToString() + "'" : string.Empty;
+            string storeStr = bool.Parse(((DataRow)Session["LocateStore"])["HoldingCompany"].ToString()) ? string.Empty : " And StoreId ='" + ((DataRow)Session["LocateStore"])["Id"].ToString() + "'";
             string sql = "Select * From " + tableName + " Where IsDelete = 0 " + storeStr + " " + condStr + " " + sortStr;
             DS = GetDataFromDb(sql);
         }

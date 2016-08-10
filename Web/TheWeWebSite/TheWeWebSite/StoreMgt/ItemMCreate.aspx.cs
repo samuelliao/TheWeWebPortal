@@ -886,12 +886,7 @@ namespace TheWeWebSite.StoreMgt
             , AttrSymbolItem.Equal
             , tbPrice.Text
             ));
-            lst.Add(new DbSearchObject(
-                "Sn"
-                , AtrrTypeItem.String
-                , AttrSymbolItem.Equal
-                , SplitString(tbSn.Text, "-", 0)
-                ));
+           
             lst.Add(new DbSearchObject(
                 "Name"
                 , AtrrTypeItem.String

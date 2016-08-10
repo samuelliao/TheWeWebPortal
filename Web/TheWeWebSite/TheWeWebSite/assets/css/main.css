@@ -2154,19 +2154,18 @@ input[type="radio"] {
     text-align: left;
     font-size: 1em;
     padding-left: 0.5em;
-    margin-top:-10px !important;
+    margin-top: -10px !important;
 }
 
 
 
     .Div.btn {
         text-align: right;
-        margin-top:15px !important;
+        margin-top: 15px !important;
     }
 
-    .Check.Div{
-        
-    }
+.Check.Div {
+}
 
 /* Box */
 .box {
@@ -2254,57 +2253,57 @@ input[type="radio"] {
         padding-left: 1.5em;
     }
 
-    .create{
-        background-color:#f2a6a6;
-        margin-top:1em;
-    }
+.create {
+    background-color: #f2a6a6;
+    margin-top: 1em;
+}
 
-    .box.special {
-        padding: 20px;
-        text-align: center;
-        margin-top:-8px;
-    }
+.box.special {
+    padding: 20px;
+    text-align: center;
+    margin-top: -8px;
+}
 
-    .insert{
-        height:100%;
-        width:100%;
-        padding:20px;
-        background-color:#fff;
-    }
+.insert {
+    height: 100%;
+    width: 100%;
+    padding: 20px;
+    background-color: #fff;
+}
 
-    .box .image.featured {
+.box .image.featured {
+    border-radius: 0;
+    display: block;
+    margin: 3em 0 3em -3em;
+    position: relative;
+    width: calc(100% + 6em);
+}
+
+    .box .image.featured img {
         border-radius: 0;
         display: block;
-        margin: 3em 0 3em -3em;
-        position: relative;
-        width: calc(100% + 6em);
+        width: 100%;
     }
 
-        .box .image.featured img {
-            border-radius: 0;
-            display: block;
-            width: 100%;
-        }
+    .box .image.featured:first-child {
+        border-radius: 6px 6px 0 0;
+        margin-bottom: 3em;
+        margin-top: -3em;
+    }
 
-        .box .image.featured:first-child {
+        .box .image.featured:first-child img {
             border-radius: 6px 6px 0 0;
-            margin-bottom: 3em;
-            margin-top: -3em;
         }
 
-            .box .image.featured:first-child img {
-                border-radius: 6px 6px 0 0;
-            }
+    .box .image.featured:last-child {
+        border-radius: 0 0 6px 6px;
+        margin-bottom: -3em;
+        margin-top: 3em;
+    }
 
-        .box .image.featured:last-child {
+        .box .image.featured:last-child img {
             border-radius: 0 0 6px 6px;
-            margin-bottom: -3em;
-            margin-top: 3em;
         }
-
-            .box .image.featured:last-child img {
-                border-radius: 0 0 6px 6px;
-            }
 
 /* Icon */
 
@@ -2604,6 +2603,10 @@ table {
             border-top: 0;
         }
 
+
+
+
+
 /* Button */
 
 input[type="submit"],
@@ -2611,9 +2614,9 @@ input[type="reset"],
 input[type="button"],
 .button {
     font: 1em;
-    font-style: normal;
+    font-weight: bolder !important;
     color: #ffffff;
-    background: #f2a6a6;
+    background: #f2a6a6 !important;
     border: 0px solid #f2a6a6;
     text-shadow: 0px 0px 0px #f2a6a6;
     box-shadow: 0px 0px 0px #f2a6a6;
@@ -2624,9 +2627,10 @@ input[type="button"],
     margin: 0 auto;
 }
 
-.center{
-    text-align:center;
+.center {
+    text-align: center;
 }
+
 .i2Style:active {
     cursor: pointer;
     position: relative;
@@ -3045,67 +3049,39 @@ body.landing #page-wrapper {
 /* Banner */
 
 #banner {
-    background-attachment: scroll, fixed;
-    background-position: top left, center center;
-    background-repeat: repeat, no-repeat;
-    background-size: auto, cover;
-    color: #fff;
-    padding: 5em 0 5em 0;
+    padding: 10em 0 18em 0;
     text-align: center;
-    background-color:#ffd3d3;
+    background-color: #ffd3d3;
 }
 
-    #banner :last-child {
-        margin-bottom: 0;
-    }
-
-    #banner h2, #banner h3, #banner h4, #banner h5, #banner h6 {
-        color: #fff;
-    }
-
     #banner h2 {
-        font-size: 3.5em;
         line-height: 1em;
-        margin: 0 0 0.5em 0;
-        padding: 0;
+        color: #ffffff;
     }
 
-    #banner p {
-        font-size: 1.25em;
-        margin-bottom: 1.75em;
-    }
 
-    #banner input[type="submit"],
-    #banner input[type="reset"],
+
     #banner input[type="button"],
     #banner .button {
-        background-color: transparent;
         box-shadow: inset 0 0 0 2px #f2a6a6;
         color: #fff;
         min-width: 12em;
+        font-weight: bold !important;
+        font-size:1.2em;
     }
 
-        #banner input[type="submit"]:hover,
-        #banner input[type="reset"]:hover,
-        #banner input[type="button"]:hover,
-        #banner .button:hover {
-            background-color: #f2a6a6;
-        }
 
         #banner input[type="submit"]:active,
         #banner input[type="reset"]:active,
         #banner input[type="button"]:active,
         #banner .button:active {
-            background-color: #f2a6a6;
+            background-color: #666 !important;
+            color: #ffffff !important;
+            font-weight: bold !important;
+            box-shadow: inset 0 0 0 2px #666;
         }
 
-        #banner input[type="submit"].special,
-        #banner input[type="reset"].special,
-        #banner input[type="button"].special,
-        #banner .button.special {
-            background: #fff;
-            color: #666 !important;
-        }
+
 
 /* Main */
 
@@ -3257,12 +3233,6 @@ body.landing #main {
     body, input, select, textarea {
         font-size: 13pt;
     }
-
-    /* Banner */
-
-    #banner {
-        padding: 10em 0 18em 0;
-    }
 }
 
 /* Normal */
@@ -3280,16 +3250,6 @@ body.landing #main {
     .dropotron.level-0 {
         font-size: 1em;
     }
-
-    /* Banner */
-
-    #banner {
-        background-attachment: scroll;
-    }
-
-        #banner h2 {
-            font-size: 3.5em;
-        }
 }
 
 /* Narrow */
@@ -3612,19 +3572,7 @@ body.landing #main {
                 margin-top: 2em;
             }
 
-    /* Banner */
 
-    #banner {
-        padding: 4em 0;
-    }
-
-        #banner h2 {
-            font-size: 2.25em;
-        }
-
-        #banner p {
-            font-size: 1.25em;
-        }
 
     /* Main */
 
@@ -3754,12 +3702,6 @@ body.landing #main {
                 margin-top: 3em;
             }
 
-    /* Banner */
-
-    #banner {
-        padding: 5em 1em 4em 1em;
-    }
-
     /* Main */
 
     #main > .box:first-child {
@@ -3772,5 +3714,3 @@ body.landing #main {
         padding: 2.5em 1em 3em 1em;
     }
 }
-
-

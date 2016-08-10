@@ -20,7 +20,7 @@ namespace TheWeWebSite.StoreMgt
                 if (SysProperty.Util == null) Response.Redirect("../Login.aspx", true);
                 else
                 {
-                    labelPageTitle.Text = Resources.Resource.StoreMgtString + " > " + Resources.Resource.DressString;
+                    labelPageTitle.Text = Resources.Resource.StoreMgtString + " > " + Resources.Resource.DressMaintainString;
                     InitialControls();
                     InitialControlWithPermission();
                     BindData();
@@ -222,7 +222,7 @@ namespace TheWeWebSite.StoreMgt
             ddlGender.Items.Clear();
             ddlGender.Items.Add(new ListItem(Resources.Resource.SeletionRemindString, string.Empty));
             ddlGender.Items.Add(new ListItem(Resources.Resource.FemaleString, "0"));
-            ddlGender.Items.Add(new ListItem(Resources.Resource.MainPageString, "1"));
+            ddlGender.Items.Add(new ListItem(Resources.Resource.MaleString, "1"));
         }
         #endregion        
 

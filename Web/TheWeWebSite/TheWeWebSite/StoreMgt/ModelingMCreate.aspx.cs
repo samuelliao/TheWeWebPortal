@@ -24,7 +24,7 @@ namespace TheWeWebSite.StoreMgt
                     if (Session["ModelingId"] != null)
                     {
                         labelPageTitle.Text = Resources.Resource.StoreMgtString
-                        + " > " + Resources.Resource.WeddingItemMaintainString
+                        + " > " + Resources.Resource.StyleMaintainString
                         + " > " + Resources.Resource.ModifyString;
                         btnModify.Visible = true;
                         btnDelete.Visible = true;
@@ -33,7 +33,7 @@ namespace TheWeWebSite.StoreMgt
                     else
                     {
                         labelPageTitle.Text = Resources.Resource.StoreMgtString
-                        + " > " + Resources.Resource.WeddingItemMaintainString
+                        + " > " + Resources.Resource.StyleMaintainString
                         + " > " + Resources.Resource.CreateString;
                         btnModify.Visible = false;
                         btnDelete.Visible = false;
@@ -192,19 +192,23 @@ namespace TheWeWebSite.StoreMgt
             tbSn.Text = dr["Sn"].ToString();
             tbDescription.Text = dr["Description"].ToString();
             ddlType.SelectedValue = dr["Type"].ToString();
+
             string imgPath = @dr["Img"].ToString();
-            if (string.IsNullOrEmpty(imgPath)) imgPath = SysProperty.ImgRootFolderpath + @"\HairStyleItem\" + tbSn.Text;
+            if (string.IsNullOrEmpty(imgPath)) imgPath = SysProperty.ImgRootFolderpath + @"HairStyleItem\" + tbSn.Text;
             else imgPath = SysProperty.ImgRootFolderpath + imgPath;
+
             string ImgFolderPath = imgPath;
-            RefreshImage(0, ImgFolderPath);
+
             tbFolderPath.Text = ImgFolderPath;
+            RefreshImage(0, ImgFolderPath);
+
         }
 
         #region Db Instance
         private List<DbSearchObject> StyleDbObject(string typeId)
         {
             List<DbSearchObject> lst = new List<DbSearchObject>();
-           
+
             lst.Add(new DbSearchObject(
                 "Description"
                 , AtrrTypeItem.String
@@ -229,12 +233,7 @@ namespace TheWeWebSite.StoreMgt
                 , AttrSymbolItem.Equal
                 , ((DataRow)Session["LocateStore"])["Id"].ToString()
                 ));
-            lst.Add(new DbSearchObject(
-                "Img"
-                , AtrrTypeItem.String
-                , AttrSymbolItem.Equal
-                , @"HairStyleItem\" + tbSn.Text
-                ));
+
             return lst;
         }
         private List<DbSearchObject> HairStyleCategoryDbObject()
@@ -331,19 +330,19 @@ namespace TheWeWebSite.StoreMgt
             switch (type)
             {
                 case 1:
-                    ImgFront.ImageUrl = path + "/" + tbSn.Text + "_1.jpg?" + DateTime.Now.Ticks.ToString();
+                    ImgFront.ImageUrl = "http:" + path + @"\" + tbSn.Text + "_1.jpg";
                     break;
                 case 2:
-                    ImgBack.ImageUrl = path + "/" + tbSn.Text + "_2.jpg?" + DateTime.Now.Ticks.ToString();
+                    ImgBack.ImageUrl = "http:" + path + @"\" + tbSn.Text + "_2.jpg?" + DateTime.Now.Ticks.ToString();
                     break;
                 case 3:
-                    ImgSide.ImageUrl = path + "/" + tbSn.Text + "_3.jpg?" + DateTime.Now.Ticks.ToString();
+                    ImgSide.ImageUrl = "http:" + path + @"\" + tbSn.Text + "_3.jpg?" + DateTime.Now.Ticks.ToString();
                     break;
                 case 0:
                 default:
-                    ImgFront.ImageUrl = path + "/" + tbSn.Text + "_1.jpg?" + DateTime.Now.Ticks.ToString();
-                    ImgBack.ImageUrl = path + "/" + tbSn.Text + "_2.jpg?" + DateTime.Now.Ticks.ToString();
-                    ImgSide.ImageUrl = path + "/" + tbSn.Text + "_3.jpg?" + DateTime.Now.Ticks.ToString();
+                    ImgFront.ImageUrl = "http:" + path + @"\" + tbSn.Text + "_1.jpg";
+                    ImgBack.ImageUrl = "http:" + path + @"\" + tbSn.Text + "_2.jpg?" + DateTime.Now.Ticks.ToString();
+                    ImgSide.ImageUrl = "http:" + path + @"\" + tbSn.Text + "_3.jpg?" + DateTime.Now.Ticks.ToString();
                     break;
             }
         }
@@ -352,7 +351,7 @@ namespace TheWeWebSite.StoreMgt
         {
             if (string.IsNullOrEmpty(tbFolderPath.Text)) return;
             CheckFolder(SysProperty.ImgRootFolderpath + @"\HairStyleItem\" + tbSn.Text);
-            ImgFrontUpload.PostedFile.SaveAs(tbFolderPath.Text + "/" + tbSn.Text + "_1.jpg");
+            ImgFrontUpload.PostedFile.SaveAs(tbFolderPath.Text + @"\" + tbSn.Text + "_1.jpg");
             RefreshImage(1, tbFolderPath.Text);
         }
 
@@ -360,7 +359,7 @@ namespace TheWeWebSite.StoreMgt
         {
             if (string.IsNullOrEmpty(tbFolderPath.Text)) return;
             CheckFolder(SysProperty.ImgRootFolderpath + @"\HairStyleItem\" + tbSn.Text);
-            ImgBackUpload.PostedFile.SaveAs(tbFolderPath.Text + "/" + tbSn.Text + "_2.jpg");
+            ImgBackUpload.PostedFile.SaveAs(tbFolderPath.Text + @"\" + tbSn.Text + "_2.jpg");
             RefreshImage(2, tbFolderPath.Text);
         }
 
@@ -368,7 +367,7 @@ namespace TheWeWebSite.StoreMgt
         {
             if (string.IsNullOrEmpty(tbFolderPath.Text)) return;
             CheckFolder(SysProperty.ImgRootFolderpath + @"\HairStyleItem\" + tbSn.Text);
-            ImgSideUpload.PostedFile.SaveAs(tbFolderPath.Text + "/" + tbSn.Text + "_3.jpg");
+            ImgSideUpload.PostedFile.SaveAs(tbFolderPath.Text + @"\" + tbSn.Text + "_3.jpg");
             RefreshImage(3, tbFolderPath.Text);
         }
 

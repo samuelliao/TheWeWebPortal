@@ -61,7 +61,7 @@ namespace TheWeWebSite
 
             if (string.IsNullOrEmpty(SysProperty.ImgRootFolderpath))
             {
-                SysProperty.ImgRootFolderpath = @"\\127.0.0.1\Photo";
+                SysProperty.ImgRootFolderpath = @"\\127.0.0.1\Photo\";
             }
         }
 

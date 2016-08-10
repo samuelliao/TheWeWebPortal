@@ -688,7 +688,7 @@
     <value>新娘髮妝</value>
   </data>
   <data name="GroomMakeupString" xml:space="preserve">
-    <value>新娘髮妝</value>
+    <value>新郎髮妝</value>
   </data>
   <data name="FilmingTimeString" xml:space="preserve">
     <value>拍攝時間</value>
@@ -1007,5 +1007,11 @@
   </data>
   <data name="DomesticWeddingOnlyString" xml:space="preserve">
     <value>限國內婚宴</value>
+  </data>
+  <data name="AdditionalItemString" xml:space="preserve">
+    <value>額外項目</value>
+  </data>
+  <data name="SystemSnString" xml:space="preserve">
+    <value>系統自動帶入</value>
   </data>
 </root>

@@ -72,7 +72,7 @@
                                             <div class="Div">
                                                 <asp:Label runat="server" Text="<%$ Resources:Resource,SnString%>" ForeColor="Red"></asp:Label>
                                             </div>
-                                            <asp:TextBox runat="server" ID="tbSn" Width="200px" ReadOnly="true"></asp:TextBox>
+                                            <asp:TextBox runat="server" ID="tbSn" Width="200px" Enabled="false"></asp:TextBox>
                                         </div>                                    
                                     </div>                                   
                                 </div>
@@ -157,8 +157,8 @@
                                                     </ItemTemplate>
                                                 </asp:TemplateColumn>
                                                 <asp:BoundColumn DataField="Description" HeaderText="<%$ Resources:Resource,RemarkString%>" SortExpression="Description" />
-                                                <asp:BoundColumn HeaderText="<%$ Resources:Resource,UpdateTimeString%>" DataField="UpdateTime" ReadOnly="true" SortExpression="UpdateTime" />
-                                                <asp:BoundColumn HeaderText="<%$ Resources:Resource,EmployeeString%>" DataField="EmployeeName" ReadOnly="true" SortExpression="EmployeeName" />
+                                                <asp:BoundColumn HeaderText="<%$ Resources:Resource,UpdateTimeString%>" DataField="UpdateTime" Enabled="false" SortExpression="UpdateTime" />
+                                                <asp:BoundColumn HeaderText="<%$ Resources:Resource,EmployeeString%>" DataField="EmployeeName" Enabled="false" SortExpression="EmployeeName" />
                                                 <asp:EditCommandColumn EditText="<%$ Resources:Resource,ModifyString%>"
                                                     CancelText="<%$ Resources:Resource,CancelString%>"
                                                     UpdateText="<%$ Resources:Resource,UpdateString%>"

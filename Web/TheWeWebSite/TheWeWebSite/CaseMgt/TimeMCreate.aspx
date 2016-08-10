@@ -1,6 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="TimeMCreate.aspx.cs" Inherits="TheWeWebSite.CaseMgt.TimeMCreate" %>
 
-<%@ Register TagPrefix="My" TagName="Header" Src="~/Header.ascx" %>
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -8,13 +7,11 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>The We Wedding</title>
     <link href="../assets/css/font-awesome.min.css" rel="stylesheet" />
-    <link href="../assets/css/main.css" rel="stylesheet" />
     <link href="../assets/css/jquery-ui.css" rel="stylesheet" />
-    <link href="../assets/css/datePicker.css" rel="stylesheet" />
+    <link href="../assets/css/calendar.css" rel="stylesheet" />
 </head>
 <body>
     <form runat="server">
-        <My:Header runat="server" ID="ucHeader" />
         <!-- Main -->
 
         <section class="box title">
@@ -33,14 +30,14 @@
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,SnString%>"></asp:Label>
                             </div>
-                            <asp:Label runat="server" ID="labelSn" />
+                            <asp:TextBox runat="server" ID="labelSn" Enabled="false" />
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,ContractDateString%>"></asp:Label>
                             </div>
                             <div>
-                                <asp:Label runat="server" ID="tbContractDate"></asp:Label>
+                                <asp:TextBox runat="server" ID="tbContractDate" Enabled="false"></asp:TextBox>
                             </div>
                         </div>
 
@@ -48,98 +45,116 @@
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,BridalNameString%>"></asp:Label>
                             </div>
-                            <asp:Label runat="server" ID="tbBridalName"></asp:Label>
+                            <asp:TextBox runat="server" ID="tbBridalName" Enabled="false"></asp:TextBox>
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,GroomNameString%>"></asp:Label>
                             </div>
-                            <asp:Label runat="server" ID="tbGroomName"></asp:Label>
+                            <asp:TextBox runat="server" ID="tbGroomName" Enabled="false"></asp:TextBox>
 
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,CountryString%>"></asp:Label>
                             </div>
-                            <asp:Label runat="server" ID="tbCountry" />
+                            <asp:TextBox runat="server" ID="tbCountry" Enabled="false" />
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,AreaString%>"></asp:Label>
                             </div>
-                            <asp:Label runat="server" ID="tbArea" />
+                            <asp:TextBox runat="server" ID="tbArea" Enabled="false" />
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,LocateString%>"></asp:Label>
                             </div>
-                            <asp:Label runat="server" ID="tbLocation" />
+                            <asp:TextBox runat="server" ID="tbLocation" Enabled="false" />
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,ProductSetString%>"></asp:Label>
                             </div>
-                            <asp:Label runat="server" ID="tbProductSet" />
+                            <asp:TextBox runat="server" ID="tbProductSet" Enabled="false"/>
                         </div>
                     </div>
                 </div>
                 <div class="12u">
 
                     <div class="row uniform 50%">
-                        <div class="4u 12u(mobilep)">
+                        <div class="2u 12u(mobilep)">
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,StatusString%>"></asp:Label>
                             </div>
-                            <div style="overflow-y: auto; height: 200px">
+                            <div style="overflow-y: auto; height: 450px">
                                 <asp:UpdatePanel runat="server">
                                     <ContentTemplate>
-                                        <asp:TreeView runat="server" Font-Size="Small" ID="tvConf" OnSelectedNodeChanged="tvConf_SelectedNodeChanged" ShowCheckBoxes="Leaf" />
+                                        <asp:TreeView
+                                            NodeIndent="20"
+                                            NodeStyle-NodeSpacing="3"
+                                            NodeStyle-CssClass="treeNode"
+                                            RootNodeStyle-CssClass="rootNode"
+                                            LeafNodeStyle-CssClass="leafNode"
+                                            SelectedNodeStyle-BackColor="#f2a6a6"
+                                            SelectedNodeStyle-Font-Bold="true"
+                                            SelectedNodeStyle-ForeColor="#ffffff"
+                                            runat="server" Font-Size="Small" ID="tvConf" OnSelectedNodeChanged="tvConf_SelectedNodeChanged" ShowCheckBoxes="Leaf">
+                                            <LeafNodeStyle CssClass="leafNode" />
+                                            <NodeStyle CssClass="treeNode" />
+                                            <RootNodeStyle CssClass="rootNode" />
+                                            <SelectedNodeStyle CssClass="selectNode" />
+                                        </asp:TreeView>
                                     </ContentTemplate>
                                 </asp:UpdatePanel>
                             </div>
                         </div>
-                        <div class="2u 12u(mobilep)">
-                            <div class="Div">
+                        <div class="10u 12u(mobilep)">
+                            <div class="Div" style="padding-top:30px">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,ConferenceDateString%>"></asp:Label>
                             </div>
                             <div>
                                 <asp:UpdatePanel runat="server">
                                     <ContentTemplate>
-                                        <asp:TextBox runat="server" style="text-align:right" ID="tbConDate"
-                                            Cssclass="date date-1" value="" placeholder="YYYY-MM-DD HH:MM APM" data-timeformat="HH:MM"></asp:TextBox>
+                                        <asp:TextBox runat="server" Style="text-align: right" ID="tbConDate"
+                                             Width="200px"
+                                             CssClass="date date-1" value="" placeholder="YYYY-MM-DD HH:MM APM" data-timeformat="HH:MM"></asp:TextBox>
                                     </ContentTemplate>
                                 </asp:UpdatePanel>
                             </div>
-                        </div>
-                        <div class="2u 12u(mobilep)">
-                            <div class="Div">
-                                <asp:Label runat="server" Text="<%$ Resources:Resource,CompleteString%>"></asp:Label>
-                            </div>
+                            <div style="padding-top:10px;padding-bottom:10px">
                             <asp:UpdatePanel runat="server">
                                 <ContentTemplate>
                                     <asp:CheckBox runat="server" ID="cbCompleted" Text="<%$ Resources:Resource,CompleteString%>" />
                                 </ContentTemplate>
                             </asp:UpdatePanel>
-                        </div>
-                        <div class="4u 12u(mobilep)">
+                                </div>
                             <div class="Div">
-                                <asp:Label runat="server" Text="<%$ Resources:Resource,RemarkString%>"></asp:Label>
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,RemarkString%>" ></asp:Label>
                             </div>
                             <asp:UpdatePanel runat="server">
                                 <ContentTemplate>
-                                    <asp:TextBox runat="server" ID="tbRemark" TextMode="MultiLine" />
+                                    <asp:TextBox runat="server" ID="tbRemark" TextMode="MultiLine" b />
                                 </ContentTemplate>
                             </asp:UpdatePanel>
                         </div>
+                        
+                        <div class="4u 12u(mobilep)">
+                            
+                        </div>
                     </div>
                 </div>
-            </div>            
+            </div>
             <!-- Btn -->
             <div class="Div btn">
                 <ul class="actions">
                     <li>
                         <asp:Button runat="server" CssClass="button alt" Text="<%$ Resources:Resource,ModifyString%>"
                             ID="btnModify" OnClick="btnModify_Click" />
+                    </li>
+                    <li>
+                        <asp:Button runat="server" CssClass="button alt" Text="<%$ Resources:Resource,CancelString%>"
+                            ID="btnCancel" OnClick="btnCancel_Click" />
                     </li>
                 </ul>
             </div>

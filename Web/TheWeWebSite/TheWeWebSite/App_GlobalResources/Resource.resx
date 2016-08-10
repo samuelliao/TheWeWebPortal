@@ -1008,4 +1008,10 @@
   <data name="DomesticWeddingOnlyString" xml:space="preserve">
     <value>Domestic Wedding Only</value>
   </data>
+  <data name="AdditionalItemString" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="SystemSnString" xml:space="preserve">
+    <value></value>
+  </data>
 </root>

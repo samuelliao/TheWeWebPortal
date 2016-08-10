@@ -29,7 +29,7 @@ namespace TheWeWebSite.CaseMgt
                     if (Session["OrderId"] != null)
                     {
                         labelPageTitle.Text = Resources.Resource.OrderMgtString
-                        + " > " + Resources.Resource.OrderMgtString
+                        + " > " + Resources.Resource.ContractMaintainString
                         + " > " + Resources.Resource.ModifyString;
                         btnModify.Visible = true;
                         btnDelete.Visible = true;
@@ -39,7 +39,7 @@ namespace TheWeWebSite.CaseMgt
                     else
                     {
                         labelPageTitle.Text = Resources.Resource.OrderMgtString
-                        + " > " + Resources.Resource.OrderMgtString
+                        + " > " + Resources.Resource.ContractMaintainString
                         + " > " + Resources.Resource.CreateString;
                         btnModify.Visible = false;
                         btnDelete.Visible = false;
@@ -514,7 +514,7 @@ namespace TheWeWebSite.CaseMgt
                     + ",[LocalMotheringDate],[LocalReceptionDate],[BalancePayementDate]"
                     + ",o.[ServiceType],o.[IsDelete],o.[UpdateAccId],o.[UpdateTime],o.[ServiceType]"
                     + ",[WeddingRecord],[DynamicRecord],[BridalSecretary],[WeddingPerform],[WeddingType]"
-                    + ",[WeddingDecorate],[WeddingHost],[TotalPrice],[Discount],o.[Remark],[Referral]"
+                    + ",[WeddingDecorate],[WeddingHost],[TotalPrice],[Discount],o.[Remark],[Referral],o.Img"
                     + " FROM[TheWe].[dbo].[OrderInfo] as o"
                     + " Left join Consultation as c on c.Id = o.ConsultId"
                     + " Where o.IsDelete = 0 And o.Id = '" + id + "'";
