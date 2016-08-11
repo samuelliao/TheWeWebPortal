@@ -278,7 +278,8 @@ namespace TheWeWebSite.StoreMgt
         #region Button Control
         protected void btnCreate_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(tbSn.Text) || string.IsNullOrEmpty(ddlCategory.SelectedValue)) return;
+            tbSn.Text = null;
+          //  if (string.IsNullOrEmpty(tbSn.Text) || string.IsNullOrEmpty(ddlCategory.SelectedValue)) return;
             if (SysProperty.GenDbCon.IsSnDuplicate(ddlCategory.SelectedValue, tbSn.Text))
             {
                 ShowErrorMsg(Resources.Resource.SnDuplicateErrorString);
@@ -353,6 +354,13 @@ namespace TheWeWebSite.StoreMgt
             ddlStatus.SelectedIndex = 0;
             ddlSupplier.SelectedIndex = 0;
             ddlType.SelectedIndex = 0;
+            ImgFront.ImageUrl = null;
+            ImgSide.ImageUrl = null;
+            ImgOther1.ImageUrl = null;
+            ImgOther2.ImageUrl = null;
+            ImgBack.ImageUrl = null;
+
+
         }
 
         protected void btnDelete_Click(object sender, EventArgs e)
@@ -429,7 +437,7 @@ namespace TheWeWebSite.StoreMgt
 
             string imgPath = @dr["Img"].ToString();
             if (string.IsNullOrEmpty(imgPath)) imgPath = SysProperty.ImgRootFolderpath + @"\" + tableName + @"\" + tbSn.Text;
-            else imgPath = SysProperty.ImgRootFolderpath + "\\" + imgPath;
+            else imgPath = SysProperty.ImgRootFolderpath  + imgPath;
             string ImgFolderPath = imgPath;
             RefreshImage(0, ImgFolderPath);
             tbFolderPath.Text = ImgFolderPath;
@@ -834,27 +842,27 @@ namespace TheWeWebSite.StoreMgt
             switch (type)
             {
                 case 1:
-                    ImgFront.ImageUrl = "http:" + path.Replace("\\", "/") + "/" + tbSn.Text + "_1.jpg?" + DateTime.Now.Ticks.ToString();
+                    ImgFront.ImageUrl = "http:" + path + @"\" + tbSn.Text + "_1.jpg?" + DateTime.Now.Ticks.ToString();
                     break;
                 case 2:
-                    ImgBack.ImageUrl = "http:" + path.Replace("\\", "/") + "/" + tbSn.Text + "_2.jpg?" + DateTime.Now.Ticks.ToString();
+                    ImgBack.ImageUrl = "http:" + path + @"\" + tbSn.Text + "_2.jpg?" + DateTime.Now.Ticks.ToString();
                     break;
                 case 3:
-                    ImgSide.ImageUrl = "http:" + path.Replace("\\", "/") + "/" + tbSn.Text + "_3.jpg?" + DateTime.Now.Ticks.ToString();
+                    ImgSide.ImageUrl = "http:" + path + @"\" + tbSn.Text + "_3.jpg?" + DateTime.Now.Ticks.ToString();
                     break;
                 case 4:
-                    ImgOther1.ImageUrl = "http:" + path.Replace("\\", "/") + "/" + tbSn.Text + "_4.jpg?" + DateTime.Now.Ticks.ToString();
+                    ImgOther1.ImageUrl = "http:" + path + @"\" + tbSn.Text + "_4.jpg?" + DateTime.Now.Ticks.ToString();
                     break;
                 case 5:
-                    ImgOther2.ImageUrl = "http:" + path.Replace("\\", "/") + "/" + tbSn.Text + "_5.jpg?" + DateTime.Now.Ticks.ToString();
+                    ImgOther2.ImageUrl = "http:" + path + @"\" + tbSn.Text + "_5.jpg?" + DateTime.Now.Ticks.ToString();
                     break;
                 case 0:
                 default:
-                    ImgFront.ImageUrl = "http:" + path.Replace("\\", "/") + "/" + tbSn.Text + "_1.jpg?" + DateTime.Now.Ticks.ToString();
-                    ImgBack.ImageUrl = "http:" + path.Replace("\\", "/") + "/" + tbSn.Text + "_2.jpg?" + DateTime.Now.Ticks.ToString();
-                    ImgSide.ImageUrl = "http:" + path.Replace("\\", "/") + "/" + tbSn.Text + "_3.jpg?" + DateTime.Now.Ticks.ToString();
-                    ImgOther1.ImageUrl = "http:" + path.Replace("\\", "/") + "/" + tbSn.Text + "_4.jpg?" + DateTime.Now.Ticks.ToString();
-                    ImgOther2.ImageUrl = "http:" + path.Replace("\\", "/") + "/" + tbSn.Text + "_5.jpg?" + DateTime.Now.Ticks.ToString();
+                    ImgFront.ImageUrl = "http:" + path + @"\" + tbSn.Text + "_1.jpg?" + DateTime.Now.Ticks.ToString();
+                    ImgBack.ImageUrl = "http:" + path + @"\" + tbSn.Text + "_2.jpg?" + DateTime.Now.Ticks.ToString();
+                    ImgSide.ImageUrl = "http:" + path + @"\" + tbSn.Text + "_3.jpg?" + DateTime.Now.Ticks.ToString();
+                    ImgOther1.ImageUrl = "http:" + path + @"\" + tbSn.Text + "_4.jpg?" + DateTime.Now.Ticks.ToString();
+                    ImgOther2.ImageUrl = "http:" + path + @"\" + tbSn.Text + "_5.jpg?" + DateTime.Now.Ticks.ToString();
                     break;
             }
         }
@@ -863,7 +871,7 @@ namespace TheWeWebSite.StoreMgt
         {
             if (string.IsNullOrEmpty(tbFolderPath.Text)) return;
             if (string.IsNullOrEmpty(ddlCategory.SelectedValue)) return;
-            CheckFolder(SysProperty.ImgRootFolderpath + @"\" + ddlCategory.SelectedValue + @"\" + tbSn.Text);
+            CheckFolder(SysProperty.ImgRootFolderpath + ddlCategory.SelectedValue + @"\" + tbSn.Text);
             ImgFrontUpload.PostedFile.SaveAs(tbFolderPath.Text + "\\" + tbSn.Text + "_1.jpg");
             RefreshImage(1, tbFolderPath.Text);
         }
@@ -872,7 +880,7 @@ namespace TheWeWebSite.StoreMgt
         {
             if (string.IsNullOrEmpty(tbFolderPath.Text)) return;
             if (string.IsNullOrEmpty(ddlCategory.SelectedValue)) return;
-            CheckFolder(SysProperty.ImgRootFolderpath + @"\" + ddlCategory.SelectedValue + @"\" + tbSn.Text);
+            CheckFolder(SysProperty.ImgRootFolderpath  + ddlCategory.SelectedValue + @"\" + tbSn.Text);
             ImgBackUpload.PostedFile.SaveAs(tbFolderPath.Text + "\\" + tbSn.Text + "_2.jpg");
             RefreshImage(2, tbFolderPath.Text);
         }
@@ -881,7 +889,7 @@ namespace TheWeWebSite.StoreMgt
         {
             if (string.IsNullOrEmpty(tbFolderPath.Text)) return;
             if (string.IsNullOrEmpty(ddlCategory.SelectedValue)) return;
-            CheckFolder(SysProperty.ImgRootFolderpath + @"\" + ddlCategory.SelectedValue + @"\" + tbSn.Text);
+            CheckFolder(SysProperty.ImgRootFolderpath  + ddlCategory.SelectedValue + @"\" + tbSn.Text);
             ImgSideUpload.PostedFile.SaveAs(tbFolderPath.Text + "\\" + tbSn.Text + "_3.jpg");
             RefreshImage(3, tbFolderPath.Text);
         }
@@ -898,7 +906,7 @@ namespace TheWeWebSite.StoreMgt
         {
             if (string.IsNullOrEmpty(tbFolderPath.Text)) return;
             if (string.IsNullOrEmpty(ddlCategory.SelectedValue)) return;
-            CheckFolder(SysProperty.ImgRootFolderpath + @"\" + ddlCategory.SelectedValue + @"\" + tbSn.Text);
+            CheckFolder(SysProperty.ImgRootFolderpath  + ddlCategory.SelectedValue + @"\" + tbSn.Text);
             ImgOther2Upload.PostedFile.SaveAs(tbFolderPath.Text + "\\" + tbSn.Text + "_5.jpg");
             RefreshImage(5, tbFolderPath.Text);
         }
@@ -907,7 +915,7 @@ namespace TheWeWebSite.StoreMgt
         {
             if (string.IsNullOrEmpty(tbFolderPath.Text)) return;
             if (string.IsNullOrEmpty(ddlCategory.SelectedValue)) return;
-            CheckFolder(SysProperty.ImgRootFolderpath + @"\" + ddlCategory.SelectedValue + @"\" + tbSn.Text);
+            CheckFolder(SysProperty.ImgRootFolderpath  + ddlCategory.SelectedValue + @"\" + tbSn.Text);
             ImgOther1Upload.PostedFile.SaveAs(tbFolderPath.Text + "\\" + tbSn.Text + "_4.jpg");
             RefreshImage(4, tbFolderPath.Text);
         }

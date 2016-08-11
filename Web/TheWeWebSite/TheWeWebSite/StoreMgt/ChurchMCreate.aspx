@@ -143,24 +143,18 @@
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,WeddingAppointmentTimeString%>"></asp:Label>
                             </div>
-                            <div style="overflow-y: auto; height: 300px; margin-left: 100px">
+                            <div style="overflow-y: auto; height: 150px; margin-left: 50px">
                                 <asp:UpdatePanel runat="server">
                                     <ContentTemplate>
                                         <asp:GridView ID="dgBookTable" runat="server"
-                                            ShowFooter="True" AutoGenerateColumns="False"
+                                            AutoGenerateColumns="False"
                                             OnRowDeleting="dgBookTable_RowDeleting" Font-Size="Small">
                                             <Columns>
                                                 <asp:TemplateField>
                                                     <ItemTemplate>
-                                                        <asp:TextBox ID="tbStart" Style="text-align: right;margin-top:15px" runat="server"
+                                                        <asp:TextBox ID="tbStart" Style="text-align: right; margin-top: 15px" runat="server"
                                                             CssClass="date date-1" value="HH:MM" data-type="time"></asp:TextBox>
                                                     </ItemTemplate>
-                                                    <FooterStyle HorizontalAlign="Right" />
-                                                    <FooterTemplate>
-                                                        <div style="padding-top:15px">
-                                                        <asp:Button ID="btnAddRow" runat="server" 
-                                                            Text="Add New Row" OnClick="btnAddRow_Click" /></div>
-                                                    </FooterTemplate>
                                                 </asp:TemplateField>
                                                 <asp:CommandField ShowDeleteButton="True" />
                                             </Columns>
@@ -168,9 +162,12 @@
                                     </ContentTemplate>
                                 </asp:UpdatePanel>
                             </div>
+                            <div style="float:right">
+                            <asp:Button ID="btnAddRow" runat="server" 
+                                Text="Add New Row" OnClick="btnAddRow_Click" /></div>
                         </div>
-                    </div>
                 </div>
+            </div>
 
             </div>
 

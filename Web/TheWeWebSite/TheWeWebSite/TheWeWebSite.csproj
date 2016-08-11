@@ -41,6 +41,13 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DocX, Version=1.0.0.22, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\DocX.dll</HintPath>
+    </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib">
+      <HintPath>NPOI\Net40\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
     <Reference Include="log4net">
       <HintPath>.\log4net.dll</HintPath>
     </Reference>
@@ -48,6 +55,18 @@
     <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
       <HintPath>..\packages\NLog.4.3.5\lib\net40\NLog.dll</HintPath>
       <Private>True</Private>
+    </Reference>
+    <Reference Include="NPOI">
+      <HintPath>NPOI\Net40\NPOI.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI.OOXML">
+      <HintPath>NPOI\Net40\NPOI.OOXML.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI.OpenXml4Net">
+      <HintPath>NPOI\Net40\NPOI.OpenXml4Net.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI.OpenXmlFormats">
+      <HintPath>NPOI\Net40\NPOI.OpenXmlFormats.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
@@ -264,6 +283,9 @@
     <Compile Include="Main\Unsigned.aspx.designer.cs">
       <DependentUpon>Unsigned.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Output\AdvisoryDoc.cs" />
+    <Compile Include="Output\ContractDoc.cs" />
+    <Compile Include="Output\GroupPhotoNotification.cs" />
     <Compile Include="PermissionUtil.cs" />
     <Compile Include="remind.aspx.cs">
       <DependentUpon>remind.aspx</DependentUpon>

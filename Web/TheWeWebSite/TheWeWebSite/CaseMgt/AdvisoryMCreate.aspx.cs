@@ -392,6 +392,7 @@ namespace TheWeWebSite.CaseMgt
 
         protected void btnCreate_Click(object sender, EventArgs e)
         {
+            tbSn.Text = null;
             if (SysProperty.GenDbCon.IsSnDuplicate(SysProperty.Util.MsSqlTableConverter(MsSqlTable.Consultation), tbSn.Text))
             {
                 ShowErrorMsg(Resources.Resource.SnDuplicateErrorString);

@@ -57,6 +57,7 @@
                                 </ContentTemplate>
                             </asp:UpdatePanel>                            
                         </div>
+                        
                         <div class="2u 12u(mobilep)" runat="server" id="divEarringType" visible="false">
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,TypeString%>"></asp:Label>
