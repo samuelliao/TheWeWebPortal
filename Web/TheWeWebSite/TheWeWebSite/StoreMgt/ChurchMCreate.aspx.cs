@@ -128,6 +128,11 @@ namespace TheWeWebSite.StoreMgt
             ddlArea.SelectedIndex = 0;
             ddlCountry.SelectedIndex = 0;
             FirstGridViewRow();
+            ImgFront.ImageUrl = null;
+            ImgBack.ImageUrl = null;
+            ImgSide.ImageUrl = null;
+            ImgOther1.ImageUrl = null;
+            ImgMeal.ImageUrl = null;
         }
 
         protected void btnModify_Click(object sender, EventArgs e)
@@ -148,6 +153,7 @@ namespace TheWeWebSite.StoreMgt
 
         protected void btnCreate_Click(object sender, EventArgs e)
         {
+            tbSn.Text = "";
             if (SysProperty.GenDbCon.IsSnDuplicate(SysProperty.Util.MsSqlTableConverter(MsSqlTable.Church), tbSn.Text))
             {
                 ShowErrorMsg(Resources.Resource.SnDuplicateErrorString);
@@ -276,6 +282,13 @@ namespace TheWeWebSite.StoreMgt
             string ImgFolderPath = imgPath;
             RefreshImage(0, ImgFolderPath);
             tbFolderPath.Text = ImgFolderPath;
+
+            string imgMeal = @dr["MealImg"].ToString();
+            if (string.IsNullOrEmpty(imgMeal)) imgMeal = SysProperty.ImgRootFolderpath + @"\Church\" + tbSn.Text;
+            else imgMeal = SysProperty.ImgRootFolderpath + imgMeal;
+            string ImgFolderMealPath = imgMeal;
+            RefreshImage(0, ImgFolderMealPath);
+            tbFolderMealPath.Text = ImgFolderMealPath;
 
             if (Session["LocateStore"] != null)
             {
@@ -658,27 +671,27 @@ namespace TheWeWebSite.StoreMgt
             switch (type)
             {
                 case 1:
-                    ImgFront.ImageUrl = path + "/" + tbSn.Text + "_1.jpg?" + DateTime.Now.Ticks.ToString();
+                    ImgFront.ImageUrl = "http:"+ path + "\\" + tbSn.Text + "_1.jpg?" + DateTime.Now.Ticks.ToString();
                     break;
                 case 2:
-                    ImgBack.ImageUrl = path + "/" + tbSn.Text + "_2.jpg?" + DateTime.Now.Ticks.ToString();
+                    ImgBack.ImageUrl = "http:" + path + "\\" + tbSn.Text + "_2.jpg?" + DateTime.Now.Ticks.ToString();
                     break;
                 case 3:
-                    ImgSide.ImageUrl = path + "/" + tbSn.Text + "_3.jpg?" + DateTime.Now.Ticks.ToString();
+                    ImgSide.ImageUrl = "http:" + path + "\\" + tbSn.Text + "_3.jpg?" + DateTime.Now.Ticks.ToString();
                     break;
                 case 4:
-                    ImgOther1.ImageUrl = path + "/" + tbSn.Text + "_4.jpg?" + DateTime.Now.Ticks.ToString();
+                    ImgOther1.ImageUrl = "http:" + path + "\\" + tbSn.Text + "_4.jpg?" + DateTime.Now.Ticks.ToString();
                     break;
                 case 5:
-                    ImgMeal.ImageUrl = path + "/" + tbSn.Text + "_meal.jpg?" + DateTime.Now.Ticks.ToString();
+                    ImgMeal.ImageUrl = "http:" + path + "\\" + tbSn.Text + "_meal.jpg?" + DateTime.Now.Ticks.ToString();
                     break;
                 case 0:
                 default:
-                    ImgFront.ImageUrl = path + "/" + tbSn.Text + "_1.jpg?" + DateTime.Now.Ticks.ToString();
-                    ImgBack.ImageUrl = path + "/" + tbSn.Text + "_2.jpg?" + DateTime.Now.Ticks.ToString();
-                    ImgSide.ImageUrl = path + "/" + tbSn.Text + "_3.jpg?" + DateTime.Now.Ticks.ToString();
-                    ImgOther1.ImageUrl = path + "/" + tbSn.Text + "_4.jpg?" + DateTime.Now.Ticks.ToString();
-                    ImgMeal.ImageUrl = path + "/" + tbSn.Text + "_meal.jpg?" + DateTime.Now.Ticks.ToString();
+                    ImgFront.ImageUrl = "http:" + path + "\\" + tbSn.Text + "_1.jpg?" + DateTime.Now.Ticks.ToString();
+                    ImgBack.ImageUrl = "http:" + path + "\\" + tbSn.Text + "_2.jpg?" + DateTime.Now.Ticks.ToString();
+                    ImgSide.ImageUrl = "http:" + path + "\\" + tbSn.Text + "_3.jpg?" + DateTime.Now.Ticks.ToString();
+                    ImgOther1.ImageUrl = "http:" + path + "\\" + tbSn.Text + "_4.jpg?" + DateTime.Now.Ticks.ToString();
+                    ImgMeal.ImageUrl = "http:" + path + "\\" + tbSn.Text + "_meal.jpg?" + DateTime.Now.Ticks.ToString();
                     break;
             }
         }
@@ -686,24 +699,24 @@ namespace TheWeWebSite.StoreMgt
         protected void btnImgFrontUpload_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(tbFolderPath.Text)) return;
-            CheckFolder(SysProperty.ImgRootFolderpath + @"\Church\" + tbSn.Text);
-            ImgFrontUpload.PostedFile.SaveAs(tbFolderPath.Text + "/" + tbSn.Text + "_1.jpg");
+            CheckFolder(tbFolderPath.Text);
+            ImgFrontUpload.PostedFile.SaveAs(tbFolderPath.Text + "\\" + tbSn.Text + "_1.jpg");
             RefreshImage(1, tbFolderPath.Text);
         }
 
         protected void btnImgBackUpload_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(tbFolderPath.Text)) return;
-            CheckFolder(SysProperty.ImgRootFolderpath + @"\Church\" + tbSn.Text);
-            ImgBackUpload.PostedFile.SaveAs(tbFolderPath.Text + "/" + tbSn.Text + "_2.jpg");
+            CheckFolder(tbFolderPath.Text);
+            ImgBackUpload.PostedFile.SaveAs(tbFolderPath.Text + "\\" + tbSn.Text + "_2.jpg");
             RefreshImage(2, tbFolderPath.Text);
         }
 
         protected void btnImgSideUpload_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(tbFolderPath.Text)) return;
-            CheckFolder(SysProperty.ImgRootFolderpath + @"\Church\" + tbSn.Text);
-            ImgSideUpload.PostedFile.SaveAs(tbFolderPath.Text + "/" + tbSn.Text + "_3.jpg");
+            CheckFolder(tbFolderPath.Text);
+            ImgSideUpload.PostedFile.SaveAs(tbFolderPath.Text + "\\" + tbSn.Text + "_3.jpg");
             RefreshImage(3, tbFolderPath.Text);
         }
 
@@ -718,17 +731,17 @@ namespace TheWeWebSite.StoreMgt
         protected void btnImgOther1_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(tbFolderPath.Text)) return;
-            CheckFolder(SysProperty.ImgRootFolderpath + @"\Church\" + tbSn.Text);
-            ImgSideUpload.PostedFile.SaveAs(tbFolderPath.Text + "/" + tbSn.Text + "_4.jpg");
+            CheckFolder(tbFolderPath.Text);
+            ImgOther1Upload.PostedFile.SaveAs(tbFolderPath.Text + "\\" + tbSn.Text + "_4.jpg");
             RefreshImage(4, tbFolderPath.Text);
         }
 
         protected void btnUploadMeal_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(tbFolderPath.Text)) return;
-            CheckFolder(SysProperty.ImgRootFolderpath + @"\Church\" + tbSn.Text);
-            ImgMealUpload.PostedFile.SaveAs(tbFolderPath.Text + "/" + tbSn.Text + "_meal.jpg");
-            RefreshImage(5, tbFolderPath.Text);
+            if (string.IsNullOrEmpty(tbFolderMealPath.Text)) return;
+            CheckFolder(tbFolderMealPath.Text);
+            ImgMealUpload.PostedFile.SaveAs(tbFolderMealPath.Text + "\\" + tbSn.Text + "_meal.jpg");
+            RefreshImage(5, tbFolderMealPath.Text);
         }
         #endregion
     }

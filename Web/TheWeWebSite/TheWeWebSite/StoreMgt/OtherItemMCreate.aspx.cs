@@ -300,8 +300,8 @@ namespace TheWeWebSite.StoreMgt
             if (string.IsNullOrEmpty(imgPath)) imgPath = SysProperty.ImgRootFolderpath + @"\Item\" + tbOthSn.Text;
             else imgPath = SysProperty.ImgRootFolderpath + imgPath;
             string ImgFolderPath = imgPath;
-            RefreshImage(0, ImgFolderPath);
             tbFolderPath.Text = ImgFolderPath;
+            RefreshImage(0, ImgFolderPath);
 
             if (bool.Parse(dr["IsGeneral"].ToString()))
             {
@@ -336,16 +336,10 @@ namespace TheWeWebSite.StoreMgt
         {
             List<DbSearchObject> lst = new List<DbSearchObject>();
             lst.Add(new DbSearchObject(
-                "Sn"
+                "IsGeneral"
                 , AtrrTypeItem.String
                 , AttrSymbolItem.Equal
-                , tbOthSn.Text
-                ));
-            lst.Add(new DbSearchObject(
-                "Img"
-                , AtrrTypeItem.String
-                , AttrSymbolItem.Equal
-                , @"Item\" + tbOthSn.Text
+                , "true"
                 ));
             lst.Add(new DbSearchObject(
                 "Name"
@@ -522,23 +516,23 @@ namespace TheWeWebSite.StoreMgt
             switch (type)
             {
                 case 1:
-                    ImgFront.ImageUrl = path + "/" + tbOthSn.Text + "_1.jpg?" + DateTime.Now.Ticks.ToString();
+                    ImgFront.ImageUrl ="http:" +path + "\\" + tbOthSn.Text + "_1.jpg?" + DateTime.Now.Ticks.ToString();
                     break;
                 case 2:
-                    ImgBack.ImageUrl = path + "/" + tbOthSn.Text + "_2.jpg?" + DateTime.Now.Ticks.ToString();
+                    ImgBack.ImageUrl = "http:" + path + "\\" + tbOthSn.Text + "_2.jpg?" + DateTime.Now.Ticks.ToString();
                     break;
                 case 3:
-                    ImgSide.ImageUrl = path + "/" + tbOthSn.Text + "_3.jpg?" + DateTime.Now.Ticks.ToString();
+                    ImgSide.ImageUrl = "http:" + path + "\\" + tbOthSn.Text + "_3.jpg?" + DateTime.Now.Ticks.ToString();
                     break;
                 case 4:
-                    ImgOther1.ImageUrl = path + "/" + tbOthSn.Text + "_4.jpg?" + DateTime.Now.Ticks.ToString();
+                    ImgOther1.ImageUrl = "http:" + path + "\\" + tbOthSn.Text + "_4.jpg?" + DateTime.Now.Ticks.ToString();
                     break;
                 case 0:
                 default:
-                    ImgFront.ImageUrl = path + "/" + tbOthSn.Text + "_1.jpg?" + DateTime.Now.Ticks.ToString();
-                    ImgBack.ImageUrl = path + "/" + tbOthSn.Text + "_2.jpg?" + DateTime.Now.Ticks.ToString();
-                    ImgSide.ImageUrl = path + "/" + tbOthSn.Text + "_3.jpg?" + DateTime.Now.Ticks.ToString();
-                    ImgOther1.ImageUrl = path + "/" + tbOthSn.Text + "_4.jpg?" + DateTime.Now.Ticks.ToString();
+                    ImgFront.ImageUrl = "http:" + path + "\\" + tbOthSn.Text + "_1.jpg?" + DateTime.Now.Ticks.ToString();
+                    ImgBack.ImageUrl = "http:" + path + "\\" + tbOthSn.Text + "_2.jpg?" + DateTime.Now.Ticks.ToString();
+                    ImgSide.ImageUrl = "http:" + path + "\\" + tbOthSn.Text + "_3.jpg?" + DateTime.Now.Ticks.ToString();
+                    ImgOther1.ImageUrl = "http:" + path + "\\" + tbOthSn.Text + "_4.jpg?" + DateTime.Now.Ticks.ToString();
                     break;
             }
         }
@@ -547,7 +541,7 @@ namespace TheWeWebSite.StoreMgt
         {
             if (string.IsNullOrEmpty(tbFolderPath.Text)) return;
             CheckFolder(SysProperty.ImgRootFolderpath + @"\Item\" + tbOthSn.Text);
-            ImgFrontUpload.PostedFile.SaveAs(tbFolderPath.Text + "/" + tbOthSn.Text + "_1.jpg");
+            ImgFrontUpload.PostedFile.SaveAs(tbFolderPath.Text + @"\" + tbOthSn.Text + "_1.jpg");
             RefreshImage(1, tbFolderPath.Text);
         }
 
@@ -555,7 +549,7 @@ namespace TheWeWebSite.StoreMgt
         {
             if (string.IsNullOrEmpty(tbFolderPath.Text)) return;
             CheckFolder(SysProperty.ImgRootFolderpath + @"\Item\" + tbOthSn.Text);
-            ImgBackUpload.PostedFile.SaveAs(tbFolderPath.Text + "/" + tbOthSn.Text + "_2.jpg");
+            ImgBackUpload.PostedFile.SaveAs(tbFolderPath.Text + @"\" + tbOthSn.Text + "_2.jpg");
             RefreshImage(2, tbFolderPath.Text);
         }
 
@@ -563,7 +557,7 @@ namespace TheWeWebSite.StoreMgt
         {
             if (string.IsNullOrEmpty(tbFolderPath.Text)) return;
             CheckFolder(SysProperty.ImgRootFolderpath + @"\Item\" + tbOthSn.Text);
-            ImgSideUpload.PostedFile.SaveAs(tbFolderPath.Text + "/" + tbOthSn.Text + "_3.jpg");
+            ImgSideUpload.PostedFile.SaveAs(tbFolderPath.Text + @"\" + tbOthSn.Text + "_3.jpg");
             RefreshImage(3, tbFolderPath.Text);
         }
 
@@ -579,7 +573,7 @@ namespace TheWeWebSite.StoreMgt
         {
             if (string.IsNullOrEmpty(tbFolderPath.Text)) return;
             CheckFolder(SysProperty.ImgRootFolderpath + @"\Item\" + tbOthSn.Text);
-            ImgSideUpload.PostedFile.SaveAs(tbFolderPath.Text + "/" + tbOthSn.Text + "_4.jpg");
+            ImgOther1Upload.PostedFile.SaveAs(tbFolderPath.Text + @"\" + tbOthSn.Text + "_4.jpg");
             RefreshImage(4, tbFolderPath.Text);
         }
         #endregion

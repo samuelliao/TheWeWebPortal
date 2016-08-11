@@ -469,6 +469,7 @@
     </Content>
     <Content Include="packages.config" />
     <Content Include="assets\img\Chees.psd" />
+    <None Include="Properties\PublishProfiles\The We.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -330,7 +330,7 @@ namespace TheWeWebSite.StoreMgt
             switch (type)
             {
                 case 1:
-                    ImgFront.ImageUrl = "http:" + path + @"\" + tbSn.Text + "_1.jpg";
+                    ImgFront.ImageUrl = "http:" + path + @"\" + tbSn.Text + "_1.jpg?" + DateTime.Now.Ticks.ToString();
                     break;
                 case 2:
                     ImgBack.ImageUrl = "http:" + path + @"\" + tbSn.Text + "_2.jpg?" + DateTime.Now.Ticks.ToString();
@@ -340,7 +340,7 @@ namespace TheWeWebSite.StoreMgt
                     break;
                 case 0:
                 default:
-                    ImgFront.ImageUrl = "http:" + path + @"\" + tbSn.Text + "_1.jpg";
+                    ImgFront.ImageUrl = "http:" + path + @"\" + tbSn.Text + "_1.jpg?" + DateTime.Now.Ticks.ToString();
                     ImgBack.ImageUrl = "http:" + path + @"\" + tbSn.Text + "_2.jpg?" + DateTime.Now.Ticks.ToString();
                     ImgSide.ImageUrl = "http:" + path + @"\" + tbSn.Text + "_3.jpg?" + DateTime.Now.Ticks.ToString();
                     break;
