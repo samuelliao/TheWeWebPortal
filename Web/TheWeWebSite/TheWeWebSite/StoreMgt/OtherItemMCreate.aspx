@@ -55,7 +55,7 @@
                             <asp:UpdatePanel runat="server">
                                 <ContentTemplate>
                                     <asp:DropDownList runat="server" ID="ddlType" AutoPostBack="true" OnSelectedIndexChanged="ddlType_SelectedIndexChanged"/>
-                                    <asp:TextBox runat="server" ID="tbType" Visible="false" />
+                                     <asp:TextBox runat="server" ID="tbType" Visible="false" />
                                 </ContentTemplate>
                             </asp:UpdatePanel>                            
                         </div>
@@ -84,11 +84,11 @@
                             </div>
                             <asp:DropDownList runat="server" ID="ddlStore" />
                         </div>
-                        <div class="6u 12u(mobilep)">
+                        <div class="8u 12u(mobilep)">
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,DescriptionString%>"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server" placeholder="..." ID="tbOthDescription" TextMode="MultiLine" Rows="3"></asp:TextBox>
+                            <asp:TextBox runat="server"  ID="tbOthDescription" ></asp:TextBox>
                         </div>
                         
                     </div>
