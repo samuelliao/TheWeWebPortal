@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using TheWeLib;
+using TheWeWebSite.Output;
 
 namespace TheWeWebSite.CaseMgt
 {
@@ -172,7 +173,6 @@ namespace TheWeWebSite.CaseMgt
                 ShowErrorMsg(ex.Message);
             }
         }
-
         private void SetAreaList(string cid)
         {
             ddlArea.Items.Clear();
@@ -204,7 +204,6 @@ namespace TheWeWebSite.CaseMgt
                 ShowErrorMsg(ex.Message);
             }
         }
-
         private void SetChurchList(string cid, string aid)
         {
             ddlLocate.Items.Clear();
@@ -239,7 +238,6 @@ namespace TheWeWebSite.CaseMgt
                 ShowErrorMsg(ex.Message);
             }
         }
-
         private void SetProductSetList(string cid, string aid, string lid, string typeId)
         {
             ddlProductSet.Items.Clear();
@@ -281,7 +279,6 @@ namespace TheWeWebSite.CaseMgt
                 ShowErrorMsg(ex.Message);
             }
         }
-
         private void SetOrderTypeList()
         {
             ddlOrderType.Items.Clear();
@@ -306,14 +303,12 @@ namespace TheWeWebSite.CaseMgt
                 ShowErrorMsg(ex.Message);
             }
         }
-
         private void SetStatusList()
         {
             ddlStatus.Items.Clear();
             try
             {
-                string sql = "select * from ConferenceItem"
-                    + " Where ConferenceLv = 0 order by Sn";
+                string sql = "select * from ConferenceItem Where ConferenceLv = 0 And Sn != '10' order by Sn";
                 DataSet ds = SysProperty.GenDbCon.GetDataFromTable(sql);
                 if (SysProperty.Util.IsDataSetEmpty(ds)) return;
                 foreach (DataRow dr in ds.Tables[0].Rows)
@@ -331,7 +326,6 @@ namespace TheWeWebSite.CaseMgt
                 ShowErrorMsg(ex.Message);
             }
         }
-
         #region DropDownList Event Hanlder
         protected void ddlCountry_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -437,7 +431,10 @@ namespace TheWeWebSite.CaseMgt
             tbMsgerTitle.Text = string.Empty;
             tbPayOff.Text = string.Empty;
             tbPayOffDate.Text = string.Empty;
-            tbPhone.Text = string.Empty;
+            tbBridalPhone.Text = string.Empty;
+            tbBridalEmail.Text = string.Empty;
+            tbGroomPhone.Text = string.Empty;
+            tbGroomEmail.Text = string.Empty;
             tbRemark.Text = string.Empty;
             tbTotalPrice.Text = string.Empty;
             ddlArea.SelectedIndex = 0;
@@ -598,7 +595,8 @@ namespace TheWeWebSite.CaseMgt
                 tbBridalNickname.Text = dr["Nickname"].ToString();
                 tbBridalPassportName.Text = dr["EngName"].ToString();
                 ddlBridalMsgerType.SelectedValue = dr["MessengerType"].ToString();
-                tbPhone.Text = dr["Phone"].ToString();
+                tbBridalPhone.Text = dr["Phone"].ToString();
+                tbBridalEmail.Text = dr["Email"].ToString(); 
                 tbMsgerTitle.Text = dr["MsgTitle"].ToString();
                 tbAddress.Text = dr["Addr"].ToString();
                 tbCustomerSn.Text = dr["Sn"].ToString();
@@ -615,7 +613,9 @@ namespace TheWeWebSite.CaseMgt
                 tbGroomBday.Text = dr["Bday"].ToString();
                 tbGroomNickname.Text = dr["Nickname"].ToString();
                 tbGroomPassportName.Text = dr["EngName"].ToString();
-                ddlGroomMsgerType.SelectedValue = dr["MessengerType"].ToString();                
+                ddlGroomMsgerType.SelectedValue = dr["MessengerType"].ToString();
+                tbGroomPhone.Text = dr["Phone"].ToString();
+                tbGroomEmail.Text = dr["Email"].ToString();
             }
         }
 
@@ -891,7 +891,12 @@ namespace TheWeWebSite.CaseMgt
                         "Phone"
                         , AtrrTypeItem.String
                         , AttrSymbolItem.Equal
-                        , tbPhone.Text));
+                        , tbBridalPhone.Text));
+            lst.Add(new DbSearchObject(
+                        "Email"
+                        , AtrrTypeItem.String
+                        , AttrSymbolItem.Equal
+                        , tbBridalEmail.Text));
             lst.Add(new DbSearchObject(
                         "MessengerId"
                         , AtrrTypeItem.String
@@ -955,6 +960,16 @@ namespace TheWeWebSite.CaseMgt
                         , AtrrTypeItem.String
                         , AttrSymbolItem.Equal
                         , tbGroomNickname.Text));
+            lst.Add(new DbSearchObject(
+                        "Phone"
+                        , AtrrTypeItem.String
+                        , AttrSymbolItem.Equal
+                        , tbGroomPhone.Text));
+            lst.Add(new DbSearchObject(
+                        "Email"
+                        , AtrrTypeItem.String
+                        , AttrSymbolItem.Equal
+                        , tbGroomEmail.Text));
             lst.Add(new DbSearchObject(
                         "UpdateAccId"
                         , AtrrTypeItem.String
@@ -1431,5 +1446,76 @@ namespace TheWeWebSite.CaseMgt
             }
         }
         #endregion
+
+        private void CreateContrctDoc(string sn
+            , string bridalName, string bridalEmail, string bridalPhone
+            , string groomName, string groomEmail, string groomPhone
+            , string ServiceName, string setName, string totalPrice, string price, string expectDate)
+        {
+            string otherPrice = (SysProperty.Util.ParseMoney(totalPrice) - SysProperty.Util.ParseMoney(price)).ToString("#0.00");
+            string filePath = new ContractDoc().CreateContractDoc(sn
+                , bridalName, bridalEmail, bridalPhone
+                , groomName, groomEmail, groomPhone
+                , ServiceName, setName, otherPrice, price, expectDate);
+            Uri uri = new Uri(filePath); // Here I get the error
+            string fName = Path.GetFullPath(uri.LocalPath);
+            FileInfo fileInfo = new FileInfo(fName);
+            if (fileInfo.Exists)
+            {
+                Response.Clear();
+                Response.ClearContent();
+                Response.ClearHeaders();
+
+                Response.Buffer = true;
+                Response.ContentType = "application/application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+                //Response.ContentType = "application/Octet-stream";
+                Response.ContentEncoding = System.Text.UnicodeEncoding.UTF8;
+                Response.Charset = "UTF-8";
+                Response.AddHeader("Content-Disposition", "attachment;filename=" + fileInfo.Name);
+                Response.AddHeader("Content-Length", fileInfo.Length.ToString());
+                Response.WriteFile(filePath);
+                Response.End();
+                
+            }
+        }
+
+        protected void btnExport_Click(object sender, EventArgs e)
+        {
+            CreateContrctDoc(tbCaseSn.Text
+                , tbBridalName.Text, tbBridalEmail.Text, tbBridalPhone.Text
+                , tbGroomName.Text, tbGroomEmail.Text, tbGroomPhone.Text
+                , ddlOrderType.SelectedItem.Text, ddlProductSet.SelectedItem.Text, tbTotalPrice.Text, tbTotalPrice.Text, GetExpectDate());
+        }
+
+        private string GetExpectDate()
+        {
+            string time;
+            switch (ddlOrderType.SelectedIndex)
+            {
+                case 0:
+                    time = SysProperty.Util.ParseDateTime("Date", tbOverseaWeddingDate.Text);
+                    break;
+                case 1:
+                    time = SysProperty.Util.ParseDateTime("Date", tbDomesticWeddingDate.Text);
+                    break;
+                case 2:
+                    time = SysProperty.Util.ParseDateTime("Date", tbOverseaWeddingDate.Text);
+                    break;
+                case 3:
+                    time = SysProperty.Util.ParseDateTime("Date", tbDomesticWedFilmDate.Text);
+                    break;
+                case 4:
+                    time = SysProperty.Util.ParseDateTime("Date", tbOverSeaWedFilmDate.Text);
+                    break;
+                default:
+                    return DateTime.Now.ToString("dd/MM/yyyy");
+            }
+            if (string.IsNullOrEmpty(time)) return time;
+
+            DateTime tmp;
+            bool result = DateTime.TryParse(time, out tmp);
+            if (result) return tmp.ToString("dd/MM/yyyy");
+            else return string.Empty;
+        }
     }
 }

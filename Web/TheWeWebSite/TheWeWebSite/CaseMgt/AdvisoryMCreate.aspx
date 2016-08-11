@@ -34,6 +34,7 @@
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,SnString%>"></asp:Label>
                             </div>
                             <asp:TextBox runat="server" ID="tbSn" Enabled="false"></asp:TextBox>
+                            <asp:Label runat="server" ID="labelConsultDate" Visible="false" />
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
@@ -90,7 +91,6 @@
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,BridalPhoneString%>"></asp:Label>
                             </div>
                             <asp:TextBox runat="server" ID="tbBridalPhone"></asp:TextBox>
-
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
@@ -180,10 +180,6 @@
                                     Cssclass="date date-1" value="" placeholder="YYYY-MM-DD" ></asp:TextBox>
                             </div>
                         </div>
-
-
-
-
                     </div>
                 </div>
                 <div class="12u">
@@ -345,6 +341,9 @@
                     <li>
                         <asp:Button runat="server" CssClass="button alt" Text="<%$ Resources:Resource,DeleteString%>"
                             ID="btnDelete" OnClick="btnDelete_Click" Visible="false" />
+                    </li>
+                    <li>
+                        <asp:Button runat="server" CssClass="button alt" Text="<%$ Resources:Resource,ExportString%>" ID="btnExport" OnClick="btnExport_Click" />
                     </li>
                     <li>
                         <asp:Button runat="server" CssClass="button alt" Text="<%$ Resources:Resource,CancelString%>"

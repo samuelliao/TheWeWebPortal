@@ -55,7 +55,6 @@
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,StatusString%>"></asp:Label>
                             </div>
                             <asp:DropDownList runat="server" ID="ddlStatus" OnSelectedIndexChanged="ddlStatus_SelectedIndexChanged" />
-
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
@@ -80,7 +79,6 @@
                     </div>
                 </div>
                 <div class="12u">
-
                     <div class="row uniform 50%">
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
@@ -139,7 +137,7 @@
                                         OnSelectedIndexChanged="ddlLocate_SelectedIndexChanged" />
                                 </ContentTemplate>
                             </asp:UpdatePanel>
-                        </div>
+                        </div>                        
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,ProductSetString%>"></asp:Label>
@@ -154,7 +152,6 @@
                     </div>
                 </div>
                 <div class="12u">
-
                     <div class="row uniform 50%">
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
@@ -195,11 +192,25 @@
                             </div>
                             <asp:TextBox runat="server" ID="tbBridalPassportName"></asp:TextBox>
                         </div>
-
                     </div>
                 </div>
                 <div class="12u">
-
+                    <div class="row uniform 50%">
+                        <div class="2u 12u(mobilep)">
+                            <div class="Div">
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,BridalPhoneString%>"></asp:Label>
+                            </div>
+                            <asp:TextBox runat="server" ID="tbBridalPhone"></asp:TextBox>
+                        </div>
+                        <div class="4u 12u(mobilep)">
+                            <div class="Div">
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,BridalEmailString%>"></asp:Label>
+                            </div>
+                            <asp:TextBox runat="server" ID="tbBridalEmail"></asp:TextBox>
+                        </div>
+                    </div>
+                </div>
+                <div class="12u">
                     <div class="row uniform 50%">
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
@@ -216,7 +227,6 @@
                                     CssClass="date date-1" value="" placeholder="YYYY-MM-DD"></asp:TextBox>
                             </div>
                         </div>
-
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,GroomCommunicationTypeString%>"></asp:Label>
@@ -229,26 +239,37 @@
                             </div>
                             <asp:TextBox runat="server" ID="tbGroomMsgerId"></asp:TextBox>
                         </div>
-
-
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,GroomNicknameString%>"></asp:Label>
                             </div>
                             <asp:TextBox runat="server" ID="tbGroomNickname"></asp:TextBox>
                         </div>
-
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,GroomPassportString%>"></asp:Label>
                             </div>
                             <asp:TextBox runat="server" ID="tbGroomPassportName"></asp:TextBox>
-
                         </div>
                     </div>
                 </div>
                 <div class="12u">
-
+                    <div class="row uniform 50%">
+                        <div class="2u 12u(mobilep)">
+                            <div class="Div">
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,GroomPhoneString%>"></asp:Label>
+                            </div>
+                            <asp:TextBox runat="server" ID="tbGroomPhone"></asp:TextBox>
+                        </div>
+                        <div class="4u 12u(mobilep)">
+                            <div class="Div">
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,GroomEmailString%>"></asp:Label>
+                            </div>
+                            <asp:TextBox runat="server" ID="tbGroomEmail"></asp:TextBox>
+                        </div>
+                    </div>
+                </div>
+                <div class="12u">
                     <div class="row uniform 50%">
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
@@ -268,13 +289,6 @@
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,ReferralsString%>"></asp:Label>
                             </div>
                             <asp:TextBox runat="server" ID="tbReferrals"></asp:TextBox>
-                        </div>
-                        <div class="2u 12u(mobilep)">
-                            <div class="Div">
-                                <asp:Label runat="server" Text="<%$ Resources:Resource,PhoneString%>"></asp:Label>
-                            </div>
-                            <asp:TextBox runat="server" ID="tbPhone" Style="text-align: right"></asp:TextBox>
-
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
@@ -553,6 +567,9 @@
                     </li>
                     <li>
                         <asp:Button runat="server" CssClass="button alt" Text="<%$ Resources:Resource,DeleteString%>" ID="btnDelete" OnClick="btnDelete_Click" />
+                    </li>
+                    <li>
+                        <asp:Button runat="server" CssClass="button alt" Text="<%$ Resources:Resource,ExportString%>" ID="btnExport" OnClick="btnExport_Click" />
                     </li>
                     <li>
                         <asp:Button runat="server" CssClass="button alt" Text="<%$ Resources:Resource,CancelString%>" ID="btnCancel" OnClick="btnCancel_Click" />

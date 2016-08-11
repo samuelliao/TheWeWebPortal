@@ -49,6 +49,7 @@ namespace TheWeWebSite.CaseMgt
                         btnClear.Visible = false;
                         tbLastReceived.Text = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss");
                         tbBookingDate.Text = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss");
+                        labelConsultDate.Text = DateTime.Now.ToString("yyyy/MM/dd");
                     }
                 }
             }
