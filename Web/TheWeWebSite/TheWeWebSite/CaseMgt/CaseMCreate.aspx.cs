@@ -84,6 +84,8 @@ namespace TheWeWebSite.CaseMgt
             btnDelete.Enabled = item.CanDelete;
             btnModify.Visible = item.CanModify;
             btnModify.Enabled = item.CanModify;
+            btnExport.Enabled = item.CanExport;
+            btnExport.Visible = item.CanExport;
         }
 
         private void SetByCasePermission()

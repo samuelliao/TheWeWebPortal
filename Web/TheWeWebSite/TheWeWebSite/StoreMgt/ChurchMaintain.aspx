@@ -95,6 +95,7 @@
                                         <HeaderStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                         <FooterStyle BackColor="White" VerticalAlign="Middle" HorizontalAlign="Center" />
                                         <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                        <PagerStyle Mode="NumericPages" />
                                         <Columns>
                                             <asp:ButtonColumn Text="<%$ Resources:Resource,SearchString%>" CommandName="Select" />
                                             <asp:BoundColumn HeaderText="Id" DataField="Id" Visible="false" />

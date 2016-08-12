@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using TheWeLib;
+using TheWeWebSite.Output;
 
 namespace TheWeWebSite.CaseMgt
 {
@@ -22,6 +24,7 @@ namespace TheWeWebSite.CaseMgt
 
                     InitialConferenceItem();
                     InitialControlWithPermission();
+                    InitialLangList();
 
                     if (Session["OrderId"] != null)
                     {
@@ -49,6 +52,8 @@ namespace TheWeWebSite.CaseMgt
             PermissionItem item = util.GetPermissionByKey(Session["Operation"], util.GetOperationSnByPage(this.Page.AppRelativeVirtualPath));
             btnModify.Visible = item.CanModify;
             btnModify.Enabled = item.CanModify;
+            btnPhotoExport.Enabled = item.CanExport;
+            btnPhotoExport.Visible = item.CanExport;
         }
         private void InitialConferenceItem()
         {
@@ -357,5 +362,46 @@ namespace TheWeWebSite.CaseMgt
                 return false;
             }
         }
+
+
+        #region Document Exportation
+        private void InitialLangList()
+        {
+            ddlLang.Items.Clear();
+            ddlLang.Items.Add(new ListItem(Resources.Resource.TraditionalChineseString, "zh-TW"));
+            ddlLang.Items.Add(new ListItem(Resources.Resource.SimplifiedChineseString, "zh-CN"));
+            ddlLang.Items.Add(new ListItem(Resources.Resource.EnglishString, "en"));
+            ddlLang.Items.Add(new ListItem(Resources.Resource.JapaneseString, "ja-JP"));
+            ddlLang.SelectedIndex = new ResourceUtil().OutputLangNameNumber(((string)Session["CultureCode"]));
+        }
+        protected void btnPhotoExport_Click(object sender, EventArgs e)
+        {
+            CreatePhotoDoc(labelSn.Text, tbBridalName.Text, tbGroomName.Text);
+        }
+
+        private void CreatePhotoDoc(string sn, string bridalName, string groomName)
+        {
+            string filePath = new GroupPhotoNotification().CreateGroupPhoto(ddlLang.SelectedValue, sn
+                , bridalName, groomName, "", new DateTime());
+            Uri uri = new Uri(filePath); // Here I get the error
+            string fName = Path.GetFullPath(uri.LocalPath);
+            FileInfo fileInfo = new FileInfo(fName);
+            if (fileInfo.Exists)
+            {
+                Response.Clear();
+                Response.ClearContent();
+                Response.ClearHeaders();
+
+                Response.Buffer = true;
+                Response.ContentType = "application/msword";
+                Response.ContentEncoding = System.Text.UnicodeEncoding.UTF8;
+                Response.Charset = "UTF-8";
+                Response.AddHeader("Content-Disposition", "attachment;filename=" + fileInfo.Name);
+                Response.AddHeader("Content-Length", fileInfo.Length.ToString());
+                Response.WriteFile(filePath);
+                Response.End();
+            }
+        }
+        #endregion
     }
 }

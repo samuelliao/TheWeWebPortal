@@ -2032,6 +2032,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   查詢類似 Photo Arrangement 的當地語系化字串。
+        /// </summary>
+        internal static string PhotoArrangementString {
+            get {
+                return ResourceManager.GetString("PhotoArrangementString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查詢類似 Number of Photos 的當地語系化字串。
         /// </summary>
         internal static string PhotoNumberString {

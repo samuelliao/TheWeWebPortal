@@ -10,12 +10,17 @@ namespace TheWeWebSite.Output
 {
     public class GroupPhotoNotification
     {
-        public string CreateGroupPhoto(string sn, string bridalName, string groomName, string venue, DateTime weddingDate)
+        public string CreateGroupPhoto(string lang, string sn, string bridalName, string groomName, string venue, DateTime weddingDate)
         {
             string folderPath = SysProperty.ImgRootFolderpath + @"\docTemplate";
             if (Directory.Exists(folderPath))
             {
-                string filePath = folderPath + @"\Template\GroupPhotoShootingArrangement.docx";
+                string filePath = folderPath + @"\Template\Photo." + lang + ".docx";
+                if (!File.Exists(filePath))
+                {
+                    filePath = folderPath+ @"\Template\Photo.zh-TW.docx";
+                }
+
                 if (File.Exists(filePath))
                 {
                     using (DocX document = DocX.Load(filePath))
@@ -25,10 +30,19 @@ namespace TheWeWebSite.Output
                         {
                             File.Delete(filePath);
                         }
-                        document.ReplaceText("Bride and Groom: ", "Bride and Groom: " + bridalName + " & " + groomName);
-                        document.ReplaceText("Wedding Date:", "Wedding Date: " + weddingDate.ToString("MM, dd, yyyy"));
-                        document.ReplaceText("Wedding Venue: ", "Wedding Venue: " + venue);
-                        document.ReplaceText("Wedding Time:", "Wedding Time: " + weddingDate.ToString("HH:mm"));
+                        document.ReplaceText("CoupleNamePattern", bridalName + " & " + groomName);                                                
+                        document.ReplaceText("VenuePattern", venue);
+
+                        if (weddingDate.CompareTo(new DateTime()) > 0)
+                        {
+                            document.ReplaceText("DatePattern",weddingDate.ToString("MM, dd, yyyy"));
+                            document.ReplaceText("TimePattern:", weddingDate.ToString("HH:mm"));
+                        }
+                        else
+                        {
+                            document.ReplaceText("DatePattern", "MM, dd, yyyy");
+                            document.ReplaceText("TimePattern", "HH:mm");
+                        }
                         document.SaveAs(filePath);
                     }
                     return filePath;

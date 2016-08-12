@@ -155,7 +155,25 @@
                     </li>
                 </ul>
             </div>
-
+            <div>
+                <div class="12u">
+                    <div class="row uniform 50%">
+                        <div class="2u 12u(mobilep)">
+                                    <div class="Div">
+                                        <asp:Label runat="server" Text="<%$ Resources:Resource,LangCodeString%>"></asp:Label>
+                                    </div>
+                                    <asp:DropDownList runat="server" ID="ddlLang" />
+                                </div>
+                        <div class="2u 12u(mobilep)">
+                            <div class="Div">
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,PhotoArrangementString%>"></asp:Label>
+                            </div>
+                            <asp:Button runat="server" CssClass="button alt" Text="<%$ Resources:Resource,ExportString%>"
+                                ID="btnPhotoExport" OnClick="btnPhotoExport_Click" />
+                        </div>
+                    </div>
+                </div>
+            </div>
         </section>
 
         <!-- Scripts -->
