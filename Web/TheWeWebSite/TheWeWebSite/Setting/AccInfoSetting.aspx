@@ -29,19 +29,19 @@
                 <asp:Label runat="server" ID="labelWarnString" ForeColor="Red" Visible="false" />
                 <div class="12u">
                     <div class="row uniform 50%">
-                         <div class="2u 12u(mobilep)">
+                        <div class="2u 12u(mobilep)">
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,EmpOnboardDayString%>"></asp:Label>
                             </div>
                             <div>
-                                <asp:Label runat="server" ID="EmpOnBoardDay" Style="text-align: right"></asp:Label>
+                                <asp:textbox runat="server" ID="EmpOnBoardDay" Style="text-align:right" Enabled="false"></asp:textbox>
                             </div>
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,EmployeeSnString%>"></asp:Label>
                             </div>
-                            <asp:Label runat="server" Style="text-align: right" ID="tbEmpSn"></asp:Label>
+                            <asp:textbox runat="server" Style="text-align: right" ID="tbEmpSn" Enabled="false"></asp:textbox>
                             <asp:Label runat="server" ID="labelPw" Visible="false" />
                         </div>
                         <div class="2u 12u(mobilep)">
@@ -54,15 +54,21 @@
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,AccountString%>"></asp:Label>
                             </div>
-                            <asp:Label runat="server" ID="tbAccount"></asp:Label>
+                            <asp:textbox runat="server" ID="tbAccount" Enabled="false"></asp:textbox>
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,PasswordString%>"></asp:Label>
                             </div>
                             <asp:TextBox runat="server" ID="tbPwd" TextMode="Password"></asp:TextBox>
+                        </div>
+                        <div class="2u 12u(mobilep)">
+                            <div class="Div">
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,PasswordConfirmInputString%>"></asp:Label>
+                            </div>
                             <asp:TextBox runat="server" ID="tbPwdConfirm" TextMode="Password"></asp:TextBox>
-                        </div>                       
+
+                        </div>
                     </div>
                 </div>
                 <div class="12u">
@@ -195,6 +201,10 @@
                 <ul class="actions">
                     <li>
                         <asp:Button runat="server" CssClass="button alt" Text="<%$ Resources:Resource,ModifyString%>" ID="btnModify" OnClick="btnModify_Click" />
+                    </li>
+                    <li>
+                        <asp:Button runat="server" CssClass="button alt" Text="<%$ Resources:Resource,CancelString%>" ID="btnCancel" OnClick="btnCancel_Click" />
+
                     </li>
                 </ul>
             </div>

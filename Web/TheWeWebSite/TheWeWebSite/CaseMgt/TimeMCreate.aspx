@@ -112,33 +112,32 @@
                             <div class="Div" style="padding-top: 30px">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,ConferenceDateString%>"></asp:Label>
                             </div>
+                            <div style="margin-bottom: 50px">
+                                <div style="float:left">
+                                    <asp:UpdatePanel runat="server">
+                                        <ContentTemplate>
+                                            <asp:TextBox runat="server" Style="text-align: right" ID="tbConDate"
+                                                Width="200px"
+                                                CssClass="date date-1" value="" placeholder="YYYY-MM-DD HH:MM APM" data-timeformat="HH:MM"></asp:TextBox>
+                                        </ContentTemplate>
+                                    </asp:UpdatePanel>
+                                </div>
+                                <div style="float:left;padding:7px 0 0 10px" >
+                                    <asp:UpdatePanel runat="server">
+                                        <ContentTemplate>
+                                            <asp:CheckBox runat="server" ID="cbCompleted" Text="<%$ Resources:Resource,CompleteString%>" />
+                                        </ContentTemplate>
+                                    </asp:UpdatePanel>
+                                </div>
+                            </div>
                             <div>
-                                <asp:UpdatePanel runat="server">
-                                    <ContentTemplate>
-                                        <asp:TextBox runat="server" Style="text-align: right" ID="tbConDate"
-                                            Width="200px"
-                                            CssClass="date date-1" value="" placeholder="YYYY-MM-DD HH:MM APM" data-timeformat="HH:MM"></asp:TextBox>
-                                    </ContentTemplate>
-                                </asp:UpdatePanel>
-                            </div>
-                            <div style="padding-top: 10px; padding-bottom: 10px">
-                                <asp:UpdatePanel runat="server">
-                                    <ContentTemplate>
-                                        <asp:CheckBox runat="server" ID="cbCompleted" Text="<%$ Resources:Resource,CompleteString%>" />
-                                    </ContentTemplate>
-                                </asp:UpdatePanel>
-                            </div>
-                            <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,RemarkString%>"></asp:Label>
+                                <asp:UpdatePanel runat="server">
+                                    <ContentTemplate>
+                                        <asp:TextBox runat="server" ID="tbRemark" TextMode="MultiLine" Rows="10" />
+                                    </ContentTemplate>
+                                </asp:UpdatePanel>
                             </div>
-                            <asp:UpdatePanel runat="server">
-                                <ContentTemplate>
-                                    <asp:TextBox runat="server" ID="tbRemark" TextMode="MultiLine" b />
-                                </ContentTemplate>
-                            </asp:UpdatePanel>
-                        </div>
-
-                        <div class="4u 12u(mobilep)">
                         </div>
                     </div>
                 </div>

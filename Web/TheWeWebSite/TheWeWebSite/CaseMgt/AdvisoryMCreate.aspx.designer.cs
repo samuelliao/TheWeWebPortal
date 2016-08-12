@@ -94,6 +94,15 @@ namespace TheWeWebSite.CaseMgt {
         protected global::System.Web.UI.WebControls.TextBox tbBridalEngName;
         
         /// <summary>
+        /// tbBridalBday 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tbBridalBday;
+        
+        /// <summary>
         /// tbBridalPhone 控制項。
         /// </summary>
         /// <remarks>
@@ -119,15 +128,6 @@ namespace TheWeWebSite.CaseMgt {
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox tbBridalMsgId;
-        
-        /// <summary>
-        /// tbBridalBday 控制項。
-        /// </summary>
-        /// <remarks>
-        /// 自動產生的欄位。
-        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbBridalBday;
         
         /// <summary>
         /// tbBridalWork 控制項。
@@ -166,6 +166,15 @@ namespace TheWeWebSite.CaseMgt {
         protected global::System.Web.UI.WebControls.TextBox tbGroomEngName;
         
         /// <summary>
+        /// tbGroomBday 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tbGroomBday;
+        
+        /// <summary>
         /// tbGroomPhone 控制項。
         /// </summary>
         /// <remarks>
@@ -191,15 +200,6 @@ namespace TheWeWebSite.CaseMgt {
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox tbGroomMsgId;
-        
-        /// <summary>
-        /// tbGroomBday 控制項。
-        /// </summary>
-        /// <remarks>
-        /// 自動產生的欄位。
-        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbGroomBday;
         
         /// <summary>
         /// tbGroomWork 控制項。

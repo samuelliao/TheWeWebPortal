@@ -31,7 +31,10 @@ namespace TheWeWebSite.Setting
             labelWarnString.Text = msg;
             labelWarnString.Visible = !string.IsNullOrEmpty(msg);
         }
-
+        private void TransferToOtherPage()
+        {
+            Response.Redirect("AccInfoSetting.aspx", true);
+        }
         #region Button Control
         protected void btnModify_Click(object sender, EventArgs e)
         {
@@ -49,7 +52,10 @@ namespace TheWeWebSite.Setting
                 ResetAccountInfo();
             }
         }
-
+        protected void btnCancel_Click(object sender, EventArgs e)
+        {
+            TransferToOtherPage();
+        }
         private void ResetAccountInfo()
         {
             string sql = "Select * From vwEN_Employee Where Id = '" + ((DataRow)Session["AccountInfo"])["Id"].ToString() + "'";
@@ -214,19 +220,19 @@ namespace TheWeWebSite.Setting
             switch (type)
             {
                 case 2:
-                    ImgFront.ImageUrl = path + "/" + tbEmpSn.Text + "_2.jpg?" + DateTime.Now.Ticks.ToString();
+                    ImgFront.ImageUrl = "http:"+path + "\\" + tbEmpSn.Text + "_2.jpg?" + DateTime.Now.Ticks.ToString();
                     break;
                 case 3:
-                    ImgBack.ImageUrl = path + "/" + tbEmpSn.Text + "_3.jpg?" + DateTime.Now.Ticks.ToString();
+                    ImgBack.ImageUrl = "http:" + path + "\\" + tbEmpSn.Text + "_3.jpg?" + DateTime.Now.Ticks.ToString();
                     break;
                 case 1:
-                    ImgSide.ImageUrl = path + "/" + tbEmpSn.Text + "_1.jpg?" + DateTime.Now.Ticks.ToString();
+                    ImgSide.ImageUrl = "http:" + path + "\\" + tbEmpSn.Text + "_1.jpg?" + DateTime.Now.Ticks.ToString();
                     break;
                 case 0:
                 default:
-                    ImgFront.ImageUrl = path + "/" + tbEmpSn.Text + "_2.jpg?" + DateTime.Now.Ticks.ToString();
-                    ImgBack.ImageUrl = path + "/" + tbEmpSn.Text + "_3.jpg?" + DateTime.Now.Ticks.ToString();
-                    ImgSide.ImageUrl = path + "/" + tbEmpSn.Text + "_1.jpg?" + DateTime.Now.Ticks.ToString();
+                    ImgFront.ImageUrl = "http:" + path + "\\" + tbEmpSn.Text + "_2.jpg?" + DateTime.Now.Ticks.ToString();
+                    ImgBack.ImageUrl = "http:" + path + "\\" + tbEmpSn.Text + "_3.jpg?" + DateTime.Now.Ticks.ToString();
+                    ImgSide.ImageUrl = "http:" + path + "\\" + tbEmpSn.Text + "_1.jpg?" + DateTime.Now.Ticks.ToString();
                     break;
             }
         }
@@ -234,24 +240,24 @@ namespace TheWeWebSite.Setting
         protected void btnImgFrontUpload_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(tbFolderPath.Text)) return;
-            CheckFolder(SysProperty.ImgRootFolderpath + @"\Employee\" + tbEmpSn.Text);
-            ImgFrontUpload.PostedFile.SaveAs(tbFolderPath.Text + "/" + tbEmpSn.Text + "_2.jpg");
+            CheckFolder(tbFolderPath.Text);
+            ImgFrontUpload.PostedFile.SaveAs(tbFolderPath.Text + "\\" + tbEmpSn.Text + "_2.jpg");
             RefreshImage(2, tbFolderPath.Text);
         }
 
         protected void btnImgBackUpload_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(tbFolderPath.Text)) return;
-            CheckFolder(SysProperty.ImgRootFolderpath + @"\Employee\" + tbEmpSn.Text);
-            ImgBackUpload.PostedFile.SaveAs(tbFolderPath.Text + "/" + tbEmpSn.Text + "_3.jpg");
+            CheckFolder(tbFolderPath.Text);
+            ImgBackUpload.PostedFile.SaveAs(tbFolderPath.Text + "\\" + tbEmpSn.Text + "_3.jpg");
             RefreshImage(3, tbFolderPath.Text);
         }
 
         protected void btnImgSideUpload_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(tbFolderPath.Text)) return;
-            CheckFolder(SysProperty.ImgRootFolderpath + @"\Employee\" + tbEmpSn.Text);
-            ImgSideUpload.PostedFile.SaveAs(tbFolderPath.Text + "/" + tbEmpSn.Text + "_1.jpg");
+            CheckFolder(tbFolderPath.Text);
+            ImgSideUpload.PostedFile.SaveAs(tbFolderPath.Text + "\\" + tbEmpSn.Text + "_1.jpg");
             RefreshImage(1, tbFolderPath.Text);
         }
 
