@@ -1035,4 +1035,10 @@
   <data name="PhotoArrangementString" xml:space="preserve">
     <value>Photo Arrangement</value>
   </data>
+  <data name="CouplesInfoString" xml:space="preserve">
+    <value>Information of Couples</value>
+  </data>
+  <data name="ExpectedDateString" xml:space="preserve">
+    <value>Expected Date</value>
+  </data>
 </root>

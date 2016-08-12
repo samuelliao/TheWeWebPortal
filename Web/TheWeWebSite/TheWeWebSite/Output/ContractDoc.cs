@@ -40,19 +40,10 @@ namespace TheWeWebSite.Output
                         {
                             if (cell.StringCellValue.Contains("Pattern"))
                             {
-                                if (cell.StringCellValue.Contains("PricePattern")) {
-                                    cell.SetCellValue(ReplacePattern(cell.StringCellValue
-                                        , bridalName, bridalEmail, bridalPhone
-                                        , groomName, groomEmail, groomPhone
-                                        , ServiceName, setName, otherPrcie, price, expectDate));
-                                }
-                                else
-                                {
-                                    cell.SetCellValue(ReplacePattern(cell.StringCellValue
-                                        , bridalName, bridalEmail, bridalPhone
-                                        , groomName, groomEmail, groomPhone
-                                        , ServiceName, setName, otherPrcie, price, expectDate));
-                                }
+                                cell.SetCellValue(ReplacePattern(cell.StringCellValue
+                                    , bridalName, bridalEmail, bridalPhone
+                                    , groomName, groomEmail, groomPhone
+                                    , ServiceName, setName, otherPrcie, price, expectDate));
                             }
                         }
                     }

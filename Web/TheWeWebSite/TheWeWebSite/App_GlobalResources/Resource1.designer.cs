@@ -745,6 +745,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   查詢類似 Information of Couples 的當地語系化字串。
+        /// </summary>
+        internal static string CouplesInfoString {
+            get {
+                return ResourceManager.GetString("CouplesInfoString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查詢類似  的當地語系化字串。
         /// </summary>
         internal static string CreateItemString {
@@ -1110,6 +1119,15 @@ namespace Resources {
         internal static string EnglishString {
             get {
                 return ResourceManager.GetString("EnglishString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查詢類似 Expected Date 的當地語系化字串。
+        /// </summary>
+        internal static string ExpectedDateString {
+            get {
+                return ResourceManager.GetString("ExpectedDateString", resourceCulture);
             }
         }
         

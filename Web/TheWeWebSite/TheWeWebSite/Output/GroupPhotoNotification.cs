@@ -18,7 +18,7 @@ namespace TheWeWebSite.Output
                 string filePath = folderPath + @"\Template\Photo." + lang + ".docx";
                 if (!File.Exists(filePath))
                 {
-                    filePath = folderPath+ @"\Template\Photo.zh-TW.docx";
+                    filePath = folderPath + @"\Template\Photo.zh-TW.docx";
                 }
 
                 if (File.Exists(filePath))

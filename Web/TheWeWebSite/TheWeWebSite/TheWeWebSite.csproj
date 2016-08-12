@@ -272,6 +272,7 @@
     </Compile>
     <Compile Include="Output\AdvisoryDoc.cs" />
     <Compile Include="Output\ContractDoc.cs" />
+    <Compile Include="Output\CouplesInfoDoc.cs" />
     <Compile Include="Output\GroupPhotoNotification.cs" />
     <Compile Include="PermissionUtil.cs" />
     <Compile Include="remind.aspx.cs">

@@ -25,6 +25,7 @@ namespace TheWeWebSite.CaseMgt
                     InitialConferenceItem();
                     InitialControlWithPermission();
                     InitialLangList();
+                    InitialOrderType();
 
                     if (Session["OrderId"] != null)
                     {
@@ -82,6 +83,30 @@ namespace TheWeWebSite.CaseMgt
                 ShowErrorMsg(ex.Message);
             }
         }
+        private void InitialOrderType()
+        {
+            ddlOrderType.Items.Clear();
+            ddlOrderType.Items.Add(new ListItem(Resources.Resource.ProjectString, string.Empty));
+            try
+            {
+                string sql = "SELECT * FROM [TheWe].[dbo].[ServiceItemCategory] Where TypeLv=0 order by Type";
+                DataSet ds = SysProperty.GenDbCon.GetDataFromTable(sql);
+                if (SysProperty.Util.IsDataSetEmpty(ds)) return;
+                foreach (DataRow dr in ds.Tables[0].Rows)
+                {
+                    ddlOrderType.Items.Add(new ListItem(
+                        SysProperty.Util.OutputRelatedLangName(Session["CultureCode"].ToString(), dr)
+                        , dr["Id"].ToString()
+                        ));
+                }
+
+            }
+            catch (Exception ex)
+            {
+                SysProperty.Log.Error(ex.Message);
+                ShowErrorMsg(ex.Message);
+            }
+        }
 
         private void ShowErrorMsg(string msg)
         {
@@ -108,15 +133,19 @@ namespace TheWeWebSite.CaseMgt
             TransferToOtherPage();
         }
 
+        #region Get Data Info
         private DataSet GetOrderInfo(string id)
         {
             try
             {
                 string sql = "SELECT o.[Id] as Id,[ConsultId], c.Sn As ConsultSn,o.[Sn],o.[StartTime]"
                 + ",o.[CustomerId],cus.Name AS CustomerName,o.[ConferenceCategory], ci.Name As StatusName, ci.JpName AS StatusJpName"
-                + ", ci.CnName AS StatusCnName, ci.EngName AS StatusEngName,[CloseTime],o.[CountryId],o.[AreaId],"
-                + "o.[ChurchId],SetId, p.Name AS SetName, p.EngName AS SetEngName"
+                + ", cus.EngName AS CustomerEngName, pr.EngName AS PartnerEngName, cus.Phone As CustomerPhone, pr.Phone AS PartnerPhone"
+                + ", ci.CnName AS StatusCnName, ci.EngName AS StatusEngName,[CloseTime],o.[CountryId],o.[AreaId]"
+                + ", o.[ChurchId],SetId, p.Name AS SetName, p.EngName AS SetEngName, o.ServiceType"
+                + ", o.[OverseaFilmDate], o.[OverseaWeddingDate], o.[LocalFilmingDate], o.[LocalWeddingDate]"
                 + ", p.JpName AS SetJpName, p.CnName AS SetCnName,o.BookingDate,o.PartnerId, pr.Name AS PartnerName"
+                + ", p.WeddingCategory"
                 + " FROM[TheWe].[dbo].[OrderInfo] as o"
                 + " Left join Consultation as c on c.Id = o.ConsultId"
                 + " Left join vwEN_Customer as cus on cus.Id = o.CustomerId"
@@ -133,7 +162,6 @@ namespace TheWeWebSite.CaseMgt
                 return null;
             }
         }
-
         private DataSet GetConferenceList(string condStr)
         {
             try
@@ -153,7 +181,6 @@ namespace TheWeWebSite.CaseMgt
                 return null;
             }
         }
-
         private DataSet GetConferenceItem(string condStr)
         {
             try
@@ -168,6 +195,20 @@ namespace TheWeWebSite.CaseMgt
                 return null;
             }
         }
+        private DataSet GetWeddingCategory(string id)
+        {
+            try
+            {
+                string sql = "Select * From WeddingCategory Where Id = '" + id + "'";
+                return SysProperty.GenDbCon.GetDataFromTable(sql);
+            }catch(Exception ex)
+            {
+                SysProperty.Log.Error(ex.Message);
+                ShowErrorMsg(ex.Message);
+                return null;
+            }
+        }
+        #endregion
 
         private void SetOrderInfo(string id)
         {
@@ -176,6 +217,7 @@ namespace TheWeWebSite.CaseMgt
             if (SysProperty.Util.IsDataSetEmpty(ds)) return;
             DataRow dr = ds.Tables[0].Rows[0];
             tbBridalName.Text = dr["CustomerName"].ToString();
+
             tbGroomName.Text = dr["PartnerName"].ToString();
             tbProductSet.Text = SysProperty.Util.OutputRelatedLangName(
                 cultureCode
@@ -183,28 +225,73 @@ namespace TheWeWebSite.CaseMgt
                 , dr["SetCnName"].ToString()
                 , dr["SetEngName"].ToString()
                 , dr["SetJpName"].ToString());
+            ddlOrderType.SelectedValue = dr["ServiceType"].ToString();
             tbLocation.Text = SysProperty.Util.OutputRelatedLangName(cultureCode, SysProperty.GetChurchById(dr["ChurchId"].ToString()));
             tbArea.Text = SysProperty.Util.OutputRelatedLangName(cultureCode, SysProperty.GetAreaById(dr["AreaId"].ToString()));
             tbCountry.Text = SysProperty.Util.OutputRelatedLangName(cultureCode, SysProperty.GetCountryById(dr["CountryId"].ToString()));
             tbContractDate.Text = SysProperty.Util.ParseDateTime("DateTime", dr["StartTime"].ToString());
             labelSn.Text = dr["Sn"].ToString();
+            labelBridalEngName.Text = dr["CustomerEngName"].ToString();
+            labelBridalPhone.Text = dr["CustomerPhone"].ToString();
+            labelGroomEngName.Text = dr["PartnerEngName"].ToString();
+            labelGroomPhone.Text = dr["PartnerPhone"].ToString();
+            tbContractDate.Text = GetExpectDate(dr);
 
+            DataSet weddingType = GetWeddingCategory(dr["WeddingCategory"].ToString());
+            if (!SysProperty.Util.IsDataSetEmpty(weddingType))
+            {
+                labelWeddingCategory.Text = SysProperty.Util.OutputRelatedLangName(
+                cultureCode
+                , weddingType.Tables[0].Rows[0]
+                );
+            }            
             SetConferenceItem(id);
+        }
+
+        private string GetExpectDate(DataRow dr)
+        {
+            string time;
+            switch (ddlOrderType.SelectedIndex)
+            {
+                case 0:
+                    time = SysProperty.Util.ParseDateTime("Date", dr["OverseaWeddingDate"].ToString());
+                    break;
+                case 1:
+                    time = SysProperty.Util.ParseDateTime("Date", dr["LocalWeddingDate"].ToString());
+                    break;
+                case 2:
+                    time = SysProperty.Util.ParseDateTime("Date", dr["OverseaWeddingDate"].ToString());
+                    break;
+                case 3:
+                    time = SysProperty.Util.ParseDateTime("Date", dr["LocalFilmingDate"].ToString());
+                    break;
+                case 4:
+                    time = SysProperty.Util.ParseDateTime("Date", dr["OverseaFilmDate"].ToString());
+                    break;
+                default:
+                    return DateTime.Now.ToString("dd/MM/yyyy");
+            }
+            if (string.IsNullOrEmpty(time)) return time;
+
+            DateTime tmp;
+            bool result = DateTime.TryParse(time, out tmp);
+            if (result) return tmp.ToString("dd/MM/yyyy");
+            else return string.Empty;
         }
 
         private void SetConferenceItem(string id)
         {
             DataSet ds = GetConferenceList(" And OrderId = '" + id + "'");
-            if (SysProperty.Util.IsDataSetEmpty(ds)) return;            
+            if (SysProperty.Util.IsDataSetEmpty(ds)) return;
             int index = 0;
             foreach (DataRow dr in ds.Tables[0].Rows)
-            {                
+            {
                 if (bool.Parse(dr["IsCheck"].ToString()))
                 {
                     index = int.Parse(dr["ConferenceLv"].ToString()) - 1;
-                    for(int i = 0; i < tvConf.Nodes[index].ChildNodes.Count; i++)
+                    for (int i = 0; i < tvConf.Nodes[index].ChildNodes.Count; i++)
                     {
-                        if(tvConf.Nodes[index].ChildNodes[i].Value == dr["ItemId"].ToString())
+                        if (tvConf.Nodes[index].ChildNodes[i].Value == dr["ItemId"].ToString())
                         {
                             tvConf.Nodes[index].ChildNodes[i].Checked = true;
                             break;
@@ -246,6 +333,8 @@ namespace TheWeWebSite.CaseMgt
                 }
             }
         }
+
+        #region Db Instance
         private List<DbSearchObject> OrderInfoDbObject(string itemId)
         {
             List<DbSearchObject> lst = new List<DbSearchObject>();
@@ -331,6 +420,7 @@ namespace TheWeWebSite.CaseMgt
                 ));
             return lst;
         }
+        #endregion
 
         private bool WriteBackData(MsSqlTable table, List<DbSearchObject> lst, string orderId, string itemId)
         {
@@ -363,7 +453,6 @@ namespace TheWeWebSite.CaseMgt
             }
         }
 
-
         #region Document Exportation
         private void InitialLangList()
         {
@@ -382,7 +471,7 @@ namespace TheWeWebSite.CaseMgt
         private void CreatePhotoDoc(string sn, string bridalName, string groomName)
         {
             string filePath = new GroupPhotoNotification().CreateGroupPhoto(ddlLang.SelectedValue, sn
-                , bridalName, groomName, "", new DateTime());
+                , bridalName, groomName, "", DateTime.Parse(tbContractDate.Text));
             Uri uri = new Uri(filePath); // Here I get the error
             string fName = Path.GetFullPath(uri.LocalPath);
             FileInfo fileInfo = new FileInfo(fName);
@@ -394,6 +483,45 @@ namespace TheWeWebSite.CaseMgt
 
                 Response.Buffer = true;
                 Response.ContentType = "application/msword";
+                Response.ContentEncoding = System.Text.UnicodeEncoding.UTF8;
+                Response.Charset = "UTF-8";
+                Response.AddHeader("Content-Disposition", "attachment;filename=" + fileInfo.Name);
+                Response.AddHeader("Content-Length", fileInfo.Length.ToString());
+                Response.WriteFile(filePath);
+                Response.End();
+            }
+        }
+
+        protected void btnCouplesInfo_Click(object sender, EventArgs e)
+        {            
+            CreateCouplesInfoDoc(labelSn.Text, tbContractDate.Text, tbLocation.Text
+                , tbBridalName.Text, labelBridalEngName.Text, labelBridalPhone.Text
+                , tbGroomName.Text, labelGroomEngName.Text, labelGroomPhone.Text
+                , ddlOrderType.SelectedItem.Text, labelWeddingCategory.Text, string.Empty);
+        }
+
+        private void CreateCouplesInfoDoc(
+            string sn, string weddingDate, string churchName
+            , string bridalName, string bridalEngName, string bridalPhone
+            , string groomName, string groomEngName, string groomPhone
+            , string orderType, string religiousType, string isLegal)
+        {
+            string filePath = new CouplesInfoDoc().CreateCouplesInfoDoc(
+                ddlLang.SelectedValue, sn, weddingDate, churchName
+                , bridalName, bridalEngName, bridalPhone
+                , groomName, groomEngName, groomPhone
+                , orderType, religiousType, isLegal);
+            Uri uri = new Uri(filePath); // Here I get the error
+            string fName = Path.GetFullPath(uri.LocalPath);
+            FileInfo fileInfo = new FileInfo(fName);
+            if (fileInfo.Exists)
+            {
+                Response.Clear();
+                Response.ClearContent();
+                Response.ClearHeaders();
+
+                Response.Buffer = true;
+                Response.ContentType = "application/application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
                 Response.ContentEncoding = System.Text.UnicodeEncoding.UTF8;
                 Response.Charset = "UTF-8";
                 Response.AddHeader("Content-Disposition", "attachment;filename=" + fileInfo.Name);

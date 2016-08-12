@@ -34,25 +34,27 @@
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
-                                <asp:Label runat="server" Text="<%$ Resources:Resource,ContractDateString%>"></asp:Label>
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,ExpectedDateString%>"></asp:Label>
                             </div>
                             <div>
                                 <asp:TextBox runat="server" ID="tbContractDate" Enabled="false"></asp:TextBox>
                             </div>
                         </div>
-
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,BridalNameString%>"></asp:Label>
                             </div>
                             <asp:TextBox runat="server" ID="tbBridalName" Enabled="false"></asp:TextBox>
+                            <asp:Label runat="server" Visible="false" ID="labelBridalEngName" />
+                            <asp:Label runat="server" Visible="false" ID="labelBridalPhone" />
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,GroomNameString%>"></asp:Label>
                             </div>
                             <asp:TextBox runat="server" ID="tbGroomName" Enabled="false"></asp:TextBox>
-
+                            <asp:Label runat="server" Visible="false" ID="labelGroomEngName" />
+                            <asp:Label runat="server" Visible="false" ID="labelGroomPhone" />
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
@@ -72,11 +74,26 @@
                             </div>
                             <asp:TextBox runat="server" ID="tbLocation" Enabled="false" />
                         </div>
+                    </div>
+                </div>
+                <div class="12u">
+                    <div class="row uniform 50%">
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,ProductSetString%>"></asp:Label>
                             </div>
                             <asp:TextBox runat="server" ID="tbProductSet" Enabled="false" />
+                            <asp:Label runat="server" ID="labelWeddingCategory" Visible="false" />
+                        </div>
+                        <div class="2u 12u(mobilep)">
+                            <div class="Div">
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,ProjectString%>"></asp:Label>
+                            </div>
+                            <asp:UpdatePanel runat="server">
+                                <ContentTemplate>
+                                    <asp:DropDownList runat="server" ID="ddlOrderType" Enabled="false" />
+                                </ContentTemplate>
+                            </asp:UpdatePanel>
                         </div>
                     </div>
                 </div>
@@ -113,7 +130,7 @@
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,ConferenceDateString%>"></asp:Label>
                             </div>
                             <div style="margin-bottom: 50px">
-                                <div style="float:left">
+                                <div style="float: left">
                                     <asp:UpdatePanel runat="server">
                                         <ContentTemplate>
                                             <asp:TextBox runat="server" Style="text-align: right" ID="tbConDate"
@@ -122,7 +139,7 @@
                                         </ContentTemplate>
                                     </asp:UpdatePanel>
                                 </div>
-                                <div style="float:left;padding:7px 0 0 10px" >
+                                <div style="float: left; padding: 7px 0 0 10px">
                                     <asp:UpdatePanel runat="server">
                                         <ContentTemplate>
                                             <asp:CheckBox runat="server" ID="cbCompleted" Text="<%$ Resources:Resource,CompleteString%>" />
@@ -159,17 +176,24 @@
                 <div class="12u">
                     <div class="row uniform 50%">
                         <div class="2u 12u(mobilep)">
-                                    <div class="Div">
-                                        <asp:Label runat="server" Text="<%$ Resources:Resource,LangCodeString%>"></asp:Label>
-                                    </div>
-                                    <asp:DropDownList runat="server" ID="ddlLang" />
-                                </div>
+                            <div class="Div">
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,LangCodeString%>"></asp:Label>
+                            </div>
+                            <asp:DropDownList runat="server" ID="ddlLang" />
+                        </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,PhotoArrangementString%>"></asp:Label>
                             </div>
                             <asp:Button runat="server" CssClass="button alt" Text="<%$ Resources:Resource,ExportString%>"
                                 ID="btnPhotoExport" OnClick="btnPhotoExport_Click" />
+                        </div>
+                        <div class="2u 12u(mobilep)">
+                            <div class="Div">
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,CouplesInfoString%>"></asp:Label>
+                            </div>
+                            <asp:Button runat="server" CssClass="button alt" Text="<%$ Resources:Resource,ExportString%>"
+                                ID="btnCouplesInfo" OnClick="btnCouplesInfo_Click" />
                         </div>
                     </div>
                 </div>

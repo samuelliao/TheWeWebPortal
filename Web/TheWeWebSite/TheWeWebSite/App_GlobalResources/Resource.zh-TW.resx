@@ -1035,4 +1035,10 @@
   <data name="PhotoArrangementString" xml:space="preserve">
     <value>照相安排文件</value>
   </data>
+  <data name="CouplesInfoString" xml:space="preserve">
+    <value>新人情報資訊</value>
+  </data>
+  <data name="ExpectedDateString" xml:space="preserve">
+    <value>預計日期</value>
+  </data>
 </root>
