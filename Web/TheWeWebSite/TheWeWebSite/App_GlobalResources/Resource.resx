@@ -1032,4 +1032,7 @@
   <data name="SystemSnString" xml:space="preserve">
     <value></value>
   </data>
+  <data name="PhotoArrangementString" xml:space="preserve">
+    <value>Photo Arrangement</value>
+  </data>
 </root>

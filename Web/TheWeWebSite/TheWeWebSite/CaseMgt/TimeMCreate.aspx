@@ -76,7 +76,7 @@
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,ProductSetString%>"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server" ID="tbProductSet" Enabled="false"/>
+                            <asp:TextBox runat="server" ID="tbProductSet" Enabled="false" />
                         </div>
                     </div>
                 </div>
@@ -109,27 +109,27 @@
                             </div>
                         </div>
                         <div class="10u 12u(mobilep)">
-                            <div class="Div" style="padding-top:30px">
+                            <div class="Div" style="padding-top: 30px">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,ConferenceDateString%>"></asp:Label>
                             </div>
                             <div>
                                 <asp:UpdatePanel runat="server">
                                     <ContentTemplate>
                                         <asp:TextBox runat="server" Style="text-align: right" ID="tbConDate"
-                                             Width="200px"
-                                             CssClass="date date-1" value="" placeholder="YYYY-MM-DD HH:MM APM" data-timeformat="HH:MM"></asp:TextBox>
+                                            Width="200px"
+                                            CssClass="date date-1" value="" placeholder="YYYY-MM-DD HH:MM APM" data-timeformat="HH:MM"></asp:TextBox>
                                     </ContentTemplate>
                                 </asp:UpdatePanel>
                             </div>
-                            <div style="padding-top:10px;padding-bottom:10px">
-                            <asp:UpdatePanel runat="server">
-                                <ContentTemplate>
-                                    <asp:CheckBox runat="server" ID="cbCompleted" Text="<%$ Resources:Resource,CompleteString%>" />
-                                </ContentTemplate>
-                            </asp:UpdatePanel>
-                                </div>
+                            <div style="padding-top: 10px; padding-bottom: 10px">
+                                <asp:UpdatePanel runat="server">
+                                    <ContentTemplate>
+                                        <asp:CheckBox runat="server" ID="cbCompleted" Text="<%$ Resources:Resource,CompleteString%>" />
+                                    </ContentTemplate>
+                                </asp:UpdatePanel>
+                            </div>
                             <div class="Div">
-                                <asp:Label runat="server" Text="<%$ Resources:Resource,RemarkString%>" ></asp:Label>
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,RemarkString%>"></asp:Label>
                             </div>
                             <asp:UpdatePanel runat="server">
                                 <ContentTemplate>
@@ -137,9 +137,8 @@
                                 </ContentTemplate>
                             </asp:UpdatePanel>
                         </div>
-                        
+
                         <div class="4u 12u(mobilep)">
-                            
                         </div>
                     </div>
                 </div>
@@ -161,56 +160,17 @@
                 <div class="12u">
                     <div class="row uniform 50%">
                         <div class="2u 12u(mobilep)">
-                            <div class="Div">
-                                <asp:Label runat="server" Text="<%$ Resources:Resource,SnString%>"></asp:Label>
-                            </div>
-                            <asp:Label runat="server" ID="label1" />
-                        </div>
+                                    <div class="Div">
+                                        <asp:Label runat="server" Text="<%$ Resources:Resource,LangCodeString%>"></asp:Label>
+                                    </div>
+                                    <asp:DropDownList runat="server" ID="ddlLang" />
+                                </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
-                                <asp:Label runat="server" Text="<%$ Resources:Resource,ContractDateString%>"></asp:Label>
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,PhotoArrangementString%>"></asp:Label>
                             </div>
-                            <div>
-                                <asp:Label runat="server" ID="Label2"></asp:Label>
-                            </div>
-                        </div>
-
-                        <div class="2u 12u(mobilep)">
-                            <div class="Div">
-                                <asp:Label runat="server" Text="<%$ Resources:Resource,BridalNameString%>"></asp:Label>
-                            </div>
-                            <asp:Label runat="server" ID="Label3"></asp:Label>
-                        </div>
-                        <div class="2u 12u(mobilep)">
-                            <div class="Div">
-                                <asp:Label runat="server" Text="<%$ Resources:Resource,GroomNameString%>"></asp:Label>
-                            </div>
-                            <asp:Label runat="server" ID="Label4"></asp:Label>
-
-                        </div>
-                        <div class="2u 12u(mobilep)">
-                            <div class="Div">
-                                <asp:Label runat="server" Text="<%$ Resources:Resource,CountryString%>"></asp:Label>
-                            </div>
-                            <asp:Label runat="server" ID="Label5" />
-                        </div>
-                        <div class="2u 12u(mobilep)">
-                            <div class="Div">
-                                <asp:Label runat="server" Text="<%$ Resources:Resource,AreaString%>"></asp:Label>
-                            </div>
-                            <asp:Label runat="server" ID="Label6" />
-                        </div>
-                        <div class="2u 12u(mobilep)">
-                            <div class="Div">
-                                <asp:Label runat="server" Text="<%$ Resources:Resource,LocateString%>"></asp:Label>
-                            </div>
-                            <asp:Label runat="server" ID="Label7" />
-                        </div>
-                        <div class="2u 12u(mobilep)">
-                            <div class="Div">
-                                <asp:Label runat="server" Text="<%$ Resources:Resource,ProductSetString%>"></asp:Label>
-                            </div>
-                            <asp:Label runat="server" ID="Label8" />
+                            <asp:Button runat="server" CssClass="button alt" Text="<%$ Resources:Resource,ExportString%>"
+                                ID="btnPhotoExport" OnClick="btnPhotoExport_Click" />
                         </div>
                     </div>
                 </div>

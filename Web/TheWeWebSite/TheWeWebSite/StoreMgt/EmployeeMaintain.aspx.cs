@@ -50,7 +50,7 @@ namespace TheWeWebSite.StoreMgt
             else
             {
                 LinkEmployeeMCreate.Enabled = false;
-                LinkEmployeeMCreate.Enabled = true;
+                LinkEmployeeMCreate.Visible = false;
                 dataGrid.Columns[dataGrid.Columns.Count - 1].Visible = false;
                 dataGrid.Columns[0].Visible = false;
             }

@@ -1032,4 +1032,7 @@
   <data name="SystemSnString" xml:space="preserve">
     <value>系統自動帶入</value>
   </data>
+  <data name="PhotoArrangementString" xml:space="preserve">
+    <value>照相安排文件</value>
+  </data>
 </root>

@@ -302,7 +302,9 @@ namespace TheWeWebSite.CaseMgt
         {
             GenerateDoc(tbSn.Text, DateTime.Parse(labelConsultDate.Text)
                 , tbBridalName.Text, tbBridalEngName.Text, tbBridalPhone.Text, tbBridalMsgId.Text + "(" + ddlBridalMsgerType.SelectedItem.Text + ")", tbBridalBday.Text, tbBridalWork.Text, tbBridalEmail.Text
-                , tbGroomName.Text, tbGroomEngName.Text, tbGroomPhone.Text, tbGroomMsgId.Text + "(" + ddlGroomMsgerType.SelectedItem.Text + ")", tbGroomBday.Text, tbGroomWork.Text, tbGroomEmail.Text);
+                , tbGroomName.Text, tbGroomEngName.Text, tbGroomPhone.Text, tbGroomMsgId.Text + "(" + ddlGroomMsgerType.SelectedItem.Text + ")", tbGroomBday.Text, tbGroomWork.Text, tbGroomEmail.Text
+                , CheckBoxListToString(cblAdvisory), CheckBoxListToString(cblCountry), CheckBoxListToString(cblWeddingPlanner), GetChooseLocation()
+                , tbWeddingFilm.Text, tbWeddingDate.Text, tbReception.Text, CheckBoxListToString(ddlSourceInfo));
         }
         protected void btnDelete_Click(object sender, EventArgs e)
         {
@@ -324,7 +326,6 @@ namespace TheWeWebSite.CaseMgt
                 ShowErrorMsg(ex.Message);
             }
         }
-
         protected void btnClear_Click(object sender, EventArgs e)
         {
             tbBridalBday.Text = string.Empty;
@@ -351,7 +352,6 @@ namespace TheWeWebSite.CaseMgt
             ddlGroomMsgerType.SelectedIndex = 0;
             InitialControls();
         }
-
         protected void btnModify_Click(object sender, EventArgs e)
         {
             List<DbSearchObject> lst = ConsultDbObject();
@@ -389,7 +389,6 @@ namespace TheWeWebSite.CaseMgt
                 TransferToOtherPage();
             }
         }
-
         protected void btnCreate_Click(object sender, EventArgs e)
         {
             if (SysProperty.GenDbCon.IsSnDuplicate(SysProperty.Util.MsSqlTableConverter(MsSqlTable.Consultation), tbSn.Text))
@@ -1558,11 +1557,15 @@ namespace TheWeWebSite.CaseMgt
 
         public void GenerateDoc(string sn, DateTime time
             , string bridalName, string bridalEngName, string bridalPhone, string bridalMsg, string bridalBday, string bridalWork, string bridalMail
-            , string groomName, string groomEngName, string groomPhone, string groomMsg, string groomBday, string groomWork, string groomMail)
+            , string groomName, string groomEngName, string groomPhone, string groomMsg, string groomBday, string groomWork, string groomMail
+            , string advisoryItem, string interestCountry, string weddingPlanning, List<DataRow> locationList
+            , string filmDate, string weddingDate, string receptionDate, string howtoknow)
         {
-            //Response.Redirect("~/Output/Download.aspx");
-            //Response.AddHeader("Content-Disposition", "attachment; filename=" + sn + ".docx");
-            string filePath = new GroupPhotoNotification().CreateGroupPhoto(sn, bridalName, groomName, "", new DateTime());
+            string filePath = new AdvisoryDoc().GenerateDoc(sn, time
+                , bridalName, bridalEngName, bridalPhone, bridalMsg, bridalBday, bridalWork, bridalMail
+                , groomName, groomEngName, groomPhone, groomMsg, groomBday, groomWork, groomMail
+                , advisoryItem, interestCountry, weddingPlanning, locationList
+                , filmDate, weddingDate, receptionDate, howtoknow);
             Uri uri = new Uri(filePath); // Here I get the error
             string fName = Path.GetFullPath(uri.LocalPath);
             FileInfo fileInfo = new FileInfo(fName);
@@ -1574,7 +1577,6 @@ namespace TheWeWebSite.CaseMgt
 
                 Response.Buffer = true;
                 Response.ContentType = "application/msword";
-                //Response.ContentType = "application/Octet-stream";
                 Response.ContentEncoding = System.Text.UnicodeEncoding.UTF8;
                 Response.Charset = "UTF-8";
                 Response.AddHeader("Content-Disposition", "attachment;filename=" + fileInfo.Name);
@@ -1582,6 +1584,35 @@ namespace TheWeWebSite.CaseMgt
                 Response.WriteFile(filePath);
                 Response.End();
             }
+        }
+
+        private string CheckBoxListToString(CheckBoxList cbl)
+        {
+            string result = string.Empty;
+            if (cbl == null) return result;
+            if (cbl.Items.Count == 0) return result;
+            foreach (ListItem item in cbl.Items)
+            {
+                if (item.Selected)
+                {
+                    result += string.IsNullOrEmpty(result) ? string.Empty : ",";
+                    result += item.Text;
+                }
+            }
+            return result;
+        }
+
+        private List<DataRow> GetChooseLocation()
+        {
+            List<DataRow> result = new List<DataRow>();
+            foreach(ListItem item in cblLocation.Items)
+            {
+                if (item.Selected)
+                {
+                    result.Add(SysProperty.GetChurchById(item.Value));
+                }
+            }
+            return result;
         }
     }
 }
