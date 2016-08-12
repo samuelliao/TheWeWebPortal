@@ -211,45 +211,8 @@
                         </div>
                     </div>
                 </div>
+                
                 <div class="12u">
-                    <div class="row uniform 50%">
-                        <div class="4u 12u(mobilep)">
-                            <div class="Div">
-                                <asp:Label runat="server" Text="<%$ Resources:Resource,TotalPriceString%>"></asp:Label>
-                            </div>
-                            <div runat="server" id="divForStore" visible="false">
-                                <asp:UpdatePanel runat="server">
-                                    <ContentTemplate>
-                                        <asp:TextBox runat="server" ID="tbPrice" Style="text-align: right"></asp:TextBox>
-                                        <asp:RegularExpressionValidator ID="RegularExpressionValidator4" ControlToValidate="tbPrice" runat="server"
-                                            ErrorMessage="Only Numbers allowed" ValidationExpression="\d+[.]*\d*"></asp:RegularExpressionValidator>
-                                    </ContentTemplate>
-                                </asp:UpdatePanel>
-                            </div>
-                            <div runat="server" id="divForHoldingCompany" visible="false" style="overflow-y: auto; height: 100px">
-                                <asp:UpdatePanel runat="server">
-                                    <ContentTemplate>
-                                        <asp:GridView runat="server" ID="PriceTable" DataKeyNames="Id"
-                                            AutoGenerateColumns="False" OnRowDataBound="PriceTable_RowDataBound">
-                                            <Columns>
-                                                <asp:BoundField DataField="Id" Visible="false" />
-                                                <asp:BoundField HeaderText="<%$ Resources:Resource,ItemString%>" DataField="StoreLv" />
-                                                <asp:TemplateField HeaderText="<%$ Resources:Resource,ItemString%>">
-                                                    <ItemTemplate>
-                                                        <asp:TextBox runat="server" ID="tbStorePrice" />
-                                                        <asp:RegularExpressionValidator ID="RegularExpressionValidator5" ControlToValidate="tbStorePrice" runat="server"
-                                                            ErrorMessage="Only Numbers allowed" ValidationExpression="\d+[.]*\d*"></asp:RegularExpressionValidator>
-                                                    </ItemTemplate>
-                                                </asp:TemplateField>
-                                            </Columns>
-                                        </asp:GridView>
-                                    </ContentTemplate>
-                                </asp:UpdatePanel>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div>
                     <div class="row uniform 50%">
                         <div class="Check Div">
                             <asp:CheckBox runat="server" Text="<%$ Resources:Resource,ChurchFeeString%>" ID="cbChurchCost" />
@@ -283,6 +246,12 @@
                             <asp:CheckBox runat="server" Text="<%$ Resources:Resource,LunchString%>" ID="cbLunch" />
 
                         </div>
+
+                    </div>
+                </div>
+                <div class="12u">
+                    <div class="row uniform 50%">
+
                         <div class="Check Div">
                             <asp:CheckBox runat="server" Text="<%$ Resources:Resource,CandlelightDinnerString%>" ID="cbDinner" />
 
@@ -294,9 +263,49 @@
                         <div class="Check Div">
                             <asp:CheckBox runat="server" Text="<%$ Resources:Resource,LegalWeddingString%>" ID="cbLegal" />
                         </div>
+
                     </div>
                 </div>
-
+                <div class="12u">
+                    <div class="row uniform 50%">
+                        <div class="10u 12u(mobilep)">
+                            <div class="Div" style="padding-top:20px">
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,TotalPriceString%>"></asp:Label>
+                            </div>
+                           
+                            <div runat="server" id="divForStore" visible="false">
+                                <asp:UpdatePanel runat="server">
+                                    <ContentTemplate>
+                                        <asp:TextBox runat="server" ID="tbPrice" Style="text-align: right"></asp:TextBox>
+                                        <asp:RegularExpressionValidator ID="RegularExpressionValidator4" ControlToValidate="tbPrice" runat="server"
+                                            ErrorMessage="Only Numbers allowed" ValidationExpression="\d+[.]*\d*"></asp:RegularExpressionValidator>
+                                    </ContentTemplate>
+                                </asp:UpdatePanel>
+                            </div>
+                            <div runat="server" id="divForHoldingCompany" visible="false" style="overflow-y: auto; height: 300px">
+                                <asp:UpdatePanel runat="server">
+                                    <ContentTemplate>
+                                        <asp:GridView runat="server" ID="PriceTable" DataKeyNames="Id"
+                                            AutoGenerateColumns="False" OnRowDataBound="PriceTable_RowDataBound">
+                                            <Columns>
+                                                <asp:BoundField DataField="Id" Visible="false" />
+                                                <asp:BoundField HeaderText="<%$ Resources:Resource,ItemString%>" DataField="StoreLv" />
+                                                <asp:TemplateField HeaderText="<%$ Resources:Resource,ItemString%>">
+                                                    <ItemTemplate>
+                                                        <asp:TextBox runat="server" ID="tbStorePrice" />
+                                                        <asp:RegularExpressionValidator ID="RegularExpressionValidator5" ControlToValidate="tbStorePrice" runat="server"
+                                                            ErrorMessage="Only Numbers allowed" ValidationExpression="\d+[.]*\d*"></asp:RegularExpressionValidator>
+                                                    </ItemTemplate>
+                                                </asp:TemplateField>
+                                            </Columns>
+                                        </asp:GridView>
+                                    </ContentTemplate>
+                                </asp:UpdatePanel>
+                            </div>
+                                
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <!-- Table -->

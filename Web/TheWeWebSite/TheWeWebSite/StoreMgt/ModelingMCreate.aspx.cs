@@ -350,7 +350,7 @@ namespace TheWeWebSite.StoreMgt
         protected void btnImgFrontUpload_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(tbFolderPath.Text)) return;
-            CheckFolder(SysProperty.ImgRootFolderpath + @"\HairStyleItem\" + tbSn.Text);
+            CheckFolder(tbFolderPath.Text);
             ImgFrontUpload.PostedFile.SaveAs(tbFolderPath.Text + @"\" + tbSn.Text + "_1.jpg");
             RefreshImage(1, tbFolderPath.Text);
         }
@@ -358,7 +358,7 @@ namespace TheWeWebSite.StoreMgt
         protected void btnImgBackUpload_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(tbFolderPath.Text)) return;
-            CheckFolder(SysProperty.ImgRootFolderpath + @"\HairStyleItem\" + tbSn.Text);
+            CheckFolder(tbFolderPath.Text);
             ImgBackUpload.PostedFile.SaveAs(tbFolderPath.Text + @"\" + tbSn.Text + "_2.jpg");
             RefreshImage(2, tbFolderPath.Text);
         }
@@ -366,7 +366,7 @@ namespace TheWeWebSite.StoreMgt
         protected void btnImgSideUpload_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(tbFolderPath.Text)) return;
-            CheckFolder(SysProperty.ImgRootFolderpath + @"\HairStyleItem\" + tbSn.Text);
+            CheckFolder(tbFolderPath.Text);
             ImgSideUpload.PostedFile.SaveAs(tbFolderPath.Text + @"\" + tbSn.Text + "_3.jpg");
             RefreshImage(3, tbFolderPath.Text);
         }

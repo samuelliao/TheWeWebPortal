@@ -337,16 +337,12 @@ namespace TheWeWebSite.StoreMgt
 
         protected void btnCreate_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(tbSn.Text))
-            {
-                ShowErrorMsg("Sn cannot be null");
-                return;
-            }
-            if (SysProperty.GenDbCon.IsSnDuplicate(SysProperty.Util.MsSqlTableConverter(MsSqlTable.ProductSet), tbSn.Text))
+            tbSn = null;
+          /*  if (SysProperty.GenDbCon.IsSnDuplicate(SysProperty.Util.MsSqlTableConverter(MsSqlTable.ProductSet), tbSn.Text))
             {
                 ShowErrorMsg(Resources.Resource.SnDuplicateErrorString);
                 return;
-            }
+            }*/
             List<DbSearchObject> lst = SetDbObject();
             bool result = WriteBackInfo(MsSqlTable.ProductSet, true, lst, string.Empty);
             if (!result) return;
@@ -605,10 +601,12 @@ namespace TheWeWebSite.StoreMgt
             bool result = true;
             foreach (List<DbSearchObject> item in lst)
             {
+                /*
                 if (!isInsert)
                 {
                     condStr = " Where Id = '" + item.Find(s => s.AttrName == "Id").AttrValue + "'";
                 }
+                */
                 result = result & WriteBackInfo(MsSqlTable.StoreLvSetPrice, isInsert, item, condStr);
             }
             return result;
