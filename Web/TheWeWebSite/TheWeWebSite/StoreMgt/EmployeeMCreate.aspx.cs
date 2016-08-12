@@ -194,6 +194,9 @@ namespace TheWeWebSite.StoreMgt
             tbEmpRemark.Text = string.Empty;
             tbEmpPhone.Text = string.Empty;
             tbAccount.Text = string.Empty;
+            ImgFront.ImageUrl = null;
+            ImgBack.ImageUrl = null;
+            ImgSide.ImageUrl = null;
         }
 
         protected void btnCancel_Click(object sender, EventArgs e)
@@ -605,19 +608,19 @@ namespace TheWeWebSite.StoreMgt
             switch (type)
             {
                 case 2:
-                    ImgFront.ImageUrl = path + "/" + tbEmpSn.Text + "_2.jpg?" + DateTime.Now.Ticks.ToString();
+                    ImgFront.ImageUrl = "http:" + path + "/" + tbEmpSn.Text + "_2.jpg?" + DateTime.Now.Ticks.ToString();
                     break;
                 case 3:
-                    ImgBack.ImageUrl = path + "/" + tbEmpSn.Text + "_3.jpg?" + DateTime.Now.Ticks.ToString();
+                    ImgBack.ImageUrl = "http:" + path + "/" + tbEmpSn.Text + "_3.jpg?" + DateTime.Now.Ticks.ToString();
                     break;
                 case 1:
-                    ImgSide.ImageUrl = path + "/" + tbEmpSn.Text + "_1.jpg?" + DateTime.Now.Ticks.ToString();
+                    ImgSide.ImageUrl = "http:" + path + "/" + tbEmpSn.Text + "_1.jpg?" + DateTime.Now.Ticks.ToString();
                     break;
                 case 0:
                 default:
-                    ImgFront.ImageUrl = path + "/" + tbEmpSn.Text + "_2.jpg?" + DateTime.Now.Ticks.ToString();
-                    ImgBack.ImageUrl = path + "/" + tbEmpSn.Text + "_3.jpg?" + DateTime.Now.Ticks.ToString();
-                    ImgSide.ImageUrl = path + "/" + tbEmpSn.Text + "_1.jpg?" + DateTime.Now.Ticks.ToString();
+                    ImgFront.ImageUrl = "http:"+path + "/" + tbEmpSn.Text + "_2.jpg?" + DateTime.Now.Ticks.ToString();
+                    ImgBack.ImageUrl = "http:" + path + "/" + tbEmpSn.Text + "_3.jpg?" + DateTime.Now.Ticks.ToString();
+                    ImgSide.ImageUrl = "http:" + path + "/" + tbEmpSn.Text + "_1.jpg?" + DateTime.Now.Ticks.ToString();
                     break;
             }
         }
@@ -625,7 +628,7 @@ namespace TheWeWebSite.StoreMgt
         protected void btnImgFrontUpload_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(tbFolderPath.Text)) return;
-            CheckFolder(SysProperty.ImgRootFolderpath + @"\Employee\" + tbEmpSn.Text);
+            CheckFolder(tbFolderPath.Text);
             ImgFrontUpload.PostedFile.SaveAs(tbFolderPath.Text + "/" + tbEmpSn.Text + "_2.jpg");
             RefreshImage(2, tbFolderPath.Text);
         }
@@ -633,7 +636,7 @@ namespace TheWeWebSite.StoreMgt
         protected void btnImgBackUpload_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(tbFolderPath.Text)) return;
-            CheckFolder(SysProperty.ImgRootFolderpath + @"\Employee\" + tbEmpSn.Text);
+            CheckFolder(tbFolderPath.Text);
             ImgBackUpload.PostedFile.SaveAs(tbFolderPath.Text + "/" + tbEmpSn.Text + "_3.jpg");
             RefreshImage(3, tbFolderPath.Text);
         }
@@ -641,7 +644,7 @@ namespace TheWeWebSite.StoreMgt
         protected void btnImgSideUpload_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(tbFolderPath.Text)) return;
-            CheckFolder(SysProperty.ImgRootFolderpath + @"\Employee\" + tbEmpSn.Text);
+            CheckFolder(tbFolderPath.Text);
             ImgSideUpload.PostedFile.SaveAs(tbFolderPath.Text + "/" + tbEmpSn.Text + "_1.jpg");
             RefreshImage(1, tbFolderPath.Text);
         }

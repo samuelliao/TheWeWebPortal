@@ -46,7 +46,7 @@ namespace TheWeWebSite.Setting {
         /// 自動產生的欄位。
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label EmpOnBoardDay;
+        protected global::System.Web.UI.WebControls.TextBox EmpOnBoardDay;
         
         /// <summary>
         /// tbEmpSn 控制項。
@@ -55,7 +55,7 @@ namespace TheWeWebSite.Setting {
         /// 自動產生的欄位。
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label tbEmpSn;
+        protected global::System.Web.UI.WebControls.TextBox tbEmpSn;
         
         /// <summary>
         /// labelPw 控制項。
@@ -82,7 +82,7 @@ namespace TheWeWebSite.Setting {
         /// 自動產生的欄位。
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label tbAccount;
+        protected global::System.Web.UI.WebControls.TextBox tbAccount;
         
         /// <summary>
         /// tbPwd 控制項。
@@ -290,5 +290,14 @@ namespace TheWeWebSite.Setting {
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnModify;
+        
+        /// <summary>
+        /// btnCancel 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnCancel;
     }
 }
