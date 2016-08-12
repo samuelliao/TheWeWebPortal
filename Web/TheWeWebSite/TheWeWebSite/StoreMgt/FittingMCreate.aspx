@@ -35,16 +35,18 @@
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,SnString%>"></asp:Label>
+                            </div>
+
+                            <asp:TextBox runat="server" ID="tbSn" Enabled="false"></asp:TextBox>
+                        </div>
+                        <div class="2u 12u(mobilep)">
+                            <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,CategoryString%>"></asp:Label>
                             </div>
                             <asp:DropDownList runat="server" ID="ddlCategory" AutoPostBack="true" OnSelectedIndexChanged="ddlCategory_SelectedIndexChanged" />
                         </div>
-                        <div class="2u 12u(mobilep)">
-                            <div class="Div">
-                                <asp:Label runat="server" Text="<%$ Resources:Resource,SnString%>"></asp:Label>
-                            </div>
-                            <asp:TextBox runat="server" id="tbSn" Enabled="false"></asp:TextBox>
-                        </div>                       
+
 
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
@@ -52,12 +54,15 @@
                             </div>
                             <asp:UpdatePanel runat="server">
                                 <ContentTemplate>
-                                    <asp:DropDownList runat="server" ID="ddlType" AutoPostBack="true" OnSelectedIndexChanged="ddlType_SelectedIndexChanged" />
-                                    <asp:TextBox runat="server" ID="tbType" Visible="false" />
+                                     <asp:DropDownList runat="server" ID="ddlType" AutoPostBack="true" OnSelectedIndexChanged="ddlType_SelectedIndexChanged" />
+                            <asp:TextBox runat="server" ID="tbType" />
                                 </ContentTemplate>
-                            </asp:UpdatePanel>                            
+                            </asp:UpdatePanel>
                         </div>
-                        
+
+
+
+
                         <div class="2u 12u(mobilep)" runat="server" id="divEarringType" visible="false">
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,TypeString%>"></asp:Label>
@@ -66,7 +71,7 @@
                                 <ContentTemplate>
                                     <asp:DropDownList runat="server" ID="ddlEarringType" />
                                 </ContentTemplate>
-                            </asp:UpdatePanel>                            
+                            </asp:UpdatePanel>
                         </div>
                         <div class="2u 12u(mobilep)" runat="server" id="divGender" visible="false">
                             <div class="Div">
@@ -76,7 +81,7 @@
                                 <ContentTemplate>
                                     <asp:DropDownList runat="server" ID="ddlGender" />
                                 </ContentTemplate>
-                            </asp:UpdatePanel>                            
+                            </asp:UpdatePanel>
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
@@ -86,13 +91,13 @@
                                 <ContentTemplate>
                                     <asp:DropDownList runat="server" ID="ddlStatus" />
                                 </ContentTemplate>
-                            </asp:UpdatePanel>                            
-                        </div>                        
-                        <div class="2u 12u(mobilep)"  runat="server" id="divRelatedCategory" visible="false">
+                            </asp:UpdatePanel>
+                        </div>
+                        <div class="2u 12u(mobilep)" runat="server" id="divRelatedCategory" visible="false">
                             <div class="Div">
                                 <asp:Label runat="server" Text="對應物件"></asp:Label>
                             </div>
-                            <asp:DropDownList runat="server" ID="ddlRelatedCategory"/>
+                            <asp:DropDownList runat="server" ID="ddlRelatedCategory" />
                         </div>
                         <div class="2u 12u(mobilep)" runat="server" id="divRelatedSn" visible="false">
                             <div class="Div">
@@ -100,28 +105,24 @@
                             </div>
                             <asp:TextBox runat="server" ID="tbRelatedSn"></asp:TextBox>
                         </div>
-                    </div>
-                </div>
 
-                <div class="12u">
-                    <div class="row uniform 50%">                        
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,ColorString%>"></asp:Label>
                             </div>
                             <asp:TextBox runat="server" ID="tbColor1"></asp:TextBox>
                         </div>
-                        <div class="2u 12u(mobilep)"  runat="server" id="divColor2" visible="false">
+                        <div class="2u 12u(mobilep)" runat="server" id="divColor2" visible="false">
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,ColorString%>"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server" ID="tbColor2" ></asp:TextBox>
+                            <asp:TextBox runat="server" ID="tbColor2"></asp:TextBox>
                         </div>
                         <div class="2u 12u(mobilep)" runat="server" id="divMaterial1">
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,MaterialString%>"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server" ID="tbMaterial1" ></asp:TextBox>
+                            <asp:TextBox runat="server" ID="tbMaterial1"></asp:TextBox>
                         </div>
                         <div class="2u 12u(mobilep)" runat="server" id="divMaterial2" visible="false">
                             <div class="Div">
@@ -129,7 +130,7 @@
                             </div>
                             <asp:TextBox runat="server" ID="tbMaterial2"></asp:TextBox>
                         </div>
-                        <div class="2u 12u(mobilep)"  runat="server" id="divLength" visible="false">
+                        <div class="2u 12u(mobilep)" runat="server" id="divLength" visible="false">
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,LengthString%>"></asp:Label>
                             </div>
@@ -145,24 +146,22 @@
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,SupplierString%>"></asp:Label>
                             </div>
-                            <asp:DropDownList runat="server" ID="ddlSupplier"/>
+                            <asp:DropDownList runat="server" ID="ddlSupplier" />
                         </div>
-                    </div>
-                </div>
-                <div class="12u">
-                    <div class="row uniform 50%">                        
+
+
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,CostString%>"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server" ID="tbCost" style="text-align:right"></asp:TextBox>
+                            <asp:TextBox runat="server" ID="tbCost" Style="text-align: right"></asp:TextBox>
                             <asp:RegularExpressionValidator ID="RegularExpressionValidator1" ControlToValidate="tbCost" runat="server" ErrorMessage="Only Numbers allowed" ValidationExpression="\d+[.]*\d*"></asp:RegularExpressionValidator>
-                        </div>                        
+                        </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,RentPriceString%>"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server" ID="tbRentPrice" style="text-align:right"></asp:TextBox>
+                            <asp:TextBox runat="server" ID="tbRentPrice" Style="text-align: right"></asp:TextBox>
                             <asp:RegularExpressionValidator ID="RegularExpressionValidator2" ControlToValidate="tbRentPrice" runat="server" ErrorMessage="Only Numbers allowed" ValidationExpression="\d+[.]*\d*"></asp:RegularExpressionValidator>
 
                         </div>
@@ -170,29 +169,30 @@
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,OptionalPriceString%>"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server" ID="tbOptionalPrice" style="text-align:right"></asp:TextBox>
+                            <asp:TextBox runat="server" ID="tbOptionalPrice" Style="text-align: right"></asp:TextBox>
                             <asp:RegularExpressionValidator ID="RegularExpressionValidator3" ControlToValidate="tbOptionalPrice" runat="server" ErrorMessage="Only Numbers allowed" ValidationExpression="\d+[.]*\d*"></asp:RegularExpressionValidator>
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,SellingPriceString%>"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server" ID="tbSalesPrice" style="text-align:right"></asp:TextBox>
+                            <asp:TextBox runat="server" ID="tbSalesPrice" Style="text-align: right"></asp:TextBox>
                             <asp:RegularExpressionValidator ID="RegularExpressionValidator4" ControlToValidate="tbSalesPrice" runat="server" ErrorMessage="Only Numbers allowed" ValidationExpression="\d+[.]*\d*"></asp:RegularExpressionValidator>
-                        </div>                        
-                    </div>                    
+                        </div>
+                    </div>
                 </div>
+
                 <div class="12u">
                     <div class="row uniform 50%">
                         <div class="4u 12u(mobilep)">
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,RentRecordString%>"></asp:Label>
                             </div>
-                            <div style="overflow-y:auto; height:200px">
+                            <div style="overflow-y: auto; height: 200px">
                                 <asp:UpdatePanel runat="server">
                                     <ContentTemplate>
                                         <asp:DataGrid runat="server" ID="dataGrid" AllowPaging="true" AllowSorting="false"
-                                         AutoGenerateColumns="false" DataKeyField="Id">
+                                            AutoGenerateColumns="false" DataKeyField="Id">
                                             <HeaderStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                             <PagerStyle Mode="NumericPages" />
                                             <Columns>
@@ -202,8 +202,8 @@
                                             </Columns>
                                         </asp:DataGrid>
                                     </ContentTemplate>
-                                </asp:UpdatePanel>                            
-                                </div>
+                                </asp:UpdatePanel>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -254,7 +254,7 @@
                             </div>
                         </div>
                         <div class="2u">
-                             <div style="text-align:center">
+                            <div style="text-align: center">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,ImgOtherString%>"></asp:Label>
                             </div>
                             <span class="image fit">
@@ -267,7 +267,7 @@
                             </div>
                         </div>
                         <div class="2u">
-                             <div style="text-align:center">
+                            <div style="text-align: center">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,ImgOtherString%>"></asp:Label>
                             </div>
                             <span class="image fit">

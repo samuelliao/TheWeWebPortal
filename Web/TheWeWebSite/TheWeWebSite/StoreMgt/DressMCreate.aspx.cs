@@ -837,15 +837,15 @@ namespace TheWeWebSite.StoreMgt
         protected void btnImgFrontUpload_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(tbFolderPath.Text)) return;
-            CheckFolder(SysProperty.ImgRootFolderpath + @"\Dress\" + tbSn.Text);
-            ImgFrontUpload.PostedFile.SaveAs(tbFolderPath.Text + "\\" + tbSn.Text + "_1.jpg");
+            CheckFolder(tbFolderPath.Text);
+            ImgFrontUpload.PostedFile.SaveAs(tbFolderPath.Text + "\\"+tbSn.Text+ "_1.jpg");
             RefreshImage(1, tbFolderPath.Text);
         }
 
         protected void btnImgBackUpload_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(tbFolderPath.Text)) return;
-            CheckFolder(SysProperty.ImgRootFolderpath + @"\Dress\" + tbSn.Text);
+            CheckFolder(tbFolderPath.Text);
             ImgBackUpload.PostedFile.SaveAs(tbFolderPath.Text + "\\" + tbSn.Text + "_2.jpg");
             RefreshImage(2, tbFolderPath.Text);
         }
@@ -853,7 +853,7 @@ namespace TheWeWebSite.StoreMgt
         protected void btnImgSideUpload_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(tbFolderPath.Text)) return;
-            CheckFolder(SysProperty.ImgRootFolderpath + @"\Dress\" + tbSn.Text);
+            CheckFolder(tbFolderPath.Text);
             ImgSideUpload.PostedFile.SaveAs(tbFolderPath.Text + "\\" + tbSn.Text + "_3.jpg");
             RefreshImage(3, tbFolderPath.Text);
         }
@@ -869,7 +869,7 @@ namespace TheWeWebSite.StoreMgt
         protected void btnImgOther2_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(tbFolderPath.Text)) return;
-            CheckFolder(SysProperty.ImgRootFolderpath + @"\Dress\" + tbSn.Text);
+            CheckFolder(tbFolderPath.Text);
             ImgOther2Upload.PostedFile.SaveAs(tbFolderPath.Text + "\\" + tbSn.Text + "_5.jpg");
             RefreshImage(5, tbFolderPath.Text);
         }
@@ -877,7 +877,7 @@ namespace TheWeWebSite.StoreMgt
         protected void btnImgOther1_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(tbFolderPath.Text)) return;
-            CheckFolder(SysProperty.ImgRootFolderpath + @"\Dress\" + tbSn.Text);
+            CheckFolder(tbFolderPath.Text);
             ImgOther1Upload.PostedFile.SaveAs(tbFolderPath.Text + "\\" + tbSn.Text + "_4.jpg");
             RefreshImage(4, tbFolderPath.Text);
         }
