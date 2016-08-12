@@ -115,7 +115,6 @@
     <Content Include="CaseMgt\CustomerMCreate.aspx" />
     <Content Include="CaseMgt\TimeMaintain.aspx" />
     <Content Include="CaseMgt\TimeMCreate.aspx" />
-    <Content Include="css\main.css" />
     <Content Include="Header.ascx" />
     <Content Include="Login.aspx" />
     <Content Include="Main\Calendar.aspx" />
@@ -124,20 +123,6 @@
     <Content Include="Main\CustomerCalendar.aspx" />
     <Content Include="Main\Unsigned.aspx" />
     <Content Include="remind.aspx" />
-    <Content Include="css\bootstrap.css" />
-    <Content Include="css\btn_1.css" />
-    <Content Include="css\btn_2.css" />
-    <Content Include="css\btn_3.css" />
-    <Content Include="css\btn_4.css" />
-    <Content Include="css\btn_5.css" />
-    <Content Include="css\btn_6.css" />
-    <Content Include="css\btn_7.css" />
-    <Content Include="css\btn_8.css" />
-    <Content Include="css\content.css" />
-    <Content Include="css\footer.css" />
-    <Content Include="css\header.css" />
-    <Content Include="css\month.css" />
-    <Content Include="css\tablestyle.css" />
     <Content Include="Setting\AccInfoSetting.aspx" />
     <Content Include="StoreMgt\ChurchMaintain.aspx" />
     <Content Include="StoreMgt\ChurchMCreate.aspx" />
@@ -162,8 +147,6 @@
     <Content Include="SysMgt\RootMaintain.aspx" />
     <Content Include="SysMgt\StoreMaintain.aspx" />
     <Content Include="SysMgt\UnitMaintain.aspx" />
-    <Content Include="test.aspx" />
-    <Content Include="test2.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -467,20 +450,6 @@
     </Compile>
     <Compile Include="SysMgt\UnitMaintain.aspx.designer.cs">
       <DependentUpon>UnitMaintain.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="test.aspx.cs">
-      <DependentUpon>test.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="test.aspx.designer.cs">
-      <DependentUpon>test.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="test2.aspx.cs">
-      <DependentUpon>test2.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="test2.aspx.designer.cs">
-      <DependentUpon>test2.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
