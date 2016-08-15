@@ -1341,13 +1341,13 @@ namespace TheWeWebSite.CaseMgt
         }
         protected void tbPrice_TextChanged(object sender, EventArgs e)
         {
-            bool result = false;
-            decimal dec = 0;
-            result = decimal.TryParse(((TextBox)sender).Text, out dec);
-            if (result)
-            {
-                tbTotalPrice.Text = (SysProperty.Util.ParseMoney(tbTotalPrice.Text) + dec).ToString();
-            }
+            //bool result = false;
+            //decimal dec = 0;
+            //result = decimal.TryParse(((TextBox)sender).Text, out dec);
+            //if (result)
+            //{
+            //    //tbTotalPrice.Text = (SysProperty.Util.ParseMoney(tbTotalPrice.Text) + dec).ToString();
+            //}
         }
         #endregion                
 

@@ -523,13 +523,13 @@ namespace TheWeWebSite.StoreMgt
         }
         protected void tbPrice_TextChanged(object sender, EventArgs e)
         {
-            bool result = false;
-            decimal dec = 0;
-            result = decimal.TryParse(((TextBox)sender).Text, out dec);
-            if (result)
-            {
-                tbPrice.Text = (SysProperty.Util.ParseMoney(tbPrice.Text) + dec).ToString();
-            }
+            //bool result = false;
+            //decimal dec = 0;
+            //result = decimal.TryParse(((TextBox)sender).Text, out dec);
+            //if (result)
+            //{
+            //    //tbPrice.Text = (SysProperty.Util.ParseMoney(tbPrice.Text) + dec).ToString();
+            //}
         }
         #endregion        
 

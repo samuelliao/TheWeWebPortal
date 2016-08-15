@@ -278,7 +278,7 @@
                                     <ContentTemplate>
                                         <asp:TextBox runat="server" ID="tbPrice" Style="text-align: right"></asp:TextBox>
                                         <asp:RegularExpressionValidator ID="RegularExpressionValidator4" ControlToValidate="tbPrice" runat="server"
-                                            ErrorMessage="Only Numbers allowed" ValidationExpression="\d+[.]*\d*"></asp:RegularExpressionValidator>
+                                            ErrorMessage="Only Numbers allowed" ValidationExpression="\d+[.]*\d*"></asp:RegularExpressionValidator>                                        
                                     </ContentTemplate>
                                 </asp:UpdatePanel>
                             </div>
