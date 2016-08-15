@@ -450,11 +450,14 @@ namespace TheWeWebSite.CaseMgt
 
         protected void btnCreate_Click(object sender, EventArgs e)
         {
+            tbCaseSn = null;
+            /*
             if (SysProperty.GenDbCon.IsSnDuplicate(SysProperty.Util.MsSqlTableConverter(MsSqlTable.OrderInfo), tbCaseSn.Text))
             {
                 ShowErrorMsg(Resources.Resource.SnDuplicateErrorString);
                 return;
-            }
+            }*/
+
             if (Session["CustomerId"] != null) return;
             string customerId = Session["CustomerId"].ToString();
             List<DbSearchObject> partnerInfo = PartnerDbObject();
@@ -577,10 +580,11 @@ namespace TheWeWebSite.CaseMgt
             ddlLocate.SelectedValue = dr["ChurchId"].ToString();
 
             string imgPath = @dr["Img"].ToString();
-            if (string.IsNullOrEmpty(imgPath)) imgPath = Path.Combine(SysProperty.ImgRootFolderpath, @"OrderInfo\" + tbCaseSn.Text);
+            if (string.IsNullOrEmpty(imgPath)) imgPath = SysProperty.ImgRootFolderpath + @"OrderInfo\" + tbCaseSn.Text;
+            else imgPath = SysProperty.ImgRootFolderpath + imgPath;
             string ImgFolderPath = imgPath;
             RefreshImage(ImgFolderPath);
-            tbFolderPath.Text = ImgFolderPath;
+                tbFolderPath.Text = ImgFolderPath;
 
             SetOrderServiceItem(id);
         }
@@ -1430,14 +1434,14 @@ namespace TheWeWebSite.CaseMgt
         protected void btnUpload_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(tbFolderPath.Text)) return;
-            CheckFolder(SysProperty.ImgRootFolderpath + @"\OrderInfo\" + tbCaseSn.Text);
-            ImgUpload.PostedFile.SaveAs(tbFolderPath.Text + "/" + tbCaseSn.Text + "_1.jpg");
+            CheckFolder(tbFolderPath.Text);
+            ImgUpload.PostedFile.SaveAs(tbFolderPath.Text + "\\" + tbCaseSn.Text + "_1.jpg");
             RefreshImage(tbFolderPath.Text);
         }
 
         private void RefreshImage(string path)
         {
-            ImgFront.ImageUrl = path + "/" + tbCaseSn.Text + "_1.jpg?" + DateTime.Now.Ticks.ToString();
+            ImgFront.ImageUrl ="http:"+ path + "\\" + tbCaseSn.Text + "_1.jpg?" + DateTime.Now.Ticks.ToString();
         }
 
         private void CheckFolder(string path)
