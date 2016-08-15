@@ -288,7 +288,8 @@
                                         <asp:Label runat="server" Text="<%$ Resources:Resource,LocateString%>"></asp:Label>
                                     </div>
                                     <div style="overflow-y: scroll; height: 200px; padding-top: 10px">
-                                        <asp:CheckBoxList runat="server" ID="cblLocation" Height="200px" />
+                                        <asp:CheckBoxList runat="server" ID="cblLocation" Height="200px"
+                                            OnSelectedIndexChanged="cblLocation_SelectedIndexChanged" AutoPostBack="true" />
                                     </div>
                                 </ContentTemplate>
                             </asp:UpdatePanel>
@@ -300,7 +301,8 @@
                                         <asp:Label runat="server" Text="<%$ Resources:Resource,WeddingPlannerString%>"></asp:Label>
                                     </div>
                                     <div style="overflow-y: scroll; height: 200px; padding-top: 10px">
-                                        <asp:CheckBoxList runat="server" ID="cblWeddingPlanner" Height="200px" />
+                                        <asp:CheckBoxList runat="server" ID="cblWeddingPlanner" Height="200px" 
+                                            OnSelectedIndexChanged="cblWeddingPlanner_SelectedIndexChanged" AutoPostBack="true" />
                                     </div>
                                 </ContentTemplate>
                             </asp:UpdatePanel>
