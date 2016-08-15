@@ -149,7 +149,7 @@
                             </div>
                             <asp:TextBox runat="server" ID="tbPhotoNumber" Style="text-align: right"></asp:TextBox>
                             <asp:RegularExpressionValidator ID="RegularExpressionValidator1" ControlToValidate="tbPhotoNumber" runat="server"
-                                ErrorMessage="Only Numbers allowed" ValidationExpression="\d"></asp:RegularExpressionValidator>
+                                ErrorMessage="Only Numbers allowed" ValidationExpression="\d+"></asp:RegularExpressionValidator>
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
@@ -157,7 +157,7 @@
                             </div>
                             <asp:TextBox runat="server" ID="tbStay" Style="text-align: right"></asp:TextBox>
                             <asp:RegularExpressionValidator ID="RegularExpressionValidator2" ControlToValidate="tbStay" runat="server"
-                                ErrorMessage="Only Numbers allowed" ValidationExpression="\d"></asp:RegularExpressionValidator>
+                                ErrorMessage="Only Numbers allowed" ValidationExpression="\d+"></asp:RegularExpressionValidator>
                         </div>
                     </div>
                 </div>

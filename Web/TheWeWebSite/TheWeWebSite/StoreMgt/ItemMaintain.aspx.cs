@@ -58,6 +58,7 @@ namespace TheWeWebSite.StoreMgt
             LocationDropDownList(string.Empty, string.Empty);
             ServiceCategoryDropDownList();
             WeddingTypeDropDownList();
+            StoreList();
         }
         private void WeddingTypeDropDownList()
         {
@@ -177,6 +178,20 @@ namespace TheWeWebSite.StoreMgt
             }
         }
 
+        private void StoreList()
+        {
+            ddlStore.Items.Clear();
+            List<DbSearchObject> lst = new List<DbSearchObject>();
+            lst.Add(new DbSearchObject("IsDelete", AtrrTypeItem.Bit, AttrSymbolItem.Equal, "0"));
+            DataSet ds = GetDataFromDb(SysProperty.Util.MsSqlTableConverter(MsSqlTable.Store), lst, " Order by Sn");
+            foreach (DataRow dr in ds.Tables[0].Rows)
+            {
+                ddlStore.Items.Add(new ListItem
+                    (SysProperty.Util.OutputRelatedLangName(((string)Session["CultureCode"]), dr)
+                    , dr["Id"].ToString()));
+            }
+        }
+
         #region DropDownList Selected Index Change Control
         protected void ddlCountry_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -262,7 +277,7 @@ namespace TheWeWebSite.StoreMgt
             DataRowView dataItem1 = (DataRowView)e.Item.DataItem;
             if (dataItem1 != null)
             {
-
+                ((Label)e.Item.FindControl("labelStore")).Text = ddlStore.Items.FindByValue(dataItem1["StoreId"].ToString()).Text;
                 ((Label)e.Item.FindControl("labelCountry")).Text = SysProperty.Util.OutputRelatedLangName(Session["CultureCode"].ToString()
                     , SysProperty.GetCountryById(dataItem1["CountryId"].ToString()));
                 ((Label)e.Item.FindControl("labelArea")).Text = SysProperty.Util.OutputRelatedLangName(Session["CultureCode"].ToString()
@@ -279,7 +294,21 @@ namespace TheWeWebSite.StoreMgt
                     , dataItem1["TypeCnName"].ToString()
                     , dataItem1["TypeEngName"].ToString()
                     , dataItem1["TypeJpName"].ToString());
-                ((Label)e.Item.FindControl("dgLabelPrice")).Text = SysProperty.Util.ParseMoney(dataItem1["Price"].ToString()).ToString("#0.00");
+                if (!bool.Parse(((DataRow)Session["LocateStore"])["HoldingCompany"].ToString()))
+                {
+                    if (!string.IsNullOrEmpty(dataItem1["BaseId"].ToString()))
+                    {
+                        ((Label)e.Item.FindControl("dgLabelPrice")).Text = SysProperty.Util.ParseMoney(dataItem1["Price"].ToString()).ToString("#0.00");
+                    }
+                    else
+                    {
+                        ((Label)e.Item.FindControl("dgLabelPrice")).Text = SysProperty.Util.ParseMoney(dataItem1["LvPrice"].ToString()).ToString("#0.00");
+                    }
+                }
+                else
+                {
+                    ((Label)e.Item.FindControl("dgLabelPrice")).Text = string.Empty;
+                }
             }
         }
 
@@ -331,19 +360,18 @@ namespace TheWeWebSite.StoreMgt
 
         private void GetProductList(string condStr, string sortStr)
         {
-            string sqlTxt = "SELECT p.[Id],p.Sn,[CountryId],[Decoration],[Performence],[Price],[PriceCurrencyId]"
-                + ",[Cost],[CostCurrencyId],[ChurchId],[DmImg],[ChurchCost],[Pastor],[Certificate],[RingPillow]"
-                + ",[SignPen],[BridalMakeup],[GroomMakeup],[WeddingFilmingTime],[OtherFilmingTime],[FilmingLocation]"
-                + ",[Moves],[PhotosNum],[Staff],[Lounge],[Corsage],[DressIroning],[Kickoff],[StayNight],[RoomId]"
-                + ",[Breakfast],p.[IsDelete],p.[UpdateAccId],p.[UpdateTime],p.[Name]"
-                + ",p.[EngName],p.[JpName],p.[CnName],[Category],[Lunch],[Dinner],[Rehearsal],[WeddingCategory]"
-                + ",[AreaId],[IsLegal],w.Name as TypeName,w.CnName as TypeCnName,w.EngName as TypeEngName"
-                + ",w.JpName as TypeJpName,s.Name as CategoryName,s.CnName as CategoryCnName,s.EngName as CategoryEngName"
-                + ",s.JpName as CategoryJpName"
+            string sqlTxt = "SELECT p.[Id],p.Sn,p.[CountryId],[Decoration],p.[Price],[PriceCurrencyId],[Cost]"
+                + ",[CostCurrencyId],[ChurchId],[ChurchCost],p.[IsDelete],p.[UpdateAccId],p.[UpdateTime]"
+                + ",p.[Name],p.StoreId, p.BaseId,p.[EngName],p.[JpName],p.[CnName],[Category],[WeddingCategory],p.[AreaId],w.Name as TypeName"
+                + ",w.CnName as TypeCnName,w.EngName as TypeEngName,w.JpName as TypeJpName,s.Name as CategoryName"
+                + ",s.CnName as CategoryCnName,s.EngName as CategoryEngName,s.JpName as CategoryJpName"
+                + ",lv.Price AS LvPrice"
                 + " FROM[TheWe].[dbo].[ProductSet] as p"
                 + " Left join WeddingCategory as w on w.Id = p.WeddingCategory"
                 + " Left join ServiceItemCategory as s on s.Id = p.Category"
-                + " Where p.IsDelete = 0 And (p.BaseId is null OR"
+                + " Left Join Store as st on st.Id = p.StoreId"
+                + " LEFT JOIN StoreLvSetPrice as lv on lv.SetId = p.Id and lv.StoreLv=" + ((DataRow)Session["LocateStore"])["GradeLv"].ToString()
+                + " Where p.IsDelete = 0 And(p.BaseId is null OR"
                 + " p.StoreId = '" + ((DataRow)Session["LocateStore"])["Id"].ToString() + "')"
                 + " " + condStr
                 + " " + sortStr;

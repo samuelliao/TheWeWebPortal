@@ -39,6 +39,7 @@
                                     <asp:Label runat="server" Text="<%$ Resources:Resource,SnString%>"></asp:Label>
                                 </div>
                                 <asp:TextBox runat="server" ID="tbSn" ></asp:TextBox>
+                                <asp:DropDownList runat="server" ID="ddlStore" Visible="false" />
                             </div>
                             <div class="2u 12u(mobilep)">
                                     <div class="Div">
@@ -111,6 +112,11 @@
                                         <asp:ButtonColumn Text="<%$ Resources:Resource,SearchString%>" CommandName="Select" />
                                         <asp:BoundColumn DataField="Id" Visible="false" />
                                         <asp:BoundColumn DataField="Sn" SortExpression="Sn" HeaderText="<%$ Resources:Resource,SnString%>" />
+                                        <asp:TemplateColumn  SortExpression="StoreId" HeaderText="<%$ Resources:Resource,StoreString%>" >
+                                            <ItemTemplate>
+                                                <asp:Label runat="server" ID="labelStore" />
+                                            </ItemTemplate>
+                                        </asp:TemplateColumn>
                                         <asp:TemplateColumn  SortExpression="Category" HeaderText="<%$ Resources:Resource,ProjectString%>" >
                                             <ItemTemplate>
                                                 <asp:Label runat="server" ID="labelCategroy" />
