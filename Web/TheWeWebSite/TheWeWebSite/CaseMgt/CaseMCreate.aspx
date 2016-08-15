@@ -61,7 +61,7 @@
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,ContractDateString%>"></asp:Label>
                             </div>
                             <div>
-                                <asp:TextBox runat="server" Style="text-align: right" ID="tbContractTime"
+                                <asp:TextBox runat="server" Style="text-align: right" ID="tbContractTime" Enabled="false"
                                     CssClass="date date-1" value="" placeholder="YYYY-MM-DD HH:MM APM" data-timeformat="HH:MM"></asp:TextBox>
                             </div>
 
@@ -87,7 +87,7 @@
                             <div>
                                 <asp:UpdatePanel runat="server">
                                     <ContentTemplate>
-                                        <asp:TextBox runat="server" Style="text-align: right" ID="tbCloseDay"
+                                        <asp:TextBox runat="server" Style="text-align: right" ID="tbCloseDay" Enabled="false"
                                             CssClass="date date-1" value="" placeholder="YYYY-MM-DD HH:MM APM" data-timeformat="HH:MM"></asp:TextBox>
                                     </ContentTemplate>
                                 </asp:UpdatePanel>

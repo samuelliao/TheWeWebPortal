@@ -66,6 +66,11 @@ namespace TheWeWebSite.StoreMgt
             btnDelete.Enabled = item.CanDelete;
             btnModify.Visible = item.CanModify;
             btnModify.Enabled = item.CanModify;
+            if (bool.Parse(((DataRow)Session["LocateStore"])["HoldingCompany"].ToString()))
+            {
+                DisplayLevelPriceTable(true);
+                BindPriceData(string.Empty);
+            }
         }
 
         #region DropDownList Control
@@ -338,11 +343,6 @@ namespace TheWeWebSite.StoreMgt
         protected void btnCreate_Click(object sender, EventArgs e)
         {
             tbSn = null;
-          /*  if (SysProperty.GenDbCon.IsSnDuplicate(SysProperty.Util.MsSqlTableConverter(MsSqlTable.ProductSet), tbSn.Text))
-            {
-                ShowErrorMsg(Resources.Resource.SnDuplicateErrorString);
-                return;
-            }*/
             List<DbSearchObject> lst = SetDbObject();
             bool result = WriteBackInfo(MsSqlTable.ProductSet, true, lst, string.Empty);
             if (!result) return;
@@ -523,13 +523,13 @@ namespace TheWeWebSite.StoreMgt
         }
         protected void tbPrice_TextChanged(object sender, EventArgs e)
         {
-            bool result = false;
-            decimal dec = 0;
-            result = decimal.TryParse(((TextBox)sender).Text, out dec);
-            if (result)
-            {
-                tbPrice.Text = (SysProperty.Util.ParseMoney(tbPrice.Text) + dec).ToString();
-            }
+            //bool result = false;
+            //decimal dec = 0;
+            //result = decimal.TryParse(((TextBox)sender).Text, out dec);
+            //if (result)
+            //{
+            //    //tbPrice.Text = (SysProperty.Util.ParseMoney(tbPrice.Text) + dec).ToString();
+            //}
         }
         #endregion        
 
@@ -600,13 +600,11 @@ namespace TheWeWebSite.StoreMgt
             string condStr = "";
             bool result = true;
             foreach (List<DbSearchObject> item in lst)
-            {
-                /*
+            {                
                 if (!isInsert)
                 {
-                    condStr = " Where Id = '" + item.Find(s => s.AttrName == "Id").AttrValue + "'";
+                    condStr = " Where Id = '" + item[0].AttrValue + "'";
                 }
-                */
                 result = result & WriteBackInfo(MsSqlTable.StoreLvSetPrice, isInsert, item, condStr);
             }
             return result;
@@ -1104,7 +1102,7 @@ namespace TheWeWebSite.StoreMgt
                 "StoreId"
                 , AtrrTypeItem.String
                 , AttrSymbolItem.Equal
-                , ddlStore.SelectedValue
+                , ((DataRow)Session["LocateStore"])["Id"].ToString()
                 ));
             lst.Add(new DbSearchObject(
                 "UpdateAccId"
@@ -1354,14 +1352,22 @@ namespace TheWeWebSite.StoreMgt
 
         private void BindPriceData(string setId)
         {
-            string sql = "IF((Select COUNT(*) From StoreLvSetPrice Where IsDelete=0 And SetId = '" + setId + "') != 0)"
-                + " BEGIN"
-                + " SELECT Id,[Price],[StoreLv] FROM StoreLvSetPrice Where IsDelete = 0 And SetId = '" + setId + "' Order by StoreLv"
-                + " END"
-                + " ELSE"
-                + " BEGIN"
-                + " Select Distinct GradeLv As StoreLv, '' As Id, 0 as Price From Store Where IsDelete = 0 And GradeLv!=0 Order by GradeLv"
-                + " END";
+            string sql = string.Empty;
+            if (!string.IsNullOrEmpty(setId))
+            {
+                sql = "IF((Select COUNT(*) From StoreLvSetPrice Where IsDelete=0 And SetId = '" + setId + "') != 0)"
+                    + " BEGIN"
+                    + " SELECT Id,[Price],[StoreLv] FROM StoreLvSetPrice Where IsDelete = 0 And SetId = '" + setId + "' Order by StoreLv"
+                    + " END"
+                    + " ELSE"
+                    + " BEGIN"
+                    + " Select Distinct GradeLv As StoreLv, '' As Id, 0 as Price From Store Where IsDelete = 0 And GradeLv!=0 Order by GradeLv"
+                    + " END";
+            }
+            else
+            {
+                sql = "Select Distinct GradeLv As StoreLv, '' As Id, 0 as Price From Store Where IsDelete = 0 And GradeLv!=0 Order by GradeLv";
+            }
             DataSet ds = GetDataFromDb(sql);
             PriceTable.DataSource = ds;
             PriceTable.DataBind();

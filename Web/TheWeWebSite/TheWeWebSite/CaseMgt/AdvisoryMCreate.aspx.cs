@@ -406,8 +406,7 @@ namespace TheWeWebSite.CaseMgt
                 ));
             bool result = WriteBackConsult(true, lst, string.Empty);
             if (!result) return;
-            //string id = GetCreateConsultId(lst);
-            string id = GetId(lst);
+            string id = GetCreateConsultId(lst);
             if (string.IsNullOrEmpty(id)) return;
             result = WriteBackService(true, ServiceDbObject(id), id);
             if (!result)
@@ -961,10 +960,7 @@ namespace TheWeWebSite.CaseMgt
             {
                 return SysProperty.GenDbCon.GetDataFromTable("Id"
                     , SysProperty.Util.MsSqlTableConverter(MsSqlTable.vwEN_Consultation)
-                    , " Where Sn=N'" + tbSn.Text + "'"
-                    + " And StoreId=N'" + ((DataRow)Session["LocateStore"])["Id"].ToString() + "'"
-                    + " And EmployeeId=N'" + ((DataRow)Session["AccountInfo"])["Id"].ToString()
-                    + "'").Tables[0].Rows[0]["Id"].ToString();
+                    , SysProperty.Util.SqlQueryConditionConverter(lst)).Tables[0].Rows[0]["Id"].ToString();
             }
             catch (Exception ex)
             {
@@ -973,28 +969,6 @@ namespace TheWeWebSite.CaseMgt
                 return string.Empty;
             }
         }
-
-        private string GetId(List<DbSearchObject> lst)
-        {
-            try
-            {
-                return SysProperty.GenDbCon.GetTopDataFromTable("Id"
-                    , SysProperty.Util.MsSqlTableConverter(MsSqlTable.vwEN_Consultation)
-                    , " Where StoreId=N'" + ((DataRow)Session["LocateStore"])["Id"].ToString() + "'"
-                    + " And EmployeeId=N'" + ((DataRow)Session["AccountInfo"])["Id"].ToString()
-                    + "'"
-                    + " order by Sn desc "
-                    ).Tables[0].Rows[0]["Id"].ToString();
-
-            }
-            catch (Exception ex)
-            {
-                SysProperty.Log.Error(ex.Message);
-                ShowErrorMsg(ex.Message);
-                return string.Empty;
-            }
-        }
-
 
         private bool WriteBackConsult(bool isInsert, List<DbSearchObject> lst, string id)
         {
@@ -1172,7 +1146,7 @@ namespace TheWeWebSite.CaseMgt
             Server.Transfer("AdvisoryMaintain.aspx", true);
         }
 
-        #region Existence Data Set
+        #region Exist Data Set
         private void GetConsultInfo(string id)
         {
             try
@@ -1465,7 +1439,7 @@ namespace TheWeWebSite.CaseMgt
                     {
                         cblCountry.Items.FindByValue(country).Selected = true;
                     }
-                    catch (Exception ex)
+                    catch
                     {
                         continue;
                     }
@@ -1627,6 +1601,7 @@ namespace TheWeWebSite.CaseMgt
             cbReply.Checked = true;
         }
 
+        #region Document Export
         public void GenerateDoc(string sn, DateTime time
             , string bridalName, string bridalEngName, string bridalPhone, string bridalMsg, string bridalBday, string bridalWork, string bridalMail
             , string groomName, string groomEngName, string groomPhone, string groomMsg, string groomBday, string groomWork, string groomMail
@@ -1677,13 +1652,26 @@ namespace TheWeWebSite.CaseMgt
         private List<DataRow> GetChooseLocation()
         {
             List<DataRow> result = new List<DataRow>();
-            foreach (ListItem item in cblLocation.Items)
+            foreach(ListItem item in cblLocation.Items)
             {
                 if (item.Selected)
                 {
                     result.Add(SysProperty.GetChurchById(item.Value));
                 }
             }
+            return result;
+        }
+        #endregion
+
+        private bool VerifyControlValue()
+        {
+            bool result = true;
+
+            result = result & string.IsNullOrEmpty(tbBridalName.Text);
+            result = result & string.IsNullOrEmpty(tbGroomName.Text);
+            result = result & (string.IsNullOrEmpty(tbBridalPhone.Text) | string.IsNullOrEmpty(tbGroomPhone.Text));
+            result = result & (string.IsNullOrEmpty(tbBridalEmail.Text)| string.IsNullOrEmpty(tbGroomEmail.Text));
+
             return result;
         }
     }

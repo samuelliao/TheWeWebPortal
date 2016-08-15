@@ -37,10 +37,10 @@ namespace TheWeLib
                 case "Time":
                     return result ? dt.ToString("HH:mm") : string.Empty;
                 case "Date":
-                    time = result ? dt.ToString("yyyy/MM/dd") : string.Empty;
+                    time = result ? dt.ToString("yyyy-MM-dd") : string.Empty;
                     break;
                 case "DateTime":
-                    time = result ? dt.ToString("yyyy/MM/dd HH:mm:ss") : string.Empty;
+                    time = result ? dt.ToString("yyyy-MM-dd HH:mm") : string.Empty;
                     break;
                 default:
                     time = string.Empty;
