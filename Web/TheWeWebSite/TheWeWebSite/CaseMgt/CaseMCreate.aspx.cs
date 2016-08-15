@@ -320,7 +320,7 @@ namespace TheWeWebSite.CaseMgt
                         , dr["Id"].ToString()
                         ));
                 }
-                ddlStatus.SelectedIndex = 1;
+                ddlStatus.SelectedIndex = 0;
             }
             catch (Exception ex)
             {
@@ -370,7 +370,7 @@ namespace TheWeWebSite.CaseMgt
         {
             if (ddlStatus.SelectedIndex > 1)
             {
-                tbCloseDay.Text = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss");
+                tbCloseDay.Text = DateTime.Now.ToString("yyyy-MM-dd HH:mm");
             }
             else
             {

@@ -21,7 +21,12 @@
 
         <!-- Input -->
         <section class="insert">
-            <asp:ScriptManager runat="server"></asp:ScriptManager>
+            <asp:ScriptManager runat="server">
+                <Scripts>
+                    <asp:ScriptReference Path="../assets/js/picker.js" />
+                    <asp:ScriptReference Path="../assets/js/jquery.min.js" />
+                </Scripts>
+            </asp:ScriptManager>
             <div>
                 <asp:Label runat="server" ID="labelWarnString" ForeColor="Red" Visible="false" />
                 <div class="12u">
@@ -31,6 +36,7 @@
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,SnString%>"></asp:Label>
                             </div>
                             <asp:TextBox runat="server" ID="labelSn" Enabled="false" />
+                            <asp:CheckBox runat="server" ID="cbIsClose" Visible="false" />
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
@@ -104,25 +110,21 @@
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,StatusString%>"></asp:Label>
                             </div>
                             <div style="overflow-y: auto; height: 450px">
-                                <asp:UpdatePanel runat="server">
-                                    <ContentTemplate>
-                                        <asp:TreeView
-                                            NodeIndent="20"
-                                            NodeStyle-NodeSpacing="3"
-                                            NodeStyle-CssClass="treeNode"
-                                            RootNodeStyle-CssClass="rootNode"
-                                            LeafNodeStyle-CssClass="leafNode"
-                                            SelectedNodeStyle-BackColor="#f2a6a6"
-                                            SelectedNodeStyle-Font-Bold="true"
-                                            SelectedNodeStyle-ForeColor="#ffffff"
-                                            runat="server" Font-Size="Small" ID="tvConf" OnSelectedNodeChanged="tvConf_SelectedNodeChanged" ShowCheckBoxes="Leaf">
-                                            <LeafNodeStyle CssClass="leafNode" />
-                                            <NodeStyle CssClass="treeNode" />
-                                            <RootNodeStyle CssClass="rootNode" />
-                                            <SelectedNodeStyle CssClass="selectNode" />
-                                        </asp:TreeView>
-                                    </ContentTemplate>
-                                </asp:UpdatePanel>
+                                <asp:TreeView
+                                    NodeIndent="20"
+                                    NodeStyle-NodeSpacing="3"
+                                    NodeStyle-CssClass="treeNode"
+                                    RootNodeStyle-CssClass="rootNode"
+                                    LeafNodeStyle-CssClass="leafNode"
+                                    SelectedNodeStyle-BackColor="#f2a6a6"
+                                    SelectedNodeStyle-Font-Bold="true"
+                                    SelectedNodeStyle-ForeColor="#ffffff"
+                                    runat="server" Font-Size="Small" ID="tvConf" OnSelectedNodeChanged="tvConf_SelectedNodeChanged" ShowCheckBoxes="Leaf">
+                                    <LeafNodeStyle CssClass="leafNode" />
+                                    <NodeStyle CssClass="treeNode" />
+                                    <RootNodeStyle CssClass="rootNode" />
+                                    <SelectedNodeStyle CssClass="selectNode" />
+                                </asp:TreeView>
                             </div>
                         </div>
                         <div class="10u 12u(mobilep)">
@@ -131,13 +133,9 @@
                             </div>
                             <div style="margin-bottom: 50px">
                                 <div style="float: left">
-                                    <asp:UpdatePanel runat="server">
-                                        <ContentTemplate>
-                                            <asp:TextBox runat="server" Style="text-align: right" ID="tbConDate"
-                                                Width="200px"
-                                                CssClass="date date-1" value="" placeholder="YYYY-MM-DD HH:MM APM" data-timeformat="HH:MM"></asp:TextBox>
-                                        </ContentTemplate>
-                                    </asp:UpdatePanel>
+                                    <asp:TextBox runat="server" Style="text-align: right" ID="tbConDate"
+                                        Width="200px"
+                                        CssClass="date date-1" value="" placeholder="YYYY-MM-DD HH:MM APM" data-timeformat="HH:MM"></asp:TextBox>
                                 </div>
                                 <div style="float: left; padding: 7px 0 0 10px">
                                     <asp:UpdatePanel runat="server">

@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
+using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using TheWeLib;
 using TheWeWebSite.Output;
@@ -55,6 +56,8 @@ namespace TheWeWebSite.CaseMgt
             btnModify.Enabled = item.CanModify;
             btnPhotoExport.Enabled = item.CanExport;
             btnPhotoExport.Visible = item.CanExport;
+            btnCouplesInfo.Enabled = item.CanExport;
+            btnCouplesInfo.Visible = item.CanExport;
         }
         private void InitialConferenceItem()
         {
@@ -126,7 +129,11 @@ namespace TheWeWebSite.CaseMgt
             if (string.IsNullOrEmpty(itemId)) return;
             bool result = WriteBackData(MsSqlTable.ConferenceInfo, ConferenceItemDbObject(itemId, orderId), orderId, itemId);
             if (!result) return;
-            result = WriteBackData(MsSqlTable.OrderInfo, OrderInfoDbObject(itemId), orderId, itemId);
+            else
+            {
+                tvConf.SelectedNode.Checked = cbCompleted.Checked;
+                WriteBackData(MsSqlTable.OrderInfo, OrderInfoDbObject(itemId), orderId, itemId);
+            }
         }
         protected void btnCancel_Click(object sender, EventArgs e)
         {
@@ -201,7 +208,8 @@ namespace TheWeWebSite.CaseMgt
             {
                 string sql = "Select * From WeddingCategory Where Id = '" + id + "'";
                 return SysProperty.GenDbCon.GetDataFromTable(sql);
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 SysProperty.Log.Error(ex.Message);
                 ShowErrorMsg(ex.Message);
@@ -244,8 +252,19 @@ namespace TheWeWebSite.CaseMgt
                 cultureCode
                 , weddingType.Tables[0].Rows[0]
                 );
-            }            
-            SetConferenceItem(id);
+            }
+            SetConferenceItem(id, dr["ConferenceCategory"].ToString());
+            
+
+            // Hide edit button when case closed.
+            bool isClose = !string.IsNullOrEmpty(SysProperty.Util.ParseDateTime("DateTime", dr["CloseTime"].ToString()));
+            cbIsClose.Checked = isClose;
+            if (isClose)
+            {
+                btnModify.Visible = false;
+                cbCompleted.Enabled = false;
+                tbRemark.Enabled = false;
+            }
         }
 
         private string GetExpectDate(DataRow dr)
@@ -279,7 +298,7 @@ namespace TheWeWebSite.CaseMgt
             else return string.Empty;
         }
 
-        private void SetConferenceItem(string id)
+        private void SetConferenceItem(string id, string nowConf)
         {
             DataSet ds = GetConferenceList(" And OrderId = '" + id + "'");
             if (SysProperty.Util.IsDataSetEmpty(ds)) return;
@@ -291,11 +310,17 @@ namespace TheWeWebSite.CaseMgt
                     index = int.Parse(dr["ConferenceLv"].ToString()) - 1;
                     for (int i = 0; i < tvConf.Nodes[index].ChildNodes.Count; i++)
                     {
+                        if (tvConf.Nodes[index].ChildNodes[i].Value == nowConf)
+                        {
+                            tvConf.Nodes[index].ChildNodes[i].Selected = true;
+                            tvConf_SelectedNodeChanged(tvConf, new EventArgs());
+                        }
+
                         if (tvConf.Nodes[index].ChildNodes[i].Value == dr["ItemId"].ToString())
                         {
                             tvConf.Nodes[index].ChildNodes[i].Checked = true;
                             break;
-                        }
+                        }                        
                     }
                 }
             }
@@ -313,11 +338,13 @@ namespace TheWeWebSite.CaseMgt
             }
             else
             {
-                tbConDate.Enabled = true;
-                cbCompleted.Enabled = true;
-                tbRemark.Enabled = true;
-                btnModify.Enabled = true;
-                DataSet ds = GetConferenceList(" And ItemId = '" + id + "'");
+                tbConDate.Enabled = !cbIsClose.Checked;
+                cbCompleted.Enabled = !cbIsClose.Checked;
+                tbRemark.Enabled = !cbIsClose.Checked;
+                btnModify.Enabled = !cbIsClose.Checked;
+                DataSet ds = GetConferenceList(
+                    " And OrderId = '" + Session["OrderId"].ToString() + "'"
+                    +" And ItemId = '" + id + "'");
                 if (SysProperty.Util.IsDataSetEmpty(ds))
                 {
                     tbRemark.Text = string.Empty;
@@ -453,7 +480,7 @@ namespace TheWeWebSite.CaseMgt
             }
         }
 
-        #region Document Exportation
+        #region Document Export
         private void InitialLangList()
         {
             ddlLang.Items.Clear();
@@ -462,6 +489,7 @@ namespace TheWeWebSite.CaseMgt
             ddlLang.Items.Add(new ListItem(Resources.Resource.EnglishString, "en"));
             ddlLang.Items.Add(new ListItem(Resources.Resource.JapaneseString, "ja-JP"));
             ddlLang.SelectedIndex = new ResourceUtil().OutputLangNameNumber(((string)Session["CultureCode"]));
+            ddlLang.SelectedValue = Session["CultureCode"].ToString();
         }
         protected void btnPhotoExport_Click(object sender, EventArgs e)
         {
@@ -493,7 +521,7 @@ namespace TheWeWebSite.CaseMgt
         }
 
         protected void btnCouplesInfo_Click(object sender, EventArgs e)
-        {            
+        {
             CreateCouplesInfoDoc(labelSn.Text, tbContractDate.Text, tbLocation.Text
                 , tbBridalName.Text, labelBridalEngName.Text, labelBridalPhone.Text
                 , tbGroomName.Text, labelGroomEngName.Text, labelGroomPhone.Text
@@ -531,5 +559,28 @@ namespace TheWeWebSite.CaseMgt
             }
         }
         #endregion
+
+        protected override void OnInit(EventArgs e)
+        {
+            base.OnInit(e);
+            ScriptManager sm = ScriptManager.GetCurrent(Page);
+            if (sm.IsInAsyncPostBack)
+            {
+                //         < link href = "../assets/css/font-awesome.min.css" rel = "stylesheet" />   
+                //< link href = "../assets/css/jquery-ui.css" rel = "stylesheet" />
+                HtmlLink l = new HtmlLink();                
+                l = new HtmlLink();
+                l.Href = ResolveUrl("../assets/css/font-awesome.min.css");
+                l.Attributes.Add("rel", "stylesheet");
+                Page.Header.Controls.Add(l);
+                l = new HtmlLink();
+                l.Href = ResolveUrl("../assets/css/jquery-ui.css");
+                l.Attributes.Add("rel", "stylesheet");
+                Page.Header.Controls.Add(l);
+                l.Href = ResolveUrl("../assets/css/calendar.css");
+                l.Attributes.Add("rel", "stylesheet");
+                Page.Header.Controls.Add(l);
+            }
+        }
     }
 }
