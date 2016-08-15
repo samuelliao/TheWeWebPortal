@@ -27,6 +27,18 @@ namespace TheWeLib.DbControl
             return GetDataFromTable(sqlTxt);
         }
 
+        public DataSet GetTopDataFromTable(string instance, string tableName, string condition)
+        {
+            if (string.IsNullOrEmpty(tableName)) return null;
+            string sqlTxt = "Select top 1"
+                + (string.IsNullOrEmpty(instance) ? "*" : instance)
+                + " From " + tableName
+                + condition;
+            return GetDataFromTable(sqlTxt);
+        }
+
+
+
         public DataSet GetDataFromTable(string sqlTxt)
         {
             try

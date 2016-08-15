@@ -96,16 +96,12 @@
     <Content Include="assets\css\ie8.css" />
     <Content Include="assets\css\jquery-ui.css" />
     <Content Include="assets\css\main.css" />
-    <Content Include="assets\js\datepicker.js" />
-    <Content Include="assets\js\jquery-1.10.2.js" />
-    <Content Include="assets\js\jquery-ui.js" />
     <Content Include="assets\js\jquery.dropotron.min.js" />
     <Content Include="assets\js\jquery.min.js" />
     <Content Include="assets\js\jquery.scrollgress.min.js" />
     <Content Include="assets\js\main.js" />
     <Content Include="assets\js\picker.js" />
     <Content Include="assets\js\skel.min.js" />
-    <Content Include="assets\js\table.js" />
     <Content Include="assets\js\util.js" />
     <Content Include="CaseMgt\AdvisoryMaintain.aspx" />
     <Content Include="CaseMgt\AdvisoryMCreate.aspx" />
@@ -464,7 +460,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="packages.config" />
-    <Content Include="assets\img\Chees.psd" />
     <None Include="Properties\PublishProfiles\The We.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
