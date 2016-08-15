@@ -125,7 +125,7 @@ namespace TheWeWebSite.StoreMgt
             }
 
             ddlStore.SelectedValue = ((DataRow)Session["LocateStore"])["Id"].ToString();
-            ddlStore.Enabled = false;
+            //ddlStore.Enabled = false;
         }
 
         #region DropDownList Event
@@ -147,11 +147,14 @@ namespace TheWeWebSite.StoreMgt
         #region Button Control
         protected void btnCreate_Click(object sender, EventArgs e)
         {
+            tbOthSn.Text = null;
+            /*
             if (SysProperty.GenDbCon.IsSnDuplicate(SysProperty.Util.MsSqlTableConverter(MsSqlTable.ServiceItem), tbOthSn.Text))
             {
                 ShowErrorMsg(Resources.Resource.SnDuplicateErrorString);
                 return;
             }
+            */
             string typeId = CreateNewType(ddlType.SelectedValue);
             bool result = WriteBackInfo(MsSqlTable.ServiceItem, true, OthItemInfoDbObject(typeId), string.Empty);
             if (result)
@@ -293,7 +296,7 @@ namespace TheWeWebSite.StoreMgt
             tbOthDescription.Text = dr["Description"].ToString();
             tbOthName.Text = dr["Name"].ToString();
             ddlType.SelectedValue = dr["Type"].ToString();
-            ddlOthCategory.SelectedValue = dr["CategroyId"].ToString();
+            ddlOthCategory.SelectedValue = dr["CategoryId"].ToString();
             ddlStore.SelectedValue = dr["StoreId"].ToString();
 
             string imgPath = @dr["Img"].ToString();
@@ -339,7 +342,7 @@ namespace TheWeWebSite.StoreMgt
                 "IsGeneral"
                 , AtrrTypeItem.String
                 , AttrSymbolItem.Equal
-                , "true"
+                , "false"
                 ));
             lst.Add(new DbSearchObject(
                 "Name"
@@ -366,7 +369,7 @@ namespace TheWeWebSite.StoreMgt
                 , tbOthDescription.Text
                 ));
             lst.Add(new DbSearchObject(
-                "CategroyId"
+                "CategoryId"
                 , AtrrTypeItem.String
                 , AttrSymbolItem.Equal
                 , ddlOthCategory.SelectedValue
@@ -380,15 +383,14 @@ namespace TheWeWebSite.StoreMgt
                     , typeId
                     ));
             }
-            if (string.IsNullOrEmpty(ddlStore.SelectedValue))
-            {
+            
                 lst.Add(new DbSearchObject(
                     "StoreId"
                     , AtrrTypeItem.String
                     , AttrSymbolItem.Equal
                     , ddlStore.SelectedValue
                     ));
-            }
+            
             lst.Add(new DbSearchObject(
                 "UpdateAccId"
                 , AtrrTypeItem.String
@@ -425,12 +427,7 @@ namespace TheWeWebSite.StoreMgt
                 , AttrSymbolItem.Equal
                 , "2"
                 ));
-            lst.Add(new DbSearchObject(
-                "Sn"
-                , AtrrTypeItem.Integer
-                , AttrSymbolItem.Equal
-                , (ddlType.Items.Count - 1).ToString()
-                ));
+    
             lst.Add(new DbSearchObject(
                 "UpdateAccId"
                 , AtrrTypeItem.String
@@ -540,7 +537,7 @@ namespace TheWeWebSite.StoreMgt
         protected void btnImgFrontUpload_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(tbFolderPath.Text)) return;
-            CheckFolder(SysProperty.ImgRootFolderpath + @"\Item\" + tbOthSn.Text);
+            CheckFolder(tbFolderPath.Text);
             ImgFrontUpload.PostedFile.SaveAs(tbFolderPath.Text + @"\" + tbOthSn.Text + "_1.jpg");
             RefreshImage(1, tbFolderPath.Text);
         }
@@ -548,7 +545,7 @@ namespace TheWeWebSite.StoreMgt
         protected void btnImgBackUpload_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(tbFolderPath.Text)) return;
-            CheckFolder(SysProperty.ImgRootFolderpath + @"\Item\" + tbOthSn.Text);
+            CheckFolder(tbFolderPath.Text);
             ImgBackUpload.PostedFile.SaveAs(tbFolderPath.Text + @"\" + tbOthSn.Text + "_2.jpg");
             RefreshImage(2, tbFolderPath.Text);
         }
@@ -556,7 +553,7 @@ namespace TheWeWebSite.StoreMgt
         protected void btnImgSideUpload_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(tbFolderPath.Text)) return;
-            CheckFolder(SysProperty.ImgRootFolderpath + @"\Item\" + tbOthSn.Text);
+            CheckFolder(tbFolderPath.Text);
             ImgSideUpload.PostedFile.SaveAs(tbFolderPath.Text + @"\" + tbOthSn.Text + "_3.jpg");
             RefreshImage(3, tbFolderPath.Text);
         }
@@ -572,7 +569,7 @@ namespace TheWeWebSite.StoreMgt
         protected void btnImgOther1_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(tbFolderPath.Text)) return;
-            CheckFolder(SysProperty.ImgRootFolderpath + @"\Item\" + tbOthSn.Text);
+            CheckFolder(tbFolderPath.Text);
             ImgOther1Upload.PostedFile.SaveAs(tbFolderPath.Text + @"\" + tbOthSn.Text + "_4.jpg");
             RefreshImage(4, tbFolderPath.Text);
         }

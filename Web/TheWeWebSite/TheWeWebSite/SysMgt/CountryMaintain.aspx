@@ -121,8 +121,8 @@
                                                 <asp:Label runat="server" ID="labelDgLang" />
                                             </ItemTemplate>
                                         </asp:TemplateColumn>
-                                        <asp:BoundColumn HeaderText="<%$ Resources:Resource,UpdateTimeString%>" DataField="UpdateTime" Enabled="false"  SortExpression="UpdateTime"/>
-                                        <asp:BoundColumn HeaderText="<%$ Resources:Resource,EmployeeString%>" DataField="EmployeeName"  Enabled="false" SortExpression="EmployeeName"/>
+                                        <asp:BoundColumn HeaderText="<%$ Resources:Resource,UpdateTimeString%>" DataField="UpdateTime"   SortExpression="UpdateTime"/>
+                                        <asp:BoundColumn HeaderText="<%$ Resources:Resource,EmployeeString%>" DataField="EmployeeName"   SortExpression="EmployeeName"/>
                                         <asp:EditCommandColumn EditText="<%$ Resources:Resource,ModifyString%>"
                                             CancelText="<%$ Resources:Resource,CancelString%>"
                                             UpdateText="<%$ Resources:Resource,UpdateString%>"

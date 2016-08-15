@@ -23,8 +23,9 @@ namespace TheWeWebSite.StoreMgt
                     SysProperty.DataSetSortType = true;
                     labelPageTitle.Text = Resources.Resource.OrderMgtString
                         + " > " + Resources.Resource.WeddingItemMaintainString;
-                    InitialOthType();
+                    InitialOthCategory();
                     InitialControlWithPermission();
+
                     BindData();
                 }
             }
@@ -37,7 +38,7 @@ namespace TheWeWebSite.StoreMgt
         private void InitialControlWithPermission()
         {
             PermissionUtil util = new PermissionUtil();
-            if (Session["Operation"] == null) Response.Redirect("~/Login.aspx");            
+            if (Session["Operation"] == null) Response.Redirect("~/Login.aspx");
             if (!bool.Parse(((DataRow)Session["LocateStore"])["HoldingCompany"].ToString()))
             {
                 LinkOtherItemMCreate.Visible = false;
@@ -52,12 +53,12 @@ namespace TheWeWebSite.StoreMgt
                 dataGrid.Columns[dataGrid.Columns.Count - 1].Visible = item.CanDelete;
             }
         }
-        private void InitialOthType()
+        private void InitialOthCategory()
         {
             ddlOthCategory.Items.Clear();
             try
             {
-                ddlOthCategory.Items.Add(new ListItem(Resources.Resource.TypeSelectRemindString, string.Empty, true));
+                ddlOthCategory.Items.Add(new ListItem(Resources.Resource.SeletionRemindString, string.Empty, true));
                 string sql = "select * from ServiceItemCategory where TypeLv = 1 and IsDelete =0";
                 DataSet ds = SysProperty.GenDbCon.GetDataFromTable(sql);
                 if (SysProperty.Util.IsDataSetEmpty(ds)) return;
@@ -76,6 +77,10 @@ namespace TheWeWebSite.StoreMgt
             }
         }
 
+
+
+
+
         protected void btnSearch_Click(object sender, EventArgs e)
         {
             OtherConditionString = string.Empty;
@@ -91,8 +96,9 @@ namespace TheWeWebSite.StoreMgt
 
             if (!string.IsNullOrEmpty(ddlOthCategory.SelectedValue))
             {
-                OtherConditionString += " And a.Type = '" + ddlOthCategory.SelectedValue + "'";
+                OtherConditionString += " And a.CategoryId = '" + ddlOthCategory.SelectedValue + "'";
             }
+            
             BindData();
         }
 
@@ -149,10 +155,13 @@ namespace TheWeWebSite.StoreMgt
             DataRowView dataItem1 = (DataRowView)e.Item.DataItem;
             if (dataItem1 != null)
             {
-                Label label = (Label)e.Item.FindControl("dgLabelType");
-                label.Text = dataItem1["Type"].ToString();
+                Label label = (Label)e.Item.FindControl("dgLabelCategory");
+                label.Text = dataItem1["CategoryName"].ToString();
+                Label labe2 = (Label)e.Item.FindControl("dgLabelType");
+                labe2.Text = dataItem1["TypeName"].ToString();
             }
         }
+        
         #endregion
 
         private void BindData()
@@ -171,7 +180,7 @@ namespace TheWeWebSite.StoreMgt
                 string condStr = string.Empty;
                 if (string.IsNullOrEmpty(ddlOthCategory.SelectedValue))
                 {
-                    condStr = OtherConditionString + " And CategroyId = '4ec16237-2cb6-496f-ab85-8fa708aa4d55'"
+                    condStr = OtherConditionString + " And CategoryId = '4ec16237-2cb6-496f-ab85-8fa708aa4d55'"
                         + (bool.Parse(((DataRow)Session["LocateStore"])["HoldingCompany"].ToString())
                             ? string.Empty
                             : " and a.StoreId = '" + ((DataRow)Session["LocateStore"])["Id"].ToString() + "'");
@@ -207,9 +216,11 @@ namespace TheWeWebSite.StoreMgt
                 string sql = "select a.[Id],a.[Sn]"
                         + " ,a.[Name],a.[Description],a.[Type],a.[Price]"
                         + " ,a.[SupplierId],a.[Cost],a.[StoreId],a.[CnName]"
-                        + " ,a.[EngName],a.[JpName],a.[IsDelete],a.[CategroyId]"
-                        + " ,a.[UpdateAccId],a.[UpdateTime],a.IsGeneral"
+                        + " ,a.[EngName],a.[JpName],a.[IsDelete],a.[CategoryId]"
+                        + " ,a.[UpdateAccId],a.[UpdateTime],a.IsGeneral,b.Name as TypeName,c.Name as CategoryName,a.StoreId"
                         + " from [TheWe].[dbo].[ServiceItem] as a "
+                        + " left join ServiceItemCategory as b on b.id=a.Type "
+                        + " left join ServiceItemCategory as c on c.id=a.CategoryId"
                         + " WHERE a.IsDelete = 0 " + condStr + " " + sortStr;
                 return SysProperty.GenDbCon.GetDataFromTable(sql);
             }

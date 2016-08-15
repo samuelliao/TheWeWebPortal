@@ -48,10 +48,12 @@
                                 </div>
                                 <div class="2u 12u(mobilep)">
                                     <div class="Div">
-                                        <asp:Label runat="server" Text="<%$ Resources:Resource,TypeString%>"></asp:Label>
+                                        <asp:Label runat="server" Text="<%$ Resources:Resource,CategoryString%>"></asp:Label>
                                     </div>
                                     <asp:DropDownList runat="server" ID="ddlOthCategory" />
                                 </div>
+
+                             
 
                                 <!-- Btn -->
 
@@ -90,11 +92,18 @@
                                         <asp:BoundColumn Visible="false" DataField="Id" />
                                         <asp:BoundColumn HeaderText="<%$ Resources:Resource,OtherItemSnString%>" DataField="Sn" SortExpression="Sn" />
                                         <asp:BoundColumn HeaderText="<%$ Resources:Resource,NameString%>" DataField="Name" SortExpression="Name" />
+                                        <asp:TemplateColumn HeaderText="<%$ Resources:Resource,CategoryString%>" SortExpression="CategoryId">
+                                            <ItemTemplate>
+                                                <asp:Label runat="server" ID="dgLabelCategory" />
+                                            </ItemTemplate>
+                                        </asp:TemplateColumn>
+                                        
                                         <asp:TemplateColumn HeaderText="<%$ Resources:Resource,TypeString%>" SortExpression="Type">
                                             <ItemTemplate>
                                                 <asp:Label runat="server" ID="dgLabelType" />
                                             </ItemTemplate>
                                         </asp:TemplateColumn>
+                                        
                                         <asp:BoundColumn HeaderText="<%$ Resources:Resource,PriceString%>" DataField="Price" SortExpression="Price" />
                                         <asp:BoundColumn HeaderText="<%$ Resources:Resource,DescriptionString%>" DataField="Description" SortExpression="Description" />
                                         <asp:ButtonColumn CommandName="Delete"

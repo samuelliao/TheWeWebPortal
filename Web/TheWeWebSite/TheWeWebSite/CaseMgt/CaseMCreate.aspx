@@ -587,10 +587,6 @@
         <!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
         <script src="../assets/js/main.js"></script>
         <!-- datepicker -->
-        <script src="../assets/js/datepicker.js"></script>
-        <script src="../assets/js/jquery-1.10.2.js"></script>
-        <script src="../assets/js/jquery-ui.js"></script>
-        <!-- datepicker -->
         <script src="../assets/js/picker.js"></script>
     </form>
 </body>
