@@ -406,7 +406,8 @@ namespace TheWeWebSite.CaseMgt
                 ));
             bool result = WriteBackConsult(true, lst, string.Empty);
             if (!result) return;
-            string id = GetCreateConsultId(lst);
+            //string id = GetCreateConsultId(lst);
+            string id = GetId(lst);
             if (string.IsNullOrEmpty(id)) return;
             result = WriteBackService(true, ServiceDbObject(id), id);
             if (!result)
@@ -972,6 +973,28 @@ namespace TheWeWebSite.CaseMgt
                 return string.Empty;
             }
         }
+
+        private string GetId(List<DbSearchObject> lst)
+        {
+            try
+            {
+                return SysProperty.GenDbCon.GetTopDataFromTable("Id"
+                    , SysProperty.Util.MsSqlTableConverter(MsSqlTable.vwEN_Consultation)
+                    , " Where StoreId=N'" + ((DataRow)Session["LocateStore"])["Id"].ToString() + "'"
+                    + " And EmployeeId=N'" + ((DataRow)Session["AccountInfo"])["Id"].ToString()
+                    + "'"
+                    + " order by Sn desc "
+                    ).Tables[0].Rows[0]["Id"].ToString();
+
+            }
+            catch (Exception ex)
+            {
+                SysProperty.Log.Error(ex.Message);
+                ShowErrorMsg(ex.Message);
+                return string.Empty;
+            }
+        }
+
 
         private bool WriteBackConsult(bool isInsert, List<DbSearchObject> lst, string id)
         {
@@ -1654,7 +1677,7 @@ namespace TheWeWebSite.CaseMgt
         private List<DataRow> GetChooseLocation()
         {
             List<DataRow> result = new List<DataRow>();
-            foreach(ListItem item in cblLocation.Items)
+            foreach (ListItem item in cblLocation.Items)
             {
                 if (item.Selected)
                 {
@@ -1662,6 +1685,6 @@ namespace TheWeWebSite.CaseMgt
                 }
             }
             return result;
-        }        
+        }
     }
 }
