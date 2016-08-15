@@ -573,6 +573,11 @@ namespace TheWeWebSite.CaseMgt
                 )).ToString("#0.00");
 
             ddlStatus.SelectedValue = dr["StatusId"].ToString();
+            if (ddlStatus.SelectedIndex != 0)
+            {
+                btnModify.Visible = false;
+                btnDelete.Visible = false;
+            }
             ddlProductSet.SelectedValue = dr["SetId"].ToString();
             ddlOrderType.SelectedValue = dr["ServiceType"].ToString();
             ddlCountry.SelectedValue = dr["CountryId"].ToString();
@@ -1453,6 +1458,7 @@ namespace TheWeWebSite.CaseMgt
         }
         #endregion
 
+        #region Document Export
         private void CreateContrctDoc(string sn
             , string bridalName, string bridalEmail, string bridalPhone
             , string groomName, string groomEmail, string groomPhone
@@ -1523,5 +1529,6 @@ namespace TheWeWebSite.CaseMgt
             if (result) return tmp.ToString("dd/MM/yyyy");
             else return string.Empty;
         }
+        #endregion
     }
 }

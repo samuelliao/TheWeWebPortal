@@ -163,7 +163,7 @@ namespace TheWeWebSite
                     Session["LocateStore"] = ds.Tables[0].Rows[0];
                 }
             }
-            catch (Exception ex)
+            catch
             {
                 Session["LocateStore"] = null;
             }
@@ -188,7 +188,7 @@ namespace TheWeWebSite
                     Session["CasePermission"] = SysProperty.Util.WebPermission(false, ds);
                 }
             }
-            catch (Exception ex)
+            catch
             {
                 Session["CasePermission"] = null;
             }
@@ -212,7 +212,7 @@ namespace TheWeWebSite
                     Session["Operation"] = SysProperty.Util.WebPermission(true, ds);
                 }
             }
-            catch (Exception ex)
+            catch
             {
                 Session["Operation"] = null;
             }

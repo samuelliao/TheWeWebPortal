@@ -960,10 +960,7 @@ namespace TheWeWebSite.CaseMgt
             {
                 return SysProperty.GenDbCon.GetDataFromTable("Id"
                     , SysProperty.Util.MsSqlTableConverter(MsSqlTable.vwEN_Consultation)
-                    , " Where Sn=N'" + tbSn.Text + "'"
-                    + " And StoreId=N'" + ((DataRow)Session["LocateStore"])["Id"].ToString() + "'"
-                    + " And EmployeeId=N'" + ((DataRow)Session["AccountInfo"])["Id"].ToString()
-                    + "'").Tables[0].Rows[0]["Id"].ToString();
+                    , SysProperty.Util.SqlQueryConditionConverter(lst)).Tables[0].Rows[0]["Id"].ToString();
             }
             catch (Exception ex)
             {
@@ -1149,7 +1146,7 @@ namespace TheWeWebSite.CaseMgt
             Server.Transfer("AdvisoryMaintain.aspx", true);
         }
 
-        #region Existence Data Set
+        #region Exist Data Set
         private void GetConsultInfo(string id)
         {
             try
@@ -1442,7 +1439,7 @@ namespace TheWeWebSite.CaseMgt
                     {
                         cblCountry.Items.FindByValue(country).Selected = true;
                     }
-                    catch (Exception ex)
+                    catch
                     {
                         continue;
                     }
@@ -1604,6 +1601,7 @@ namespace TheWeWebSite.CaseMgt
             cbReply.Checked = true;
         }
 
+        #region Document Export
         public void GenerateDoc(string sn, DateTime time
             , string bridalName, string bridalEngName, string bridalPhone, string bridalMsg, string bridalBday, string bridalWork, string bridalMail
             , string groomName, string groomEngName, string groomPhone, string groomMsg, string groomBday, string groomWork, string groomMail
@@ -1662,6 +1660,19 @@ namespace TheWeWebSite.CaseMgt
                 }
             }
             return result;
-        }        
+        }
+        #endregion
+
+        private bool VerifyControlValue()
+        {
+            bool result = true;
+
+            result = result & string.IsNullOrEmpty(tbBridalName.Text);
+            result = result & string.IsNullOrEmpty(tbGroomName.Text);
+            result = result & (string.IsNullOrEmpty(tbBridalPhone.Text) | string.IsNullOrEmpty(tbGroomPhone.Text));
+            result = result & (string.IsNullOrEmpty(tbBridalEmail.Text)| string.IsNullOrEmpty(tbGroomEmail.Text));
+
+            return result;
+        }
     }
 }
