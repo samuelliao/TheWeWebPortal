@@ -1417,6 +1417,54 @@ namespace TheWeWebSite.CaseMgt
             }
         }
 
+        protected void cblWeddingPlanner_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            bool result = cblWeddingPlanner.Items.Cast<ListItem>().Where(x => x.Selected).ToList().Count > 0;
+            cblAdvisory.Items[cblAdvisory.Items.Count - 1].Selected = result;
+        }
+
+        protected void cblLocation_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            List<string> locLst = cblLocation.Items.Cast<ListItem>().Where(x => x.Selected).Select(x => x.Value).ToList();
+            List<DataRow> churchLst = new List<DataRow>();
+            foreach (string locId in locLst)
+            {
+                churchLst.Add(SysProperty.GetChurchById(locId));
+            }
+
+
+            if (churchLst.Count > 0)
+            {
+                // Refresh Country List
+                foreach (string country in churchLst.Select(x => x["CountryId"].ToString()).Distinct().ToList())
+                {
+                    try
+                    {
+                        cblCountry.Items.FindByValue(country).Selected = true;
+                    }
+                    catch (Exception ex)
+                    {
+                        continue;
+                    }
+                }
+                cblCountry_SelectedIndexChanged(cblCountry, new EventArgs());
+
+                // Refresh area list
+                foreach (string area in churchLst.Select(x => x["AreaId"].ToString()).Distinct().ToList())
+                {
+                    try
+                    {
+                        cblArea.Items.FindByValue(area).Selected = true;
+                    }
+                    catch
+                    {
+                        continue;
+                    }
+                }
+                cblArea_SelectedIndexChanged(cblArea, new EventArgs());
+            }
+        }
+
         private List<string> GetCurrentChurchSelection(CheckBoxList lst)
         {
             List<string> churchs = new List<string>();
@@ -1614,6 +1662,6 @@ namespace TheWeWebSite.CaseMgt
                 }
             }
             return result;
-        }
+        }        
     }
 }
