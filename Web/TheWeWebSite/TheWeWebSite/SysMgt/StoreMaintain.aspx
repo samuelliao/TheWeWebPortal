@@ -78,17 +78,17 @@
                                 </div>
                                 <div class="12u">
                                     <div class="row uniform 50%">
-                                        <div class="2u 12u(mobilep)">
+                                        <div class="4u 12u(mobilep)">
                                             <div class="Div">
                                                 <asp:Label runat="server" Text="<%$ Resources:Resource,AddressString%>"></asp:Label>
                                             </div>
                                             <asp:TextBox runat="server" placeholder="<%$ Resources:Resource,AddressInputString%>" ID="tbAdress"></asp:TextBox>
                                         </div>
-                                        <div class="2u 12u(mobilep)">
+                                        <div class="6u 12u(mobilep)">
                                             <div class="Div">
                                                 <asp:Label runat="server" Text="<%$ Resources:Resource,RemarkString%>"></asp:Label>
                                             </div>
-                                            <asp:TextBox runat="server" ID="tbRemark" Width="200px" TextMode="MultiLine" Height="300px"></asp:TextBox>
+                                            <asp:TextBox runat="server" ID="tbRemark"  TextMode="MultiLine" ROWS="2"></asp:TextBox>
                                         </div>
                                     </div>                                   
                                 </div>
@@ -157,8 +157,8 @@
                                                     </ItemTemplate>
                                                 </asp:TemplateColumn>
                                                 <asp:BoundColumn DataField="Description" HeaderText="<%$ Resources:Resource,RemarkString%>" SortExpression="Description" />
-                                                <asp:BoundColumn HeaderText="<%$ Resources:Resource,UpdateTimeString%>" DataField="UpdateTime" Enabled="false" SortExpression="UpdateTime" />
-                                                <asp:BoundColumn HeaderText="<%$ Resources:Resource,EmployeeString%>" DataField="EmployeeName" Enabled="false" SortExpression="EmployeeName" />
+                                                <asp:BoundColumn HeaderText="<%$ Resources:Resource,UpdateTimeString%>" DataField="UpdateTime"  SortExpression="UpdateTime" />
+                                                <asp:BoundColumn HeaderText="<%$ Resources:Resource,EmployeeString%>" DataField="EmployeeName" SortExpression="EmployeeName" />
                                                 <asp:EditCommandColumn EditText="<%$ Resources:Resource,ModifyString%>"
                                                     CancelText="<%$ Resources:Resource,CancelString%>"
                                                     UpdateText="<%$ Resources:Resource,UpdateString%>"

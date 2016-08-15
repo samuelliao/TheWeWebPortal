@@ -119,6 +119,7 @@ namespace TheWeWebSite.StoreMgt
                 Session["FittingCategory"] = ddlCategory.SelectedValue;
                 OtherCondStr = string.IsNullOrEmpty(ddlType.SelectedValue) ? string.Empty : " And Category = '" + ddlType.SelectedValue + "'";
                 OtherCondStr += string.IsNullOrEmpty(tbSn.Text) ? string.Empty : " And Sn like '%" + tbSn.Text + "%'";
+                OtherCondStr += string.IsNullOrEmpty(ddlStatus.SelectedValue) ? string.Empty : "And StatusCode ='" + ddlStatus.SelectedValue + "'";
                 BindData();
             }
         }
