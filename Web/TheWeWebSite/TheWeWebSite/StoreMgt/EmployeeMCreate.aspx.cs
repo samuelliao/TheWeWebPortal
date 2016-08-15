@@ -140,6 +140,7 @@ namespace TheWeWebSite.StoreMgt
         #region Button Control
         protected void btnCreate_Click(object sender, EventArgs e)
         {
+            
             if (SysProperty.GenDbCon.IsSnDuplicate(
                 SysProperty.Util.MsSqlTableConverter(MsSqlTable.Employee), tbEmpSn.Text))
             {
@@ -149,18 +150,29 @@ namespace TheWeWebSite.StoreMgt
             List<DbSearchObject> lst = EmployeeInfoDbObject(true);
             bool result = WriteBackInfo(true, lst, string.Empty);
             if (!result) return;
+            //string eid = GetCreatedDataId(MsSqlTable.vwEN_Employee, lst);
+
+
             string eid = GetCreatedDataId(MsSqlTable.vwEN_Employee, lst);
             if (string.IsNullOrEmpty(eid)) return;
+            
+            //這段沒做到
             lst = PermissionDbObject(eid);
+
+            //OK
             result = WriteBackPermission(lst);
             if (!result) return;
+
+
             string pid = GetCreatedDataId(MsSqlTable.Permission, lst);
             if (string.IsNullOrEmpty(pid)) return;
+
             result = WriteBackPermissionItem(PermissionItemDbObject(pid), pid, "Store");
             if (result)
             {
                 TransferToOtherPage();
             }
+            //
         }
 
         protected void btnModify_Click(object sender, EventArgs e)
@@ -414,12 +426,7 @@ namespace TheWeWebSite.StoreMgt
                 , AttrSymbolItem.Equal
                 , ddlStore.SelectedValue
                 ));
-            lst.Add(new DbSearchObject(
-                "PhotoImg"
-                , AtrrTypeItem.String
-                , AttrSymbolItem.Equal
-                , @"Employee\" + tbEmpSn.Text
-                ));
+
             return lst;
         }
         private List<DbSearchObject> PermissionDbObject(string eid)
