@@ -67,17 +67,19 @@
                                                 <asp:Label runat="server" Text="<%$ Resources:Resource,StoreLevelString%>" ForeColor="Red"></asp:Label>
                                             </div>
                                             <asp:DropDownList runat="server" ID="ddlLv" />
-                                        </div>
+                                        </div>   
                                         <div class="2u 12u(mobilep)">
                                             <div class="Div">
-                                                <asp:Label runat="server" Text="<%$ Resources:Resource,SnString%>" ForeColor="Red"></asp:Label>
+                                                <asp:Label runat="server" Text="<%$ Resources:Resource,CodeString%>" ForeColor="Red"></asp:Label>
                                             </div>
-                                            <asp:TextBox runat="server" ID="tbSn" Width="200px" Enabled="false"></asp:TextBox>
-                                        </div>                                    
+                                            <asp:TextBox runat="server" ID="tbStoreCode"></asp:TextBox>
+                                            <asp:RegularExpressionValidator ID="RegularExpressionValidator6" ControlToValidate="tbStoreCode" runat="server"
+                                        ErrorMessage="Only Three Characters allowed" ValidationExpression="[A-Za-z0-9]{1,3}"></asp:RegularExpressionValidator>
+                                        </div>                               
                                     </div>                                   
                                 </div>
                                 <div class="12u">
-                                    <div class="row uniform 50%">
+                                    <div class="row uniform 50%">                                        
                                         <div class="4u 12u(mobilep)">
                                             <div class="Div">
                                                 <asp:Label runat="server" Text="<%$ Resources:Resource,AddressString%>"></asp:Label>

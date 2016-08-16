@@ -1,4 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="CustomerMCreate.aspx.cs" Inherits="TheWeWebSite.CaseMgt.CustomerMCreate" %>
+<%@ Register TagPrefix="My" TagName="Header" Src="~/Header.ascx" %>
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -11,7 +12,7 @@
 </head>
 <body>
     <form runat="server">
-
+        <My:Header runat="server" ID="ucHeader" />
         <!-- Main -->
 
         <section class="box title">

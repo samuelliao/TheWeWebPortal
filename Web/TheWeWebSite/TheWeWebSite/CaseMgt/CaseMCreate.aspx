@@ -1,5 +1,6 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="CaseMCreate.aspx.cs" Inherits="TheWeWebSite.CaseMgt.CaseMCreate" %>
 
+<%@ Register TagPrefix="My" TagName="Header" Src="~/Header.ascx" %>
 
 <!DOCTYPE html>
 
@@ -15,7 +16,7 @@
 </head>
 <body>
     <form runat="server">
-
+        <My:Header runat="server" ID="ucHeader" />
         <!-- Main -->
         <section class="box title">
             <h3>
@@ -137,7 +138,7 @@
                                         OnSelectedIndexChanged="ddlLocate_SelectedIndexChanged" />
                                 </ContentTemplate>
                             </asp:UpdatePanel>
-                        </div>                        
+                        </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,ProductSetString%>"></asp:Label>
@@ -492,7 +493,46 @@
                                 </asp:UpdatePanel>
                             </div>
                         </div>
-
+                        <div class="2u 12u(mobilep)">
+                            <div class="Div">
+                                <asp:Label runat="server" Text="訂金付款方式"></asp:Label>
+                            </div>
+                            <div>
+                                <asp:UpdatePanel runat="server">
+                                    <ContentTemplate>
+                                        <asp:TextBox runat="server" ID="tbDeposit1Type"></asp:TextBox>
+                                    </ContentTemplate>
+                                </asp:UpdatePanel>
+                            </div>
+                        </div>
+                        <div class="2u 12u(mobilep)">
+                            <div class="Div">
+                                <asp:Label runat="server" Text="二次付款方式"></asp:Label>
+                            </div>
+                            <div>
+                                <asp:UpdatePanel runat="server">
+                                    <ContentTemplate>
+                                        <asp:TextBox runat="server" ID="tbDeposit2Type"></asp:TextBox>
+                                    </ContentTemplate>
+                                </asp:UpdatePanel>
+                            </div>
+                        </div>
+                        <div class="2u 12u(mobilep)">
+                            <div class="Div">
+                                <asp:Label runat="server" Text="尾款付款方式"></asp:Label>
+                            </div>
+                            <div>
+                                <asp:UpdatePanel runat="server">
+                                    <ContentTemplate>
+                                        <asp:TextBox runat="server" ID="tbPayOffType"></asp:TextBox>
+                                    </ContentTemplate>
+                                </asp:UpdatePanel>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="12u">
+                    <div class="row uniform 50%">
                         <!-- 照片 -->
                         <div class="row no-collapse 50% uniform">
                             <div class="5u">
@@ -512,7 +552,6 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
             <div style="margin-top: 1.5em">

@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="FittingMCreate.aspx.cs" Inherits="TheWeWebSite.StoreMgt.FittingMCreate" %>
-
+<%@ Register TagPrefix="My" TagName="Header" Src="~/Header.ascx" %>
 
 <!DOCTYPE html>
 
@@ -12,7 +12,7 @@
 </head>
 <body>
     <form runat="server">
-
+        <My:Header runat="server" ID="ucHeader" />
         <!-- Main -->
 
         <section class="box title">

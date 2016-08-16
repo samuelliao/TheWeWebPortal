@@ -323,6 +323,11 @@ namespace TheWeWebSite.StoreMgt
                     {
                         ((Label)e.Item.FindControl("dgLabelPrice")).Text = SysProperty.Util.ParseMoney(dataItem1["LvPrice"].ToString()).ToString("#0.00");
                     }
+
+                    if (dataItem1["StoreId"].ToString() != ((DataRow)Session["LocateStore"])["Id"].ToString())
+                    {
+                        e.Item.Cells[e.Item.Cells.Count - 1].Controls[0].Visible = false;
+                    }
                 }
                 else
                 {

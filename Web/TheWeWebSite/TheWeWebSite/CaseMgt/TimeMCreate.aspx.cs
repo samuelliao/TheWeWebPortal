@@ -23,8 +23,7 @@ namespace TheWeWebSite.CaseMgt
                 {
                     SysProperty.DataSetSortType = true;
 
-                    InitialConferenceItem();
-                    InitialControlWithPermission();
+                    InitialConferenceItem();                    
                     InitialLangList();
                     InitialOrderType();
 
@@ -44,6 +43,7 @@ namespace TheWeWebSite.CaseMgt
                         + " > " + Resources.Resource.CreateString;
                         btnModify.Visible = false;
                     }
+                    InitialControlWithPermission();
                 }
             }
         }
@@ -58,6 +58,10 @@ namespace TheWeWebSite.CaseMgt
             btnPhotoExport.Visible = item.CanExport;
             btnCouplesInfo.Enabled = item.CanExport;
             btnCouplesInfo.Visible = item.CanExport;
+            if (bool.Parse(((DataRow)Session["LocateStore"])["HoldingCompany"].ToString()))
+            {
+                btnModify.Visible = false;                
+            }
         }
         private void InitialConferenceItem()
         {
@@ -259,7 +263,7 @@ namespace TheWeWebSite.CaseMgt
             // Hide edit button when case closed.
             bool isClose = !string.IsNullOrEmpty(SysProperty.Util.ParseDateTime("DateTime", dr["CloseTime"].ToString()));
             cbIsClose.Checked = isClose;
-            if (isClose)
+            if (isClose || bool.Parse(((DataRow)Session["LocateStore"])["HoldingCompany"].ToString()))
             {
                 btnModify.Visible = false;
                 cbCompleted.Enabled = false;
