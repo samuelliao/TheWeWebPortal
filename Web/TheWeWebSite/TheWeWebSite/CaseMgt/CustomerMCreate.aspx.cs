@@ -383,7 +383,7 @@ namespace TheWeWebSite.CaseMgt
                 {
                     if (DateTime.Parse(dr["Bday"].ToString()) > new DateTime(1900, 12, 31))
                     {
-                        tbBday.Text = DateTime.Parse(dr["Bday"].ToString()).ToString("yyyy/MM/dd");
+                        tbBday.Text = DateTime.Parse(dr["Bday"].ToString()).ToString("yyyy-MM-dd");
                     }
                     else
                     {

@@ -47,9 +47,9 @@ namespace TheWeWebSite.CaseMgt
                         + " > " + Resources.Resource.CreateString;
                         btnModify.Visible = false;
                         btnClear.Visible = false;
-                        tbLastReceived.Text = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss");
-                        tbBookingDate.Text = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss");
-                        labelConsultDate.Text = DateTime.Now.ToString("yyyy/MM/dd");
+                        tbLastReceived.Text = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                        tbBookingDate.Text = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                        labelConsultDate.Text = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
                     }
                 }
             }
@@ -79,6 +79,7 @@ namespace TheWeWebSite.CaseMgt
         private void InitialControls()
         {
             InitialMsgerType();
+            InitialStoreList();
             InitialSourceInfo();
             InitialAdvisory();
             InitialArea(string.Empty);
@@ -104,6 +105,30 @@ namespace TheWeWebSite.CaseMgt
                         ));
                 }
                 ddlStatus.SelectedIndex = 0;
+            }
+            catch (Exception ex)
+            {
+                SysProperty.Log.Error(ex.Message);
+                ShowErrorMsg(ex.Message);
+            }
+        }
+        private void InitialStoreList()
+        {
+            ddlStore.Items.Clear();
+            try
+            {
+                string sql = "select * from Store"
+                    + " Where IsDelete=0 Order by Sn";
+                DataSet ds = SysProperty.GenDbCon.GetDataFromTable(sql);
+                if (SysProperty.Util.IsDataSetEmpty(ds)) return;
+                foreach (DataRow dr in ds.Tables[0].Rows)
+                {
+                    ddlStore.Items.Add(new ListItem(
+                        SysProperty.Util.OutputRelatedLangName(((string)Session["CultureCode"]), dr)
+                        , dr["Id"].ToString()
+                        ));
+                }
+                ddlStore.SelectedValue = ((DataRow)Session["LocateStore"])["Id"].ToString();
             }
             catch (Exception ex)
             {
@@ -396,7 +421,7 @@ namespace TheWeWebSite.CaseMgt
                 "ConsultDate"
                 , AtrrTypeItem.DateTime
                 , AttrSymbolItem.Equal
-                , DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss")
+                , labelConsultDate.Text
                 ));
             bool result = WriteBackConsult(true, lst, string.Empty);
             if (!result) return;
@@ -952,9 +977,13 @@ namespace TheWeWebSite.CaseMgt
         {
             try
             {
-                return SysProperty.GenDbCon.GetDataFromTable("Id"
-                    , SysProperty.Util.MsSqlTableConverter(MsSqlTable.vwEN_Consultation)
-                    , SysProperty.Util.SqlQueryConditionConverter(lst)).Tables[0].Rows[0]["Id"].ToString();
+                string sql = "Select Id From vwEN_Consultation"
+                    + " Where StoreId=N'" + ddlStore.SelectedValue
+                    + "' And EmployeeId=N'" + ((DataRow)Session["AccountInfo"])["Id"].ToString()
+                    + "' And BridalName=N'" + tbBridalName.Text
+                    + "' And GroomName=N'" + tbGroomName.Text
+                    + "' And ConsultDate=N'" + labelConsultDate.Text + "'";
+                return SysProperty.GenDbCon.GetDataFromTable(sql).Tables[0].Rows[0]["Id"].ToString();
             }
             catch (Exception ex)
             {
@@ -1186,7 +1215,7 @@ namespace TheWeWebSite.CaseMgt
                 tbWeddingDate.Text = SysProperty.Util.ParseDateTime("Date", dr["WeddingDate"].ToString());
                 tbWeddingFilm.Text = SysProperty.Util.ParseDateTime("Date", dr["FilmingDate"].ToString());
                 tbSn.Text = dr["Sn"].ToString();
-                labelConsultDate.Text = SysProperty.Util.ParseDateTime("Date", dr["ConsultDate"].ToString());
+                labelConsultDate.Text = SysProperty.Util.ParseDateTime("DateTime", dr["ConsultDate"].ToString());
                 tbRemark.Text = dr["Remark"].ToString();
                 ddlBridalMsgerType.SelectedValue = dr["BridalMsgerType"].ToString();
                 ddlGroomMsgerType.SelectedValue = dr["GroomMsgerType"].ToString();

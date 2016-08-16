@@ -1392,7 +1392,7 @@ namespace TheWeWebSite.CaseMgt
                 tbPayOff.Text = (SysProperty.Util.ParseMoney(tbTotalPrice.Text)
                     - (dec + SysProperty.Util.ParseMoney(tbDeposit2.Text)))
                     .ToString();
-                tbDeposit1Date.Text = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss");
+                tbDeposit1Date.Text = DateTime.Now.ToString("yyyy-MM-dd HH:mm");
             }
         }
 
@@ -1419,7 +1419,7 @@ namespace TheWeWebSite.CaseMgt
                 tbPayOff.Text = (SysProperty.Util.ParseMoney(tbTotalPrice.Text)
                     - (dec + SysProperty.Util.ParseMoney(tbDeposit1.Text)))
                     .ToString();
-                tbDeposit2Date.Text = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss");
+                tbDeposit2Date.Text = DateTime.Now.ToString("yyyy-MM-dd HH:mm");
             }
         }
 
