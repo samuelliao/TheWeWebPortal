@@ -31,6 +31,7 @@
                             </div>
                             <asp:DropDownList runat="server" ID="ddlStore" Enabled="false" />
                             <asp:Label runat="server" ID="labelBaseId" Visible="false" />
+                            <asp:Label runat="server" ID="labelUpdateTime" Visible="false" />
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">

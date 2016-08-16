@@ -166,7 +166,7 @@ namespace TheWeWebSite.CaseMgt
 
         private void BindData()
         {
-            GetCustomerList(string.Empty);
+            GetCustomerList(" Order by c.Sn");
             dataGrid.DataSource = DS;
             dataGrid.AllowPaging = !SysProperty.Util.IsDataSetEmpty(DS);
             dataGrid.DataBind();

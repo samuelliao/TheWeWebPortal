@@ -104,7 +104,6 @@ namespace TheWeWebSite.StoreMgt
                 ShowErrorMsg(ex.Message);
             }
         }
-
         public void AreaDropDownList(string countryId)
         {
             ddlArea.Items.Clear();
@@ -131,7 +130,6 @@ namespace TheWeWebSite.StoreMgt
                 ShowErrorMsg(ex.Message);
             }
         }
-
         public void LocationDropDownList(string countryId, string areaId)
         {
             ddlLocation.Items.Clear();
@@ -177,21 +175,42 @@ namespace TheWeWebSite.StoreMgt
                     , dr["Id"].ToString()));
             }
         }
-
         private void StoreList()
         {
+            DataRow store = (DataRow)Session["LocateStore"];
             ddlStore.Items.Clear();
-            List<DbSearchObject> lst = new List<DbSearchObject>();
-            lst.Add(new DbSearchObject("IsDelete", AtrrTypeItem.Bit, AttrSymbolItem.Equal, "0"));
-            DataSet ds = GetDataFromDb(SysProperty.Util.MsSqlTableConverter(MsSqlTable.Store), lst, " Order by Sn");
-            foreach (DataRow dr in ds.Tables[0].Rows)
+            ddlStore.Items.Add(new ListItem(Resources.Resource.SeletionRemindString, string.Empty));
+            if (bool.Parse(store["HoldingCompany"].ToString()))
             {
-                ddlStore.Items.Add(new ListItem
-                    (SysProperty.Util.OutputRelatedLangName(((string)Session["CultureCode"]), dr)
-                    , dr["Id"].ToString()));
+                List<DbSearchObject> lst = new List<DbSearchObject>();
+                lst.Add(new DbSearchObject("IsDelete", AtrrTypeItem.Bit, AttrSymbolItem.Equal, "0"));
+                DataSet ds = GetDataFromDb(SysProperty.Util.MsSqlTableConverter(MsSqlTable.Store), lst, " Order by Sn");
+                foreach (DataRow dr in ds.Tables[0].Rows)
+                {
+                    ddlStore.Items.Add(new ListItem
+                        (SysProperty.Util.OutputRelatedLangName(((string)Session["CultureCode"]), dr)
+                        , dr["Id"].ToString()));
+                }
             }
-        }
+            else
+            {
+                List<DbSearchObject> lst = new List<DbSearchObject>();
+                lst.Add(new DbSearchObject("IsDelete", AtrrTypeItem.Bit, AttrSymbolItem.Equal, "0"));
+                lst.Add(new DbSearchObject("GradeLv", AtrrTypeItem.Integer, AttrSymbolItem.Equal, "0"));
+                DataSet ds = GetDataFromDb(SysProperty.Util.MsSqlTableConverter(MsSqlTable.Store), lst, " Order by Sn");
+                foreach (DataRow dr in ds.Tables[0].Rows)
+                {
+                    ddlStore.Items.Add(new ListItem
+                        (SysProperty.Util.OutputRelatedLangName(((string)Session["CultureCode"]), dr)
+                        , dr["Id"].ToString()));
+                }
+                ddlStore.Items.Add(new ListItem(
+                    SysProperty.Util.OutputRelatedLangName(Session["CultureCode"].ToString(), store)
+                    , store["Id"].ToString()));
+            }
 
+            ddlStore.SelectedValue = store["Id"].ToString();
+        }
         #region DropDownList Selected Index Change Control
         protected void ddlCountry_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -342,17 +361,17 @@ namespace TheWeWebSite.StoreMgt
                 OtherConditionString += " And p.Sn like '%" + tbSn.Text + "%'";
             }
 
-            OtherConditionString += (string.IsNullOrEmpty(ddlCountry.SelectedValue) ? string.Empty : " And CountryId = '" + ddlCountry.SelectedValue + "'");
-            OtherConditionString += (string.IsNullOrEmpty(ddlArea.SelectedValue) ? string.Empty : " And AreaId = '" + ddlArea.SelectedValue + "'");
-            OtherConditionString += (string.IsNullOrEmpty(ddlLocation.SelectedValue) ? string.Empty : " And ChurchId = '" + ddlLocation.SelectedValue + "'");
-            OtherConditionString += (string.IsNullOrEmpty(ddlCategory.SelectedValue) ? string.Empty : " And Category = '" + ddlCategory.SelectedValue + "'");
-            OtherConditionString += (string.IsNullOrEmpty(ddlWeddingType.SelectedValue) ? string.Empty : " And WeddingCategory = '" + ddlWeddingType.SelectedValue + "'");
+            OtherConditionString += (string.IsNullOrEmpty(ddlCountry.SelectedValue) ? string.Empty : " And p.CountryId = '" + ddlCountry.SelectedValue + "'");
+            OtherConditionString += (string.IsNullOrEmpty(ddlArea.SelectedValue) ? string.Empty : " And p.AreaId = '" + ddlArea.SelectedValue + "'");
+            OtherConditionString += (string.IsNullOrEmpty(ddlLocation.SelectedValue) ? string.Empty : " And p.ChurchId = '" + ddlLocation.SelectedValue + "'");
+            OtherConditionString += (string.IsNullOrEmpty(ddlCategory.SelectedValue) ? string.Empty : " And p.Category = '" + ddlCategory.SelectedValue + "'");
+            OtherConditionString += (string.IsNullOrEmpty(ddlWeddingType.SelectedValue) ? string.Empty : " And p.WeddingCategory = '" + ddlWeddingType.SelectedValue + "'");
             BindData();
         }
 
         private void BindData()
         {
-            GetProductList(OtherConditionString, string.Empty);
+            GetProductList(OtherConditionString, " Order by st.Sn, p.Sn");
             dataGrid.DataSource = DS;
             dataGrid.AllowPaging = !SysProperty.Util.IsDataSetEmpty(DS);
             dataGrid.DataBind();
@@ -371,10 +390,11 @@ namespace TheWeWebSite.StoreMgt
                 + " Left join ServiceItemCategory as s on s.Id = p.Category"
                 + " Left Join Store as st on st.Id = p.StoreId"
                 + " LEFT JOIN StoreLvSetPrice as lv on lv.SetId = p.Id and lv.StoreLv=" + ((DataRow)Session["LocateStore"])["GradeLv"].ToString()
-                + " Where p.IsDelete = 0 And(p.BaseId is null OR"
-                + " p.StoreId = '" + ((DataRow)Session["LocateStore"])["Id"].ToString() + "')"
-                + " " + condStr
-                + " " + sortStr;
+                + " Where p.IsDelete = 0 ";
+
+            sqlTxt += " And p.StoreId in (" + StoreListToString() + ")";
+            sqlTxt += " " + condStr;
+            sqlTxt += " " + sortStr;
             try
             {
                 DS = SysProperty.GenDbCon.GetDataFromTable(sqlTxt);
@@ -384,6 +404,25 @@ namespace TheWeWebSite.StoreMgt
                 SysProperty.Log.Error(ex.Message);
                 ShowErrorMsg(ex.Message);
             }
+        }
+
+        private string StoreListToString()
+        {
+            string str = string.Empty;
+            if (string.IsNullOrEmpty(ddlStore.SelectedValue))
+            {
+                foreach (ListItem item in ddlStore.Items)
+                {
+                    if (string.IsNullOrEmpty(item.Value)) continue;
+                    str += string.IsNullOrEmpty(str) ? string.Empty : ",";
+                    str += "'" + item.Value + "'";
+                }
+            }
+            else
+            {
+                str = "'" + ddlStore.SelectedValue + "'";
+            }
+            return str;
         }
     }
 }

@@ -1403,13 +1403,13 @@ namespace TheWeWebSite.CaseMgt
             {
                 string sql = "SELECT * FROM [TheWe].[dbo].[Area]"
                              + " Where IsDelete = 0"
-                             + " And Id in ( Select Distinct AreaId From Church Where CountryId in (" + condStr + "))";
+                             + " And Id in ( Select Distinct AreaId From Church Where CountryId in (" + condStr + ")) Order by CountryId, Name";
                 InitialArea(sql);
 
                 List<string> churchTmp = GetCurrentChurchSelection(cblLocation);
                 sql = "SELECT * FROM [TheWe].[dbo].[Church]"
                              + " Where IsDelete = 0"
-                             + " And CountryId in (" + condStr + ")";
+                             + " And CountryId in (" + condStr + ")  Order by CountryId, AreaId, Name";
                 InitialChurch(sql);
                 RecoveryLocationSelection(churchTmp);
             }
@@ -1420,18 +1420,15 @@ namespace TheWeWebSite.CaseMgt
             string condStr = string.Empty;
             foreach (ListItem item in cblArea.Items)
             {
-                if (item.Selected)
-                {
-                    condStr += (string.IsNullOrEmpty(condStr) ? string.Empty : ",")
-                        + "'" + item.Value + "'";
-                }
+                condStr += (string.IsNullOrEmpty(condStr) ? string.Empty : ",")
+                    + "'" + item.Value + "'";
             }
             if (!string.IsNullOrEmpty(condStr))
             {
                 List<string> churchTmp = GetCurrentChurchSelection(cblLocation);
                 string sql = "SELECT * FROM [TheWe].[dbo].[Church]"
                          + " Where IsDelete = 0"
-                         + " And AreaId in (" + condStr + ")";
+                         + " And AreaId in (" + condStr + ") Order by CountryId, AreaId, Name";
                 InitialChurch(sql);
                 RecoveryLocationSelection(churchTmp);
             }

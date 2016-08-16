@@ -130,7 +130,7 @@ namespace TheWeWebSite.CaseMgt
         {
             string storeId = bool.Parse(((DataRow)Session["LocateStore"])["HoldingCompany"].ToString())
                 ? string.Empty : ((DataRow)Session["LocateStore"])["Id"].ToString();
-            GetConsultList(storeId, OtherConditionString, string.Empty);
+            GetConsultList(storeId, OtherConditionString, " Order by Sn");
             dataGrid.DataSource = DS;
             dataGrid.AllowPaging = !SysProperty.Util.IsDataSetEmpty(DS);
             dataGrid.DataBind();

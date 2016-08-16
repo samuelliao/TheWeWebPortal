@@ -332,7 +332,7 @@ namespace TheWeWebSite.CaseMgt
         {
             string storeId = bool.Parse(((DataRow)Session["LocateStore"])["HoldingCompany"].ToString())
                 ? string.Empty : ((DataRow)Session["LocateStore"])["Id"].ToString();
-            GetCaseList(storeId, OtherConditionString);
+            GetCaseList(storeId, OtherConditionString+ " Order by c.Sn");
             dataGrid.DataSource = DS;
             dataGrid.AllowPaging = !SysProperty.Util.IsDataSetEmpty(DS);
             dataGrid.DataBind();

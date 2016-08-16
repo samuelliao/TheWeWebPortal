@@ -396,6 +396,7 @@ namespace TheWeWebSite.CaseMgt
         {
             string storeId = bool.Parse(((DataRow)Session["LocateStore"])["HoldingCompany"].ToString())
                 ? string.Empty : ((DataRow)Session["LocateStore"])["Id"].ToString();
+            OtherConditionString += " Order by c.Sn";
             GetCaseList(storeId, OtherConditionString);
             dataGrid.DataSource = CaseDataSet;
             dataGrid.AllowPaging = !SysProperty.Util.IsDataSetEmpty(CaseDataSet);

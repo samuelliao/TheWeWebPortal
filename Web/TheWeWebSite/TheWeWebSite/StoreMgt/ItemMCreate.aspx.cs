@@ -322,6 +322,7 @@ namespace TheWeWebSite.StoreMgt
 
         protected void btnModify_Click(object sender, EventArgs e)
         {
+            labelUpdateTime.Text = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss");
             if (Session["SetId"] == null) return;
             string id = Session["SetId"].ToString();
             if (string.IsNullOrEmpty(id)) return;
@@ -331,7 +332,7 @@ namespace TheWeWebSite.StoreMgt
                 && ddlStore.SelectedValue == ((DataRow)Session["LocateStore"])["Id"].ToString())
             {
                 result = WriteBackServiceItem(MsSqlTable.ProductSetChurchServiceItem, false, ServiceItemDbObject("Church", id), id);
-                result = WriteBackStoreLvPrice(false, StoreLvPriceDbObject(id));
+                result = WriteBackStoreLvPrice(false, StoreLvPriceDbObject(false, id));
             }
             result = WriteBackServiceItem(MsSqlTable.ProductSetServiceItem, false, ServiceItemDbObject("Custom", id), id);
             if (result)
@@ -342,7 +343,7 @@ namespace TheWeWebSite.StoreMgt
 
         protected void btnCreate_Click(object sender, EventArgs e)
         {
-            tbSn = null;
+            labelUpdateTime.Text = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss");            
             List<DbSearchObject> lst = SetDbObject();
             bool result = WriteBackInfo(MsSqlTable.ProductSet, true, lst, string.Empty);
             if (!result) return;
@@ -352,7 +353,7 @@ namespace TheWeWebSite.StoreMgt
                 && ddlStore.SelectedValue == ((DataRow)Session["LocateStore"])["Id"].ToString())
             {
                 result = WriteBackServiceItem(MsSqlTable.ProductSetServiceItem, false, ServiceItemDbObject("Church", id), id);
-                result = WriteBackStoreLvPrice(true, StoreLvPriceDbObject(id));
+                result = WriteBackStoreLvPrice(true, StoreLvPriceDbObject(true, id));
             }
             result = WriteBackServiceItem(MsSqlTable.ProductSetChurchServiceItem, false, ServiceItemDbObject("Custom", id), id);
             if (result)
@@ -648,34 +649,39 @@ namespace TheWeWebSite.StoreMgt
             tbCnName.Text = dr["CnName"].ToString();
             tbJpName.Text = dr["JpName"].ToString();
             tbEngName.Text = dr["EngName"].ToString();
-            tbBridalHairStyle.Text = dr["BridalMakeup"].ToString();
-            tbCorsage.Text = dr["Corsage"].ToString();
-            tbDecorate.Text = dr["Decoration"].ToString();
-            tbFilmLocation.Text = dr["FilmingLocation"].ToString();
-            tbFilmTime.Text = dr["WeddingFilmingTime"].ToString();
-            tbGroomHairStyle.Text = dr["GroomMakeup"].ToString();
-            tbMovemont.Text = dr["Moves"].ToString();
-            tbPerformence.Text = dr["Performence"].ToString();
-            tbPhotoNumber.Text = dr["PhotosNum"].ToString();
-            tbRoom.Text = dr["RoomId"].ToString();
-            tbSn.Text = dr["Sn"].ToString();
-            tbStay.Text = dr["StayNight"].ToString();
-            cbBreakfast.Checked = bool.Parse(dr["Breakfast"].ToString());
-            cbCertificate.Checked = bool.Parse(dr["Certificate"].ToString());
-            cbChurchCost.Checked = bool.Parse(dr["ChurchCost"].ToString());
-            cbDinner.Checked = bool.Parse(dr["Dinner"].ToString());
-            cbIroning.Checked = bool.Parse(dr["DressIroning"].ToString());
-            cbLegal.Checked = bool.Parse(dr["IsLegal"].ToString());
-            cbLounge.Checked = bool.Parse(dr["Lounge"].ToString());
-            cbLunch.Checked = bool.Parse(dr["Lunch"].ToString());
-            cbMeeting.Checked = bool.Parse(dr["Kickoff"].ToString());
-            cbPastor.Checked = bool.Parse(dr["Pastor"].ToString());
-            cbPen.Checked = bool.Parse(dr["SignPen"].ToString());
-            cbPillow.Checked = bool.Parse(dr["RingPillow"].ToString());
-            cbRehersal.Checked = bool.Parse(dr["Rehearsal"].ToString());
-            ddlStaff.SelectedValue = dr["Staff"].ToString();
-            ddlWeddingType.SelectedValue = dr["WeddingCategory"].ToString();
-            labelBaseId.Text = dr["BaseId"].ToString();
+            labelBaseId.Text = dr["BaseId"].ToString();            
+
+            DataSet dsBase = GetDataFromDb(SysProperty.Util.MsSqlTableConverter(MsSqlTable.ProductSet), " Where Id='" + labelBaseId.Text + "'");
+            DataRow drBase = dsBase.Tables[0].Rows[0];
+            tbBridalHairStyle.Text = drBase["BridalMakeup"].ToString();
+            tbCorsage.Text = drBase["Corsage"].ToString();
+            tbDecorate.Text = drBase["Decoration"].ToString();
+            tbFilmLocation.Text = drBase["FilmingLocation"].ToString();
+            tbFilmTime.Text = drBase["WeddingFilmingTime"].ToString();
+            tbGroomHairStyle.Text = drBase["GroomMakeup"].ToString();
+            tbMovemont.Text = drBase["Moves"].ToString();
+            tbPerformence.Text = drBase["Performence"].ToString();
+            tbPhotoNumber.Text = drBase["PhotosNum"].ToString();
+            tbRoom.Text = drBase["RoomId"].ToString();
+            tbSn.Text = drBase["Sn"].ToString();
+            tbStay.Text = drBase["StayNight"].ToString();
+            cbBreakfast.Checked = bool.Parse(drBase["Breakfast"].ToString());
+            cbCertificate.Checked = bool.Parse(drBase["Certificate"].ToString());
+            cbChurchCost.Checked = bool.Parse(drBase["ChurchCost"].ToString());
+            cbDinner.Checked = bool.Parse(drBase["Dinner"].ToString());
+            cbIroning.Checked = bool.Parse(drBase["DressIroning"].ToString());
+            cbLegal.Checked = bool.Parse(drBase["IsLegal"].ToString());
+            cbLounge.Checked = bool.Parse(drBase["Lounge"].ToString());
+            cbLunch.Checked = bool.Parse(drBase["Lunch"].ToString());
+            cbMeeting.Checked = bool.Parse(drBase["Kickoff"].ToString());
+            cbPastor.Checked = bool.Parse(drBase["Pastor"].ToString());
+            cbPen.Checked = bool.Parse(drBase["SignPen"].ToString());
+            cbPillow.Checked = bool.Parse(drBase["RingPillow"].ToString());
+            cbRehersal.Checked = bool.Parse(drBase["Rehearsal"].ToString());
+            ddlStaff.SelectedValue = drBase["Staff"].ToString();
+            ddlWeddingType.SelectedValue = drBase["WeddingCategory"].ToString();
+            
+            labelUpdateTime.Text = dr["UpdateTime"].ToString();
 
             tbCost.Text = SysProperty.Util.ParseMoney(dr["Cost"].ToString()).ToString("#0.00");
             tbPrice.Text = SysProperty.Util.ParseMoney(dr["Price"].ToString()).ToString("#0.00");
@@ -683,19 +689,19 @@ namespace TheWeWebSite.StoreMgt
             {
                 if (!bool.Parse(((DataRow)Session["LocateStore"])["HoldingCompany"].ToString()))
                 {
+                    DisplayLevelPriceTable(false);
                     labelBaseId.Text = id;
                     GetCostAndPrice(string.IsNullOrEmpty(labelBaseId.Text)
                         , labelBaseId.Text
                         , SplitString(ddlStore.SelectedItem.Text, "(", 1).Replace(")", ""));
                 }
+                else
+                {
+                    DisplayLevelPriceTable(true);
+                    BindPriceData(id);
+                }
             }
 
-            if (string.IsNullOrEmpty(labelBaseId.Text))
-            {
-                DisplayLevelPriceTable(true);
-                BindPriceData(id);
-            }
-            else { DisplayLevelPriceTable(false); }
             SetServiceItemTable(id);
             FirstGridViewRow_dgChurchServiceItem();
             SetServiceChurchItemTable(string.IsNullOrEmpty(labelBaseId.Text) ? id : labelBaseId.Text);
@@ -1110,6 +1116,12 @@ namespace TheWeWebSite.StoreMgt
                 , AttrSymbolItem.Equal
                 , ((DataRow)Session["AccountInfo"])["Id"].ToString()
                 ));
+            lst.Add(new DbSearchObject(
+                "UpdateTime"
+                , AtrrTypeItem.DateTime
+                , AttrSymbolItem.Equal
+                , labelUpdateTime.Text
+                ));
             if (!string.IsNullOrEmpty(labelBaseId.Text))
             {
                 lst.Add(new DbSearchObject(
@@ -1122,7 +1134,7 @@ namespace TheWeWebSite.StoreMgt
             return lst;
         }
 
-        private List<List<DbSearchObject>> StoreLvPriceDbObject(string setId)
+        private List<List<DbSearchObject>> StoreLvPriceDbObject(bool isCreate, string setId)
         {
             List<List<DbSearchObject>> result = new List<List<DbSearchObject>>();
             List<DbSearchObject> lst = new List<DbSearchObject>();
@@ -1133,7 +1145,7 @@ namespace TheWeWebSite.StoreMgt
                 {
                     lst = new List<DbSearchObject>();
                     str = PriceTable.DataKeys[dr.RowIndex].Value.ToString();
-                    if (!string.IsNullOrEmpty(str))
+                    if (!string.IsNullOrEmpty(str) && !isCreate)
                     {
                         lst.Add(new DbSearchObject(
                             "Id"

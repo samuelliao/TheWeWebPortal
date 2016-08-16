@@ -14,7 +14,7 @@
     <RootNamespace>TheWeWebSite</RootNamespace>
     <AssemblyName>TheWeWebSite</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <UseIISExpress>true</UseIISExpress>
+    <UseIISExpress>false</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
@@ -507,7 +507,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>49459</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:49459/</IISUrl>
+          <IISUrl>http://localhost/TheWeWebSite</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
