@@ -310,12 +310,6 @@ namespace TheWeWebSite.StoreMgt
         #region Button Control
         protected void btnCreate_Click(object sender, EventArgs e)
         {
-            tbSn.Text = null;
-            if (SysProperty.GenDbCon.IsSnDuplicate(SysProperty.Util.MsSqlTableConverter(MsSqlTable.Dress), tbSn.Text))
-            {
-                ShowErrorMsg(Resources.Resource.SnDuplicateErrorString);
-                return;
-            }
             bool result = WriteBackInfo(true, DressInfoMainDbObject(), string.Empty);
             if (result)
             {

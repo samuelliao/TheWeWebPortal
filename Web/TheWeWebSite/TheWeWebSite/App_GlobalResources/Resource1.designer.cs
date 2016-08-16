@@ -988,6 +988,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   查詢類似 Duplicate Account 的當地語系化字串。
+        /// </summary>
+        internal static string DuplicateAccountString {
+            get {
+                return ResourceManager.GetString("DuplicateAccountString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查詢類似 Clip-on Earrings 的當地語系化字串。
         /// </summary>
         internal static string EarClipString {
@@ -1164,6 +1173,15 @@ namespace Resources {
         internal static string FemaleString {
             get {
                 return ResourceManager.GetString("FemaleString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查詢類似 Field must not be empty 的當地語系化字串。
+        /// </summary>
+        internal static string FieldEmptyString {
+            get {
+                return ResourceManager.GetString("FieldEmptyString", resourceCulture);
             }
         }
         

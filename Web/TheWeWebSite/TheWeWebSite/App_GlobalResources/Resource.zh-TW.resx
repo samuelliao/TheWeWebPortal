@@ -1041,4 +1041,10 @@
   <data name="ExpectedDateString" xml:space="preserve">
     <value>預計日期</value>
   </data>
+  <data name="DuplicateAccountString" xml:space="preserve">
+    <value>帳號重覆</value>
+  </data>
+  <data name="FieldEmptyString" xml:space="preserve">
+    <value>欄位不得為空</value>
+  </data>
 </root>

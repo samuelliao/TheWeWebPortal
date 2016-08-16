@@ -278,13 +278,6 @@ namespace TheWeWebSite.StoreMgt
         #region Button Control
         protected void btnCreate_Click(object sender, EventArgs e)
         {
-            tbSn.Text = null;
-          //  if (string.IsNullOrEmpty(tbSn.Text) || string.IsNullOrEmpty(ddlCategory.SelectedValue)) return;
-            if (SysProperty.GenDbCon.IsSnDuplicate(ddlCategory.SelectedValue, tbSn.Text))
-            {
-                ShowErrorMsg(Resources.Resource.SnDuplicateErrorString);
-                return;
-            }
             string typeId = CreateNewType(ddlType.SelectedValue);
             if (string.IsNullOrEmpty(typeId)) return;
             bool result = WriteBackData(ddlCategory.SelectedValue, AccessoryDbObject(typeId), true, string.Empty);

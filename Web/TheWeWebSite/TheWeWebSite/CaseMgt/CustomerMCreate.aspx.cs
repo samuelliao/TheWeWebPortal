@@ -87,12 +87,6 @@ namespace TheWeWebSite.CaseMgt
         #region Button Control
         protected void btnCreate_Click(object sender, EventArgs e)
         {
-            tbSn.Text = null;
-            if (SysProperty.GenDbCon.IsSnDuplicate(SysProperty.Util.MsSqlTableConverter(MsSqlTable.vwEN_Customer), tbSn.Text))
-            {
-                ShowErrorMsg(Resources.Resource.SnDuplicateErrorString);
-                return;
-            }
             List<DbSearchObject> lst = CustomerDbObject();
             bool result = WriteBackCustomer(true, lst, string.Empty);
             if (!result) return;

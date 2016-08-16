@@ -153,12 +153,6 @@ namespace TheWeWebSite.StoreMgt
 
         protected void btnCreate_Click(object sender, EventArgs e)
         {
-            tbSn.Text = "";
-            if (SysProperty.GenDbCon.IsSnDuplicate(SysProperty.Util.MsSqlTableConverter(MsSqlTable.Church), tbSn.Text))
-            {
-                ShowErrorMsg(Resources.Resource.SnDuplicateErrorString);
-                return;
-            }
             bool result = false;
             List<DbSearchObject> lst = ChurchDbObject();
             result = WriteBackChurch(true, lst, string.Empty);

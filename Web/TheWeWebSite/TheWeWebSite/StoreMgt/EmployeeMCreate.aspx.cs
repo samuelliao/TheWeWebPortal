@@ -38,6 +38,7 @@ namespace TheWeWebSite.StoreMgt
                         + " > " + Resources.Resource.CreateString;
                         btnModify.Visible = false;
                         btnDelete.Visible = false;
+                        EmpOnBoardDay.Text = DateTime.Now.ToString("yyyy-MM-dd");
                     }
                 }
             }
@@ -140,11 +141,15 @@ namespace TheWeWebSite.StoreMgt
         #region Button Control
         protected void btnCreate_Click(object sender, EventArgs e)
         {
-            
-            if (SysProperty.GenDbCon.IsSnDuplicate(
-                SysProperty.Util.MsSqlTableConverter(MsSqlTable.Employee), tbEmpSn.Text))
+            if (string.IsNullOrEmpty(tbAccount.Text) || string.IsNullOrEmpty(tbEmpName.Text))
             {
-                ShowErrorMsg(Resources.Resource.SnDuplicateErrorString);
+                ShowErrorMsg(Resources.Resource.FieldEmptyString);
+                return;
+            }
+            if (SysProperty.GenDbCon.IsAccountDuplicate(tbAccount.Text))
+            {
+                ShowErrorMsg(Resources.Resource.DuplicateAccountString);
+                tbAccount.Text = string.Empty;
                 return;
             }
             List<DbSearchObject> lst = EmployeeInfoDbObject(true);
@@ -153,7 +158,7 @@ namespace TheWeWebSite.StoreMgt
             //string eid = GetCreatedDataId(MsSqlTable.vwEN_Employee, lst);
 
 
-            string eid = GetCreatedDataId(MsSqlTable.vwEN_Employee, lst);
+            string eid = GetCreatedDataId(true, MsSqlTable.vwEN_Employee, lst);
             if (string.IsNullOrEmpty(eid)) return;
             
             //這段沒做到
@@ -164,7 +169,7 @@ namespace TheWeWebSite.StoreMgt
             if (!result) return;
 
 
-            string pid = GetCreatedDataId(MsSqlTable.Permission, lst);
+            string pid = GetCreatedDataId(false, MsSqlTable.Permission, lst);
             if (string.IsNullOrEmpty(pid)) return;
 
             result = WriteBackPermissionItem(PermissionItemDbObject(pid), pid, "Store");
@@ -374,7 +379,7 @@ namespace TheWeWebSite.StoreMgt
                 ));
             lst.Add(new DbSearchObject(
                 "IsValid"
-                , AtrrTypeItem.String
+                , AtrrTypeItem.Bit
                 , AttrSymbolItem.Equal
                 , "1"
                 ));
@@ -547,13 +552,29 @@ namespace TheWeWebSite.StoreMgt
                 return false;
             }
         }
-        private string GetCreatedDataId(MsSqlTable table, List<DbSearchObject> lst)
+        private string GetCreatedDataId(bool isAccount, MsSqlTable table, List<DbSearchObject> lst)
         {
             try
             {
-                DataSet ds = SysProperty.GenDbCon.GetDataFromTable("Id"
+                DataSet ds;
+                if (isAccount)
+                {
+                    string sql = "SELECT Id From " + SysProperty.Util.MsSqlTableConverter(table)
+                        + " Where AccInfo=N'" + lst.Where(x => x.AttrName == "AccInfo").ToList()[0].AttrValue + "'"
+                        + " And StoreHolder=" + (cbStoreHolder.Checked ? "1" : "0")
+                        + " And Name=N'" + tbEmpName.Text + "'"
+                        + " And Account=N'" + tbAccount.Text + "'"
+                        + " And IsValid=1"
+                        + " And OnBoard=N'" + EmpOnBoardDay.Text + "'"
+                        + " And CountryId=N'" + ddlCountry.SelectedValue + "'"
+                        + " And StoreId=N'" + ddlStore.SelectedValue + "'";
+                    ds = SysProperty.GenDbCon.GetDataFromTable(sql);
+                }else
+                {
+                    ds = SysProperty.GenDbCon.GetDataFromTable("Id"
                     , SysProperty.Util.MsSqlTableConverter(table)
                     , SysProperty.Util.SqlQueryConditionConverter(lst));
+                }
                 if (SysProperty.Util.IsDataSetEmpty(ds)) return string.Empty;
                 return ds.Tables[0].Rows[0]["Id"].ToString();
             }

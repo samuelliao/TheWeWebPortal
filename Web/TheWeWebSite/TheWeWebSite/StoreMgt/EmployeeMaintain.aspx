@@ -37,6 +37,12 @@
                             <div class="row uniform 50%">
                                 <div class="2u 12u(mobilep)">
                                     <div class="Div">
+                                        <asp:Label runat="server" Text="<%$ Resources:Resource,StoreString%>"></asp:Label>
+                                    </div>
+                                    <asp:DropDownList runat="server" ID="ddlStore" Enabled="false" />
+                                </div>
+                                <div class="2u 12u(mobilep)">
+                                    <div class="Div">
                                         <asp:Label runat="server" Text="<%$ Resources:Resource,EmployeeSnString%>"></asp:Label>
                                     </div>
                                     <asp:TextBox runat="server" ID="tbEmpSn"></asp:TextBox>

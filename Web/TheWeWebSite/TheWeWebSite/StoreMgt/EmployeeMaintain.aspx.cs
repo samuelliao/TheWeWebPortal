@@ -24,6 +24,7 @@ namespace TheWeWebSite.StoreMgt
                     labelPageTitle.Text = Resources.Resource.OrderMgtString
                         + " > " + Resources.Resource.EmployeeMaintainString;
                     InitialOthType();
+                    InitialStoreList();
                     InitialControlWithPermission();
                     BindData();
                 }
@@ -38,7 +39,8 @@ namespace TheWeWebSite.StoreMgt
         private void InitialControlWithPermission()
         {
             PermissionUtil util = new PermissionUtil();
-            if (Session["Operation"] == null) Response.Redirect("~/Login.aspx");            
+            if (Session["Operation"] == null) Response.Redirect("~/Login.aspx");           
+
             bool holder = IsEmployeeStoreHolder(((DataRow)Session["AccountInfo"]));
             if (holder)
             {
@@ -65,15 +67,50 @@ namespace TheWeWebSite.StoreMgt
             try
             {
                 ddlCountry.Items.Add(new ListItem(Resources.Resource.CountrySelectRemindString, string.Empty, true));
-                string sql = "select * from Country";
+                string sql = "select * from Country Where IsDelete = 0";
                 DataSet ds = SysProperty.GenDbCon.GetDataFromTable(sql);
                 if (SysProperty.Util.IsDataSetEmpty(ds)) return;
                 foreach (DataRow dr in ds.Tables[0].Rows)
                 {
                     ddlCountry.Items.Add(
                         new ListItem(
-                        dr["Name"].ToString()));
+                            SysProperty.Util.OutputRelatedLangName(Session["CultureCode"].ToString(), dr)
+                            , dr["Id"].ToString()));
                 }
+            }
+            catch (Exception ex)
+            {
+                SysProperty.Log.Error(ex.Message);
+                ShowErrorMsg(ex.Message);
+            }
+        }
+        private void InitialStoreList()
+        {
+            ddlStore.Items.Clear();
+            try
+            {
+                ddlStore.Items.Add(new ListItem(Resources.Resource.SeletionRemindString, string.Empty, true));
+                string sql = "select * from Store Where IsDelete = 0";
+                DataSet ds = SysProperty.GenDbCon.GetDataFromTable(sql);
+                if (SysProperty.Util.IsDataSetEmpty(ds)) return;
+                foreach (DataRow dr in ds.Tables[0].Rows)
+                {
+                    ddlStore.Items.Add(
+                        new ListItem(
+                            SysProperty.Util.OutputRelatedLangName(Session["CultureCode"].ToString(), dr)
+                            , dr["Id"].ToString()));
+                }
+
+                if (bool.Parse(((DataRow)Session["LocateStore"])["HoldingCompany"].ToString()))
+                {
+                    ddlStore.Enabled = true;
+                    ddlStore.SelectedIndex = 0;
+                }
+                else
+                {
+                    ddlStore.Enabled = false;
+                    ddlStore.SelectedValue = ((DataRow)Session["LocateStore"])["Id"].ToString();
+                }                
             }
             catch (Exception ex)
             {
@@ -190,9 +227,9 @@ namespace TheWeWebSite.StoreMgt
                     + " left join Store as b on b.[Id]=a.[StoreId]"
                     + " left join Country as d on d.[Id]=a.[CountryId]"
                     + " where a.[IsValid]=1 and a.[IsDelete]=0 " + OtherConditionString
-                    + (bool.Parse(((DataRow)Session["LocateStore"])["HoldingCompany"].ToString())
+                    + (string.IsNullOrEmpty(ddlStore.SelectedValue)
                     ? string.Empty
-                    : " and a.[StoreId] = '" + ((DataRow)Session["LocateStore"])["Id"].ToString() + "'")
+                    : " and a.[StoreId] = '" + ddlStore.SelectedValue + "'")
                     + " " + sortStr;
                 DS = SysProperty.GenDbCon.GetDataFromTable(sql);
             }

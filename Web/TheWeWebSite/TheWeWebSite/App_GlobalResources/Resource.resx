@@ -1041,4 +1041,10 @@
   <data name="ExpectedDateString" xml:space="preserve">
     <value>Expected Date</value>
   </data>
+  <data name="DuplicateAccountString" xml:space="preserve">
+    <value>Duplicate Account</value>
+  </data>
+  <data name="FieldEmptyString" xml:space="preserve">
+    <value>Field must not be empty</value>
+  </data>
 </root>

@@ -90,12 +90,6 @@ namespace TheWeWebSite.StoreMgt
         #region Button Control
         protected void btnCreate_Click(object sender, EventArgs e)
         {
-            if (SysProperty.GenDbCon.IsSnDuplicate(SysProperty.Util.MsSqlTableConverter(MsSqlTable.HairStyleItem), tbSn.Text))
-            {
-                ShowErrorMsg(Resources.Resource.SnDuplicateErrorString);
-                return;
-            }
-
             string typeId = CreateNewStyleType(ddlType.SelectedValue);
             if (string.IsNullOrEmpty(typeId)) return;
             bool result = WriteBackInfo(MsSqlTable.HairStyleItem, true, StyleDbObject(typeId), string.Empty);
