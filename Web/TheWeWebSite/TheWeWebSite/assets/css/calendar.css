@@ -10,6 +10,7 @@
 /* Reset */
 
 
+
 .treeNode {
     color: #fb6d6d;
     padding: 0px !important;
@@ -24,8 +25,12 @@
 .leafNode {
     padding: 0px;
     font-size: 1em;
-    text-align: left;
+    text-align: right;
     color: #f2a6a6;
+    white-space: nowrap !important;
+}
+
+.selectNode {
 }
 
 
@@ -2125,16 +2130,26 @@ input[type="radio"] + label:before {
     margin-top: -10px !important;
 }
 
-.Enable
-{
-    border:2px solid #f2a6a6!important;
+
+input:enabled {
+}
+
+input:disabled{
+  background:rgba(137, 127, 127, 0.20);
+  color:rgba(36, 35, 35, 0.58);
 
 }
 
-    .Div.btn {
-        text-align: right;
-        margin-top: 15px !important;
-    }
+[disabled] { /* Text and background colour, medium red on light yellow */
+background:rgba(137, 127, 127, 0.20);
+  color:rgba(36, 35, 35, 0.58);
+}
+
+
+.Div.btn {
+    text-align: right;
+    margin-top: 15px !important;
+}
 
 .Check.Div {
 }
@@ -2155,7 +2170,7 @@ input[type="checkbox"] {
         padding-right: 0.75em;
         position: relative;
         margin-top: -25px;
-        margin-bottom:15px;
+        margin-bottom: 15px;
     }
 
 
@@ -2191,7 +2206,7 @@ input[type="checkbox"] {
     }
 
 
-    
+
 /* Box */
 .box {
     background: #fff;
@@ -2277,6 +2292,19 @@ input[type="checkbox"] {
         padding: 0.5em;
         padding-left: 1.5em;
     }
+
+    
+     .box.title.CreatePage {
+        text-align: center;
+        background-color: #f2a6a6;
+        text-align: left;
+        font-size: 10px;
+        padding: 0.5em;
+        padding-left: 1.5em;
+         margin-top:7em;
+        
+    }
+
 
 .create {
     background-color: #f2a6a6;

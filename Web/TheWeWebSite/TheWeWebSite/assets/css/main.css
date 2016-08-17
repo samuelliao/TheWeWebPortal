@@ -2156,6 +2156,19 @@ input[type="radio"] {
     margin-top: -10px !important;
 }
 
+input:enabled {
+}
+
+input:disabled{
+  background:rgba(137, 127, 127, 0.20);
+  color:rgba(36, 35, 35, 0.58);
+
+}
+
+[disabled] { /* Text and background colour, medium red on light yellow */
+background:rgba(137, 127, 127, 0.20);
+  color:rgba(36, 35, 35, 0.58);
+}
 
 
     .Div.btn {
@@ -2252,6 +2265,19 @@ input[type="radio"] {
         padding: 0.5em;
         padding-left: 1.5em;
     }
+
+     .box.title.CreatePage {
+        text-align: center;
+        background-color: #f2a6a6;
+        text-align: left;
+        font-size: 10px;
+        padding: 0.5em;
+        padding-left: 1.5em;
+        margin-top:7em;
+        
+    }
+
+
 
 .create {
     background-color: #f2a6a6;
@@ -3714,7 +3740,7 @@ body.landing #main {
         padding: 2.5em 1em 3em 1em;
     }
 
-
+ 
 
 
 }
