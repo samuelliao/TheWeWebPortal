@@ -15,6 +15,8 @@ namespace TheWeWebSite.StoreMgt
         DataSet ChurchDataSet;
         protected void Page_Load(object sender, EventArgs e)
         {
+            
+
             if (!Page.IsPostBack)
             {
                 if (SysProperty.Util == null) Response.Redirect("../Login.aspx", true);
@@ -23,6 +25,7 @@ namespace TheWeWebSite.StoreMgt
                     FirstGridViewRow();
                     InitialControl();
                     InitialControlWithPermission();
+                    SetPlaceHolder();
                     if (Session["ChurchId"] != null)
                     {
                         labelPageTitle.Text = Resources.Resource.StoreMgtString
@@ -32,16 +35,45 @@ namespace TheWeWebSite.StoreMgt
                     }
                     else
                     {
+                        SetEnableCss();
                         labelPageTitle.Text = Resources.Resource.StoreMgtString
                         + " > " + Resources.Resource.ChurchMaintainString
                         + " > " + Resources.Resource.CreateString;
                         btnModify.Visible = false;
                         btnDelete.Visible = false;
                     }
-                    
+
                 }
             }
         }
+
+        private void SetPlaceHolder()
+        {
+            tbSn.Attributes.Add("placeholder", Resources.Resource.SystemSnString);
+            tbName.Attributes.Add("placeholder", Resources.Resource.AddString + Resources.Resource.NameString);
+            tbCnName.Attributes.Add("placeholder", Resources.Resource.AddString + Resources.Resource.CnNameString);
+            tbEngName.Attributes.Add("placeholder", Resources.Resource.AddString + Resources.Resource.EnglishNameString);
+            tbJpName.Attributes.Add("placeholder", Resources.Resource.AddString + Resources.Resource.JpNameString);
+            tbCapacities.Attributes.Add("placeholder", Resources.Resource.AddString + Resources.Resource.CapacitiesString);
+            tbRedCarpetType.Attributes.Add("placeholder", Resources.Resource.AddString + Resources.Resource.RedCarpetTypeString);
+            tbMealDescription.Attributes.Add("placeholder", Resources.Resource.AddString + Resources.Resource.ServiceAndPriceDescriptionString);
+            tbRemark.Attributes.Add("placeholder", Resources.Resource.AddString + Resources.Resource.RemarkString);
+            tbRedCarpetLength.Attributes.Add("placeholder", Resources.Resource.AddString + Resources.Resource.RedCarpetLengthString);
+            tbPatioHeight.Attributes.Add("placeholder", Resources.Resource.AddString + Resources.Resource.PatioHeightString);
+            tbPrice.Attributes.Add("placeholder", Resources.Resource.AddString + Resources.Resource.PriceString);
+           
+            
+
+        }
+
+        private void SetEnableCss()
+        {
+            ddlCountry.CssClass = "Enable";
+            ddlArea.CssClass = "Enable";
+            tbName.CssClass = "Enable";
+        }
+
+
         private void ShowErrorMsg(string msg)
         {
             labelWarnString.Text = msg;
@@ -345,7 +377,7 @@ namespace TheWeWebSite.StoreMgt
                 {
                     AddNewRow();
                 }
-                ((TextBox)dgBookTable.Rows[cnt].FindControl("tbStart")).Text = SysProperty.Util.ParseDateTime("Time", dr["StartTime"].ToString());                
+                ((TextBox)dgBookTable.Rows[cnt].FindControl("tbStart")).Text = SysProperty.Util.ParseDateTime("Time", dr["StartTime"].ToString());
                 cnt++;
                 AddNewRow();
             }
@@ -560,12 +592,7 @@ namespace TheWeWebSite.StoreMgt
                 , AttrSymbolItem.Equal
                 , ((DataRow)Session["AccountInfo"])["Id"].ToString()
                 ));
-            lst.Add(new DbSearchObject(
-                "Img"
-                , AtrrTypeItem.String
-                , AttrSymbolItem.Equal
-                , @"Church\" + tbSn.Text
-                ));
+
             return lst;
         }
 
@@ -665,7 +692,7 @@ namespace TheWeWebSite.StoreMgt
             switch (type)
             {
                 case 1:
-                    ImgFront.ImageUrl = "http:"+ path + "\\" + tbSn.Text + "_1.jpg?" + DateTime.Now.Ticks.ToString();
+                    ImgFront.ImageUrl = "http:" + path + "\\" + tbSn.Text + "_1.jpg?" + DateTime.Now.Ticks.ToString();
                     break;
                 case 2:
                     ImgBack.ImageUrl = "http:" + path + "\\" + tbSn.Text + "_2.jpg?" + DateTime.Now.Ticks.ToString();

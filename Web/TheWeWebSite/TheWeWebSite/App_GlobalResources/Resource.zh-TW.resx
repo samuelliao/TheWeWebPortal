@@ -1030,7 +1030,7 @@
     <value>額外項目</value>
   </data>
   <data name="SystemSnString" xml:space="preserve">
-    <value>系統自動帶入</value>
+    <value>系統自動產生</value>
   </data>
   <data name="PhotoArrangementString" xml:space="preserve">
     <value>照相安排文件</value>
@@ -1046,5 +1046,8 @@
   </data>
   <data name="FieldEmptyString" xml:space="preserve">
     <value>欄位不得為空</value>
+  </data>
+  <data name="AddString" xml:space="preserve">
+    <value>請輸入</value>
   </data>
 </root>

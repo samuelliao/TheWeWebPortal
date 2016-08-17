@@ -160,6 +160,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   查詢類似 Please Enter  的當地語系化字串。
+        /// </summary>
+        internal static string AddString {
+            get {
+                return ResourceManager.GetString("AddString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查詢類似 Advance Information 的當地語系化字串。
         /// </summary>
         internal static string AdvanceInfoString {

@@ -2125,7 +2125,11 @@ input[type="radio"] + label:before {
     margin-top: -10px !important;
 }
 
+.Enable
+{
+    border:2px solid #f2a6a6!important;
 
+}
 
     .Div.btn {
         text-align: right;
