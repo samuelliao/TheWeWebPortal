@@ -220,7 +220,7 @@ namespace TheWeWebSite.Setting
             switch (type)
             {
                 case 2:
-                    ImgFront.ImageUrl = "http:"+path + "\\" + tbEmpSn.Text + "_2.jpg?" + DateTime.Now.Ticks.ToString();
+                    ImgFront.ImageUrl = "http:" + path + "\\" + tbEmpSn.Text + "_2.jpg?" + DateTime.Now.Ticks.ToString();
                     break;
                 case 3:
                     ImgBack.ImageUrl = "http:" + path + "\\" + tbEmpSn.Text + "_3.jpg?" + DateTime.Now.Ticks.ToString();
@@ -237,35 +237,31 @@ namespace TheWeWebSite.Setting
             }
         }
 
-        protected void btnImgFrontUpload_Click(object sender, EventArgs e)
-        {
-            if (string.IsNullOrEmpty(tbFolderPath.Text)) return;
-            CheckFolder(tbFolderPath.Text);
-            ImgFrontUpload.PostedFile.SaveAs(tbFolderPath.Text + "\\" + tbEmpSn.Text + "_2.jpg");
-            RefreshImage(2, tbFolderPath.Text);
-        }
-
-        protected void btnImgBackUpload_Click(object sender, EventArgs e)
-        {
-            if (string.IsNullOrEmpty(tbFolderPath.Text)) return;
-            CheckFolder(tbFolderPath.Text);
-            ImgBackUpload.PostedFile.SaveAs(tbFolderPath.Text + "\\" + tbEmpSn.Text + "_3.jpg");
-            RefreshImage(3, tbFolderPath.Text);
-        }
-
-        protected void btnImgSideUpload_Click(object sender, EventArgs e)
-        {
-            if (string.IsNullOrEmpty(tbFolderPath.Text)) return;
-            CheckFolder(tbFolderPath.Text);
-            ImgSideUpload.PostedFile.SaveAs(tbFolderPath.Text + "\\" + tbEmpSn.Text + "_1.jpg");
-            RefreshImage(1, tbFolderPath.Text);
-        }
-
         private void CheckFolder(string path)
         {
             if (!Directory.Exists(path))
             {
                 Directory.CreateDirectory(path);
+            }
+        }
+        protected void btnUpload_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(tbFolderPath.Text)) return;
+            bool needRefresh = false;
+            CheckFolder(tbFolderPath.Text);
+            for (int i = 1; i <= 5; i++)
+            {
+                FileUpload upload = Page.FindControl("FileUpload" + i) as FileUpload;
+                if (upload.HasFile)
+                {
+                    upload.PostedFile.SaveAs(tbFolderPath.Text + "\\" + tbEmpSn.Text + "_" + i + ".jpg");
+                    needRefresh = true;
+                }
+            }
+
+            if (needRefresh)
+            {
+                RefreshImage(0, tbFolderPath.Text);
             }
         }
         #endregion

@@ -193,6 +193,51 @@ namespace TheWeWebSite.Setting {
         protected global::System.Web.UI.WebControls.TextBox tbEmpBankBook;
         
         /// <summary>
+        /// divPhotoUpload 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divPhotoUpload;
+        
+        /// <summary>
+        /// FileUpload1 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.FileUpload FileUpload1;
+        
+        /// <summary>
+        /// FileUpload2 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.FileUpload FileUpload2;
+        
+        /// <summary>
+        /// FileUpload3 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.FileUpload FileUpload3;
+        
+        /// <summary>
+        /// btnUpload 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnUpload;
+        
+        /// <summary>
         /// tbFolderPath 控制項。
         /// </summary>
         /// <remarks>
@@ -211,24 +256,6 @@ namespace TheWeWebSite.Setting {
         protected global::System.Web.UI.WebControls.Image ImgSide;
         
         /// <summary>
-        /// ImgSideUpload 控制項。
-        /// </summary>
-        /// <remarks>
-        /// 自動產生的欄位。
-        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.FileUpload ImgSideUpload;
-        
-        /// <summary>
-        /// btnImgSideUpload 控制項。
-        /// </summary>
-        /// <remarks>
-        /// 自動產生的欄位。
-        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnImgSideUpload;
-        
-        /// <summary>
         /// ImgFront 控制項。
         /// </summary>
         /// <remarks>
@@ -238,24 +265,6 @@ namespace TheWeWebSite.Setting {
         protected global::System.Web.UI.WebControls.Image ImgFront;
         
         /// <summary>
-        /// ImgFrontUpload 控制項。
-        /// </summary>
-        /// <remarks>
-        /// 自動產生的欄位。
-        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.FileUpload ImgFrontUpload;
-        
-        /// <summary>
-        /// btnImgFrontxUpload 控制項。
-        /// </summary>
-        /// <remarks>
-        /// 自動產生的欄位。
-        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnImgFrontxUpload;
-        
-        /// <summary>
         /// ImgBack 控制項。
         /// </summary>
         /// <remarks>
@@ -263,24 +272,6 @@ namespace TheWeWebSite.Setting {
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
         protected global::System.Web.UI.WebControls.Image ImgBack;
-        
-        /// <summary>
-        /// ImgBackUpload 控制項。
-        /// </summary>
-        /// <remarks>
-        /// 自動產生的欄位。
-        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.FileUpload ImgBackUpload;
-        
-        /// <summary>
-        /// btnImgBackUpload 控制項。
-        /// </summary>
-        /// <remarks>
-        /// 自動產生的欄位。
-        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnImgBackUpload;
         
         /// <summary>
         /// btnModify 控制項。
