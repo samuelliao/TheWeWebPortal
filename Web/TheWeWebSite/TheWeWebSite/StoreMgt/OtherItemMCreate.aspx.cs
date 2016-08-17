@@ -331,6 +331,12 @@ namespace TheWeWebSite.StoreMgt
         {
             List<DbSearchObject> lst = new List<DbSearchObject>();
             lst.Add(new DbSearchObject(
+                "Sn"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , tbOthSn.Text
+                ));
+            lst.Add(new DbSearchObject(
                 "IsGeneral"
                 , AtrrTypeItem.String
                 , AttrSymbolItem.Equal

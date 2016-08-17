@@ -309,13 +309,13 @@ namespace TheWeWebSite.CaseMgt
             ddlOrderType.Items.Add(new ListItem(Resources.Resource.ProjectString, string.Empty));
             try
             {
-                string sql = "SELECT * FROM [TheWe].[dbo].[ServiceItemCategory] Where TypeLv=0 order by Type";
+                string sql = "SELECT * FROM [TheWe].[dbo].[ServiceItemCategory] Where TypeLv=0 order by Sn";
                 DataSet ds = SysProperty.GenDbCon.GetDataFromTable(sql);
                 if (SysProperty.Util.IsDataSetEmpty(ds)) return;
                 foreach (DataRow dr in ds.Tables[0].Rows)
                 {
                     ddlOrderType.Items.Add(new ListItem(
-                        SysProperty.Util.OutputRelatedLangName(Session["CultureCode"].ToString(), dr)
+                        SysProperty.Util.OutputRelatedLangName(Session["CultureCode"].ToString(), dr) + "(" + dr["Code"].ToString() + ")"
                         , dr["Id"].ToString()
                         ));
                 }
@@ -353,10 +353,30 @@ namespace TheWeWebSite.CaseMgt
         #region DropDownList Event Hanlder
         protected void ddlCountry_SelectedIndexChanged(object sender, EventArgs e)
         {
+            DynamicSn(ddlOrderType.SelectedValue, ddlCountry.SelectedValue);
             SetAreaList(ddlCountry.SelectedValue);
             SetChurchList(ddlCountry.SelectedValue, ddlArea.SelectedValue);
             SetProductSetList(ddlCountry.SelectedValue, ddlArea.SelectedValue, ddlLocate.SelectedValue, ddlOrderType.SelectedValue);
             FirstGridViewRow();
+        }
+
+        private void DynamicSn(string oid, string cid)
+        {
+            string sn = string.Empty;
+            if (!string.IsNullOrEmpty(oid)) sn = SplitOutOrderTypeCode(ddlOrderType.SelectedItem.Text).Trim();
+            if (!string.IsNullOrEmpty(cid)) sn += (SysProperty.GetCountryById(ddlCountry.SelectedValue))["Code"].ToString().Trim();
+
+            tbCaseSn.Text = sn+tbSysSn.Text;
+        }
+
+        private string SplitOutOrderTypeCode(string txt)
+        {
+            txt = txt.Replace(")", "");
+            if (txt.Contains("("))
+            {
+                return txt.Split('(')[1].ToString();
+            }
+            return txt;
         }
 
         protected void ddlArea_SelectedIndexChanged(object sender, EventArgs e)
@@ -374,6 +394,7 @@ namespace TheWeWebSite.CaseMgt
 
         protected void ddlOrderType_SelectedIndexChanged(object sender, EventArgs e)
         {
+            DynamicSn(ddlOrderType.SelectedValue, ddlCountry.SelectedValue);
             SetProductSetList(ddlCountry.SelectedValue, ddlArea.SelectedValue, ddlLocate.SelectedValue, ddlOrderType.SelectedValue);
             FirstGridViewRow();
         }
@@ -472,14 +493,6 @@ namespace TheWeWebSite.CaseMgt
 
         protected void btnCreate_Click(object sender, EventArgs e)
         {
-            tbCaseSn = null;
-            /*
-            if (SysProperty.GenDbCon.IsSnDuplicate(SysProperty.Util.MsSqlTableConverter(MsSqlTable.OrderInfo), tbCaseSn.Text))
-            {
-                ShowErrorMsg(Resources.Resource.SnDuplicateErrorString);
-                return;
-            }*/
-
             List<DbSearchObject> partnerInfo = PartnerDbObject(true);
             List<DbSearchObject> customerInfo = CustomerDbObject(true);
 
@@ -563,6 +576,7 @@ namespace TheWeWebSite.CaseMgt
                     + ",o.[ServiceType],o.[IsDelete],o.[UpdateAccId],o.[UpdateTime],o.[ServiceType]"
                     + ",[WeddingRecord],[DynamicRecord],[BridalSecretary],[WeddingPerform],[WeddingType]"
                     + ",[WeddingDecorate],[WeddingHost],[TotalPrice],[Discount],o.[Remark],[Referral],o.Img"
+                    + ",DepositFirstType,DepositSecondType,BalancePayementType"
                     + " FROM[TheWe].[dbo].[OrderInfo] as o"
                     + " Left join Consultation as c on c.Id = o.ConsultId"
                     + " Where o.IsDelete = 0 And o.Id = '" + id + "'";
@@ -589,7 +603,15 @@ namespace TheWeWebSite.CaseMgt
 
             tbAdvisorySn.Text = dr["ConsultSn"].ToString();
             tbAppointDate.Text = SysProperty.Util.ParseDateTime("DateTime", dr["BookingDate"].ToString());
-            tbCaseSn.Text = dr["Sn"].ToString();
+            if (dr["Sn"].ToString().Length > 10)
+            {
+                tbSysSn.Text = dr["Sn"].ToString().Substring(dr["Sn"].ToString().Length - 10, 10);
+                tbCaseSn.Text = dr["Sn"].ToString().Substring(0, dr["Sn"].ToString().Length - 11);
+            }else
+            {
+                tbSysSn.Text = dr["Sn"].ToString();
+            }
+            
             tbCloseDay.Text = SysProperty.Util.ParseDateTime("DateTime", dr["CloseTime"].ToString());
             tbContractPrice.Text = SysProperty.Util.ParseMoney(dr["Price"].ToString()).ToString("#0.00");
             tbContractTime.Text = SysProperty.Util.ParseDateTime("DateTime", dr["StartTime"].ToString());
@@ -606,6 +628,9 @@ namespace TheWeWebSite.CaseMgt
             tbOverseaWeddingDate.Text = SysProperty.Util.ParseDateTime("Date", dr["OverseaWeddingDate"].ToString());
             tbOverSeaWedFilmDate.Text = SysProperty.Util.ParseDateTime("Date", dr["OverseaFilmDate"].ToString());
             tbPayOffDate.Text = SysProperty.Util.ParseDateTime("DateTime", dr["BalancePayementDate"].ToString());
+            tbDeposit1Type.Text = dr["DepositFirstType"].ToString();
+            tbDeposit2Type.Text = dr["DepositSecondType"].ToString();
+            tbPayOffType.Text = dr["BalancePayementType"].ToString();
             tbReferrals.Text = dr["Referral"].ToString();
             tbRemark.Text = dr["Remark"].ToString();
             tbTotalPrice.Text = string.IsNullOrEmpty(dr["TotalPrice"].ToString())
@@ -638,6 +663,7 @@ namespace TheWeWebSite.CaseMgt
             tbFolderPath.Text = ImgFolderPath;
 
             SetOrderServiceItem(id);
+            DynamicSn(ddlOrderType.SelectedValue, ddlCountry.SelectedValue);
         }
 
         private void InitialCustomerInfo(string id)
@@ -721,12 +747,12 @@ namespace TheWeWebSite.CaseMgt
         private List<DbSearchObject> OrderInfoDbObject(bool isCreate, string customerId, string partnerId)
         {
             List<DbSearchObject> lst = new List<DbSearchObject>();
-            //lst.Add(new DbSearchObject(
-            //    "Sn"
-            //    , AtrrTypeItem.String
-            //    , AttrSymbolItem.Equal
-            //    , tbCaseSn.Text
-            //    ));
+            lst.Add(new DbSearchObject(
+                "Sn"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , tbCaseSn.Text
+                ));
             lst.Add(new DbSearchObject(
                 "CustomerId"
                 , AtrrTypeItem.String
@@ -840,6 +866,24 @@ namespace TheWeWebSite.CaseMgt
                 , AtrrTypeItem.String
                 , AttrSymbolItem.Equal
                 , tbDeposit2.Text
+            ));
+            lst.Add(new DbSearchObject(
+                "DepositSecondType"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , tbDeposit2Type.Text
+            ));
+            lst.Add(new DbSearchObject(
+                "DepositFirstType"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , tbDeposit1Type.Text
+            ));
+            lst.Add(new DbSearchObject(
+                "BalancePayementType"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , tbPayOffType.Text
             ));
             lst.Add(new DbSearchObject(
                 "EmployeeId"

@@ -41,7 +41,12 @@
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,CaseIdString%>"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server" Enabled="false" ID="tbCaseSn"></asp:TextBox>
+                            <asp:UpdatePanel runat="server">
+                                <ContentTemplate>
+                                    <asp:TextBox runat="server" ID="tbCaseSn"></asp:TextBox>
+                                </ContentTemplate>
+                            </asp:UpdatePanel>
+                            <asp:Label runat="server" ID="tbSysSn" Visible="false"></asp:Label>
                         </div>
 
 

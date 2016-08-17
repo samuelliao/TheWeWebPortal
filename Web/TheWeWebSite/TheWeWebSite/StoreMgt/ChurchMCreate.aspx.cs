@@ -61,9 +61,6 @@ namespace TheWeWebSite.StoreMgt
             tbRedCarpetLength.Attributes.Add("placeholder", Resources.Resource.AddString + Resources.Resource.RedCarpetLengthString);
             tbPatioHeight.Attributes.Add("placeholder", Resources.Resource.AddString + Resources.Resource.PatioHeightString);
             tbPrice.Attributes.Add("placeholder", Resources.Resource.AddString + Resources.Resource.PriceString);
-           
-            
-
         }
 
         private void SetEnableCss()
@@ -96,6 +93,12 @@ namespace TheWeWebSite.StoreMgt
                     btnDelete.Visible = false;
                     btnModify.Visible = false;
                     btnClear.Visible = false;
+                    dgBookTable.Enabled = false;
+                    btnUploadMeal.Visible = false;
+                    btnImgBackUpload.Visible = false;
+                    btnImgFrontUpload.Visible = false;
+                    btnImgOther1.Visible = false;
+                    btnImgSideUpload.Visible = false;
                 }
             }
             else
@@ -245,6 +248,11 @@ namespace TheWeWebSite.StoreMgt
                 ShowErrorMsg(ex.Message);
             }
         }
+        protected void ddlCountry_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            DynamicSn(ddlCountry.SelectedValue);
+            SetAreaList(ddlCountry.SelectedValue);
+        }
         #endregion
 
         private void GetChurchList(string condStr, string sortString)
@@ -286,7 +294,15 @@ namespace TheWeWebSite.StoreMgt
             GetChurchList(" And Id = '" + id + "'", string.Empty);
             if (SysProperty.Util.IsDataSetEmpty(ChurchDataSet)) return;
             DataRow dr = ChurchDataSet.Tables[0].Rows[0];
-            tbSn.Text = dr["Sn"].ToString();
+            if (dr["Sn"].ToString().Length > 3)
+            {
+                tbSysSn.Text = dr["Sn"].ToString().Substring(dr["Sn"].ToString().Length-3, 3);
+            }
+            else
+            {
+                tbSysSn.Text = dr["Sn"].ToString();
+            }
+
             tbName.Text = dr["Name"].ToString();
             tbJpName.Text = dr["JpName"].ToString();
             tbCnName.Text = dr["CnName"].ToString();
@@ -301,6 +317,7 @@ namespace TheWeWebSite.StoreMgt
             ddlCountry.SelectedValue = dr["CountryId"].ToString();
             ddlArea.SelectedValue = dr["AreaId"].ToString();
             SetChurchBookingTime(id);
+            DynamicSn(ddlCountry.SelectedValue);
 
             string imgPath = @dr["Img"].ToString();
             if (string.IsNullOrEmpty(imgPath)) imgPath = SysProperty.ImgRootFolderpath + @"\Church\" + tbSn.Text;
@@ -509,6 +526,12 @@ namespace TheWeWebSite.StoreMgt
         {
             List<DbSearchObject> lst = new List<DbSearchObject>();
             lst.Add(new DbSearchObject(
+                "Sn"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , tbSn.Text
+                ));
+            lst.Add(new DbSearchObject(
                 "Name"
                 , AtrrTypeItem.String
                 , AttrSymbolItem.Equal
@@ -703,6 +726,16 @@ namespace TheWeWebSite.StoreMgt
             return result;
         }
 
+        private void DynamicSn(string cid)
+        {
+            string sn = "CH";
+            if (!string.IsNullOrEmpty(cid))
+            {
+                sn += SysProperty.GetCountryById(cid)["Code"].ToString().Trim();
+            }
+            tbSn.Text = sn + tbSysSn.Text;
+        }
+
         #region Image Related
         private void RefreshImage(int type, string path)
         {
@@ -781,6 +814,6 @@ namespace TheWeWebSite.StoreMgt
             ImgMealUpload.PostedFile.SaveAs(tbFolderMealPath.Text + "\\" + tbSn.Text + "_meal.jpg");
             RefreshImage(5, tbFolderMealPath.Text);
         }
-        #endregion
+        #endregion        
     }
 }

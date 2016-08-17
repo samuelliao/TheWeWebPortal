@@ -304,7 +304,6 @@ namespace TheWeWebSite.SysMgt
             tbName.Text = string.Empty;
             tbAdress.Text = string.Empty;
             tbRemark.Text = string.Empty;
-            tbSn.Text = string.Empty;
             ddlArea.SelectedIndex = 0;
             ddlCountry.SelectedIndex = 0;
         }
@@ -362,13 +361,6 @@ namespace TheWeWebSite.SysMgt
                 otherConditionString += " And "
                     + (needSymbol ? (tableSymbol + ".") : string.Empty)
                     + "Addr like '%" + tbAdress.Text + "%'";
-            }
-
-            if (!string.IsNullOrEmpty(tbSn.Text))
-            {
-                otherConditionString += " And "
-                    + (needSymbol ? (tableSymbol + ".") : string.Empty)
-                    + "Sn like '%" + tbSn.Text + "%'";
             }
 
             otherConditionString += (string.IsNullOrEmpty(ddlCountry.SelectedValue)

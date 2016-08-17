@@ -202,7 +202,12 @@ namespace TheWeWebSite.StoreMgt
         private List<DbSearchObject> StyleDbObject(bool isCreate, string typeId)
         {
             List<DbSearchObject> lst = new List<DbSearchObject>();
-
+            lst.Add(new DbSearchObject(
+                "Sn"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , tbSn.Text
+                ));
             lst.Add(new DbSearchObject(
                 "Description"
                 , AtrrTypeItem.String

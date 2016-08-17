@@ -52,7 +52,7 @@ namespace TheWeWebSite.StoreMgt
                 PermissionItem item = util.GetPermissionByKey(Session["Operation"], util.GetOperationSnByPage(this.Page.AppRelativeVirtualPath));
                 btnCreate.Visible = item.CanCreate;
                 btnCreate.Enabled = item.CanCreate;
-                dgChurch.Columns[dgChurch.Columns.Count - 1].Visible = item.CanDelete;
+                dgChurch.Columns[dgChurch.Columns.Count - 1].Visible = item.CanDelete;                
             }
         }
         private void InitialAllList()
@@ -137,7 +137,15 @@ namespace TheWeWebSite.StoreMgt
         {
             GetChurchList(condStr, string.Empty);
             dgChurch.DataSource = ChurchDataSet;
-            dgChurch.AllowPaging = !SysProperty.Util.IsDataSetEmpty(ChurchDataSet);
+            if (SysProperty.Util.IsDataSetEmpty(ChurchDataSet))
+            {
+                dgChurch.AllowPaging = dgChurch.PageSize < ChurchDataSet.Tables[0].Rows.Count;
+            }
+            else
+            {
+                dgChurch.AllowPaging = false;
+            }
+
             dgChurch.DataBind();
         }
         protected void dgChurch_SelectedIndexChanged(object sender, EventArgs e)

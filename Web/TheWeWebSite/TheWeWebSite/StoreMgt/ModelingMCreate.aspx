@@ -30,7 +30,7 @@
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,SnString%>"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server" placeholder="<%$ Resources:Resource,SystemSnString%>" ID="tbSn" Enabled="false"></asp:TextBox>
+                            <asp:TextBox runat="server" placeholder="<%$ Resources:Resource,SystemSnString%>" ID="tbSn"></asp:TextBox>
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">

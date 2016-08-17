@@ -35,7 +35,7 @@
                         <div class="Div">
                             <asp:Label runat="server" Text="<%$ Resources:Resource,SnString%>"></asp:Label>
                         </div>
-                        <asp:TextBox runat="server" ID="tbSn" Enabled="false"></asp:TextBox>
+                        <asp:TextBox runat="server" ID="tbSn"></asp:TextBox>
                     </div>
                     <div class="2u 12u(mobilep)">
                         <div class="Div">

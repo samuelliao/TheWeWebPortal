@@ -147,7 +147,8 @@ namespace TheWeWebSite.SysMgt
 
         protected void btnCreate_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(tbName.Text)) {
+            if (string.IsNullOrEmpty(tbName.Text))
+            {
                 ShowErrorMsg(Resources.Resource.FieldEmptyString);
                 return;
             }

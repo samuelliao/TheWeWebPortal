@@ -515,6 +515,12 @@ namespace TheWeWebSite.StoreMgt
         {
             List<DbSearchObject> lst = new List<DbSearchObject>();
             lst.Add(new DbSearchObject(
+                "Sn"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , tbSn.Text
+                ));
+            lst.Add(new DbSearchObject(
                 "Color"
                 , AtrrTypeItem.String
                 , AttrSymbolItem.Equal

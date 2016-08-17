@@ -1,4 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ChurchMCreate.aspx.cs" Inherits="TheWeWebSite.StoreMgt.ChurchMCreate" %>
+
 <%@ Register TagPrefix="My" TagName="Header" Src="~/Header.ascx" %>
 <!DOCTYPE html>
 
@@ -30,7 +31,12 @@
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,SnString%>"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server" ID="tbSn" Enabled="false" ></asp:TextBox>
+                            <asp:UpdatePanel runat="server">
+                                <ContentTemplate>
+                                    <asp:TextBox runat="server" ID="tbSn" Enabled="false"></asp:TextBox>
+                                </ContentTemplate>
+                            </asp:UpdatePanel>
+                            <asp:Label runat="server" ID="tbSysSn" Visible="false" />
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
@@ -38,7 +44,7 @@
                             </div>
                             <asp:UpdatePanel runat="server">
                                 <ContentTemplate>
-                                    <asp:DropDownList runat="server" ID="ddlCountry" />
+                                    <asp:DropDownList runat="server" ID="ddlCountry" AutoPostBack="true" OnSelectedIndexChanged="ddlCountry_SelectedIndexChanged" />
                                 </ContentTemplate>
                             </asp:UpdatePanel>
                         </div>
@@ -63,13 +69,13 @@
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,CnNameString%>"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server" ID="tbCnName" ></asp:TextBox>
+                            <asp:TextBox runat="server" ID="tbCnName"></asp:TextBox>
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,EnglishNameString%>"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server" ID="tbEngName" ></asp:TextBox>
+                            <asp:TextBox runat="server" ID="tbEngName"></asp:TextBox>
                         </div>
 
                     </div>
@@ -88,7 +94,7 @@
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,CapacitiesString%>"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server" Style="text-align: right" ID="tbCapacities" ></asp:TextBox>
+                            <asp:TextBox runat="server" Style="text-align: right" ID="tbCapacities"></asp:TextBox>
                             <asp:RegularExpressionValidator ID="RegularExpressionValidator1" ControlToValidate="tbCapacities" runat="server" ErrorMessage="Only Numbers allowed" ValidationExpression="^[0-9]*$"></asp:RegularExpressionValidator>
                         </div>
                         <div class="2u 12u(mobilep)">
@@ -115,7 +121,7 @@
                             <div class="Div" style="background-color">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,PriceString%>"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server" Style="text-align: right" ID="tbPrice" ></asp:TextBox>
+                            <asp:TextBox runat="server" Style="text-align: right" ID="tbPrice"></asp:TextBox>
                             <asp:RegularExpressionValidator ID="RegularExpressionValidator4" ControlToValidate="tbPrice" runat="server" ErrorMessage="Only Numbers allowed" ValidationExpression="\d+[.]*\d*"></asp:RegularExpressionValidator>
                         </div>
                     </div>
@@ -162,12 +168,13 @@
                                     </ContentTemplate>
                                 </asp:UpdatePanel>
                             </div>
-                            <div style="float:right">
-                            <asp:Button ID="btnAddRow" runat="server" 
-                                Text="Add New Row" OnClick="btnAddRow_Click" /></div>
+                            <div style="float: right">
+                                <asp:Button ID="btnAddRow" runat="server"
+                                    Text="Add New Row" OnClick="btnAddRow_Click" />
+                            </div>
                         </div>
+                    </div>
                 </div>
-            </div>
 
             </div>
 
