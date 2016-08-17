@@ -18,7 +18,7 @@ namespace TheWeWebSite.SysMgt
             {
                 if (SysProperty.Util == null) Response.Redirect("../Login.aspx", true);
                 else
-                {                    
+                {
                     labelPageTitle.Text = Resources.Resource.SysMgtString + " > " + Resources.Resource.CurrencyString;
                     InitialControlWithPermission();
                     BindData();
@@ -39,7 +39,11 @@ namespace TheWeWebSite.SysMgt
         #region
         protected void btnCreate_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(tbCurrency.Text) || string.IsNullOrEmpty(tbRate.Text)) { return; }
+            if (string.IsNullOrEmpty(tbCurrency.Text) || string.IsNullOrEmpty(tbRate.Text))
+            {
+                ShowErrorMsg(Resources.Resource.FieldEmptyString);
+                return;
+            }
             List<DbSearchObject> lst = new List<DbSearchObject>();
             lst.Add(new DbSearchObject(
                 "Name"
@@ -60,6 +64,12 @@ namespace TheWeWebSite.SysMgt
                 , ((DataRow)Session["AccountInfo"])["Id"].ToString())
                 );
             lst.Add(new DbSearchObject(
+            "CreatedateAccId"
+            , AtrrTypeItem.String
+            , AttrSymbolItem.Equal
+            , ((DataRow)Session["AccountInfo"])["Id"].ToString()
+            ));
+            lst.Add(new DbSearchObject(
                 "Rate"
                 , AtrrTypeItem.String
                 , AttrSymbolItem.Equal
@@ -77,7 +87,8 @@ namespace TheWeWebSite.SysMgt
                     tbCurrency.Text = string.Empty;
                     tbRate.Text = string.Empty;
                 }
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 SysProperty.Log.Error(ex.Message);
                 ShowErrorMsg(ex.Message);
@@ -105,7 +116,7 @@ namespace TheWeWebSite.SysMgt
                 string sqlTxt = "SELECT c.[Id],c.Name,Rate,c.UpdateAccId,c.UpdateTime,c.IsDelete,e.Name as EmployeeName"
                     + " FROM[TheWe].[dbo].[Currency] as c"
                     + " inner join Employee as e on e.Id = c.UpdateAccId"
-                    + " WHERE c.IsDelete = 0 "+ sortString;
+                    + " WHERE c.IsDelete = 0 " + sortString;
                 CurrencyDataSet = SysProperty.GenDbCon.GetDataFromTable(sqlTxt);
             }
             catch (Exception ex)
@@ -136,7 +147,8 @@ namespace TheWeWebSite.SysMgt
                 {
                     BindData();
                 }
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 SysProperty.Log.Error(ex.Message);
                 ShowErrorMsg(ex.Message);
@@ -172,7 +184,8 @@ namespace TheWeWebSite.SysMgt
                     dgCurrency.EditItemIndex = -1;
                     BindData();
                 }
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 SysProperty.Log.Error(ex.Message);
                 ShowErrorMsg(ex.Message);

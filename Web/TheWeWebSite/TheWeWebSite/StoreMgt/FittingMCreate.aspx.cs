@@ -280,7 +280,7 @@ namespace TheWeWebSite.StoreMgt
         {
             string typeId = CreateNewType(ddlType.SelectedValue);
             if (string.IsNullOrEmpty(typeId)) return;
-            bool result = WriteBackData(ddlCategory.SelectedValue, AccessoryDbObject(typeId), true, string.Empty);
+            bool result = WriteBackData(ddlCategory.SelectedValue, AccessoryDbObject(true, typeId), true, string.Empty);
             if (result)
             {
                 TransferToOtherPage();
@@ -293,7 +293,7 @@ namespace TheWeWebSite.StoreMgt
             if (Session["FittingId"] == null || Session["FittingCategory"] == null) return;
             string typeId = CreateNewType(ddlType.SelectedValue);
             if (string.IsNullOrEmpty(typeId)) return;
-            bool result = WriteBackData(ddlCategory.SelectedValue, AccessoryDbObject(typeId), false, Session["FittingId"].ToString());
+            bool result = WriteBackData(ddlCategory.SelectedValue, AccessoryDbObject(false, typeId), false, Session["FittingId"].ToString());
             if (result)
             {
                 UpdateRentRecords(typeId, Session["FittingId"].ToString());
@@ -314,7 +314,7 @@ namespace TheWeWebSite.StoreMgt
                 }
                 else
                 {
-                    List<DbSearchObject> lst = DressCategoryDbObject();
+                    List<DbSearchObject> lst = DressCategoryDbObject(true);
                     result = WriteBackData(
                         SysProperty.Util.MsSqlTableConverter(MsSqlTable.DressCategory)
                         , lst, true, string.Empty);
@@ -490,7 +490,7 @@ namespace TheWeWebSite.StoreMgt
             {
                 WriteBackData(
                     SysProperty.Util.MsSqlTableConverter(MsSqlTable.RentRecord)
-                    , RentRecordDbObject(typeId, dressId, true)
+                    , RentRecordDbObject(true, typeId, dressId, true)
                     , true
                     , string.Empty);
             }
@@ -498,7 +498,7 @@ namespace TheWeWebSite.StoreMgt
             {
                 WriteBackData(
                     SysProperty.Util.MsSqlTableConverter(MsSqlTable.RentRecord)
-                    , RentRecordDbObject(typeId, dressId, false)
+                    , RentRecordDbObject(true, typeId, dressId, false)
                     , false
                     , dataGrid.DataKeys[0].ToString());
             }
@@ -534,7 +534,7 @@ namespace TheWeWebSite.StoreMgt
         #endregion
 
         #region Db Instance
-        private List<DbSearchObject> AccessoryDbObject(string typeId)
+        private List<DbSearchObject> AccessoryDbObject(bool isCreate, string typeId)
         {
             List<DbSearchObject> lst = new List<DbSearchObject>();
             lst.Add(new DbSearchObject(
@@ -687,9 +687,18 @@ namespace TheWeWebSite.StoreMgt
                 , AttrSymbolItem.Equal
                 , ((DataRow)Session["AccountInfo"])["Id"].ToString()
                 ));
+            if (isCreate)
+            {
+                lst.Add(new DbSearchObject(
+                "CreatedateAccId"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , ((DataRow)Session["AccountInfo"])["Id"].ToString()
+                ));
+            }
             return lst;
         }
-        private List<DbSearchObject> DressCategoryDbObject()
+        private List<DbSearchObject> DressCategoryDbObject(bool isCreate)
         {
             List<DbSearchObject> lst = new List<DbSearchObject>();
             lst.Add(new DbSearchObject(
@@ -717,9 +726,18 @@ namespace TheWeWebSite.StoreMgt
                 , AttrSymbolItem.Equal
                 , ((DataRow)Session["AccountInfo"])["Id"].ToString()
                 ));
+            if (isCreate)
+            {
+                lst.Add(new DbSearchObject(
+                "CreatedateAccId"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , ((DataRow)Session["AccountInfo"])["Id"].ToString()
+                ));
+            }
             return lst;
         }
-        private List<DbSearchObject> RentRecordDbObject(string typeId, string id, bool isRent)
+        private List<DbSearchObject> RentRecordDbObject(bool isCreate, string typeId, string id, bool isRent)
         {
             List<DbSearchObject> lst = new List<DbSearchObject>();
             lst.Add(new DbSearchObject(
@@ -746,6 +764,15 @@ namespace TheWeWebSite.StoreMgt
                 , AttrSymbolItem.Equal
                 , ((DataRow)Session["AccountInfo"])["Id"].ToString()
                 ));
+            if (isCreate)
+            {
+                lst.Add(new DbSearchObject(
+                "CreatedateAccId"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , ((DataRow)Session["AccountInfo"])["Id"].ToString()
+                ));
+            }
             return lst;
         }
         #endregion

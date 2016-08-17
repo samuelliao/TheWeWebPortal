@@ -8,7 +8,7 @@ using System.Web.UI.WebControls;
 using TheWeLib;
 
 namespace TheWeWebSite.SysMgt
-{   
+{
     public partial class MsgMaintain : System.Web.UI.Page
     {
         private DataSet DS;
@@ -124,7 +124,7 @@ namespace TheWeWebSite.SysMgt
         {
             List<DbSearchObject> updateLst = new List<DbSearchObject>();
             updateLst.Add(new DbSearchObject("Name", AtrrTypeItem.String, AttrSymbolItem.Equal, ((TextBox)e.Item.Cells[1].Controls[0]).Text));
-            updateLst.Add(new DbSearchObject("SnsContent", AtrrTypeItem.String, AttrSymbolItem.Equal, ((TextBox)e.Item.Cells[2].Controls[0]).Text.Replace("'","''")));
+            updateLst.Add(new DbSearchObject("SnsContent", AtrrTypeItem.String, AttrSymbolItem.Equal, ((TextBox)e.Item.Cells[2].Controls[0]).Text.Replace("'", "''")));
             updateLst.Add(new DbSearchObject("UpdateAccId", AtrrTypeItem.String, AttrSymbolItem.Equal, ((DataRow)Session["AccountInfo"])["Id"].ToString()));
             updateLst.Add(new DbSearchObject("UpdateTime", AtrrTypeItem.String, AttrSymbolItem.Equal, DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss")));
             try
@@ -147,7 +147,10 @@ namespace TheWeWebSite.SysMgt
 
         protected void btnCreate_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(tbName.Text)) { return; }
+            if (string.IsNullOrEmpty(tbName.Text)) {
+                ShowErrorMsg(Resources.Resource.FieldEmptyString);
+                return;
+            }
             List<DbSearchObject> lst = new List<DbSearchObject>();
             lst.Add(new DbSearchObject(
                 "Name"
@@ -161,6 +164,12 @@ namespace TheWeWebSite.SysMgt
                 , AttrSymbolItem.Equal
                 , DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss"))
                 );
+            lst.Add(new DbSearchObject(
+            "CreatedateAccId"
+            , AtrrTypeItem.String
+            , AttrSymbolItem.Equal
+            , ((DataRow)Session["AccountInfo"])["Id"].ToString()
+            ));
             lst.Add(new DbSearchObject(
                 "UpdateAccId"
                 , AtrrTypeItem.String

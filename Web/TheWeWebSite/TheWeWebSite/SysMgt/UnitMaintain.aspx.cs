@@ -55,7 +55,8 @@ namespace TheWeWebSite.SysMgt
             try
             {
                 UnitDataSet = SysProperty.GenDbCon.GetDataFromTable(sqlTxt);
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 SysProperty.Log.Error(ex.Message);
                 UnitDataSet = null;
@@ -74,7 +75,11 @@ namespace TheWeWebSite.SysMgt
         #region Button Control
         protected void btnCreate_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(tbUnit.Text)) { return; }
+            if (string.IsNullOrEmpty(tbUnit.Text))
+            {
+                ShowErrorMsg(Resources.Resource.FieldEmptyString);
+                return;
+            }
             List<DbSearchObject> lst = new List<DbSearchObject>();
             lst.Add(new DbSearchObject(
                 new ResourceUtil().OutputLangNameToAttrName(ddlLang.SelectedValue)
@@ -94,6 +99,12 @@ namespace TheWeWebSite.SysMgt
                 , AttrSymbolItem.Equal
                 , ((DataRow)Session["AccountInfo"])["Id"].ToString())
                 );
+            lst.Add(new DbSearchObject(
+            "CreatedateAccId"
+            , AtrrTypeItem.String
+            , AttrSymbolItem.Equal
+            , ((DataRow)Session["AccountInfo"])["Id"].ToString()
+            ));
             try
             {
                 if (SysProperty.GenDbCon.InsertDataInToTable(
@@ -105,7 +116,8 @@ namespace TheWeWebSite.SysMgt
                     BindData();
                     btnClear_Click(sender, e);
                 }
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 SysProperty.Log.Error(ex.Message);
                 ShowErrorMsg(ex.Message);
@@ -144,7 +156,8 @@ namespace TheWeWebSite.SysMgt
                 {
                     BindData();
                 }
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 SysProperty.Log.Error(ex.Message);
                 ShowErrorMsg(ex.Message);
@@ -170,7 +183,8 @@ namespace TheWeWebSite.SysMgt
                     dgUnit.EditItemIndex = -1;
                     BindData();
                 }
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 SysProperty.Log.Error(ex.Message);
                 ShowErrorMsg(ex.Message);

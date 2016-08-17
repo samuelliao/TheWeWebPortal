@@ -92,7 +92,7 @@ namespace TheWeWebSite.StoreMgt
         {
             string typeId = CreateNewStyleType(ddlType.SelectedValue);
             if (string.IsNullOrEmpty(typeId)) return;
-            bool result = WriteBackInfo(MsSqlTable.HairStyleItem, true, StyleDbObject(typeId), string.Empty);
+            bool result = WriteBackInfo(MsSqlTable.HairStyleItem, true, StyleDbObject(true, typeId), string.Empty);
             if (result)
             {
                 TransferToOtherPage();
@@ -104,7 +104,7 @@ namespace TheWeWebSite.StoreMgt
             if (Session["ModelingId"] == null) return;
             string typeId = CreateNewStyleType(ddlType.SelectedValue);
             if (string.IsNullOrEmpty(typeId)) return;
-            bool result = WriteBackInfo(MsSqlTable.HairStyleItem, false, StyleDbObject(typeId), Session["ModelingId"].ToString());
+            bool result = WriteBackInfo(MsSqlTable.HairStyleItem, false, StyleDbObject(false, typeId), Session["ModelingId"].ToString());
             if (result)
             {
                 TransferToOtherPage();
@@ -163,7 +163,7 @@ namespace TheWeWebSite.StoreMgt
                 }
                 else
                 {
-                    List<DbSearchObject> lst = HairStyleCategoryDbObject();
+                    List<DbSearchObject> lst = HairStyleCategoryDbObject(true);
                     result = WriteBackInfo(MsSqlTable.HairStyleCategory, true, lst, string.Empty);
                     if (!result) return string.Empty;
                     typeId = GetCreatedId(MsSqlTable.HairStyleCategory, lst);
@@ -199,7 +199,7 @@ namespace TheWeWebSite.StoreMgt
         }
 
         #region Db Instance
-        private List<DbSearchObject> StyleDbObject(string typeId)
+        private List<DbSearchObject> StyleDbObject(bool isCreate, string typeId)
         {
             List<DbSearchObject> lst = new List<DbSearchObject>();
 
@@ -221,6 +221,15 @@ namespace TheWeWebSite.StoreMgt
                 , AttrSymbolItem.Equal
                 , ((DataRow)Session["AccountInfo"])["Id"].ToString()
                 ));
+            if (isCreate)
+            {
+                lst.Add(new DbSearchObject(
+                "CreatedateAccId"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , ((DataRow)Session["AccountInfo"])["Id"].ToString()
+                ));
+            }
             lst.Add(new DbSearchObject(
                 "StoreId"
                 , AtrrTypeItem.String
@@ -230,7 +239,7 @@ namespace TheWeWebSite.StoreMgt
 
             return lst;
         }
-        private List<DbSearchObject> HairStyleCategoryDbObject()
+        private List<DbSearchObject> HairStyleCategoryDbObject(bool isCreate)
         {
             List<DbSearchObject> lst = new List<DbSearchObject>();
             lst.Add(new DbSearchObject(
@@ -252,6 +261,15 @@ namespace TheWeWebSite.StoreMgt
                 , AttrSymbolItem.Equal
                 , ((DataRow)Session["AccountInfo"])["Id"].ToString()
                 ));
+            if (isCreate)
+            {
+                lst.Add(new DbSearchObject(
+                "CreatedateAccId"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , ((DataRow)Session["AccountInfo"])["Id"].ToString()
+                ));
+            }
             return lst;
         }
         #endregion

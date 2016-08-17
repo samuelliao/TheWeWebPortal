@@ -93,7 +93,7 @@ namespace TheWeWebSite.CaseMgt
                 btnCreate.Visible = false;
                 btnClear.Visible = false;
                 dgServiceItem.Enabled = false;
-                btnUpload.Visible = false;       
+                btnUpload.Visible = false;
             }
         }
 
@@ -480,14 +480,14 @@ namespace TheWeWebSite.CaseMgt
                 return;
             }*/
 
-            List<DbSearchObject> partnerInfo = PartnerDbObject();
-            List<DbSearchObject> customerInfo = CustomerDbObject();
+            List<DbSearchObject> partnerInfo = PartnerDbObject(true);
+            List<DbSearchObject> customerInfo = CustomerDbObject(true);
 
             bool result = false;
 
             string partnerId = string.Empty;
             if (Session["PartnerId"] == null)
-            {                
+            {
                 WriteBackData(MsSqlTable.Partner, true, partnerInfo, string.Empty);
                 partnerId = GetCreateId(MsSqlTable.vwEN_Partner, partnerInfo);
             }
@@ -498,13 +498,13 @@ namespace TheWeWebSite.CaseMgt
             }
             if (string.IsNullOrEmpty(partnerId)) return;
 
-            
+
             if (!result) return;
             string customerId = string.Empty;
             if (Session["CustomerId"] == null)
             {
                 result = WriteBackData(MsSqlTable.Customer, true, customerInfo, string.Empty);
-                customerId = GetCreateId(MsSqlTable.vwEN_Customer, partnerInfo);                
+                customerId = GetCreateId(MsSqlTable.vwEN_Customer, partnerInfo);
             }
             else
             {
@@ -518,7 +518,7 @@ namespace TheWeWebSite.CaseMgt
             if (!result) return;
             string id = GetCreateId(MsSqlTable.OrderInfo, lst);
             if (string.IsNullOrEmpty(id)) return;
-            result = WriteBackServiceItem(true, ServiceItemDbObject(id), id);
+            result = WriteBackServiceItem(true, ServiceItemDbObject(true, id), id);
             if (result)
             {
                 TransferToOtherPage();
@@ -534,17 +534,17 @@ namespace TheWeWebSite.CaseMgt
             if (string.IsNullOrEmpty(id)) return;
             bool result = WriteBackData(MsSqlTable.OrderInfo, false, OrderInfoDbObject(false, customerId, partnerId), " Where Id='" + id + "'");
             if (!result) return;
-            result = WriteBackData(MsSqlTable.Customer, false, CustomerDbObject(), " Where Id='" + customerId + "'");
+            result = WriteBackData(MsSqlTable.Customer, false, CustomerDbObject(false), " Where Id='" + customerId + "'");
             if (!result) return;
-            result = WriteBackData(MsSqlTable.Partner, false, PartnerDbObject(), " Where Id='" + partnerId + "'");
+            result = WriteBackData(MsSqlTable.Partner, false, PartnerDbObject(false), " Where Id='" + partnerId + "'");
             if (!result) return;
-            result = WriteBackServiceItem(false, ServiceItemDbObject(id), id);
+            result = WriteBackServiceItem(false, ServiceItemDbObject(false, id), id);
             if (result)
             {
                 TransferToOtherPage();
             }
-        }        
-        #endregion        
+        }
+        #endregion
 
         #region Set modified data
         private DataSet GetOrderInfo(string id)
@@ -608,8 +608,8 @@ namespace TheWeWebSite.CaseMgt
             tbPayOffDate.Text = SysProperty.Util.ParseDateTime("DateTime", dr["BalancePayementDate"].ToString());
             tbReferrals.Text = dr["Referral"].ToString();
             tbRemark.Text = dr["Remark"].ToString();
-            tbTotalPrice.Text = string.IsNullOrEmpty(dr["TotalPrice"].ToString()) 
-                ? tbContractPrice.Text 
+            tbTotalPrice.Text = string.IsNullOrEmpty(dr["TotalPrice"].ToString())
+                ? tbContractPrice.Text
                 : SysProperty.Util.ParseMoney(dr["TotalPrice"].ToString()).ToString("#0.00");
 
             tbPayOff.Text = (SysProperty.Util.ParseMoney(tbTotalPrice.Text) - (
@@ -635,7 +635,7 @@ namespace TheWeWebSite.CaseMgt
             else imgPath = SysProperty.ImgRootFolderpath + imgPath;
             string ImgFolderPath = imgPath;
             RefreshImage(ImgFolderPath);
-                tbFolderPath.Text = ImgFolderPath;
+            tbFolderPath.Text = ImgFolderPath;
 
             SetOrderServiceItem(id);
         }
@@ -653,7 +653,7 @@ namespace TheWeWebSite.CaseMgt
                 tbBridalPassportName.Text = dr["EngName"].ToString();
                 ddlBridalMsgerType.SelectedValue = dr["MessengerType"].ToString();
                 tbBridalPhone.Text = dr["Phone"].ToString();
-                tbBridalEmail.Text = dr["Email"].ToString(); 
+                tbBridalEmail.Text = dr["Email"].ToString();
                 tbMsgerTitle.Text = dr["MsgTitle"].ToString();
                 tbAddress.Text = dr["Addr"].ToString();
                 tbCustomerSn.Text = dr["Sn"].ToString();
@@ -924,7 +924,7 @@ namespace TheWeWebSite.CaseMgt
                 , AtrrTypeItem.String
                 , AttrSymbolItem.Equal
                 , ((DataRow)Session["LocateStore"])["Id"].ToString()
-                ));            
+                ));
             if (isCreate)
             {
                 lst.Add(new DbSearchObject(
@@ -933,10 +933,16 @@ namespace TheWeWebSite.CaseMgt
                 , AttrSymbolItem.Equal
                 , DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss")
                 ));
+                lst.Add(new DbSearchObject(
+                "CreatedateAccId"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , ((DataRow)Session["AccountInfo"])["Id"].ToString()
+                ));
             }
             return lst;
         }
-        private List<DbSearchObject> CustomerDbObject()
+        private List<DbSearchObject> CustomerDbObject(bool isCreate)
         {
             List<DbSearchObject> lst = new List<DbSearchObject>();
             lst.Add(new DbSearchObject(
@@ -994,6 +1000,15 @@ namespace TheWeWebSite.CaseMgt
                         , AtrrTypeItem.String
                         , AttrSymbolItem.Equal
                         , ((DataRow)Session["AccountInfo"])["Id"].ToString()));
+            if (isCreate)
+            {
+                lst.Add(new DbSearchObject(
+                "CreatedateAccId"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , ((DataRow)Session["AccountInfo"])["Id"].ToString()
+                ));
+            }
             if (!string.IsNullOrEmpty(ddlBridalMsgerType.SelectedValue))
             {
                 lst.Add(new DbSearchObject(
@@ -1004,7 +1019,7 @@ namespace TheWeWebSite.CaseMgt
             }
             return lst;
         }
-        private List<DbSearchObject> PartnerDbObject()
+        private List<DbSearchObject> PartnerDbObject(bool isCreate)
         {
             List<DbSearchObject> lst = new List<DbSearchObject>();
             lst.Add(new DbSearchObject(
@@ -1047,6 +1062,15 @@ namespace TheWeWebSite.CaseMgt
                         , AtrrTypeItem.String
                         , AttrSymbolItem.Equal
                         , ((DataRow)Session["AccountInfo"])["Id"].ToString()));
+            if (isCreate)
+            {
+                lst.Add(new DbSearchObject(
+                "CreatedateAccId"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , ((DataRow)Session["AccountInfo"])["Id"].ToString()
+                ));
+            }
             if (!string.IsNullOrEmpty(ddlGroomMsgerType.SelectedValue))
             {
                 lst.Add(new DbSearchObject(
@@ -1057,7 +1081,7 @@ namespace TheWeWebSite.CaseMgt
             }
             return lst;
         }
-        private List<List<DbSearchObject>> ServiceItemDbObject(string id)
+        private List<List<DbSearchObject>> ServiceItemDbObject(bool isCreate, string id)
         {
             List<List<DbSearchObject>> result = new List<List<DbSearchObject>>();
             List<DbSearchObject> lst = new List<DbSearchObject>();
@@ -1106,6 +1130,15 @@ namespace TheWeWebSite.CaseMgt
                             , ((DataRow)Session["AccountInfo"])["Id"].ToString()
                             ));
                         result.Add(lst);
+                        if (isCreate)
+                        {
+                            lst.Add(new DbSearchObject(
+                            "CreatedateAccId"
+                            , AtrrTypeItem.String
+                            , AttrSymbolItem.Equal
+                            , ((DataRow)Session["AccountInfo"])["Id"].ToString()
+                            ));
+                        }
                     }
                 }
             }
@@ -1507,7 +1540,7 @@ namespace TheWeWebSite.CaseMgt
 
         private void RefreshImage(string path)
         {
-            ImgFront.ImageUrl ="http:"+ path + "\\" + tbCaseSn.Text + "_1.jpg?" + DateTime.Now.Ticks.ToString();
+            ImgFront.ImageUrl = "http:" + path + "\\" + tbCaseSn.Text + "_1.jpg?" + DateTime.Now.Ticks.ToString();
         }
 
         private void CheckFolder(string path)
@@ -1548,7 +1581,7 @@ namespace TheWeWebSite.CaseMgt
                 Response.AddHeader("Content-Length", fileInfo.Length.ToString());
                 Response.WriteFile(filePath);
                 Response.End();
-                
+
             }
         }
 

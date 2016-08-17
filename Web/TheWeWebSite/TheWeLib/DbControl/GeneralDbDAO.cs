@@ -93,11 +93,11 @@ namespace TheWeLib.DbControl
             return ModifyDataInToTable(sqlTxt);
         }
 
-        public bool IsAccountDuplicate(string account)
+        public bool IsAccountDuplicate(string account, string storeId)
         {
             if (string.IsNullOrEmpty(account))
                 return false;
-            string sql = "Select Account From Employee Where Account ='" + account + "'";
+            string sql = "Select Account From Employee Where Account ='" + account + "' And StoreId = '" + storeId + "'";
             try
             {
                 DataSet ds = GetDataFromTable(sql);

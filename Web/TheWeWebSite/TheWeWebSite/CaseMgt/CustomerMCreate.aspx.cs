@@ -94,10 +94,10 @@ namespace TheWeWebSite.CaseMgt
         #region Button Control
         protected void btnCreate_Click(object sender, EventArgs e)
         {
-            List<DbSearchObject> lst = CustomerDbObject();
+            List<DbSearchObject> lst = CustomerDbObject(true);
             bool result = WriteBackCustomer(true, lst, string.Empty);
             if (!result) return;
-            string id = GetCreateCustomerId(lst);
+            //string id = GetCreateCustomerId(lst);
             //if (string.IsNullOrEmpty(id)) return;
             //List<List<DbSearchObject>> lst2 = SourceInfoDbObject();
             //result = WriteBackSourceInfo(true, lst2, id);
@@ -129,7 +129,7 @@ namespace TheWeWebSite.CaseMgt
         protected void btnModify_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(Session["CustomerId"].ToString())) return;
-            List<DbSearchObject> lst = CustomerDbObject();
+            List<DbSearchObject> lst = CustomerDbObject(false);
             bool result = WriteBackCustomer(false, lst, Session["CustomerId"].ToString());
             if (result)
             {
@@ -159,7 +159,7 @@ namespace TheWeWebSite.CaseMgt
         }
         #endregion
 
-        private List<DbSearchObject> CustomerDbObject()
+        private List<DbSearchObject> CustomerDbObject(bool isCreate)
         {
             List<DbSearchObject> lst = new List<DbSearchObject>();
             lst.Add(new DbSearchObject(
@@ -244,6 +244,15 @@ namespace TheWeWebSite.CaseMgt
                 , AttrSymbolItem.Equal
                 , tbSnsTitle.Text
                 ));
+            if (isCreate)
+            {
+                lst.Add(new DbSearchObject(
+                "CreatedateAccId"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , ((DataRow)Session["AccountInfo"])["Id"].ToString()
+                ));
+            }
             return lst;
         }
         

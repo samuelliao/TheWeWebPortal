@@ -85,7 +85,7 @@ namespace TheWeWebSite.StoreMgt
             CountryList();
             StoreList();
         }
-        
+
         #region DropDownList Control
         private void StoreList()
         {
@@ -146,7 +146,7 @@ namespace TheWeWebSite.StoreMgt
                 ShowErrorMsg(Resources.Resource.FieldEmptyString);
                 return;
             }
-            if (SysProperty.GenDbCon.IsAccountDuplicate(tbAccount.Text))
+            if (SysProperty.GenDbCon.IsAccountDuplicate(tbAccount.Text, ddlStore.SelectedValue))
             {
                 ShowErrorMsg(Resources.Resource.DuplicateAccountString);
                 tbAccount.Text = string.Empty;
@@ -160,9 +160,9 @@ namespace TheWeWebSite.StoreMgt
 
             string eid = GetCreatedDataId(true, MsSqlTable.vwEN_Employee, lst);
             if (string.IsNullOrEmpty(eid)) return;
-            
+
             //這段沒做到
-            lst = PermissionDbObject(eid);
+            lst = PermissionDbObject(true, eid);
 
             //OK
             result = WriteBackPermission(lst);
@@ -172,7 +172,7 @@ namespace TheWeWebSite.StoreMgt
             string pid = GetCreatedDataId(false, MsSqlTable.Permission, lst);
             if (string.IsNullOrEmpty(pid)) return;
 
-            result = WriteBackPermissionItem(PermissionItemDbObject(pid), pid, "Store");
+            result = WriteBackPermissionItem(PermissionItemDbObject(true, pid), pid, "Store");
             if (result)
             {
                 TransferToOtherPage();
@@ -244,7 +244,7 @@ namespace TheWeWebSite.StoreMgt
             }
         }
         #endregion
-      
+
 
         private DataSet GetDataSetFromTable(string sql)
         {
@@ -309,6 +309,12 @@ namespace TheWeWebSite.StoreMgt
                 , AtrrTypeItem.String
                 , AttrSymbolItem.Equal
                 , SysProperty.Util.GetMD5(tbAccount.Text)
+                ));
+                lst.Add(new DbSearchObject(
+                "CreatedateAccId"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , ((DataRow)Session["AccountInfo"])["Id"].ToString()
                 ));
             }
             lst.Add(new DbSearchObject(
@@ -431,10 +437,15 @@ namespace TheWeWebSite.StoreMgt
                 , AttrSymbolItem.Equal
                 , ddlStore.SelectedValue
                 ));
-
+            lst.Add(new DbSearchObject(
+            "UpdateAccId"
+            , AtrrTypeItem.String
+            , AttrSymbolItem.Equal
+            , ((DataRow)Session["AccountInfo"])["Id"].ToString()
+            ));
             return lst;
         }
-        private List<DbSearchObject> PermissionDbObject(string eid)
+        private List<DbSearchObject> PermissionDbObject(bool isCreate, string eid)
         {
             List<DbSearchObject> lst = new List<DbSearchObject>();
             lst.Add(new DbSearchObject(
@@ -449,6 +460,15 @@ namespace TheWeWebSite.StoreMgt
                 , AttrSymbolItem.Equal
                 , ((DataRow)Session["AccountInfo"])["Id"].ToString()
                 ));
+            if (isCreate)
+            {
+                lst.Add(new DbSearchObject(
+                "CreatedateAccId"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , ((DataRow)Session["AccountInfo"])["Id"].ToString()
+                ));
+            }
             lst.Add(new DbSearchObject(
                 "Type"
                 , AtrrTypeItem.String
@@ -463,7 +483,7 @@ namespace TheWeWebSite.StoreMgt
                 ));
             return lst;
         }
-        private List<DbSearchObject> PermissionItemDbObject(string pid)
+        private List<DbSearchObject> PermissionItemDbObject(bool isCreate, string pid)
         {
             List<DbSearchObject> lst = new List<DbSearchObject>();
             lst = new List<DbSearchObject>();
@@ -485,6 +505,15 @@ namespace TheWeWebSite.StoreMgt
                 , AttrSymbolItem.Equal
                 , ((DataRow)Session["AccountInfo"])["Id"].ToString()
                 ));
+            if (isCreate)
+            {
+                lst.Add(new DbSearchObject(
+                "CreatedateAccId"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , ((DataRow)Session["AccountInfo"])["Id"].ToString()
+                ));
+            }
             lst.Add(new DbSearchObject(
                 "PermissionId"
                 , AtrrTypeItem.String
@@ -569,7 +598,8 @@ namespace TheWeWebSite.StoreMgt
                         + " And CountryId=N'" + ddlCountry.SelectedValue + "'"
                         + " And StoreId=N'" + ddlStore.SelectedValue + "'";
                     ds = SysProperty.GenDbCon.GetDataFromTable(sql);
-                }else
+                }
+                else
                 {
                     ds = SysProperty.GenDbCon.GetDataFromTable("Id"
                     , SysProperty.Util.MsSqlTableConverter(table)
@@ -646,7 +676,7 @@ namespace TheWeWebSite.StoreMgt
                     break;
                 case 0:
                 default:
-                    ImgFront.ImageUrl = "http:"+path + "/" + tbEmpSn.Text + "_2.jpg?" + DateTime.Now.Ticks.ToString();
+                    ImgFront.ImageUrl = "http:" + path + "/" + tbEmpSn.Text + "_2.jpg?" + DateTime.Now.Ticks.ToString();
                     ImgBack.ImageUrl = "http:" + path + "/" + tbEmpSn.Text + "_3.jpg?" + DateTime.Now.Ticks.ToString();
                     ImgSide.ImageUrl = "http:" + path + "/" + tbEmpSn.Text + "_1.jpg?" + DateTime.Now.Ticks.ToString();
                     break;

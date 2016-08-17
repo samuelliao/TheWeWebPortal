@@ -147,16 +147,8 @@ namespace TheWeWebSite.StoreMgt
         #region Button Control
         protected void btnCreate_Click(object sender, EventArgs e)
         {
-            tbOthSn.Text = null;
-            /*
-            if (SysProperty.GenDbCon.IsSnDuplicate(SysProperty.Util.MsSqlTableConverter(MsSqlTable.ServiceItem), tbOthSn.Text))
-            {
-                ShowErrorMsg(Resources.Resource.SnDuplicateErrorString);
-                return;
-            }
-            */
             string typeId = CreateNewType(ddlType.SelectedValue);
-            bool result = WriteBackInfo(MsSqlTable.ServiceItem, true, OthItemInfoDbObject(typeId), string.Empty);
+            bool result = WriteBackInfo(MsSqlTable.ServiceItem, true, OthItemInfoDbObject(true, typeId), string.Empty);
             if (result)
             {
                 TransferToOtherPage();
@@ -167,7 +159,7 @@ namespace TheWeWebSite.StoreMgt
         {
             if (Session["OthId"] == null) return;
             string typeId = CreateNewType(ddlType.SelectedValue);
-            bool result = WriteBackInfo(MsSqlTable.ServiceItem, false, OthItemInfoDbObject(typeId), Session["OthId"].ToString());
+            bool result = WriteBackInfo(MsSqlTable.ServiceItem, false, OthItemInfoDbObject(false, typeId), Session["OthId"].ToString());
             if (result)
             {
                 TransferToOtherPage();
@@ -187,7 +179,7 @@ namespace TheWeWebSite.StoreMgt
                 }
                 else
                 {
-                    List<DbSearchObject> lst = CategoryDbObject(ddlOthCategory.SelectedValue);
+                    List<DbSearchObject> lst = CategoryDbObject(true, ddlOthCategory.SelectedValue);
                     result = WriteBackInfo(
                         MsSqlTable.ServiceItemCategory
                         , true, lst, string.Empty);
@@ -335,7 +327,7 @@ namespace TheWeWebSite.StoreMgt
             }
         }
 
-        private List<DbSearchObject> OthItemInfoDbObject(string typeId)
+        private List<DbSearchObject> OthItemInfoDbObject(bool isCreate, string typeId)
         {
             List<DbSearchObject> lst = new List<DbSearchObject>();
             lst.Add(new DbSearchObject(
@@ -397,9 +389,18 @@ namespace TheWeWebSite.StoreMgt
                 , AttrSymbolItem.Equal
                 , ((DataRow)Session["AccountInfo"])["Id"].ToString()
                 ));
+            if (isCreate)
+            {
+                lst.Add(new DbSearchObject(
+                "CreatedateAccId"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , ((DataRow)Session["AccountInfo"])["Id"].ToString()
+                ));
+            }
             return lst;
         }
-        private List<DbSearchObject> CategoryDbObject(string cid)
+        private List<DbSearchObject> CategoryDbObject(bool isCreate, string cid)
         {
             List<DbSearchObject> lst = new List<DbSearchObject>();
             lst.Add(new DbSearchObject(
@@ -434,6 +435,15 @@ namespace TheWeWebSite.StoreMgt
                 , AttrSymbolItem.Equal
                 , ((DataRow)Session["AccountInfo"])["Id"].ToString()
                 ));
+            if (isCreate)
+            {
+                lst.Add(new DbSearchObject(
+                "CreatedateAccId"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , ((DataRow)Session["AccountInfo"])["Id"].ToString()
+                ));
+            }
             return lst;
         }
 

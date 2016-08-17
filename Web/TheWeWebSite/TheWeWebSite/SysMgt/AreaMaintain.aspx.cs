@@ -26,7 +26,7 @@ namespace TheWeWebSite.SysMgt
                     InitialControlWithPermission();
                     BindData();
                 }
-            }   
+            }
         }
 
         private void InitialControlWithPermission()
@@ -87,7 +87,8 @@ namespace TheWeWebSite.SysMgt
                             , dr["Id"].ToString()));
                     }
                 }
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 SysProperty.Log.Error(ex.Message);
                 ShowErrorMsg(ex.Message);
@@ -105,6 +106,7 @@ namespace TheWeWebSite.SysMgt
             if (string.IsNullOrEmpty(tbName.Text)
                 || string.IsNullOrEmpty(ddlCountry.SelectedValue))
             {
+                ShowErrorMsg(Resources.Resource.FieldEmptyString);
                 return;
             }
             List<DbSearchObject> lst = new List<DbSearchObject>();
@@ -132,6 +134,12 @@ namespace TheWeWebSite.SysMgt
                 , AttrSymbolItem.Equal
                 , ddlCountry.SelectedValue)
                 );
+            lst.Add(new DbSearchObject(
+                "CreatedateAccId"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , ((DataRow)Session["AccountInfo"])["Id"].ToString()
+            ));
 
             if (SysProperty.GenDbCon.InsertDataInToTable(
                 SysProperty.Util.MsSqlTableConverter(MsSqlTable.Area)
@@ -205,7 +213,8 @@ namespace TheWeWebSite.SysMgt
                     dgArea.EditItemIndex = -1;
                     BindData();
                 }
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 SysProperty.Log.Error(ex.Message);
                 ShowErrorMsg(ex.Message);
@@ -233,7 +242,8 @@ namespace TheWeWebSite.SysMgt
                                 , dr["Id"].ToString()));
                         }
                         dropDownList1.SelectedValue = dataItem1["CountryId"].ToString();
-                    }catch(Exception ex)
+                    }
+                    catch (Exception ex)
                     {
                         SysProperty.Log.Error(ex.Message);
                     }
@@ -248,12 +258,12 @@ namespace TheWeWebSite.SysMgt
 
         protected void dgArea_SortCommand(object source, DataGridSortCommandEventArgs e)
         {
-            if(AreaDataSet==null)
+            if (AreaDataSet == null)
             {
-                GetAreaList("Order by "+ e.SortExpression + " " + SysProperty.Util.GetSortDirection(e.SortExpression));
+                GetAreaList("Order by " + e.SortExpression + " " + SysProperty.Util.GetSortDirection(e.SortExpression));
             }
-            if(AreaDataSet != null)
-            {                
+            if (AreaDataSet != null)
+            {
                 dgArea.DataSource = AreaDataSet;
                 dgArea.DataBind();
             }

@@ -200,14 +200,15 @@ namespace TheWeWebSite.SysMgt
             if (string.IsNullOrEmpty(tbPermissionCategory.Text)
                   || string.IsNullOrEmpty(ddlStore.SelectedValue))
             {
+                ShowErrorMsg(Resources.Resource.FieldEmptyString);
                 return;
             }
-            List<DbSearchObject> lst = PermissionDbObject();
+            List<DbSearchObject> lst = PermissionDbObject(true);
             bool result = WriteBackPermission(true, lst, string.Empty);
             if (!result) return;
             string newId = GetCreatePermissionId(lst);
             if (string.IsNullOrEmpty(newId)) return;
-            List<List<DbSearchObject>> lst2 = PermissionItemListFromTable(newId);
+            List<List<DbSearchObject>> lst2 = PermissionItemListFromTable(true, newId);
             result = WriteBackPermissionItem(true, lst2, newId);
             if (result)
             {
@@ -224,10 +225,10 @@ namespace TheWeWebSite.SysMgt
             }
             string id = dataGrid.DataKeys[dataGrid.SelectedIndex].ToString();
             if (string.IsNullOrEmpty(id)) return;
-            List<DbSearchObject> lst = PermissionDbObject();
+            List<DbSearchObject> lst = PermissionDbObject(false);
             bool result = WriteBackPermission(false, lst, id);
             if (!result) return;
-            List<List<DbSearchObject>> lst2 = PermissionItemListFromTable(id);
+            List<List<DbSearchObject>> lst2 = PermissionItemListFromTable(false, id);
             result = WriteBackPermissionItem(false, lst2, id);
             if (result) FreshScreen();
             btnUpdate.Visible = false;
@@ -235,7 +236,7 @@ namespace TheWeWebSite.SysMgt
         #endregion
 
         #region Db instqance 
-        private List<DbSearchObject> PermissionDbObject()
+        private List<DbSearchObject> PermissionDbObject(bool isCreate)
         {
             List<DbSearchObject> lst = new List<DbSearchObject>();
             lst.Add(new DbSearchObject(
@@ -256,6 +257,15 @@ namespace TheWeWebSite.SysMgt
                 , AttrSymbolItem.Equal
                 , ((DataRow)Session["AccountInfo"])["Id"].ToString())
                 );
+            if (isCreate)
+            {
+                lst.Add(new DbSearchObject(
+                "CreatedateAccId"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , ((DataRow)Session["AccountInfo"])["Id"].ToString()
+                ));
+            }
             lst.Add(new DbSearchObject(
                 "ObjectId"
                 , AtrrTypeItem.String
@@ -276,7 +286,7 @@ namespace TheWeWebSite.SysMgt
             return lst;
         }
 
-        private List<List<DbSearchObject>> PermissionItemListFromTable(string newId)
+        private List<List<DbSearchObject>> PermissionItemListFromTable(bool isCreate, string newId)
         {
             List<List<DbSearchObject>> root = new List<List<DbSearchObject>>();
             List<DbSearchObject> lst = new List<DbSearchObject>();
@@ -333,6 +343,15 @@ namespace TheWeWebSite.SysMgt
                     , cnt.ToString()));
                 lst.Add(new DbSearchObject("UpdateAccId", AtrrTypeItem.String, AttrSymbolItem.Equal, ((DataRow)Session["AccountInfo"])["Id"].ToString()));
                 lst.Add(new DbSearchObject("UpdateTime", AtrrTypeItem.String, AttrSymbolItem.Equal, DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss")));
+                if (isCreate)
+                {
+                    lst.Add(new DbSearchObject(
+                    "CreatedateAccId"
+                    , AtrrTypeItem.String
+                    , AttrSymbolItem.Equal
+                    , ((DataRow)Session["AccountInfo"])["Id"].ToString()
+                    ));
+                }
                 root.Add(lst);
             }
             return root;

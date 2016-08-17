@@ -310,7 +310,7 @@ namespace TheWeWebSite.StoreMgt
         #region Button Control
         protected void btnCreate_Click(object sender, EventArgs e)
         {
-            bool result = WriteBackInfo(true, DressInfoMainDbObject(), string.Empty);
+            bool result = WriteBackInfo(true, DressInfoMainDbObject(true), string.Empty);
             if (result)
             {
                 TransferToOtherPage();
@@ -320,7 +320,7 @@ namespace TheWeWebSite.StoreMgt
         protected void btnModify_Click(object sender, EventArgs e)
         {
             if (Session["DressId"] == null) return;
-            bool result = WriteBackInfo(false, DressInfoMainDbObject(), Session["DressId"].ToString());
+            bool result = WriteBackInfo(false, DressInfoMainDbObject(false), Session["DressId"].ToString());
             if (result)
             {
                 TransferToOtherPage();
@@ -511,7 +511,7 @@ namespace TheWeWebSite.StoreMgt
             }
         }
 
-        private List<DbSearchObject> DressInfoMainDbObject()
+        private List<DbSearchObject> DressInfoMainDbObject(bool isCreate)
         {
             List<DbSearchObject> lst = new List<DbSearchObject>();
             lst.Add(new DbSearchObject(
@@ -750,6 +750,15 @@ namespace TheWeWebSite.StoreMgt
                 , AttrSymbolItem.Equal
                 , ((DataRow)Session["AccountInfo"])["Id"].ToString()
                 ));
+            if (isCreate)
+            {
+                lst.Add(new DbSearchObject(
+                "CreatedateAccId"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , ((DataRow)Session["AccountInfo"])["Id"].ToString()
+                ));
+            }
             lst.Add(new DbSearchObject(
                 "StoreId"
                 , AtrrTypeItem.String

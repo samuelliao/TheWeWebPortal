@@ -385,24 +385,24 @@ namespace TheWeWebSite.CaseMgt
         }
         protected void btnModify_Click(object sender, EventArgs e)
         {
-            List<DbSearchObject> lst = ConsultDbObject();
+            List<DbSearchObject> lst = ConsultDbObject(false);
             if (string.IsNullOrEmpty(Session["ConsultId"].ToString())) return;
             string id = Session["ConsultId"].ToString();
             bool result = WriteBackConsult(false, lst, id);
             if (!result) return;
-            result = WriteBackService(false, ServiceDbObject(id), id);
+            result = WriteBackService(false, ServiceDbObject(false, id), id);
             if (!result)
             {
                 WriteBackService(false, new List<List<DbSearchObject>>(), id);
                 return;
             }
-            result = WriteBackLocation(false, LocationDbObject(id), id);
+            result = WriteBackLocation(false, LocationDbObject(false, id), id);
             if (!result)
             {
                 WriteBackLocation(false, new List<List<DbSearchObject>>(), id);
                 return;
             }
-            result = WriteBackSourceInfo(false, SourceInfoDbObject(id), id);
+            result = WriteBackSourceInfo(false, SourceInfoDbObject(false, id), id);
 
             if (!result)
             {
@@ -422,7 +422,7 @@ namespace TheWeWebSite.CaseMgt
         }
         protected void btnCreate_Click(object sender, EventArgs e)
         {
-            List<DbSearchObject> lst = ConsultDbObject();
+            List<DbSearchObject> lst = ConsultDbObject(true);
             lst.Add(new DbSearchObject(
                 "ConsultDate"
                 , AtrrTypeItem.DateTime
@@ -433,19 +433,19 @@ namespace TheWeWebSite.CaseMgt
             if (!result) return;
             string id = GetCreateConsultId(lst);
             if (string.IsNullOrEmpty(id)) return;
-            result = WriteBackService(true, ServiceDbObject(id), id);
+            result = WriteBackService(true, ServiceDbObject(true, id), id);
             if (!result)
             {
                 WriteBackService(false, new List<List<DbSearchObject>>(), id);
                 return;
             }
-            result = WriteBackLocation(true, LocationDbObject(id), id);
+            result = WriteBackLocation(true, LocationDbObject(true, id), id);
             if (!result)
             {
                 WriteBackLocation(false, new List<List<DbSearchObject>>(), id);
                 return;
             }
-            result = WriteBackSourceInfo(true, SourceInfoDbObject(id), id);
+            result = WriteBackSourceInfo(true, SourceInfoDbObject(true, id), id);
             if (!result)
             {
                 WriteBackSourceInfo(false, new List<List<DbSearchObject>>(), id);
@@ -470,7 +470,7 @@ namespace TheWeWebSite.CaseMgt
 
         #region DB Control
         #region DB Insatnce Object
-        private List<DbSearchObject> ConsultDbObject()
+        private List<DbSearchObject> ConsultDbObject(bool isCreate)
         {
             List<DbSearchObject> lst = new List<DbSearchObject>();
 
@@ -492,6 +492,15 @@ namespace TheWeWebSite.CaseMgt
                 , AttrSymbolItem.Equal
                 , ((DataRow)Session["AccountInfo"])["Id"].ToString()
                 ));
+            if (isCreate)
+            {
+                lst.Add(new DbSearchObject(
+                "CreatedateAccId"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , ((DataRow)Session["AccountInfo"])["Id"].ToString()
+                ));
+            }
             lst.Add(new DbSearchObject(
                 "UpdateAccId"
                 , AtrrTypeItem.String
@@ -666,7 +675,7 @@ namespace TheWeWebSite.CaseMgt
             return lst;
         }
 
-        private List<List<DbSearchObject>> SourceInfoDbObject(string id)
+        private List<List<DbSearchObject>> SourceInfoDbObject(bool isCreate, string id)
         {
             List<List<DbSearchObject>> lst = new List<List<DbSearchObject>>();
             List<DbSearchObject> lst2 = new List<DbSearchObject>();
@@ -696,13 +705,22 @@ namespace TheWeWebSite.CaseMgt
                         , AttrSymbolItem.Equal
                         , ((DataRow)Session["AccountInfo"])["Id"].ToString())
                         );
+                    if (isCreate)
+                    {
+                        lst2.Add(new DbSearchObject(
+                        "CreatedateAccId"
+                        , AtrrTypeItem.String
+                        , AttrSymbolItem.Equal
+                        , ((DataRow)Session["AccountInfo"])["Id"].ToString()
+                        ));
+                    }
                     lst.Add(lst2);
                 }
             }
             return lst;
         }
 
-        private List<List<DbSearchObject>> LocationDbObject(string id)
+        private List<List<DbSearchObject>> LocationDbObject(bool isCreate, string id)
         {
             List<List<DbSearchObject>> lst2 = new List<List<DbSearchObject>>();
             List<DbSearchObject> lst = new List<DbSearchObject>();
@@ -738,13 +756,22 @@ namespace TheWeWebSite.CaseMgt
                         , AtrrTypeItem.String
                         , AttrSymbolItem.Equal
                         , ((DataRow)Session["AccountInfo"])[0].ToString()));
+                    if (isCreate)
+                    {
+                        lst.Add(new DbSearchObject(
+                        "CreatedateAccId"
+                        , AtrrTypeItem.String
+                        , AttrSymbolItem.Equal
+                        , ((DataRow)Session["AccountInfo"])["Id"].ToString()
+                        ));
+                    }
                     lst2.Add(lst);
                 }
             }
             return lst2;
         }
 
-        private List<List<DbSearchObject>> ServiceDbObject(string id)
+        private List<List<DbSearchObject>> ServiceDbObject(bool isCreate, string id)
         {
             List<List<DbSearchObject>> lst2 = new List<List<DbSearchObject>>();
             List<DbSearchObject> lst = new List<DbSearchObject>();
@@ -775,6 +802,15 @@ namespace TheWeWebSite.CaseMgt
                         , AttrSymbolItem.Equal
                         , "0")
                         );
+                    if (isCreate)
+                    {
+                        lst.Add(new DbSearchObject(
+                        "CreatedateAccId"
+                        , AtrrTypeItem.String
+                        , AttrSymbolItem.Equal
+                        , ((DataRow)Session["AccountInfo"])["Id"].ToString()
+                        ));
+                    }
                     lst2.Add(lst);
                 }
             }
@@ -805,13 +841,22 @@ namespace TheWeWebSite.CaseMgt
                         , AttrSymbolItem.Equal
                         , "1")
                         );
+                    if (isCreate)
+                    {
+                        lst.Add(new DbSearchObject(
+                        "CreatedateAccId"
+                        , AtrrTypeItem.String
+                        , AttrSymbolItem.Equal
+                        , ((DataRow)Session["AccountInfo"])["Id"].ToString()
+                        ));
+                    }
                     lst2.Add(lst);
                 }
             }
             return lst2;
         }
 
-        private List<DbSearchObject> CustomerDbObject()
+        private List<DbSearchObject> CustomerDbObject(bool isCreate)
         {
             List<DbSearchObject> lst = new List<DbSearchObject>();
             lst.Add(new DbSearchObject(
@@ -881,9 +926,18 @@ namespace TheWeWebSite.CaseMgt
                         , AttrSymbolItem.Equal
                         , ddlBridalMsgerType.SelectedValue));
             }
+            if (isCreate)
+            {
+                lst.Add(new DbSearchObject(
+                "CreatedateAccId"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , ((DataRow)Session["AccountInfo"])["Id"].ToString()
+                ));
+            }
             return lst;
         }
-        private List<DbSearchObject> PartnerDbObject()
+        private List<DbSearchObject> PartnerDbObject(bool isCreate)
         {
             List<DbSearchObject> lst = new List<DbSearchObject>();
             lst.Add(new DbSearchObject(
@@ -934,9 +988,18 @@ namespace TheWeWebSite.CaseMgt
                         , AttrSymbolItem.Equal
                         , ddlGroomMsgerType.SelectedValue));
             }
+            if (isCreate)
+            {
+                lst.Add(new DbSearchObject(
+                "CreatedateAccId"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , ((DataRow)Session["AccountInfo"])["Id"].ToString()
+                ));
+            }
             return lst;
         }
-        private List<DbSearchObject> OrderDbObject(string consultId, string customerId, string partnerId)
+        private List<DbSearchObject> OrderDbObject(bool isCreate, string consultId, string customerId, string partnerId)
         {
             List<DbSearchObject> lst = new List<DbSearchObject>();
             lst.Add(new DbSearchObject(
@@ -974,7 +1037,21 @@ namespace TheWeWebSite.CaseMgt
                         , AtrrTypeItem.DateTime
                         , AttrSymbolItem.Equal
                         , ((DataRow)Session["LocateStore"])["Id"].ToString()));
-
+            lst.Add(new DbSearchObject(
+                "UpdateAccId"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , ((DataRow)Session["AccountInfo"])["Id"].ToString()
+                ));
+            if (isCreate)
+            {
+                lst.Add(new DbSearchObject(
+                "CreatedateAccId"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , ((DataRow)Session["AccountInfo"])["Id"].ToString()
+                ));
+            }
             return lst;
         }
         #endregion
@@ -1524,19 +1601,19 @@ namespace TheWeWebSite.CaseMgt
         #region Advisory change to Order
         private bool ChangeToOrder(string consultId)
         {
-            List<DbSearchObject> lst = CustomerDbObject();
+            List<DbSearchObject> lst = CustomerDbObject(true);
             bool result = WriteBackCustomer(lst);
             if (!result) return false;
             string customerId = GetCreateCustomerId(lst);
             if (string.IsNullOrEmpty(customerId)) return false;
 
-            lst = PartnerDbObject();
+            lst = PartnerDbObject(true);
             result = WriteBackPartner(lst);
             if (!result) return false;
             string partnerId = GetCreatePartner(lst);
             if (string.IsNullOrEmpty(partnerId)) return false;
 
-            return WriteBackOrderInfo(OrderDbObject(consultId, customerId, partnerId));
+            return WriteBackOrderInfo(OrderDbObject(true, consultId, customerId, partnerId));
         }
 
         private string GetCreateCustomerId(List<DbSearchObject> lst)

@@ -314,13 +314,13 @@ namespace TheWeWebSite.SysMgt
             if (string.IsNullOrEmpty(tbName.Text)
                   || string.IsNullOrEmpty(ddlCountry.SelectedValue)
                   || string.IsNullOrEmpty(ddlArea.SelectedValue)
-                  || string.IsNullOrEmpty(tbSn.Text)
                   || string.IsNullOrEmpty(ddlLv.SelectedValue))
             {
+                ShowErrorMsg(Resources.Resource.FieldEmptyString);
                 return;
             }
 
-            List<DbSearchObject> lst = CreateDbObject();
+            List<DbSearchObject> lst = CreateDbObject(true);
             try
             {
                 if (SysProperty.GenDbCon.InsertDataInToTable(
@@ -385,7 +385,7 @@ namespace TheWeWebSite.SysMgt
             return otherConditionString;
         }
 
-        private List<DbSearchObject> CreateDbObject()
+        private List<DbSearchObject> CreateDbObject(bool isCreate)
         {
             List<DbSearchObject> lst = new List<DbSearchObject>();
             lst.Add(new DbSearchObject(
@@ -406,6 +406,15 @@ namespace TheWeWebSite.SysMgt
                 , AttrSymbolItem.Equal
                 , ((DataRow)Session["AccountInfo"])["Id"].ToString())
                 );
+            if (isCreate)
+            {
+                lst.Add(new DbSearchObject(
+                "CreatedateAccId"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , ((DataRow)Session["AccountInfo"])["Id"].ToString()
+                ));
+            }
             lst.Add(new DbSearchObject(
                 "CountryId"
                 , AtrrTypeItem.String

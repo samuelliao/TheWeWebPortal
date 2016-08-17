@@ -326,15 +326,15 @@ namespace TheWeWebSite.StoreMgt
             if (Session["SetId"] == null) return;
             string id = Session["SetId"].ToString();
             if (string.IsNullOrEmpty(id)) return;
-            bool result = WriteBackInfo(MsSqlTable.ProductSet, false, SetDbObject(), " Where Id='" + id + "'");
+            bool result = WriteBackInfo(MsSqlTable.ProductSet, false, SetDbObject(false), " Where Id='" + id + "'");
             if (!result) return;
             if (bool.Parse(((DataRow)Session["LocateStore"])["HoldingCompany"].ToString())
                 && ddlStore.SelectedValue == ((DataRow)Session["LocateStore"])["Id"].ToString())
             {
-                result = WriteBackServiceItem(MsSqlTable.ProductSetChurchServiceItem, false, ServiceItemDbObject("Church", id), id);
+                result = WriteBackServiceItem(MsSqlTable.ProductSetChurchServiceItem, false, ServiceItemDbObject(true, "Church", id), id);
                 result = WriteBackStoreLvPrice(false, StoreLvPriceDbObject(false, id));
             }
-            result = WriteBackServiceItem(MsSqlTable.ProductSetServiceItem, false, ServiceItemDbObject("Custom", id), id);
+            result = WriteBackServiceItem(MsSqlTable.ProductSetServiceItem, false, ServiceItemDbObject(true, "Custom", id), id);
             if (result)
             {
                 TransferToOtherPage();
@@ -344,7 +344,7 @@ namespace TheWeWebSite.StoreMgt
         protected void btnCreate_Click(object sender, EventArgs e)
         {
             labelUpdateTime.Text = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss");
-            List<DbSearchObject> lst = SetDbObject();
+            List<DbSearchObject> lst = SetDbObject(true);
             bool result = WriteBackInfo(MsSqlTable.ProductSet, true, lst, string.Empty);
             if (!result) return;
             string id = GetCreateSetId(lst);
@@ -352,10 +352,10 @@ namespace TheWeWebSite.StoreMgt
             if (bool.Parse(((DataRow)Session["LocateStore"])["HoldingCompany"].ToString())
                 && ddlStore.SelectedValue == ((DataRow)Session["LocateStore"])["Id"].ToString())
             {
-                result = WriteBackServiceItem(MsSqlTable.ProductSetServiceItem, false, ServiceItemDbObject("Church", id), id);
+                result = WriteBackServiceItem(MsSqlTable.ProductSetServiceItem, false, ServiceItemDbObject(true, "Church", id), id);
                 result = WriteBackStoreLvPrice(true, StoreLvPriceDbObject(true, id));
             }
-            result = WriteBackServiceItem(MsSqlTable.ProductSetChurchServiceItem, false, ServiceItemDbObject("Custom", id), id);
+            result = WriteBackServiceItem(MsSqlTable.ProductSetChurchServiceItem, false, ServiceItemDbObject(true, "Custom", id), id);
             if (result)
             {
                 TransferToOtherPage();
@@ -826,7 +826,7 @@ namespace TheWeWebSite.StoreMgt
         #endregion
 
         #region Db Instance
-        private List<List<DbSearchObject>> ServiceItemDbObject(string type, string id)
+        private List<List<DbSearchObject>> ServiceItemDbObject(bool isCreate, string type, string id)
         {
             List<List<DbSearchObject>> result = new List<List<DbSearchObject>>();
             List<DbSearchObject> lst = new List<DbSearchObject>();
@@ -875,13 +875,22 @@ namespace TheWeWebSite.StoreMgt
                         , AttrSymbolItem.Equal
                         , ((DataRow)Session["AccountInfo"])["Id"].ToString()
                         ));
+                    if (isCreate)
+                    {
+                        lst.Add(new DbSearchObject(
+                        "CreatedateAccId"
+                        , AtrrTypeItem.String
+                        , AttrSymbolItem.Equal
+                        , ((DataRow)Session["AccountInfo"])["Id"].ToString()
+                        ));
+                    }
                     result.Add(lst);
                 }
             }
             return result;
         }
 
-        private List<DbSearchObject> SetDbObject()
+        private List<DbSearchObject> SetDbObject(bool isCreate)
         {
             List<DbSearchObject> lst = new List<DbSearchObject>();
             #region TextBox
@@ -1131,6 +1140,15 @@ namespace TheWeWebSite.StoreMgt
                 , AttrSymbolItem.Equal
                 , labelUpdateTime.Text
                 ));
+            if (isCreate)
+            {
+                lst.Add(new DbSearchObject(
+                "CreatedateAccId"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , ((DataRow)Session["AccountInfo"])["Id"].ToString()
+                ));
+            }
             if (!string.IsNullOrEmpty(labelBaseId.Text))
             {
                 lst.Add(new DbSearchObject(
@@ -1191,6 +1209,15 @@ namespace TheWeWebSite.StoreMgt
                         , AttrSymbolItem.Equal
                         , ((DataRow)Session["AccountInfo"])["Id"].ToString()
                         ));
+                    if (isCreate)
+                    {
+                        lst.Add(new DbSearchObject(
+                        "CreatedateAccId"
+                        , AtrrTypeItem.String
+                        , AttrSymbolItem.Equal
+                        , ((DataRow)Session["AccountInfo"])["Id"].ToString()
+                        ));
+                    }
                     result.Add(lst);
                 }
             }

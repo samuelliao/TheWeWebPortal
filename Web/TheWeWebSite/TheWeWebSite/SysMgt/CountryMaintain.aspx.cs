@@ -18,7 +18,7 @@ namespace TheWeWebSite.SysMgt
             {
                 if (SysProperty.Util == null) Response.Redirect("../Login.aspx", true);
                 else
-                {                    
+                {
                     labelPageTitle.Text = Resources.Resource.SysMgtString + " > " + Resources.Resource.CountryString;
                     InitialUseLang();
                     InitialLangList();
@@ -73,7 +73,8 @@ namespace TheWeWebSite.SysMgt
                         ddlCurrency.Items.Add(new ListItem(dr["Name"].ToString(), dr["Id"].ToString()));
                     }
                 }
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 SysProperty.Log.Error(ex.Message);
                 ShowErrorMsg(ex.Message);
@@ -101,7 +102,8 @@ namespace TheWeWebSite.SysMgt
                 {
                     BindData();
                 }
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 SysProperty.Log.Error(ex.Message);
                 ShowErrorMsg(ex.Message);
@@ -128,7 +130,7 @@ namespace TheWeWebSite.SysMgt
             updateLst.Add(new DbSearchObject("Name", AtrrTypeItem.String, AttrSymbolItem.Equal, ((TextBox)e.Item.Cells[1].Controls[0]).Text));
             updateLst.Add(new DbSearchObject("CnName", AtrrTypeItem.String, AttrSymbolItem.Equal, ((TextBox)e.Item.Cells[2].Controls[0]).Text));
             updateLst.Add(new DbSearchObject("EngName", AtrrTypeItem.String, AttrSymbolItem.Equal, ((TextBox)e.Item.Cells[3].Controls[0]).Text));
-            updateLst.Add(new DbSearchObject("JpName", AtrrTypeItem.String, AttrSymbolItem.Equal, ((TextBox)e.Item.Cells[4].Controls[0]).Text));            
+            updateLst.Add(new DbSearchObject("JpName", AtrrTypeItem.String, AttrSymbolItem.Equal, ((TextBox)e.Item.Cells[4].Controls[0]).Text));
             updateLst.Add(new DbSearchObject("Code", AtrrTypeItem.String, AttrSymbolItem.Equal, ((TextBox)e.Item.Cells[5].Controls[0]).Text));
             updateLst.Add(new DbSearchObject("CurrencyId", AtrrTypeItem.String, AttrSymbolItem.Equal, ddl1.SelectedValue));
             updateLst.Add(new DbSearchObject("LangCode", AtrrTypeItem.String, AttrSymbolItem.Equal, ddl2.SelectedValue));
@@ -144,7 +146,8 @@ namespace TheWeWebSite.SysMgt
                     dgCountry.EditItemIndex = -1;
                     BindData();
                 }
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 SysProperty.Log.Error(ex.Message);
                 ShowErrorMsg(ex.Message);
@@ -169,7 +172,8 @@ namespace TheWeWebSite.SysMgt
                             dropDownList1.Items.Add(new ListItem(dr["Name"].ToString(), dr["Id"].ToString()));
                         }
                         dropDownList1.SelectedValue = dataItem1["CurrencyId"].ToString();
-                    }catch(Exception ex)
+                    }
+                    catch (Exception ex)
                     {
                         SysProperty.Log.Error(ex.Message);
                     }
@@ -208,10 +212,11 @@ namespace TheWeWebSite.SysMgt
         #region Button Control
         protected void btnCreate_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(tbName.Text) 
-                || string.IsNullOrEmpty(tbCode.Text) 
+            if (string.IsNullOrEmpty(tbName.Text)
+                || string.IsNullOrEmpty(tbCode.Text)
                 || string.IsNullOrEmpty(ddlCurrency.SelectedValue))
             {
+                ShowErrorMsg(Resources.Resource.FieldEmptyString);
                 return;
             }
             List<DbSearchObject> lst = new List<DbSearchObject>();
@@ -233,6 +238,12 @@ namespace TheWeWebSite.SysMgt
                 , AttrSymbolItem.Equal
                 , ((DataRow)Session["AccountInfo"])["Id"].ToString())
                 );
+            lst.Add(new DbSearchObject(
+            "CreatedateAccId"
+            , AtrrTypeItem.String
+            , AttrSymbolItem.Equal
+            , ((DataRow)Session["AccountInfo"])["Id"].ToString()
+            ));
             lst.Add(new DbSearchObject(
                 "Code"
                 , AtrrTypeItem.String
@@ -265,7 +276,8 @@ namespace TheWeWebSite.SysMgt
                     ddlCurrency.SelectedIndex = 0;
                     ddlUseLang.SelectedIndex = 0;
                 }
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 SysProperty.Log.Error(ex.Message);
                 ShowErrorMsg(ex.Message);
@@ -294,13 +306,13 @@ namespace TheWeWebSite.SysMgt
             try
             {
                 string sqlTxt = "SELECT co.[Id],co.[Name],co.[EngName],co.[Code]"
-                    +",co.[CurrencyId],co.[LangCode],co.[CnName],co.[JpName]"
-                    +",co.[IsDelete],co.[UpdateAccId],co.[UpdateTime]"
-                    +",cu.Name as CurrencyName, em.Name as EmployeeName"
-                    +" FROM[TheWe].[dbo].[Country] as co"
-                    +" left join Currency as cu on cu.Id = co.CurrencyId"
-                    +" left join vwEN_Employee as em on em.Id = co.UpdateAccId"
-                    +" where co.IsDelete = 0 "+ sortString;
+                    + ",co.[CurrencyId],co.[LangCode],co.[CnName],co.[JpName]"
+                    + ",co.[IsDelete],co.[UpdateAccId],co.[UpdateTime]"
+                    + ",cu.Name as CurrencyName, em.Name as EmployeeName"
+                    + " FROM[TheWe].[dbo].[Country] as co"
+                    + " left join Currency as cu on cu.Id = co.CurrencyId"
+                    + " left join vwEN_Employee as em on em.Id = co.UpdateAccId"
+                    + " where co.IsDelete = 0 " + sortString;
                 CountryDataSet = SysProperty.GenDbCon.GetDataFromTable(sqlTxt);
             }
             catch (Exception ex)

@@ -172,10 +172,10 @@ namespace TheWeWebSite.StoreMgt
             bool result = false;
             if (Session["ChurchId"] == null) return;
             string id = Session["ChurchId"].ToString();
-            List<DbSearchObject> lst = ChurchDbObject();
+            List<DbSearchObject> lst = ChurchDbObject(false);
             result = WriteBackChurch(false, lst, id);
             if (!result) return;
-            result = WriteBackAppointment(false, AppointmentTimeDbObject(id), id);
+            result = WriteBackAppointment(false, AppointmentTimeDbObject(true, id), id);
 
             if (result)
             {
@@ -186,12 +186,12 @@ namespace TheWeWebSite.StoreMgt
         protected void btnCreate_Click(object sender, EventArgs e)
         {
             bool result = false;
-            List<DbSearchObject> lst = ChurchDbObject();
+            List<DbSearchObject> lst = ChurchDbObject(true);
             result = WriteBackChurch(true, lst, string.Empty);
             if (!result) return;
             string id = GetCreateChurchId(lst);
             if (string.IsNullOrEmpty(id)) return;
-            result = WriteBackAppointment(true, AppointmentTimeDbObject(id), id);
+            result = WriteBackAppointment(true, AppointmentTimeDbObject(true, id), id);
             if (result)
             {
                 TransferToOtherPage();
@@ -505,7 +505,7 @@ namespace TheWeWebSite.StoreMgt
         #endregion
 
         #region Db Instance
-        private List<DbSearchObject> ChurchDbObject()
+        private List<DbSearchObject> ChurchDbObject(bool isCreate)
         {
             List<DbSearchObject> lst = new List<DbSearchObject>();
             lst.Add(new DbSearchObject(
@@ -592,11 +592,19 @@ namespace TheWeWebSite.StoreMgt
                 , AttrSymbolItem.Equal
                 , ((DataRow)Session["AccountInfo"])["Id"].ToString()
                 ));
-
+            if (isCreate)
+            {
+                lst.Add(new DbSearchObject(
+                "CreatedateAccId"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , ((DataRow)Session["AccountInfo"])["Id"].ToString()
+                ));
+            }
             return lst;
         }
 
-        private List<List<DbSearchObject>> AppointmentTimeDbObject(string id)
+        private List<List<DbSearchObject>> AppointmentTimeDbObject(bool isCreate, string id)
         {
             List<List<DbSearchObject>> result = new List<List<DbSearchObject>>();
             List<DbSearchObject> lst = new List<DbSearchObject>();
@@ -629,6 +637,15 @@ namespace TheWeWebSite.StoreMgt
                             , AttrSymbolItem.Equal
                             , ((DataRow)Session["AccountInfo"])["Id"].ToString()
                             ));
+                        if (isCreate)
+                        {
+                            lst.Add(new DbSearchObject(
+                            "CreatedateAccId"
+                            , AtrrTypeItem.String
+                            , AttrSymbolItem.Equal
+                            , ((DataRow)Session["AccountInfo"])["Id"].ToString()
+                            ));
+                        }
                         result.Add(lst);
                     }
                 }

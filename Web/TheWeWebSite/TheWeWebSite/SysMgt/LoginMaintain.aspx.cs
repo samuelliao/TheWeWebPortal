@@ -67,7 +67,10 @@ namespace TheWeWebSite.SysMgt
         protected void btnModify_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(ddlStore.SelectedValue) || string.IsNullOrEmpty(tbAccount.Text) || string.IsNullOrEmpty(tbPwd.Text) || string.IsNullOrEmpty(tbPwdConfirm.Text))
+            {
+                ShowErrorMsg(Resources.Resource.FieldEmptyString);
                 return;
+            }
             if (tbPwd.Text != tbPwdConfirm.Text)
             {
                 ShowErrorMsg(Resources.Resource.AccountOrPasswordErrorString);
