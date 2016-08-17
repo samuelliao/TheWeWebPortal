@@ -21,6 +21,7 @@
 
         <!-- Input -->
         <section class="insert">
+            <asp:Label runat="server" ID="labelWarnString" ForeColor="Red" Visible="false" />
             <asp:ScriptManager runat="server"></asp:ScriptManager>
             <div>
                 <div class="12u">
@@ -388,8 +389,7 @@
                         </asp:UpdatePanel>
                     </div>
                 </div>
-            </div>
-            <asp:Label runat="server" ID="labelWarnString" ForeColor="Red" Visible="false" />
+            </div>            
             <!-- Btn -->
             <div class="Div btn">
                 <ul class="actions">

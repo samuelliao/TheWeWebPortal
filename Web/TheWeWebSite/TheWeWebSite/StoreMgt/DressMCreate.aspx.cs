@@ -49,10 +49,18 @@ namespace TheWeWebSite.StoreMgt
             labelWarnString.Text = msg;
             labelWarnString.Visible = !string.IsNullOrEmpty(msg);
         }
-        private void TransferToOtherPage()
+        private void TransferToOtherPage(bool transfer)
         {
-            Session.Remove("DressId");
-            Response.Redirect("DressMaintain.aspx", true);
+            if (transfer)
+            {
+                Session.Remove("DressId");
+                Response.Redirect("DressMaintain.aspx", true);
+            }
+            else
+            {
+                //string display = "Pop-up!";
+                //ClientScript.RegisterStartupScript(this.GetType(), "Successful", "alert('" + display + "');", true);
+            }
         }
         private void InitialControlWithPermission()
         {
@@ -313,7 +321,7 @@ namespace TheWeWebSite.StoreMgt
             bool result = WriteBackInfo(true, DressInfoMainDbObject(true), string.Empty);
             if (result)
             {
-                TransferToOtherPage();
+                TransferToOtherPage(false);
             }
         }
 
@@ -323,7 +331,7 @@ namespace TheWeWebSite.StoreMgt
             bool result = WriteBackInfo(false, DressInfoMainDbObject(false), Session["DressId"].ToString());
             if (result)
             {
-                TransferToOtherPage();
+                TransferToOtherPage(false);
             }
         }
 
@@ -363,7 +371,7 @@ namespace TheWeWebSite.StoreMgt
 
         protected void btnCancel_Click(object sender, EventArgs e)
         {
-            TransferToOtherPage();
+            TransferToOtherPage(true);
         }
 
         protected void btnDelete_Click(object sender, EventArgs e)
@@ -377,7 +385,7 @@ namespace TheWeWebSite.StoreMgt
                 + " Where Id = '" + Session["ChurchId"].ToString() + "'";
                 if (SysProperty.GenDbCon.ModifyDataInToTable(sql))
                 {
-                    TransferToOtherPage();
+                    TransferToOtherPage(true);
                 }
             }
             catch (Exception ex)
@@ -483,16 +491,6 @@ namespace TheWeWebSite.StoreMgt
                     cbOutPhoto.Enabled = false;
                     cbPlusItem.Enabled = false;
                     btnClear.Visible = false;
-                    btnImgBackUpload.Visible = false;
-                    btnImgFrontUpload.Visible = false;
-                    btnImgOther1.Visible = false;
-                    btnImgOther2.Visible = false;
-                    btnImgSideUpload.Visible = false;
-                    ImgBackUpload.Visible = false;
-                    ImgFrontUpload.Visible = false;
-                    ImgOther1Upload.Visible = false;
-                    ImgOther2Upload.Visible = false;
-                    ImgSideUpload.Visible = false;
                     ddlBack.Enabled = false;
                     ddlCorsage.Enabled = false;
                     ddlDressCategory.Enabled = false;
@@ -506,6 +504,7 @@ namespace TheWeWebSite.StoreMgt
                     ddlVeil.Enabled = false;
                     ddlWorn.Enabled = false;
                     ddlStore.Enabled = false;
+                    divPhotoUpload.Attributes["style"] = "display: none;";
                     #endregion
                 }
             }
@@ -841,31 +840,7 @@ namespace TheWeWebSite.StoreMgt
                     ImgOther2.ImageUrl = "http:" + path + "\\" + tbSn.Text + "_5.jpg?" + DateTime.Now.Ticks.ToString();
                     break;
             }
-        }
-
-        protected void btnImgFrontUpload_Click(object sender, EventArgs e)
-        {
-            if (string.IsNullOrEmpty(tbFolderPath.Text)) return;
-            CheckFolder(tbFolderPath.Text);
-            ImgFrontUpload.PostedFile.SaveAs(tbFolderPath.Text + "\\"+tbSn.Text+ "_1.jpg");
-            RefreshImage(1, tbFolderPath.Text);
-        }
-
-        protected void btnImgBackUpload_Click(object sender, EventArgs e)
-        {
-            if (string.IsNullOrEmpty(tbFolderPath.Text)) return;
-            CheckFolder(tbFolderPath.Text);
-            ImgBackUpload.PostedFile.SaveAs(tbFolderPath.Text + "\\" + tbSn.Text + "_2.jpg");
-            RefreshImage(2, tbFolderPath.Text);
-        }
-
-        protected void btnImgSideUpload_Click(object sender, EventArgs e)
-        {
-            if (string.IsNullOrEmpty(tbFolderPath.Text)) return;
-            CheckFolder(tbFolderPath.Text);
-            ImgSideUpload.PostedFile.SaveAs(tbFolderPath.Text + "\\" + tbSn.Text + "_3.jpg");
-            RefreshImage(3, tbFolderPath.Text);
-        }
+        }        
 
         private void CheckFolder(string path)
         {
@@ -875,20 +850,25 @@ namespace TheWeWebSite.StoreMgt
             }
         }
 
-        protected void btnImgOther2_Click(object sender, EventArgs e)
+        protected void btnUpload_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(tbFolderPath.Text)) return;
+            bool needRefresh = false;
             CheckFolder(tbFolderPath.Text);
-            ImgOther2Upload.PostedFile.SaveAs(tbFolderPath.Text + "\\" + tbSn.Text + "_5.jpg");
-            RefreshImage(5, tbFolderPath.Text);
-        }
+            for(int i = 1; i <= 5; i++)
+            {
+                FileUpload upload = Page.FindControl("FileUpload" + i) as FileUpload;
+                if (upload.HasFile)
+                {
+                    upload.PostedFile.SaveAs(tbFolderPath.Text + "\\" + tbSn.Text + "_" + i + ".jpg");
+                    needRefresh = true;
+                }
+            }
 
-        protected void btnImgOther1_Click(object sender, EventArgs e)
-        {
-            if (string.IsNullOrEmpty(tbFolderPath.Text)) return;
-            CheckFolder(tbFolderPath.Text);
-            ImgOther1Upload.PostedFile.SaveAs(tbFolderPath.Text + "\\" + tbSn.Text + "_4.jpg");
-            RefreshImage(4, tbFolderPath.Text);
+            if (needRefresh)
+            {
+                RefreshImage(0, tbFolderPath.Text);
+            }
         }
         #endregion
     }

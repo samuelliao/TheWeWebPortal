@@ -363,31 +363,26 @@ namespace TheWeWebSite.StoreMgt
                     break;
             }
         }
-
-        protected void btnImgFrontUpload_Click(object sender, EventArgs e)
+        protected void btnUpload_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(tbFolderPath.Text)) return;
+            bool needRefresh = false;
             CheckFolder(tbFolderPath.Text);
-            ImgFrontUpload.PostedFile.SaveAs(tbFolderPath.Text + @"\" + tbSn.Text + "_1.jpg");
-            RefreshImage(1, tbFolderPath.Text);
-        }
+            for (int i = 1; i <= 3; i++)
+            {
+                FileUpload upload = Page.FindControl("FileUpload" + i) as FileUpload;
+                if (upload.HasFile)
+                {
+                    upload.PostedFile.SaveAs(tbFolderPath.Text + "\\" + tbSn.Text + "_" + i + ".jpg");
+                    needRefresh = true;
+                }
+            }
 
-        protected void btnImgBackUpload_Click(object sender, EventArgs e)
-        {
-            if (string.IsNullOrEmpty(tbFolderPath.Text)) return;
-            CheckFolder(tbFolderPath.Text);
-            ImgBackUpload.PostedFile.SaveAs(tbFolderPath.Text + @"\" + tbSn.Text + "_2.jpg");
-            RefreshImage(2, tbFolderPath.Text);
+            if (needRefresh)
+            {
+                RefreshImage(0, tbFolderPath.Text);
+            }
         }
-
-        protected void btnImgSideUpload_Click(object sender, EventArgs e)
-        {
-            if (string.IsNullOrEmpty(tbFolderPath.Text)) return;
-            CheckFolder(tbFolderPath.Text);
-            ImgSideUpload.PostedFile.SaveAs(tbFolderPath.Text + @"\" + tbSn.Text + "_3.jpg");
-            RefreshImage(3, tbFolderPath.Text);
-        }
-
         private void CheckFolder(string path)
         {
             if (!Directory.Exists(path))

@@ -316,17 +316,11 @@ namespace TheWeWebSite.StoreMgt
                 ddlOthCategory.Enabled = false;
                 ddlStore.Enabled = false;
                 ddlType.Enabled = false;
-                btnImgBackUpload.Visible = false;
-                btnImgFrontUpload.Visible = false;
-                btnImgOther1.Visible = false;
-                btnImgSideUpload.Visible = false;
-                ImgSideUpload.Visible = false;
-                ImgOther1Upload.Visible = false;
-                ImgFrontUpload.Visible = false;
-                ImgBackUpload.Visible = false;
+                divPhotoUpload.Attributes["style"] = "display: none;";
             }
         }
 
+        #region Db Instance
         private List<DbSearchObject> OthItemInfoDbObject(bool isCreate, string typeId)
         {
             List<DbSearchObject> lst = new List<DbSearchObject>();
@@ -452,6 +446,7 @@ namespace TheWeWebSite.StoreMgt
             }
             return lst;
         }
+        #endregion
 
         #region Db Control
         private string GetCreatedId(MsSqlTable table, List<DbSearchObject> lst)
@@ -549,31 +544,7 @@ namespace TheWeWebSite.StoreMgt
                     break;
             }
         }
-
-        protected void btnImgFrontUpload_Click(object sender, EventArgs e)
-        {
-            if (string.IsNullOrEmpty(tbFolderPath.Text)) return;
-            CheckFolder(tbFolderPath.Text);
-            ImgFrontUpload.PostedFile.SaveAs(tbFolderPath.Text + @"\" + tbOthSn.Text + "_1.jpg");
-            RefreshImage(1, tbFolderPath.Text);
-        }
-
-        protected void btnImgBackUpload_Click(object sender, EventArgs e)
-        {
-            if (string.IsNullOrEmpty(tbFolderPath.Text)) return;
-            CheckFolder(tbFolderPath.Text);
-            ImgBackUpload.PostedFile.SaveAs(tbFolderPath.Text + @"\" + tbOthSn.Text + "_2.jpg");
-            RefreshImage(2, tbFolderPath.Text);
-        }
-
-        protected void btnImgSideUpload_Click(object sender, EventArgs e)
-        {
-            if (string.IsNullOrEmpty(tbFolderPath.Text)) return;
-            CheckFolder(tbFolderPath.Text);
-            ImgSideUpload.PostedFile.SaveAs(tbFolderPath.Text + @"\" + tbOthSn.Text + "_3.jpg");
-            RefreshImage(3, tbFolderPath.Text);
-        }
-
+        
         private void CheckFolder(string path)
         {
             if (!Directory.Exists(path))
@@ -581,13 +552,25 @@ namespace TheWeWebSite.StoreMgt
                 Directory.CreateDirectory(path);
             }
         }
-
-        protected void btnImgOther1_Click(object sender, EventArgs e)
+        protected void btnUpload_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(tbFolderPath.Text)) return;
+            bool needRefresh = false;
             CheckFolder(tbFolderPath.Text);
-            ImgOther1Upload.PostedFile.SaveAs(tbFolderPath.Text + @"\" + tbOthSn.Text + "_4.jpg");
-            RefreshImage(4, tbFolderPath.Text);
+            for (int i = 1; i <= 4; i++)
+            {
+                FileUpload upload = Page.FindControl("FileUpload" + i) as FileUpload;
+                if (upload.HasFile)
+                {
+                    upload.PostedFile.SaveAs(tbFolderPath.Text + "\\" + tbOthSn.Text + "_" + i + ".jpg");
+                    needRefresh = true;
+                }
+            }
+
+            if (needRefresh)
+            {
+                RefreshImage(0, tbFolderPath.Text);
+            }
         }
         #endregion
     }

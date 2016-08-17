@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="CaseMCreate.aspx.cs" Inherits="TheWeWebSite.CaseMgt.CaseMCreate" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="CaseMCreate.aspx.cs" MaintainScrollPositionOnPostback="true" Inherits="TheWeWebSite.CaseMgt.CaseMCreate" %>
 
 <%@ Register TagPrefix="My" TagName="Header" Src="~/Header.ascx" %>
 
@@ -545,15 +545,23 @@
                                     <asp:Label runat="server" Text="<%$ Resources:Resource,PhotoString%>"></asp:Label>
                                     <asp:Label runat="server" Text="" ID="tbFolderPath" Visible="false"></asp:Label>
                                 </div>
-                                <span class="image fit">
-                                    <asp:Image runat="server" ID="ImgFront" />
-                                </span>
-                                <div style="margin-bottom: 1.5em">
-                                    <asp:FileUpload ID="ImgUpload" runat="server" />
-                                </div>
-                                <div class="align-center">
-                                    <asp:Button runat="server" Text="<%$ Resources:Resource,UploadString%>" ID="btnUpload" OnClick="btnUpload_Click" />
-                                </div>
+                                <asp:UpdatePanel runat="server">
+                                    <ContentTemplate>
+                                        <span class="image fit">
+                                            <asp:Image runat="server" ID="ImgFront" />
+                                        </span>
+                                        <div style="margin-bottom: 1.5em">
+                                            <asp:FileUpload ID="ImgUpload" onchange="submitFileUpload(this);" runat="server" Style="display: none;" />
+                                        </div>
+                                        <div class="align-center">
+                                            <asp:Button runat="server" Text="<%$ Resources:Resource,UploadString%>" ID="btnUploadTrigger" OnClientClick="showFileBroswerDialog();" />
+                                            <asp:Button runat="server" Text="<%$ Resources:Resource,UploadString%>" ID="btnUpload" OnClick="btnUpload_Click" Style="display: none;" />
+                                        </div>                                        
+                                    </ContentTemplate>
+                                    <Triggers>
+                                        <asp:PostBackTrigger ControlID="btnUpload" />
+                                    </Triggers>
+                                </asp:UpdatePanel>
                             </div>
                         </div>
                     </div>
@@ -632,6 +640,17 @@
         <script src="../assets/js/main.js"></script>
         <!-- datepicker -->
         <script src="../assets/js/picker.js"></script>
+        <script type="text/javascript">
+            function showFileBroswerDialog() {
+                var upload = document.getElementById('<%=ImgUpload.ClientID%>');
+                upload.click();
+            }
+            function submitFileUpload(fileUpload) {
+                if (fileUpload.value != null) {
+                    document.getElementById('<%=btnUpload.ClientID%>').click();
+                }
+            }
+        </script>
     </form>
 </body>
 </html>

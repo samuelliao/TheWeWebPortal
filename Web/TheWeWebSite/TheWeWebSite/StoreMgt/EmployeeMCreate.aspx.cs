@@ -560,6 +560,7 @@ namespace TheWeWebSite.StoreMgt
         }
         #endregion
 
+        #region Db data writeback
         private bool WriteBackInfo(bool isInsert, List<DbSearchObject> lst, string id)
         {
             try
@@ -659,6 +660,7 @@ namespace TheWeWebSite.StoreMgt
                 return false;
             }
         }
+        #endregion
 
         #region Image Related
         private void RefreshImage(int type, string path)
@@ -682,29 +684,25 @@ namespace TheWeWebSite.StoreMgt
                     break;
             }
         }
-
-        protected void btnImgFrontUpload_Click(object sender, EventArgs e)
+        protected void btnUpload_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(tbFolderPath.Text)) return;
+            bool needRefresh = false;
             CheckFolder(tbFolderPath.Text);
-            ImgFrontUpload.PostedFile.SaveAs(tbFolderPath.Text + "/" + tbEmpSn.Text + "_2.jpg");
-            RefreshImage(2, tbFolderPath.Text);
-        }
+            for (int i = 1; i <= 3; i++)
+            {
+                FileUpload upload = Page.FindControl("FileUpload" + i) as FileUpload;
+                if (upload.HasFile)
+                {
+                    upload.PostedFile.SaveAs(tbFolderPath.Text + "\\" + tbEmpSn.Text + "_" + i + ".jpg");
+                    needRefresh = true;
+                }
+            }
 
-        protected void btnImgBackUpload_Click(object sender, EventArgs e)
-        {
-            if (string.IsNullOrEmpty(tbFolderPath.Text)) return;
-            CheckFolder(tbFolderPath.Text);
-            ImgBackUpload.PostedFile.SaveAs(tbFolderPath.Text + "/" + tbEmpSn.Text + "_3.jpg");
-            RefreshImage(3, tbFolderPath.Text);
-        }
-
-        protected void btnImgSideUpload_Click(object sender, EventArgs e)
-        {
-            if (string.IsNullOrEmpty(tbFolderPath.Text)) return;
-            CheckFolder(tbFolderPath.Text);
-            ImgSideUpload.PostedFile.SaveAs(tbFolderPath.Text + "/" + tbEmpSn.Text + "_1.jpg");
-            RefreshImage(1, tbFolderPath.Text);
+            if (needRefresh)
+            {
+                RefreshImage(0, tbFolderPath.Text);
+            }
         }
 
         private void CheckFolder(string path)

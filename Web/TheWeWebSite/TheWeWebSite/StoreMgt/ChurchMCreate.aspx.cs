@@ -94,11 +94,7 @@ namespace TheWeWebSite.StoreMgt
                     btnModify.Visible = false;
                     btnClear.Visible = false;
                     dgBookTable.Enabled = false;
-                    btnUploadMeal.Visible = false;
-                    btnImgBackUpload.Visible = false;
-                    btnImgFrontUpload.Visible = false;
-                    btnImgOther1.Visible = false;
-                    btnImgSideUpload.Visible = false;
+                    divPhotoUpload.Attributes["style"] = "display: none;";
                 }
             }
             else
@@ -352,16 +348,7 @@ namespace TheWeWebSite.StoreMgt
                     tbCapacities.Enabled = false;
                     ddlArea.Enabled = false;
                     ddlCountry.Enabled = false;
-                    btnImgBackUpload.Visible = false;
-                    btnImgFrontUpload.Visible = false;
-                    btnImgOther1.Visible = false;
-                    btnImgSideUpload.Visible = false;
-                    btnUploadMeal.Visible = false;
-                    ImgBackUpload.Visible = false;
-                    ImgFrontUpload.Visible = false;
-                    ImgMealUpload.Visible = false;
-                    ImgOther1Upload.Visible = false;
-                    ImgSideUpload.Visible = false;
+                    divPhotoUpload.Attributes["style"] = "display: none;";
                     dgBookTable.Enabled = false;
                 }
             }
@@ -677,6 +664,7 @@ namespace TheWeWebSite.StoreMgt
         }
         #endregion
 
+        #region DB data writeback
         private bool WriteBackChurch(bool isInsert, List<DbSearchObject> lst, string id)
         {
             try
@@ -725,6 +713,7 @@ namespace TheWeWebSite.StoreMgt
             }
             return result;
         }
+        #endregion
 
         private void DynamicSn(string cid)
         {
@@ -766,31 +755,7 @@ namespace TheWeWebSite.StoreMgt
                     break;
             }
         }
-
-        protected void btnImgFrontUpload_Click(object sender, EventArgs e)
-        {
-            if (string.IsNullOrEmpty(tbFolderPath.Text)) return;
-            CheckFolder(tbFolderPath.Text);
-            ImgFrontUpload.PostedFile.SaveAs(tbFolderPath.Text + "\\" + tbSn.Text + "_1.jpg");
-            RefreshImage(1, tbFolderPath.Text);
-        }
-
-        protected void btnImgBackUpload_Click(object sender, EventArgs e)
-        {
-            if (string.IsNullOrEmpty(tbFolderPath.Text)) return;
-            CheckFolder(tbFolderPath.Text);
-            ImgBackUpload.PostedFile.SaveAs(tbFolderPath.Text + "\\" + tbSn.Text + "_2.jpg");
-            RefreshImage(2, tbFolderPath.Text);
-        }
-
-        protected void btnImgSideUpload_Click(object sender, EventArgs e)
-        {
-            if (string.IsNullOrEmpty(tbFolderPath.Text)) return;
-            CheckFolder(tbFolderPath.Text);
-            ImgSideUpload.PostedFile.SaveAs(tbFolderPath.Text + "\\" + tbSn.Text + "_3.jpg");
-            RefreshImage(3, tbFolderPath.Text);
-        }
-
+        
         private void CheckFolder(string path)
         {
             if (!Directory.Exists(path))
@@ -798,21 +763,25 @@ namespace TheWeWebSite.StoreMgt
                 Directory.CreateDirectory(path);
             }
         }
-
-        protected void btnImgOther1_Click(object sender, EventArgs e)
+        protected void btnUpload_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(tbFolderPath.Text)) return;
+            bool needRefresh = false;
             CheckFolder(tbFolderPath.Text);
-            ImgOther1Upload.PostedFile.SaveAs(tbFolderPath.Text + "\\" + tbSn.Text + "_4.jpg");
-            RefreshImage(4, tbFolderPath.Text);
-        }
+            for (int i = 1; i <= 5; i++)
+            {
+                FileUpload upload = Page.FindControl("FileUpload" + i) as FileUpload;
+                if (upload.HasFile)
+                {
+                    upload.PostedFile.SaveAs(tbFolderPath.Text + "\\" + tbSn.Text + "_" + (i == 5 ? "meal" : i.ToString()) + ".jpg");
+                    needRefresh = true;
+                }
+            }
 
-        protected void btnUploadMeal_Click(object sender, EventArgs e)
-        {
-            if (string.IsNullOrEmpty(tbFolderMealPath.Text)) return;
-            CheckFolder(tbFolderMealPath.Text);
-            ImgMealUpload.PostedFile.SaveAs(tbFolderMealPath.Text + "\\" + tbSn.Text + "_meal.jpg");
-            RefreshImage(5, tbFolderMealPath.Text);
+            if (needRefresh)
+            {
+                RefreshImage(0, tbFolderPath.Text);
+            }
         }
         #endregion        
     }

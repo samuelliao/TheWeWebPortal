@@ -1,4 +1,5 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="DressMCreate.aspx.cs" Inherits="TheWeWebSite.StoreMgt.DressMCreate" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="DressMCreate.aspx.cs" MaintainScrollPositionOnPostback="true" Inherits="TheWeWebSite.StoreMgt.DressMCreate" %>
+
 <%@ Register TagPrefix="My" TagName="Header" Src="~/Header.ascx" %>
 
 <!DOCTYPE html>
@@ -233,7 +234,7 @@
                             </ContentTemplate>
                         </asp:UpdatePanel>
                     </div>
-                    <div >
+                    <div>
                         <div class="Div">
                             <asp:Label runat="server" Text="<%$ Resources:Resource,OutdoorShootingPriceString%>"></asp:Label>
                         </div>
@@ -252,7 +253,7 @@
                             </ContentTemplate>
                         </asp:UpdatePanel>
                     </div>
-                    <div >
+                    <div>
                         <div class="Div">
                             <asp:Label runat="server" Text="<%$ Resources:Resource,AdditionalPurchasePriceString%>"></asp:Label>
                         </div>
@@ -275,6 +276,30 @@
             <hr />
             <!-- 照片 -->
             <section>
+                <div class="4u" runat="server" id="divPhotoUpload">
+                    <button id="btnUploadPanel" onclick="uploadPanelControl();">
+                        <asp:Literal runat="server" Text="<%$ Resources:Resource,UploadString%>" />
+                    </button>
+                    <div id="uploadPanel" style="display: none;">
+                        <div style="margin-bottom: 1.5em">
+                            <asp:Label runat="server" Text="<%$ Resources:Resource,ImgFrontString%>"></asp:Label>
+                            <asp:FileUpload ID="FileUpload1" Width="250px" runat="server" />
+                            <asp:Label runat="server" Text="<%$ Resources:Resource,ImgFrontString%>"></asp:Label>
+                            <asp:FileUpload ID="FileUpload2" Width="250px" runat="server" />
+                            <asp:Label runat="server" Text="<%$ Resources:Resource,ImgBackString%>"></asp:Label>
+                            <asp:FileUpload ID="FileUpload3" Width="250px" runat="server" />
+                            <asp:Label runat="server" Text="<%$ Resources:Resource,ImgOtherString%>"></asp:Label>
+                            <asp:FileUpload ID="FileUpload4" Width="250px" runat="server" />
+                            <asp:Label runat="server" Text="<%$ Resources:Resource,ImgOtherString%>"></asp:Label>
+                            <asp:FileUpload ID="FileUpload5" Width="250px" runat="server" />
+                        </div>
+                        <div class="align-center">
+                            <asp:Button runat="server" Text="<%$ Resources:Resource,UploadString%>" ID="btnUpload"
+                                OnClick="btnUpload_Click" OnClientClick="uploadPanelControl();" />
+                        </div>
+                        <hr />
+                    </div>
+                </div>
                 <div class="row no-collapse 50% uniform">
                     <div class="2u">
                         <div style="text-align: center">
@@ -284,65 +309,38 @@
                         <span class="image fit">
                             <asp:Image runat="server" ID="ImgFront" />
                         </span>
-                        <div style="margin-bottom: 1.5em">
-                            <asp:FileUpload ID="ImgFrontUpload" runat="server" />
-                        </div>
-                        <div class="align-center">
-                            <asp:Button runat="server" Text="<%$ Resources:Resource,UploadString%>" ID="btnImgFrontUpload"
-                                OnClick="btnImgFrontUpload_Click" />
-                        </div>
                     </div>
                     <div class="2u">
                         <div style="text-align: center">
                             <asp:Label runat="server" Text="<%$ Resources:Resource,ImgBackString%>"></asp:Label>
                         </div>
                         <span class="image fit">
-                            <asp:Image runat="server" ID="ImgBack" /></span>
-                        <div style="margin-bottom: 1.5em">
-                            <asp:FileUpload ID="ImgBackUpload" runat="server" />
-                        </div>
-                        <div class="align-center">
-                            <asp:Button runat="server" Text="<%$ Resources:Resource,UploadString%>" ID="btnImgBackUpload" OnClick="btnImgBackUpload_Click" />
-                        </div>
+                            <asp:Image runat="server" ID="ImgBack" />
+                        </span>
                     </div>
                     <div class="2u">
                         <div style="text-align: center">
                             <asp:Label runat="server" Text="<%$ Resources:Resource,ImgSideString%>"></asp:Label>
                         </div>
                         <span class="image fit">
-                            <asp:Image runat="server" ID="ImgSide" /></span>
-                        <div style="margin-bottom: 1.5em">
-                            <asp:FileUpload ID="ImgSideUpload" runat="server" />
-                        </div>
-                        <div class="align-center">
-                            <asp:Button runat="server" Text="<%$ Resources:Resource,UploadString%>" ID="btnImgSideUpload" OnClick="btnImgSideUpload_Click" />
-                        </div>
+                            <asp:Image runat="server" ID="ImgSide" />
+                        </span>
                     </div>
                     <div class="2u">
                         <div style="text-align: center">
                             <asp:Label runat="server" Text="<%$ Resources:Resource,ImgOtherString%>"></asp:Label>
                         </div>
                         <span class="image fit">
-                            <asp:Image runat="server" ID="ImgOther1" /></span>
-                        <div style="margin-bottom: 1.5em">
-                            <asp:FileUpload ID="ImgOther1Upload" runat="server" />
-                        </div>
-                        <div class="align-center">
-                            <asp:Button runat="server" Text="<%$ Resources:Resource,UploadString%>" ID="btnImgOther1" OnClick="btnImgOther1_Click" />
-                        </div>
+                            <asp:Image runat="server" ID="ImgOther1" />
+                        </span>
                     </div>
                     <div class="2u">
                         <div style="text-align: center">
                             <asp:Label runat="server" Text="<%$ Resources:Resource,ImgOtherString%>"></asp:Label>
                         </div>
                         <span class="image fit">
-                            <asp:Image runat="server" ID="ImgOther2" /></span>
-                        <div style="margin-bottom: 1.5em;">
-                            <asp:FileUpload ID="ImgOther2Upload" runat="server" />
-                        </div>
-                        <div class="align-center">
-                            <asp:Button runat="server" Text="<%$ Resources:Resource,UploadString%>" ID="btnImgOther2" OnClick="btnImgOther2_Click" />
-                        </div>
+                            <asp:Image runat="server" ID="ImgOther2" />
+                        </span>
                     </div>
                 </div>
             </section>
@@ -378,6 +376,35 @@
         <script src="../assets/js/util.js"></script>
         <!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
         <script src="../assets/js/main.js"></script>
+        <script type="text/javascript">
+            function uploadPanelControl() {
+                var div = document.getElementById('uploadPanel');
+                if (div.style.display == 'none') {
+                    displayUploadControl('false', 'true');
+                } else {
+                    displayUploadControl('true', 'true');
+                }
+            }
+            function displayUploadControl(type, reset) {
+                if (type == "true") {
+                    document.getElementById('uploadPanel').style.display = 'inline';
+                    document.getElementById('btnUploadPanel').style.display = 'none';
+                    if (reset == 'true') {
+                        localStorage.setItem('show', 'false'); //store state in localStorage
+                    }
+                } else {
+                    document.getElementById('uploadPanel').style.display = 'none';
+                    document.getElementById('btnUploadPanel').style.display = 'inline';
+                    if (reset == 'true') {
+                        localStorage.setItem('show', 'true'); //store state in localStorage
+                    }
+                }
+            }
+            window.onload = function () {
+                var show = localStorage.getItem('show');
+                displayUploadControl(show, 'false');
+            }
+        </script>
     </form>
 </body>
 </html>
