@@ -20,7 +20,6 @@ namespace TheWeWebSite.CaseMgt
                 else
                 {                    
                     InitialMsgerType();
-                    InitialControlWithPermission();
                     if (Session["CustomerId"] != null)
                     {
                         labelPageTitle.Text = Resources.Resource.OrderMgtString
@@ -36,6 +35,7 @@ namespace TheWeWebSite.CaseMgt
                         + " > " + Resources.Resource.CreateString;
                         btnModify.Visible = false;
                     }
+                    InitialControlWithPermission();
                 }
             }
         }
@@ -81,6 +81,13 @@ namespace TheWeWebSite.CaseMgt
             btnDelete.Enabled = item.CanDelete;
             btnModify.Visible = item.CanModify;
             btnModify.Enabled = item.CanModify;
+            if (bool.Parse(((DataRow)Session["LocateStore"])["HoldingCompany"].ToString()))
+            {
+                btnDelete.Visible = false;
+                btnModify.Visible = false;
+                btnCreate.Visible = false;
+                btnClear.Visible = false;
+            }
         }
         #endregion
 

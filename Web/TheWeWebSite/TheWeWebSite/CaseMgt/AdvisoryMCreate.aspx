@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="AdvisoryMCreate.aspx.cs" Inherits="TheWeWebSite.CaseMgt.AdvisoryMCreate" %>
-
+<%@ Register TagPrefix="My" TagName="Header" Src="~/Header.ascx" %>
 
 <!DOCTYPE html>
 
@@ -15,6 +15,7 @@
     <form runat="server">
 
         <!-- Main -->
+        <My:Header runat="server" ID="ucHeader" />
 
         <section class="box title">
             <h3>

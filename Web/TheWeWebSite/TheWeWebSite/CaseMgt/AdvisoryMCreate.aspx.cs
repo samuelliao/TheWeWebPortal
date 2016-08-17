@@ -27,9 +27,7 @@ namespace TheWeWebSite.CaseMgt
                 else
                 {
                     SysProperty.DataSetSortType = true;
-
                     InitialControls();
-                    InitialControlWithPermission();
 
                     if (Session["ConsultId"] != null)
                     {
@@ -51,6 +49,7 @@ namespace TheWeWebSite.CaseMgt
                         tbBookingDate.Text = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
                         labelConsultDate.Text = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
                     }
+                    InitialControlWithPermission();
                 }
             }
         }
@@ -75,6 +74,13 @@ namespace TheWeWebSite.CaseMgt
             btnModify.Enabled = item.CanModify;
             btnExport.Enabled = item.CanExport;
             btnExport.Visible = item.CanExport;
+            if (bool.Parse(((DataRow)Session["LocateStore"])["HoldingCompany"].ToString()))
+            {
+                btnDelete.Visible = false;
+                btnModify.Visible = false;
+                btnCreate.Visible = false;
+                btnClear.Visible = false;
+            }
         }
         private void InitialControls()
         {
@@ -1672,7 +1678,7 @@ namespace TheWeWebSite.CaseMgt
         private List<DataRow> GetChooseLocation()
         {
             List<DataRow> result = new List<DataRow>();
-            foreach(ListItem item in cblLocation.Items)
+            foreach (ListItem item in cblLocation.Items)
             {
                 if (item.Selected)
                 {
@@ -1690,7 +1696,7 @@ namespace TheWeWebSite.CaseMgt
             result = result & string.IsNullOrEmpty(tbBridalName.Text);
             result = result & string.IsNullOrEmpty(tbGroomName.Text);
             result = result & (string.IsNullOrEmpty(tbBridalPhone.Text) | string.IsNullOrEmpty(tbGroomPhone.Text));
-            result = result & (string.IsNullOrEmpty(tbBridalEmail.Text)| string.IsNullOrEmpty(tbGroomEmail.Text));
+            result = result & (string.IsNullOrEmpty(tbBridalEmail.Text) | string.IsNullOrEmpty(tbGroomEmail.Text));
 
             return result;
         }

@@ -343,7 +343,7 @@ namespace TheWeWebSite.StoreMgt
 
         protected void btnCreate_Click(object sender, EventArgs e)
         {
-            labelUpdateTime.Text = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss");            
+            labelUpdateTime.Text = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss");
             List<DbSearchObject> lst = SetDbObject();
             bool result = WriteBackInfo(MsSqlTable.ProductSet, true, lst, string.Empty);
             if (!result) return;
@@ -601,7 +601,7 @@ namespace TheWeWebSite.StoreMgt
             string condStr = "";
             bool result = true;
             foreach (List<DbSearchObject> item in lst)
-            {                
+            {
                 if (!isInsert)
                 {
                     condStr = " Where Id = '" + item[0].AttrValue + "'";
@@ -649,7 +649,8 @@ namespace TheWeWebSite.StoreMgt
             tbCnName.Text = dr["CnName"].ToString();
             tbJpName.Text = dr["JpName"].ToString();
             tbEngName.Text = dr["EngName"].ToString();
-            labelBaseId.Text = dr["BaseId"].ToString();            
+            tbPhotoNumber.Text = dr["PhotosNum"].ToString();
+            labelBaseId.Text = dr["BaseId"].ToString();
 
             DataSet dsBase = GetDataFromDb(SysProperty.Util.MsSqlTableConverter(MsSqlTable.ProductSet), " Where Id='" + labelBaseId.Text + "'");
             DataRow drBase = dsBase.Tables[0].Rows[0];
@@ -661,7 +662,6 @@ namespace TheWeWebSite.StoreMgt
             tbGroomHairStyle.Text = drBase["GroomMakeup"].ToString();
             tbMovemont.Text = drBase["Moves"].ToString();
             tbPerformence.Text = drBase["Performence"].ToString();
-            tbPhotoNumber.Text = drBase["PhotosNum"].ToString();
             tbRoom.Text = drBase["RoomId"].ToString();
             tbSn.Text = drBase["Sn"].ToString();
             tbStay.Text = drBase["StayNight"].ToString();
@@ -680,7 +680,7 @@ namespace TheWeWebSite.StoreMgt
             cbRehersal.Checked = bool.Parse(drBase["Rehearsal"].ToString());
             ddlStaff.SelectedValue = drBase["Staff"].ToString();
             ddlWeddingType.SelectedValue = drBase["WeddingCategory"].ToString();
-            
+
             labelUpdateTime.Text = dr["UpdateTime"].ToString();
 
             tbCost.Text = SysProperty.Util.ParseMoney(dr["Cost"].ToString()).ToString("#0.00");
@@ -691,7 +691,8 @@ namespace TheWeWebSite.StoreMgt
                 {
                     DisplayLevelPriceTable(false);
                     labelBaseId.Text = id;
-                    GetCostAndPrice(string.IsNullOrEmpty(labelBaseId.Text)
+                    GetCostAndPrice(
+                        string.IsNullOrEmpty(labelBaseId.Text)
                         , labelBaseId.Text
                         , SplitString(ddlStore.SelectedItem.Text, "(", 1).Replace(")", ""));
                 }
@@ -700,6 +701,14 @@ namespace TheWeWebSite.StoreMgt
                     DisplayLevelPriceTable(true);
                     BindPriceData(id);
                 }
+            }
+            else
+            {
+                DisplayLevelPriceTable(false);
+                GetCostAndPrice(
+                    string.IsNullOrEmpty(labelBaseId.Text)
+                    , labelBaseId.Text
+                    , SplitString(ddlStore.SelectedItem.Text, "(", 1).Replace(")", ""));
             }
 
             SetServiceItemTable(id);
@@ -720,7 +729,7 @@ namespace TheWeWebSite.StoreMgt
                     DataSet ds = GetDataFromDb("StoreLvSetPrice", condSql);
                     if (SysProperty.Util.IsDataSetEmpty(ds)) return;
                     tbCost.Text = SysProperty.Util.ParseMoney(ds.Tables[0].Rows[0]["Price"].ToString()).ToString("#0.00");
-                    tbPrice.Text = tbCost.Text;
+                    tbPrice.Text = SysProperty.Util.ParseMoney(tbPrice.Text) == 0 ? tbCost.Text : tbPrice.Text;
                 }
             }
 
@@ -731,19 +740,19 @@ namespace TheWeWebSite.StoreMgt
             if (!string.IsNullOrEmpty(labelBaseId.Text))
             {
                 tbBridalHairStyle.Enabled = false;
-                tbCnName.Enabled = false;
+                //tbCnName.Enabled = false;
                 tbCorsage.Enabled = false;
                 tbCost.Enabled = false;
                 tbDecorate.Enabled = false;
-                tbEngName.Enabled = false;
+                //tbEngName.Enabled = false;
                 tbFilmLocation.Enabled = false;
                 tbFilmTime.Enabled = false;
                 tbGroomHairStyle.Enabled = false;
-                tbJpName.Enabled = false;
+                //tbJpName.Enabled = false;
                 tbMovemont.Enabled = false;
-                tbName.Enabled = false;
+                //tbName.Enabled = false;
                 tbPerformence.Enabled = false;
-                tbPhotoNumber.Enabled = false;
+                //tbPhotoNumber.Enabled = false;
                 tbRoom.Enabled = false;
                 tbSn.Enabled = false;
                 tbStay.Enabled = false;
@@ -821,7 +830,7 @@ namespace TheWeWebSite.StoreMgt
         {
             List<List<DbSearchObject>> result = new List<List<DbSearchObject>>();
             List<DbSearchObject> lst = new List<DbSearchObject>();
-                string str = string.Empty;
+            string str = string.Empty;
             GridView gridView;
             if (type == "Custom") gridView = dgCutomServiceItem;
             else gridView = dgChurchServiceItem;
@@ -888,7 +897,7 @@ namespace TheWeWebSite.StoreMgt
             , AttrSymbolItem.Equal
             , tbPrice.Text
             ));
-           
+
             lst.Add(new DbSearchObject(
                 "Name"
                 , AtrrTypeItem.String

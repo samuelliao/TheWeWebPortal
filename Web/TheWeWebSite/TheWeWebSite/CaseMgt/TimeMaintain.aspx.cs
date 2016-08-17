@@ -36,7 +36,7 @@ namespace TheWeWebSite.CaseMgt
         private void InitialControlWithPermission()
         {
             PermissionUtil util = new PermissionUtil();
-            if (Session["Operation"] == null) Response.Redirect("~/Login.aspx");
+            if (Session["Operation"] == null) Response.Redirect("~/Login.aspx");            
         }
         private void InitialLabelText()
         {

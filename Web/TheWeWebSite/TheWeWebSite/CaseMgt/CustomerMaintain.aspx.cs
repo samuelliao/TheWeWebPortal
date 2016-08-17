@@ -43,6 +43,11 @@ namespace TheWeWebSite.CaseMgt
             LinkCustomerMCreate.Visible = item.CanCreate;
             LinkCustomerMCreate.Enabled = item.CanCreate;
             dataGrid.Columns[dataGrid.Columns.Count - 1].Visible = item.CanDelete;
+            if (bool.Parse(((DataRow)Session["LocateStore"])["HoldingCompany"].ToString()))
+            {
+                LinkCustomerMCreate.Visible = false;
+                dataGrid.Columns[dataGrid.Columns.Count - 1].Visible = false;
+            }
         }
         private void InitialMsgerType()
         {

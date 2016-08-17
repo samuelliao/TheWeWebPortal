@@ -51,6 +51,11 @@ namespace TheWeWebSite.CaseMgt
             btnCreate.Visible = item.CanCreate;
             btnCreate.Enabled = item.CanCreate;
             dataGrid.Columns[dataGrid.Columns.Count - 1].Visible = item.CanDelete;
+            if (bool.Parse(((DataRow)Session["LocateStore"])["HoldingCompany"].ToString()))
+            {
+                btnCreate.Visible = false;
+                dataGrid.Columns[dataGrid.Columns.Count - 1].Visible = false;
+            }
         }
         #endregion
 
@@ -292,8 +297,8 @@ namespace TheWeWebSite.CaseMgt
                             + " Left join ConferenceItem as ci on ci.Id = o.StatusId"
                             + " Left join vwEN_Partner as pr on pr.Id = o.PartnerId"
                             + " WHERE o.IsDelete = 0"
-                            + (string.IsNullOrEmpty(storeId) ? string.Empty : " And o.StoreId='" + storeId + "'")
-                            + otherCondition;
+                            + (string.IsNullOrEmpty(storeId) ? string.Empty : " And o.StoreId='" + storeId + "'");
+                            //+ otherCondition;
                     }
 
                     foreach (KeyValuePair<string, PermissionItem> item in lst)
@@ -321,10 +326,10 @@ namespace TheWeWebSite.CaseMgt
                             {
                                 sqlTxt += " And o.CountryId = '" + item.Value.ObjectId + "'";
                             }
-                            sqlTxt += " " + otherCondition;
+                            //sqlTxt += " " + otherCondition;
                         }
                     }
-                    return sqlTxt;
+                    return "Select * From (" + sqlTxt + ")TBL " + otherCondition;
                 }
                 catch (Exception ex)
                 {
@@ -396,7 +401,7 @@ namespace TheWeWebSite.CaseMgt
         {
             string storeId = bool.Parse(((DataRow)Session["LocateStore"])["HoldingCompany"].ToString())
                 ? string.Empty : ((DataRow)Session["LocateStore"])["Id"].ToString();
-            OtherConditionString += " Order by c.Sn";
+            OtherConditionString += " Order by Sn";
             GetCaseList(storeId, OtherConditionString);
             dataGrid.DataSource = CaseDataSet;
             dataGrid.AllowPaging = !SysProperty.Util.IsDataSetEmpty(CaseDataSet);

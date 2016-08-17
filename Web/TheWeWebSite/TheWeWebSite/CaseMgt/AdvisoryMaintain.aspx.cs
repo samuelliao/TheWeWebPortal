@@ -48,6 +48,11 @@ namespace TheWeWebSite.CaseMgt
             LinkAdvisoryMCreate.Visible = item.CanCreate;
             LinkAdvisoryMCreate.Enabled = item.CanCreate;
             dataGrid.Columns[dataGrid.Columns.Count - 1].Visible = item.CanDelete;
+            if (bool.Parse(((DataRow)Session["LocateStore"])["HoldingCompany"].ToString()))
+            {
+                LinkAdvisoryMCreate.Visible = false;
+                dataGrid.Columns[dataGrid.Columns.Count - 1].Visible = false;
+            }
         }
 
         protected void btnSearch_Click(object sender, EventArgs e)

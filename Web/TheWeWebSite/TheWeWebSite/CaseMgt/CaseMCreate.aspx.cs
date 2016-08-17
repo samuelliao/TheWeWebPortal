@@ -25,7 +25,6 @@ namespace TheWeWebSite.CaseMgt
                 else
                 {
                     InitialControl();
-                    InitialControlWithPermission();
                     FirstGridViewRow();
                     if (Session["OrderId"] != null)
                     {
@@ -45,6 +44,7 @@ namespace TheWeWebSite.CaseMgt
                         btnModify.Visible = false;
                         btnDelete.Visible = false;
                     }
+                    InitialControlWithPermission();
                 }
             }
         }
@@ -86,38 +86,60 @@ namespace TheWeWebSite.CaseMgt
             btnModify.Enabled = item.CanModify;
             btnExport.Enabled = item.CanExport;
             btnExport.Visible = item.CanExport;
+            if (bool.Parse(((DataRow)Session["LocateStore"])["HoldingCompany"].ToString()))
+            {
+                btnDelete.Visible = false;
+                btnModify.Visible = false;
+                btnCreate.Visible = false;
+                btnClear.Visible = false;
+                dgServiceItem.Enabled = false;
+                btnUpload.Visible = false;       
+            }
         }
 
         private void SetByCasePermission()
         {
-            PermissionUtil util = new PermissionUtil();
-            // Find by store id.
-            PermissionItem StoreItem = util.GetPermissionByKey(
-                ((Dictionary<string, PermissionItem>)Session["CasePermission"])
-                , ((DataRow)Session["LocateStore"])["Id"].ToString());
-
-            // Find by CountryId
-            PermissionItem Countryitem = util.GetPermissionByKey(
-                ((Dictionary<string, PermissionItem>)Session["CasePermission"])
-                , ddlCountry.SelectedValue);
-
-            if (StoreItem == null && Countryitem == null) return;
-            if(StoreItem==null && Countryitem != null)
+            if (bool.Parse(((DataRow)Session["LocateStore"])["HoldingCompany"].ToString()))
             {
-                if (btnDelete.Visible) btnDelete.Visible = Countryitem.CanDelete;
-                if (btnModify.Visible) btnModify.Visible = Countryitem.CanModify;
-                if (btnCreate.Visible) btnCreate.Visible = Countryitem.CanCreate;
+                btnDelete.Visible = false;
+                btnModify.Visible = false;
+                btnCreate.Visible = false;
+                btnClear.Visible = false;
+                dgServiceItem.Enabled = false;
+                btnUpload.Visible = false;
             }
-            if (StoreItem != null && Countryitem == null)
+            else
             {
-                if (btnDelete.Visible) btnDelete.Visible = StoreItem.CanDelete;
-                if (btnModify.Visible) btnModify.Visible = StoreItem.CanModify;
-                if (btnCreate.Visible) btnCreate.Visible = StoreItem.CanCreate;
-            }else
-            {
-                if (btnDelete.Visible) btnDelete.Visible = StoreItem.CanDelete & Countryitem.CanDelete;
-                if (btnModify.Visible) btnModify.Visible = StoreItem.CanModify & Countryitem.CanModify;
-                if (btnCreate.Visible) btnCreate.Visible = StoreItem.CanCreate & Countryitem.CanCreate;
+                PermissionUtil util = new PermissionUtil();
+                // Find by store id.
+                PermissionItem StoreItem = util.GetPermissionByKey(
+                    ((Dictionary<string, PermissionItem>)Session["CasePermission"])
+                    , ((DataRow)Session["LocateStore"])["Id"].ToString());
+
+                // Find by CountryId
+                PermissionItem Countryitem = util.GetPermissionByKey(
+                    ((Dictionary<string, PermissionItem>)Session["CasePermission"])
+                    , ddlCountry.SelectedValue);
+
+                if (StoreItem == null && Countryitem == null) return;
+                if (StoreItem == null && Countryitem != null)
+                {
+                    if (btnDelete.Visible) btnDelete.Visible = Countryitem.CanDelete;
+                    if (btnModify.Visible) btnModify.Visible = Countryitem.CanModify;
+                    if (btnCreate.Visible) btnCreate.Visible = Countryitem.CanCreate;
+                }
+                if (StoreItem != null && Countryitem == null)
+                {
+                    if (btnDelete.Visible) btnDelete.Visible = StoreItem.CanDelete;
+                    if (btnModify.Visible) btnModify.Visible = StoreItem.CanModify;
+                    if (btnCreate.Visible) btnCreate.Visible = StoreItem.CanCreate;
+                }
+                else
+                {
+                    if (btnDelete.Visible) btnDelete.Visible = StoreItem.CanDelete & Countryitem.CanDelete;
+                    if (btnModify.Visible) btnModify.Visible = StoreItem.CanModify & Countryitem.CanModify;
+                    if (btnCreate.Visible) btnCreate.Visible = StoreItem.CanCreate & Countryitem.CanCreate;
+                }
             }
         }
 
@@ -458,20 +480,44 @@ namespace TheWeWebSite.CaseMgt
                 return;
             }*/
 
-            if (Session["CustomerId"] != null) return;
-            string customerId = Session["CustomerId"].ToString();
             List<DbSearchObject> partnerInfo = PartnerDbObject();
-            bool result = WriteBackData(MsSqlTable.Partner, true, partnerInfo, string.Empty);
-            if (!result) return;
-            string partnerId = GetCreateId(MsSqlTable.vwEN_Partner, partnerInfo);
+            List<DbSearchObject> customerInfo = CustomerDbObject();
+
+            bool result = false;
+
+            string partnerId = string.Empty;
+            if (Session["PartnerId"] == null)
+            {                
+                WriteBackData(MsSqlTable.Partner, true, partnerInfo, string.Empty);
+                partnerId = GetCreateId(MsSqlTable.vwEN_Partner, partnerInfo);
+            }
+            else
+            {
+                partnerId = Session["PartnerId"].ToString();
+                result = WriteBackData(MsSqlTable.Partner, false, partnerInfo, " Where Id = '" + partnerId + "'");
+            }
             if (string.IsNullOrEmpty(partnerId)) return;
-            List<DbSearchObject> lst = OrderInfoDbObject(customerId, partnerId);
+
+            
+            if (!result) return;
+            string customerId = string.Empty;
+            if (Session["CustomerId"] == null)
+            {
+                result = WriteBackData(MsSqlTable.Customer, true, customerInfo, string.Empty);
+                customerId = GetCreateId(MsSqlTable.vwEN_Customer, partnerInfo);                
+            }
+            else
+            {
+                customerId = Session["CustomerId"].ToString();
+                result = WriteBackData(MsSqlTable.Customer, false, customerInfo, " Where Id = '" + customerId + "'");
+            }
+            if (string.IsNullOrEmpty(customerId)) return;
+
+            List<DbSearchObject> lst = OrderInfoDbObject(true, customerId, partnerId);
             result = WriteBackData(MsSqlTable.OrderInfo, true, lst, string.Empty);
             if (!result) return;
             string id = GetCreateId(MsSqlTable.OrderInfo, lst);
             if (string.IsNullOrEmpty(id)) return;
-            result = WriteBackData(MsSqlTable.Customer, false, CustomerDbObject(), " Where Id='" + customerId + "'");
-            if (!result) return;
             result = WriteBackServiceItem(true, ServiceItemDbObject(id), id);
             if (result)
             {
@@ -486,7 +532,7 @@ namespace TheWeWebSite.CaseMgt
             string partnerId = Session["PartnerId"].ToString();
             string customerId = Session["CustomerId"].ToString();
             if (string.IsNullOrEmpty(id)) return;
-            bool result = WriteBackData(MsSqlTable.OrderInfo, false, OrderInfoDbObject(customerId, partnerId), " Where Id='" + id + "'");
+            bool result = WriteBackData(MsSqlTable.OrderInfo, false, OrderInfoDbObject(false, customerId, partnerId), " Where Id='" + id + "'");
             if (!result) return;
             result = WriteBackData(MsSqlTable.Customer, false, CustomerDbObject(), " Where Id='" + customerId + "'");
             if (!result) return;
@@ -602,7 +648,7 @@ namespace TheWeWebSite.CaseMgt
                 DataRow dr = ds.Tables[0].Rows[0];
                 tbBridalName.Text = dr["Name"].ToString();
                 tbBridalMsgerId.Text = dr["MessengerId"].ToString();
-                tbBridalBday.Text = dr["Bday"].ToString();
+                tbBridalBday.Text = SysProperty.Util.ParseDateTime("Date", dr["Bday"].ToString());
                 tbBridalNickname.Text = dr["Nickname"].ToString();
                 tbBridalPassportName.Text = dr["EngName"].ToString();
                 ddlBridalMsgerType.SelectedValue = dr["MessengerType"].ToString();
@@ -621,7 +667,7 @@ namespace TheWeWebSite.CaseMgt
                 DataRow dr = ds.Tables[0].Rows[0];
                 tbGroomName.Text = dr["Name"].ToString();
                 tbGroomMsgerId.Text = dr["MessengerId"].ToString();
-                tbGroomBday.Text = dr["Bday"].ToString();
+                tbGroomBday.Text = SysProperty.Util.ParseDateTime("Date", dr["Bday"].ToString());
                 tbGroomNickname.Text = dr["Nickname"].ToString();
                 tbGroomPassportName.Text = dr["EngName"].ToString();
                 ddlGroomMsgerType.SelectedValue = dr["MessengerType"].ToString();
@@ -672,15 +718,15 @@ namespace TheWeWebSite.CaseMgt
         #endregion
 
         #region Db Instance
-        private List<DbSearchObject> OrderInfoDbObject(string customerId, string partnerId)
+        private List<DbSearchObject> OrderInfoDbObject(bool isCreate, string customerId, string partnerId)
         {
             List<DbSearchObject> lst = new List<DbSearchObject>();
-            lst.Add(new DbSearchObject(
-                "Sn"
-                , AtrrTypeItem.String
-                , AttrSymbolItem.Equal
-                , tbCaseSn.Text
-                ));
+            //lst.Add(new DbSearchObject(
+            //    "Sn"
+            //    , AtrrTypeItem.String
+            //    , AttrSymbolItem.Equal
+            //    , tbCaseSn.Text
+            //    ));
             lst.Add(new DbSearchObject(
                 "CustomerId"
                 , AtrrTypeItem.String
@@ -796,6 +842,12 @@ namespace TheWeWebSite.CaseMgt
                 , tbDeposit2.Text
             ));
             lst.Add(new DbSearchObject(
+                "EmployeeId"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , ((DataRow)Session["LocateStore"])["Id"].ToString()
+            ));
+            lst.Add(new DbSearchObject(
                 "DepositFirst"
                 , AtrrTypeItem.String
                 , AttrSymbolItem.Equal
@@ -868,11 +920,20 @@ namespace TheWeWebSite.CaseMgt
                 ));
             }
             lst.Add(new DbSearchObject(
-                "Img"
+                "StoreId"
                 , AtrrTypeItem.String
                 , AttrSymbolItem.Equal
-                , @"OrdeInfo\" + tbCaseSn.Text
+                , ((DataRow)Session["LocateStore"])["Id"].ToString()
+                ));            
+            if (isCreate)
+            {
+                lst.Add(new DbSearchObject(
+                "StartTime"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss")
                 ));
+            }
             return lst;
         }
         private List<DbSearchObject> CustomerDbObject()
