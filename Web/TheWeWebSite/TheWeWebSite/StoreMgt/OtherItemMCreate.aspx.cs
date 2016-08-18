@@ -21,6 +21,7 @@ namespace TheWeWebSite.StoreMgt
                 {
                     InitialControl();
                     InitialControlWithPermission();
+                    TextHint();
                     if (Session["OthId"] != null)
                     {
                         labelPageTitle.Text = Resources.Resource.StoreMgtString
@@ -42,6 +43,18 @@ namespace TheWeWebSite.StoreMgt
             }
         }
 
+
+        private void TextHint()
+        {
+            tbOthSn.Attributes.Add("placeholder", Resources.Resource.AddString + Resources.Resource.SnString);
+            tbOthCost.Attributes.Add("placeHolder", "0.00");
+            tbOthDescription.Attributes.Add("placeHolder", Resources.Resource.AddString + Resources.Resource.DescriptionString);
+            tbOthName.Attributes.Add("placeHolder", Resources.Resource.AddString + Resources.Resource.NameString);
+            tbOthPrice.Attributes.Add("placeHolder","0.00");
+            tbType.Attributes.Add("placeHolder", Resources.Resource.AddString + Resources.Resource.CreateItemString);
+           
+
+        }
         private void ShowErrorMsg(string msg)
         {
             labelWarnString.Text = msg;
@@ -203,6 +216,9 @@ namespace TheWeWebSite.StoreMgt
                 tbOthCost.Text = string.Empty;
                 ddlOthCategory.SelectedIndex = 0;
                 ddlStore.SelectedIndex = 0;
+                ddlType.SelectedIndex = 0;
+                tbType.Text = string.Empty;
+                tbOthDescription.Text = string.Empty;
             }
             tbOthPrice.Text = string.Empty;
         }

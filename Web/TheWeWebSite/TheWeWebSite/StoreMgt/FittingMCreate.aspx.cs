@@ -21,17 +21,18 @@ namespace TheWeWebSite.StoreMgt
                 {
                     InitialControls();
                     InitialControlWithPermission();
+                    TextHint();
                     if (Session["FittingId"] != null && Session["FittingCategory"] != null)
                     {
                         labelPageTitle.Text = Resources.Resource.StoreMgtString
-                        + " > " + Resources.Resource.FittingMaintainString
-                        + " > " + Resources.Resource.ModifyString;                        
+                        + " > " + Resources.Resource.AccessoryMaintainString
+                        + " > " + Resources.Resource.ModifyString;
                         SetAllData(Session["FittingCategory"].ToString(), Session["FittingId"].ToString());
                     }
                     else
                     {
                         labelPageTitle.Text = Resources.Resource.StoreMgtString
-                        + " > " + Resources.Resource.FittingMaintainString
+                        + " > " + Resources.Resource.AccessoryMaintainString
                         + " > " + Resources.Resource.CreateString;
                         btnModify.Visible = false;
                         btnDelete.Visible = false;
@@ -39,6 +40,24 @@ namespace TheWeWebSite.StoreMgt
                 }
             }
         }
+        private void TextHint()
+        {
+            tbSn.Attributes.Add("placeholder", Resources.Resource.AddString + Resources.Resource.SnString);
+            tbColor1.Attributes.Add("placeHolder", Resources.Resource.AddString + Resources.Resource.ColorString);
+            tbColor2.Attributes.Add("placeHolder", Resources.Resource.AddString + Resources.Resource.ColorString);
+            tbCost.Attributes.Add("placeHolder", "0.00");
+            tbLace.Attributes.Add("placeHolder", Resources.Resource.AddString + Resources.Resource.Lacestring);
+            tbMaterial1.Attributes.Add("placeHolder", Resources.Resource.AddString + Resources.Resource.MaterialString);
+            tbMaterial2.Attributes.Add("placeHolder", Resources.Resource.AddString + Resources.Resource.MaterialString);
+            tbOptionalPrice.Attributes.Add("placeHolder", "0.00");
+            tbRelatedSn.Attributes.Add("placeHolder", Resources.Resource.AddString + Resources.Resource.CorrespondSnString);
+            tbRentPrice.Attributes.Add("placeHolder", "0.00");
+            tbSalesPrice.Attributes.Add("placeHolder", "0.00");
+            tbType.Attributes.Add("placeHolder", Resources.Resource.AddString + Resources.Resource.CreateItemString);
+
+
+        }
+
         private void ShowErrorMsg(string msg)
         {
             labelWarnString.Text = msg;
@@ -62,6 +81,7 @@ namespace TheWeWebSite.StoreMgt
             SupplierList();
             RelatedCategory();
             StoreList();
+
         }
         private void InitialControlWithPermission()
         {
@@ -224,10 +244,13 @@ namespace TheWeWebSite.StoreMgt
         {
             if (ddlType.SelectedValue == "CreateItem")
             {
+                //  divNewType.Attributes.Add("visible", "ture");
                 tbType.Attributes["style"] = "display: inline;";
                 tbType.Text = string.Empty;
-            }else
+            }
+            else
             {
+                //  divNewType.Attributes.Add("visible", "false");
                 tbType.Attributes["style"] = "display: none;";
                 tbType.Text = string.Empty;
             }
@@ -438,7 +461,7 @@ namespace TheWeWebSite.StoreMgt
 
             string imgPath = @dr["Img"].ToString();
             if (string.IsNullOrEmpty(imgPath)) imgPath = SysProperty.ImgRootFolderpath + @"\" + tableName + @"\" + tbSn.Text;
-            else imgPath = SysProperty.ImgRootFolderpath  + imgPath;
+            else imgPath = SysProperty.ImgRootFolderpath + imgPath;
             string ImgFolderPath = imgPath;
             RefreshImage(0, ImgFolderPath);
             tbFolderPath.Text = ImgFolderPath;
@@ -456,6 +479,9 @@ namespace TheWeWebSite.StoreMgt
                     tbMaterial2.Enabled = false;
                     tbRelatedSn.Enabled = false;
                     tbSn.Enabled = false;
+                    tbSn.CssClass = "Enable";
+                    ddlCategory.CssClass = "Enable";
+                    ddlType.CssClass = "Enable";
                     tbType.Enabled = false;
                     ddlCategory.Enabled = false;
                     ddlEarringType.Enabled = false;
@@ -879,7 +905,7 @@ namespace TheWeWebSite.StoreMgt
                     ImgOther2.ImageUrl = "http:" + path + @"\" + tbSn.Text + "_5.jpg?" + DateTime.Now.Ticks.ToString();
                     break;
             }
-        }        
+        }
 
         private void CheckFolder(string path)
         {

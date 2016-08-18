@@ -16,7 +16,7 @@
         <My:Header runat="server" ID="ucHeader" />
         <!-- Main -->
 
-        <section class="box title">
+        <section class="box title CreatePage">
             <h3>
                 <asp:Label runat="server" Text="" ID="labelPageTitle"></asp:Label></h3>
         </section>
@@ -39,32 +39,38 @@
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,SnString%>"></asp:Label>
                             </div>
 
-                            <asp:TextBox runat="server" ID="tbSn"></asp:TextBox>
+                            <asp:TextBox CssClass="required" runat="server" ID="tbSn"></asp:TextBox>
+                            <asp:RequiredFieldValidator ID="RequiredFieldValidator1"
+                                ControlToValidate="tbSn" runat="server"
+                                ErrorMessage="required"
+                                CssClass="error" Display="Dynamic"></asp:RequiredFieldValidator>
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,CategoryString%>"></asp:Label>
                             </div>
-                            <asp:DropDownList runat="server" ID="ddlCategory" AutoPostBack="true" OnSelectedIndexChanged="ddlCategory_SelectedIndexChanged" />
+                            <asp:DropDownList CssClass="required" runat="server" ID="ddlCategory" AutoPostBack="true" OnSelectedIndexChanged="ddlCategory_SelectedIndexChanged" />
+                            <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="ddlCategory" runat="server"
+                                ErrorMessage="required" CssClass="error" Display="Dynamic"></asp:RequiredFieldValidator>
                             <asp:TextBox runat="server" ID="tbCategory" Style="display: none;" />
                         </div>
-
-
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,TypeString%>"></asp:Label>
                             </div>
                             <asp:UpdatePanel runat="server">
                                 <ContentTemplate>
-                                    <asp:DropDownList runat="server" ID="ddlType" AutoPostBack="true" OnSelectedIndexChanged="ddlType_SelectedIndexChanged" />
+                                    <asp:DropDownList CssClass="required" runat="server" ID="ddlType" AutoPostBack="true" OnSelectedIndexChanged="ddlType_SelectedIndexChanged" />
+                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator4" ControlToValidate="ddlType" runat="server"
+                                        ErrorMessage="required" CssClass="error" Display="Dynamic"></asp:RequiredFieldValidator>
                                     <asp:TextBox runat="server" ID="tbType" Style="display: none;" />
+                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator5"
+                                        ControlToValidate="tbType" runat="server"
+                                        ErrorMessage="required"
+                                        CssClass="error" Display="Dynamic"></asp:RequiredFieldValidator>
                                 </ContentTemplate>
                             </asp:UpdatePanel>
                         </div>
-
-
-
-
                         <div class="2u 12u(mobilep)" runat="server" id="divEarringType" visible="false">
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,TypeString%>"></asp:Label>
@@ -91,23 +97,24 @@
                             </div>
                             <asp:UpdatePanel runat="server">
                                 <ContentTemplate>
-                                    <asp:DropDownList runat="server" ID="ddlStatus" />
+                                    <asp:DropDownList CssClass="required" runat="server" ID="ddlStatus" />
                                 </ContentTemplate>
                             </asp:UpdatePanel>
+                            <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate="ddlStatus" runat="server"
+                                ErrorMessage="required" CssClass="error" Display="Dynamic"></asp:RequiredFieldValidator>
                         </div>
                         <div class="2u 12u(mobilep)" runat="server" id="divRelatedCategory" visible="false">
                             <div class="Div">
-                                <asp:Label runat="server" Text="對應物件"></asp:Label>
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,CorrespondString%>"></asp:Label>
                             </div>
                             <asp:DropDownList runat="server" ID="ddlRelatedCategory" />
                         </div>
                         <div class="2u 12u(mobilep)" runat="server" id="divRelatedSn" visible="false">
                             <div class="Div">
-                                <asp:Label runat="server" Text="對應物件編號"></asp:Label>
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,CorrespondSnString%>"></asp:Label>
                             </div>
                             <asp:TextBox runat="server" ID="tbRelatedSn"></asp:TextBox>
                         </div>
-
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,ColorString%>"></asp:Label>
@@ -150,36 +157,33 @@
                             </div>
                             <asp:DropDownList runat="server" ID="ddlSupplier" />
                         </div>
-
-
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,CostString%>"></asp:Label>
                             </div>
                             <asp:TextBox runat="server" ID="tbCost" Style="text-align: right"></asp:TextBox>
-                            <asp:RegularExpressionValidator ID="RegularExpressionValidator1" ControlToValidate="tbCost" runat="server" ErrorMessage="Only Numbers allowed" ValidationExpression="\d+[.]*\d*"></asp:RegularExpressionValidator>
+                            <asp:RegularExpressionValidator CssClass="error" Display="Dynamic" ID="RegularExpressionValidator1" ControlToValidate="tbCost" runat="server" ErrorMessage="Only Numbers allowed" ValidationExpression="\d+[.]*\d*"></asp:RegularExpressionValidator>
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,RentPriceString%>"></asp:Label>
                             </div>
                             <asp:TextBox runat="server" ID="tbRentPrice" Style="text-align: right"></asp:TextBox>
-                            <asp:RegularExpressionValidator ID="RegularExpressionValidator2" ControlToValidate="tbRentPrice" runat="server" ErrorMessage="Only Numbers allowed" ValidationExpression="\d+[.]*\d*"></asp:RegularExpressionValidator>
-
+                            <asp:RegularExpressionValidator CssClass="error" Display="Dynamic" ID="RegularExpressionValidator2" ControlToValidate="tbRentPrice" runat="server" ErrorMessage="Only Numbers allowed" ValidationExpression="\d+[.]*\d*"></asp:RegularExpressionValidator>
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,OptionalPriceString%>"></asp:Label>
                             </div>
                             <asp:TextBox runat="server" ID="tbOptionalPrice" Style="text-align: right"></asp:TextBox>
-                            <asp:RegularExpressionValidator ID="RegularExpressionValidator3" ControlToValidate="tbOptionalPrice" runat="server" ErrorMessage="Only Numbers allowed" ValidationExpression="\d+[.]*\d*"></asp:RegularExpressionValidator>
+                            <asp:RegularExpressionValidator CssClass="error" Display="Dynamic" ID="RegularExpressionValidator3" ControlToValidate="tbOptionalPrice" runat="server" ErrorMessage="Only Numbers allowed" ValidationExpression="\d+[.]*\d*"></asp:RegularExpressionValidator>
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,SellingPriceString%>"></asp:Label>
                             </div>
                             <asp:TextBox runat="server" ID="tbSalesPrice" Style="text-align: right"></asp:TextBox>
-                            <asp:RegularExpressionValidator ID="RegularExpressionValidator4" ControlToValidate="tbSalesPrice" runat="server" ErrorMessage="Only Numbers allowed" ValidationExpression="\d+[.]*\d*"></asp:RegularExpressionValidator>
+                            <asp:RegularExpressionValidator CssClass="error" Display="Dynamic" ID="RegularExpressionValidator4" ControlToValidate="tbSalesPrice" runat="server" ErrorMessage="Only Numbers allowed" ValidationExpression="\d+[.]*\d*"></asp:RegularExpressionValidator>
                         </div>
                     </div>
                 </div>
@@ -231,7 +235,7 @@
                             </div>
                             <div class="align-center">
                                 <asp:Button runat="server" Text="<%$ Resources:Resource,UploadString%>" ID="btnUpload"
-                                    OnClick="btnUpload_Click" OnClientClick="uploadPanelControl();" />
+                                    OnClick="btnUpload_Click" OnClientClick="uploadPanelControl();" CausesValidation="false" />
                             </div>
                             <hr />
                         </div>
@@ -293,13 +297,13 @@
                         <asp:Button runat="server" CssClass="button alt" Text="<%$ Resources:Resource,ModifyString%>" ID="btnModify" OnClick="btnModify_Click" />
                     </li>
                     <li>
-                        <asp:Button runat="server" CssClass="button alt" Text="<%$ Resources:Resource,ClearString%>" ID="btnClear" OnClick="btnClear_Click" />
+                        <asp:Button CausesValidation="false" runat="server" CssClass="button alt" Text="<%$ Resources:Resource,ClearString%>" ID="btnClear" OnClick="btnClear_Click" />
                     </li>
                     <li>
                         <asp:Button runat="server" CssClass="button alt" Text="<%$ Resources:Resource,DeleteString%>" ID="btnDelete" OnClick="btnDelete_Click" />
                     </li>
                     <li>
-                        <asp:Button runat="server" CssClass="button alt" Text="<%$ Resources:Resource,CancelString%>" ID="btnCancel" OnClick="btnCancel_Click" />
+                        <asp:Button CausesValidation="false" runat="server" CssClass="button alt" Text="<%$ Resources:Resource,CancelString%>" ID="btnCancel" OnClick="btnCancel_Click" />
                     </li>
                 </ul>
             </div>

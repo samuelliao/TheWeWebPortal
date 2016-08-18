@@ -10,26 +10,23 @@
 /* Reset */
 
 .acidjs-css3-treeview,
-.acidjs-css3-treeview *
-{
+.acidjs-css3-treeview * {
     padding: 0;
     margin: 0;
     list-style: none;
 }
 
 
-.acidjs-css3-treeview
-{
+.acidjs-css3-treeview {
     font: normal 11px/16px "Segoe UI", Arial, Sans-serif;
 }
 
- 
-.acidjs-css3-treeview input[type="checkbox"]
-{
-    float:left;
-    margin:2.4px 3px 0 0px;
-}
- 
+
+    .acidjs-css3-treeview input[type="checkbox"] {
+        float: left;
+        margin: 2.4px 3px 0 0px;
+    }
+
 
 .treeNode {
     color: #fb6d6d;
@@ -45,7 +42,7 @@
 .leafNode {
     padding: 0px;
     font-size: 1em;
-    float:left!important;
+    float: left !important;
     color: #f2a6a6;
     white-space: nowrap !important;
 }
@@ -2119,27 +2116,27 @@ input[type="radio"] + label:before {
 
 ::-webkit-input-placeholder {
     color: #999 !important;
-    opacity: 1.0;
+    opacity: 0.4;
 }
 
 :-moz-placeholder {
     color: #999 !important;
-    opacity: 1.0;
+    opacity: 0.4;
 }
 
 ::-moz-placeholder {
     color: #999 !important;
-    opacity: 1.0;
+    opacity: 0.4;
 }
 
 :-ms-input-placeholder {
     color: #999 !important;
-    opacity: 1.0;
+    opacity: 0.4;
 }
 
 .formerize-placeholder {
     color: #999 !important;
-    opacity: 1.0;
+    opacity: 0.4;
 }
 
 /* Div */
@@ -2151,30 +2148,46 @@ input[type="radio"] + label:before {
 }
 
 .required {
-    border-bottom-color:#f2a6a6!important;
-    border-bottom-width:3px!important;
+    border-bottom-color: #f2a6a6 !important;
+    border-bottom-width: 3px !important;
 }
-.error{
-    position:relative;
-    color:red;
-    margin:0!important;
-    padding:0!important;
+
+.error {
+    position: relative;
+    color: red;
+    margin: 0 !important;
+    padding: 0 !important;
     z-index: 1;
-
 }
 
-input:enabled {
+/*file uploda*/
+
+.fileUpload {
+    margin: 10px 10px 10px 10px;
 }
 
-input:disabled{
-  background:rgba(137, 127, 127, 0.20);
-  color:rgba(36, 35, 35, 0.58);
 
+    .fileUpload ::-ms-browse {
+    display:none;
+    }
+
+    .fileUpload [type=file]::-ms-value {
+        margin: 0px;
+       
+    }
+   
+ 
+
+/* */
+
+input:disabled {
+    background: rgba(137, 127, 127, 0.20);
+    color: rgba(36, 35, 35, 0.58);
 }
 
 [disabled] { /* Text and background colour, medium red on light yellow */
-background:rgba(137, 127, 127, 0.20);
-  color:rgba(36, 35, 35, 0.58);
+    background: rgba(137, 127, 127, 0.20);
+    color: rgba(36, 35, 35, 0.58);
 }
 
 
@@ -2326,17 +2339,16 @@ input[type="checkbox"] {
         padding-left: 1.5em;
     }
 
-    
-     .box.title.CreatePage {
-        text-align: center;
-        background-color: #f2a6a6;
-        text-align: left;
-        font-size: 10px;
-        padding: 0.5em;
-        padding-left: 1.5em;
-         margin-top:7em;
-        
-    }
+
+        .box.title.CreatePage {
+            text-align: center;
+            background-color: #f2a6a6;
+            text-align: left;
+            font-size: 10px;
+            padding: 0.5em;
+            padding-left: 1.5em;
+            margin-top: 7em;
+        }
 
 
 .create {

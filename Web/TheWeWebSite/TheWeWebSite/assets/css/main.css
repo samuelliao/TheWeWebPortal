@@ -2125,27 +2125,27 @@ input[type="radio"] {
 
 ::-webkit-input-placeholder {
     color: #999 !important;
-    opacity: 1.0;
+    opacity: 0.3;
 }
 
 :-moz-placeholder {
     color: #999 !important;
-    opacity: 1.0;
+    opacity: 0.4;
 }
 
 ::-moz-placeholder {
     color: #999 !important;
-    opacity: 1.0;
+    opacity: 0.4;
 }
 
 :-ms-input-placeholder {
     color: #999 !important;
-    opacity: 1.0;
+    opacity: 0.4;
 }
 
 .formerize-placeholder {
     color: #999 !important;
-    opacity: 1.0;
+    opacity: 0.4;
 }
 
 /* Div */

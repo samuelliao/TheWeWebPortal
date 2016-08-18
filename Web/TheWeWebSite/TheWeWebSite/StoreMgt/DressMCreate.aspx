@@ -15,7 +15,7 @@
     <form runat="server">
         <My:Header runat="server" ID="ucHeader" />
         <!-- Main -->
-        <section class="box title">
+        <section class="box title CreatePage">
             <h3>
                 <asp:Label runat="server" Text="" ID="labelPageTitle"></asp:Label></h3>
         </section>
@@ -36,7 +36,11 @@
                         <div class="Div">
                             <asp:Label runat="server" Text="<%$ Resources:Resource,SnString%>"></asp:Label>
                         </div>
-                        <asp:TextBox runat="server" ID="tbSn"></asp:TextBox>
+                        <asp:TextBox runat="server" ID="tbSn" CssClass="required"></asp:TextBox>
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator1"
+                            ControlToValidate="tbSn" runat="server"
+                            ErrorMessage="required"
+                            CssClass="error" Display="Dynamic"></asp:RequiredFieldValidator>
                     </div>
                     <div class="2u 12u(mobilep)">
                         <div class="Div">
@@ -49,7 +53,9 @@
                         <div class="Div">
                             <asp:Label runat="server" Text="<%$ Resources:Resource,CategoryString%>"></asp:Label>
                         </div>
-                        <asp:DropDownList runat="server" ID="ddlDressCategory" />
+                        <asp:DropDownList runat="server" ID="ddlDressCategory" CssClass="required" />
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate="ddlDressCategory" runat="server"
+                            ErrorMessage="required" CssClass="error" Display="Dynamic"></asp:RequiredFieldValidator>
 
                     </div>
                     <div class="2u 12u(mobilep)">
@@ -153,7 +159,9 @@
                         <div class="Div">
                             <asp:Label runat="server" Text="<%$ Resources:Resource,StatusString%>"></asp:Label>
                         </div>
-                        <asp:DropDownList runat="server" ID="ddlStatus" />
+                        <asp:DropDownList runat="server" ID="ddlStatus" CssClass="required" />
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator4" ControlToValidate="ddlStatus" runat="server"
+                            ErrorMessage="required" CssClass="error" Display="Dynamic"></asp:RequiredFieldValidator>
 
                     </div>
                     <div class="2u 12u(mobilep)">
@@ -166,7 +174,7 @@
                         <div class="Div">
                             <asp:Label runat="server" Text="<%$ Resources:Resource,FittingString%>"></asp:Label>
                         </div>
-                        <div style="overflow-y: auto">
+                        <div>
                             <asp:TextBox runat="server" ID="tbFitting"></asp:TextBox>
                         </div>
                     </div>
@@ -174,7 +182,7 @@
                         <div class="Div">
                             <asp:Label runat="server" Text="<%$ Resources:Resource,OtherString%>"></asp:Label>
                         </div>
-                        <div style="overflow-y: auto;">
+                        <div>
                             <asp:TextBox runat="server" ID="tbOthers"></asp:TextBox>
                         </div>
                     </div>
@@ -189,7 +197,7 @@
                         </div>
                         <asp:TextBox runat="server" ID="tbCost" Style="text-align: right"></asp:TextBox>
                         <asp:RegularExpressionValidator ID="RegularExpressionValidator1" ControlToValidate="tbCost"
-                            runat="server" ErrorMessage="Only Numbers allowed" ValidationExpression="\d+[.]*\d*"></asp:RegularExpressionValidator>
+                            runat="server" ErrorMessage="Only Numbers allowed" ValidationExpression="\d+[.]*\d*" CssClass="error" Display="Dynamic"></asp:RegularExpressionValidator>
                     </div>
                     <div class="2u 12u(mobilep)">
                         <div class="Div">
@@ -197,7 +205,7 @@
                         </div>
                         <asp:TextBox runat="server" ID="tbCustomPrice" Style="text-align: right"></asp:TextBox>
                         <asp:RegularExpressionValidator ID="RegularExpressionValidator2" ControlToValidate="tbCustomPrice" runat="server"
-                            ErrorMessage="Only Numbers allowed" ValidationExpression="\d+[.]*\d*"></asp:RegularExpressionValidator>
+                            ErrorMessage="Only Numbers allowed" ValidationExpression="\d+[.]*\d*" CssClass="error" Display="Dynamic"></asp:RegularExpressionValidator>
                     </div>
                     <div class="2u 12u(mobilep)">
                         <div class="Div">
@@ -211,7 +219,7 @@
                         </div>
                         <asp:TextBox runat="server" ID="tbRentPrice" Style="text-align: right"></asp:TextBox>
                         <asp:RegularExpressionValidator ID="RegularExpressionValidator3" ControlToValidate="tbRentPrice" runat="server"
-                            ErrorMessage="Only Numbers allowed" ValidationExpression="\d+[.]*\d*"></asp:RegularExpressionValidator>
+                            ErrorMessage="Only Numbers allowed" ValidationExpression="\d+[.]*\d*" CssClass="error" Display="Dynamic"></asp:RegularExpressionValidator>
                     </div>
                     <div class="2u 12u(mobilep)">
                         <div class="Div">
@@ -219,7 +227,7 @@
                         </div>
                         <asp:TextBox runat="server" ID="tbSellsPrice" Style="text-align: right"></asp:TextBox>
                         <asp:RegularExpressionValidator ID="RegularExpressionValidator4" ControlToValidate="tbSellsPrice" runat="server"
-                            ErrorMessage="Only Numbers allowed" ValidationExpression="\d+[.]*\d*"></asp:RegularExpressionValidator>
+                            ErrorMessage="Only Numbers allowed" ValidationExpression="\d+[.]*\d*" CssClass="error" Display="Dynamic"></asp:RegularExpressionValidator>
                     </div>
                 </div>
             </div>
@@ -230,7 +238,8 @@
                         <asp:UpdatePanel runat="server">
                             <ContentTemplate>
                                 <asp:CheckBox runat="server" Text="<%$ Resources:Resource,OutdoorShootingString%>"
-                                    ID="cbOutPhoto" OnCheckedChanged="cbOutPhoto_CheckedChanged" AutoPostBack="true" />
+                                    ID="cbOutPhoto" OnCheckedChanged="cbOutPhoto_CheckedChanged" AutoPostBack="true"
+                                    CssClass="Div" />
                             </ContentTemplate>
                         </asp:UpdatePanel>
                     </div>
@@ -242,14 +251,14 @@
                             <ContentTemplate>
                                 <asp:TextBox runat="server" ID="tbOutdoorPlusPrice" Style="text-align: right" Enabled="false"></asp:TextBox>
                                 <asp:RegularExpressionValidator ID="RegularExpressionValidator5" ControlToValidate="tbOutdoorPlusPrice" runat="server"
-                                    ErrorMessage="Only Numbers allowed" ValidationExpression="\d+[.]*\d*"></asp:RegularExpressionValidator>
+                                    ErrorMessage="Only Numbers allowed" ValidationExpression="\d+[.]*\d*" CssClass="error" Display="Dynamic"></asp:RegularExpressionValidator>
                             </ContentTemplate>
                         </asp:UpdatePanel>
                     </div>
                     <div>
                         <asp:UpdatePanel runat="server">
                             <ContentTemplate>
-                                <asp:CheckBox runat="server" Text="<%$ Resources:Resource,AdditionalPurchaseString%>" ID="cbPlusItem" OnCheckedChanged="cbPlusItem_CheckedChanged" AutoPostBack="true" />
+                                <asp:CheckBox CssClass="Div" runat="server" Text="<%$ Resources:Resource,AdditionalPurchaseString%>" ID="cbPlusItem" OnCheckedChanged="cbPlusItem_CheckedChanged" AutoPostBack="true" />
                             </ContentTemplate>
                         </asp:UpdatePanel>
                     </div>
@@ -261,46 +270,55 @@
                             <ContentTemplate>
                                 <asp:TextBox runat="server" ID="tbPlusItemPrice" Style="text-align: right" Enabled="false"></asp:TextBox>
                                 <asp:RegularExpressionValidator ID="RegularExpressionValidator6" ControlToValidate="tbPlusItemPrice" runat="server"
-                                    ErrorMessage="Only Numbers allowed" ValidationExpression="\d+[.]*\d*"></asp:RegularExpressionValidator>
+                                    ErrorMessage="Only Numbers allowed" ValidationExpression="\d+[.]*\d*" CssClass="error" Display="Dynamic"></asp:RegularExpressionValidator>
                             </ContentTemplate>
                         </asp:UpdatePanel>
                     </div>
                     <div>
-                        <asp:CheckBox runat="server" Text="<%$ Resources:Resource,DomesticWeddingOnlyString%>" ID="cbDomesticWedding" />
+                        <asp:CheckBox runat="server" CssClass="Div" Text="<%$ Resources:Resource,DomesticWeddingOnlyString%>" ID="cbDomesticWedding" />
                     </div>
                     <div>
-                        <asp:CheckBox runat="server" Text="<%$ Resources:Resource,BigSizeString%>" ID="cbBigSize" />
+                        <asp:CheckBox runat="server" CssClass="Div" Text="<%$ Resources:Resource,BigSizeString%>" ID="cbBigSize" />
                     </div>
                 </div>
             </div>
             <hr />
             <!-- 照片 -->
             <section>
-                <div class="4u" runat="server" id="divPhotoUpload">
-                    <button id="btnUploadPanel" onclick="uploadPanelControl();">
+                <div runat="server" id="divPhotoUpload">
+                    <button id="btnUploadPanel" onclick="uploadPanelControl();" class="button alt">
                         <asp:Literal runat="server" Text="<%$ Resources:Resource,UploadString%>" />
                     </button>
                     <div id="uploadPanel" style="display: none;">
-                        <div style="margin-bottom: 1.5em">
+                        <div class="fileUpload">
                             <asp:Label runat="server" Text="<%$ Resources:Resource,ImgFrontString%>"></asp:Label>
-                            <asp:FileUpload ID="FileUpload1" Width="250px" runat="server" />
-                            <asp:Label runat="server" Text="<%$ Resources:Resource,ImgFrontString%>"></asp:Label>
-                            <asp:FileUpload ID="FileUpload2" Width="250px" runat="server" />
+                            <asp:FileUpload ID="FileUpload1" runat="server" />
+                        </div>
+                        <div class="fileUpload">
                             <asp:Label runat="server" Text="<%$ Resources:Resource,ImgBackString%>"></asp:Label>
-                            <asp:FileUpload ID="FileUpload3" Width="250px" runat="server" />
-                            <asp:Label runat="server" Text="<%$ Resources:Resource,ImgOtherString%>"></asp:Label>
-                            <asp:FileUpload ID="FileUpload4" Width="250px" runat="server" />
-                            <asp:Label runat="server" Text="<%$ Resources:Resource,ImgOtherString%>"></asp:Label>
-                            <asp:FileUpload ID="FileUpload5" Width="250px" runat="server" />
+                            <asp:FileUpload ID="FileUpload2" runat="server" />
                         </div>
-                        <div class="align-center">
-                            <asp:Button runat="server" Text="<%$ Resources:Resource,UploadString%>" ID="btnUpload"
-                                OnClick="btnUpload_Click" OnClientClick="uploadPanelControl();" />
+                        <div class="fileUpload">
+                            <asp:Label runat="server" Text="<%$ Resources:Resource,ImgSideString%>"></asp:Label>
+                            <asp:FileUpload ID="FileUpload3" runat="server" />
                         </div>
-                        <hr />
+                        <div class="fileUpload">
+                            <asp:Label runat="server" Text="<%$ Resources:Resource,ImgOtherString%>"></asp:Label>
+                            <asp:FileUpload ID="FileUpload4" runat="server" />
+                        </div>
+                        <div class="fileUpload">
+                            <asp:Label runat="server" Text="<%$ Resources:Resource,ImgOtherString%>"></asp:Label>
+                            <asp:FileUpload ID="FileUpload5" runat="server" />
+                        </div>
+                        <asp:Button CausesValidation="false" runat="server" Text="<%$ Resources:Resource,UploadString%>" ID="btnUpload"
+                            OnClick="btnUpload_Click" OnClientClick="uploadPanelControl();" />
+
                     </div>
                 </div>
+                <hr />
+
                 <div class="row no-collapse 50% uniform">
+
                     <div class="2u">
                         <div style="text-align: center">
                             <asp:Label runat="server" Text="<%$ Resources:Resource,ImgFrontString%>"></asp:Label>
@@ -356,13 +374,13 @@
                         <asp:Button runat="server" CssClass="button alt" Text="<%$ Resources:Resource,ModifyString%>" ID="btnModify" OnClick="btnModify_Click" />
                     </li>
                     <li>
-                        <asp:Button runat="server" CssClass="button alt" Text="<%$ Resources:Resource,ClearString%>" ID="btnClear" OnClick="btnClear_Click" />
+                        <asp:Button CausesValidation="false" runat="server" CssClass="button alt" Text="<%$ Resources:Resource,ClearString%>" ID="btnClear" OnClick="btnClear_Click" />
                     </li>
                     <li>
                         <asp:Button runat="server" CssClass="button alt" Text="<%$ Resources:Resource,DeleteString%>" ID="btnDelete" OnClick="btnDelete_Click" />
                     </li>
                     <li>
-                        <asp:Button runat="server" CssClass="button alt" Text="<%$ Resources:Resource,CancelString%>" ID="btnCancel" OnClick="btnCancel_Click" />
+                        <asp:Button CausesValidation="false" runat="server" CssClass="button alt" Text="<%$ Resources:Resource,CancelString%>" ID="btnCancel" OnClick="btnCancel_Click" />
                     </li>
                 </ul>
             </div>

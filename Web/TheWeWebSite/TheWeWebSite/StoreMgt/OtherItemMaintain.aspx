@@ -38,13 +38,13 @@
                                     <div class="Div">
                                         <asp:Label runat="server" Text="<%$ Resources:Resource,OtherItemSnString%>"></asp:Label>
                                     </div>
-                                    <asp:TextBox runat="server" placeholder="..." ID="tbOthSn"></asp:TextBox>
+                                    <asp:TextBox runat="server" placeholder="<%$ Resources:Resource,SnInputString%>" ID="tbOthSn"></asp:TextBox>
                                 </div>
                                 <div class="2u 12u(mobilep)">
                                     <div class="Div">
                                         <asp:Label runat="server" Text="<%$ Resources:Resource,NameString%>"></asp:Label>
                                     </div>
-                                    <asp:TextBox runat="server" placeholder="..." ID="tbOthName"></asp:TextBox>
+                                    <asp:TextBox runat="server" placeholder="<%$ Resources:Resource,NameInputString%>" ID="tbOthName"></asp:TextBox>
                                 </div>
                                 <div class="2u 12u(mobilep)">
                                     <div class="Div">

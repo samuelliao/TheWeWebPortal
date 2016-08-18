@@ -68,6 +68,8 @@ namespace TheWeWebSite.StoreMgt
             StoreList();
         }
 
+
+
         #region DropDownList Control
         private void StoreList()
         {

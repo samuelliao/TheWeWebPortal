@@ -44,7 +44,7 @@
                                     <div class="Div">
                                         <asp:Label runat="server" Text="<%$ Resources:Resource,SnString%>"></asp:Label>
                                     </div>
-                                    <asp:TextBox runat="server" ID="tbSn"></asp:TextBox>
+                                    <asp:TextBox runat="server" ID="tbSn" placeholder="<%$ Resources:Resource,SnInputString%>"></asp:TextBox>
                                 </div>
                                 <div class="2u 12u(mobilep)">
                                     <div class="Div">
@@ -71,17 +71,18 @@
                                     </div>
                                     <asp:DropDownList runat="server" ID="ddlMaterial" />
                                 </div>
+                                
+                            </div>
+                        </div>
+
+                        <div class="12u">
+                            <div class="row uniform 50%">
                                 <div class="2u 12u(mobilep)">
                                     <div class="Div">
                                         <asp:Label runat="server" Text="<%$ Resources:Resource,TypeString%>"></asp:Label>
                                     </div>
                                     <asp:DropDownList runat="server" ID="ddlDressType" />
                                 </div>
-                            </div>
-                        </div>
-
-                        <div class="12u">
-                            <div class="row uniform 50%">
                                 <div class="2u 12u(mobilep)">
                                     <div class="Div">
                                         <asp:Label runat="server" Text="<%$ Resources:Resource,WornString%>"></asp:Label>
@@ -106,17 +107,18 @@
                                     </div>
                                     <asp:DropDownList runat="server" ID="ddlShoulder" />
                                 </div>
-                            </div>
-                        </div>
-                        <div class="12u">
-                            <div class="row uniform 50%">
-                                <div class="2u 12u(mobilep)">
+                                 <div class="2u 12u(mobilep)">
                                     <div class="Div">
                                         <asp:Label runat="server" Text="<%$ Resources:Resource,StatusString%>"></asp:Label>
                                     </div>
                                     <asp:DropDownList runat="server" ID="ddlStatus" />
 
                                 </div>
+                            </div>
+                        </div>
+                        <div class="12u">
+                            <div class="row uniform 50%">
+                               
                                 <div class="2u 12u(mobilep)">
                                     <div class="Div">
                                         <asp:Label runat="server" Text="<%$ Resources:Resource,UsageStatusString%>"></asp:Label>

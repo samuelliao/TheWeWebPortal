@@ -823,12 +823,17 @@ namespace TheWeWebSite.StoreMgt
                 tbSn.Enabled = false;
                 tbStay.Enabled = false;
                 ddlArea.Enabled = false;
+                ddlArea.CssClass = "Enable";
                 ddlCategory.Enabled = false;
+                ddlCategory.CssClass = "Enable";
                 ddlCountry.Enabled = false;
+                ddlCountry.CssClass = "Enable";
                 ddlLocate.Enabled = false;
+                ddlLocate.CssClass = "Enable";
                 ddlStaff.Enabled = false;
                 ddlStore.Enabled = false;
                 ddlWeddingType.Enabled = false;
+                ddlWeddingType.CssClass = "Enable";
                 cbBreakfast.Enabled = false;
                 cbCertificate.Enabled = false;
                 cbChurchCost.Enabled = false;

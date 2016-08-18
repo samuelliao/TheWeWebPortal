@@ -58,6 +58,15 @@ namespace TheWeWebSite.StoreMgt {
         protected global::System.Web.UI.WebControls.TextBox tbSn;
         
         /// <summary>
+        /// RequiredFieldValidator1 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator1;
+        
+        /// <summary>
         /// ddlCategory 控制項。
         /// </summary>
         /// <remarks>
@@ -65,6 +74,15 @@ namespace TheWeWebSite.StoreMgt {
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlCategory;
+        
+        /// <summary>
+        /// RequiredFieldValidator2 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator2;
         
         /// <summary>
         /// tbCategory 控制項。
@@ -85,6 +103,15 @@ namespace TheWeWebSite.StoreMgt {
         protected global::System.Web.UI.WebControls.DropDownList ddlType;
         
         /// <summary>
+        /// RequiredFieldValidator4 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator4;
+        
+        /// <summary>
         /// tbType 控制項。
         /// </summary>
         /// <remarks>
@@ -92,6 +119,15 @@ namespace TheWeWebSite.StoreMgt {
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox tbType;
+        
+        /// <summary>
+        /// RequiredFieldValidator5 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator5;
         
         /// <summary>
         /// divEarringType 控制項。
@@ -137,6 +173,15 @@ namespace TheWeWebSite.StoreMgt {
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlStatus;
+        
+        /// <summary>
+        /// RequiredFieldValidator3 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator3;
         
         /// <summary>
         /// divRelatedCategory 控制項。

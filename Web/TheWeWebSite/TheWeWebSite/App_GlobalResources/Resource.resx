@@ -1050,4 +1050,10 @@
   <data name="AddString" xml:space="preserve">
     <value>Please Enter </value>
   </data>
+  <data name="CorrespondSnString" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="CorrespondString" xml:space="preserve">
+    <value></value>
+  </data>
 </root>

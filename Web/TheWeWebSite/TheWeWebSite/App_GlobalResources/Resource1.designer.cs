@@ -709,6 +709,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   查詢類似  的當地語系化字串。
+        /// </summary>
+        internal static string CorrespondSnString {
+            get {
+                return ResourceManager.GetString("CorrespondSnString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查詢類似  的當地語系化字串。
+        /// </summary>
+        internal static string CorrespondString {
+            get {
+                return ResourceManager.GetString("CorrespondString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查詢類似 Corsage 的當地語系化字串。
         /// </summary>
         internal static string CorsageString {

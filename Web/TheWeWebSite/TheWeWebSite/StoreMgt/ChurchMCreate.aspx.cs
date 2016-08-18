@@ -28,6 +28,7 @@ namespace TheWeWebSite.StoreMgt
                     SetPlaceHolder();
                     if (Session["ChurchId"] != null)
                     {
+                        
                         labelPageTitle.Text = Resources.Resource.StoreMgtString
                         + " > " + Resources.Resource.ChurchMaintainString
                         + " > " + Resources.Resource.ModifyString;
@@ -35,7 +36,7 @@ namespace TheWeWebSite.StoreMgt
                     }
                     else
                     {
-                        SetEnableCss();
+                        //SetEnableCss();
                         labelPageTitle.Text = Resources.Resource.StoreMgtString
                         + " > " + Resources.Resource.ChurchMaintainString
                         + " > " + Resources.Resource.CreateString;
@@ -333,6 +334,9 @@ namespace TheWeWebSite.StoreMgt
             {
                 if (!bool.Parse(((DataRow)Session["LocateStore"])["HoldingCompany"].ToString()))
                 {
+                    ddlCountry.CssClass = "Enable";
+                    ddlArea.CssClass = "Enable";
+                    tbName.CssClass = "Enable";
                     tbSn.Enabled = false;
                     tbRemark.Enabled = false;
                     tbRedCarpetType.Enabled = false;

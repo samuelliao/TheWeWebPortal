@@ -21,6 +21,7 @@ namespace TheWeWebSite.StoreMgt
                 {
                     InitialControl();
                     InitialControlWithPermission();
+                    TextHint();
                     if (Session["DressId"] != null)
                     {
                         labelPageTitle.Text = Resources.Resource.StoreMgtString
@@ -43,6 +44,26 @@ namespace TheWeWebSite.StoreMgt
                 }
             }
         }
+
+        private void TextHint()
+        {
+            tbSn.Attributes.Add("placeholder", Resources.Resource.AddString + Resources.Resource.SnString);
+            tbColor.Attributes.Add("placeHolder", Resources.Resource.AddString + Resources.Resource.ColorString);
+            tbColor2.Attributes.Add("placeHolder", Resources.Resource.AddString + Resources.Resource.ColorString);
+            tbMaterial.Attributes.Add("placeHolder", Resources.Resource.AddString + Resources.Resource.MaterialString);
+            tbMaterial2.Attributes.Add("placeHolder", Resources.Resource.AddString + Resources.Resource.MaterialString);
+            tbFitting.Attributes.Add("placeHolder", Resources.Resource.AddString + Resources.Resource.FittingString);
+            tbOthers.Attributes.Add("placeHolder", Resources.Resource.AddString + Resources.Resource.OtherString);
+            tbCustomPrice.Attributes.Add("placeHolder","0.00");
+            tbOutdoorPlusPrice.Attributes.Add("placeHolder", "0.00");
+            tbPlusItemPrice.Attributes.Add("placeHolder", "0.00");
+            tbRentPrice.Attributes.Add("placeHolder", "0.00");
+            tbSellsPrice.Attributes.Add("placeHolder", "0.00");
+            tbCost.Attributes.Add("placeHolder", "0.00");
+
+
+        }
+
 
         private void ShowErrorMsg(string msg)
         {
@@ -486,6 +507,8 @@ namespace TheWeWebSite.StoreMgt
                     tbMaterial2.Enabled = false;
                     tbOthers.Enabled = false;
                     tbSn.Enabled = false;
+                    tbSn.CssClass = "Enable";
+                    ddlDressCategory.CssClass = "Enable";
                     cbBigSize.Enabled = false;
                     cbDomesticWedding.Enabled = false;
                     cbOutPhoto.Enabled = false;

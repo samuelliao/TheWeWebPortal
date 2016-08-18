@@ -15,7 +15,7 @@
         <My:Header runat="server" ID="ucHeader" />
         <!-- Main -->
 
-        <section class="box title">
+        <section class="box title CreatePage">
             <h3>
                 <asp:Label runat="server" Text="" ID="labelPageTitle"></asp:Label></h3>
         </section>
@@ -44,7 +44,9 @@
                             </div>
                             <asp:UpdatePanel runat="server">
                                 <ContentTemplate>
-                                    <asp:DropDownList runat="server" ID="ddlCountry" AutoPostBack="true" OnSelectedIndexChanged="ddlCountry_SelectedIndexChanged" />
+                                    <asp:DropDownList CssClass="required" runat="server" ID="ddlCountry" AutoPostBack="true" OnSelectedIndexChanged="ddlCountry_SelectedIndexChanged" />
+                                <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="ddlCountry" runat="server"
+                                ErrorMessage="required" CssClass="error" Display="Dynamic"></asp:RequiredFieldValidator>
                                 </ContentTemplate>
                             </asp:UpdatePanel>
                         </div>
@@ -54,7 +56,9 @@
                             </div>
                             <asp:UpdatePanel runat="server">
                                 <ContentTemplate>
-                                    <asp:DropDownList runat="server" ID="ddlArea" />
+                                    <asp:DropDownList CssClass="required" runat="server" ID="ddlArea" />
+                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="ddlArea" runat="server"
+                                ErrorMessage="required" CssClass="error" Display="Dynamic"></asp:RequiredFieldValidator>
                                 </ContentTemplate>
                             </asp:UpdatePanel>
                         </div>
@@ -62,14 +66,18 @@
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,NameString%>"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server" ID="tbName" />
+                            <asp:TextBox  CssClass="required" runat="server" ID="tbName" />
+                            <asp:RequiredFieldValidator ID="RequiredFieldValidator3"
+                                ControlToValidate="tbName" runat="server"
+                                ErrorMessage="required"
+                                CssClass="error" Display="Dynamic"></asp:RequiredFieldValidator>
                         </div>
 
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,CnNameString%>"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server" ID="tbCnName"></asp:TextBox>
+                            <asp:TextBox CssClass="required"  runat="server" ID="tbCnName"></asp:TextBox>
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
@@ -95,14 +103,14 @@
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,CapacitiesString%>"></asp:Label>
                             </div>
                             <asp:TextBox runat="server" Style="text-align: right" ID="tbCapacities"></asp:TextBox>
-                            <asp:RegularExpressionValidator ID="RegularExpressionValidator1" ControlToValidate="tbCapacities" runat="server" ErrorMessage="Only Numbers allowed" ValidationExpression="^[0-9]*$"></asp:RegularExpressionValidator>
+                            <asp:RegularExpressionValidator CssClass="error" Display="Dynamic" ID="RegularExpressionValidator1" ControlToValidate="tbCapacities" runat="server" ErrorMessage="Only Numbers allowed" ValidationExpression="^[0-9]*$"></asp:RegularExpressionValidator>
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,RedCarpetLengthString%>"></asp:Label>
                             </div>
                             <asp:TextBox runat="server" Style="text-align: right" ID="tbRedCarpetLength"></asp:TextBox>
-                            <asp:RegularExpressionValidator ID="RegularExpressionValidator2" ControlToValidate="tbRedCarpetLength" runat="server" ErrorMessage="Only Numbers allowed" ValidationExpression="^[0-9]*$"></asp:RegularExpressionValidator>
+                            <asp:RegularExpressionValidator CssClass="error" Display="Dynamic" ID="RegularExpressionValidator2" ControlToValidate="tbRedCarpetLength" runat="server" ErrorMessage="Only Numbers allowed" ValidationExpression="^[0-9]*$"></asp:RegularExpressionValidator>
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
@@ -115,14 +123,14 @@
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,PatioHeightString%>"></asp:Label>
                             </div>
                             <asp:TextBox runat="server" Style="text-align: right" ID="tbPatioHeight"></asp:TextBox>
-                            <asp:RegularExpressionValidator ID="RegularExpressionValidator3" ControlToValidate="tbPatioHeight" runat="server" ErrorMessage="Only Numbers allowed" ValidationExpression="^[0-9]*$"></asp:RegularExpressionValidator>
+                            <asp:RegularExpressionValidator CssClass="error" Display="Dynamic" ID="RegularExpressionValidator3" ControlToValidate="tbPatioHeight" runat="server" ErrorMessage="Only Numbers allowed" ValidationExpression="^[0-9]*$"></asp:RegularExpressionValidator>
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,PriceString%>"></asp:Label>
                             </div>
                             <asp:TextBox runat="server" Style="text-align: right" ID="tbPrice"></asp:TextBox>
-                            <asp:RegularExpressionValidator ID="RegularExpressionValidator4" ControlToValidate="tbPrice" runat="server" ErrorMessage="Only Numbers allowed" ValidationExpression="\d+[.]*\d*"></asp:RegularExpressionValidator>
+                            <asp:RegularExpressionValidator CssClass="error" Display="Dynamic" ID="RegularExpressionValidator4" ControlToValidate="tbPrice" runat="server" ErrorMessage="Only Numbers allowed" ValidationExpression="\d+[.]*\d*"></asp:RegularExpressionValidator>
                         </div>
                     </div>
                 </div>
@@ -133,7 +141,7 @@
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,ServiceAndPriceDescriptionString%>"></asp:Label>
                             </div>
-                            <div style="overflow-y: auto; height: 150px">
+                            <div >
                                 <asp:TextBox runat="server" ID="tbMealDescription" TextMode="MultiLine" Height="150px"></asp:TextBox>
                             </div>
                         </div>
@@ -141,7 +149,7 @@
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,RemarkString%>"></asp:Label>
                             </div>
-                            <div style="overflow-y: auto; height: 150px">
+                            <div >
                                 <asp:TextBox runat="server" TextMode="MultiLine" ID="tbRemark" Height="150px"></asp:TextBox>
                             </div>
                         </div>
@@ -270,7 +278,7 @@
                             ID="btnModify" OnClick="btnModify_Click" />
                     </li>
                     <li>
-                        <asp:Button runat="server" CssClass="button alt" Text="<%$ Resources:Resource,ClearString%>"
+                        <asp:Button CausesValidation="false" runat="server" CssClass="button alt" Text="<%$ Resources:Resource,ClearString%>"
                             ID="btnClear" OnClick="btnClear_Click" />
                     </li>
                     <li>
@@ -278,7 +286,7 @@
                             ID="btnDelete" OnClick="btnDelete_Click" />
                     </li>
                     <li>
-                        <asp:Button runat="server" CssClass="button alt" Text="<%$ Resources:Resource,CancelString%>"
+                        <asp:Button CausesValidation="false" runat="server" CssClass="button alt" Text="<%$ Resources:Resource,CancelString%>"
                             ID="btnCancel" OnClick="btnCancel_Click" />
                     </li>
                 </ul>

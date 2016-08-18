@@ -21,6 +21,7 @@ namespace TheWeWebSite.StoreMgt
                 {
                     InitialControl();
                     InitialControlWithPermission();
+                    TextHint();
                     if (Session["ModelingId"] != null)
                     {
                         labelPageTitle.Text = Resources.Resource.StoreMgtString
@@ -42,6 +43,13 @@ namespace TheWeWebSite.StoreMgt
             }
         }
 
+
+        private void TextHint()
+        {
+            tbSn.Attributes.Add("placeholder", Resources.Resource.AddString + Resources.Resource.SnString);
+            tbDescription.Attributes.Add("placeHolder", Resources.Resource.AddString + Resources.Resource.DescriptionString);
+
+        }
         private void ShowErrorMsg(string msg)
         {
             labelWarnString.Text = msg;

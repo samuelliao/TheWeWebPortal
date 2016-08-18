@@ -1,4 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ModelingMCreate.aspx.cs" Inherits="TheWeWebSite.StoreMgt.ModelingMCreate" %>
+
 <%@ Register TagPrefix="My" TagName="Header" Src="~/Header.ascx" %>
 <!DOCTYPE html>
 
@@ -13,7 +14,7 @@
     <form runat="server">
         <My:Header runat="server" ID="ucHeader" />
         <!-- Main -->
-        <section class="box title">
+        <section class="box title CreatePage">
             <h3>
                 <asp:Label runat="server" Text="" ID="labelPageTitle"></asp:Label></h3>
         </section>
@@ -30,7 +31,11 @@
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,SnString%>"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server" placeholder="<%$ Resources:Resource,SystemSnString%>" ID="tbSn"></asp:TextBox>
+                            <asp:TextBox CssClass="required" runat="server" ID="tbSn"></asp:TextBox>
+                            <asp:RequiredFieldValidator ID="RequiredFieldValidator1"
+                                ControlToValidate="tbSn" runat="server"
+                                ErrorMessage="required"
+                                CssClass="error" Display="Dynamic"></asp:RequiredFieldValidator>
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
@@ -38,9 +43,14 @@
                             </div>
                             <asp:UpdatePanel runat="server">
                                 <ContentTemplate>
-                                    <asp:DropDownList runat="server" ID="ddlType" AutoPostBack="true" OnSelectedIndexChanged="ddlType_SelectedIndexChanged" />
-                                    <div style="padding-top:10px">
-                                    <asp:TextBox runat="server" ID="tbType" Visible="false"/></div>
+                                    <asp:DropDownList CssClass="required" runat="server" ID="ddlType" AutoPostBack="true" OnSelectedIndexChanged="ddlType_SelectedIndexChanged" />
+                                    <div style="padding-top: 10px">
+                                        <asp:TextBox CssClass="required" runat="server" ID="tbType" Visible="false" />
+                                        <asp:RequiredFieldValidator ID="RequiredFieldValidator3"
+                                            ControlToValidate="tbType" runat="server"
+                                            ErrorMessage="required"
+                                            CssClass="error" Display="Dynamic"></asp:RequiredFieldValidator>
+                                    </div>
                                 </ContentTemplate>
                             </asp:UpdatePanel>
                         </div>
@@ -48,32 +58,32 @@
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,DescriptionString%>"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server"  ID="tbDescription"></asp:TextBox>
+                            <asp:TextBox runat="server" ID="tbDescription"></asp:TextBox>
                         </div>
                     </div>
                 </div>
                 <hr />
                 <section>
                     <div class="4u" runat="server" id="divPhotoUpload">
-                    <button id="btnUploadPanel" onclick="uploadPanelControl();">
-                        <asp:Literal runat="server" Text="<%$ Resources:Resource,UploadString%>" />
-                    </button>
-                    <div id="uploadPanel" style="display: none;">
-                        <div style="margin-bottom: 1.5em">
-                            <asp:Label runat="server" Text="<%$ Resources:Resource,ImgFrontString%>"></asp:Label>
-                            <asp:FileUpload ID="FileUpload1" Width="250px" runat="server" />
-                            <asp:Label runat="server" Text="<%$ Resources:Resource,ImgFrontString%>"></asp:Label>
-                            <asp:FileUpload ID="FileUpload2" Width="250px" runat="server" />
-                            <asp:Label runat="server" Text="<%$ Resources:Resource,ImgBackString%>"></asp:Label>
-                            <asp:FileUpload ID="FileUpload3" Width="250px" runat="server" />
+                        <button id="btnUploadPanel" onclick="uploadPanelControl();">
+                            <asp:Literal runat="server" Text="<%$ Resources:Resource,UploadString%>" />
+                        </button>
+                        <div id="uploadPanel" style="display: none;">
+                            <div style="margin-bottom: 1.5em">
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,ImgFrontString%>"></asp:Label>
+                                <asp:FileUpload ID="FileUpload1" Width="250px" runat="server" />
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,ImgFrontString%>"></asp:Label>
+                                <asp:FileUpload ID="FileUpload2" Width="250px" runat="server" />
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,ImgBackString%>"></asp:Label>
+                                <asp:FileUpload ID="FileUpload3" Width="250px" runat="server" />
+                            </div>
+                            <div class="align-center">
+                                <asp:Button runat="server" Text="<%$ Resources:Resource,UploadString%>" ID="btnUpload"
+                                    OnClick="btnUpload_Click" OnClientClick="uploadPanelControl();" />
+                            </div>
+                            <hr />
                         </div>
-                        <div class="align-center">
-                            <asp:Button runat="server" Text="<%$ Resources:Resource,UploadString%>" ID="btnUpload"
-                                OnClick="btnUpload_Click" OnClientClick="uploadPanelControl();" />
-                        </div>
-                        <hr />
                     </div>
-                </div>
                     <div class="row no-collapse 50% uniform">
                         <div class="2u">
                             <div style="text-align: center">
@@ -82,7 +92,7 @@
 
                             </div>
                             <span class="image fit">
-                                <asp:Image runat="server" ID="ImgFront"/>
+                                <asp:Image runat="server" ID="ImgFront" />
                             </span>
                         </div>
                         <div class="2u">
@@ -91,7 +101,7 @@
                             </div>
                             <span class="image fit">
                                 <asp:Image runat="server" ID="ImgBack" />
-                                </span>
+                            </span>
                         </div>
                         <div class="2u">
                             <div style="text-align: center">
@@ -99,7 +109,7 @@
                             </div>
                             <span class="image fit">
                                 <asp:Image runat="server" ID="ImgSide" />
-                                </span>
+                            </span>
                         </div>
                     </div>
                 </section>
@@ -117,13 +127,13 @@
                         <asp:Button runat="server" CssClass="button alt" Text="<%$ Resources:Resource,ModifyString%>" ID="btnModify" OnClick="btnModify_Click" />
                     </li>
                     <li>
-                        <asp:Button runat="server" CssClass="button alt" Text="<%$ Resources:Resource,ClearString%>" ID="btnClear" OnClick="btnClear_Click" />
+                        <asp:Button CausesValidation="false" runat="server" CssClass="button alt" Text="<%$ Resources:Resource,ClearString%>" ID="btnClear" OnClick="btnClear_Click" />
                     </li>
                     <li>
                         <asp:Button runat="server" CssClass="button alt" Text="<%$ Resources:Resource,DeleteString%>" ID="btnDelete" OnClick="btnDelete_Click" />
                     </li>
                     <li>
-                        <asp:Button runat="server" CssClass="button alt" Text="<%$ Resources:Resource,CancelString%>" ID="btnCancel" OnClick="btnCancel_Click" />
+                        <asp:Button CausesValidation="false" runat="server" CssClass="button alt" Text="<%$ Resources:Resource,CancelString%>" ID="btnCancel" OnClick="btnCancel_Click" />
                     </li>
                 </ul>
             </div>
