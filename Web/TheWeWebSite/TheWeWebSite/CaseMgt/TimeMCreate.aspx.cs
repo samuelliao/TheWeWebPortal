@@ -60,7 +60,8 @@ namespace TheWeWebSite.CaseMgt
             btnCouplesInfo.Visible = item.CanExport;
             if (bool.Parse(((DataRow)Session["LocateStore"])["HoldingCompany"].ToString()))
             {
-                btnModify.Visible = false;                
+                btnModify.Visible = false;
+                panelBasicInfo.Enabled = false;         
             }
         }
         private void InitialConferenceItem()

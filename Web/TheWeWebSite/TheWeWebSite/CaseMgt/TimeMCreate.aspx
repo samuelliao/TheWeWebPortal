@@ -1,4 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="TimeMCreate.aspx.cs" Inherits="TheWeWebSite.CaseMgt.TimeMCreate" %>
+
 <%@ Register TagPrefix="My" TagName="Header" Src="~/Header.ascx" %>
 <!DOCTYPE html>
 
@@ -30,80 +31,82 @@
             </asp:ScriptManager>
             <div>
                 <asp:Label runat="server" ID="labelWarnString" ForeColor="Red" Visible="false" />
-                <div class="12u">
-                    <div class="row uniform 50%">
-                        <div class="2u 12u(mobilep)">
-                            <div class="Div">
-                                <asp:Label runat="server" Text="<%$ Resources:Resource,SnString%>"></asp:Label>
+                <asp:Panel runat="server" ID="panelBasicInfo">
+                    <div class="12u">
+                        <div class="row uniform 50%">
+                            <div class="2u 12u(mobilep)">
+                                <div class="Div">
+                                    <asp:Label runat="server" Text="<%$ Resources:Resource,SnString%>"></asp:Label>
+                                </div>
+                                <asp:TextBox runat="server" ID="labelSn" Enabled="false" />
+                                <asp:CheckBox runat="server" ID="cbIsClose" Visible="false" />
                             </div>
-                            <asp:TextBox runat="server" ID="labelSn" Enabled="false" />
-                            <asp:CheckBox runat="server" ID="cbIsClose" Visible="false" />
-                        </div>
-                        <div class="2u 12u(mobilep)">
-                            <div class="Div">
-                                <asp:Label runat="server" Text="<%$ Resources:Resource,ExpectedDateString%>"></asp:Label>
+                            <div class="2u 12u(mobilep)">
+                                <div class="Div">
+                                    <asp:Label runat="server" Text="<%$ Resources:Resource,ExpectedDateString%>"></asp:Label>
+                                </div>
+                                <div>
+                                    <asp:TextBox runat="server" ID="tbContractDate" Enabled="false"></asp:TextBox>
+                                </div>
                             </div>
-                            <div>
-                                <asp:TextBox runat="server" ID="tbContractDate" Enabled="false"></asp:TextBox>
+                            <div class="2u 12u(mobilep)">
+                                <div class="Div">
+                                    <asp:Label runat="server" Text="<%$ Resources:Resource,BridalNameString%>"></asp:Label>
+                                </div>
+                                <asp:TextBox runat="server" ID="tbBridalName" Enabled="false"></asp:TextBox>
+                                <asp:Label runat="server" Visible="false" ID="labelBridalEngName" />
+                                <asp:Label runat="server" Visible="false" ID="labelBridalPhone" />
                             </div>
-                        </div>
-                        <div class="2u 12u(mobilep)">
-                            <div class="Div">
-                                <asp:Label runat="server" Text="<%$ Resources:Resource,BridalNameString%>"></asp:Label>
+                            <div class="2u 12u(mobilep)">
+                                <div class="Div">
+                                    <asp:Label runat="server" Text="<%$ Resources:Resource,GroomNameString%>"></asp:Label>
+                                </div>
+                                <asp:TextBox runat="server" ID="tbGroomName" Enabled="false"></asp:TextBox>
+                                <asp:Label runat="server" Visible="false" ID="labelGroomEngName" />
+                                <asp:Label runat="server" Visible="false" ID="labelGroomPhone" />
                             </div>
-                            <asp:TextBox runat="server" ID="tbBridalName" Enabled="false"></asp:TextBox>
-                            <asp:Label runat="server" Visible="false" ID="labelBridalEngName" />
-                            <asp:Label runat="server" Visible="false" ID="labelBridalPhone" />
-                        </div>
-                        <div class="2u 12u(mobilep)">
-                            <div class="Div">
-                                <asp:Label runat="server" Text="<%$ Resources:Resource,GroomNameString%>"></asp:Label>
+                            <div class="2u 12u(mobilep)">
+                                <div class="Div">
+                                    <asp:Label runat="server" Text="<%$ Resources:Resource,CountryString%>"></asp:Label>
+                                </div>
+                                <asp:TextBox runat="server" ID="tbCountry" Enabled="false" />
                             </div>
-                            <asp:TextBox runat="server" ID="tbGroomName" Enabled="false"></asp:TextBox>
-                            <asp:Label runat="server" Visible="false" ID="labelGroomEngName" />
-                            <asp:Label runat="server" Visible="false" ID="labelGroomPhone" />
-                        </div>
-                        <div class="2u 12u(mobilep)">
-                            <div class="Div">
-                                <asp:Label runat="server" Text="<%$ Resources:Resource,CountryString%>"></asp:Label>
+                            <div class="2u 12u(mobilep)">
+                                <div class="Div">
+                                    <asp:Label runat="server" Text="<%$ Resources:Resource,AreaString%>"></asp:Label>
+                                </div>
+                                <asp:TextBox runat="server" ID="tbArea" Enabled="false" />
                             </div>
-                            <asp:TextBox runat="server" ID="tbCountry" Enabled="false" />
-                        </div>
-                        <div class="2u 12u(mobilep)">
-                            <div class="Div">
-                                <asp:Label runat="server" Text="<%$ Resources:Resource,AreaString%>"></asp:Label>
+                            <div class="2u 12u(mobilep)">
+                                <div class="Div">
+                                    <asp:Label runat="server" Text="<%$ Resources:Resource,LocateString%>"></asp:Label>
+                                </div>
+                                <asp:TextBox runat="server" ID="tbLocation" Enabled="false" />
                             </div>
-                            <asp:TextBox runat="server" ID="tbArea" Enabled="false" />
-                        </div>
-                        <div class="2u 12u(mobilep)">
-                            <div class="Div">
-                                <asp:Label runat="server" Text="<%$ Resources:Resource,LocateString%>"></asp:Label>
-                            </div>
-                            <asp:TextBox runat="server" ID="tbLocation" Enabled="false" />
-                        </div>
-                    </div>
-                </div>
-                <div class="12u">
-                    <div class="row uniform 50%">
-                        <div class="2u 12u(mobilep)">
-                            <div class="Div">
-                                <asp:Label runat="server" Text="<%$ Resources:Resource,ProductSetString%>"></asp:Label>
-                            </div>
-                            <asp:TextBox runat="server" ID="tbProductSet" Enabled="false" />
-                            <asp:Label runat="server" ID="labelWeddingCategory" Visible="false" />
-                        </div>
-                        <div class="2u 12u(mobilep)">
-                            <div class="Div">
-                                <asp:Label runat="server" Text="<%$ Resources:Resource,ProjectString%>"></asp:Label>
-                            </div>
-                            <asp:UpdatePanel runat="server">
-                                <ContentTemplate>
-                                    <asp:DropDownList runat="server" ID="ddlOrderType" Enabled="false" />
-                                </ContentTemplate>
-                            </asp:UpdatePanel>
                         </div>
                     </div>
-                </div>
+                    <div class="12u">
+                        <div class="row uniform 50%">
+                            <div class="2u 12u(mobilep)">
+                                <div class="Div">
+                                    <asp:Label runat="server" Text="<%$ Resources:Resource,ProductSetString%>"></asp:Label>
+                                </div>
+                                <asp:TextBox runat="server" ID="tbProductSet" Enabled="false" />
+                                <asp:Label runat="server" ID="labelWeddingCategory" Visible="false" />
+                            </div>
+                            <div class="2u 12u(mobilep)">
+                                <div class="Div">
+                                    <asp:Label runat="server" Text="<%$ Resources:Resource,ProjectString%>"></asp:Label>
+                                </div>
+                                <asp:UpdatePanel runat="server">
+                                    <ContentTemplate>
+                                        <asp:DropDownList runat="server" ID="ddlOrderType" Enabled="false" />
+                                    </ContentTemplate>
+                                </asp:UpdatePanel>
+                            </div>
+                        </div>
+                    </div>
+                </asp:Panel>
                 <div class="12u">
                     <div class="row uniform 50%">
                         <div class="2u 12u(mobilep)">

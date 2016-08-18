@@ -80,6 +80,7 @@ namespace TheWeWebSite.CaseMgt
                 btnModify.Visible = false;
                 btnCreate.Visible = false;
                 btnClear.Visible = false;
+                panelBasicInfo.Enabled = false;
             }
         }
         private void InitialControls()

@@ -94,6 +94,7 @@ namespace TheWeWebSite.CaseMgt
                 btnClear.Visible = false;
                 dgServiceItem.Enabled = false;
                 btnUpload.Visible = false;
+                panelBasicInfo.Enabled = false;
             }
         }
 

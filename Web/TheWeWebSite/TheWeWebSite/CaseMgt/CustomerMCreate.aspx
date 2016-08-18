@@ -1,4 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="CustomerMCreate.aspx.cs" Inherits="TheWeWebSite.CaseMgt.CustomerMCreate" %>
+
 <%@ Register TagPrefix="My" TagName="Header" Src="~/Header.ascx" %>
 <!DOCTYPE html>
 
@@ -22,101 +23,101 @@
 
         <!-- Input -->
         <section class="insert">
-            <div>
-                <asp:Label runat="server" ID="labelWarnString" ForeColor="Red" Visible="false" />
-                <div class="12u">
+            <asp:Label runat="server" ID="labelWarnString" ForeColor="Red" Visible="false" />
+            <asp:Panel runat="server" ID="panelBasicInfo">
+                <div>
+                    <div class="12u">
+                        <div class="row uniform 50%">
+                            <div class="2u 12u(mobilep)">
+                                <div class="Div">
+                                    <asp:Label runat="server" Text="<%$ Resources:Resource,SnString%>"></asp:Label>
+                                </div>
+                                <asp:TextBox runat="server" ID="tbSn" placeholder="<%$ Resources:Resource,SnInputString%>" Enabled="false" />
+                            </div>
+                            <div class="2u 12u(mobilep)">
+                                <div class="Div">
+                                    <asp:Label runat="server" Text="<%$ Resources:Resource,NameString%>"></asp:Label>
+                                </div>
+                                <asp:TextBox runat="server" ID="tbName" placeholder="<%$ Resources:Resource,NameInputString%>"></asp:TextBox>
+                            </div>
+                            <div class="2u 12u(mobilep)">
+                                <div class="Div">
+                                    <asp:Label runat="server" Text="<%$ Resources:Resource,NickNameString%>"></asp:Label>
+                                </div>
+                                <asp:TextBox runat="server" ID="tbNickName" placeholder="<%$ Resources:Resource,NickNameInputString%>"></asp:TextBox>
+                            </div>
+                            <div class="2u 12u(mobilep)">
+                                <div class="Div">
+                                    <asp:Label runat="server" Text="<%$ Resources:Resource,BdayString%>"></asp:Label>
+                                </div>
+                                <div>
+                                    <asp:TextBox runat="server" Style="text-align: right" ID="tbBday"
+                                        CssClass="date date-1" value="" placeholder="YYYY-MM-DD"></asp:TextBox>
+                                </div>
+                            </div>
+                            <div class="2u 12u(mobilep)">
+                                <div class="Div">
+                                    <asp:Label runat="server" Text="<%$ Resources:Resource,PhoneString%>"></asp:Label>
+                                </div>
+                                <asp:TextBox runat="server" placeholder="<%$ Resources:Resource,PhoneInputString%>" ID="tbPhone"></asp:TextBox>
+                            </div>
+                            <div class="2u 12u(mobilep)">
+                                <div class="Div">
+                                    <asp:Label runat="server" Text="<%$ Resources:Resource,MsgString%>"></asp:Label>
+                                </div>
+                                <asp:DropDownList runat="server" ID="ddlMsgerType" />
+                            </div>
+                        </div>
+                    </div>
 
-                    <div class="row uniform 50%">
-                        <div class="2u 12u(mobilep)">
-                            <div class="Div">
-                                <asp:Label runat="server" Text="<%$ Resources:Resource,SnString%>"></asp:Label>
+                    <div class="12u">
+                        <div class="row uniform 50%">
+                            <div class="2u 12u(mobilep)">
+                                <div class="Div">
+                                    <asp:Label runat="server" Text="<%$ Resources:Resource,MsgIdString%>"></asp:Label>
+                                </div>
+                                <asp:TextBox runat="server" ID="tbMsgId"></asp:TextBox>
                             </div>
-                            <asp:TextBox runat="server" ID="tbSn" placeholder="<%$ Resources:Resource,SnInputString%>" Enabled="false"/>
+                            <div class="2u 12u(mobilep)">
+                                <div class="Div">
+                                    <asp:Label runat="server" Text="<%$ Resources:Resource,EmailString%>"></asp:Label>
+                                </div>
+                                <asp:TextBox runat="server" placeholder="<%$ Resources:Resource,EmailInputString%>" ID="tbEmail"></asp:TextBox>
+                            </div>
+                            <div class="2u 12u(mobilep)">
+                                <div class="Div">
+                                    <asp:Label runat="server" Text="<%$ Resources:Resource,PassportNameString%>"></asp:Label>
+                                </div>
+                                <asp:TextBox runat="server" placeholder="<%$ Resources:Resource,PassportNameInputString%>" ID="tbPassportName"></asp:TextBox>
+                            </div>
+                            <div class="4u">
+                                <div class="Div">
+                                    <asp:Label runat="server" Text="<%$ Resources:Resource,AddressString%>"></asp:Label>
+                                </div>
+                                <asp:TextBox runat="server" placeholder="<%$ Resources:Resource,AddressInputString%>" ID="tbAddr"></asp:TextBox>
+                            </div>
                         </div>
-                        <div class="2u 12u(mobilep)">
-                            <div class="Div">
-                                <asp:Label runat="server" Text="<%$ Resources:Resource,NameString%>"></asp:Label>
+                    </div>
+                    <div class="12u">
+                        <div class="row uniform 50%">
+                            <div class="2u 12u(mobilep)">
+                                <div class="Div">
+                                    <asp:Label runat="server" Text="<%$ Resources:Resource,SnsTitleString%>"></asp:Label>
+                                </div>
+                                <asp:TextBox runat="server" placeholder="<%$ Resources:Resource,SnsTitleInputString%>" ID="tbSnsTitle"></asp:TextBox>
                             </div>
-                            <asp:TextBox runat="server" ID="tbName" placeholder="<%$ Resources:Resource,NameInputString%>"></asp:TextBox>
-                        </div>
-                        <div class="2u 12u(mobilep)">
-                            <div class="Div">
-                                <asp:Label runat="server" Text="<%$ Resources:Resource,NickNameString%>"></asp:Label>
+
+                            <div class="10u 12u(mobilep)">
+                                <div class="Div">
+                                    <asp:Label runat="server" Text="<%$ Resources:Resource,RemarkString%>"></asp:Label>
+                                </div>
+                                <asp:TextBox runat="server" placeholder="<%$ Resources:Resource,RemarkString%>"
+                                    ID="tbRemark"></asp:TextBox>
                             </div>
-                            <asp:TextBox runat="server" ID="tbNickName" placeholder="<%$ Resources:Resource,NickNameInputString%>"></asp:TextBox>
-                        </div>
-                        <div class="2u 12u(mobilep)">
-                            <div class="Div">
-                                <asp:Label runat="server" Text="<%$ Resources:Resource,BdayString%>"></asp:Label>
-                            </div>
-                            <div>
-                                <asp:TextBox runat="server" style="text-align:right" ID="tbBday"
-                                    Cssclass="date date-1" value="" placeholder="YYYY-MM-DD"></asp:TextBox>
-                            </div>
-                        </div>
-                        <div class="2u 12u(mobilep)">
-                            <div class="Div">
-                                <asp:Label runat="server" Text="<%$ Resources:Resource,PhoneString%>"></asp:Label>
-                            </div>
-                            <asp:TextBox runat="server" placeholder="<%$ Resources:Resource,PhoneInputString%>" ID="tbPhone"></asp:TextBox>
-                        </div>
-                        <div class="2u 12u(mobilep)">
-                            <div class="Div">
-                                <asp:Label runat="server" Text="<%$ Resources:Resource,MsgString%>"></asp:Label>
-                            </div>
-                            <asp:DropDownList runat="server" ID="ddlMsgerType" />
                         </div>
                     </div>
                 </div>
-
-                <div class="12u">
-                    <div class="row uniform 50%">
-                        <div class="2u 12u(mobilep)">
-                            <div class="Div">
-                                <asp:Label runat="server" Text="<%$ Resources:Resource,MsgIdString%>"></asp:Label>
-                            </div>
-                            <asp:TextBox runat="server"  ID="tbMsgId"></asp:TextBox>
-                        </div>
-                        <div class="2u 12u(mobilep)">
-                            <div class="Div">
-                                <asp:Label runat="server" Text="<%$ Resources:Resource,EmailString%>"></asp:Label>
-                            </div>
-                            <asp:TextBox runat="server" placeholder="<%$ Resources:Resource,EmailInputString%>" ID="tbEmail"></asp:TextBox>
-                        </div>
-                        <div class="2u 12u(mobilep)">
-                            <div class="Div">
-                                <asp:Label runat="server" Text="<%$ Resources:Resource,PassportNameString%>"></asp:Label>
-                            </div>
-                            <asp:TextBox runat="server" placeholder="<%$ Resources:Resource,PassportNameInputString%>" ID="tbPassportName"></asp:TextBox>
-                        </div>
-                        <div class="4u">
-                            <div class="Div">
-                                <asp:Label runat="server" Text="<%$ Resources:Resource,AddressString%>"></asp:Label>
-                            </div>
-                            <asp:TextBox runat="server" placeholder="<%$ Resources:Resource,AddressInputString%>" ID="tbAddr"></asp:TextBox>
-                        </div>
-                    </div>
-                </div>
-                <div class="12u">
-                    <div class="row uniform 50%">
-                        <div class="2u 12u(mobilep)">
-                            <div class="Div">
-                                <asp:Label runat="server" Text="<%$ Resources:Resource,SnsTitleString%>"></asp:Label>
-                            </div>
-                            <asp:TextBox runat="server" placeholder="<%$ Resources:Resource,SnsTitleInputString%>" ID="tbSnsTitle"></asp:TextBox>
-                        </div>
-
-                        <div class="10u 12u(mobilep)">
-                            <div class="Div">
-                                <asp:Label runat="server" Text="<%$ Resources:Resource,RemarkString%>"></asp:Label>
-                            </div>
-                            <asp:TextBox runat="server" placeholder="<%$ Resources:Resource,RemarkString%>"
-                                ID="tbRemark" ></asp:TextBox>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
+            </asp:Panel>
             <!-- Btn -->
             <div class="Div btn">
                 <ul class="actions">
