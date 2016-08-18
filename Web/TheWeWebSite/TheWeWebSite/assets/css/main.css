@@ -2158,7 +2158,10 @@ input[type="radio"] {
 
 .error{
     position:relative;
-    display:none;
+    color:red;
+    margin:0!important;
+    padding:0!important;
+    z-index: 1;
 
 }
 
