@@ -10,6 +10,7 @@
     <title>The We Wedding</title>
     <link href="../assets/css/font-awesome.min.css" rel="stylesheet" />
     <link href="../assets/css/main.css" rel="stylesheet" />
+        <link href="../assets/css/datePicker.css" rel="stylesheet" />
 </head>
 <body>
     <form runat="server">
@@ -43,28 +44,32 @@
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
-                                <asp:Label runat="server" Text="<%$ Resources:Resource,NameString%>"></asp:Label>
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,NameString%>" ></asp:Label>
                             </div>
-                            <asp:TextBox runat="server" ID="tbName" />
+                            <asp:TextBox runat="server" ID="tbName" CssClass="required" />
+                            <asp:RequiredFieldValidator ID="RequiredFieldValidator1"
+                                ControlToValidate="tbName" runat="server"
+                                ErrorMessage="required"
+                                CssClass="error" Display="Dynamic"></asp:RequiredFieldValidator>
                         </div>
 
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
-                                <asp:Label runat="server" Text="<%$ Resources:Resource,CnNameString%>"></asp:Label>
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,CnNameString%>" ></asp:Label>
                             </div>
-                            <asp:TextBox runat="server" ID="tbCnName" placeholder="<%$ Resources:Resource,NameInputString%>"></asp:TextBox>
+                            <asp:TextBox runat="server" ID="tbCnName"></asp:TextBox>
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,EnglishNameString%>"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server" ID="tbEngName" placeholder="<%$ Resources:Resource,NameInputString%>"></asp:TextBox>
+                            <asp:TextBox runat="server" ID="tbEngName"></asp:TextBox>
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,JpNameString%>"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server" ID="tbJpName" placeholder="<%$ Resources:Resource,NameInputString%>"></asp:TextBox>
+                            <asp:TextBox runat="server" ID="tbJpName" ></asp:TextBox>
                         </div>
                     </div>
                 </div>
@@ -74,13 +79,17 @@
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,ProjectString%>"></asp:Label>
                             </div>
-                            <asp:DropDownList runat="server" ID="ddlCategory" />
+                            <asp:DropDownList runat="server" ID="ddlCategory" CssClass="required" />
+                            <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="ddlCategory" runat="server"
+                                ErrorMessage="required" CssClass="error" Display="Dynamic"></asp:RequiredFieldValidator>
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,WeddingStyleString%>"></asp:Label>
                             </div>
-                            <asp:DropDownList runat="server" ID="ddlWeddingType" />
+                            <asp:DropDownList runat="server" ID="ddlWeddingType" CssClass="required" />
+                            <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate="ddlWeddingType" runat="server"
+                                ErrorMessage="required" CssClass="error" Display="Dynamic"></asp:RequiredFieldValidator>
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
@@ -88,7 +97,9 @@
                             </div>
                             <asp:UpdatePanel runat="server">
                                 <ContentTemplate>
-                                    <asp:DropDownList runat="server" ID="ddlCountry" OnSelectedIndexChanged="ddlCountry_SelectedIndexChanged" AutoPostBack="true" />
+                                    <asp:DropDownList CssClass="required"  runat="server" ID="ddlCountry" OnSelectedIndexChanged="ddlCountry_SelectedIndexChanged" AutoPostBack="true" />
+                                <asp:RequiredFieldValidator ID="RequiredFieldValidator4" ControlToValidate="ddlCountry" runat="server"
+                                ErrorMessage="required" CssClass="error" Display="Dynamic"></asp:RequiredFieldValidator>
                                 </ContentTemplate>
                             </asp:UpdatePanel>
                         </div>
@@ -98,7 +109,9 @@
                             </div>
                             <asp:UpdatePanel runat="server">
                                 <ContentTemplate>
-                                    <asp:DropDownList runat="server" ID="ddlArea" OnSelectedIndexChanged="ddlArea_SelectedIndexChanged" AutoPostBack="true" />
+                                    <asp:DropDownList CssClass="required"  runat="server" ID="ddlArea" OnSelectedIndexChanged="ddlArea_SelectedIndexChanged" AutoPostBack="true" />
+                                <asp:RequiredFieldValidator ID="RequiredFieldValidator5" ControlToValidate="ddlArea" runat="server"
+                                ErrorMessage="required" CssClass="error" Display="Dynamic"></asp:RequiredFieldValidator>
                                 </ContentTemplate>
                             </asp:UpdatePanel>
                         </div>
@@ -108,7 +121,9 @@
                             </div>
                             <asp:UpdatePanel runat="server">
                                 <ContentTemplate>
-                                    <asp:DropDownList runat="server" ID="ddlLocate" OnSelectedIndexChanged="ddlLocate_SelectedIndexChanged" AutoPostBack="true" />
+                                    <asp:DropDownList CssClass="required"  runat="server" ID="ddlLocate" OnSelectedIndexChanged="ddlLocate_SelectedIndexChanged" AutoPostBack="true" />
+                                <asp:RequiredFieldValidator ID="RequiredFieldValidator6" ControlToValidate="ddlLocate" runat="server"
+                                ErrorMessage="required" CssClass="error" Display="Dynamic"></asp:RequiredFieldValidator>
                                 </ContentTemplate>
                             </asp:UpdatePanel>
                         </div>
@@ -132,7 +147,7 @@
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,FilmingTimeString%>"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server" ID="tbFilmTime" Style="text-align: right"></asp:TextBox>
+                            <asp:TextBox runat="server" Cssclass="date date-1"  ID="tbFilmTime" Style="text-align: right"></asp:TextBox>
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
@@ -255,13 +270,7 @@
                             <asp:CheckBox runat="server" Text="<%$ Resources:Resource,LunchString%>" ID="cbLunch" />
 
                         </div>
-
-                    </div>
-                </div>
-                <div class="12u">
-                    <div class="row uniform 50%">
-
-                        <div class="Check Div">
+                         <div class="Check Div">
                             <asp:CheckBox runat="server" Text="<%$ Resources:Resource,CandlelightDinnerString%>" ID="cbDinner" />
 
                         </div>
@@ -275,6 +284,7 @@
 
                     </div>
                 </div>
+               
                 <div class="12u">
                     <div class="row uniform 50%">
                         <div class="10u 12u(mobilep)">
@@ -375,7 +385,7 @@
                                         </asp:TemplateField>
                                         <asp:TemplateField HeaderText="<%$ Resources:Resource,NumberString%>">
                                             <ItemTemplate>
-                                                <asp:TextBox ID="tbNumber" Style="text-align: right" runat="server"></asp:TextBox>
+                                                <asp:TextBox ID="tbNumber" Style="text-align: right" runat="server" ></asp:TextBox>
                                             </ItemTemplate>
                                         </asp:TemplateField>
                                         <asp:TemplateField HeaderText="<%$ Resources:Resource,PriceString%>">
@@ -405,16 +415,16 @@
                         <asp:Button runat="server" CssClass="button alt" Text="<%$ Resources:Resource,CreateString%>" ID="btnCreate" OnClick="btnCreate_Click" />
                     </li>
                     <li>
-                        <asp:Button runat="server" CssClass="button alt" Text="<%$ Resources:Resource,ModifyString%>" ID="btnModify" OnClick="btnModify_Click" />
+                        <asp:Button runat="server" CssClass="button alt" Text="<%$ Resources:Resource,ModifyString%>" ID="btnModify" OnClick="btnModify_Click" CausesValidation="False" />
                     </li>
                     <li>
-                        <asp:Button runat="server" CssClass="button alt" Text="<%$ Resources:Resource,ClearString%>" ID="btnClear" OnClick="btnClear_Click" />
+                        <asp:Button runat="server" CssClass="button alt" Text="<%$ Resources:Resource,ClearString%>" ID="btnClear" OnClick="btnClear_Click" CausesValidation="False" />
                     </li>
                     <li>
                         <asp:Button runat="server" CssClass="button alt" Text="<%$ Resources:Resource,DeleteString%>" ID="btnDelete" OnClick="btnDelete_Click" />
                     </li>
                     <li>
-                        <asp:Button runat="server" CssClass="button alt" Text="<%$ Resources:Resource,CancelString%>" ID="btnCancel" OnClick="btnCancel_Click" />
+                        <asp:Button runat="server" CssClass="button alt" Text="<%$ Resources:Resource,CancelString%>" ID="btnCancel" OnClick="btnCancel_Click" CausesValidation="False"  />
                     </li>
                 </ul>
             </div>
@@ -428,6 +438,7 @@
         <script src="../assets/js/util.js"></script>
         <!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
         <script src="../assets/js/main.js"></script>
+        <script src="../assets/js/picker.js"></script>
     </form>
 
 </body>

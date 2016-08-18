@@ -85,6 +85,15 @@ namespace TheWeWebSite.StoreMgt {
         protected global::System.Web.UI.WebControls.TextBox tbName;
         
         /// <summary>
+        /// RequiredFieldValidator1 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator1;
+        
+        /// <summary>
         /// tbCnName 控制項。
         /// </summary>
         /// <remarks>
@@ -121,6 +130,15 @@ namespace TheWeWebSite.StoreMgt {
         protected global::System.Web.UI.WebControls.DropDownList ddlCategory;
         
         /// <summary>
+        /// RequiredFieldValidator2 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator2;
+        
+        /// <summary>
         /// ddlWeddingType 控制項。
         /// </summary>
         /// <remarks>
@@ -128,6 +146,15 @@ namespace TheWeWebSite.StoreMgt {
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlWeddingType;
+        
+        /// <summary>
+        /// RequiredFieldValidator3 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator3;
         
         /// <summary>
         /// ddlCountry 控制項。
@@ -139,6 +166,15 @@ namespace TheWeWebSite.StoreMgt {
         protected global::System.Web.UI.WebControls.DropDownList ddlCountry;
         
         /// <summary>
+        /// RequiredFieldValidator4 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator4;
+        
+        /// <summary>
         /// ddlArea 控制項。
         /// </summary>
         /// <remarks>
@@ -148,6 +184,15 @@ namespace TheWeWebSite.StoreMgt {
         protected global::System.Web.UI.WebControls.DropDownList ddlArea;
         
         /// <summary>
+        /// RequiredFieldValidator5 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator5;
+        
+        /// <summary>
         /// ddlLocate 控制項。
         /// </summary>
         /// <remarks>
@@ -155,6 +200,15 @@ namespace TheWeWebSite.StoreMgt {
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlLocate;
+        
+        /// <summary>
+        /// RequiredFieldValidator6 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator6;
         
         /// <summary>
         /// tbBridalHairStyle 控制項。

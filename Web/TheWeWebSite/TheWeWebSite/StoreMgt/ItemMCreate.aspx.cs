@@ -22,6 +22,7 @@ namespace TheWeWebSite.StoreMgt
                     FirstGridViewRow_dgChurchServiceItem();
                     FirstGridViewRow_dgCutomServiceItem();
                     InitialControlWithPermission();
+                    TextHint();
 
                     if (Session["SetId"] != null)
                     {
@@ -42,6 +43,30 @@ namespace TheWeWebSite.StoreMgt
                     }
                 }
             }
+        }
+
+        private void TextHint()
+        {
+            tbSn.Attributes.Add("placeholder" , Resources.Resource.SystemSnString);
+            tbName.Attributes.Add("placeHolder" ,Resources.Resource.AddString + Resources.Resource.NameString);
+            tbCnName.Attributes.Add("placeHolder", Resources.Resource.AddString + Resources.Resource.CnNameString);
+            tbEngName.Attributes.Add("placeHolder", Resources.Resource.AddString + Resources.Resource.EnglishNameString);
+            tbJpName.Attributes.Add("placeHolder", Resources.Resource.AddString + Resources.Resource.JpNameString);
+            tbBridalHairStyle.Attributes.Add("placeHolder", Resources.Resource.AddString + Resources.Resource.BridalMakeupString);
+            tbGroomHairStyle.Attributes.Add("placeHolder", Resources.Resource.AddString + Resources.Resource.GroomMakeupString);
+            tbFilmTime.Attributes.Add("placeHolder", Resources.Resource.AddString + Resources.Resource.FilmingTimeString);
+            tbFilmLocation.Attributes.Add("placeHolder", Resources.Resource.AddString + Resources.Resource.FilmingLocationString);
+            tbMovemont.Attributes.Add("placeHolder", Resources.Resource.AddString + Resources.Resource.TransportationString);
+            tbPhotoNumber.Attributes.Add("placeHolder", Resources.Resource.AddString + Resources.Resource.PhotoNumberString);
+            tbStay.Attributes.Add("placeHolder", Resources.Resource.AddString + Resources.Resource.StayNightString);
+            tbRoom.Attributes.Add("placeHolder", Resources.Resource.AddString + Resources.Resource.RoomTypeString);
+            tbCorsage.Attributes.Add("placeHolder", Resources.Resource.AddString + Resources.Resource.CorsageString);
+            tbDecorate.Attributes.Add("placeHolder", Resources.Resource.AddString + Resources.Resource.ChurchArrangementsString);
+            tbPerformence.Attributes.Add("placeHolder", Resources.Resource.AddString + Resources.Resource.WeddingPerformanceString);
+            tbCost.Attributes.Add("placeHolder","0.00");
+            tbPrice.Attributes.Add("placeHolder", "0.00");
+
+
         }
 
         private void ShowErrorMsg(string msg)
@@ -287,6 +312,8 @@ namespace TheWeWebSite.StoreMgt
             {
                 if (bool.Parse(((DataRow)Session["LocateStore"])["HoldingCompany"].ToString()))
                 {
+                    tbCnName.Text = string.Empty;
+                    tbName.Text = string.Empty;
                     tbBridalHairStyle.Text = string.Empty;
                     tbCorsage.Text = string.Empty;
                     tbCost.Text = "0";
@@ -313,6 +340,12 @@ namespace TheWeWebSite.StoreMgt
                     cbPen.Checked = false;
                     cbPillow.Checked = false;
                     cbRehersal.Checked = false;
+                    ddlCategory.SelectedIndex = 0;
+                    ddlArea.SelectedIndex = 0;
+                    ddlLocate.SelectedIndex = 0;
+                    ddlStaff.SelectedIndex = 0;
+                    ddlCountry.SelectedIndex = 0;
+                    ddlWeddingType.SelectedIndex = 0;
                     FirstGridViewRow_dgChurchServiceItem();
                 }
             }

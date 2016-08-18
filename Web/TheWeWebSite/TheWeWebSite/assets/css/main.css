@@ -2165,6 +2165,12 @@ input[type="radio"] {
 
 }
 
+.required {
+    border-bottom-color:#f2a6a6!important;
+    border-bottom-width:3px!important;
+}
+
+
 input:enabled {
 }
 
