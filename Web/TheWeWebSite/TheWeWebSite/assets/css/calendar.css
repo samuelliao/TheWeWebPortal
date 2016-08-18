@@ -9,7 +9,27 @@
 
 /* Reset */
 
+.acidjs-css3-treeview,
+.acidjs-css3-treeview *
+{
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
 
+
+.acidjs-css3-treeview
+{
+    font: normal 11px/16px "Segoe UI", Arial, Sans-serif;
+}
+
+ 
+.acidjs-css3-treeview input[type="checkbox"]
+{
+    float:left;
+    margin:2.4px 3px 0 0px;
+}
+ 
 
 .treeNode {
     color: #fb6d6d;
@@ -25,7 +45,7 @@
 .leafNode {
     padding: 0px;
     font-size: 1em;
-    text-align: right;
+    float:left!important;
     color: #f2a6a6;
     white-space: nowrap !important;
 }
@@ -2144,6 +2164,7 @@ input:disabled{
 background:rgba(137, 127, 127, 0.20);
   color:rgba(36, 35, 35, 0.58);
 }
+
 
 
 .Div.btn {

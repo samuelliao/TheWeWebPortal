@@ -2156,6 +2156,12 @@ input[type="radio"] {
     margin-top: -10px !important;
 }
 
+.error{
+    position:relative;
+    display:none;
+
+}
+
 input:enabled {
 }
 
