@@ -25,7 +25,7 @@ namespace TheWeWebSite.Main
                     InitialControl();
                     //InitialCalendarSechdule();
                 }
-            }        
+            }
         }
         private void ShowErrorMsg(string msg)
         {
@@ -90,7 +90,7 @@ namespace TheWeWebSite.Main
                 if (selectedNodeValue == node.Value) node.Selected = true;
                 tvEmployee.Nodes.Add(node);
             }
-            
+
         }
 
         private void InitialCalendarSechdule()
@@ -98,7 +98,7 @@ namespace TheWeWebSite.Main
             string storeId = Session["LocateStore"] == null ? string.Empty : ((DataRow)Session["LocateStore"])["Id"].ToString();
             string employeeId = Session["EmployeeId"] == null ? string.Empty : Session["EmployeeId"].ToString();
             CalendarSet = GetCalendarData(storeId, employeeId);
-        }        
+        }
 
         protected void tvEmployee_SelectedNodeChanged(object sender, EventArgs e)
         {
@@ -122,7 +122,7 @@ namespace TheWeWebSite.Main
             if (e.Day.IsToday) calendar.SelectedDate = e.Day.Date;
             if (!SysProperty.Util.IsDataSetEmpty(CalendarSet))
             {
-                foreach (DataRow dr in CalendarSet.Tables[0].Select("BookingDate='" + e.Day.Date + "'"))
+                foreach (DataRow dr in CalendarSet.Tables[0].Select("BookingDate>='" + e.Day.Date + "' AND BookingDate<'" + e.Day.Date.AddDays(1) + "'"))
                 {
                     if (string.IsNullOrEmpty(dr["BookingDate"].ToString())) continue;
                     HyperLink link = new HyperLink();
@@ -268,6 +268,6 @@ namespace TheWeWebSite.Main
         {
             Session["CustomerId"] = ((LinkButton)sender).CommandArgument;
             Response.Redirect("~/CaseMgt/CustomerMCreate.aspx");
-        }        
+        }
     }
 }

@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Calendar.aspx.cs" Inherits="TheWeWebSite.Main.Calendar" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Calendar.aspx.cs" MaintainScrollPositionOnPostback="true" Inherits="TheWeWebSite.Main.Calendar" %>
 
 <%@ Register TagPrefix="My" TagName="Header" Src="~/Header.ascx" %>
 

@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ChurchReservation.aspx.cs" Inherits="TheWeWebSite.Main.ChurchReservation" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ChurchReservation.aspx.cs" MaintainScrollPositionOnPostback="true" Inherits="TheWeWebSite.Main.ChurchReservation" %>
 
 <%@ Register TagPrefix="My" TagName="Header" Src="~/Header.ascx" %>
 

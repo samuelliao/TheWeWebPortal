@@ -115,10 +115,11 @@ namespace TheWeWebSite.Main
             if (e.Day.IsToday) calendar.SelectedDate = e.Day.Date;
             if (!SysProperty.Util.IsDataSetEmpty(CalendarSet))
             {
-                string condStr = "OverseaWeddingDate = '" + e.Day.Date + "'"
-                    + " OR OverseaFilmDate='" + e.Day.Date + "'"
-                    + " OR LocalWeddingDate='" + e.Day.Date + "'"
-                    + " OR LocalFilmingDate='" + e.Day.Date + "'";
+                string condStr = 
+                    "(OverseaWeddingDate >= '" + e.Day.Date + "' AND OverseaWeddingDate < '" + e.Day.Date.AddDays(1) + "')" 
+                     + " OR (OverseaFilmDate='" + e.Day.Date + "' AND OverseaFilmDate < '" + e.Day.Date.AddDays(1) + "')"
+                    + " OR (LocalWeddingDate='" + e.Day.Date + "' AND LocalWeddingDate < '" + e.Day.Date.AddDays(1) + "')"
+                    + " OR (LocalFilmingDate='" + e.Day.Date + "' AND LocalFilmingDate < '" + e.Day.Date.AddDays(1) + "')";
                 foreach (DataRow dr in CalendarSet.Tables[0].Select(condStr))
                 {
                     HyperLink link = new HyperLink();
