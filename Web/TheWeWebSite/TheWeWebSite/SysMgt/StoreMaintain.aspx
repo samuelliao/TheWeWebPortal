@@ -72,7 +72,7 @@
                                             <div class="Div">
                                                 <asp:Label runat="server" Text="<%$ Resources:Resource,CodeString%>" ForeColor="Red"></asp:Label>
                                             </div>
-                                            <asp:TextBox runat="server" ID="tbStoreCode"></asp:TextBox>
+                                            <asp:TextBox runat="server" ID="tbStoreCode" MaxLength="3"></asp:TextBox>
                                             <asp:RegularExpressionValidator ID="RegularExpressionValidator6" ControlToValidate="tbStoreCode" runat="server"
                                         ErrorMessage="Only Three Characters allowed" ValidationExpression="[A-Za-z0-9]{1,3}"></asp:RegularExpressionValidator>
                                         </div>                               
@@ -128,7 +128,8 @@
                                             <PagerStyle Mode="NumericPages" />
                                             <Columns>
                                                 <asp:BoundColumn DataField="Id" Visible="false" />
-                                                <asp:BoundColumn DataField="Sn" HeaderText="<%$ Resources:Resource,SnString%>" SortExpression="Sn" />
+                                                <asp:BoundColumn DataField="Sn" ReadOnly="true" HeaderText="<%$ Resources:Resource,SnString%>" SortExpression="Sn" />
+                                                <asp:BoundColumn DataField="Code" HeaderText="<%$ Resources:Resource,CodeString%>" SortExpression="Code" />
                                                 <asp:BoundColumn DataField="Name" HeaderText="<%$ Resources:Resource,NameString%>" SortExpression="Name" />
                                                 <asp:BoundColumn DataField="CnName" HeaderText="<%$ Resources:Resource,CnNameString%>" SortExpression="CnName" />
                                                 <asp:BoundColumn DataField="EngName" HeaderText="<%$ Resources:Resource,EnglishNameString%>" SortExpression="EngName" />

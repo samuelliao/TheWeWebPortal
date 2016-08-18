@@ -105,13 +105,9 @@ namespace TheWeWebSite.SysMgt
         {
             try
             {
-                string sqlTxt = "SELECT s.[Id],s.Sn,s.CountryId,s.AreaId"
+                string sqlTxt = "SELECT s.[Id],s.Sn,s.CountryId,s.AreaId,s.Code"
                     + ",s.Name,s.CnName,s.EngName,s.JpName,s.Addr,s.Description"
                     + ",s.IsDelete,s.UpdateAccId,s.UpdateTime,e.Name as EmployeeName"
-                    + ",c." + new ResourceUtil().OutputLangNameToAttrName(((string)Session["CultureCode"]))
-                    + " as CountryName"
-                    + ",a." + new ResourceUtil().OutputLangNameToAttrName(((string)Session["CultureCode"]))
-                    + " as AreaName"
                     + ", s.HoldingCompany, s.GradeLv"
                     + " FROM[TheWe].[dbo].[Store] as s"
                     + " left join Employee as e on e.Id = s.UpdateAccId"
@@ -178,13 +174,13 @@ namespace TheWeWebSite.SysMgt
                 DropDownList ddl2 = (DropDownList)dgStore.Items[dgStore.EditItemIndex].FindControl("ddlDgArea");
                 DropDownList ddl3 = (DropDownList)dgStore.Items[dgStore.EditItemIndex].FindControl("ddlDgHoldingCompany");
                 List<DbSearchObject> updateLst = new List<DbSearchObject>();
-                updateLst.Add(new DbSearchObject("Sn", AtrrTypeItem.String, AttrSymbolItem.Equal, ((TextBox)e.Item.Cells[1].Controls[0]).Text));
-                updateLst.Add(new DbSearchObject("Name", AtrrTypeItem.String, AttrSymbolItem.Equal, ((TextBox)e.Item.Cells[2].Controls[0]).Text));
-                updateLst.Add(new DbSearchObject("CnName", AtrrTypeItem.String, AttrSymbolItem.Equal, ((TextBox)e.Item.Cells[3].Controls[0]).Text));
-                updateLst.Add(new DbSearchObject("EngName", AtrrTypeItem.String, AttrSymbolItem.Equal, ((TextBox)e.Item.Cells[4].Controls[0]).Text));
-                updateLst.Add(new DbSearchObject("JpName", AtrrTypeItem.String, AttrSymbolItem.Equal, ((TextBox)e.Item.Cells[5].Controls[0]).Text));
-                updateLst.Add(new DbSearchObject("Addr", AtrrTypeItem.String, AttrSymbolItem.Equal, ((TextBox)e.Item.Cells[6].Controls[0]).Text));
-                updateLst.Add(new DbSearchObject("Description", AtrrTypeItem.String, AttrSymbolItem.Equal, ((TextBox)e.Item.Cells[10].Controls[0]).Text));
+                updateLst.Add(new DbSearchObject("Code", AtrrTypeItem.String, AttrSymbolItem.Equal, ((TextBox)e.Item.Cells[2].Controls[0]).Text));
+                updateLst.Add(new DbSearchObject("Name", AtrrTypeItem.String, AttrSymbolItem.Equal, ((TextBox)e.Item.Cells[3].Controls[0]).Text));
+                updateLst.Add(new DbSearchObject("CnName", AtrrTypeItem.String, AttrSymbolItem.Equal, ((TextBox)e.Item.Cells[4].Controls[0]).Text));
+                updateLst.Add(new DbSearchObject("EngName", AtrrTypeItem.String, AttrSymbolItem.Equal, ((TextBox)e.Item.Cells[5].Controls[0]).Text));
+                updateLst.Add(new DbSearchObject("JpName", AtrrTypeItem.String, AttrSymbolItem.Equal, ((TextBox)e.Item.Cells[6].Controls[0]).Text));
+                updateLst.Add(new DbSearchObject("Addr", AtrrTypeItem.String, AttrSymbolItem.Equal, ((TextBox)e.Item.Cells[7].Controls[0]).Text));
+                updateLst.Add(new DbSearchObject("Description", AtrrTypeItem.String, AttrSymbolItem.Equal, ((TextBox)e.Item.Cells[11].Controls[0]).Text));
                 updateLst.Add(new DbSearchObject("CountryId", AtrrTypeItem.String, AttrSymbolItem.Equal, ddl1.SelectedValue));
                 updateLst.Add(new DbSearchObject("HoldingCompany", AtrrTypeItem.Bit, AttrSymbolItem.Equal, (ddl3.SelectedValue == "0" ? "1" : "0")));
                 updateLst.Add(new DbSearchObject("GradeLv", AtrrTypeItem.String, AttrSymbolItem.Equal, ddl3.SelectedValue));
@@ -258,9 +254,9 @@ namespace TheWeWebSite.SysMgt
                 else
                 {
                     Label label = (Label)e.Item.FindControl("labelDgCountry");
-                    label.Text = dataItem1["CountryName"].ToString();
+                    label.Text = SysProperty.Util.OutputRelatedLangName(Session["CultureCode"].ToString(), SysProperty.GetCountryById(dataItem1["CountryId"].ToString()));
                     Label labe2 = (Label)e.Item.FindControl("labelDgArea");
-                    labe2.Text = dataItem1["AreaName"].ToString();
+                    labe2.Text = SysProperty.Util.OutputRelatedLangName(Session["CultureCode"].ToString(), SysProperty.GetAreaById(dataItem1["AreaId"].ToString()));
                     ((Label)e.Item.FindControl("labelDgHoldingCompany")).Text = dataItem1["GradeLv"].ToString();
                 }
             }

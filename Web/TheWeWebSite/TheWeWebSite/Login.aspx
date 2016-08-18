@@ -8,7 +8,7 @@
     <title>The We Wedding</title>
     <link href="assets/css/main.css" rel="stylesheet" />
 </head>
-<body >
+<body>
     <form runat="server">
         <asp:ScriptManager runat="server"></asp:ScriptManager>
         <div>
@@ -27,10 +27,11 @@
                 <div style="color: #000; margin-bottom: 10px; margin-left: auto; margin-right: auto; width: 15EM;">
                     <asp:TextBox runat="server" TextMode="SingleLine" ID="tbAccount" />
                 </div>
-
-
                 <div style="color: #000; margin-bottom: 10px; margin-left: auto; margin-right: auto; width: 15EM;">
                     <asp:TextBox runat="server" ID="tbPassword" TextMode="Password"></asp:TextBox>
+                </div>
+                <div style="color: #000; margin-bottom: auto; margin-left: auto; margin-right: auto; width: 15EM; vertical-align:bottom; margin-top: 10px;">
+                    <asp:CheckBox runat="server" ID="cbRemember" Style="vertical-align:central; text-align:left;"  Text="Remember me" />
                 </div>
                 <div>
                     <asp:Label runat="server" ID="labelWarnText" ForeColor="Red" />

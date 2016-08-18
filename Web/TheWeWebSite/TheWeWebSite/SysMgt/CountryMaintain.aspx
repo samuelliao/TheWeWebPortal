@@ -50,7 +50,7 @@
                                     <div class="Div">
                                         <asp:Label runat="server" Text="<%$ Resources:Resource,CodeString%>"></asp:Label>
                                     </div>
-                                    <asp:TextBox runat="server" placeholder="<%$ Resources:Resource,CodeInputString%>" ID="tbCode"></asp:TextBox>
+                                    <asp:TextBox runat="server" MaxLength="2" placeholder="<%$ Resources:Resource,CodeInputString%>" ID="tbCode"></asp:TextBox>
                                 </div>
                                 <div class="2u 12u(mobilep)">
                                     <div class="Div">

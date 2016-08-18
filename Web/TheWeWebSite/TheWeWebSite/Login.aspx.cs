@@ -35,7 +35,20 @@ namespace TheWeWebSite
                 SysProperty.Util = new Utility();
                 InitialStoreList();
                 InitialImgFolderPath();
+                GetAccInfoCookie();
             }
+        }
+
+        private void GetAccInfoCookie()
+        {
+            HttpCookie myCookie = Request.Cookies["TheWeWebMgtAccInfo"];
+            if (myCookie != null)
+            {
+                ddlStore.SelectedValue = myCookie.Values["Store"];
+                tbAccount.Text = myCookie.Values["Acc"];
+                cbRemember.Checked = true;
+            }
+
         }
 
         private void InitialImgFolderPath()
@@ -51,10 +64,6 @@ namespace TheWeWebSite
                     if (null != customSetting)
                     {
                         SysProperty.ImgRootFolderpath = customSetting.Value;
-                    }
-                    else
-                    {
-                        
                     }
                 }
             }
@@ -101,7 +110,7 @@ namespace TheWeWebSite
         {
             DataSet ds = SysProperty.GenDbCon.GetDataFromTable(string.Empty
                 , SysProperty.Util.MsSqlTableConverter(MsSqlTable.vwEN_Employee)
-                , " Where Account= N'" + acc.ToLower() + "' and StoreId = '" + storeId + "'"
+                , " Where Account= N'" + acc.Trim() + "' and StoreId = '" + storeId + "'"
                 + " And IsDelete = 0 And IsValid = 1");
             if (SysProperty.Util.IsDataSetEmpty(ds)) return false;
             if (new DataEncryption().GetMD5(pwd) == ds.Tables[0].Rows[0]["AccInfo"].ToString())
@@ -113,9 +122,19 @@ namespace TheWeWebSite
                 GetLocateStoreInfo(ddlStore.SelectedValue);
                 GetOperationPermission(ddlStore.SelectedValue);
                 GetCasePermission(ds.Tables[0].Rows[0]["Id"].ToString());
+                if (cbRemember.Checked) SetCookie();
                 return true;
             }
             else return false;
+        }
+
+        private void SetCookie()
+        {
+            HttpCookie newCookie = new HttpCookie("TheWeWebMgtAccInfo");
+            newCookie.Values.Add("Store", ddlStore.SelectedValue.Trim());
+            newCookie.Values.Add("Acc", tbAccount.Text.Trim());
+            newCookie.Expires = DateTime.Now.AddMonths(1);
+            Response.AppendCookie(newCookie);
         }
 
         protected void btnLogin_Click(object sender, EventArgs e)
