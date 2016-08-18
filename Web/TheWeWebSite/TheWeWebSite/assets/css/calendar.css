@@ -2150,7 +2150,10 @@ input[type="radio"] + label:before {
     margin-top: -10px !important;
 }
 
-
+.required {
+    border-bottom-color:#f2a6a6!important;
+    border-bottom-width:3px!important;
+}
 .error{
     position:relative;
     color:red;
