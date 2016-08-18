@@ -114,7 +114,7 @@
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,StatusString%>"></asp:Label>
                             </div>
                             <div style="overflow-y: auto; height: 450px">
-                                <asp:TreeView
+                                <asp:TreeView CssClass="acidjs-css3-treeview"
                                     NodeIndent="20"
                                     NodeStyle-NodeSpacing="3"
                                     NodeStyle-CssClass="treeNode"

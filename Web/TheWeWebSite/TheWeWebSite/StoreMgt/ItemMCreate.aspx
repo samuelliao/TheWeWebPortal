@@ -1,4 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ItemMCreate.aspx.cs" Inherits="TheWeWebSite.StoreMgt.ItemMCreate" %>
+
 <%@ Register TagPrefix="My" TagName="Header" Src="~/Header.ascx" %>
 
 <!DOCTYPE html>
@@ -14,7 +15,7 @@
     <form runat="server">
         <My:Header runat="server" ID="ucHeader" />
         <!-- Main -->
-        <section class="box title">
+        <section class="box title CreatePage">
             <h3>
                 <asp:Label runat="server" Text="" ID="labelPageTitle"></asp:Label></h3>
         </section>
@@ -150,15 +151,20 @@
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,PhotoNumberString%>"></asp:Label>
                             </div>
                             <asp:TextBox runat="server" ID="tbPhotoNumber" Style="text-align: right"></asp:TextBox>
-                            <asp:RegularExpressionValidator ID="RegularExpressionValidator1" ControlToValidate="tbPhotoNumber" runat="server"
-                                ErrorMessage="Only Numbers allowed" ValidationExpression="\d+"></asp:RegularExpressionValidator>
+                            <asp:RegularExpressionValidator
+                                Display="Dynamic"
+                                ID="RegularExpressionValidator1" ControlToValidate="tbPhotoNumber" runat="server"
+                                ErrorMessage="Only Numbers allowed" ValidationExpression="\d+" CssClass="error"></asp:RegularExpressionValidator>
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,StayNightString%>"></asp:Label>
                             </div>
                             <asp:TextBox runat="server" ID="tbStay" Style="text-align: right"></asp:TextBox>
-                            <asp:RegularExpressionValidator ID="RegularExpressionValidator2" ControlToValidate="tbStay" runat="server"
+                            <asp:RegularExpressionValidator
+                                CssClass="error"
+                                Display="Dynamic"
+                                ID="RegularExpressionValidator2" ControlToValidate="tbStay" runat="server"
                                 ErrorMessage="Only Numbers allowed" ValidationExpression="\d+"></asp:RegularExpressionValidator>
                         </div>
                     </div>
@@ -209,11 +215,12 @@
                             </div>
                             <asp:TextBox runat="server" ID="tbCost" Style="text-align: right"></asp:TextBox>
                             <asp:RegularExpressionValidator ID="RegularExpressionValidator3" ControlToValidate="tbCost" runat="server"
-                                ErrorMessage="Only Numbers allowed" ValidationExpression="\d+[.]*\d*"></asp:RegularExpressionValidator>
+                                ErrorMessage="Only Numbers allowed" ValidationExpression="\d+[.]*\d*"
+                                CssClass="error" Display="Dynamic"></asp:RegularExpressionValidator>
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="12u">
                     <div class="row uniform 50%">
                         <div class="Check Div">
@@ -271,16 +278,16 @@
                 <div class="12u">
                     <div class="row uniform 50%">
                         <div class="10u 12u(mobilep)">
-                            <div class="Div" style="padding-top:20px">
+                            <div class="Div" style="padding-top: 20px">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,TotalPriceString%>"></asp:Label>
                             </div>
-                           
+
                             <div runat="server" id="divForStore" visible="false">
                                 <asp:UpdatePanel runat="server">
                                     <ContentTemplate>
                                         <asp:TextBox runat="server" ID="tbPrice" Style="text-align: right"></asp:TextBox>
                                         <asp:RegularExpressionValidator ID="RegularExpressionValidator4" ControlToValidate="tbPrice" runat="server"
-                                            ErrorMessage="Only Numbers allowed" ValidationExpression="\d+[.]*\d*"></asp:RegularExpressionValidator>                                        
+                                            ErrorMessage="Only Numbers allowed" ValidationExpression="\d+[.]*\d*" CssClass="error" Display="Dynamic"></asp:RegularExpressionValidator>
                                     </ContentTemplate>
                                 </asp:UpdatePanel>
                             </div>
@@ -296,7 +303,7 @@
                                                     <ItemTemplate>
                                                         <asp:TextBox runat="server" ID="tbStorePrice" />
                                                         <asp:RegularExpressionValidator ID="RegularExpressionValidator5" ControlToValidate="tbStorePrice" runat="server"
-                                                            ErrorMessage="Only Numbers allowed" ValidationExpression="\d+[.]*\d*"></asp:RegularExpressionValidator>
+                                                            ErrorMessage="Only Numbers allowed" ValidationExpression="\d+[.]*\d*" CssClass="error" Display="Dynamic"></asp:RegularExpressionValidator>
                                                     </ItemTemplate>
                                                 </asp:TemplateField>
                                             </Columns>
@@ -304,7 +311,7 @@
                                     </ContentTemplate>
                                 </asp:UpdatePanel>
                             </div>
-                                
+
                         </div>
                     </div>
                 </div>
@@ -389,7 +396,7 @@
                         </asp:UpdatePanel>
                     </div>
                 </div>
-            </div>            
+            </div>
             <!-- Btn -->
             <div class="Div btn">
                 <ul class="actions">
