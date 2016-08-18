@@ -56,6 +56,11 @@ namespace TheWeWebSite.StoreMgt
                 dataGrid.Columns[dataGrid.Columns.Count - 1].Visible = false;
                 dataGrid.Columns[0].Visible = false;
             }
+
+            if (bool.Parse(((DataRow)Session["LocateStore"])["HoldingCompany"].ToString()))
+            {
+                divStore.Attributes["style"] = "display: inline;";
+            }
         }
         private bool IsEmployeeStoreHolder(DataRow acc)
         {
@@ -90,7 +95,7 @@ namespace TheWeWebSite.StoreMgt
             try
             {
                 ddlStore.Items.Add(new ListItem(Resources.Resource.SeletionRemindString, string.Empty, true));
-                string sql = "select * from Store Where IsDelete = 0";
+                string sql = "select * from Store Where IsDelete = 0 Order by GradeLv, Sn";
                 DataSet ds = SysProperty.GenDbCon.GetDataFromTable(sql);
                 if (SysProperty.Util.IsDataSetEmpty(ds)) return;
                 foreach (DataRow dr in ds.Tables[0].Rows)
@@ -103,12 +108,12 @@ namespace TheWeWebSite.StoreMgt
 
                 if (bool.Parse(((DataRow)Session["LocateStore"])["HoldingCompany"].ToString()))
                 {
-                    ddlStore.Enabled = true;
+                    divStore.Attributes["style"] = "display: inline;";
                     ddlStore.SelectedIndex = 0;
                 }
                 else
                 {
-                    ddlStore.Enabled = false;
+                    divStore.Attributes["style"] = "display: none;";
                     ddlStore.SelectedValue = ((DataRow)Session["LocateStore"])["Id"].ToString();
                 }                
             }

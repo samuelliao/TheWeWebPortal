@@ -30,6 +30,9 @@
 
                 <!-- Input -->
                 <section class="box special">
+                    <div class="2u 12u(mobilep)" runat="server" id="divStore" style="display: none;">
+                        <asp:DropDownList runat="server" ID="ddlStore" />
+                    </div>
                     <!-- Table -->
                     <div class="row">
                         <div class="12u">
@@ -42,20 +45,25 @@
                                     <PagerStyle Mode="NumericPages" HorizontalAlign="Center" VerticalAlign="Middle" />
                                     <Columns>
                                         <asp:BoundColumn Visible="false" DataField="Id" />
+                                        <asp:TemplateColumn HeaderText="<%$ Resources:Resource,StoreString%>" SortExpression="StoreId">
+                                            <ItemTemplate>
+                                                <asp:Label runat="server" ID="labelStore" />
+                                            </ItemTemplate>
+                                        </asp:TemplateColumn>
                                         <asp:TemplateColumn HeaderText="<%$ Resources:Resource,AdviosryIdString%>" SortExpression="Sn">
-                                             <ItemTemplate>
+                                            <ItemTemplate>
                                                 <asp:LinkButton runat="server" ID="linkConsult" Text="" OnClick="linkConsult_Click" />
                                             </ItemTemplate>
                                         </asp:TemplateColumn>
                                         <asp:BoundColumn HeaderText="<%$ Resources:Resource,EmployeeString%>" DataField="EmployeeName" SortExpression="EmployeeName" />
-                                        <asp:BoundColumn HeaderText="<%$ Resources:Resource,BridalNameString%>" DataField="BridalName" SortExpression="BridalName" />                                        
+                                        <asp:BoundColumn HeaderText="<%$ Resources:Resource,BridalNameString%>" DataField="BridalName" SortExpression="BridalName" />
                                         <asp:BoundColumn HeaderText="<%$ Resources:Resource,PhoneString%>" DataField="BridalPhone" SortExpression="BridalPhone" />
-                                        <asp:BoundColumn HeaderText="<%$ Resources:Resource,StartDateString%>" DataField="ConsultDate" SortExpression="ConsultDate" />                                        
+                                        <asp:BoundColumn HeaderText="<%$ Resources:Resource,StartDateString%>" DataField="ConsultDate" SortExpression="ConsultDate" />
                                         <asp:BoundColumn HeaderText="<%$ Resources:Resource,AppointmentDateString%>" DataField="BookingDate" SortExpression="BookingDate" />
                                         <asp:BoundColumn HeaderText="<%$ Resources:Resource,ContentString%>" DataField="ContactMethod" SortExpression="ContactMethod" />
-                                        <asp:BoundColumn HeaderText="<%$ Resources:Resource,LastReceivedTimeString%>" DataField="LastReceivedDate" SortExpression="LastReceivedDate" />                                        
+                                        <asp:BoundColumn HeaderText="<%$ Resources:Resource,LastReceivedTimeString%>" DataField="LastReceivedDate" SortExpression="LastReceivedDate" />
                                         <asp:BoundColumn HeaderText="<%$ Resources:Resource,RemarkString%>" DataField="Remark" SortExpression="Remark" />
-                                        <asp:TemplateColumn HeaderText="<%$ Resources:Resource,IsReplyString%>" SortExpression="IsReply" >
+                                        <asp:TemplateColumn HeaderText="<%$ Resources:Resource,IsReplyString%>" SortExpression="IsReply">
                                             <ItemTemplate>
                                                 <asp:Label runat="server" ID="labelIsReply" Text="" />
                                             </ItemTemplate>

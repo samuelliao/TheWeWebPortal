@@ -22,6 +22,7 @@ namespace TheWeWebSite.CaseMgt
                 {
                     labelPageTitle.Text = Resources.Resource.OrderMgtString + " > " + Resources.Resource.ConsultMaintainString;
                     InitialLabelText();
+                    StoreList();
                     InitialControlWithPermission();
                     BindData();
                 }
@@ -40,6 +41,25 @@ namespace TheWeWebSite.CaseMgt
             labelSearchStartDate.Text = Resources.Resource.StartDateString + "(" + Resources.Resource.StartString + ")";
             labelSearchStartDate.Text = Resources.Resource.StartDateString + "(" + Resources.Resource.EndString + ")";
         }
+        private void StoreList()
+        {
+            ddlStore.Items.Clear();
+            ddlStore.Items.Add(new ListItem(Resources.Resource.SeletionRemindString, string.Empty));
+            DataSet ds = GetDataFromDb("Store", " Where IsDelete=0 And GradeLv != 0");
+            if (!SysProperty.Util.IsDataSetEmpty(ds))
+            {
+                foreach(DataRow dr in ds.Tables[0].Rows)
+                {
+                    ddlStore.Items.Add(new ListItem(
+                        SysProperty.Util.OutputRelatedLangName(Session["CultureCode"].ToString(), dr) + "(" + dr["Code"].ToString() + ")"
+                        , dr["Id"].ToString()));
+                }
+                if (!bool.Parse(((DataRow)Session["LocateStore"])["HoldingCompany"].ToString()))
+                {
+                    ddlStore.SelectedValue = ((DataRow)Session["LocateStore"])["Id"].ToString();
+                }
+            }
+        }
         private void InitialControlWithPermission()
         {
             PermissionUtil util = new PermissionUtil();
@@ -52,6 +72,7 @@ namespace TheWeWebSite.CaseMgt
             {
                 LinkAdvisoryMCreate.Visible = false;
                 dataGrid.Columns[dataGrid.Columns.Count - 1].Visible = false;
+                divStore.Attributes["style"] = "display: inline;";
             }
         }
 
@@ -100,7 +121,14 @@ namespace TheWeWebSite.CaseMgt
                 ShowErrorMsg(ex.Message);
             }
         }
-
+        protected void dataGrid_ItemDataBound(object sender, DataGridItemEventArgs e)
+        {
+            DataRowView dataItem1 = (DataRowView)e.Item.DataItem;
+            if (dataItem1 != null)
+            {
+                ((Label)e.Item.FindControl("labelStore")).Text = ddlStore.Items.FindByValue(dataItem1["StoreId"].ToString()).Text;
+            }
+        }
         protected void dataGrid_SelectedIndexChanged(object sender, EventArgs e)
         {
             string id = dataGrid.DataKeys[dataGrid.SelectedIndex].ToString();
@@ -133,8 +161,7 @@ namespace TheWeWebSite.CaseMgt
 
         private void BindData()
         {
-            string storeId = bool.Parse(((DataRow)Session["LocateStore"])["HoldingCompany"].ToString())
-                ? string.Empty : ((DataRow)Session["LocateStore"])["Id"].ToString();
+            string storeId = string.IsNullOrEmpty(ddlStore.SelectedValue) ? string.Empty : ddlStore.SelectedValue;
             GetConsultList(storeId, OtherConditionString, " Order by Sn");
             dataGrid.DataSource = DS;
             dataGrid.AllowPaging = !SysProperty.Util.IsDataSetEmpty(DS);
@@ -148,7 +175,7 @@ namespace TheWeWebSite.CaseMgt
                 + ",[SeekerGender],[BridalName],[BridalEngName],[BridalPhone],[GroomName]"
                 + ",[GroomEngName],c.[StatusId],con.Name as StatusName,[LastReceivedDate],c.[Remark]"
                 + ",[ConsultDate],[IsReply],[CloseDate],c.[BookingDate],[ContactMethod]"
-                + ",c.[Description],c.[IsDelete],c.[UpdateAccId],c.[UpdateTime]"
+                + ",c.[Description],c.[IsDelete],c.[UpdateAccId],c.[UpdateTime],c.StoreId"
                 + " FROM[TheWe].[dbo].[Consultation] as c"
                 + " left join ConferenceItem as con on c.StatusId = con.Id"
                 + " left join Employee as e on e.Id = c.EmployeeId"
@@ -202,5 +229,7 @@ namespace TheWeWebSite.CaseMgt
             }
         }
         #endregion
+
+
     }
 }

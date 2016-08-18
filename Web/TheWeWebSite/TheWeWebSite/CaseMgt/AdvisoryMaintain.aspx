@@ -35,6 +35,12 @@
                 <section class="box special">
                     <div class="12u">
                         <div class="row uniform 50%">
+                            <div class="2u 12u(mobilep)" runat="server" id="divStore" style="display: none;">
+                                <div class="Div">
+                                    <asp:Label runat="server" Text="<%$ Resources:Resource,StoreString%>"></asp:Label>
+                                </div>
+                                <asp:DropDownList runat="server" ID="ddlStore" />
+                            </div>
                             <div class="2u 12u(mobilep)">
                                 <div class="Div">
                                     <asp:Label runat="server" Text="<%$ Resources:Resource,AdviosryIdString%>"></asp:Label>
@@ -121,12 +127,17 @@
                                 <asp:DataGrid runat="server" ID="dataGrid" AutoGenerateColumns="false"
                                     AllowPaging="true" AllowSorting="true" OnPageIndexChanged="dataGrid_PageIndexChanged"
                                     OnSelectedIndexChanged="dataGrid_SelectedIndexChanged" OnDeleteCommand="dataGrid_DeleteCommand"
-                                    DataKeyField="Id" OnSortCommand="dataGrid_SortCommand" Font-Size="Small">
+                                    DataKeyField="Id" OnSortCommand="dataGrid_SortCommand" OnItemDataBound="dataGrid_ItemDataBound">
                                     <HeaderStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                     <PagerStyle Mode="NumericPages" HorizontalAlign="Center" VerticalAlign="Middle" />
                                     <Columns>
                                         <asp:ButtonColumn Text="<%$ Resources:Resource,SearchString%>" CommandName="Select" />
                                         <asp:BoundColumn Visible="false" DataField="Id" />
+                                        <asp:TemplateColumn HeaderText="<%$ Resources:Resource,StoreString%>" SortExpression="StoreId">
+                                            <ItemTemplate>
+                                                <asp:Label runat="server" ID="labelStore" />
+                                            </ItemTemplate>
+                                        </asp:TemplateColumn>
                                         <asp:BoundColumn HeaderText="<%$ Resources:Resource,AdviosryIdString%>" DataField="Sn" SortExpression="Sn"/>
                                         <asp:BoundColumn HeaderText="<%$ Resources:Resource,BridalNameString%>" DataField="BridalName" SortExpression="BridalName" />
                                         <asp:BoundColumn HeaderText="<%$ Resources:Resource,GroomNameString%>" DataField="GroomName" SortExpression="GroomName" />

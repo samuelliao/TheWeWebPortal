@@ -43,6 +43,7 @@ namespace TheWeWebSite.StoreMgt
                 LinkDressMCreate.Visible = item.CanCreate;
                 LinkDressMCreate.Enabled = item.CanCreate;
                 dataGrid.Columns[dataGrid.Columns.Count - 1].Visible = item.CanDelete;
+                divStore.Attributes["style"] = "display: inline;";
             }
             else
             {
@@ -64,9 +65,38 @@ namespace TheWeWebSite.StoreMgt
             ColorList();
             MaterialList();
             GenderList();
+            StoreList();
         }
-        
+
         #region DropDownList Control
+        private void StoreList()
+        {
+            ddlStore.Items.Clear();
+            ddlStore.Items.Add(new ListItem(Resources.Resource.SeletionRemindString, string.Empty));
+            string sql = "Select * From Store Where IsDelete=0 Order by GradeLv, Sn";
+            try
+            {
+                DataSet ds = SysProperty.GenDbCon.GetDataFromTable(sql);
+                if (!SysProperty.Util.IsDataSetEmpty(ds))
+                {
+                    foreach (DataRow dr in ds.Tables[0].Rows)
+                    {
+                        ddlStore.Items.Add(new ListItem(
+                            SysProperty.Util.OutputRelatedLangName(Session["CultureCode"].ToString(), dr) + "(" + dr["Code"].ToString() + ")"
+                            , dr["Id"].ToString()));
+                    }
+                    if (!bool.Parse(((DataRow)Session["LocateStore"])["HoldingCompany"].ToString()))
+                    {
+                        ddlStore.SelectedValue = ((DataRow)Session["LocateStore"])["Id"].ToString();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                SysProperty.Log.Error(ex.Message);
+                ShowErrorMsg(ex.Message);
+            }
+        }
         private void DressType()
         {
             ddlDressType.Items.Clear();
@@ -74,7 +104,7 @@ namespace TheWeWebSite.StoreMgt
             string sql = "Select * From DressType Where IsDelete = 0";
             DataSet ds = GetDataSetFromTable(sql);
             if (SysProperty.Util.IsDataSetEmpty(ds)) return;
-            foreach(DataRow dr in ds.Tables[0].Rows)
+            foreach (DataRow dr in ds.Tables[0].Rows)
             {
                 ddlDressType.Items.Add(new ListItem(
                     SysProperty.Util.OutputRelatedLangName(Session["CultureCode"].ToString(), dr)
@@ -238,6 +268,7 @@ namespace TheWeWebSite.StoreMgt
             DataRowView dataItem1 = (DataRowView)e.Item.DataItem;
             if (dataItem1 != null)
             {
+                ((Label)e.Item.FindControl("labelStore")).Text = ddlStore.Items.FindByValue(dataItem1["StoreId"].ToString()).Text;
                 ((Label)e.Item.FindControl("labelCategory")).Text = ddlDressCategory.Items.FindByValue(dataItem1["Category"].ToString()).Text;
                 ((Label)e.Item.FindControl("labelType")).Text = ddlDressType.Items.FindByValue(dataItem1["Type"].ToString()).Text;
                 ((Label)e.Item.FindControl("labelNeckline")).Text = ddlNeckLine.Items.FindByValue(dataItem1["Neckline"].ToString()).Text;
@@ -317,9 +348,8 @@ namespace TheWeWebSite.StoreMgt
 
         private void BindData()
         {
-            string storeId = bool.Parse(((DataRow)Session["LocateStore"])["HoldingCompany"].ToString())
-                ? string.Empty : ((DataRow)Session["LocateStore"])["Id"].ToString();
-            GetDressList(storeId, OtherConditionString);
+            string storeId = string.IsNullOrEmpty(ddlStore.SelectedValue) ? string.Empty : ddlStore.SelectedValue;
+            GetDressList(storeId, OtherConditionString + " Order by Sn");
             dataGrid.DataSource = DS;
             dataGrid.AllowPaging = !SysProperty.Util.IsDataSetEmpty(DS);
             dataGrid.DataBind();

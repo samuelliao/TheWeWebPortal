@@ -23,6 +23,7 @@ namespace TheWeWebSite.StoreMgt
                     labelPageTitle.Text = Resources.Resource.StoreMgtString + " > " + Resources.Resource.AccessoryMaintainString;
                     InitialControls();
                     InitialControlWithPermission();
+                    BindData();
                 }
             }
         }
@@ -35,18 +36,56 @@ namespace TheWeWebSite.StoreMgt
         {
             PermissionUtil util = new PermissionUtil();
             if (Session["Operation"] == null) Response.Redirect("~/Login.aspx");
-            PermissionItem item = util.GetPermissionByKey(Session["Operation"], util.GetOperationSnByPage(this.Page.AppRelativeVirtualPath));
-            LinkFittingMCreate.Visible = item.CanCreate;
-            LinkFittingMCreate.Enabled = item.CanCreate;
-            dataGrid.Columns[dataGrid.Columns.Count - 1].Visible = item.CanDelete;
+            if (bool.Parse(((DataRow)Session["LocateStore"])["HoldingCompany"].ToString()))
+            {
+                PermissionItem item = util.GetPermissionByKey(Session["Operation"], util.GetOperationSnByPage(this.Page.AppRelativeVirtualPath));
+                LinkFittingMCreate.Visible = item.CanCreate;
+                LinkFittingMCreate.Enabled = item.CanCreate;
+                dataGrid.Columns[dataGrid.Columns.Count - 1].Visible = item.CanDelete;
+                divStore.Attributes["style"] = "display: inline;";
+            }
+            else
+            {
+                dataGrid.Columns[dataGrid.Columns.Count - 1].Visible = false;
+                LinkFittingMCreate.Visible = false;
+                LinkFittingMCreate.Enabled = false;
+            }
         }
         private void InitialControls()
         {
             FittingCategoryList();
-            FittingTypeList();
+            FittingTypeList(string.Empty);
             StatusList();
+            StoreList();
         }
-
+        private void StoreList()
+        {
+            ddlStore.Items.Clear();
+            ddlStore.Items.Add(new ListItem(Resources.Resource.SeletionRemindString, string.Empty));
+            string sql = "Select * From Store Where IsDelete=0 Order by GradeLv, Sn";
+            try
+            {
+                DataSet ds = SysProperty.GenDbCon.GetDataFromTable(sql);
+                if (!SysProperty.Util.IsDataSetEmpty(ds))
+                {
+                    foreach (DataRow dr in ds.Tables[0].Rows)
+                    {
+                        ddlStore.Items.Add(new ListItem(
+                            SysProperty.Util.OutputRelatedLangName(Session["CultureCode"].ToString(), dr) + "(" + dr["Code"].ToString() + ")"
+                            , dr["Id"].ToString()));
+                    }
+                    if (!bool.Parse(((DataRow)Session["LocateStore"])["HoldingCompany"].ToString()))
+                    {
+                        ddlStore.SelectedValue = ((DataRow)Session["LocateStore"])["Id"].ToString();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                SysProperty.Log.Error(ex.Message);
+                ShowErrorMsg(ex.Message);
+            }
+        }
         private void FittingCategoryList()
         {
             ddlCategory.Items.Clear();
@@ -64,14 +103,15 @@ namespace TheWeWebSite.StoreMgt
         }
         protected void ddlCategory_SelectedIndexChanged(object sender, EventArgs e)
         {
-            FittingTypeList();
+            FittingTypeList(GetTypeNameFromCategory(ddlCategory.SelectedValue));
         }
-        private void FittingTypeList()
+        private void FittingTypeList(string typeStr)
         {
             ddlType.Items.Clear();
             ddlType.Items.Add(new ListItem(Resources.Resource.SeletionRemindString, string.Empty));
-            string sql = "select * from DressCategory Where IsDelete=0 And Type='"
-                + GetTypeNameFromCategory(ddlCategory.SelectedValue) + "' Order by Sn";
+            string sql = "select * from DressCategory Where IsDelete=0"
+                + (string.IsNullOrEmpty(typeStr) ? " And Type not in ('Dress','Accessory')" : " And Type='" + typeStr + "'")
+                + " Order by Sn";
             DataSet ds = GetDataFromDb(sql);
             if (SysProperty.Util.IsDataSetEmpty(ds))
             {
@@ -107,6 +147,7 @@ namespace TheWeWebSite.StoreMgt
 
         private string GetTypeNameFromCategory(string category)
         {
+            if (string.IsNullOrEmpty(category)) return string.Empty;
             if (category.StartsWith("Accessory")) return category.Replace("Accessory", string.Empty);
             if (category.StartsWith("Dress")) return category.Replace("Dress", string.Empty);
             return category;
@@ -114,23 +155,22 @@ namespace TheWeWebSite.StoreMgt
 
         protected void btnSearch_Click(object sender, EventArgs e)
         {
-            if (!string.IsNullOrEmpty(ddlCategory.SelectedValue))
-            {
-                Session["FittingCategory"] = ddlCategory.SelectedValue;
-                OtherCondStr = string.IsNullOrEmpty(ddlType.SelectedValue) ? string.Empty : " And Category = '" + ddlType.SelectedValue + "'";
-                OtherCondStr += string.IsNullOrEmpty(tbSn.Text) ? string.Empty : " And Sn like '%" + tbSn.Text + "%'";
-                OtherCondStr += string.IsNullOrEmpty(ddlStatus.SelectedValue) ? string.Empty : "And StatusCode ='" + ddlStatus.SelectedValue + "'";
-                BindData();
-            }
+            Session["FittingCategory"] = ddlCategory.SelectedValue;
+            OtherCondStr = string.IsNullOrEmpty(ddlType.SelectedValue) ? string.Empty : " And Category = '" + ddlType.SelectedValue + "'";
+            OtherCondStr += string.IsNullOrEmpty(tbSn.Text) ? string.Empty : " And Sn like '%" + tbSn.Text + "%'";
+            OtherCondStr += string.IsNullOrEmpty(ddlStatus.SelectedValue) ? string.Empty : "And StatusCode ='" + ddlStatus.SelectedValue + "'";
+            BindData();
         }
 
         #region DataGrid Control
         protected void dataGrid_ItemDataBound(object sender, DataGridItemEventArgs e)
         {
             DataRowView dataItem1 = (DataRowView)e.Item.DataItem;
-            if (dataItem1 != null && Session["FittingCategory"] != null)
+            if (dataItem1 != null)
             {
-                ((Label)e.Item.FindControl("dgLabelCategory")).Text = ddlCategory.Items.FindByValue(Session["FittingCategory"].ToString()).Text;
+                ((Label)e.Item.FindControl("labelStore")).Text = ddlStore.Items.FindByValue(dataItem1["StoreId"].ToString()).Text;
+                //((Label)e.Item.FindControl("dgLabelCategory")).Text = ddlCategory.Items.FindByValue(Session["FittingCategory"].ToString()).Text;
+                ((Label)e.Item.FindControl("dgLabelCategory")).Text = ddlCategory.Items.FindByValue(dataItem1["TypeName"].ToString()).Text;
                 if (!string.IsNullOrEmpty(dataItem1["Category"].ToString()))
                 {
                     ((Label)e.Item.FindControl("dgLabelType")).Text = ddlType.Items.FindByValue(dataItem1["Category"].ToString()).Text;
@@ -146,9 +186,11 @@ namespace TheWeWebSite.StoreMgt
 
         protected void dataGrid_DeleteCommand(object source, DataGridCommandEventArgs e)
         {
-            if (Session["FittingCategory"] == null) return;
+            string str = ((Label)e.Item.FindControl("dgLabelCategory")).Text;
+            string tableName = ddlCategory.Items.FindByText(str).Value;
             string id = dataGrid.DataKeys[(int)e.Item.ItemIndex].ToString();
-            string sqlTxt = "UPDATE " + Session["FittingCategory"].ToString() + " SET IsDelete = 1"
+
+            string sqlTxt = "UPDATE " + tableName + " SET IsDelete = 1"
                 + ", UpdateAccId=N'" + ((DataRow)Session["AccountInfo"])["Id"].ToString() + "'"
                 + ", UpdateTime='" + DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss") + "'"
                 + " Where Id = '" + id + "'";
@@ -168,6 +210,8 @@ namespace TheWeWebSite.StoreMgt
         {
             string id = dataGrid.DataKeys[dataGrid.SelectedIndex].ToString();
             Session["FittingId"] = id;
+            string str = ((Label)dataGrid.SelectedItem.FindControl("dgLabelCategory")).Text;
+            Session["FittingCategory"] = ddlCategory.Items.FindByText(str).Value;
             Response.Redirect("~/StoreMgt/FittingMCreate.aspx", true);
         }
 
@@ -191,20 +235,36 @@ namespace TheWeWebSite.StoreMgt
 
         private void BindData()
         {
-            if (!string.IsNullOrEmpty(ddlCategory.SelectedValue))
-            {
-                GetFittingList(ddlCategory.SelectedValue, OtherCondStr, string.Empty);
-                dataGrid.DataSource = DS;
-                dataGrid.AllowPaging = !SysProperty.Util.IsDataSetEmpty(DS);
-                dataGrid.DataBind();
-            }
+            GetFittingList(ddlCategory.SelectedValue, OtherCondStr, " Order by Sn");
+            dataGrid.DataSource = DS;
+            dataGrid.AllowPaging = !SysProperty.Util.IsDataSetEmpty(DS);
+            dataGrid.DataBind();
         }
 
         private void GetFittingList(string tableName, string condStr, string sortStr)
         {
-            string storeStr = bool.Parse(((DataRow)Session["LocateStore"])["HoldingCompany"].ToString()) ? string.Empty : " And StoreId ='" + ((DataRow)Session["LocateStore"])["Id"].ToString() + "'";
-            string sql = "Select * From " + tableName + " Where IsDelete = 0 " + storeStr + " " + condStr + " " + sortStr;
-            DS = GetDataFromDb(sql);
+            string sql = string.Empty;
+            string storeStr = string.IsNullOrEmpty(ddlStore.SelectedValue) ? string.Empty : " And StoreId ='" + ddlStore.SelectedValue + "'";
+            if (string.IsNullOrEmpty(ddlCategory.SelectedValue))
+            {
+                foreach (ListItem item in ddlCategory.Items)
+                {
+                    if (string.IsNullOrEmpty(item.Value)) continue;
+                    sql += string.IsNullOrEmpty(sql) ? string.Empty : " union ";
+                    sql += "Select Id, Sn, StoreId, Category, RentPrice, SellsPrice, IsDelete"
+                        + ", StatusCode, '" + item.Value + "' As TypeName"
+                    + " From " + item.Value + " Where IsDelete = 0 " + storeStr;
+
+                }
+                DS = GetDataFromDb("Select * From (" + sql + ")TBL Where IsDelete=0 " + condStr + " " + sortStr);
+            }
+            else
+            {
+                sql = "Select Id, Sn, StoreId, Category, RentPrice, SellsPrice, IsDelete"
+                    +", StatusCode, '" + ddlCategory.SelectedValue + "' As TypeName"
+                    + " From " + tableName + " Where IsDelete = 0 " + storeStr + " " + condStr + " " + sortStr;
+                DS = GetDataFromDb(sql);
+            }
         }
         private DataSet GetDataFromDb(string sql)
         {
@@ -231,6 +291,6 @@ namespace TheWeWebSite.StoreMgt
                 ShowErrorMsg(ex.Message);
                 return false;
             }
-        }        
+        }
     }
 }

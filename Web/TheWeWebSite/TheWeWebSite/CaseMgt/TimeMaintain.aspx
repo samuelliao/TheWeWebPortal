@@ -33,8 +33,13 @@
                     <asp:ScriptManager runat="server"></asp:ScriptManager>
                     <div>
                         <div class="12u">
-
                             <div class="row uniform 50%">
+                                <div class="2u 12u(mobilep)" runat="server" id="divStore" style="display: none;">
+                                    <div class="Div">
+                                        <asp:Label runat="server" Text="<%$ Resources:Resource,StoreString%>"></asp:Label>
+                                    </div>
+                                    <asp:DropDownList runat="server" ID="ddlStore" />
+                                </div>
                                 <div class="2u 12u(mobilep)">
                                     <div class="Div">
                                         <asp:Label runat="server" Text="<%$ Resources:Resource,SnString%>"></asp:Label>
@@ -46,8 +51,8 @@
                                         <asp:Label runat="server" Text="開案日期選擇範圍(開始)" ID="labelContractStartDate"></asp:Label>
                                     </div>
                                     <div>
-                                        <asp:TextBox runat="server" Cssclass="date date-1" value="" placeholder="YYYY-MM-DD"
-                                             style="text-align:right" ID="tbContractStartDate"></asp:TextBox>
+                                        <asp:TextBox runat="server" CssClass="date date-1" value="" placeholder="YYYY-MM-DD"
+                                            Style="text-align: right" ID="tbContractStartDate"></asp:TextBox>
                                     </div>
                                 </div>
                                 <div class="2u 12u(mobilep)">
@@ -55,8 +60,8 @@
                                         <asp:Label runat="server" Text="開案日期選擇範圍(結束)" ID="labelContractEndDate"></asp:Label>
                                     </div>
                                     <div>
-                                        <asp:TextBox runat="server" Cssclass="date date-1" value="" placeholder="YYYY-MM-DD"
-                                            style="text-align:right" ID="tbContractEndDate"></asp:TextBox>
+                                        <asp:TextBox runat="server" CssClass="date date-1" value="" placeholder="YYYY-MM-DD"
+                                            Style="text-align: right" ID="tbContractEndDate"></asp:TextBox>
                                     </div>
                                 </div>
                                 <div class="2u 12u(mobilep)">
@@ -118,8 +123,8 @@
                                         <asp:Label runat="server" Text="會議日期選擇範圍(開始)" ID="labelConStartDate"></asp:Label>
                                     </div>
                                     <div>
-                                        <asp:TextBox runat="server" style="text-align:right"
-                                             Cssclass="date date-1" value="" placeholder="YYYY-MM-DD" ID="tbConStartDate"></asp:TextBox>
+                                        <asp:TextBox runat="server" Style="text-align: right"
+                                            CssClass="date date-1" value="" placeholder="YYYY-MM-DD" ID="tbConStartDate"></asp:TextBox>
                                     </div>
                                 </div>
                                 <div class="2u 12u(mobilep)">
@@ -127,8 +132,8 @@
                                         <asp:Label runat="server" Text="會議日期選擇範圍(結束)" ID="labelConEndDate"></asp:Label>
                                     </div>
                                     <div>
-                                        <asp:TextBox runat="server" style="text-align:right" ID="tbConEndDate"
-                                            Cssclass="date date-1" value="" placeholder="YYYY-MM-DD"></asp:TextBox>
+                                        <asp:TextBox runat="server" Style="text-align: right" ID="tbConEndDate"
+                                            CssClass="date date-1" value="" placeholder="YYYY-MM-DD"></asp:TextBox>
                                     </div>
                                 </div>
                             </div>
@@ -163,6 +168,11 @@
                                     <Columns>
                                         <asp:ButtonColumn Text="<%$ Resources:Resource,ModifyString%>" CommandName="Select" />
                                         <asp:BoundColumn Visible="false" DataField="Id" />
+                                        <asp:TemplateColumn HeaderText="<%$ Resources:Resource,StoreString%>" SortExpression="StoreId">
+                                            <ItemTemplate>
+                                                <asp:Label runat="server" ID="labelStore" />
+                                            </ItemTemplate>
+                                        </asp:TemplateColumn>
                                         <asp:TemplateColumn HeaderText="<%$ Resources:Resource,AdviosryIdString%>" SortExpression="ConsultId">
                                             <ItemTemplate>
                                                 <asp:LinkButton runat="server" ID="linkConsult" Text="" OnClick="linkConsult_Click" />
@@ -187,7 +197,7 @@
                                         <asp:BoundColumn HeaderText="<%$ Resources:Resource,AppointmentDateString%>" DataField="BookingDate" SortExpression="BookingDate" />
                                         <asp:TemplateColumn HeaderText="<%$ Resources:Resource,CountryString%>" SortExpression="CountryId">
                                             <ItemTemplate>
-                                                <asp:Label runat="server" ID="labelCountry"/>
+                                                <asp:Label runat="server" ID="labelCountry" />
                                             </ItemTemplate>
                                         </asp:TemplateColumn>
                                         <asp:TemplateColumn HeaderText="<%$ Resources:Resource,AreaString%>" SortExpression="AreaId">

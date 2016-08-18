@@ -20,6 +20,7 @@ namespace TheWeWebSite.CaseMgt
                 if (SysProperty.Util == null) Response.Redirect("../Login.aspx", true);
                 else
                 {
+                    InitialControlWithPermission();
                     labelPageTitle.Text = Resources.Resource.OrderMgtString + " > " + Resources.Resource.TimetableMaintainString;
                     InitialLabelText();
                     InitialAllDropDownList();
@@ -36,7 +37,11 @@ namespace TheWeWebSite.CaseMgt
         private void InitialControlWithPermission()
         {
             PermissionUtil util = new PermissionUtil();
-            if (Session["Operation"] == null) Response.Redirect("~/Login.aspx");            
+            if (Session["Operation"] == null) Response.Redirect("~/Login.aspx");
+            if (bool.Parse(((DataRow)Session["LocateStore"])["HoldingCompany"].ToString()))
+            {
+                divStore.Attributes["style"] = "display: inline;";
+            }
         }
         private void InitialLabelText()
         {
@@ -52,6 +57,26 @@ namespace TheWeWebSite.CaseMgt
             CountryDropDownList();
             LocationDropDownList(string.Empty, string.Empty);
             ProductSetDropDownList();
+            StoreList();
+        }
+        private void StoreList()
+        {
+            ddlStore.Items.Clear();
+            ddlStore.Items.Add(new ListItem(Resources.Resource.SeletionRemindString, string.Empty));
+            DataSet ds = GetDataFromDb("Store", " Where IsDelete=0 And GradeLv != 0 Order by GradeLv, Sn");
+            if (!SysProperty.Util.IsDataSetEmpty(ds))
+            {
+                foreach (DataRow dr in ds.Tables[0].Rows)
+                {
+                    ddlStore.Items.Add(new ListItem(
+                        SysProperty.Util.OutputRelatedLangName(Session["CultureCode"].ToString(), dr) + "(" + dr["Code"].ToString() + ")"
+                        , dr["Id"].ToString()));
+                }
+                if (!bool.Parse(((DataRow)Session["LocateStore"])["HoldingCompany"].ToString()))
+                {
+                    ddlStore.SelectedValue = ((DataRow)Session["LocateStore"])["Id"].ToString();
+                }
+            }
         }
         public void CountryDropDownList()
         {
@@ -272,7 +297,7 @@ namespace TheWeWebSite.CaseMgt
                 string storeId = bool.Parse(((DataRow)Session["LocateStore"])["HoldingCompany"].ToString())
                     ? string.Empty : ((DataRow)Session["LocateStore"])["Id"].ToString();
                 GetCaseList(storeId, OtherConditionString
-                    + " Order by c." + e.SortExpression + " " + SysProperty.Util.GetSortDirection(e.SortExpression));
+                    + " Order by " + e.SortExpression + " " + SysProperty.Util.GetSortDirection(e.SortExpression));
             }
             if (DS != null)
             {
@@ -286,6 +311,8 @@ namespace TheWeWebSite.CaseMgt
             DataRowView dataItem1 = (DataRowView)e.Item.DataItem;
             if (dataItem1 != null)
             {
+                ((Label)e.Item.FindControl("labelStore")).Text = ddlStore.Items.FindByValue(dataItem1["StoreId"].ToString()).Text;
+
                 LinkButton hyperLink1 = (LinkButton)e.Item.FindControl("linkConsult");
                 hyperLink1.Text = dataItem1["ConsultSn"].ToString();
                 hyperLink1.CommandArgument = dataItem1["ConsultId"].ToString();
@@ -297,7 +324,6 @@ namespace TheWeWebSite.CaseMgt
                 LinkButton hyperLink3 = (LinkButton)e.Item.FindControl("linkCustomerName");
                 hyperLink3.Text = dataItem1["CustomerName"].ToString();
                 hyperLink3.CommandArgument = dataItem1["CustomerId"].ToString();
-
 
                 Label label4 = (Label)e.Item.FindControl("labelConference");
                 label4.Text = SysProperty.Util.OutputRelatedLangName(Session["CultureCode"].ToString()
@@ -330,9 +356,8 @@ namespace TheWeWebSite.CaseMgt
 
         private void BindData()
         {
-            string storeId = bool.Parse(((DataRow)Session["LocateStore"])["HoldingCompany"].ToString())
-                ? string.Empty : ((DataRow)Session["LocateStore"])["Id"].ToString();
-            GetCaseList(storeId, OtherConditionString+ " Order by c.Sn");
+            string storeId = string.IsNullOrEmpty(ddlStore.SelectedValue) ? string.Empty : ddlStore.SelectedValue;
+            GetCaseList(storeId, OtherConditionString + " Order by Sn");
             dataGrid.DataSource = DS;
             dataGrid.AllowPaging = !SysProperty.Util.IsDataSetEmpty(DS);
             dataGrid.DataBind();
@@ -341,28 +366,106 @@ namespace TheWeWebSite.CaseMgt
         #region DB Control
         private void GetCaseList(string storeId, string otherCondition)
         {
-            string sqlTxt = "SELECT o.[Id] as Id,[ConsultId], c.Sn As ConsultSn,o.[Sn],o.[StartTime]"
-                + ",o.[CustomerId],cus.Name AS CustomerName,o.[ConferenceCategory], ci.Name As StatusName, ci.JpName AS StatusJpName"
-                + ", ci.CnName AS StatusCnName, ci.EngName AS StatusEngName,[CloseTime],o.[CountryId],o.[AreaId],"
-                + "o.[ChurchId],SetId, p.Name AS SetName, p.EngName AS SetEngName"
-                + ", p.JpName AS SetJpName, p.CnName AS SetCnName,o.BookingDate,o.PartnerId, pr.Name AS PartnerName"
-                + " FROM[TheWe].[dbo].[OrderInfo] as o"
-                + " Left join Consultation as c on c.Id = o.ConsultId"
-                + " Left join vwEN_Customer as cus on cus.Id = o.CustomerId"
-                + " Left join ProductSet as p on p.Id = o.SetId"
-                + " Left join ConferenceItem as ci on ci.Id = o.ConferenceCategory"
-                + " Left join vwEN_Partner as pr on pr.Id = o.PartnerId"
-                + " WHERE o.IsDelete = 0"
-                + (string.IsNullOrEmpty(storeId) ? string.Empty : " And o.StoreId='" + storeId + "'")
-                + otherCondition;
+            string sqlTxt = SqlQueryByCasePermission(storeId, otherCondition);
             try
             {
-                DS = (DataSet)InvokeDbControlFunction(sqlTxt, true);
+                if (string.IsNullOrEmpty(sqlTxt)) DS = null;
+                else DS = (DataSet)InvokeDbControlFunction(sqlTxt, true);
             }
             catch (Exception ex)
             {
                 SysProperty.Log.Error(ex.Message);
                 ShowErrorMsg(ex.Message);
+            }
+        }
+
+        private string SqlQueryByCasePermission(string storeId, string otherCondition)
+        {
+            string sqlTxt = "";
+            if (!bool.Parse(((DataRow)Session["LocateStore"])["HoldingCompany"].ToString()))
+            {
+                if (Session["CasePermission"] == null)
+                {
+                    Response.Redirect("~/Login.aspx");
+                }
+
+                #region Get case permission of normal stores
+                Dictionary<string, PermissionItem> lst = Session["CasePermission"] as Dictionary<string, PermissionItem>;
+                try
+                {
+                    if (lst == null || lst.Count == 0)
+                    {
+                        sqlTxt = "SELECT o.[Id] as Id,[ConsultId], c.Sn As ConsultSn,o.[Sn],o.[StartTime]"
+                            + ",o.[CustomerId],cus.Name AS CustomerName,o.[StatusId], ci.Name As StatusName, ci.JpName AS StatusJpName"
+                            + ", ci.CnName AS StatusCnName, ci.EngName AS StatusEngName,[CloseTime],o.[CountryId],o.[AreaId],"
+                            + "o.[ChurchId],SetId, p.Name AS SetName, p.EngName AS SetEngName,o.StoreId"
+                            + ", p.JpName AS SetJpName, p.CnName AS SetCnName,o.BookingDate,o.PartnerId, pr.Name AS PartnerName"
+                            + " FROM[TheWe].[dbo].[OrderInfo] as o"
+                            + " Left join Consultation as c on c.Id = o.ConsultId"
+                            + " Left join vwEN_Customer as cus on cus.Id = o.CustomerId"
+                            + " Left join ProductSet as p on p.Id = o.SetId"
+                            + " Left join ConferenceItem as ci on ci.Id = o.StatusId"
+                            + " Left join vwEN_Partner as pr on pr.Id = o.PartnerId"
+                            + " WHERE o.IsDelete = 0"
+                            + (string.IsNullOrEmpty(storeId) ? string.Empty : " And o.StoreId='" + storeId + "'");
+                        //+ otherCondition;
+                    }
+
+                    foreach (KeyValuePair<string, PermissionItem> item in lst)
+                    {
+                        if (item.Value.CanEntry)
+                        {
+                            sqlTxt += string.IsNullOrEmpty(sqlTxt) ? string.Empty : " Union ";
+                            sqlTxt += "SELECT o.[Id] as Id,[ConsultId], c.Sn As ConsultSn,o.[Sn],o.[StartTime]"
+                            + ",o.[CustomerId],cus.Name AS CustomerName,o.[StatusId], ci.Name As StatusName, ci.JpName AS StatusJpName"
+                            + ", ci.CnName AS StatusCnName, ci.EngName AS StatusEngName,[CloseTime],o.[CountryId],o.[AreaId],"
+                            + "o.[ChurchId],SetId, p.Name AS SetName, p.EngName AS SetEngName,o.StoreId"
+                            + ", p.JpName AS SetJpName, p.CnName AS SetCnName,o.BookingDate,o.PartnerId, pr.Name AS PartnerName"
+                            + " FROM[TheWe].[dbo].[OrderInfo] as o"
+                            + " Left join Consultation as c on c.Id = o.ConsultId"
+                            + " Left join vwEN_Customer as cus on cus.Id = o.CustomerId"
+                            + " Left join ProductSet as p on p.Id = o.SetId"
+                            + " Left join ConferenceItem as ci on ci.Id = o.StatusId"
+                            + " Left join vwEN_Partner as pr on pr.Id = o.PartnerId"
+                            + " WHERE o.IsDelete = 0";
+                            if (item.Value.Type == "Store")
+                            {
+                                sqlTxt += " And o.StoreId ='" + item.Value.ObjectId + "'";
+                            }
+                            else if (item.Value.Type == "Country")
+                            {
+                                sqlTxt += " And o.CountryId = '" + item.Value.ObjectId + "'";
+                            }
+                            //sqlTxt += " " + otherCondition;
+                        }
+                    }
+                    return "Select * From (" + sqlTxt + ")TBL " + otherCondition;
+                }
+                catch (Exception ex)
+                {
+                    SysProperty.Log.Error(ex.Message);
+                    ShowErrorMsg(ex.Message);
+                    return string.Empty;
+                }
+                #endregion
+            }
+            else
+            {
+                #region Holding Company
+                sqlTxt = "SELECT o.[Id] as Id,[ConsultId], c.Sn As ConsultSn,o.[Sn],o.[StartTime]"
+                            + ",o.[CustomerId],cus.Name AS CustomerName,o.[StatusId], ci.Name As StatusName, ci.JpName AS StatusJpName"
+                            + ", ci.CnName AS StatusCnName, ci.EngName AS StatusEngName,[CloseTime],o.[CountryId],o.[AreaId],"
+                            + "o.[ChurchId],SetId, p.Name AS SetName, p.EngName AS SetEngName,o.StoreId"
+                            + ", p.JpName AS SetJpName, p.CnName AS SetCnName,o.BookingDate,o.PartnerId, pr.Name AS PartnerName"
+                            + " FROM[TheWe].[dbo].[OrderInfo] as o"
+                            + " Left join Consultation as c on c.Id = o.ConsultId"
+                            + " Left join vwEN_Customer as cus on cus.Id = o.CustomerId"
+                            + " Left join ProductSet as p on p.Id = o.SetId"
+                            + " Left join ConferenceItem as ci on ci.Id = o.StatusId"
+                            + " Left join vwEN_Partner as pr on pr.Id = o.PartnerId"
+                            + " WHERE o.IsDelete = 0";
+                return "Select * From (" + sqlTxt + ")TBL " + otherCondition;
+                #endregion
             }
         }
 

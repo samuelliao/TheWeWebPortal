@@ -34,6 +34,12 @@
                     <div>
                         <div class="12u">
                             <div class="row uniform 50%">
+                                <div class="2u 12u(mobilep)" runat="server" id="divStore" style="display: none;">
+                                    <div class="Div">
+                                        <asp:Label runat="server" Text="<%$ Resources:Resource,StoreString%>"></asp:Label>
+                                    </div>
+                                    <asp:DropDownList runat="server" ID="ddlStore" />
+                                </div>
                                 <div class="2u 12u(mobilep)">
                                     <div class="Div">
                                         <asp:Label runat="server" Text="<%$ Resources:Resource,SnString%>"></asp:Label>
@@ -168,6 +174,11 @@
                                             <Columns>
                                                 <asp:ButtonColumn Text="<%$ Resources:Resource,SearchString%>" CommandName="Select" />
                                                 <asp:BoundColumn DataField="Id" Visible="false" />
+                                                <asp:TemplateColumn HeaderText="<%$ Resources:Resource,StoreString%>" SortExpression="StoreId">
+                                                    <ItemTemplate>
+                                                        <asp:Label runat="server" ID="labelStore" />
+                                                    </ItemTemplate>
+                                                </asp:TemplateColumn>
                                                 <asp:BoundColumn DataField="Sn" HeaderText="<%$ Resources:Resource,SnString%>" SortExpression="Sn" />
                                                 <asp:TemplateColumn HeaderText="<%$ Resources:Resource,CategoryString%>" SortExpression="Category">
                                                     <ItemTemplate>

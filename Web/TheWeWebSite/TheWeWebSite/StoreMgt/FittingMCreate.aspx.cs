@@ -73,6 +73,7 @@ namespace TheWeWebSite.StoreMgt
                 {
                     btnCreate.Visible = false;
                     btnClear.Visible = false;
+                    ddlStore.Enabled = false;
                 }
             }
             else
@@ -84,6 +85,7 @@ namespace TheWeWebSite.StoreMgt
                 btnDelete.Enabled = item.CanDelete;
                 btnModify.Visible = item.CanModify;
                 btnModify.Enabled = item.CanModify;
+                ddlStore.Enabled = true;
             }
         }
 
@@ -198,6 +200,7 @@ namespace TheWeWebSite.StoreMgt
                     , dr["Description"].ToString()
                     ));
             }
+            ddlCategory.Items.Add(new ListItem(Resources.Resource.CreateItemString, "CreateItem"));
         }
         private void FittingTypeList()
         {
@@ -219,8 +222,15 @@ namespace TheWeWebSite.StoreMgt
         }
         protected void ddlType_SelectedIndexChanged(object sender, EventArgs e)
         {
-            tbType.Visible = ddlType.SelectedValue == "CreateItem";
-            tbType.Text = string.Empty;
+            if (ddlType.SelectedValue == "CreateItem")
+            {
+                tbType.Attributes["style"] = "display: inline;";
+                tbType.Text = string.Empty;
+            }else
+            {
+                tbType.Attributes["style"] = "display: none;";
+                tbType.Text = string.Empty;
+            }
         }
         private void StatusList()
         {
@@ -409,7 +419,7 @@ namespace TheWeWebSite.StoreMgt
             ddlType.SelectedValue = dr["Category"].ToString();
             ddlSupplier.SelectedValue = dr["SupplierId"].ToString();
             ddlStatus.SelectedValue = dr["StatusCode"].ToString();
-            ddlStore.SelectedValue = Session["LocateStore"] == null ? string.Empty : ((DataRow)Session["LocateStore"])["Id"].ToString();
+            ddlStore.SelectedValue = dr["StoreId"].ToString();
             try { tbColor2.Text = dr["Color2"].ToString(); }
             catch { tbColor2.Text = string.Empty; }
             try { tbMaterial2.Text = dr["Material2"].ToString(); }

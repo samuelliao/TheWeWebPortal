@@ -36,6 +36,12 @@
                     <div>
                         <div class="12u">
                             <div class="row uniform 50%">
+                                <div class="2u 12u(mobilep)" runat="server" id="divStore" style="display: none;">
+                                    <div class="Div">
+                                        <asp:Label runat="server" Text="<%$ Resources:Resource,StoreString%>"></asp:Label>
+                                    </div>
+                                    <asp:DropDownList runat="server" ID="ddlStore" />
+                                </div>
                                 <div class="2u 12u(mobilep)">
                                     <div class="Div">
                                         <asp:Label runat="server" Text="<%$ Resources:Resource,AdviosryIdString%>"></asp:Label>
@@ -53,17 +59,17 @@
                                         <asp:Label runat="server" Text="開案日期選擇範圍(開始)" ID="labelContractSearchStartDate"></asp:Label>
                                     </div>
                                     <div>
-                                        <asp:TextBox runat="server" style="text-align:right" ID="tbContractSearchStartDate"
-                                            Cssclass="date date-1" value="" placeholder="YYYY-MM-DD" ></asp:TextBox>
+                                        <asp:TextBox runat="server" Style="text-align: right" ID="tbContractSearchStartDate"
+                                            CssClass="date date-1" value="" placeholder="YYYY-MM-DD"></asp:TextBox>
                                     </div>
                                 </div>
                                 <div class="2u 12u(mobilep)">
                                     <div class="Div">
-                                        <asp:Label runat="server"  Text="開案日期選擇範圍(結束)" ID="labelContractSearchEndDate"></asp:Label>
+                                        <asp:Label runat="server" Text="開案日期選擇範圍(結束)" ID="labelContractSearchEndDate"></asp:Label>
                                     </div>
                                     <div>
-                                        <asp:TextBox runat="server" style="text-align:right" ID="tbContractSearchEndDate"
-                                            Cssclass="date date-1" value="" placeholder="YYYY-MM-DD" ></asp:TextBox>
+                                        <asp:TextBox runat="server" Style="text-align: right" ID="tbContractSearchEndDate"
+                                            CssClass="date date-1" value="" placeholder="YYYY-MM-DD"></asp:TextBox>
                                     </div>
                                 </div>
                                 <div class="2u 12u(mobilep)">
@@ -71,8 +77,8 @@
                                         <asp:Label runat="server" Text="結案日期選擇範圍(開始)" ID="labelClosedSearchStartDate"></asp:Label>
                                     </div>
                                     <div>
-                                        <asp:TextBox runat="server" style="text-align:right" ID="tbCloseSearchStartDate"
-                                            Cssclass="date date-1" value="" placeholder="YYYY-MM-DD" ></asp:TextBox>
+                                        <asp:TextBox runat="server" Style="text-align: right" ID="tbCloseSearchStartDate"
+                                            CssClass="date date-1" value="" placeholder="YYYY-MM-DD"></asp:TextBox>
                                     </div>
                                 </div>
                                 <div class="2u 12u(mobilep)">
@@ -80,8 +86,8 @@
                                         <asp:Label runat="server" Text="結案日期選擇範圍(結束)" ID="labelClosedSearchEndDate"></asp:Label>
                                     </div>
                                     <div>
-                                        <asp:TextBox runat="server" style="text-align:right" ID="tbCloseSearchEndDate"
-                                            Cssclass="date date-1" value="" placeholder="YYYY-MM-DD" ></asp:TextBox>
+                                        <asp:TextBox runat="server" Style="text-align: right" ID="tbCloseSearchEndDate"
+                                            CssClass="date date-1" value="" placeholder="YYYY-MM-DD"></asp:TextBox>
                                     </div>
                                 </div>
 
@@ -95,13 +101,13 @@
                                     <div class="Div">
                                         <asp:Label runat="server" Text="<%$ Resources:Resource,BridalNameString%>"></asp:Label>
                                     </div>
-                                    <asp:TextBox runat="server"  ID="tbBridalName"></asp:TextBox>
+                                    <asp:TextBox runat="server" ID="tbBridalName"></asp:TextBox>
                                 </div>
                                 <div class="2u 12u(mobilep)">
                                     <div class="Div">
                                         <asp:Label runat="server" Text="<%$ Resources:Resource,GroomNameString%>"></asp:Label>
                                     </div>
-                                    <asp:TextBox runat="server"  ID="tbGroomName"></asp:TextBox>
+                                    <asp:TextBox runat="server" ID="tbGroomName"></asp:TextBox>
                                 </div>
                                 <div class="2u 12u(mobilep)">
                                     <div class="Div">
@@ -185,6 +191,11 @@
                                     <Columns>
                                         <asp:ButtonColumn Text="<%$ Resources:Resource,SearchString%>" CommandName="Select" />
                                         <asp:BoundColumn Visible="false" DataField="Id" />
+                                        <asp:TemplateColumn HeaderText="<%$ Resources:Resource,StoreString%>" SortExpression="StoreId">
+                                            <ItemTemplate>
+                                                <asp:Label runat="server" ID="labelStore" />
+                                            </ItemTemplate>
+                                        </asp:TemplateColumn>
                                         <asp:TemplateColumn HeaderText="<%$ Resources:Resource,AdviosryIdString%>">
                                             <ItemTemplate>
                                                 <asp:LinkButton runat="server" ID="linkConsult" Text="" OnClick="linkConsult_Click" />

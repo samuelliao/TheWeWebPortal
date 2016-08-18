@@ -31,6 +31,9 @@
                 <!-- Input -->
                 <section class="box special">
                     <asp:ScriptManager runat="server"></asp:ScriptManager>
+                    <div class="2u 12u(mobilep)" runat="server" id="divStore" style="display: none;">
+                        <asp:DropDownList runat="server" ID="ddlStore" />
+                    </div>
                     <!-- Calendar-->
                     <div class="row">
                         <asp:Label runat="server" ID="labelWarnString" ForeColor="Red" Visible="false" />
@@ -65,7 +68,7 @@
                                         <asp:UpdatePanel runat="server">
                                             <ContentTemplate>
                                                 <asp:Calendar
-                                                    runat="server" ID="calendar" OnPreRender="calendar_PreRender" OnDayRender="calendar_DayRender" OnVisibleMonthChanged="calendar_VisibleMonthChanged" SelectedDayStyle-BackColor="Pink" NextPrevFormat="ShortMonth" >
+                                                    runat="server" ID="calendar" OnPreRender="calendar_PreRender" OnDayRender="calendar_DayRender" OnVisibleMonthChanged="calendar_VisibleMonthChanged" SelectedDayStyle-BackColor="Pink" NextPrevFormat="ShortMonth">
                                                     <OtherMonthDayStyle ForeColor="#CCCCCC" />
                                                     <SelectedDayStyle BackColor="Pink" />
                                                     <TitleStyle BackColor="#FFCCCC" Height="30px" />

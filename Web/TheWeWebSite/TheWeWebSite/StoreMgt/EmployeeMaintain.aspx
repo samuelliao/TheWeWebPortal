@@ -11,7 +11,7 @@
     <link href="../assets/css/font-awesome.min.css" rel="stylesheet" />
     <link href="../assets/css/main.css" rel="stylesheet" />
     <link href="../assets/css/calendar.css" rel="stylesheet" />
-        <link href="../assets/css/jquery-ui.css" rel="stylesheet"/>
+    <link href="../assets/css/jquery-ui.css" rel="stylesheet" />
 </head>
 <body class="landing">
     <form runat="server">
@@ -35,11 +35,11 @@
                     <div>
                         <div class="12u">
                             <div class="row uniform 50%">
-                                <div class="2u 12u(mobilep)">
+                                <div class="2u 12u(mobilep)" runat="server" id="divStore" style="display: none;">
                                     <div class="Div">
                                         <asp:Label runat="server" Text="<%$ Resources:Resource,StoreString%>"></asp:Label>
                                     </div>
-                                    <asp:DropDownList runat="server" ID="ddlStore" Enabled="false" />
+                                    <asp:DropDownList runat="server" ID="ddlStore" />
                                 </div>
                                 <div class="2u 12u(mobilep)">
                                     <div class="Div">
@@ -65,10 +65,10 @@
                                     </div>
                                     <asp:TextBox runat="server" placeholder="請輸入電話..." ID="tbEmpTel"></asp:TextBox>
                                 </div>
-                                
+
                             </div>
                         </div>
-                        
+
                     </div>
 
 
@@ -81,8 +81,9 @@
                                 <asp:Button runat="server" Text="<%$ Resources:Resource,CreateString%>" ID="LinkEmployeeMCreate" PostBackUrl="~/StoreMgt/EmployeeMCreate.aspx" />
                             </li>
                             <li>
-  <asp:Button runat="server" CssClass="button alt" Text="<%$ Resources:Resource,SearchString%>"
-                                    ID="btnSearch" OnClick="btnSearch_Click" />                            </li>
+                                <asp:Button runat="server" CssClass="button alt" Text="<%$ Resources:Resource,SearchString%>"
+                                    ID="btnSearch" OnClick="btnSearch_Click" />
+                            </li>
 
                         </ul>
                     </div>
@@ -90,31 +91,31 @@
 
                     <hr />
                     <!-- Table -->
-                     <div class="row">
+                    <div class="row">
                         <div class="12u">
                             <div class="table-wrapper">
                                 <asp:DataGrid runat="server" ID="dataGrid" AllowPaging="true" AllowSorting="true" DataKeyField="Id"
-                                 AutoGenerateColumns="false" OnSelectedIndexChanged="dataGrid_SelectedIndexChanged" Font-Size="Small"
-                                 OnDeleteCommand="dataGrid_DeleteCommand" OnSortCommand="dataGrid_SortCommand" 
-                                 OnPageIndexChanged="dataGrid_PageIndexChanged" OnItemDataBound="dataGrid_ItemDataBound">
+                                    AutoGenerateColumns="false" OnSelectedIndexChanged="dataGrid_SelectedIndexChanged" Font-Size="Small"
+                                    OnDeleteCommand="dataGrid_DeleteCommand" OnSortCommand="dataGrid_SortCommand"
+                                    OnPageIndexChanged="dataGrid_PageIndexChanged" OnItemDataBound="dataGrid_ItemDataBound">
                                     <HeaderStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                     <PagerStyle Mode="NumericPages" VerticalAlign="Middle" HorizontalAlign="Center" />
-                                    <Columns>                                        
-                                        <asp:ButtonColumn Text="<%$ Resources:Resource,SearchString%>" CommandName="Select"/>
+                                    <Columns>
+                                        <asp:ButtonColumn Text="<%$ Resources:Resource,SearchString%>" CommandName="Select" />
                                         <asp:BoundColumn Visible="false" DataField="Id" />
-                                        <asp:BoundColumn HeaderText="<%$ Resources:Resource,EmployeeSnString%>" DataField="Sn" SortExpression="Sn"/>
+                                        <asp:BoundColumn HeaderText="<%$ Resources:Resource,EmployeeSnString%>" DataField="Sn" SortExpression="Sn" />
                                         <asp:TemplateColumn HeaderText="<%$ Resources:Resource,CountryString%>" SortExpression="CountryId">
                                             <ItemTemplate>
                                                 <asp:Label runat="server" ID="dgLabelCountry" />
                                             </ItemTemplate>
                                         </asp:TemplateColumn>
-                                        <asp:BoundColumn HeaderText="<%$ Resources:Resource,NameString%>" DataField="Name" SortExpression="Name"/>
+                                        <asp:BoundColumn HeaderText="<%$ Resources:Resource,NameString%>" DataField="Name" SortExpression="Name" />
                                         <asp:TemplateColumn HeaderText="<%$ Resources:Resource,StoreSnString%>" SortExpression="StoreId">
                                             <ItemTemplate>
                                                 <asp:Label runat="server" ID="dgLabelStoreId" />
                                             </ItemTemplate>
                                         </asp:TemplateColumn>
-                                        <asp:BoundColumn HeaderText="<%$ Resources:Resource,AccountString%>" DataField="Account" SortExpression="Account"/>
+                                        <asp:BoundColumn HeaderText="<%$ Resources:Resource,AccountString%>" DataField="Account" SortExpression="Account" />
 
                                         <asp:ButtonColumn CommandName="Delete"
                                             HeaderText="<%$ Resources:Resource,DeleteString%>"

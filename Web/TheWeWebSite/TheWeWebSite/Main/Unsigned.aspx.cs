@@ -19,6 +19,7 @@ namespace TheWeWebSite.Main
                 if (SysProperty.Util == null) Response.Redirect("../Login.aspx", true);
                 else
                 {
+                    StoreList();
                     labelPageTitle.Text = Resources.Resource.MainPageString + " > " + Resources.Resource.ConsultScheduleString;
                     BindData();
                 }
@@ -29,12 +30,40 @@ namespace TheWeWebSite.Main
             labelWarnString.Text = msg;
             labelWarnString.Visible = !string.IsNullOrEmpty(msg);
         }
+        private void StoreList()
+        {
+            ddlStore.Items.Clear();
+            string sql = "Select * From Store Where IsDelete=0 Order by GradeLv, Sn";
+            try
+            {
+                DataSet ds = SysProperty.GenDbCon.GetDataFromTable(sql);
+                if (!SysProperty.Util.IsDataSetEmpty(ds))
+                {
+                    foreach (DataRow dr in ds.Tables[0].Rows)
+                    {
+                        ddlStore.Items.Add(new ListItem(
+                            SysProperty.Util.OutputRelatedLangName(Session["CultureCode"].ToString(), dr) + "(" + dr["Code"].ToString() + ")"
+                            , dr["Id"].ToString()));
+                    }
+                    if (!bool.Parse(((DataRow)Session["LocateStore"])["HoldingCompany"].ToString()))
+                    {
+                        ddlStore.SelectedValue = ((DataRow)Session["LocateStore"])["Id"].ToString();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                SysProperty.Log.Error(ex.Message);
+                ShowErrorMsg(ex.Message);
+            }
+        }
 
         protected void dataGrid_ItemDataBound(object sender, DataGridItemEventArgs e)
         {
             DataRowView dataItem1 = (DataRowView)e.Item.DataItem;
             if (dataItem1 != null)
             {
+                ((Label)e.Item.FindControl("labelStore")).Text = ddlStore.Items.FindByValue(dataItem1["StoreId"].ToString()).Text;
                 LinkButton hyperLink1 = (LinkButton)e.Item.FindControl("linkConsult");
                 hyperLink1.Text = dataItem1["Sn"].ToString();
                 hyperLink1.CommandArgument = dataItem1["Id"].ToString();
@@ -99,7 +128,7 @@ namespace TheWeWebSite.Main
                 + ",[SeekerGender],[BridalName],[BridalEngName],[BridalPhone],[GroomName]"
                 + ",[GroomEngName],c.[StatusId],con.Name as StatusName,[LastReceivedDate],c.[Remark]"
                 + ",[ConsultDate],[IsReply],[CloseDate],c.[BookingDate],[ContactMethod]"
-                + ",c.[Description],c.[IsDelete],c.[UpdateAccId],c.[UpdateTime]"
+                + ",c.[Description],c.[IsDelete],c.[UpdateAccId],c.[UpdateTime],c.StoreId"
                 + " FROM[TheWe].[dbo].[Consultation] as c"
                 + " left join ConferenceItem as con on c.StatusId = con.Id"
                 + " left join Employee as e on e.Id = c.EmployeeId"

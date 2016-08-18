@@ -55,6 +55,7 @@ namespace TheWeWebSite.CaseMgt
             {
                 btnCreate.Visible = false;
                 dataGrid.Columns[dataGrid.Columns.Count - 1].Visible = false;
+                divStore.Attributes["style"] = "display: inline;";
             }
         }
         #endregion
@@ -68,6 +69,26 @@ namespace TheWeWebSite.CaseMgt
             ProductSetDropDownList();
             ServiceCategoryDropDownList();
             StatusDropDownList();
+            StoreList();
+        }
+        private void StoreList()
+        {
+            ddlStore.Items.Clear();
+            ddlStore.Items.Add(new ListItem(Resources.Resource.SeletionRemindString, string.Empty));
+            DataSet ds = GetDataFromDb("Store", " Where IsDelete=0 And GradeLv != 0 Order by GradeLv, Sn");
+            if (!SysProperty.Util.IsDataSetEmpty(ds))
+            {
+                foreach (DataRow dr in ds.Tables[0].Rows)
+                {
+                    ddlStore.Items.Add(new ListItem(
+                        SysProperty.Util.OutputRelatedLangName(Session["CultureCode"].ToString(), dr) + "(" + dr["Code"].ToString() + ")"
+                        , dr["Id"].ToString()));
+                }
+                if (!bool.Parse(((DataRow)Session["LocateStore"])["HoldingCompany"].ToString()))
+                {
+                    ddlStore.SelectedValue = ((DataRow)Session["LocateStore"])["Id"].ToString();
+                }
+            }
         }
         public void CountryDropDownList()
         {
@@ -288,7 +309,7 @@ namespace TheWeWebSite.CaseMgt
                         sqlTxt = "SELECT o.[Id] as Id,[ConsultId], c.Sn As ConsultSn,o.[Sn],o.[StartTime]"
                             + ",o.[CustomerId],cus.Name AS CustomerName,o.[StatusId], ci.Name As StatusName, ci.JpName AS StatusJpName"
                             + ", ci.CnName AS StatusCnName, ci.EngName AS StatusEngName,[CloseTime],o.[CountryId],o.[AreaId],"
-                            + "o.[ChurchId],SetId, p.Name AS SetName, p.EngName AS SetEngName"
+                            + "o.[ChurchId],SetId, p.Name AS SetName, p.EngName AS SetEngName,o.StoreId"
                             + ", p.JpName AS SetJpName, p.CnName AS SetCnName,o.BookingDate,o.PartnerId, pr.Name AS PartnerName"
                             + " FROM[TheWe].[dbo].[OrderInfo] as o"
                             + " Left join Consultation as c on c.Id = o.ConsultId"
@@ -298,7 +319,6 @@ namespace TheWeWebSite.CaseMgt
                             + " Left join vwEN_Partner as pr on pr.Id = o.PartnerId"
                             + " WHERE o.IsDelete = 0"
                             + (string.IsNullOrEmpty(storeId) ? string.Empty : " And o.StoreId='" + storeId + "'");
-                            //+ otherCondition;
                     }
 
                     foreach (KeyValuePair<string, PermissionItem> item in lst)
@@ -309,7 +329,7 @@ namespace TheWeWebSite.CaseMgt
                             sqlTxt += "SELECT o.[Id] as Id,[ConsultId], c.Sn As ConsultSn,o.[Sn],o.[StartTime]"
                             + ",o.[CustomerId],cus.Name AS CustomerName,o.[StatusId], ci.Name As StatusName, ci.JpName AS StatusJpName"
                             + ", ci.CnName AS StatusCnName, ci.EngName AS StatusEngName,[CloseTime],o.[CountryId],o.[AreaId],"
-                            + "o.[ChurchId],SetId, p.Name AS SetName, p.EngName AS SetEngName"
+                            + "o.[ChurchId],SetId, p.Name AS SetName, p.EngName AS SetEngName,o.StoreId"
                             + ", p.JpName AS SetJpName, p.CnName AS SetCnName,o.BookingDate,o.PartnerId, pr.Name AS PartnerName"
                             + " FROM[TheWe].[dbo].[OrderInfo] as o"
                             + " Left join Consultation as c on c.Id = o.ConsultId"
@@ -326,7 +346,6 @@ namespace TheWeWebSite.CaseMgt
                             {
                                 sqlTxt += " And o.CountryId = '" + item.Value.ObjectId + "'";
                             }
-                            //sqlTxt += " " + otherCondition;
                         }
                     }
                     return "Select * From (" + sqlTxt + ")TBL " + otherCondition;
@@ -345,7 +364,7 @@ namespace TheWeWebSite.CaseMgt
                 sqlTxt = "SELECT o.[Id] as Id,[ConsultId], c.Sn As ConsultSn,o.[Sn],o.[StartTime]"
                             + ",o.[CustomerId],cus.Name AS CustomerName,o.[StatusId], ci.Name As StatusName, ci.JpName AS StatusJpName"
                             + ", ci.CnName AS StatusCnName, ci.EngName AS StatusEngName,[CloseTime],o.[CountryId],o.[AreaId],"
-                            + "o.[ChurchId],SetId, p.Name AS SetName, p.EngName AS SetEngName"
+                            + "o.[ChurchId],SetId, p.Name AS SetName, p.EngName AS SetEngName,o.StoreId"
                             + ", p.JpName AS SetJpName, p.CnName AS SetCnName,o.BookingDate,o.PartnerId, pr.Name AS PartnerName"
                             + " FROM[TheWe].[dbo].[OrderInfo] as o"
                             + " Left join Consultation as c on c.Id = o.ConsultId"
@@ -353,9 +372,9 @@ namespace TheWeWebSite.CaseMgt
                             + " Left join ProductSet as p on p.Id = o.SetId"
                             + " Left join ConferenceItem as ci on ci.Id = o.StatusId"
                             + " Left join vwEN_Partner as pr on pr.Id = o.PartnerId"
-                            + " WHERE o.IsDelete = 0";
-                sqlTxt += " " + otherCondition;
-                return sqlTxt;
+                            + " WHERE o.IsDelete = 0"
+                            + (string.IsNullOrEmpty(storeId) ? string.Empty : " And o.StoreId='" + storeId + "'");
+                return "Select * From (" + sqlTxt + ")TBL " + otherCondition;
                 #endregion
             }
         }
@@ -399,8 +418,7 @@ namespace TheWeWebSite.CaseMgt
 
         private void BindData()
         {
-            string storeId = bool.Parse(((DataRow)Session["LocateStore"])["HoldingCompany"].ToString())
-                ? string.Empty : ((DataRow)Session["LocateStore"])["Id"].ToString();
+            string storeId = string.IsNullOrEmpty(ddlStore.SelectedValue) ? string.Empty : ddlStore.SelectedValue;
             OtherConditionString += " Order by Sn";
             GetCaseList(storeId, OtherConditionString);
             dataGrid.DataSource = CaseDataSet;
@@ -420,6 +438,8 @@ namespace TheWeWebSite.CaseMgt
             DataRowView dataItem1 = (DataRowView)e.Item.DataItem;
             if (dataItem1 != null)
             {
+                ((Label)e.Item.FindControl("labelStore")).Text = ddlStore.Items.FindByValue(dataItem1["StoreId"].ToString()).Text;
+
                 LinkButton hyperLink1 = (LinkButton)e.Item.FindControl("linkConsult");
                 hyperLink1.Text = dataItem1["ConsultSn"].ToString();
                 hyperLink1.CommandArgument = dataItem1["ConsultId"].ToString();
@@ -482,7 +502,7 @@ namespace TheWeWebSite.CaseMgt
                 GetCaseList(
                     bool.Parse(((DataRow)Session["LocateStore"])["HoldingCompany"].ToString())
                     ? string.Empty : ((DataRow)Session["LocateStore"])["Id"].ToString()
-                    , OtherConditionString + " Order by c." + e.SortExpression + " " + SysProperty.Util.GetSortDirection(e.SortExpression));
+                    , OtherConditionString + " Order by " + e.SortExpression + " " + SysProperty.Util.GetSortDirection(e.SortExpression));
             }
             if (CaseDataSet != null)
             {

@@ -24,6 +24,7 @@ namespace TheWeWebSite.CaseMgt
                     labelPageTitle.Text = Resources.Resource.OrderMgtString
                         + " > " + Resources.Resource.CustomerMaintainString;
                     InitialMsgerType();
+                    StoreList();
                     InitialControlWithPermission();
                     BindData();
                 }
@@ -46,6 +47,7 @@ namespace TheWeWebSite.CaseMgt
             if (bool.Parse(((DataRow)Session["LocateStore"])["HoldingCompany"].ToString()))
             {
                 LinkCustomerMCreate.Visible = false;
+                divStore.Attributes["style"] = "display: inline;";
                 dataGrid.Columns[dataGrid.Columns.Count - 1].Visible = false;
             }
         }
@@ -64,6 +66,34 @@ namespace TheWeWebSite.CaseMgt
                         new ListItem(
                         dr["Name"].ToString()
                         , dr["Id"].ToString()));
+                }
+            }
+            catch (Exception ex)
+            {
+                SysProperty.Log.Error(ex.Message);
+                ShowErrorMsg(ex.Message);
+            }
+        }
+        private void StoreList()
+        {
+            ddlStore.Items.Clear();
+            ddlStore.Items.Add(new ListItem(Resources.Resource.SeletionRemindString, string.Empty));
+            try
+            {
+                string sql = "SELECT * From Store Where IsDelete=0 And GradeLv != 0 Order by GradeLv, Sn";
+                DataSet ds = SysProperty.GenDbCon.GetDataFromTable(sql);
+                if (!SysProperty.Util.IsDataSetEmpty(ds))
+                {
+                    foreach (DataRow dr in ds.Tables[0].Rows)
+                    {
+                        ddlStore.Items.Add(new ListItem(
+                            SysProperty.Util.OutputRelatedLangName(Session["CultureCode"].ToString(), dr) + "(" + dr["Code"].ToString() + ")"
+                            , dr["Id"].ToString()));
+                    }
+                    if (!bool.Parse(((DataRow)Session["LocateStore"])["HoldingCompany"].ToString()))
+                    {
+                        ddlStore.SelectedValue = ((DataRow)Session["LocateStore"])["Id"].ToString();
+                    }
                 }
             }
             catch (Exception ex)
@@ -150,7 +180,7 @@ namespace TheWeWebSite.CaseMgt
                 dataGrid.DataSource = DS;
                 dataGrid.DataBind();
             }
-        }        
+        }
 
         protected void dataGrid_PageIndexChanged(object source, DataGridPageChangedEventArgs e)
         {
@@ -163,6 +193,7 @@ namespace TheWeWebSite.CaseMgt
             DataRowView dataItem1 = (DataRowView)e.Item.DataItem;
             if (dataItem1 != null)
             {
+                ((Label)e.Item.FindControl("labelStore")).Text = ddlStore.Items.FindByValue(dataItem1["StoreId"].ToString()).Text;
                 Label label = (Label)e.Item.FindControl("dgLabelMsg");
                 label.Text = dataItem1["MessengerId"].ToString() + "(" + dataItem1["MsgerName"].ToString() + ")";
             }
@@ -183,21 +214,22 @@ namespace TheWeWebSite.CaseMgt
             {
                 string sql = "SELECT c.[Id],c.Sn,c.Name,c.EngName,c.Nickname"
                     + ",c.Phone,c.Email,c.Bday,m.Name as MsgerName,c.MessengerId"
-                    + ",c.[IsDelete],c.UpdateAccId,c.UpdateTime"
+                    + ",c.[IsDelete],c.UpdateAccId,c.UpdateTime,c.StoreId"
                     + " FROM[TheWe].[dbo].[vwEN_Customer] as c"
                     + " left join Messenger as m on m.Id = c.MessengerType"
                     + " where c.IsDelete = 0 " + OtherConditionString
-                    + (bool.Parse(((DataRow)Session["LocateStore"])["HoldingCompany"].ToString())
-                    ? string.Empty 
-                    : " and c.StoreId = '" + ((DataRow)Session["LocateStore"])["Id"].ToString() + "'")
-                    + " "+ sortStr;
+                    + (string.IsNullOrEmpty(ddlStore.SelectedValue)
+                    ? string.Empty
+                    : " and c.StoreId = '" + ddlStore.SelectedValue + "'")
+                    + " " + sortStr;
                 DS = SysProperty.GenDbCon.GetDataFromTable(sql);
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 SysProperty.Log.Error(ex.Message);
                 ShowErrorMsg(ex.Message);
                 DS = null;
             }
-        }        
+        }
     }
 }

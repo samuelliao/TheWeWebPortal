@@ -46,6 +46,7 @@
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,CategoryString%>"></asp:Label>
                             </div>
                             <asp:DropDownList runat="server" ID="ddlCategory" AutoPostBack="true" OnSelectedIndexChanged="ddlCategory_SelectedIndexChanged" />
+                            <asp:TextBox runat="server" ID="tbCategory" Style="display: none;" />
                         </div>
 
 
@@ -56,7 +57,7 @@
                             <asp:UpdatePanel runat="server">
                                 <ContentTemplate>
                                     <asp:DropDownList runat="server" ID="ddlType" AutoPostBack="true" OnSelectedIndexChanged="ddlType_SelectedIndexChanged" />
-                                    <asp:TextBox runat="server" ID="tbType" />
+                                    <asp:TextBox runat="server" ID="tbType" Style="display: none;" />
                                 </ContentTemplate>
                             </asp:UpdatePanel>
                         </div>

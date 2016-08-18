@@ -36,20 +36,20 @@
                         <div class="row uniform 50%">
                             <div class="2u 12u(mobilep)">
                                 <div class="Div">
+                                    <asp:Label runat="server" Text="<%$ Resources:Resource,StoreString%>"></asp:Label>
+                                </div>
+                                <asp:UpdatePanel runat="server">
+                                    <ContentTemplate>
+                                        <asp:DropDownList runat="server" ID="ddlStore" />
+                                    </ContentTemplate>
+                                </asp:UpdatePanel>
+                            </div>
+                            <div class="2u 12u(mobilep)">
+                                <div class="Div">
                                     <asp:Label runat="server" Text="<%$ Resources:Resource,SnString%>"></asp:Label>
                                 </div>
                                 <asp:TextBox runat="server" ID="tbSn"></asp:TextBox>
-                            </div>
-                            <div class="2u 12u(mobilep)">
-                                    <div class="Div">
-                                        <asp:Label runat="server" Text="<%$ Resources:Resource,StoreString%>"></asp:Label>
-                                    </div>
-                                    <asp:UpdatePanel runat="server">
-                                        <ContentTemplate>
-                                            <asp:DropDownList runat="server" ID="ddlStore" />
-                                        </ContentTemplate>
-                                    </asp:UpdatePanel>
-                                </div>
+                            </div>                            
                             <div class="2u 12u(mobilep)">
                                 <div class="Div">
                                     <asp:Label runat="server" Text="<%$ Resources:Resource,CountryString%>"></asp:Label>

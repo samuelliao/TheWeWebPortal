@@ -36,17 +36,44 @@ namespace TheWeWebSite.Main
 
         private void InitialControl()
         {
-            string storeId = Session["LocateStore"] == null ? string.Empty : ((DataRow)Session["LocateStore"])["Id"].ToString();
+            string storeId = ((DataRow)Session["LocateStore"])["Id"].ToString();
+            StoreList();
             EmployeeList(storeId);
             calendar.SelectedDate = DateTime.Now;
 
+        }
+        private void StoreList()
+        {
+            ddlStore.Items.Clear();
+            string sql = "Select * From Store Where IsDelete=0 Order by GradeLv, Sn";
+            try
+            {
+                DataSet ds = SysProperty.GenDbCon.GetDataFromTable(sql);
+                if (!SysProperty.Util.IsDataSetEmpty(ds))
+                {
+                    foreach (DataRow dr in ds.Tables[0].Rows)
+                    {
+                        ddlStore.Items.Add(new ListItem(
+                            SysProperty.Util.OutputRelatedLangName(Session["CultureCode"].ToString(), dr) + "(" + dr["Code"].ToString() + ")"
+                            , dr["Id"].ToString()));
+                    }
+                    if (!bool.Parse(((DataRow)Session["LocateStore"])["HoldingCompany"].ToString()))
+                    {
+                        ddlStore.SelectedValue = ((DataRow)Session["LocateStore"])["Id"].ToString();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                SysProperty.Log.Error(ex.Message);
+                ShowErrorMsg(ex.Message);
+            }
         }
 
         private void EmployeeList(string storeId)
         {
             tvEmployee.Nodes.Clear();
-            string sql = "Select * From vwEN_Employee Where IsDelete=0 "
-                + (string.IsNullOrEmpty(storeId) ? string.Empty : "And StoreId='" + storeId + "'");
+            string sql = "Select * From vwEN_Employee Where IsDelete=0 And StoreId='" + storeId + "'";
             DataSet ds = GetDataFromDb(sql);
             if (SysProperty.Util.IsDataSetEmpty(ds)) return;
             string selectedNodeValue = Session["EmployeeId"] == null ? string.Empty : Session["EmployeeId"].ToString();
@@ -77,9 +104,7 @@ namespace TheWeWebSite.Main
         {
             string id = tvEmployee.SelectedValue;
             Session["EmployeeId"] = id;
-            //InitialCalendarSechdule();
             this.Load += this.Page_Load;
-            //Response.Redirect("~/Main/Calendar.aspx");
         }
 
         #region Calendar Control

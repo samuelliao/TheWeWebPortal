@@ -20,6 +20,7 @@ namespace TheWeWebSite.Main
                 else
                 {
                     labelPageTitle.Text = Resources.Resource.MainPageString + " > " + Resources.Resource.ContractScheduleString;
+                    StoreList();
                     BindData();
                 }
             }
@@ -29,6 +30,32 @@ namespace TheWeWebSite.Main
             labelWarnString.Text = msg;
             labelWarnString.Visible = !string.IsNullOrEmpty(msg);
         }
+        private void StoreList()
+        {
+            ddlStore.Items.Clear();
+            string sql = "Select * From Store Where IsDelete=0 Order by GradeLv, Sn";
+            try
+            {
+                DataSet ds = SysProperty.GenDbCon.GetDataFromTable(sql);
+                if (!SysProperty.Util.IsDataSetEmpty(ds))
+                {
+                    foreach (DataRow dr in ds.Tables[0].Rows)
+                    {
+                        ddlStore.Items.Add(new ListItem(
+                            SysProperty.Util.OutputRelatedLangName(Session["CultureCode"].ToString(), dr) + "(" + dr["Code"].ToString() + ")"
+                            , dr["Id"].ToString()));
+                    }
+                    if (!bool.Parse(((DataRow)Session["LocateStore"])["HoldingCompany"].ToString()))
+                    {
+                        ddlStore.SelectedValue = ((DataRow)Session["LocateStore"])["Id"].ToString();
+                    }
+                }
+            }catch(Exception ex)
+            {
+                SysProperty.Log.Error(ex.Message);
+                ShowErrorMsg(ex.Message);
+            }
+        }
 
         #region DataGrid Control
         protected void dataGrid_SortCommand(object source, DataGridSortCommandEventArgs e)
@@ -37,7 +64,7 @@ namespace TheWeWebSite.Main
             {
                 string storeId = bool.Parse(((DataRow)Session["LocateStore"])["HoldingCompany"].ToString())
                     ? string.Empty : ((DataRow)Session["LocateStore"])["Id"].ToString();
-                GetCaseList(storeId, "Order by o." + e.SortExpression + " " + SysProperty.Util.GetSortDirection(e.SortExpression));
+                GetCaseList(storeId, "Order by " + e.SortExpression + " " + SysProperty.Util.GetSortDirection(e.SortExpression));
             }
             if (DS != null)
             {
@@ -51,6 +78,8 @@ namespace TheWeWebSite.Main
             DataRowView dataItem1 = (DataRowView)e.Item.DataItem;
             if (dataItem1 != null)
             {
+                ((Label)e.Item.FindControl("labelStore")).Text = ddlStore.Items.FindByValue(dataItem1["StoreId"].ToString()).Text;
+
                 LinkButton hyperLink1 = (LinkButton)e.Item.FindControl("linkConsult");
                 hyperLink1.Text = dataItem1["ConsultSn"].ToString();
                 hyperLink1.CommandArgument = dataItem1["ConsultId"].ToString();
@@ -109,7 +138,7 @@ namespace TheWeWebSite.Main
         {
             string storeId = bool.Parse(((DataRow)Session["LocateStore"])["HoldingCompany"].ToString())
                 ? string.Empty : ((DataRow)Session["LocateStore"])["Id"].ToString();
-            GetCaseList(storeId, string.Empty);
+            GetCaseList(storeId, " Order by Sn DESC");
             dataGrid.DataSource = DS;
             dataGrid.AllowPaging = !SysProperty.Util.IsDataSetEmpty(DS);
             dataGrid.DataBind();
@@ -145,7 +174,7 @@ namespace TheWeWebSite.Main
                             + ", ci.CnName AS StatusCnName, ci.EngName AS StatusEngName,[CloseTime],o.[CountryId],o.[AreaId],"
                             + "o.[ChurchId],SetId, p.Name AS SetName, p.EngName AS SetEngName,o.EmployeeId,e.Name as EmployeeName"
                             + ", p.JpName AS SetJpName, p.CnName AS SetCnName,o.BookingDate,o.PartnerId, pr.Name AS PartnerName"
-                            + ",o.TotalPrice"
+                            + ",o.TotalPrice,o.StoreId"
                             + " FROM[TheWe].[dbo].[OrderInfo] as o"
                             + " Left join Consultation as c on c.Id = o.ConsultId"
                             + " Left join vwEN_Customer as cus on cus.Id = o.CustomerId"
@@ -154,8 +183,7 @@ namespace TheWeWebSite.Main
                             + " Left join vwEN_Partner as pr on pr.Id = o.PartnerId"
                             + " Left join Employee as e on e.Id = o.EmployeeId"
                             + " WHERE o.IsDelete = 0"
-                            + (string.IsNullOrEmpty(storeId) ? string.Empty : " And o.StoreId='" + storeId + "'")
-                            + otherCondition;
+                            + (string.IsNullOrEmpty(storeId) ? string.Empty : " And o.StoreId='" + storeId + "'");
                     }
 
                     foreach (KeyValuePair<string, PermissionItem> item in lst)
@@ -168,7 +196,7 @@ namespace TheWeWebSite.Main
                                 + ", ci.CnName AS StatusCnName, ci.EngName AS StatusEngName,[CloseTime],o.[CountryId],o.[AreaId],"
                                 + "o.[ChurchId],SetId, p.Name AS SetName, p.EngName AS SetEngName,o.EmployeeId,e.Name as EmployeeName"
                                 + ", p.JpName AS SetJpName, p.CnName AS SetCnName,o.BookingDate,o.PartnerId, pr.Name AS PartnerName"
-                                + ",o.TotalPrice"
+                                + ",o.TotalPrice,o.StoreId"
                                 + " FROM[TheWe].[dbo].[OrderInfo] as o"
                                 + " Left join Consultation as c on c.Id = o.ConsultId"
                                 + " Left join vwEN_Customer as cus on cus.Id = o.CustomerId"
@@ -185,11 +213,10 @@ namespace TheWeWebSite.Main
                             {
                                 sqlTxt += " And o.CountryId = '" + item.Value.ObjectId + "'";
                             }
-                            sqlTxt += " " + otherCondition;
                         }
                     }
 
-                    return sqlTxt;
+                    return "Select * From (" + sqlTxt + ")TBL " + otherCondition;
                 }
                 catch (Exception ex)
                 {
@@ -205,7 +232,7 @@ namespace TheWeWebSite.Main
                             + ", ci.CnName AS StatusCnName, ci.EngName AS StatusEngName,[CloseTime],o.[CountryId],o.[AreaId],"
                             + "o.[ChurchId],SetId, p.Name AS SetName, p.EngName AS SetEngName,o.EmployeeId,e.Name as EmployeeName"
                             + ", p.JpName AS SetJpName, p.CnName AS SetCnName,o.BookingDate,o.PartnerId, pr.Name AS PartnerName"
-                            + ",o.TotalPrice"
+                            + ",o.TotalPrice,o.StoreId"
                             + " FROM[TheWe].[dbo].[OrderInfo] as o"
                             + " Left join Consultation as c on c.Id = o.ConsultId"
                             + " Left join vwEN_Customer as cus on cus.Id = o.CustomerId"
@@ -213,9 +240,8 @@ namespace TheWeWebSite.Main
                             + " Left join ConferenceItem as ci on ci.Id = o.ConferenceCategory"
                             + " Left join vwEN_Partner as pr on pr.Id = o.PartnerId"
                             + " Left join Employee as e on e.Id = o.EmployeeId"
-                            + " WHERE o.IsDelete = 0"
-                            + otherCondition;
-                return sqlTxt;
+                            + " WHERE o.IsDelete = 0";
+                return "Select * From (" + sqlTxt + ")TBL " + otherCondition;
             }
         }
 
