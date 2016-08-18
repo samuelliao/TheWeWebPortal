@@ -651,8 +651,77 @@ namespace TheWeWebSite.StoreMgt
             tbEngName.Text = dr["EngName"].ToString();
             tbPhotoNumber.Text = dr["PhotosNum"].ToString();
             labelBaseId.Text = dr["BaseId"].ToString();
+            tbBridalHairStyle.Text = dr["BridalMakeup"].ToString();
+            tbCorsage.Text = dr["Corsage"].ToString();
+            tbDecorate.Text = dr["Decoration"].ToString();
+            tbFilmLocation.Text = dr["FilmingLocation"].ToString();
+            tbFilmTime.Text = dr["WeddingFilmingTime"].ToString();
+            tbGroomHairStyle.Text = dr["GroomMakeup"].ToString();
+            tbMovemont.Text = dr["Moves"].ToString();
+            tbPerformence.Text = dr["Performence"].ToString();
+            tbRoom.Text = dr["RoomId"].ToString();
+            tbSn.Text = dr["Sn"].ToString();
+            tbStay.Text = dr["StayNight"].ToString();
+            cbBreakfast.Checked = bool.Parse(dr["Breakfast"].ToString());
+            cbCertificate.Checked = bool.Parse(dr["Certificate"].ToString());
+            cbChurchCost.Checked = bool.Parse(dr["ChurchCost"].ToString());
+            cbDinner.Checked = bool.Parse(dr["Dinner"].ToString());
+            cbIroning.Checked = bool.Parse(dr["DressIroning"].ToString());
+            cbLegal.Checked = bool.Parse(dr["IsLegal"].ToString());
+            cbLounge.Checked = bool.Parse(dr["Lounge"].ToString());
+            cbLunch.Checked = bool.Parse(dr["Lunch"].ToString());
+            cbMeeting.Checked = bool.Parse(dr["Kickoff"].ToString());
+            cbPastor.Checked = bool.Parse(dr["Pastor"].ToString());
+            cbPen.Checked = bool.Parse(dr["SignPen"].ToString());
+            cbPillow.Checked = bool.Parse(dr["RingPillow"].ToString());
+            cbRehersal.Checked = bool.Parse(dr["Rehearsal"].ToString());
+            ddlStaff.SelectedValue = dr["Staff"].ToString();
+            ddlWeddingType.SelectedValue = dr["WeddingCategory"].ToString();
 
-            DataSet dsBase = GetDataFromDb(SysProperty.Util.MsSqlTableConverter(MsSqlTable.ProductSet), " Where Id='" + labelBaseId.Text + "'");
+            labelUpdateTime.Text = dr["UpdateTime"].ToString();
+
+            tbCost.Text = SysProperty.Util.ParseMoney(dr["Cost"].ToString()).ToString("#0.00");
+            tbPrice.Text = SysProperty.Util.ParseMoney(dr["Price"].ToString()).ToString("#0.00");
+            if (string.IsNullOrEmpty(labelBaseId.Text))
+            {
+                if (!bool.Parse(((DataRow)Session["LocateStore"])["HoldingCompany"].ToString()))
+                {
+                    DisplayLevelPriceTable(false);
+                    labelBaseId.Text = id;
+                    GetCostAndPrice(
+                        string.IsNullOrEmpty(labelBaseId.Text)
+                        , labelBaseId.Text
+                        , SplitString(ddlStore.SelectedItem.Text, "(", 1).Replace(")", ""));
+                    LoadDataFromBasedId(labelBaseId.Text);
+                }
+                else
+                {
+                    DisplayLevelPriceTable(true);
+                    BindPriceData(id);
+                }
+            }
+            else
+            {
+                DisplayLevelPriceTable(false);
+                GetCostAndPrice(
+                    string.IsNullOrEmpty(labelBaseId.Text)
+                    , labelBaseId.Text
+                    , SplitString(ddlStore.SelectedItem.Text, "(", 1).Replace(")", ""));
+                LoadDataFromBasedId(labelBaseId.Text);
+            }
+
+            SetServiceItemTable(id);
+            FirstGridViewRow_dgChurchServiceItem();
+            SetServiceChurchItemTable(string.IsNullOrEmpty(labelBaseId.Text) ? id : labelBaseId.Text);
+
+            SetControlWithPermission();
+        }
+
+        private void LoadDataFromBasedId(string id)
+        {
+            if (string.IsNullOrEmpty(id)) return;
+            DataSet dsBase = GetDataFromDb(SysProperty.Util.MsSqlTableConverter(MsSqlTable.ProductSet), " Where Id='" + id + "'");
+            if (SysProperty.Util.IsDataSetEmpty(dsBase)) return;
             DataRow drBase = dsBase.Tables[0].Rows[0];
             tbBridalHairStyle.Text = drBase["BridalMakeup"].ToString();
             tbCorsage.Text = drBase["Corsage"].ToString();
@@ -680,42 +749,6 @@ namespace TheWeWebSite.StoreMgt
             cbRehersal.Checked = bool.Parse(drBase["Rehearsal"].ToString());
             ddlStaff.SelectedValue = drBase["Staff"].ToString();
             ddlWeddingType.SelectedValue = drBase["WeddingCategory"].ToString();
-
-            labelUpdateTime.Text = dr["UpdateTime"].ToString();
-
-            tbCost.Text = SysProperty.Util.ParseMoney(dr["Cost"].ToString()).ToString("#0.00");
-            tbPrice.Text = SysProperty.Util.ParseMoney(dr["Price"].ToString()).ToString("#0.00");
-            if (string.IsNullOrEmpty(labelBaseId.Text))
-            {
-                if (!bool.Parse(((DataRow)Session["LocateStore"])["HoldingCompany"].ToString()))
-                {
-                    DisplayLevelPriceTable(false);
-                    labelBaseId.Text = id;
-                    GetCostAndPrice(
-                        string.IsNullOrEmpty(labelBaseId.Text)
-                        , labelBaseId.Text
-                        , SplitString(ddlStore.SelectedItem.Text, "(", 1).Replace(")", ""));
-                }
-                else
-                {
-                    DisplayLevelPriceTable(true);
-                    BindPriceData(id);
-                }
-            }
-            else
-            {
-                DisplayLevelPriceTable(false);
-                GetCostAndPrice(
-                    string.IsNullOrEmpty(labelBaseId.Text)
-                    , labelBaseId.Text
-                    , SplitString(ddlStore.SelectedItem.Text, "(", 1).Replace(")", ""));
-            }
-
-            SetServiceItemTable(id);
-            FirstGridViewRow_dgChurchServiceItem();
-            SetServiceChurchItemTable(string.IsNullOrEmpty(labelBaseId.Text) ? id : labelBaseId.Text);
-
-            SetControlWithPermission();
         }
 
         private void GetCostAndPrice(bool hasBased, string setId, string storeId)
