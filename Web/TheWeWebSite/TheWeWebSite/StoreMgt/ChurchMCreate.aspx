@@ -77,7 +77,7 @@
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,CnNameString%>"></asp:Label>
                             </div>
-                            <asp:TextBox CssClass="required"  runat="server" ID="tbCnName"></asp:TextBox>
+                            <asp:TextBox runat="server" ID="tbCnName"></asp:TextBox>
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">

@@ -45,8 +45,67 @@ namespace TheWeWebSite.CaseMgt
                         btnDelete.Visible = false;
                     }
                     InitialControlWithPermission();
+                    TextHint();
                 }
             }
+        }
+
+        private void TextHint()
+        {
+            tbAddress.Attributes.Add("placeholder", Resources.Resource.AddString + Resources.Resource.AddressString);
+            tbAdvisorySn.Attributes.Add("placeHolder", Resources.Resource.SystemString);
+            tbBridalEmail.Attributes.Add("placeHolder", Resources.Resource.AddString + Resources.Resource.BridalEmailString);
+            tbBridalMsgerId.Attributes.Add("placeHolder", Resources.Resource.AddString + Resources.Resource.BridalCommunicationIdString);
+            tbBridalName.Attributes.Add("placeHolder", Resources.Resource.AddString + Resources.Resource.BridalNameString);
+            tbBridalNickname.Attributes.Add("placeHolder", Resources.Resource.AddString + Resources.Resource.BridalNicknameString);
+
+            tbBridalPassportName.Attributes.Add("placeHolder", Resources.Resource.AddString + Resources.Resource.BridalPassportString);
+            tbBridalPhone.Attributes.Add("placeHolder", Resources.Resource.AddString + Resources.Resource.BridalPhoneString);
+
+            tbCaseSn.Attributes.Add("placeHolder", Resources.Resource.AddString + Resources.Resource.CaseIdString);
+            tbContractPrice.Attributes.Add("placeHolder", "0.00");
+
+            tbCustomerSn.Attributes.Add("placeHolder", Resources.Resource.SystemString);
+
+
+            tbDeposit1.Attributes.Add("placeHolder", "0.00");
+            tbDeposit1Date.Attributes.Add("placeHolder", Resources.Resource.AddString + Resources.Resource.DepositString + Resources.Resource.PaymentTimeString);
+            tbDeposit1Type.Attributes.Add("placeHolder", Resources.Resource.AddString + Resources.Resource.DepositString + Resources.Resource.PaymentMethodString);
+
+            tbDeposit2.Attributes.Add("placeHolder", "0.00");
+            tbDeposit2Date.Attributes.Add("placeHolder", Resources.Resource.AddString + Resources.Resource.SecondString + Resources.Resource.PaymentTimeString);
+            tbDeposit2Type.Attributes.Add("placeHolder", Resources.Resource.AddString + Resources.Resource.SecondString + Resources.Resource.PaymentMethodString);
+
+            tbDiscount.Attributes.Add("placeHolder", Resources.Resource.AddString + Resources.Resource.DiscountString);
+
+            tbGroomEmail.Attributes.Add("placeHolder", Resources.Resource.AddString + Resources.Resource.GroomEmailString);
+            tbGroomMsgerId.Attributes.Add("placeHolder", Resources.Resource.AddString + Resources.Resource.GroomCommunicationIdString);
+            tbGroomName.Attributes.Add("placeHolder", Resources.Resource.AddString + Resources.Resource.GroomNameString);
+            tbGroomNickname.Attributes.Add("placeHolder", Resources.Resource.AddString + Resources.Resource.GroomNicknameString);
+            tbGroomPassportName.Attributes.Add("placeHolder", Resources.Resource.AddString + Resources.Resource.GroomPassportString);
+            tbGroomPhone.Attributes.Add("placeHolder", Resources.Resource.AddString + Resources.Resource.GroomPhoneString);
+            tbMsgerTitle.Attributes.Add("placeHolder", Resources.Resource.AddString + Resources.Resource.SnsTitleString);
+
+
+            tbPayOff.Attributes.Add("placeHolder", "0.00");
+            tbPayOffDate.Attributes.Add("placeHolder", Resources.Resource.AddString + Resources.Resource.BalanceDueString + Resources.Resource.PaymentTimeString);
+            tbPayOffType.Attributes.Add("placeHolder", Resources.Resource.AddString + Resources.Resource.BalanceDueString + Resources.Resource.PaymentMethodString);
+
+            tbReferrals.Attributes.Add("placeHolder", Resources.Resource.AddString + Resources.Resource.ReferralsString);
+
+            tbRemark.Attributes.Add("placeHolder", Resources.Resource.AddString + Resources.Resource.RemarkString);
+            tbTotalPrice.Attributes.Add("placeHolder", "0.00");
+
+            labelDeposit1.Text = Resources.Resource.DepositString;
+            labelDepositDate1.Text = Resources.Resource.DepositString + Resources.Resource.PaymentTimeString;
+            labelDepositMethod1.Text = Resources.Resource.DepositString + Resources.Resource.PaymentMethodString;
+            labelDeposit2.Text = Resources.Resource.SecondPayString;
+            labelDepositDate2.Text = Resources.Resource.SecondString + Resources.Resource.PaymentTimeString;
+            labelDepositMethod2.Text = Resources.Resource.SecondString + Resources.Resource.PaymentMethodString;
+            labelDeposit3.Text = Resources.Resource.BalanceDueString;
+            labelDepositDate3.Text = Resources.Resource.BalanceDueString + Resources.Resource.PaymentTimeString;
+            labelDepositMethod3.Text = Resources.Resource.BalanceDueString + Resources.Resource.PaymentMethodString;
+
         }
 
         private void ShowErrorMsg(string msg)
@@ -95,6 +154,19 @@ namespace TheWeWebSite.CaseMgt
                 dgServiceItem.Enabled = false;
                 btnUpload.Visible = false;
                 panelBasicInfo.Enabled = false;
+
+                ddlProductSet.CssClass = "Enable";
+                tbCaseSn.CssClass = "Enable";
+                ddlArea.CssClass = "Enable";
+                ddlCountry.CssClass = "Enable";
+                ddlLocate.CssClass = "Enable";
+                ddlOrderType.CssClass = "Enable";
+                ddlStatus.CssClass = "Enable";
+                tbAppointDate.CssClass = "Enable";
+                tbBridalName.CssClass = "Enable";
+                tbGroomName.CssClass = "Enable";
+                tbContractPrice.CssClass = "Enable";
+                tbTotalPrice.CssClass = "Enable";
             }
         }
 
@@ -108,6 +180,7 @@ namespace TheWeWebSite.CaseMgt
                 btnClear.Visible = false;
                 dgServiceItem.Enabled = false;
                 btnUpload.Visible = false;
+
             }
             else
             {

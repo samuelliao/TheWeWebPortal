@@ -67,6 +67,15 @@ namespace TheWeWebSite.CaseMgt {
         protected global::System.Web.UI.WebControls.TextBox tbCaseSn;
         
         /// <summary>
+        /// RequiredFieldValidator1 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator1;
+        
+        /// <summary>
         /// tbSysSn 控制項。
         /// </summary>
         /// <remarks>
@@ -94,6 +103,15 @@ namespace TheWeWebSite.CaseMgt {
         protected global::System.Web.UI.WebControls.DropDownList ddlStatus;
         
         /// <summary>
+        /// RequiredFieldValidator2 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator2;
+        
+        /// <summary>
         /// tbContractTime 控制項。
         /// </summary>
         /// <remarks>
@@ -110,6 +128,15 @@ namespace TheWeWebSite.CaseMgt {
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox tbAppointDate;
+        
+        /// <summary>
+        /// RequiredFieldValidator3 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator3;
         
         /// <summary>
         /// tbCloseDay 控制項。
@@ -130,6 +157,15 @@ namespace TheWeWebSite.CaseMgt {
         protected global::System.Web.UI.WebControls.DropDownList ddlOrderType;
         
         /// <summary>
+        /// RequiredFieldValidator4 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator4;
+        
+        /// <summary>
         /// ddlCountry 控制項。
         /// </summary>
         /// <remarks>
@@ -137,6 +173,15 @@ namespace TheWeWebSite.CaseMgt {
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlCountry;
+        
+        /// <summary>
+        /// RequiredFieldValidator5 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator5;
         
         /// <summary>
         /// ddlArea 控制項。
@@ -148,6 +193,15 @@ namespace TheWeWebSite.CaseMgt {
         protected global::System.Web.UI.WebControls.DropDownList ddlArea;
         
         /// <summary>
+        /// RequiredFieldValidator6 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator6;
+        
+        /// <summary>
         /// ddlLocate 控制項。
         /// </summary>
         /// <remarks>
@@ -155,6 +209,15 @@ namespace TheWeWebSite.CaseMgt {
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlLocate;
+        
+        /// <summary>
+        /// RequiredFieldValidator7 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator7;
         
         /// <summary>
         /// ddlProductSet 控制項。
@@ -166,6 +229,15 @@ namespace TheWeWebSite.CaseMgt {
         protected global::System.Web.UI.WebControls.DropDownList ddlProductSet;
         
         /// <summary>
+        /// RequiredFieldValidator8 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator8;
+        
+        /// <summary>
         /// tbBridalName 控制項。
         /// </summary>
         /// <remarks>
@@ -173,6 +245,15 @@ namespace TheWeWebSite.CaseMgt {
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox tbBridalName;
+        
+        /// <summary>
+        /// RequiredFieldValidator9 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator9;
         
         /// <summary>
         /// tbBridalBday 控制項。
@@ -245,6 +326,15 @@ namespace TheWeWebSite.CaseMgt {
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox tbGroomName;
+        
+        /// <summary>
+        /// RequiredFieldValidator10 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator10;
         
         /// <summary>
         /// tbGroomBday 控制項。
@@ -463,6 +553,15 @@ namespace TheWeWebSite.CaseMgt {
         protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidator3;
         
         /// <summary>
+        /// labelDeposit1 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label labelDeposit1;
+        
+        /// <summary>
         /// tbDeposit1 控制項。
         /// </summary>
         /// <remarks>
@@ -479,6 +578,51 @@ namespace TheWeWebSite.CaseMgt {
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
         protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidator4;
+        
+        /// <summary>
+        /// labelDepositDate1 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label labelDepositDate1;
+        
+        /// <summary>
+        /// tbDeposit1Date 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tbDeposit1Date;
+        
+        /// <summary>
+        /// labelDepositMethod1 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label labelDepositMethod1;
+        
+        /// <summary>
+        /// tbDeposit1Type 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tbDeposit1Type;
+        
+        /// <summary>
+        /// labelDeposit2 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label labelDeposit2;
         
         /// <summary>
         /// tbDeposit2 控制項。
@@ -499,6 +643,51 @@ namespace TheWeWebSite.CaseMgt {
         protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidator5;
         
         /// <summary>
+        /// labelDepositDate2 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label labelDepositDate2;
+        
+        /// <summary>
+        /// tbDeposit2Date 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tbDeposit2Date;
+        
+        /// <summary>
+        /// labelDepositMethod2 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label labelDepositMethod2;
+        
+        /// <summary>
+        /// tbDeposit2Type 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tbDeposit2Type;
+        
+        /// <summary>
+        /// labelDeposit3 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label labelDeposit3;
+        
+        /// <summary>
         /// tbPayOff 控制項。
         /// </summary>
         /// <remarks>
@@ -517,22 +706,13 @@ namespace TheWeWebSite.CaseMgt {
         protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidator6;
         
         /// <summary>
-        /// tbDeposit1Date 控制項。
+        /// labelDepositDate3 控制項。
         /// </summary>
         /// <remarks>
         /// 自動產生的欄位。
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbDeposit1Date;
-        
-        /// <summary>
-        /// tbDeposit2Date 控制項。
-        /// </summary>
-        /// <remarks>
-        /// 自動產生的欄位。
-        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbDeposit2Date;
+        protected global::System.Web.UI.WebControls.Label labelDepositDate3;
         
         /// <summary>
         /// tbPayOffDate 控制項。
@@ -544,22 +724,13 @@ namespace TheWeWebSite.CaseMgt {
         protected global::System.Web.UI.WebControls.TextBox tbPayOffDate;
         
         /// <summary>
-        /// tbDeposit1Type 控制項。
+        /// labelDepositMethod3 控制項。
         /// </summary>
         /// <remarks>
         /// 自動產生的欄位。
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbDeposit1Type;
-        
-        /// <summary>
-        /// tbDeposit2Type 控制項。
-        /// </summary>
-        /// <remarks>
-        /// 自動產生的欄位。
-        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbDeposit2Type;
+        protected global::System.Web.UI.WebControls.Label labelDepositMethod3;
         
         /// <summary>
         /// tbPayOffType 控制項。

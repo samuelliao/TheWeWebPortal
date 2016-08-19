@@ -18,7 +18,7 @@
         <!-- Main -->
         <My:Header runat="server" ID="ucHeader" />
 
-        <section class="box title">
+        <section class="box title CreatePage">
             <h3>
                 <asp:Label runat="server" Text="" ID="labelPageTitle"></asp:Label></h3>
         </section>
@@ -55,7 +55,11 @@
                                 <asp:UpdatePanel runat="server">
                                     <ContentTemplate>
                                         <asp:TextBox runat="server" Style="text-align: right" ID="tbBookingDate" OnTextChanged="tbBookingDate_TextChanged"
-                                            CssClass="date date-1" value="" placeholder="YYYY-MM-DD HH:MM APM" data-timeformat="HH:MM"></asp:TextBox>
+                                            CssClass="date date-1 required" value="" placeholder="YYYY-MM-DD HH:MM APM" data-timeformat="HH:MM"></asp:TextBox>
+                                        <asp:RequiredFieldValidator ID="RequiredFieldValidator1"
+                                            ControlToValidate="tbBookingDate" runat="server"
+                                            ErrorMessage="required"
+                                            CssClass="error" Display="Dynamic"></asp:RequiredFieldValidator>
                                     </ContentTemplate>
                                 </asp:UpdatePanel>
                             </div>
@@ -70,7 +74,9 @@
                                 <div class="Div">
                                     <asp:Label runat="server" Text="<%$ Resources:Resource,StatusString%>"></asp:Label>
                                 </div>
-                                <asp:DropDownList runat="server" ID="ddlStatus" />
+                                <asp:DropDownList CssClass="required" runat="server" ID="ddlStatus" />
+                                <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="ddlStatus" runat="server"
+                                ErrorMessage="required" CssClass="error" Display="Dynamic"></asp:RequiredFieldValidator>
                             </div>
                         </div>
                     </div>
@@ -81,7 +87,11 @@
                                 <div class="Div">
                                     <asp:Label runat="server" Text="<%$ Resources:Resource,BridalNameString%>"></asp:Label>
                                 </div>
-                                <asp:TextBox runat="server" ID="tbBridalName"></asp:TextBox>
+                                <asp:TextBox CssClass="required" runat="server" ID="tbBridalName"></asp:TextBox>
+                                <asp:RequiredFieldValidator ID="RequiredFieldValidator3"
+                                ControlToValidate="tbBridalName" runat="server"
+                                ErrorMessage="required"
+                                CssClass="error" Display="Dynamic"></asp:RequiredFieldValidator>
                             </div>
 
                             <div class="2u 12u(mobilep)">
@@ -103,7 +113,11 @@
                                 <div class="Div">
                                     <asp:Label runat="server" Text="<%$ Resources:Resource,BridalPhoneString%>"></asp:Label>
                                 </div>
-                                <asp:TextBox runat="server" ID="tbBridalPhone"></asp:TextBox>
+                                <asp:TextBox CssClass="required" runat="server" ID="tbBridalPhone"></asp:TextBox>
+                                <asp:RequiredFieldValidator ID="RequiredFieldValidator4"
+                                ControlToValidate="tbBridalPhone" runat="server"
+                                ErrorMessage="required"
+                                CssClass="error" Display="Dynamic"></asp:RequiredFieldValidator>
                             </div>
                             <div class="2u 12u(mobilep)">
                                 <div class="Div">
@@ -135,7 +149,11 @@
                                 <div class="Div">
                                     <asp:Label runat="server" Text="<%$ Resources:Resource,BridalEmailString%>"></asp:Label>
                                 </div>
-                                <asp:TextBox runat="server" ID="tbBridalEmail"></asp:TextBox>
+                                <asp:TextBox CssClass="required" runat="server" ID="tbBridalEmail"></asp:TextBox>
+                                <asp:RequiredFieldValidator ID="RequiredFieldValidator5"
+                                ControlToValidate="tbBridalEmail" runat="server"
+                                ErrorMessage="required"
+                                CssClass="error" Display="Dynamic"></asp:RequiredFieldValidator>
                             </div>
 
 
@@ -339,7 +357,7 @@
                             ID="btnModify" OnClick="btnModify_Click" Visible="false" />
                     </li>
                     <li>
-                        <asp:Button runat="server" CssClass="button alt" Text="<%$ Resources:Resource,ClearString%>"
+                        <asp:Button CausesValidation="false" runat="server" CssClass="button alt" Text="<%$ Resources:Resource,ClearString%>"
                             ID="btnClear" OnClick="btnClear_Click" />
                     </li>
                     <li>
@@ -347,10 +365,10 @@
                             ID="btnDelete" OnClick="btnDelete_Click" Visible="false" />
                     </li>
                     <li>
-                        <asp:Button runat="server" CssClass="button alt" Text="<%$ Resources:Resource,ExportString%>" ID="btnExport" OnClick="btnExport_Click" />
+                        <asp:Button CausesValidation="false" runat="server" CssClass="button alt" Text="<%$ Resources:Resource,ExportString%>" ID="btnExport" OnClick="btnExport_Click" />
                     </li>
                     <li>
-                        <asp:Button runat="server" CssClass="button alt" Text="<%$ Resources:Resource,CancelString%>"
+                        <asp:Button CausesValidation="false" runat="server" CssClass="button alt" Text="<%$ Resources:Resource,CancelString%>"
                             ID="btnCancel" OnClick="btnCancel_Click" />
                     </li>
                 </ul>

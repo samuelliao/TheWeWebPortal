@@ -94,6 +94,15 @@ namespace TheWeWebSite.CaseMgt {
         protected global::System.Web.UI.WebControls.TextBox tbBookingDate;
         
         /// <summary>
+        /// RequiredFieldValidator1 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator1;
+        
+        /// <summary>
         /// tbLastReceived 控制項。
         /// </summary>
         /// <remarks>
@@ -112,6 +121,15 @@ namespace TheWeWebSite.CaseMgt {
         protected global::System.Web.UI.WebControls.DropDownList ddlStatus;
         
         /// <summary>
+        /// RequiredFieldValidator2 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator2;
+        
+        /// <summary>
         /// tbBridalName 控制項。
         /// </summary>
         /// <remarks>
@@ -119,6 +137,15 @@ namespace TheWeWebSite.CaseMgt {
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox tbBridalName;
+        
+        /// <summary>
+        /// RequiredFieldValidator3 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator3;
         
         /// <summary>
         /// tbBridalEngName 控制項。
@@ -146,6 +173,15 @@ namespace TheWeWebSite.CaseMgt {
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox tbBridalPhone;
+        
+        /// <summary>
+        /// RequiredFieldValidator4 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator4;
         
         /// <summary>
         /// ddlBridalMsgerType 控制項。
@@ -182,6 +218,15 @@ namespace TheWeWebSite.CaseMgt {
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox tbBridalEmail;
+        
+        /// <summary>
+        /// RequiredFieldValidator5 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator5;
         
         /// <summary>
         /// tbGroomName 控制項。

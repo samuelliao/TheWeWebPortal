@@ -28,6 +28,7 @@ namespace TheWeWebSite.CaseMgt
                 {
                     SysProperty.DataSetSortType = true;
                     InitialControls();
+                    TextHint();
 
                     if (Session["ConsultId"] != null)
                     {
@@ -52,6 +53,26 @@ namespace TheWeWebSite.CaseMgt
                     InitialControlWithPermission();
                 }
             }
+        }
+
+        private void TextHint()
+        {
+            tbBridalEmail.Attributes.Add("placeHolder", Resources.Resource.AddString + Resources.Resource.BridalEmailString);
+            tbBridalEngName.Attributes.Add("placeHolder", Resources.Resource.AddString + Resources.Resource.BridalEngNameString);
+            tbBridalMsgId.Attributes.Add("placeHolder", Resources.Resource.AddString + Resources.Resource.BridalCommunicationIdString);
+            tbBridalName.Attributes.Add("placeHolder", Resources.Resource.AddString + Resources.Resource.BridalNameString);
+            tbBridalPhone.Attributes.Add("placeHolder", Resources.Resource.AddString + Resources.Resource.BridalPhoneString);
+            tbBridalWork.Attributes.Add("placeHolder", Resources.Resource.AddString + Resources.Resource.BridalWorkString);
+            tbGroomEmail.Attributes.Add("placeHolder", Resources.Resource.AddString + Resources.Resource.GroomEmailString);
+            tbGroomEngName.Attributes.Add("placeHolder", Resources.Resource.AddString + Resources.Resource.GroomEngNameString);
+            tbGroomMsgId.Attributes.Add("placeHolder", Resources.Resource.AddString + Resources.Resource.GroomCommunicationIdString);
+            tbGroomName.Attributes.Add("placeHolder", Resources.Resource.AddString + Resources.Resource.GroomNameString);
+            tbGroomPhone.Attributes.Add("placeHolder", Resources.Resource.AddString + Resources.Resource.GroomPhoneString);
+            tbGroomWork.Attributes.Add("placeHolder", Resources.Resource.AddString + Resources.Resource.GroomWorkString);
+            tbRemark.Attributes.Add("placeHolder", Resources.Resource.AddString + Resources.Resource.RemarkString);
+            tbSn.Attributes.Add("placeHolder", Resources.Resource.SnInputString);
+
+
         }
 
         private void ShowErrorMsg(string msg)
@@ -81,7 +102,14 @@ namespace TheWeWebSite.CaseMgt
                 btnCreate.Visible = false;
                 btnClear.Visible = false;
                 panelBasicInfo.Enabled = false;
+                tbBookingDate.CssClass = "Enable";
+                ddlStatus.CssClass = "Enable";
+                tbBridalName.CssClass = "Enable";
+                tbBridalPhone.CssClass = "Enable";
+                tbBridalEmail.CssClass = "Enable";
             }
+           
+
         }
         private void InitialControls()
         {

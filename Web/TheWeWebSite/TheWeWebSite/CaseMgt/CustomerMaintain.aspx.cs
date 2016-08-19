@@ -27,8 +27,14 @@ namespace TheWeWebSite.CaseMgt
                     StoreList();
                     InitialControlWithPermission();
                     BindData();
+                    TextHint();
                 }
             }
+        }
+
+        private void TextHint()
+        {
+            tbMsgId.Attributes.Add("placeHolder", Resources.Resource.AddString + Resources.Resource.MsgIdString);
         }
 
         private void ShowErrorMsg(string msg)

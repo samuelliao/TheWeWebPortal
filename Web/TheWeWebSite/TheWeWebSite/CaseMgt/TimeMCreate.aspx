@@ -16,7 +16,7 @@
         <My:Header runat="server" ID="ucHeader" />
         <!-- Main -->
 
-        <section class="box title">
+        <section class="box title CreatePage">
             <h3>
                 <asp:Label runat="server" Text="" ID="labelPageTitle"></asp:Label></h3>
         </section>
@@ -38,7 +38,7 @@
                                 <div class="Div">
                                     <asp:Label runat="server" Text="<%$ Resources:Resource,SnString%>"></asp:Label>
                                 </div>
-                                <asp:TextBox runat="server" ID="labelSn" Enabled="false" />
+                                <asp:TextBox runat="server" placeholder="<%$ Resources:Resource,SystemString%>" ID="labelSn" Enabled="false" />
                                 <asp:CheckBox runat="server" ID="cbIsClose" Visible="false" />
                             </div>
                             <div class="2u 12u(mobilep)">
@@ -46,14 +46,14 @@
                                     <asp:Label runat="server" Text="<%$ Resources:Resource,ExpectedDateString%>"></asp:Label>
                                 </div>
                                 <div>
-                                    <asp:TextBox runat="server" ID="tbContractDate" Enabled="false"></asp:TextBox>
+                                    <asp:TextBox runat="server" placeholder="<%$ Resources:Resource,SystemString%>" ID="tbContractDate" Enabled="false"></asp:TextBox>
                                 </div>
                             </div>
                             <div class="2u 12u(mobilep)">
                                 <div class="Div">
                                     <asp:Label runat="server" Text="<%$ Resources:Resource,BridalNameString%>"></asp:Label>
                                 </div>
-                                <asp:TextBox runat="server" ID="tbBridalName" Enabled="false"></asp:TextBox>
+                                <asp:TextBox runat="server" placeholder="<%$ Resources:Resource,SystemString%>" ID="tbBridalName" Enabled="false"></asp:TextBox>
                                 <asp:Label runat="server" Visible="false" ID="labelBridalEngName" />
                                 <asp:Label runat="server" Visible="false" ID="labelBridalPhone" />
                             </div>
@@ -61,7 +61,7 @@
                                 <div class="Div">
                                     <asp:Label runat="server" Text="<%$ Resources:Resource,GroomNameString%>"></asp:Label>
                                 </div>
-                                <asp:TextBox runat="server" ID="tbGroomName" Enabled="false"></asp:TextBox>
+                                <asp:TextBox runat="server" placeholder="<%$ Resources:Resource,SystemString%>" ID="tbGroomName" Enabled="false"></asp:TextBox>
                                 <asp:Label runat="server" Visible="false" ID="labelGroomEngName" />
                                 <asp:Label runat="server" Visible="false" ID="labelGroomPhone" />
                             </div>
@@ -69,29 +69,30 @@
                                 <div class="Div">
                                     <asp:Label runat="server" Text="<%$ Resources:Resource,CountryString%>"></asp:Label>
                                 </div>
-                                <asp:TextBox runat="server" ID="tbCountry" Enabled="false" />
+                                <asp:TextBox runat="server" placeholder="<%$ Resources:Resource,SystemString%>" ID="tbCountry" Enabled="false" />
                             </div>
                             <div class="2u 12u(mobilep)">
                                 <div class="Div">
                                     <asp:Label runat="server" Text="<%$ Resources:Resource,AreaString%>"></asp:Label>
                                 </div>
-                                <asp:TextBox runat="server" ID="tbArea" Enabled="false" />
+                                <asp:TextBox runat="server" placeholder="<%$ Resources:Resource,SystemString%>" ID="tbArea" Enabled="false" />
                             </div>
-                            <div class="2u 12u(mobilep)">
-                                <div class="Div">
-                                    <asp:Label runat="server" Text="<%$ Resources:Resource,LocateString%>"></asp:Label>
-                                </div>
-                                <asp:TextBox runat="server" ID="tbLocation" Enabled="false" />
-                            </div>
+                           
                         </div>
                     </div>
                     <div class="12u">
                         <div class="row uniform 50%">
+                             <div class="2u 12u(mobilep)">
+                                <div class="Div">
+                                    <asp:Label runat="server" Text="<%$ Resources:Resource,LocateString%>"></asp:Label>
+                                </div>
+                                <asp:TextBox runat="server" placeholder="<%$ Resources:Resource,SystemString%>" ID="tbLocation" Enabled="false" />
+                            </div>
                             <div class="2u 12u(mobilep)">
                                 <div class="Div">
                                     <asp:Label runat="server" Text="<%$ Resources:Resource,ProductSetString%>"></asp:Label>
                                 </div>
-                                <asp:TextBox runat="server" ID="tbProductSet" Enabled="false" />
+                                <asp:TextBox runat="server" placeholder="<%$ Resources:Resource,SystemString%>" ID="tbProductSet" Enabled="false" />
                                 <asp:Label runat="server" ID="labelWeddingCategory" Visible="false" />
                             </div>
                             <div class="2u 12u(mobilep)">
@@ -153,7 +154,7 @@
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,RemarkString%>"></asp:Label>
                                 <asp:UpdatePanel runat="server">
                                     <ContentTemplate>
-                                        <asp:TextBox runat="server" ID="tbRemark" TextMode="MultiLine" Rows="10" />
+                                        <asp:TextBox runat="server" placeholder="<%$ Resources:Resource,ContentInputString%>" ID="tbRemark" TextMode="MultiLine" Rows="10" />
                                     </ContentTemplate>
                                 </asp:UpdatePanel>
                             </div>

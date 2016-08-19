@@ -25,8 +25,22 @@ namespace TheWeWebSite.CaseMgt
                     StoreList();
                     InitialControlWithPermission();
                     BindData();
+                    TextHint();
                 }
             }
+        }
+
+        private void TextHint()
+        {
+            tbConsultSn.Attributes.Add("placeHolder", Resources.Resource.AddString + Resources.Resource.SnString);
+            tbBridalName.Attributes.Add("placeHolder", Resources.Resource.AddString + Resources.Resource.BridalNameString);
+            tbGroomName.Attributes.Add("placeHolder", Resources.Resource.AddString + Resources.Resource.GroomNameString);
+            labelSearchStartDate.Text = Resources.Resource.StartDateString + "(" + Resources.Resource.StartString + ")";
+            labelSearchEndDate.Text = Resources.Resource.StartDateString + "(" + Resources.Resource.EndString + ")";
+            labelBookStartDate.Text = Resources.Resource.AppointmentDateString + "(" + Resources.Resource.StartString + ")";
+            labelBookStartDate.Text = Resources.Resource.AppointmentDateString + "(" + Resources.Resource.EndString + ")";
+
+
         }
 
         private void ShowErrorMsg(string msg)

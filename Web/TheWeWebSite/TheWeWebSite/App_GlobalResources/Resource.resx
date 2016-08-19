@@ -466,7 +466,7 @@
     <value>Msger</value>
   </data>
   <data name="UploadString" xml:space="preserve">
-    <value>Upload</value>
+    <value>Upload Photo</value>
   </data>
   <data name="AreaNameInputString" xml:space="preserve">
     <value>Please input area name</value>
@@ -1054,6 +1054,27 @@
     <value></value>
   </data>
   <data name="CorrespondString" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="DepositString" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="SecondPayString" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="BalanceDueString" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="PaymentTimeString" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="PaymentMethodString" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="SecondString" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="SystemString" xml:space="preserve">
     <value></value>
   </data>
 </root>

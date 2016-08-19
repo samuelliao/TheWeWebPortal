@@ -16,7 +16,7 @@
         <My:Header runat="server" ID="ucHeader" />
         <!-- Main -->
 
-        <section class="box title">
+        <section class="box title CreatePage">
             <h3>
                 <asp:Label runat="server" Text="" ID="labelPageTitle"></asp:Label></h3>
         </section>
@@ -38,7 +38,11 @@
                                 <div class="Div">
                                     <asp:Label runat="server" Text="<%$ Resources:Resource,NameString%>"></asp:Label>
                                 </div>
-                                <asp:TextBox runat="server" ID="tbName" placeholder="<%$ Resources:Resource,NameInputString%>"></asp:TextBox>
+                                <asp:TextBox CssClass="required" runat="server" ID="tbName" placeholder="<%$ Resources:Resource,NameInputString%>"></asp:TextBox>
+                                <asp:RequiredFieldValidator ID="RequiredFieldValidator1"
+                                ControlToValidate="tbName" runat="server"
+                                ErrorMessage="required"
+                                CssClass="error" Display="Dynamic"></asp:RequiredFieldValidator>
                             </div>
                             <div class="2u 12u(mobilep)">
                                 <div class="Div">
@@ -130,7 +134,8 @@
                             ID="btnModify" OnClick="btnModify_Click" Visible="false" />
                     </li>
                     <li>
-                        <asp:Button runat="server" CssClass="button alt" Text="<%$ Resources:Resource,ClearString%>"
+                        <asp:Button CausesValidation="false"
+                            runat="server" CssClass="button alt" Text="<%$ Resources:Resource,ClearString%>"
                             ID="btnClear" OnClick="btnClear_Click" />
                     </li>
                     <li>
@@ -138,7 +143,8 @@
                             ID="btnDelete" OnClick="btnDelete_Click" />
                     </li>
                     <li>
-                        <asp:Button runat="server" CssClass="button alt" Text="<%$ Resources:Resource,CancelString%>"
+                        <asp:Button CausesValidation="false"
+                            runat="server" CssClass="button alt" Text="<%$ Resources:Resource,CancelString%>"
                             ID="btnCancel" OnClick="btnCancel_Click" />
                     </li>
                 </ul>

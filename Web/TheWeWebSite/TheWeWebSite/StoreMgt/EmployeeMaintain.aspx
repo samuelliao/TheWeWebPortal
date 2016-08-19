@@ -43,9 +43,9 @@
                                 </div>
                                 <div class="2u 12u(mobilep)">
                                     <div class="Div">
-                                        <asp:Label runat="server" Text="<%$ Resources:Resource,EmployeeSnString%>"></asp:Label>
+                                        <asp:Label runat="server"  Text="<%$ Resources:Resource,EmployeeSnString%>"></asp:Label>
                                     </div>
-                                    <asp:TextBox runat="server" ID="tbEmpSn"></asp:TextBox>
+                                    <asp:TextBox runat="server" placeholder="<%$ Resources:Resource,SnInputString%>" ID="tbEmpSn"></asp:TextBox>
                                 </div>
                                 <div class="2u 12u(mobilep)">
                                     <div class="Div">
@@ -55,15 +55,15 @@
                                 </div>
                                 <div class="2u 12u(mobilep)">
                                     <div class="Div">
-                                        <asp:Label runat="server" Text="<%$ Resources:Resource,NameString%>"></asp:Label>
+                                        <asp:Label runat="server"  Text="<%$ Resources:Resource,NameString%>"></asp:Label>
                                     </div>
-                                    <asp:TextBox runat="server" placeholder="請輸入姓名..." ID="tbEmpName"></asp:TextBox>
+                                    <asp:TextBox runat="server" placeholder="<%$ Resources:Resource,NameInputString%>"  ID="tbEmpName"></asp:TextBox>
                                 </div>
                                 <div class="2u 12u(mobilep)">
                                     <div class="Div">
                                         <asp:Label runat="server" Text="<%$ Resources:Resource,PhoneString%>"></asp:Label>
                                     </div>
-                                    <asp:TextBox runat="server" placeholder="請輸入電話..." ID="tbEmpTel"></asp:TextBox>
+                                    <asp:TextBox runat="server" placeholder="<%$ Resources:Resource,PhoneInputString%>" ID="tbEmpTel"></asp:TextBox>
                                 </div>
 
                             </div>

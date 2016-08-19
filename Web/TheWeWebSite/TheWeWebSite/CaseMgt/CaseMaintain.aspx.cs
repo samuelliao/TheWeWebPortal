@@ -39,7 +39,12 @@ namespace TheWeWebSite.CaseMgt
             labelContractSearchStartDate.Text = Resources.Resource.ContractDateString + "(" + Resources.Resource.StartString + ")";
             labelContractSearchEndDate.Text = Resources.Resource.ContractDateString + "(" + Resources.Resource.EndString + ")";
             labelClosedSearchStartDate.Text = Resources.Resource.ContractCloseDateString + "(" + Resources.Resource.StartString + ")";
-            labelClosedSearchStartDate.Text = Resources.Resource.ContractCloseDateString + "(" + Resources.Resource.EndString + ")";
+            labelClosedSearchEndDate.Text = Resources.Resource.ContractCloseDateString + "(" + Resources.Resource.EndString + ")";
+            tbBridalName.Attributes.Add("placeHolder", Resources.Resource.AddString + Resources.Resource.BridalNameString);
+            tbCaseSn.Attributes.Add("placeHolder", Resources.Resource.AddString + Resources.Resource.ContractSnString);
+            tbConsultSn.Attributes.Add("placeHolder", Resources.Resource.AddString + Resources.Resource.AdviosryIdString);
+            tbGroomName.Attributes.Add("placeHolder", Resources.Resource.AddString + Resources.Resource.GroomNameString);
+
         }
 
         #region Permission Related

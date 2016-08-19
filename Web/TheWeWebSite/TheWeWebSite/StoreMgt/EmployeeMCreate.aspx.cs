@@ -21,6 +21,7 @@ namespace TheWeWebSite.StoreMgt
                 {
                     InitialControl();
                     InitialControlWithPermission();
+                    TextHint();
                     if (Session["EmpId"] != null)
                     {
                         labelPageTitle.Text = Resources.Resource.StoreMgtString
@@ -42,6 +43,27 @@ namespace TheWeWebSite.StoreMgt
                     }
                 }
             }
+        }
+
+        private void TextHint()
+        {
+            tbAccount.Attributes.Add("placeholder", Resources.Resource.AddString + Resources.Resource.AccountString);
+            tbEmpAddress.Attributes.Add("placeHolder", Resources.Resource.AddString + Resources.Resource.AddressString);
+            tbEmpBank.Attributes.Add("placeHolder", Resources.Resource.AddString + Resources.Resource.BankString);
+            tbEmpBankBook.Attributes.Add("placeHolder", Resources.Resource.AddString + Resources.Resource.BankBookString);
+            tbEmpEC.Attributes.Add("placeHolder", Resources.Resource.AddString + Resources.Resource.EmergencyContactString);
+            tbEmpECTel.Attributes.Add("placeHolder", Resources.Resource.AddString + Resources.Resource.EmergencyContactTelString);
+            tbEmpEmail.Attributes.Add("placeHolder", Resources.Resource.AddString + Resources.Resource.EmailString);
+            tbEmpInsurance.Attributes.Add("placeHolder", Resources.Resource.AddString + Resources.Resource.InsuranceString);
+            tbEmpName.Attributes.Add("placeHolder", Resources.Resource.AddString + Resources.Resource.NameString);
+            tbEmpPassportId.Attributes.Add("placeHolder", Resources.Resource.AddString + Resources.Resource.PassportIdString);
+            tbEmpPassportName.Attributes.Add("placeHolder", Resources.Resource.AddString + Resources.Resource.PassportNameString);
+            tbEmpPhone.Attributes.Add("placeHolder", Resources.Resource.AddString + Resources.Resource.PhoneString);
+            tbEmpRemark.Attributes.Add("placeHolder", Resources.Resource.AddString + Resources.Resource.RemarkString);
+            tbEmpSalary.Attributes.Add("placeHolder", Resources.Resource.AddString + Resources.Resource.SalaryString);
+            tbEmpSn.Attributes.Add("placeHolder", Resources.Resource.AddString + Resources.Resource.SnString);
+
+
         }
 
         private void ShowErrorMsg(string msg)
@@ -69,6 +91,11 @@ namespace TheWeWebSite.StoreMgt
             {
                 ddlStore.Enabled = true;
             }
+            if (ddlStore.Enabled == false)
+            {
+                ddlStore.CssClass = "Enable";
+            }
+            else ddlStore.CssClass = "required";
         }
         private void CheckStoreHolderPermission()
         {
