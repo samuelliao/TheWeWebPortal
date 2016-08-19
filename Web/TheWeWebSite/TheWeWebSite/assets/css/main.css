@@ -2156,6 +2156,12 @@ input[type="radio"] {
     margin-top: -10px !important;
 }
 
+.ImageUploadBtn{
+    text-align:left!important;
+    bottom:0px!important;
+    position:page!important;
+    
+}
 .error{
     position:relative;
     color:red;
@@ -2164,6 +2170,27 @@ input[type="radio"] {
     z-index: 1;
 
 }
+
+
+/*file uploda*/
+
+.fileUpload {
+    margin: 10px 10px 10px 10px;
+}
+
+
+    .fileUpload ::-ms-browse {
+    display:none;
+    }
+
+    .fileUpload [type=file]::-ms-value {
+        margin: 0px;
+       
+    }
+   
+ 
+
+/* */
 
 .required {
     border-bottom-color:#f2a6a6!important;

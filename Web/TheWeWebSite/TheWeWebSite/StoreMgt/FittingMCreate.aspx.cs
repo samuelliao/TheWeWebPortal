@@ -247,11 +247,13 @@ namespace TheWeWebSite.StoreMgt
                 //  divNewType.Attributes.Add("visible", "ture");
                 tbType.Attributes["style"] = "display: inline;";
                 tbType.Text = string.Empty;
+                divNewType.Attributes["style"] = "display: inline;";
             }
             else
             {
                 //  divNewType.Attributes.Add("visible", "false");
                 tbType.Attributes["style"] = "display: none;";
+                divNewType.Attributes["style"] = "display: none;";
                 tbType.Text = string.Empty;
             }
         }

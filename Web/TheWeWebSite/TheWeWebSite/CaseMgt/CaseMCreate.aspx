@@ -238,7 +238,7 @@
                                 <div class="Div">
                                     <asp:Label runat="server" Text="<%$ Resources:Resource,BridalEmailString%>"></asp:Label>
                                 </div>
-                                <asp:TextBox  runat="server" ID="tbBridalEmail"></asp:TextBox>
+                                <asp:TextBox runat="server" ID="tbBridalEmail"></asp:TextBox>
 
                             </div>
                         </div>
@@ -249,11 +249,11 @@
                                 <div class="Div">
                                     <asp:Label runat="server" Text="<%$ Resources:Resource,GroomNameString%>"></asp:Label>
                                 </div>
-                                <asp:TextBox CssClass="required"  runat="server" ID="tbGroomName"></asp:TextBox>
-                                  <asp:RequiredFieldValidator ID="RequiredFieldValidator10"
-                                ControlToValidate="tbGroomName" runat="server"
-                                ErrorMessage="required"
-                                CssClass="error" Display="Dynamic"></asp:RequiredFieldValidator>
+                                <asp:TextBox CssClass="required" runat="server" ID="tbGroomName"></asp:TextBox>
+                                <asp:RequiredFieldValidator ID="RequiredFieldValidator10"
+                                    ControlToValidate="tbGroomName" runat="server"
+                                    ErrorMessage="required"
+                                    CssClass="error" Display="Dynamic"></asp:RequiredFieldValidator>
 
                             </div>
                             <div class="2u 12u(mobilep)">
@@ -281,8 +281,8 @@
                                 <div class="Div">
                                     <asp:Label runat="server" Text="<%$ Resources:Resource,GroomNicknameString%>"></asp:Label>
                                 </div>
-                                <asp:TextBox  runat="server" ID="tbGroomNickname"></asp:TextBox>
-                              
+                                <asp:TextBox runat="server" ID="tbGroomNickname"></asp:TextBox>
+
                             </div>
                             <div class="2u 12u(mobilep)">
                                 <div class="Div">
@@ -581,29 +581,15 @@
                     <div class="12u">
                         <div class="row uniform 50%">
                             <!-- 照片 -->
-                            <div class="row no-collapse 50% uniform">
-                                <div class="2u 12u(mobilep)">
+                            <div class="row no-collapse 20% uniform" style="position:fixed;bottom:0px;">
+                                <div class="5u 12u(mobilep)">
                                     <div style="text-align: center">
-                                        <asp:Label runat="server" Text="<%$ Resources:Resource,PhotoString%>"></asp:Label>
                                         <asp:Label runat="server" Text="" ID="tbFolderPath" Visible="false"></asp:Label>
                                     </div>
-                                    <asp:UpdatePanel runat="server">
-                                        <ContentTemplate>
-                                            <span class="image fit">
-                                                <asp:Image runat="server" ID="ImgFront" />
-                                            </span>
-                                            <div style="margin-bottom: 1.5em">
-                                                <asp:FileUpload ID="ImgUpload" onchange="submitFileUpload(this);" runat="server" Style="display: none;" />
-                                            </div>
-                                            <div class="align-center">
-                                                <asp:Button runat="server" Text="<%$ Resources:Resource,UploadString%>" ID="btnUploadTrigger" OnClientClick="showFileBroswerDialog();" />
-                                                <asp:Button runat="server" Text="<%$ Resources:Resource,UploadString%>" ID="btnUpload" OnClick="btnUpload_Click" Style="display: none;" />
-                                            </div>
-                                        </ContentTemplate>
-                                        <Triggers>
-                                            <asp:PostBackTrigger ControlID="btnUpload" />
-                                        </Triggers>
-                                    </asp:UpdatePanel>
+                                    <span class="image fit">
+                                        <asp:Image runat="server" ID="ImgFront" />
+                                    </span>
+
                                 </div>
                             </div>
                         </div>
@@ -652,6 +638,23 @@
             <!-- Btn -->
             <div class="Div btn">
                 <ul class="actions">
+                    <li>
+                        <asp:UpdatePanel runat="server">
+                            <ContentTemplate>
+
+                                <div>
+                                    <asp:FileUpload ID="ImgUpload" onchange="submitFileUpload(this);" runat="server" Style="display: none;" />
+                                </div>
+                                <div class="align-center">
+                                    <asp:Button runat="server" Text="<%$ Resources:Resource,UploadString%>" ID="btnUploadTrigger" OnClientClick="showFileBroswerDialog();" />
+                                    <asp:Button runat="server" Text="<%$ Resources:Resource,UploadString%>" ID="btnUpload" OnClick="btnUpload_Click" Style="display: none;" />
+                                </div>
+                            </ContentTemplate>
+                            <Triggers>
+                                <asp:PostBackTrigger ControlID="btnUpload" />
+                            </Triggers>
+                        </asp:UpdatePanel>
+                    </li>
                     <li>
                         <asp:Button runat="server" CssClass="button alt" Text="<%$ Resources:Resource,CreateString%>" ID="btnCreate" OnClick="btnCreate_Click" />
                     </li>

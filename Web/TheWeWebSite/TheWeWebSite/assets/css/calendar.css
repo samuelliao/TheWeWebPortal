@@ -2147,6 +2147,13 @@ input[type="radio"] + label:before {
     margin-top: -10px !important;
 }
 
+.ImageUploadBtn{
+    text-align:left!important;
+    bottom:0px!important;
+    position:page!important;
+    
+}
+
 .required {
     border-bottom-color: #f2a6a6 !important;
     border-bottom-width: 3px !important;

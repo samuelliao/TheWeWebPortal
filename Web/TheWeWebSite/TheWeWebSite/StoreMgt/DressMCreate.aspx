@@ -285,40 +285,43 @@
             <hr />
             <!-- 照片 -->
             <section>
-                <div runat="server" id="divPhotoUpload">
-                    <button id="btnUploadPanel" onclick="uploadPanelControl();" class="button alt">
-                        <asp:Literal runat="server" Text="<%$ Resources:Resource,UploadString%>" />
-                    </button>
-                    <div id="uploadPanel" style="display: none;">
-                        <div class="fileUpload">
-                            <asp:Label runat="server" Text="<%$ Resources:Resource,ImgFrontString%>"></asp:Label>
-                            <asp:FileUpload ID="FileUpload1" runat="server" />
-                        </div>
-                        <div class="fileUpload">
-                            <asp:Label runat="server" Text="<%$ Resources:Resource,ImgBackString%>"></asp:Label>
-                            <asp:FileUpload ID="FileUpload2" runat="server" />
-                        </div>
-                        <div class="fileUpload">
-                            <asp:Label runat="server" Text="<%$ Resources:Resource,ImgSideString%>"></asp:Label>
-                            <asp:FileUpload ID="FileUpload3" runat="server" />
-                        </div>
-                        <div class="fileUpload">
-                            <asp:Label runat="server" Text="<%$ Resources:Resource,ImgOtherString%>"></asp:Label>
-                            <asp:FileUpload ID="FileUpload4" runat="server" />
-                        </div>
-                        <div class="fileUpload">
-                            <asp:Label runat="server" Text="<%$ Resources:Resource,ImgOtherString%>"></asp:Label>
-                            <asp:FileUpload ID="FileUpload5" runat="server" />
-                        </div>
-                        <asp:Button CausesValidation="false" runat="server" Text="<%$ Resources:Resource,UploadString%>" ID="btnUpload"
-                            OnClick="btnUpload_Click" OnClientClick="uploadPanelControl();" />
-
-                    </div>
-                </div>
-                <hr />
 
                 <div class="row no-collapse 50% uniform">
-
+                    <div class="2u">
+                        <div runat="server" id="divPhotoUpload">
+                            <div class="ImageUploadBtn">
+                                <button id="btnUploadPanel" onclick="uploadPanelControl();" class="Div btn actions button alt">
+                                    <asp:Literal runat="server" Text="<%$ Resources:Resource,UploadString%>" />
+                                </button>
+                            </div>
+                            <div id="uploadPanel" style="display: none;">
+                                <div class="fileUpload">
+                                    <asp:Label runat="server" Text="<%$ Resources:Resource,ImgFrontString%>"></asp:Label>
+                                    <asp:FileUpload ID="FileUpload1" runat="server" />
+                                </div>
+                                <div class="fileUpload">
+                                    <asp:Label runat="server" Text="<%$ Resources:Resource,ImgBackString%>"></asp:Label>
+                                    <asp:FileUpload ID="FileUpload2" runat="server" />
+                                </div>
+                                <div class="fileUpload">
+                                    <asp:Label runat="server" Text="<%$ Resources:Resource,ImgSideString%>"></asp:Label>
+                                    <asp:FileUpload ID="FileUpload3" runat="server" />
+                                </div>
+                                <div class="fileUpload">
+                                    <asp:Label runat="server" Text="<%$ Resources:Resource,ImgOtherString%>"></asp:Label>
+                                    <asp:FileUpload ID="FileUpload4" runat="server" />
+                                </div>
+                                <div class="fileUpload">
+                                    <asp:Label runat="server" Text="<%$ Resources:Resource,ImgOtherString%>"></asp:Label>
+                                    <asp:FileUpload ID="FileUpload5" runat="server" />
+                                </div>
+                                <div style="text-align: left; margin-top: 15px;">
+                                    <asp:Button CausesValidation="true" runat="server" Text="<%$ Resources:Resource,UploadString%>" ID="btnUpload"
+                                        OnClick="btnUpload_Click" OnClientClick="uploadPanelControl();" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div class="2u">
                         <div style="text-align: center">
                             <asp:Label runat="server" Text="<%$ Resources:Resource,ImgFrontString%>"></asp:Label>
@@ -360,6 +363,7 @@
                             <asp:Image runat="server" ID="ImgOther2" />
                         </span>
                     </div>
+                    
                 </div>
             </section>
             <hr />

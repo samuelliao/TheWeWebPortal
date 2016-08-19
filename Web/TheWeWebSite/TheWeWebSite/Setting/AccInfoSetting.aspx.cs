@@ -16,14 +16,37 @@ namespace TheWeWebSite.Setting
         {
             if (!Page.IsPostBack)
             {
+                TextHint();
                 if (SysProperty.Util == null || Session["AccountInfo"] == null) Response.Redirect("../Login.aspx", true);
                 else
                 {
                     labelPageTitle.Text = Resources.Resource.SettingString
                     + " > " + Resources.Resource.AccountSettingString;
                     SetEmpInfoData(((DataRow)Session["AccountInfo"]));
+                    
                 }
             }
+        }
+
+        private void TextHint()
+        {
+            EmpOnBoardDay.Attributes.Add("placeholder", Resources.Resource.SystemString);
+            tbPwd.Attributes.Add("placeholder", Resources.Resource.AddString + Resources.Resource.PasswordString);
+            tbPwdConfirm.Attributes.Add("placeholder", Resources.Resource.PasswordConfirmInputString);
+            tbAccount.Attributes.Add("placeholder", Resources.Resource.AddString + Resources.Resource.AccountString);
+            tbEmpAddress.Attributes.Add("placeHolder", Resources.Resource.AddString + Resources.Resource.AddressString);
+            tbEmpBank.Attributes.Add("placeHolder", Resources.Resource.AddString + Resources.Resource.BankString);
+            tbEmpBankBook.Attributes.Add("placeHolder", Resources.Resource.AddString + Resources.Resource.BankBookString);
+            tbEmpEC.Attributes.Add("placeHolder", Resources.Resource.AddString + Resources.Resource.EmergencyContactString);
+            tbEmpECTel.Attributes.Add("placeHolder", Resources.Resource.AddString + Resources.Resource.EmergencyContactTelString);
+            tbEmpEmail.Attributes.Add("placeHolder", Resources.Resource.AddString + Resources.Resource.EmailString);
+            tbEmpName.Attributes.Add("placeHolder", Resources.Resource.AddString + Resources.Resource.NameString);
+            tbEmpPassportId.Attributes.Add("placeHolder", Resources.Resource.AddString + Resources.Resource.PassportIdString);
+            tbEmpPassportName.Attributes.Add("placeHolder", Resources.Resource.AddString + Resources.Resource.PassportNameString);
+            tbEmpPhone.Attributes.Add("placeHolder", Resources.Resource.AddString + Resources.Resource.PhoneString);
+            tbEmpSn.Attributes.Add("placeHolder", Resources.Resource.AddString + Resources.Resource.SnString);
+
+
         }
 
         private void ShowErrorMsg(string msg)
