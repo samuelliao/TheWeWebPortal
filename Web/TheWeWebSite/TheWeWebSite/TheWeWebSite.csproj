@@ -117,6 +117,7 @@
     <Content Include="Main\Case.aspx" />
     <Content Include="Main\ChurchReservation.aspx" />
     <Content Include="Main\CustomerCalendar.aspx" />
+    <Content Include="Main\DressMaintain.aspx" />
     <Content Include="Main\Unsigned.aspx" />
     <Content Include="remind.aspx" />
     <Content Include="Setting\AccInfoSetting.aspx" />
@@ -258,6 +259,13 @@
     </Compile>
     <Compile Include="Main\CustomerCalendar.aspx.designer.cs">
       <DependentUpon>CustomerCalendar.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Main\DressMaintain.aspx.cs">
+      <DependentUpon>DressMaintain.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Main\DressMaintain.aspx.designer.cs">
+      <DependentUpon>DressMaintain.aspx</DependentUpon>
     </Compile>
     <Compile Include="Main\Unsigned.aspx.cs">
       <DependentUpon>Unsigned.aspx</DependentUpon>
