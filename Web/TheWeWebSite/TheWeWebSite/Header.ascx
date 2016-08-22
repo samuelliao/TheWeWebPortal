@@ -64,22 +64,27 @@
                     <li>
                         <asp:LinkButton CausesValidation="false"  runat="server" Text="<%$ Resources:Resource,EmployeeMaintainString%>" PostBackUrl="~/StoreMgt/EmployeeMaintain.aspx" ID="LinkEmployeeMaintain" />
                     </li>
+                    
                 </ul>
             </li>
             <li runat="server" id="liOrderMgt">
                 <asp:LinkButton CausesValidation="false"  runat="server" Text="<%$ Resources:Resource,OrderMgtString%>" PostBackUrl="~/CaseMgt/CustomerMaintain.aspx" ID="LinkCaseMgt" />
                 <ul>
-                    <li>
-                        <asp:LinkButton CausesValidation="false"  runat="server" Text="<%$ Resources:Resource,CustomerMaintainString%>" PostBackUrl="~/CaseMgt/CustomerMaintain.aspx" ID="LinkCustomerMaintain" />
-                    </li>
+                   
                     <li>
                         <asp:LinkButton CausesValidation="false"  runat="server" Text="<%$ Resources:Resource,ConsultMaintainString%>" PostBackUrl="~/CaseMgt/AdvisoryMaintain.aspx" ID="LinkButton1" />
                     </li>
                     <li>
                         <asp:LinkButton CausesValidation="false"  runat="server" Text="<%$ Resources:Resource,ContractMaintainString%>" PostBackUrl="~/CaseMgt/CaseMaintain.aspx" ID="LinkCaseMaintain" />
                     </li>
+                     <li>
+                        <asp:LinkButton CausesValidation="false"  runat="server" Text="<%$ Resources:Resource,CustomerMaintainString%>" PostBackUrl="~/CaseMgt/CustomerMaintain.aspx" ID="LinkCustomerMaintain" />
+                    </li>
                     <li>
                         <asp:LinkButton CausesValidation="false"  runat="server" Text="<%$ Resources:Resource,TimetableMaintainString%>" PostBackUrl="~/CaseMgt/TimeMaintain.aspx" ID="LinkTimeMaintain" />
+                    </li>
+                    <li>
+                        <asp:LinkButton CausesValidation="false"  runat="server" Text="<%$ Resources:Resource,DressRentString%>" PostBackUrl="~/StoreMgt/DressRentMaintain.aspx" ID="LinkDressRentMaintain" />
                     </li>
                 </ul>
             </li>

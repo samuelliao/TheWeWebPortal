@@ -114,10 +114,7 @@
                                     <asp:Label runat="server" Text="<%$ Resources:Resource,BridalPhoneString%>"></asp:Label>
                                 </div>
                                 <asp:TextBox CssClass="required" runat="server" ID="tbBridalPhone"></asp:TextBox>
-                                <asp:RequiredFieldValidator ID="RequiredFieldValidator4"
-                                ControlToValidate="tbBridalPhone" runat="server"
-                                ErrorMessage="required"
-                                CssClass="error" Display="Dynamic"></asp:RequiredFieldValidator>
+                                
                             </div>
                             <div class="2u 12u(mobilep)">
                                 <div class="Div">
@@ -150,10 +147,7 @@
                                     <asp:Label runat="server" Text="<%$ Resources:Resource,BridalEmailString%>"></asp:Label>
                                 </div>
                                 <asp:TextBox CssClass="required" runat="server" ID="tbBridalEmail"></asp:TextBox>
-                                <asp:RequiredFieldValidator ID="RequiredFieldValidator5"
-                                ControlToValidate="tbBridalEmail" runat="server"
-                                ErrorMessage="required"
-                                CssClass="error" Display="Dynamic"></asp:RequiredFieldValidator>
+                                
                             </div>
 
 

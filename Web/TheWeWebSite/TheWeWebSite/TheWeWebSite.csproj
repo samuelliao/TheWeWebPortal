@@ -125,6 +125,7 @@
     <Content Include="StoreMgt\ChurchMCreate.aspx" />
     <Content Include="StoreMgt\DressMaintain.aspx" />
     <Content Include="StoreMgt\DressMCreate.aspx" />
+    <Content Include="StoreMgt\DressRentMaintain.aspx" />
     <Content Include="StoreMgt\EmployeeMaintain.aspx" />
     <Content Include="StoreMgt\EmployeeMCreate.aspx" />
     <Content Include="StoreMgt\FittingMaintain.aspx" />
@@ -322,6 +323,13 @@
     </Compile>
     <Compile Include="StoreMgt\DressMCreate.aspx.designer.cs">
       <DependentUpon>DressMCreate.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="StoreMgt\DressRentMaintain.aspx.cs">
+      <DependentUpon>DressRentMaintain.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="StoreMgt\DressRentMaintain.aspx.designer.cs">
+      <DependentUpon>DressRentMaintain.aspx</DependentUpon>
     </Compile>
     <Compile Include="StoreMgt\EmployeeMaintain.aspx.cs">
       <DependentUpon>EmployeeMaintain.aspx</DependentUpon>

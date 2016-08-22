@@ -26,6 +26,7 @@ namespace TheWeWebSite.CaseMgt
                 {
                     InitialControl();
                     FirstGridViewRow();
+                    TextHint();
                     if (Session["OrderId"] != null)
                     {
                         labelPageTitle.Text = Resources.Resource.OrderMgtString
@@ -45,7 +46,6 @@ namespace TheWeWebSite.CaseMgt
                         btnDelete.Visible = false;
                     }
                     InitialControlWithPermission();
-                    TextHint();
                 }
             }
         }
@@ -151,23 +151,9 @@ namespace TheWeWebSite.CaseMgt
                 btnModify.Visible = false;
                 btnCreate.Visible = false;
                 btnClear.Visible = false;
-                ImgFront.ImageUrl = null; 
                 dgServiceItem.Enabled = false;
                 btnUpload.Visible = false;
                 panelBasicInfo.Enabled = false;
-
-                ddlProductSet.CssClass = "Enable";
-                tbCaseSn.CssClass = "Enable";
-                ddlArea.CssClass = "Enable";
-                ddlCountry.CssClass = "Enable";
-                ddlLocate.CssClass = "Enable";
-                ddlOrderType.CssClass = "Enable";
-                ddlStatus.CssClass = "Enable";
-                tbAppointDate.CssClass = "Enable";
-                tbBridalName.CssClass = "Enable";
-                tbGroomName.CssClass = "Enable";
-                tbContractPrice.CssClass = "Enable";
-                tbTotalPrice.CssClass = "Enable";
             }
         }
 
@@ -181,7 +167,6 @@ namespace TheWeWebSite.CaseMgt
                 btnClear.Visible = false;
                 dgServiceItem.Enabled = false;
                 btnUpload.Visible = false;
-
             }
             else
             {
@@ -441,7 +426,7 @@ namespace TheWeWebSite.CaseMgt
             if (!string.IsNullOrEmpty(oid)) sn = SplitOutOrderTypeCode(ddlOrderType.SelectedItem.Text).Trim();
             if (!string.IsNullOrEmpty(cid)) sn += (SysProperty.GetCountryById(ddlCountry.SelectedValue))["Code"].ToString().Trim();
 
-            tbCaseSn.Text = sn+tbSysSn.Text;
+            tbCaseSn.Text = sn + tbSysSn.Text;
         }
 
         private string SplitOutOrderTypeCode(string txt)
@@ -682,11 +667,12 @@ namespace TheWeWebSite.CaseMgt
             {
                 tbSysSn.Text = dr["Sn"].ToString().Substring(dr["Sn"].ToString().Length - 10, 10);
                 tbCaseSn.Text = dr["Sn"].ToString().Substring(0, dr["Sn"].ToString().Length - 11);
-            }else
+            }
+            else
             {
                 tbSysSn.Text = dr["Sn"].ToString();
             }
-            
+
             tbCloseDay.Text = SysProperty.Util.ParseDateTime("DateTime", dr["CloseTime"].ToString());
             tbContractPrice.Text = SysProperty.Util.ParseMoney(dr["Price"].ToString()).ToString("#0.00");
             tbContractTime.Text = SysProperty.Util.ParseDateTime("DateTime", dr["StartTime"].ToString());
@@ -729,18 +715,16 @@ namespace TheWeWebSite.CaseMgt
             ddlCountry.SelectedValue = dr["CountryId"].ToString();
             ddlArea.SelectedValue = dr["AreaId"].ToString();
             ddlLocate.SelectedValue = dr["ChurchId"].ToString();
-            SetOrderServiceItem(id);
-            DynamicSn(ddlOrderType.SelectedValue, ddlCountry.SelectedValue);
-
 
             string imgPath = @dr["Img"].ToString();
             if (string.IsNullOrEmpty(imgPath)) imgPath = SysProperty.ImgRootFolderpath + @"OrderInfo\" + tbCaseSn.Text;
             else imgPath = SysProperty.ImgRootFolderpath + imgPath;
             string ImgFolderPath = imgPath;
-            RefreshImage(0,ImgFolderPath);
+            RefreshImage(ImgFolderPath);
             tbFolderPath.Text = ImgFolderPath;
 
-            
+            SetOrderServiceItem(id);
+            DynamicSn(ddlOrderType.SelectedValue, ddlCountry.SelectedValue);
         }
 
         private void InitialCustomerInfo(string id)
@@ -1564,22 +1548,7 @@ namespace TheWeWebSite.CaseMgt
             //    //tbTotalPrice.Text = (SysProperty.Util.ParseMoney(tbTotalPrice.Text) + dec).ToString();
             //}
         }
-        #endregion
-
-        private DataSet GetDataSetFromTable(string sql)
-        {
-            try
-            {
-                if (string.IsNullOrEmpty(sql)) return null;
-                return SysProperty.GenDbCon.GetDataFromTable(sql);
-            }
-            catch (Exception ex)
-            {
-                SysProperty.Log.Error(ex.Message);
-                ShowErrorMsg(ex.Message);
-                return null;
-            }
-        }
+        #endregion                
 
         private void SetProductInfo(string setId)
         {
@@ -1597,21 +1566,6 @@ namespace TheWeWebSite.CaseMgt
                 ddlLocate.SelectedValue = ds.Tables[0].Rows[0]["ChurchId"].ToString();
                 ddlCountry.SelectedValue = ds.Tables[0].Rows[0]["CountryId"].ToString();
                 ddlOrderType.SelectedValue = ds.Tables[0].Rows[0]["Category"].ToString();
-
-
-                string sql = "Select * From OrderInfo Where Id = '" + setId + "'";
-                DataSet dsImg = GetDataSetFromTable(sql);
-                if (SysProperty.Util.IsDataSetEmpty(ds)) return;
-                DataRow dr = ds.Tables[0].Rows[0];
-
-                string imgPath = dr["Img"].ToString();
-                if (string.IsNullOrEmpty(imgPath)) imgPath = SysProperty.ImgRootFolderpath + @"\" + "OrderInfo" + @"\" + tbCaseSn.Text;
-                else imgPath = SysProperty.ImgRootFolderpath + imgPath;
-                string ImgFolderPath = imgPath;
-                tbFolderPath.Text = ImgFolderPath;
-
-                RefreshImage(0,ImgFolderPath);
-
             }
         }
 
@@ -1686,24 +1640,13 @@ namespace TheWeWebSite.CaseMgt
             if (string.IsNullOrEmpty(tbFolderPath.Text)) return;
             CheckFolder(tbFolderPath.Text);
             ImgUpload.PostedFile.SaveAs(tbFolderPath.Text + "\\" + tbCaseSn.Text + "_1.jpg");
-            RefreshImage(0,tbFolderPath.Text);
+            RefreshImage(tbFolderPath.Text);
         }
 
-        private void RefreshImage(int type, string path)
+        private void RefreshImage(string path)
         {
-            switch (type)
-            {
-                case 1:
-                    ImgFront.ImageUrl = "http:" + path + @"\" + tbCaseSn.Text + "_1.jpg?" + DateTime.Now.Ticks.ToString();
-                    break;
-                case 0:
-                default:
-                    ImgFront.ImageUrl = "http:" + path + @"\" + tbCaseSn.Text + "_1.jpg?" + DateTime.Now.Ticks.ToString();
-                    break;
-            }
+            ImgFront.ImageUrl = "http:" + path + "\\" + tbCaseSn.Text + "_1.jpg?" + DateTime.Now.Ticks.ToString();
         }
-
-     
 
         private void CheckFolder(string path)
         {

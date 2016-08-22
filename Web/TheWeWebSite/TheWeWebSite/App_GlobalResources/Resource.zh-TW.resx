@@ -226,7 +226,7 @@
     <value>修改日期</value>
   </data>
   <data name="CustomerMaintainString" xml:space="preserve">
-    <value>客戶維護</value>
+    <value>簽約客戶</value>
   </data>
   <data name="CasePermissionMgtString" xml:space="preserve">
     <value>權限案件</value>
@@ -271,7 +271,7 @@
     <value>未簽約維護</value>
   </data>
   <data name="ContractMaintainString" xml:space="preserve">
-    <value>簽約維護</value>
+    <value>合約維護</value>
   </data>
   <data name="TimetableMaintainString" xml:space="preserve">
     <value>時程維護</value>
@@ -1076,5 +1076,8 @@
   </data>
   <data name="SystemString" xml:space="preserve">
     <value>系統帶入</value>
+  </data>
+  <data name="DressRentString" xml:space="preserve">
+    <value>禮服租借</value>
   </data>
 </root>

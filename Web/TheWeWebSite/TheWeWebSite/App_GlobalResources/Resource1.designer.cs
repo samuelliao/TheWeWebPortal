@@ -1024,6 +1024,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   查詢類似  的當地語系化字串。
+        /// </summary>
+        internal static string DressRentString {
+            get {
+                return ResourceManager.GetString("DressRentString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查詢類似 Dress 的當地語系化字串。
         /// </summary>
         internal static string DressString {

@@ -18,7 +18,7 @@
 
         <!-- Main -->
         <My:Header runat="server" ID="ucHeader" />
-        <section class="box title">
+        <section class="box title CreatePage">
             <h3>
                 <asp:Label runat="server" Text="" ID="labelPageTitle"></asp:Label></h3>
         </section>

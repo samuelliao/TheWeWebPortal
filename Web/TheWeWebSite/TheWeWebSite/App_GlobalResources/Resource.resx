@@ -1077,4 +1077,7 @@
   <data name="SystemString" xml:space="preserve">
     <value></value>
   </data>
+  <data name="DressRentString" xml:space="preserve">
+    <value></value>
+  </data>
 </root>

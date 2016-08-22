@@ -1827,9 +1827,10 @@ h1, h2, h3, h4, h5, h6 {
     }
 
 h2 {
-    font-size: 2.25em;
+    font-size: 3.25em;
     line-height: 1.5em;
     letter-spacing: -0.035em;
+    color:#666!important;
 }
 
 h3 {

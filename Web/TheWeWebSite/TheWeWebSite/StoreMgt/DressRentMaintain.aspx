@@ -1,6 +1,5 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="DressMaintain.aspx.cs" Inherits="TheWeWebSite.StoreMgt.DressMaintain" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="DressRentMaintain.aspx.cs" Inherits="TheWeWebSite.StoreMgt.DressRentMaintain" %>
 
-<%@ Register TagPrefix="My" TagName="Header" Src="~/Header.ascx" %>
 
 <!DOCTYPE html>
 
@@ -16,7 +15,6 @@
         <div id="page-wrapper">
 
             <!-- Header -->
-            <My:Header runat="server" ID="ucHeader" />
 
             <!-- Main -->
             <section id="main">
@@ -32,7 +30,7 @@
                 <section class="box special">
                     <asp:ScriptManager runat="server"></asp:ScriptManager>
                     <div>
-                        <div class="12u">
+                         <div class="12u">
                             <div class="row uniform 50%">
                                 <div class="2u 12u(mobilep)" runat="server" id="divStore" style="display: none;">
                                     <div class="Div">
@@ -139,100 +137,30 @@
                                 </div>
                             </div>
                         </div>
+
+
+
                     </div>
 
 
                     <!-- Btn -->
 
                     <div class="Div btn">
-                        <ul class="actions">
-
-                            <li>
-                                <asp:Button runat="server" Text="<%$ Resources:Resource,CreateString%>" ID="LinkDressMCreate" PostBackUrl="~/StoreMgt/DressMCreate.aspx" />
-                            </li>
-                            <li>
-                                <asp:Button runat="server" CssClass="button alt" Text="<%$ Resources:Resource,SearchString%>" ID="btnSearch" OnClick="btnSearch_Click" />
-                            </li>
-
-                        </ul>
                     </div>
                     <asp:Label runat="server" ID="labelWarnString" ForeColor="Red" Visible="false" />
                     <hr />
 
                     <!-- Table -->
 
-                    <div class="row">
-                        <div class="12u">
-                            <div class="table-wrapper">
-                                <asp:UpdatePanel runat="server">
-                                    <ContentTemplate>
-                                        <asp:DataGrid runat="server" ID="dataGrid" AllowPaging="true" AllowSorting="true"
-                                            AutoGenerateColumns="false" DataKeyField="Id"
-                                            OnDeleteCommand="dataGrid_DeleteCommand" OnItemDataBound="dataGrid_ItemDataBound"
-                                            OnPageIndexChanged="dataGrid_PageIndexChanged" OnSelectedIndexChanged="dataGrid_SelectedIndexChanged"
-                                            OnSortCommand="dataGrid_SortCommand">
-                                            <HeaderStyle VerticalAlign="Middle" HorizontalAlign="Center" />
-                                            <PagerStyle Mode="NumericPages" />
-                                            <Columns>
-                                                <asp:ButtonColumn Text="<%$ Resources:Resource,SearchString%>" CommandName="Select" />
-                                                <asp:BoundColumn DataField="Id" Visible="false" />
-                                                <asp:TemplateColumn HeaderText="<%$ Resources:Resource,StoreString%>" SortExpression="StoreId">
-                                                    <ItemTemplate>
-                                                        <asp:Label runat="server" ID="labelStore" />
-                                                    </ItemTemplate>
-                                                </asp:TemplateColumn>
-                                                <asp:BoundColumn DataField="Sn" HeaderText="<%$ Resources:Resource,SnString%>" SortExpression="Sn" />
-                                                <asp:TemplateColumn HeaderText="<%$ Resources:Resource,CategoryString%>" SortExpression="Category">
-                                                    <ItemTemplate>
-                                                        <asp:Label runat="server" ID="labelCategory" />
-                                                    </ItemTemplate>
-                                                </asp:TemplateColumn>
-                                                <asp:BoundColumn DataField="Color" HeaderText="<%$ Resources:Resource,ColorString%>" SortExpression="Color" />
-                                                <asp:BoundColumn DataField="Material" HeaderText="<%$ Resources:Resource,MaterialString%>" SortExpression="Material" />
-                                                <asp:TemplateColumn HeaderText="<%$ Resources:Resource,TypeString%>" SortExpression="Type">
-                                                    <ItemTemplate>
-                                                        <asp:Label runat="server" ID="labelType" />
-                                                    </ItemTemplate>
-                                                </asp:TemplateColumn>
-                                                <asp:TemplateColumn HeaderText="<%$ Resources:Resource,NecklineString%>" SortExpression="Neckline">
-                                                    <ItemTemplate>
-                                                        <asp:Label runat="server" ID="labelNeckline" />
-                                                    </ItemTemplate>
-                                                </asp:TemplateColumn>
-                                                <asp:TemplateColumn HeaderText="<%$ Resources:Resource,DressbackString%>" SortExpression="Back">
-                                                    <ItemTemplate>
-                                                        <asp:Label runat="server" ID="labelDressBack" />
-                                                    </ItemTemplate>
-                                                </asp:TemplateColumn>
-                                                <asp:TemplateColumn HeaderText="<%$ Resources:Resource,ShoulderString%>" SortExpression="Shoulder">
-                                                    <ItemTemplate>
-                                                        <asp:Label runat="server" ID="labelShoulder" />
-                                                    </ItemTemplate>
-                                                </asp:TemplateColumn>
-                                                <asp:TemplateColumn HeaderText="<%$ Resources:Resource,WornString%>" SortExpression="Worn">
-                                                    <ItemTemplate>
-                                                        <asp:Label runat="server" ID="labelWorn" />
-                                                    </ItemTemplate>
-                                                </asp:TemplateColumn>
-                                                <asp:ButtonColumn CommandName="Delete"
-                                                    HeaderText="<%$ Resources:Resource,DeleteString%>"
-                                                    Text="<%$ Resources:Resource,DeleteString%>" />
-                                            </Columns>
-                                        </asp:DataGrid>
-                                    </ContentTemplate>
-                                </asp:UpdatePanel>
-                            </div>
-                            <hr />
-                        </div>
-                    </div>
+
                 </section>
             </section>
 
             <!-- Footer -->
             <footer id="footer">
                 <ul class="copyright">
-                    <li>&copy; Untitled. All rights reserved.</li>
-                    <li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+                    <li>rights.</li>
+                    <li>The We Wedding</li>
                 </ul>
             </footer>
 

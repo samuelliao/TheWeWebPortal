@@ -30,7 +30,7 @@
                 <div style="color: #000; margin-bottom: 10px; margin-left: auto; margin-right: auto; width: 15EM;">
                     <asp:TextBox runat="server" ID="tbPassword" TextMode="Password"></asp:TextBox>
                 </div>
-                <div style="color: #000; margin-bottom: auto; margin-left: auto; margin-right: auto; width: 15EM; vertical-align:bottom; margin-top: 10px;">
+                <div style="color: #000; margin-bottom: auto; margin-left: auto; margin-right: auto; width: 15EM; vertical-align:bottom; margin-top: 30px;">
                     <asp:CheckBox runat="server" ID="cbRemember" Style="vertical-align:central; text-align:left;"  Text="Remember me" />
                 </div>
                 <div>
