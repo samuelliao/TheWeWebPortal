@@ -1080,4 +1080,103 @@
   <data name="DressRentString" xml:space="preserve">
     <value></value>
   </data>
+  <data name="HotelString" xml:space="preserve">
+    <value>Hotel</value>
+  </data>
+  <data name="TravelPeriodString" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="FlightString" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="ContactString" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="WelcomeCardString" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="ChampagneString" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="GuestString" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="WeddingSequenceString" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="AdditionServiceString" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="AttractionsString" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="RoutePlanString" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="PhotoItemString" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="PhotoBouquetString" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="PhotoSpecialClaimString" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="PhotoAvoidString" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="SitePlanString" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="BanquetContentString" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="FoodString" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="ModelingString" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="MakeupEmphasisString" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="SpecialClaimString" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="WhiteDressString" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="EveningDressString" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="BathrobeString" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="KimonoString" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="SuitString" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="BanquetPeopleString" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="ChooseString" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="BanquetString" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="HairString" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="SizeCheckString" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="GetDressString" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="PaymentString" xml:space="preserve">
+    <value></value>
+  </data>
 </root>

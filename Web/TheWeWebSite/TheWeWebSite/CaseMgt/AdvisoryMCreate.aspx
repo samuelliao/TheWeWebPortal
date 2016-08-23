@@ -45,9 +45,11 @@
                                 <asp:TextBox runat="server" ID="tbSn" Enabled="false"></asp:TextBox>
                                 <asp:Label runat="server" ID="labelConsultDate" Visible="false" />
                             </div>
+                            <div class="2u 12u(mobilep)">
                             <div style="margin-top: 26px">
                                 <asp:CheckBox runat="server" ID="cbReply" Text="<%$ Resources:Resource,IsReplyString%>"></asp:CheckBox>
                             </div>
+                                </div>
                             <div class="2u 12u(mobilep)">
                                 <div class="Div">
                                     <asp:Label runat="server" Text="<%$ Resources:Resource,AppointmentDateString%>"></asp:Label>

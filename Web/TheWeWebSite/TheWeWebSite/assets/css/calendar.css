@@ -2147,6 +2147,14 @@ input[type="radio"] + label:before {
     margin-top: -10px !important;
 }
 
+.TimeMaintainDiv{
+    text-align:left;
+    font-size:1em;
+    margin-top:5px;
+    margin-bottom:5px;
+
+
+}
 .ImageUploadBtn{
     text-align:left!important;
     bottom:0px!important;
@@ -2207,7 +2215,10 @@ input:disabled {
 .Check.Div {
 }
 
-
+.TimeMaintain{
+    float:left;
+    margin-left:30px;
+}
 
 input[type="checkbox"] {
     display: block;
