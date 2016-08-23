@@ -9,6 +9,7 @@
     <link href="../assets/css/font-awesome.min.css" rel="stylesheet" />
     <link href="../assets/css/main.css" rel="stylesheet" />
     <link href="../assets/css/calendar.css" rel="stylesheet" />
+    <link href="../assets/css/datePicker.css" rel="stylesheet" />
 </head>
 <body class="landing">
     <form runat="server">
@@ -136,42 +137,35 @@
                                                 <asp:Label runat="server" ID="labelStore" />
                                             </ItemTemplate>
                                         </asp:TemplateColumn>
-                                        <asp:TemplateColumn HeaderText="<%$ Resources:Resource,AdviosryIdString%>">
+                                        <asp:TemplateColumn HeaderText="<%$ Resources:Resource,SnString%>">
+                                            <ItemTemplate>
+                                                <asp:LinkButton runat="server" ID="linkSn" Text="" OnClick="linkSn_Click" />
+                                            </ItemTemplate>
+                                        </asp:TemplateColumn>
+                                        <asp:TemplateColumn HeaderText="<%$ Resources:Resource,CaseIdString%>">
                                             <ItemTemplate>
                                                 <asp:LinkButton runat="server" ID="linkConsult" Text="" OnClick="linkConsult_Click" />
                                             </ItemTemplate>
                                         </asp:TemplateColumn>
-                                        <asp:BoundColumn HeaderText="<%$ Resources:Resource,ContractSnString%>" DataField="Sn" />
                                         <asp:TemplateColumn HeaderText="<%$ Resources:Resource,BridalNameString%>">
                                             <ItemTemplate>
                                                 <asp:LinkButton runat="server" ID="linkCustomerName" Text="" OnClick="linkCustomerName_Click" />
                                             </ItemTemplate>
                                         </asp:TemplateColumn>
-                                        <asp:BoundColumn HeaderText="<%$ Resources:Resource,BridalNameString%>" DataField="CustomerName" />
-                                        <asp:BoundColumn HeaderText="<%$ Resources:Resource,GroomNameString%>" DataField="PartnerName" />
-                                        <asp:BoundColumn HeaderText="<%$ Resources:Resource,ContractDateString%>" DataField="StartTime" />
+                                        <asp:BoundColumn HeaderText="<%$ Resources:Resource,BridalNameString%>" DataField="CustomerName" />                                        
                                         <asp:TemplateColumn HeaderText="<%$ Resources:Resource,StatusString%>">
                                             <ItemTemplate>
                                                 <asp:Label runat="server" ID="labelStatus" />
                                             </ItemTemplate>
                                         </asp:TemplateColumn>
-                                        <asp:BoundColumn HeaderText="<%$ Resources:Resource,AppointmentDateString%>" DataField="BookingDate" />
-                                        <asp:TemplateColumn HeaderText="<%$ Resources:Resource,CountryString%>">
-                                            <ItemTemplate>
-                                                <asp:Label runat="server" ID="labelCountry" />
-                                            </ItemTemplate>
-                                        </asp:TemplateColumn>
-                                        <asp:TemplateColumn HeaderText="<%$ Resources:Resource,AreaString%>">
-                                            <ItemTemplate>
-                                                <asp:Label runat="server" ID="labelArea" />
-                                            </ItemTemplate>
-                                        </asp:TemplateColumn>
+                                        <asp:BoundColumn HeaderText="<%$ Resources:Resource,StartString%>" DataField="StartTime" />
+                                        <asp:BoundColumn HeaderText="<%$ Resources:Resource,EndString%>" DataField="EndTime" />
                                         <asp:TemplateColumn HeaderText="<%$ Resources:Resource,LocateString%>">
                                             <ItemTemplate>
                                                 <asp:Label runat="server" ID="labelLocation" />
                                             </ItemTemplate>
                                         </asp:TemplateColumn>
-                                        <asp:TemplateColumn HeaderText="<%$ Resources:Resource,ProductSetString%>">
+                                        <asp:TemplateColumn HeaderText="<%$ Resources:Resource,ProjectString%>">
                                             <ItemTemplate>
                                                 <asp:Label runat="server" ID="labelSet" />
                                             </ItemTemplate>
@@ -205,6 +199,7 @@
         <!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
         <script src="../assets/js/main.js"></script>
         <script src="../assets/js/table.js"></script>
+        <script src="../assets/js/picker.js"></script>
     </form>
 </body>
 </html>
