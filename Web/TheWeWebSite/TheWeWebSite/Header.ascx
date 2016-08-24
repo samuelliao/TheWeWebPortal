@@ -24,7 +24,8 @@
                 <asp:LinkButton CausesValidation="false" runat="server" Text="<%$ Resources:Resource,MainPageString%>" PostBackUrl="~/Main/Unsigned.aspx" ID="LinkMain" />
                 <ul>
                     <li>
-                        <asp:LinkButton CausesValidation="false" runat="server" Text="<%$ Resources:Resource,ConsultString%>" PostBackUrl="~/Main/Unsigned.aspx" ID="LinkUnsigned" />
+
+                        <asp:LinkButton CausesValidation="false"  runat="server" Text="<%$ Resources:Resource,ConsultScheduleString%>" PostBackUrl="~/Main/Unsigned.aspx" ID="LinkUnsigned" />
                     </li>
                     <li>
                         <asp:LinkButton CausesValidation="false" runat="server" Text="<%$ Resources:Resource,ContractScheduleString%>" PostBackUrl="~/Main/Case.aspx" ID="LinkCase" />

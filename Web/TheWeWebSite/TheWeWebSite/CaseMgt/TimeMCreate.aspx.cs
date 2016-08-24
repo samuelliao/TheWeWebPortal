@@ -23,10 +23,10 @@ namespace TheWeWebSite.CaseMgt
                 {
                     SysProperty.DataSetSortType = true;
 
-                    InitialConferenceItem();                    
+                    InitialConferenceItem();
                     InitialLangList();
                     InitialOrderType();
-
+                    InitialTextAndHint();
                     if (Session["OrderId"] != null)
                     {
                         labelPageTitle.Text = Resources.Resource.OrderMgtString
@@ -47,6 +47,217 @@ namespace TheWeWebSite.CaseMgt
                 }
             }
         }
+        private void InitialTextAndHint()
+        {
+            InitiallblText();
+            InitiallblPlaceHolder();
+            Div();
+        }
+
+        private void InitiallblText()
+        {
+            //1-1
+            lblHotelName.Text = Resources.Resource.HotelString+"1" + Resources.Resource.NameString;
+            lblHotelCnName.Text = Resources.Resource.HotelString + "1" + Resources.Resource.CnNameString;
+            lblHotelEngName.Text = Resources.Resource.HotelString + "1" + Resources.Resource.EnglishNameString;
+            lblHotelJpName.Text = Resources.Resource.HotelString + "1" + Resources.Resource.JpNameString;
+            lblHotelAddr.Text = Resources.Resource.HotelString + "1" + Resources.Resource.AddressString;
+            lblHotelName2.Text = Resources.Resource.HotelString + "2" + Resources.Resource.NameString;
+            lblHotelCnName2.Text = Resources.Resource.HotelString + "2" + Resources.Resource.CnNameString;
+            lblHotelEngName2.Text = Resources.Resource.HotelString + "2" + Resources.Resource.EnglishNameString;
+            lblHotelJpName2.Text = Resources.Resource.HotelString + "2" + Resources.Resource.JpNameString;
+            lblHotelAddr2.Text = Resources.Resource.HotelString + "2" + Resources.Resource.AddressString;
+            lblTravelPeriod.Text = Resources.Resource.TravelPeriodString;
+            lblStayNight.Text = Resources.Resource.StayNightString;
+            lblFlight.Text = Resources.Resource.FlightString;
+            lblContact.Text = Resources.Resource.ContactString;
+
+
+            //1-2
+            lblWeddingStyle.Text = Resources.Resource.WeddingStyleString;
+            lblLegalWedding.Text = Resources.Resource.LegalWeddingString;
+            lblPastorLanguage.Text = Resources.Resource.PastorString+ Resources.Resource.LanguageString;
+            lblWelcomeCard.Text = Resources.Resource.WelcomeCardString;
+            lblBouquetCorsage.Text = Resources.Resource.BouquetCorsageString;
+            lblChampagne.Text = Resources.Resource.ChampagneString;
+            lblGuest.Text = Resources.Resource.GuestString;
+            lblWeddingSequence.Text = Resources.Resource.WeddingSequenceString;
+            lblChurchArrangements.Text = Resources.Resource.ChurchArrangementsString;
+            lblAdditionService.Text = Resources.Resource.AdditionServiceString;
+
+            //1-3
+            lblRoutePlan.Text = Resources.Resource.RoutePlanString;
+            lblPhotoItem.Text = Resources.Resource.PhotoItemString;
+            lblPhotoBouquet.Text = Resources.Resource.PhotoBouquetString;
+            lblPhotoSpecialClaim.Text = Resources.Resource.PhotoSpecialClaimString;
+            lblPhotoAvoid.Text = Resources.Resource.PhotoAvoidString;
+
+            //1-4
+            lblBridalDress1.Text = Resources.Resource.BridalString + Resources.Resource.WhiteDressString + Resources.Resource.ChooseString;
+            lblBridalDress2.Text = Resources.Resource.BridalString + Resources.Resource.EveningDressString+"1" + Resources.Resource.ChooseString;
+            lblBridalDress3.Text = Resources.Resource.BridalString + Resources.Resource.EveningDressString+"2" + Resources.Resource.ChooseString;
+            lblBridalDress4.Text = Resources.Resource.BridalString + Resources.Resource.EveningDressString+"3" + Resources.Resource.ChooseString;
+            lblBridalDress5.Text = Resources.Resource.BridalString + Resources.Resource.BathrobeString + Resources.Resource.ChooseString;
+            lblBridalDress6.Text = Resources.Resource.BridalString + Resources.Resource.KimonoString + Resources.Resource.ChooseString;
+            lblBridalSpecialClaim.Text = Resources.Resource.BridalString + Resources.Resource.DressString + Resources.Resource.SpecialClaimString;
+            lblGroomDressNum.Text = Resources.Resource.GroomString+Resources.Resource.SuitString + Resources.Resource.NumberString;
+            lblGroomSpecialClaim.Text = Resources.Resource.GroomString + Resources.Resource.SuitString + Resources.Resource.SpecialClaimString;
+
+            //1-5
+            lblSitePlan.Text = Resources.Resource.SitePlanString;
+            lblDinnerContent.Text = Resources.Resource.BanquetContentString;
+            lblFood.Text = Resources.Resource.FoodString;
+            lblDinnerGuest.Text = Resources.Resource.BanquetPeopleString;
+            lblAdditionClaim.Text = Resources.Resource.AdditionServiceString;
+
+
+            //2-1
+            lblBridalTryDress1.Text = Resources.Resource.BridalString + Resources.Resource.WhiteDressString + Resources.Resource.ChooseString;
+            lblBridalTryDress2.Text = Resources.Resource.BridalString + Resources.Resource.EveningDressString + "1" + Resources.Resource.ChooseString;
+            lblBridalTryDress3.Text = Resources.Resource.BridalString + Resources.Resource.EveningDressString + "2" + Resources.Resource.ChooseString;
+            lblBridalTryDress4.Text = Resources.Resource.BridalString + Resources.Resource.EveningDressString + "3" + Resources.Resource.ChooseString;
+            lblBridalTryDress5.Text = Resources.Resource.BridalString + Resources.Resource.BathrobeString + Resources.Resource.ChooseString;
+            lblBridalTryDress6.Text = Resources.Resource.BridalString + Resources.Resource.KimonoString + Resources.Resource.ChooseString;
+
+            //2-2
+            lblBridalModeling.Text = Resources.Resource.BridalString + Resources.Resource.ModelingString;
+            lblBridalMakeupEmphasis.Text = Resources.Resource.BridalString + Resources.Resource.MakeupEmphasisString;
+            lblBridalHair1.Text = Resources.Resource.BridalString + Resources.Resource.WhiteDressString + Resources.Resource.HairString;
+            lblBridalHair2.Text = Resources.Resource.BridalString + Resources.Resource.EveningDressString + "1" + Resources.Resource.HairString;
+            lblBridalHair3.Text = Resources.Resource.BridalString + Resources.Resource.EveningDressString + "2" + Resources.Resource.HairString;
+            lblBridalHair4.Text = Resources.Resource.BridalString + Resources.Resource.EveningDressString + "3" + Resources.Resource.HairString;
+            lblBridalHair5.Text = Resources.Resource.BridalString + Resources.Resource.BathrobeString + Resources.Resource.HairString;
+            lblBridalHair6.Text = Resources.Resource.BridalString + Resources.Resource.KimonoString + Resources.Resource.HairString;
+            lblBridalHairSpecailClaim.Text = Resources.Resource.BridalString + Resources.Resource.HairString + Resources.Resource.SpecialClaimString;
+            lblGroomHair.Text = Resources.Resource.GroomString + Resources.Resource.HairString;
+            lblGroomHairSpecailClaim.Text = Resources.Resource.GroomString + Resources.Resource.HairString + Resources.Resource.SpecialClaimString;
+
+            //3-1
+            lblBridalCheckDress1.Text = Resources.Resource.BridalString + Resources.Resource.WhiteDressString + Resources.Resource.SizeCheckString;
+            lblBridalCheckDress2.Text = Resources.Resource.BridalString + Resources.Resource.EveningDressString + "1" + Resources.Resource.SizeCheckString;
+            lblBridalCheckDress3.Text = Resources.Resource.BridalString + Resources.Resource.EveningDressString + "2" + Resources.Resource.SizeCheckString;
+            lblBridalCheckDress4.Text = Resources.Resource.BridalString + Resources.Resource.EveningDressString + "3" + Resources.Resource.SizeCheckString;
+            lblBridalCheckDress5.Text = Resources.Resource.BridalString + Resources.Resource.BathrobeString + Resources.Resource.SizeCheckString;
+            lblBridalCheckDress6.Text = Resources.Resource.BridalString + Resources.Resource.KimonoString + Resources.Resource.SizeCheckString;
+
+
+            //3-3
+            lblGetDress.Text = Resources.Resource.GetDressString;
+            lblDeposit.Text = Resources.Resource.DepositString+Resources.Resource.PaymentString;
+            lblBalanceDue.Text = Resources.Resource.BalanceDueString+Resources.Resource.PaymentString;
+
+            //Oth
+            lblOth.Text = Resources.Resource.RemarkString;
+
+        }
+        private void InitiallblPlaceHolder()
+        {
+            //1-1
+            tbHotelName.Attributes.Add("placeholder", Resources.Resource.SeletionRemindString + Resources.Resource.AccessoryMaintainString);
+            tbHotelCnName.Attributes.Add("placeholder", Resources.Resource.SeletionRemindString + Resources.Resource.AccessoryMaintainString);
+            tbHotelEngName.Attributes.Add("placeholder", Resources.Resource.SeletionRemindString + Resources.Resource.AccessoryMaintainString);
+            tbHotelJpName.Attributes.Add("placeholder", Resources.Resource.SeletionRemindString + Resources.Resource.AccessoryMaintainString);
+            tbHotelAddr.Attributes.Add("placeholder", Resources.Resource.SeletionRemindString + Resources.Resource.AccessoryMaintainString);
+            tbHotelName2.Attributes.Add("placeholder", Resources.Resource.SeletionRemindString + Resources.Resource.AccessoryMaintainString);
+            tbHotelCnName2.Attributes.Add("placeholder", Resources.Resource.SeletionRemindString + Resources.Resource.AccessoryMaintainString);
+            tbHotelEngName2.Attributes.Add("placeholder", Resources.Resource.SeletionRemindString + Resources.Resource.AccessoryMaintainString);
+            tbHotelJpName2.Attributes.Add("placeholder", Resources.Resource.SeletionRemindString + Resources.Resource.AccessoryMaintainString);
+            tbHotelAddr2.Attributes.Add("placeholder", Resources.Resource.SeletionRemindString + Resources.Resource.AccessoryMaintainString);
+            tbTravelPeriod.Attributes.Add("placeholder", Resources.Resource.SeletionRemindString + Resources.Resource.AccessoryMaintainString);
+            tbStayNight.Attributes.Add("placeholder", Resources.Resource.SeletionRemindString + Resources.Resource.AccessoryMaintainString);
+            tbFlight.Attributes.Add("placeholder", Resources.Resource.SeletionRemindString + Resources.Resource.AccessoryMaintainString);
+            tbFlight.Attributes.Add("placeholder", Resources.Resource.SeletionRemindString + Resources.Resource.AccessoryMaintainString);
+            tbContact.Attributes.Add("placeholder", Resources.Resource.SeletionRemindString + Resources.Resource.AccessoryMaintainString);
+
+
+            //1-2
+            tbPastorLanguage.Attributes.Add("placeholder", Resources.Resource.SeletionRemindString + Resources.Resource.AccessoryMaintainString);
+            tbWelcomeCard.Attributes.Add("placeholder", Resources.Resource.SeletionRemindString + Resources.Resource.AccessoryMaintainString);
+            tbBouquetCorsage.Attributes.Add("placeholder", Resources.Resource.SeletionRemindString + Resources.Resource.AccessoryMaintainString);
+            tbChampagne.Attributes.Add("placeholder", Resources.Resource.SeletionRemindString + Resources.Resource.AccessoryMaintainString);
+            tbGuest.Attributes.Add("placeholder", Resources.Resource.SeletionRemindString + Resources.Resource.AccessoryMaintainString);
+            tbWeddingSequence.Attributes.Add("placeholder", Resources.Resource.SeletionRemindString + Resources.Resource.AccessoryMaintainString);
+            tbChurchArrangements.Attributes.Add("placeholder", Resources.Resource.SeletionRemindString + Resources.Resource.AccessoryMaintainString);
+            tbAdditionService.Attributes.Add("placeholder", Resources.Resource.SeletionRemindString + Resources.Resource.AccessoryMaintainString);
+
+            //1-3
+            tbRoutePlan.Attributes.Add("placeholder", Resources.Resource.SeletionRemindString + Resources.Resource.AccessoryMaintainString);
+            tbPhotoItem.Attributes.Add("placeholder", Resources.Resource.SeletionRemindString + Resources.Resource.AccessoryMaintainString);
+            tbPhotoBouquet.Attributes.Add("placeholder", Resources.Resource.SeletionRemindString + Resources.Resource.AccessoryMaintainString);
+            tbPhotoSpecialClaim.Attributes.Add("placeholder", Resources.Resource.SeletionRemindString + Resources.Resource.AccessoryMaintainString);
+            tbPhotoAvoid.Attributes.Add("placeholder", Resources.Resource.SeletionRemindString + Resources.Resource.AccessoryMaintainString);
+
+            //1-4
+            tbBridalDress1.Attributes.Add("placeholder", Resources.Resource.SeletionRemindString + Resources.Resource.AccessoryMaintainString);
+            tbBridalDress2.Attributes.Add("placeholder", Resources.Resource.SeletionRemindString + Resources.Resource.AccessoryMaintainString);
+            tbBridalDress3.Attributes.Add("placeholder", Resources.Resource.SeletionRemindString + Resources.Resource.AccessoryMaintainString);
+            tbBridalDress4.Attributes.Add("placeholder", Resources.Resource.SeletionRemindString + Resources.Resource.AccessoryMaintainString);
+            tbBridalDress5.Attributes.Add("placeholder", Resources.Resource.SeletionRemindString + Resources.Resource.AccessoryMaintainString);
+            tbBridalDress6.Attributes.Add("placeholder", Resources.Resource.SeletionRemindString + Resources.Resource.AccessoryMaintainString);
+            tbBridalSpecialClaim.Attributes.Add("placeholder", Resources.Resource.SeletionRemindString + Resources.Resource.AccessoryMaintainString);
+            tbGroomDressNum.Attributes.Add("placeholder", Resources.Resource.SeletionRemindString + Resources.Resource.AccessoryMaintainString);
+            tbGroomSpecialClaim.Attributes.Add("placeholder", Resources.Resource.SeletionRemindString + Resources.Resource.AccessoryMaintainString);
+
+            //1-5
+            tbSitePlan.Attributes.Add("placeholder", Resources.Resource.SeletionRemindString + Resources.Resource.AccessoryMaintainString);
+            tbDinnerContent.Attributes.Add("placeholder", Resources.Resource.SeletionRemindString + Resources.Resource.AccessoryMaintainString);
+            tbFood.Attributes.Add("placeholder", Resources.Resource.SeletionRemindString + Resources.Resource.AccessoryMaintainString);
+            tbDinnerGuest.Attributes.Add("placeholder", Resources.Resource.SeletionRemindString + Resources.Resource.AccessoryMaintainString);
+            tbAdditionClaim.Attributes.Add("placeholder", Resources.Resource.SeletionRemindString + Resources.Resource.AccessoryMaintainString);
+
+
+            //2-1
+            tbBridalTryDress1.Attributes.Add("placeholder", Resources.Resource.SeletionRemindString + Resources.Resource.AccessoryMaintainString);
+            tbBridalTryDress2.Attributes.Add("placeholder", Resources.Resource.SeletionRemindString + Resources.Resource.AccessoryMaintainString);
+            tbBridalTryDress3.Attributes.Add("placeholder", Resources.Resource.SeletionRemindString + Resources.Resource.AccessoryMaintainString);
+            tbBridalTryDress4.Attributes.Add("placeholder", Resources.Resource.SeletionRemindString + Resources.Resource.AccessoryMaintainString);
+            tbBridalTryDress5.Attributes.Add("placeholder", Resources.Resource.SeletionRemindString + Resources.Resource.AccessoryMaintainString);
+            tbBridalTryDress6.Attributes.Add("placeholder", Resources.Resource.SeletionRemindString + Resources.Resource.AccessoryMaintainString);
+
+            //2-2
+            tbBridalModeling.Attributes.Add("placeholder", Resources.Resource.SeletionRemindString + Resources.Resource.AccessoryMaintainString);
+            tbBridalMakeupEmphasis.Attributes.Add("placeholder", Resources.Resource.SeletionRemindString + Resources.Resource.AccessoryMaintainString);
+            tbBridalHair1.Attributes.Add("placeholder", Resources.Resource.SeletionRemindString + Resources.Resource.AccessoryMaintainString);
+            tbBridalHair2.Attributes.Add("placeholder", Resources.Resource.SeletionRemindString + Resources.Resource.AccessoryMaintainString);
+            tbBridalHair3.Attributes.Add("placeholder", Resources.Resource.SeletionRemindString + Resources.Resource.AccessoryMaintainString);
+            tbBridalHair4.Attributes.Add("placeholder", Resources.Resource.SeletionRemindString + Resources.Resource.AccessoryMaintainString);
+            tbBridalHair5.Attributes.Add("placeholder", Resources.Resource.SeletionRemindString + Resources.Resource.AccessoryMaintainString);
+            tbBridalHair6.Attributes.Add("placeholder", Resources.Resource.SeletionRemindString + Resources.Resource.AccessoryMaintainString);
+            tbBridalHairSpecailClaim.Attributes.Add("placeholder", Resources.Resource.SeletionRemindString + Resources.Resource.AccessoryMaintainString);
+            tbGroomHair.Attributes.Add("placeholder", Resources.Resource.SeletionRemindString + Resources.Resource.AccessoryMaintainString);
+            tbGroomHairSpecailClaim.Attributes.Add("placeholder", Resources.Resource.SeletionRemindString + Resources.Resource.AccessoryMaintainString);
+
+            //3-1
+            tbBridalCheckDress1.Attributes.Add("placeholder", Resources.Resource.SeletionRemindString + Resources.Resource.AccessoryMaintainString);
+            tbBridalCheckDress2.Attributes.Add("placeholder", Resources.Resource.SeletionRemindString + Resources.Resource.AccessoryMaintainString);
+            tbBridalCheckDress3.Attributes.Add("placeholder", Resources.Resource.SeletionRemindString + Resources.Resource.AccessoryMaintainString);
+            tbBridalCheckDress4.Attributes.Add("placeholder", Resources.Resource.SeletionRemindString + Resources.Resource.AccessoryMaintainString);
+            tbBridalCheckDress5.Attributes.Add("placeholder", Resources.Resource.SeletionRemindString + Resources.Resource.AccessoryMaintainString);
+            tbBridalCheckDress6.Attributes.Add("placeholder", Resources.Resource.SeletionRemindString + Resources.Resource.AccessoryMaintainString);
+
+
+            //3-3
+            tbGetDress.Attributes.Add("placeholder", Resources.Resource.SeletionRemindString + Resources.Resource.AccessoryMaintainString);
+            tbDeposit.Attributes.Add("placeholder", Resources.Resource.SeletionRemindString + Resources.Resource.AccessoryMaintainString);
+            tbBalanceDue.Attributes.Add("placeholder", Resources.Resource.SeletionRemindString + Resources.Resource.AccessoryMaintainString);
+
+            //Oth
+            tbOth.Attributes.Add("placeholder", Resources.Resource.SeletionRemindString + Resources.Resource.AccessoryMaintainString);
+
+        }
+
+        private void Div()
+        {
+            divCehckDress.Visible = true;
+            divChooseDress.Visible = true;
+            divDinner.Visible = true;
+            divGetDress.Visible = true;
+            divHotel.Visible = true;
+            divModelCheck.Visible = true;
+            divTakePicture.Visible = true;
+            divTryDress.Visible = true;
+            divWeddingInfo.Visible = true;
+        }
         private void InitialControlWithPermission()
         {
             PermissionUtil util = new PermissionUtil();
@@ -61,7 +272,7 @@ namespace TheWeWebSite.CaseMgt
             if (bool.Parse(((DataRow)Session["LocateStore"])["HoldingCompany"].ToString()))
             {
                 btnModify.Visible = false;
-                panelBasicInfo.Enabled = false;         
+                panelBasicInfo.Enabled = false;
             }
         }
         private void InitialConferenceItem()
@@ -259,7 +470,7 @@ namespace TheWeWebSite.CaseMgt
                 );
             }
             SetConferenceItem(id, dr["ConferenceCategory"].ToString());
-            
+
 
             // Hide edit button when case closed.
             bool isClose = !string.IsNullOrEmpty(SysProperty.Util.ParseDateTime("DateTime", dr["CloseTime"].ToString()));
@@ -325,7 +536,7 @@ namespace TheWeWebSite.CaseMgt
                         {
                             tvConf.Nodes[index].ChildNodes[i].Checked = true;
                             break;
-                        }                        
+                        }
                     }
                 }
             }
@@ -349,7 +560,7 @@ namespace TheWeWebSite.CaseMgt
                 btnModify.Enabled = !cbIsClose.Checked;
                 DataSet ds = GetConferenceList(
                     " And OrderId = '" + Session["OrderId"].ToString() + "'"
-                    +" And ItemId = '" + id + "'");
+                    + " And ItemId = '" + id + "'");
                 if (SysProperty.Util.IsDataSetEmpty(ds))
                 {
                     tbRemark.Text = string.Empty;
@@ -573,7 +784,7 @@ namespace TheWeWebSite.CaseMgt
             {
                 //         < link href = "../assets/css/font-awesome.min.css" rel = "stylesheet" />   
                 //< link href = "../assets/css/jquery-ui.css" rel = "stylesheet" />
-                HtmlLink l = new HtmlLink();                
+                HtmlLink l = new HtmlLink();
                 l = new HtmlLink();
                 l.Href = ResolveUrl("../assets/css/font-awesome.min.css");
                 l.Attributes.Add("rel", "stylesheet");

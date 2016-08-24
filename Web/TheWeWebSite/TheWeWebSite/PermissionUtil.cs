@@ -32,7 +32,6 @@ namespace TheWeWebSite
                 case "Case":
                 case "ChurchReservation":
                 case "Unsigned":
-                case "LinkDressTimeMaintain":
                     return "0";
                 case "ChurchMaintain":
                 case "DressMaintain":

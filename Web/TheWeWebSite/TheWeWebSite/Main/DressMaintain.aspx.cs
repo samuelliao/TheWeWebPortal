@@ -16,18 +16,7 @@ namespace TheWeWebSite.Main
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!Page.IsPostBack)
-            {
-                if (SysProperty.Util == null) Response.Redirect("../Login.aspx", true);
-                else
-                {
-                    labelPageTitle.Text = Resources.Resource.MainPageString + " > " + Resources.Resource.ContractScheduleString;
-                    InitialLabelText();
-                    InitialControlWithPermission();
-                    InitialAllDropDownList();
-                    BindData();
-                }
-            }
+
         }
 
         private void ShowErrorMsg(string msg)
@@ -71,7 +60,7 @@ namespace TheWeWebSite.Main
             List<DbSearchObject> lst = new List<DbSearchObject>();
             lst.Add(new DbSearchObject("IsDelete", AtrrTypeItem.Bit, AttrSymbolItem.Equal, "0"));
             lst.Add(new DbSearchObject("TypeLv", AtrrTypeItem.Integer, AttrSymbolItem.Equal, "0"));
-            DataSet ds = GetDataFromDb(SysProperty.Util.MsSqlTableConverter(MsSqlTable.ServiceItemCategory), lst, " Order by TypeLv");
+            DataSet ds = GetDataFromDb(SysProperty.Util.MsSqlTableConverter(MsSqlTable.ServiceItemCategory), lst, " Order by Type");
             foreach (DataRow dr in ds.Tables[0].Rows)
             {
                 ddlCategory.Items.Add(new ListItem
@@ -235,7 +224,7 @@ namespace TheWeWebSite.Main
                 OtherConditionString += " Order by " + e.SortExpression + " " + SysProperty.Util.GetSortDirection(e.SortExpression);
                 GetDressList(
                     bool.Parse(((DataRow)Session["LocateStore"])["HoldingCompany"].ToString())
-                    ? string.Empty : ((DataRow)Session["LocateStore"])["Id"].ToString());
+                    ? string.Empty : ((DataRow)Session["LocateStore"])["Id"].ToString());                     
             }
             if (DS != null)
             {
@@ -246,8 +235,7 @@ namespace TheWeWebSite.Main
 
         protected void dataGrid_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Session["DressId"] = dataGrid.DataKeys[dataGrid.SelectedIndex].ToString();
-            Response.Redirect("~/StoreMgt/DressMCreate.aspx");
+
         }
 
         protected void dataGrid_PageIndexChanged(object source, DataGridPageChangedEventArgs e)
@@ -258,44 +246,7 @@ namespace TheWeWebSite.Main
 
         protected void dataGrid_ItemDataBound(object sender, DataGridItemEventArgs e)
         {
-            DataRowView dataItem1 = (DataRowView)e.Item.DataItem;
-            if (dataItem1 != null)
-            {
-                ((Label)e.Item.FindControl("labelStore")).Text = ddlStore.Items.FindByValue(dataItem1["StoreId"].ToString()).Text;
 
-                LinkButton hyperLink1 = (LinkButton)e.Item.FindControl("linkConsult");
-                hyperLink1.Text = dataItem1["ConsultSn"].ToString();
-                hyperLink1.CommandArgument = dataItem1["ConsultId"].ToString();
-                hyperLink1.Enabled = IsHyperLinkEnable("CaseMCreate");
-
-                LinkButton hyperLink2 = (LinkButton)e.Item.FindControl("LinkSn");
-                hyperLink2.CommandArgument = dataItem1["Id"].ToString();
-                hyperLink2.Text = dataItem1["Sn"].ToString();
-                hyperLink2.Enabled = IsHyperLinkEnable("DressMCreate");
-
-                LinkButton hyperLink3 = (LinkButton)e.Item.FindControl("linkCustomerName");
-                hyperLink3.Text = dataItem1["CustomerName"].ToString();
-                hyperLink3.CommandArgument = dataItem1["CustomerId"].ToString();
-                hyperLink3.Enabled = IsHyperLinkEnable("CustomerMCreate");
-
-                ((Label)e.Item.FindControl("labelLocation")).Text = SysProperty.Util.OutputRelatedLangName(Session["CultureCode"].ToString()
-                    , SysProperty.GetChurchById(dataItem1["ChurchId"].ToString()))
-                    + "("
-                    + (SysProperty.Util.OutputRelatedLangName(Session["CultureCode"].ToString(), SysProperty.GetAreaById(dataItem1["AreaId"].ToString()))) + ")"
-                    + " " + (SysProperty.Util.OutputRelatedLangName(Session["CultureCode"].ToString(), SysProperty.GetCountryById(dataItem1["CountryId"].ToString()))) +
-                    ")";
-
-                ((Label)e.Item.FindControl("labelSet")).Text = ddlCategory.Items.FindByValue(dataItem1["ProjectString"].ToString()).Text;
-            }
-        }
-
-        private bool IsHyperLinkEnable(string pageName)
-        {
-            PermissionUtil util = new PermissionUtil();
-            string sn = util.OperationSn(pageName);
-            PermissionItem item = util.GetPermissionByKey(Session["Operation"], sn);
-            if (item == null) return false;
-            return item.CanEntry;
         }
         #endregion
 
@@ -303,7 +254,6 @@ namespace TheWeWebSite.Main
         {
             OtherConditionString += string.IsNullOrEmpty(OtherConditionString) ? " Where " : string.Empty;
             OtherConditionString += string.IsNullOrEmpty(ddlStore.SelectedValue) ? string.Empty : "StoreId = '" + ddlStore.SelectedValue + "'";
-            if (OtherConditionString.Trim().Equals("Where")) OtherConditionString = string.Empty;
             GetDressList(OtherConditionString + " Order by StartTime");
             Session["DataSet"] = DS;
         }
@@ -375,23 +325,5 @@ namespace TheWeWebSite.Main
             }
         }
         #endregion
-
-        protected void linkConsult_Click(object sender, EventArgs e)
-        {
-            Session["OrderId"] = ((LinkButton)sender).CommandArgument;
-            Response.Redirect("~/CaseMgt/CaseMCreate.aspx");
-        }
-
-        protected void linkSn_Click(object sender, EventArgs e)
-        {
-            Session["DressId"] = ((LinkButton)sender).CommandArgument;
-            Response.Redirect("~/StoreMgt/DressMCreate.aspx");
-        }
-
-        protected void linkCustomerName_Click(object sender, EventArgs e)
-        {
-            Session["CustomerId"] = ((LinkButton)sender).CommandArgument;
-            Response.Redirect("~/CaseMgt/CustomerMCreate.aspx");
-        }
     }
 }

@@ -76,6 +76,12 @@
                                     </div>
                                     <asp:TextBox runat="server" placeholder="<%$ Resources:Resource,NameInputString%>" ID="tbGroomName"></asp:TextBox>
                                 </div>
+                                
+
+                            </div>
+                        </div>
+                        <div class="12u">
+                            <div class="row uniform 50%">
                                 <div class="2u 12u(mobilep)">
                                     <div class="Div">
                                         <asp:Label runat="server" Text="<%$ Resources:Resource,CountryString%>"></asp:Label>
@@ -86,11 +92,6 @@
                                         </ContentTemplate>
                                     </asp:UpdatePanel>
                                 </div>
-
-                            </div>
-                        </div>
-                        <div class="12u">
-                            <div class="row uniform 50%">
                                 <div class="2u 12u(mobilep)">
                                     <div class="Div">
                                         <asp:Label runat="server" Text="<%$ Resources:Resource,AreaString%>"></asp:Label>

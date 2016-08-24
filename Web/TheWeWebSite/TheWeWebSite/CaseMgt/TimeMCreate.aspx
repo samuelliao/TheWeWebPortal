@@ -77,12 +77,12 @@
                                 </div>
                                 <asp:TextBox runat="server" placeholder="<%$ Resources:Resource,SystemString%>" ID="tbArea" Enabled="false" />
                             </div>
-                           
+
                         </div>
                     </div>
                     <div class="12u">
                         <div class="row uniform 50%">
-                             <div class="2u 12u(mobilep)">
+                            <div class="2u 12u(mobilep)">
                                 <div class="Div">
                                     <asp:Label runat="server" Text="<%$ Resources:Resource,LocateString%>"></asp:Label>
                                 </div>
@@ -105,6 +105,18 @@
                                     </ContentTemplate>
                                 </asp:UpdatePanel>
                             </div>
+                            <div class="4u 12u(mobilep)">
+                                <div class="Div">
+                                    <div class="TimeMaintainDiv">
+                                        <asp:Label runat="server" Text="<%$ Resources:Resource,RemarkString%>"></asp:Label>
+                                    </div>
+                                    <asp:UpdatePanel runat="server">
+                                        <ContentTemplate>
+                                            <asp:TextBox runat="server" placeholder="<%$ Resources:Resource,ContentInputString%>" ID="tbRemark" />
+                                        </ContentTemplate>
+                                    </asp:UpdatePanel>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </asp:Panel>
@@ -114,7 +126,7 @@
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,StatusString%>"></asp:Label>
                             </div>
-                            <div style="overflow-y: auto; height: 450px">
+                            <div style="overflow-y: auto; height: 500px">
                                 <asp:TreeView CssClass="acidjs-css3-treeview"
                                     NodeIndent="20"
                                     NodeStyle-NodeSpacing="3"
@@ -150,13 +162,491 @@
                                     </asp:UpdatePanel>
                                 </div>
                             </div>
+
+
+                            <!--Content-->
                             <div>
-                                <asp:Label runat="server" Text="<%$ Resources:Resource,RemarkString%>"></asp:Label>
-                                <asp:UpdatePanel runat="server">
-                                    <ContentTemplate>
-                                        <asp:TextBox runat="server" placeholder="<%$ Resources:Resource,ContentInputString%>" ID="tbRemark" TextMode="MultiLine" Rows="10" />
-                                    </ContentTemplate>
-                                </asp:UpdatePanel>
+                                <!-- Step 1-1 飯店住宿-->
+                                <div runat="server" visible="false" id="divHotel" >
+                                    <div class="2u 12u(mobilep) TimeMaintain">
+                                        <div class="TimeMaintainDiv">
+                                            <asp:Label runat="server" ID="lblHotelName"></asp:Label>
+                                        </div>
+                                        <asp:TextBox runat="server" ID="tbHotelName" />
+                                    </div>
+                                    <div class="2u 12u(mobilep) TimeMaintain">
+                                        <div class="TimeMaintainDiv">
+                                            <asp:Label runat="server" ID="lblHotelCnName"></asp:Label>
+                                        </div>
+                                        <asp:TextBox runat="server" ID="tbHotelCnName" />
+                                    </div>
+                                    <div class="2u 12u(mobilep) TimeMaintain">
+                                        <div class="TimeMaintainDiv">
+                                            <asp:Label runat="server" ID="lblHotelEngName"></asp:Label>
+                                        </div>
+                                        <asp:TextBox runat="server" ID="tbHotelEngName" />
+                                    </div>
+                                    <div class="2u 12u(mobilep) TimeMaintain">
+                                        <div class="TimeMaintainDiv">
+                                            <asp:Label runat="server" ID="lblHotelJpName"></asp:Label>
+                                        </div>
+                                        <asp:TextBox runat="server" ID="tbHotelJpName" />
+                                    </div>
+                                    <div class="4u 12u(mobilep) TimeMaintain" runat="server">
+                                        <div class="TimeMaintainDiv">
+                                            <asp:Label runat="server" ID="lblHotelAddr"></asp:Label>
+                                        </div>
+                                        <asp:TextBox runat="server" ID="tbHotelAddr" />
+                                    </div>
+                                    <div class="2u 12u(mobilep) TimeMaintain">
+                                        <div class="TimeMaintainDiv" >
+                                            <asp:Label runat="server" ID="lblHotelName2"></asp:Label>
+                                        </div>
+                                        <asp:TextBox runat="server" ID="tbHotelName2"/>
+                                    </div>
+                                    <div class="2u 12u(mobilep) TimeMaintain">
+                                        <div class="TimeMaintainDiv">
+                                            <asp:Label runat="server" ID="lblHotelCnName2"></asp:Label>
+                                        </div>
+                                        <asp:TextBox runat="server" ID="tbHotelCnName2" />
+                                    </div>
+                                    <div class="2u 12u(mobilep) TimeMaintain">
+                                        <div class="TimeMaintainDiv">
+                                            <asp:Label runat="server" ID="lblHotelEngName2"></asp:Label>
+                                        </div>
+                                        <asp:TextBox runat="server" ID="tbHotelEngName2" />
+                                    </div>
+                                    <div class="2u 12u(mobilep) TimeMaintain">
+                                        <div class="TimeMaintainDiv">
+                                            <asp:Label runat="server" ID="lblHotelJpName2"></asp:Label>
+                                        </div>
+                                        <asp:TextBox runat="server" ID="tbHotelJpName2" />
+                                    </div>
+                                    <div class="2u 12u(mobilep) TimeMaintain">
+                                        <div class="TimeMaintainDiv">
+                                            <asp:Label runat="server" ID="lblHotelAddr2"></asp:Label>
+                                        </div>
+                                        <asp:TextBox runat="server" ID="tbHotelAddr2" />
+                                    </div>
+                                    <div class="2u 12u(mobilep) TimeMaintain">
+                                        <div class="TimeMaintainDiv">
+                                            <asp:Label runat="server" ID="lblTravelPeriod"></asp:Label>
+                                        </div>
+                                        <asp:TextBox runat="server" ID="tbTravelPeriod" />
+                                    </div>
+                                    <div class="2u 12u(mobilep) TimeMaintain">
+                                        <div class="TimeMaintainDiv">
+                                            <asp:Label runat="server" ID="lblStayNight"></asp:Label>
+                                        </div>
+                                        <asp:TextBox runat="server" ID="tbStayNight" />
+                                    </div>
+                                    <div class="2u 12u(mobilep) TimeMaintain">
+                                        <div class="TimeMaintainDiv">
+                                            <asp:Label runat="server" ID="lblFlight"></asp:Label>
+                                        </div>
+                                        <asp:TextBox runat="server" ID="tbFlight" />
+                                    </div>
+                                    <div class="2u 12u(mobilep) TimeMaintain">
+                                        <div class="TimeMaintainDiv">
+                                            <asp:Label runat="server" ID="lblContact"></asp:Label>
+                                        </div>
+                                        <asp:TextBox runat="server" ID="tbContact" />
+                                    </div>
+                                </div>
+
+                                <!-- Step 1-2 婚禮資訊-->
+                                <div visible="false" id="divWeddingInfo" runat="server">
+                                    <div class="2u 12u(mobilep) TimeMaintain">
+                                        <div class="TimeMaintainDiv">
+                                            <asp:Label runat="server" ID="lblWeddingStyle"></asp:Label>
+                                        </div>
+                                        <asp:TextBox runat="server" ID="tbWeddingStyle" />
+                                    </div>
+                                    <div class="2u 12u(mobilep) TimeMaintain">
+                                        <div class="TimeMaintainDiv">
+                                            <asp:Label runat="server" ID="lblLegalWedding"></asp:Label>
+                                        </div>
+                                        <asp:TextBox runat="server" ID="tbLegalWedding" />
+                                    </div>
+                                    <div class="2u 12u(mobilep) TimeMaintain">
+                                        <div class="TimeMaintainDiv">
+                                            <asp:Label runat="server" ID="lblPastorLanguage"></asp:Label>
+                                        </div>
+                                        <asp:TextBox runat="server" ID="tbPastorLanguage" />
+                                    </div>
+                                    <div class="2u 12u(mobilep) TimeMaintain">
+                                        <div class="TimeMaintainDiv">
+                                            <asp:Label runat="server" ID="lblWelcomeCard"></asp:Label>
+                                        </div>
+                                        <asp:TextBox runat="server" ID="tbWelcomeCard" />
+                                    </div>
+                                    <div class="2u 12u(mobilep) TimeMaintain">
+                                        <div class="TimeMaintainDiv">
+                                            <asp:Label runat="server" ID="lblBouquetCorsage"></asp:Label>
+                                        </div>
+                                        <asp:TextBox runat="server" ID="tbBouquetCorsage" />
+                                    </div>
+                                    <div class="2u 12u(mobilep) TimeMaintain">
+                                        <div class="TimeMaintainDiv">
+                                            <asp:Label runat="server" ID="lblChampagne"></asp:Label>
+                                        </div>
+                                        <asp:TextBox runat="server" ID="tbChampagne" />
+                                    </div>
+                                    <div class="2u 12u(mobilep) TimeMaintain">
+                                        <div class="TimeMaintainDiv">
+                                            <asp:Label runat="server" ID="lblGuest"></asp:Label>
+                                        </div>
+                                        <asp:TextBox runat="server" ID="tbGuest" />
+                                    </div>
+                                    <div class="2u 12u(mobilep) TimeMaintain">
+                                        <div class="TimeMaintainDiv">
+                                            <asp:Label runat="server" ID="lblWeddingSequence"></asp:Label>
+                                        </div>
+                                        <asp:TextBox runat="server" ID="tbWeddingSequence" />
+                                    </div>
+                                    <div class="2u 12u(mobilep) TimeMaintain">
+                                        <div class="TimeMaintainDiv">
+                                            <asp:Label runat="server" ID="lblChurchArrangements"></asp:Label>
+                                        </div>
+                                        <asp:TextBox runat="server" ID="tbChurchArrangements" />
+                                    </div>
+                                    <div class="2u 12u(mobilep) TimeMaintain">
+                                        <div class="TimeMaintainDiv">
+                                            <asp:Label runat="server" ID="lblAdditionService"></asp:Label>
+                                        </div>
+                                        <asp:TextBox runat="server" ID="tbAdditionService" />
+                                    </div>
+                                </div>
+
+                                <!-- Step 1-3 拍攝資訊-->
+                                <div visible="false" id="divTakePicture" runat="server">
+                                    <div class="2u 12u(mobilep) TimeMaintain">
+                                        <div class="TimeMaintainDiv">
+                                            <asp:Label runat="server" ID="lblRoutePlan"></asp:Label>
+                                        </div>
+                                        <asp:TextBox runat="server" ID="tbRoutePlan" />
+                                    </div>
+                                    <div class="2u 12u(mobilep) TimeMaintain">
+                                        <div class="TimeMaintainDiv">
+                                            <asp:Label runat="server" ID="lblPhotoItem"></asp:Label>
+                                        </div>
+                                        <asp:TextBox runat="server" ID="tbPhotoItem" />
+                                    </div>
+                                    <div class="2u 12u(mobilep) TimeMaintain">
+                                        <div class="TimeMaintainDiv" >
+                                            <asp:Label runat="server" ID="lblPhotoBouquet"></asp:Label>
+                                        </div>
+                                        <asp:TextBox runat="server" ID="tbPhotoBouquet" />
+                                    </div>
+                                    <div class="2u 12u(mobilep) TimeMaintain">
+                                        <div class="TimeMaintainDiv">
+                                            <asp:Label runat="server" ID="lblPhotoSpecialClaim"></asp:Label>
+                                        </div>
+                                        <asp:TextBox runat="server" ID="tbPhotoSpecialClaim" />
+                                    </div>
+                                    <div class="2u 12u(mobilep) TimeMaintain">
+                                        <div class="TimeMaintainDiv">
+                                            <asp:Label runat="server" ID="lblPhotoAvoid"></asp:Label>
+                                        </div>
+                                        <asp:TextBox runat="server" ID="tbPhotoAvoid" />
+                                    </div>
+
+                                </div>
+
+                                <!-- Step 1-4 挑選禮服-->
+                                <div visible="false" id="divChooseDress" runat="server">
+                                    <div class="2u 12u(mobilep) TimeMaintain">
+                                        <div class="TimeMaintainDiv">
+                                            <asp:Label runat="server" ID="lblBridalDress1"></asp:Label>
+                                        </div>
+                                        <asp:TextBox runat="server" ID="tbBridalDress1" />
+                                    </div>
+                                    <div class="2u 12u(mobilep) TimeMaintain">
+                                        <div class="TimeMaintainDiv">
+                                            <asp:Label runat="server" ID="lblBridalDress2"></asp:Label>
+                                        </div>
+                                        <asp:TextBox runat="server" ID="tbBridalDress2" />
+                                    </div>
+                                    <div class="2u 12u(mobilep) TimeMaintain">
+                                        <div class="TimeMaintainDiv">
+                                            <asp:Label runat="server" ID="lblBridalDress3"></asp:Label>
+                                        </div>
+                                        <asp:TextBox runat="server" ID="tbBridalDress3" />
+                                    </div>
+                                    <div class="2u 12u(mobilep) TimeMaintain">
+                                        <div class="TimeMaintainDiv">
+                                            <asp:Label runat="server" ID="lblBridalDress4"></asp:Label>
+                                        </div>
+                                        <asp:TextBox runat="server" ID="tbBridalDress4" />
+                                    </div>
+                                    <div class="2u 12u(mobilep) TimeMaintain">
+                                        <div class="TimeMaintainDiv">
+                                            <asp:Label runat="server" ID="lblBridalDress5"></asp:Label>
+                                        </div>
+                                        <asp:TextBox runat="server" ID="tbBridalDress5" />
+                                    </div>
+                                    <div class="2u 12u(mobilep) TimeMaintain">
+                                        <div class="TimeMaintainDiv">
+                                            <asp:Label runat="server" ID="lblBridalDress6"></asp:Label>
+                                        </div>
+                                        <asp:TextBox runat="server" ID="tbBridalDress6" />
+                                    </div>
+                                    <div class="2u 12u(mobilep) TimeMaintain">
+                                        <div class="TimeMaintainDiv">
+                                            <asp:Label runat="server" ID="lblBridalSpecialClaim"></asp:Label>
+                                        </div>
+                                        <asp:TextBox runat="server" ID="tbBridalSpecialClaim" />
+                                    </div>
+                                    <div class="2u 12u(mobilep) TimeMaintain">
+                                        <div class="TimeMaintainDiv">
+                                            <asp:Label runat="server" ID="lblGroomDressNum"></asp:Label>
+                                        </div>
+                                        <asp:TextBox runat="server" ID="tbGroomDressNum" />
+                                    </div>
+                                    <div class="2u 12u(mobilep) TimeMaintain">
+                                        <div class="TimeMaintainDiv">
+                                            <asp:Label runat="server" ID="lblGroomSpecialClaim"></asp:Label>
+                                        </div>
+                                        <asp:TextBox runat="server" ID="tbGroomSpecialClaim" />
+                                    </div>
+                                </div>
+
+                                <!-- Step 1-5 晚宴菜單-->
+                                <div visible="false" id="divDinner" runat="server">
+                                    <div class="2u 12u(mobilep) TimeMaintain">
+                                        <div class="TimeMaintainDiv">
+                                            <asp:Label runat="server" ID="lblSitePlan"></asp:Label>
+                                        </div>
+                                        <asp:TextBox runat="server" ID="tbSitePlan" />
+                                    </div>
+                                    <div class="2u 12u(mobilep) TimeMaintain">
+                                        <div class="TimeMaintainDiv">
+                                            <asp:Label runat="server" ID="lblDinnerContent"></asp:Label>
+                                        </div>
+                                        <asp:TextBox runat="server" ID="tbDinnerContent" />
+                                    </div>
+                                    <div class="2u 12u(mobilep) TimeMaintain">
+                                        <div class="TimeMaintainDiv">
+                                            <asp:Label runat="server" ID="lblFood"></asp:Label>
+                                        </div>
+                                        <asp:TextBox runat="server" ID="tbFood" />
+                                    </div>
+                                    <div class="2u 12u(mobilep) TimeMaintain">
+                                        <div class="TimeMaintainDiv">
+                                            <asp:Label runat="server" ID="lblDinnerGuest"></asp:Label>
+                                        </div>
+                                        <asp:TextBox runat="server" ID="tbDinnerGuest" />
+                                    </div>
+                                    <div class="2u 12u(mobilep) TimeMaintain">
+                                        <div class="TimeMaintainDiv">
+                                            <asp:Label runat="server" ID="lblAdditionClaim"></asp:Label>
+                                        </div>
+                                        <asp:TextBox runat="server" ID="tbAdditionClaim" />
+                                    </div>
+                                </div>
+
+                                <!-- Step 1-6 其他-->
+
+                                <!-- Step 2-1 禮服試穿-->
+                                <div visible="false" id="divTryDress" runat="server">
+                                    <div class="2u 12u(mobilep) TimeMaintain">
+                                        <div class="TimeMaintainDiv">
+                                            <asp:Label runat="server" ID="lblBridalTryDress1"></asp:Label>
+                                        </div>
+                                        <asp:TextBox runat="server" ID="tbBridalTryDress1" />
+                                    </div>
+                                    <div class="2u 12u(mobilep) TimeMaintain">
+                                        <div class="TimeMaintainDiv">
+                                            <asp:Label runat="server" ID="lblBridalTryDress2"></asp:Label>
+                                        </div>
+                                        <asp:TextBox runat="server" ID="tbBridalTryDress2" />
+                                    </div>
+                                    <div class="2u 12u(mobilep) TimeMaintain">
+                                        <div class="TimeMaintainDiv">
+                                            <asp:Label runat="server" ID="lblBridalTryDress3"></asp:Label>
+                                        </div>
+                                        <asp:TextBox runat="server" ID="tbBridalTryDress3" />
+                                    </div>
+                                    <div class="2u 12u(mobilep) TimeMaintain">
+                                        <div class="TimeMaintainDiv">
+                                            <asp:Label runat="server" ID="lblBridalTryDress4"></asp:Label>
+                                        </div>
+                                        <asp:TextBox runat="server" ID="tbBridalTryDress4" />
+                                    </div>
+                                    <div class="2u 12u(mobilep) TimeMaintain">
+                                        <div class="TimeMaintainDiv">
+                                            <asp:Label runat="server" ID="lblBridalTryDress5"></asp:Label>
+                                        </div>
+                                        <asp:TextBox runat="server" ID="tbBridalTryDress5" />
+                                    </div>
+                                    <div class="2u 12u(mobilep) TimeMaintain">
+                                        <div class="TimeMaintainDiv">
+                                            <asp:Label runat="server" ID="lblBridalTryDress6"></asp:Label>
+                                        </div>
+                                        <asp:TextBox runat="server" ID="tbBridalTryDress6" />
+                                    </div>
+                                </div>
+
+                                <!-- Step 2-2 化妝造型確認-->
+                                <div visible="false" id="divModelCheck" runat="server">
+                                    <div class="2u 12u(mobilep) TimeMaintain">
+                                        <div class="TimeMaintainDiv">
+                                            <asp:Label runat="server" ID="lblBridalModeling"></asp:Label>
+                                        </div>
+                                        <asp:TextBox runat="server" ID="tbBridalModeling" />
+                                    </div>
+                                    <div class="2u 12u(mobilep) TimeMaintain">
+                                        <div class="TimeMaintainDiv">
+                                            <asp:Label runat="server" ID="lblBridalMakeupEmphasis"></asp:Label>
+                                        </div>
+                                        <asp:TextBox runat="server" ID="tbBridalMakeupEmphasis" />
+                                    </div>
+                                    <div class="2u 12u(mobilep) TimeMaintain">
+                                        <div class="TimeMaintainDiv">
+                                            <asp:Label runat="server" ID="lblBridalHair1"></asp:Label>
+                                        </div>
+                                        <asp:TextBox runat="server" ID="tbBridalHair1" />
+                                    </div>
+                                    <div class="2u 12u(mobilep) TimeMaintain">
+                                        <div class="TimeMaintainDiv">
+                                            <asp:Label runat="server" ID="lblBridalHair2"></asp:Label>
+                                        </div>
+                                        <asp:TextBox runat="server" ID="tbBridalHair2" />
+                                    </div>
+                                    <div class="2u 12u(mobilep) TimeMaintain">
+                                        <div class="TimeMaintainDiv">
+                                            <asp:Label runat="server" ID="lblBridalHair3"></asp:Label>
+                                        </div>
+                                        <asp:TextBox runat="server" ID="tbBridalHair3" />
+                                    </div>
+                                    <div class="2u 12u(mobilep) TimeMaintain">
+                                        <div class="TimeMaintainDiv">
+                                            <asp:Label runat="server" ID="lblBridalHair4"></asp:Label>
+                                        </div>
+                                        <asp:TextBox runat="server" ID="tbBridalHair4" />
+                                    </div>
+                                    <div class="2u 12u(mobilep) TimeMaintain">
+                                        <div class="TimeMaintainDiv">
+                                            <asp:Label runat="server" ID="lblBridalHair5"></asp:Label>
+                                        </div>
+                                        <asp:TextBox runat="server" ID="tbBridalHair5" />
+                                    </div>
+                                    <div class="2u 12u(mobilep) TimeMaintain">
+                                        <div class="TimeMaintainDiv">
+                                            <asp:Label runat="server" ID="lblBridalHair6"></asp:Label>
+                                        </div>
+                                        <asp:TextBox runat="server" ID="tbBridalHair6" />
+                                    </div>
+                                    <div class="2u 12u(mobilep) TimeMaintain">
+                                        <div class="TimeMaintainDiv">
+                                            <asp:Label runat="server" ID="lblBridalHairSpecailClaim"></asp:Label>
+                                        </div>
+                                        <asp:TextBox runat="server" ID="tbBridalHairSpecailClaim" />
+                                    </div>
+                                    <div class="2u 12u(mobilep) TimeMaintain">
+                                        <div class="TimeMaintainDiv">
+                                            <asp:Label runat="server" ID="lblGroomHair"></asp:Label>
+                                        </div>
+                                        <asp:TextBox runat="server" ID="tbGroomHair" />
+                                    </div>
+                                    <div class="2u 12u(mobilep) TimeMaintain">
+                                        <div class="TimeMaintainDiv">
+                                            <asp:Label runat="server" ID="lblGroomHairSpecailClaim"></asp:Label>
+                                        </div>
+                                        <asp:TextBox runat="server" ID="tbGroomHairSpecailClaim" />
+                                    </div>
+                                </div>
+
+                                <!-- Step 2-3 禮服行程規劃-->
+
+                                <!-- Step 2-4 其他-->
+
+                                <!-- Step 3-1 禮服尺寸確認-->
+                                <div visible="false" id="divCehckDress" runat="server">
+                                    <div class="2u 12u(mobilep) TimeMaintain">
+                                        <div class="TimeMaintainDiv">
+                                            <asp:Label runat="server" ID="lblBridalCheckDress1"></asp:Label>
+                                        </div>
+                                        <asp:TextBox runat="server" ID="tbBridalCheckDress1" />
+                                    </div>
+                                    <div class="2u 12u(mobilep) TimeMaintain">
+                                        <div class="TimeMaintainDiv">
+                                            <asp:Label runat="server" ID="lblBridalCheckDress2"></asp:Label>
+                                        </div>
+                                        <asp:TextBox runat="server" ID="tbBridalCheckDress2" />
+                                    </div>
+                                    <div class="2u 12u(mobilep) TimeMaintain">
+                                        <div class="TimeMaintainDiv">
+                                            <asp:Label runat="server" ID="lblBridalCheckDress3"></asp:Label>
+                                        </div>
+                                        <asp:TextBox runat="server" ID="tbBridalCheckDress3" />
+                                    </div>
+                                    <div class="2u 12u(mobilep) TimeMaintain">
+                                        <div class="TimeMaintainDiv">
+                                            <asp:Label runat="server" ID="lblBridalCheckDress4"></asp:Label>
+                                        </div>
+                                        <asp:TextBox runat="server" ID="tbBridalCheckDress4" />
+                                    </div>
+                                    <div class="2u 12u(mobilep) TimeMaintain">
+                                        <div class="TimeMaintainDiv">
+                                            <asp:Label runat="server" ID="lblBridalCheckDress5"></asp:Label>
+                                        </div>
+                                        <asp:TextBox runat="server" ID="tbBridalCheckDress5" />
+                                    </div>
+                                    <div class="2u 12u(mobilep) TimeMaintain">
+                                        <div class="TimeMaintainDiv" >
+                                            <asp:Label runat="server" ID="lblBridalCheckDress6"></asp:Label>
+                                        </div>
+                                        <asp:TextBox runat="server" ID="tbBridalCheckDress6" />
+                                    </div>
+                                </div>
+
+                                <!-- Step 3-2 行程重點提醒-->
+
+                                <!-- Step 3-3 禮服取件/付款-->
+                                <div visible="false" id="divGetDress" runat="server">
+                                    <div class="2u 12u(mobilep) TimeMaintain">
+                                        <div class="TimeMaintainDiv">
+                                            <asp:Label runat="server" ID="lblGetDress"></asp:Label>
+                                        </div>
+                                        <asp:TextBox runat="server" ID="tbGetDress" />
+                                    </div>
+                                    <div class="2u 12u(mobilep) TimeMaintain">
+                                        <div class="TimeMaintainDiv">
+                                            <asp:Label runat="server" ID="lblDeposit"></asp:Label>
+                                        </div>
+                                        <asp:TextBox runat="server" ID="tbDeposit" />
+                                    </div>
+                                    <div class="2u 12u(mobilep) TimeMaintain">
+                                        <div class="TimeMaintainDiv">
+                                            <asp:Label runat="server" ID="lblBalanceDue"></asp:Label>
+                                        </div>
+                                        <asp:TextBox runat="server" ID="tbBalanceDue" />
+                                    </div>
+                                </div>
+
+                                <!-- Step 3-4 其他-->
+                                <!-- Step 4-1 -->
+                                <!-- Step 4-2 -->
+                                <!-- Step 4-3 -->
+                                <!-- Step 4-4 -->
+                                <!-- Step 4-5 -->
+                                <!-- Step 4-6 -->
+                                <!-- Step 4-7 -->
+                                <!-- Step 5-1 -->
+                                <!-- Step 5-2 -->
+                                <!-- Step 5-3 -->
+                                <!-- Step 5-4 -->
+                                <!-- Step 5-5 -->
+                                <!-- Step 5-6 -->
+                                <!-- Step 5-7 -->
+
+                                <div class="10u 12u(mobilep) TimeMaintain">
+                                    <div class="TimeMaintainDiv">
+                                        <asp:Label runat="server" ID="lblOth"></asp:Label>
+                                    </div>
+                                    <asp:TextBox runat="server" ID="tbOth" Rows="6" TextMode="MultiLine" />
+                                </div>
                             </div>
                         </div>
                     </div>

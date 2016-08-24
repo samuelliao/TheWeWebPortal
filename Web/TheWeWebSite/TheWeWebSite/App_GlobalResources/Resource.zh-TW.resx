@@ -157,10 +157,10 @@
     <value>開店管理</value>
   </data>
   <data name="ContractScheduleString" xml:space="preserve">
-    <value>簽約行程</value>
+    <value>簽約客戶表</value>
   </data>
   <data name="ScheduleString" xml:space="preserve">
-    <value>行程表</value>
+    <value>行事曆</value>
   </data>
   <data name="LocationReservationString" xml:space="preserve">
     <value>教堂預約</value>
@@ -190,7 +190,7 @@
     <value>回覆</value>
   </data>
   <data name="ConsultScheduleString" xml:space="preserve">
-    <value>未簽約行程</value>
+    <value>未簽約客戶表</value>
   </data>
   <data name="LogoutString" xml:space="preserve">
     <value>登出</value>
@@ -1079,5 +1079,104 @@
   </data>
   <data name="DressRentString" xml:space="preserve">
     <value>禮服租借</value>
+  </data>
+  <data name="HotelString" xml:space="preserve">
+    <value>住宿飯店</value>
+  </data>
+  <data name="TravelPeriodString" xml:space="preserve">
+    <value>旅遊期間</value>
+  </data>
+  <data name="FlightString" xml:space="preserve">
+    <value>航班日期</value>
+  </data>
+  <data name="ContactString" xml:space="preserve">
+    <value>聯絡人</value>
+  </data>
+  <data name="WelcomeCardString" xml:space="preserve">
+    <value>迎賓牌</value>
+  </data>
+  <data name="ChampagneString" xml:space="preserve">
+    <value>祝賀香檳</value>
+  </data>
+  <data name="GuestString" xml:space="preserve">
+    <value>賓客人數</value>
+  </data>
+  <data name="WeddingSequenceString" xml:space="preserve">
+    <value>步入教堂順序</value>
+  </data>
+  <data name="AdditionServiceString" xml:space="preserve">
+    <value>追加服務</value>
+  </data>
+  <data name="AttractionsString" xml:space="preserve">
+    <value>拍照景點</value>
+  </data>
+  <data name="RoutePlanString" xml:space="preserve">
+    <value>路線規劃</value>
+  </data>
+  <data name="PhotoItemString" xml:space="preserve">
+    <value>拍攝道具</value>
+  </data>
+  <data name="PhotoBouquetString" xml:space="preserve">
+    <value>拍攝捧花</value>
+  </data>
+  <data name="PhotoSpecialClaimString" xml:space="preserve">
+    <value>特別拍攝要求</value>
+  </data>
+  <data name="PhotoAvoidString" xml:space="preserve">
+    <value>避免拍攝動作及姿勢</value>
+  </data>
+  <data name="SitePlanString" xml:space="preserve">
+    <value>場地規劃</value>
+  </data>
+  <data name="BanquetContentString" xml:space="preserve">
+    <value>晚宴內容</value>
+  </data>
+  <data name="FoodString" xml:space="preserve">
+    <value>酒水內容</value>
+  </data>
+  <data name="ModelingString" xml:space="preserve">
+    <value>造型</value>
+  </data>
+  <data name="MakeupEmphasisString" xml:space="preserve">
+    <value>裝容重點</value>
+  </data>
+  <data name="SpecialClaimString" xml:space="preserve">
+    <value>特別要求</value>
+  </data>
+  <data name="WhiteDressString" xml:space="preserve">
+    <value>白紗</value>
+  </data>
+  <data name="EveningDressString" xml:space="preserve">
+    <value>晚禮服</value>
+  </data>
+  <data name="BathrobeString" xml:space="preserve">
+    <value>浴衣</value>
+  </data>
+  <data name="KimonoString" xml:space="preserve">
+    <value>和服</value>
+  </data>
+  <data name="SuitString" xml:space="preserve">
+    <value>西裝</value>
+  </data>
+  <data name="BanquetPeopleString" xml:space="preserve">
+    <value>晚宴人數</value>
+  </data>
+  <data name="ChooseString" xml:space="preserve">
+    <value>挑選</value>
+  </data>
+  <data name="BanquetString" xml:space="preserve">
+    <value>晚宴</value>
+  </data>
+  <data name="HairString" xml:space="preserve">
+    <value>髮型</value>
+  </data>
+  <data name="SizeCheckString" xml:space="preserve">
+    <value>尺寸確認</value>
+  </data>
+  <data name="GetDressString" xml:space="preserve">
+    <value>禮服取件</value>
+  </data>
+  <data name="PaymentString" xml:space="preserve">
+    <value>付款</value>
   </data>
 </root>

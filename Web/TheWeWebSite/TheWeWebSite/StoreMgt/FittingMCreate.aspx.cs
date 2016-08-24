@@ -122,6 +122,7 @@ namespace TheWeWebSite.StoreMgt
                     divLength.Visible = true;
                     break;
                 case "DressEarring":
+                    //this.Page.FindControl("divColor2")
                     divColor2.Visible = true;
                     divMaterial2.Visible = true;
                     divRelatedCategory.Visible = true;
