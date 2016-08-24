@@ -16,6 +16,11 @@ namespace TheWeLib.DbControl
             Util = new Utility();
             DbConnection = new DbConn(SysProperty.DbConcString);
         }
+        public GeneralDbDAO(string dbConn)
+        {
+            Util = new Utility();
+            DbConnection = new DbConn(dbConn);
+        }
 
         public DataSet GetDataFromTable(string instance, string tableName, string condition)
         {
