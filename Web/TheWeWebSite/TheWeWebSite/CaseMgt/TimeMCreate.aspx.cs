@@ -50,7 +50,7 @@ namespace TheWeWebSite.CaseMgt
         private void InitialTextAndHint()
         {
             InitiallblText();
-            InitiallblPlaceHolder();
+            InitialtbPlaceHolder();
             Div();
         }
 
@@ -150,100 +150,100 @@ namespace TheWeWebSite.CaseMgt
             lblOth.Text = Resources.Resource.RemarkString;
 
         }
-        private void InitiallblPlaceHolder()
+        private void InitialtbPlaceHolder()
         {
             //1-1
-            tbHotelName.Attributes.Add("placeholder", Resources.Resource.SeletionRemindString + Resources.Resource.AccessoryMaintainString);
-            tbHotelCnName.Attributes.Add("placeholder", Resources.Resource.SeletionRemindString + Resources.Resource.AccessoryMaintainString);
-            tbHotelEngName.Attributes.Add("placeholder", Resources.Resource.SeletionRemindString + Resources.Resource.AccessoryMaintainString);
-            tbHotelJpName.Attributes.Add("placeholder", Resources.Resource.SeletionRemindString + Resources.Resource.AccessoryMaintainString);
-            tbHotelAddr.Attributes.Add("placeholder", Resources.Resource.SeletionRemindString + Resources.Resource.AccessoryMaintainString);
-            tbHotelName2.Attributes.Add("placeholder", Resources.Resource.SeletionRemindString + Resources.Resource.AccessoryMaintainString);
-            tbHotelCnName2.Attributes.Add("placeholder", Resources.Resource.SeletionRemindString + Resources.Resource.AccessoryMaintainString);
-            tbHotelEngName2.Attributes.Add("placeholder", Resources.Resource.SeletionRemindString + Resources.Resource.AccessoryMaintainString);
-            tbHotelJpName2.Attributes.Add("placeholder", Resources.Resource.SeletionRemindString + Resources.Resource.AccessoryMaintainString);
-            tbHotelAddr2.Attributes.Add("placeholder", Resources.Resource.SeletionRemindString + Resources.Resource.AccessoryMaintainString);
-            tbTravelPeriod.Attributes.Add("placeholder", Resources.Resource.SeletionRemindString + Resources.Resource.AccessoryMaintainString);
-            tbStayNight.Attributes.Add("placeholder", Resources.Resource.SeletionRemindString + Resources.Resource.AccessoryMaintainString);
-            tbFlight.Attributes.Add("placeholder", Resources.Resource.SeletionRemindString + Resources.Resource.AccessoryMaintainString);
-            tbFlight.Attributes.Add("placeholder", Resources.Resource.SeletionRemindString + Resources.Resource.AccessoryMaintainString);
-            tbContact.Attributes.Add("placeholder", Resources.Resource.SeletionRemindString + Resources.Resource.AccessoryMaintainString);
+            tbHotelName.Attributes.Add("placeholder", Resources.Resource.AddString + Resources.Resource.HotelString + "1" + Resources.Resource.NameString);
+            tbHotelCnName.Attributes.Add("placeholder", Resources.Resource.AddString + Resources.Resource.HotelString + "1" + Resources.Resource.CnNameString);
+            tbHotelEngName.Attributes.Add("placeholder", Resources.Resource.AddString + Resources.Resource.HotelString + "1" + Resources.Resource.EnglishNameString);
+            tbHotelJpName.Attributes.Add("placeholder", Resources.Resource.AddString + Resources.Resource.HotelString + "1" + Resources.Resource.JpNameString);
+            tbHotelAddr.Attributes.Add("placeholder", Resources.Resource.AddString + Resources.Resource.HotelString + "1" + Resources.Resource.AddressString);
+            tbHotelName2.Attributes.Add("placeholder", Resources.Resource.AddString + Resources.Resource.HotelString + "2" + Resources.Resource.NameString);
+            tbHotelCnName2.Attributes.Add("placeholder", Resources.Resource.AddString + Resources.Resource.HotelString + "2" + Resources.Resource.CnNameString);
+            tbHotelEngName2.Attributes.Add("placeholder", Resources.Resource.AddString + Resources.Resource.HotelString + "2" + Resources.Resource.EnglishNameString);
+            tbHotelJpName2.Attributes.Add("placeholder", Resources.Resource.AddString + Resources.Resource.HotelString + "2" + Resources.Resource.JpNameString);
+            tbHotelAddr2.Attributes.Add("placeholder", Resources.Resource.AddString + Resources.Resource.HotelString + "2" + Resources.Resource.AddressString);
+            tbTravelPeriod.Attributes.Add("placeholder", Resources.Resource.AddString + Resources.Resource.TravelPeriodString);
+            tbStayNight.Attributes.Add("placeholder", Resources.Resource.AddString + Resources.Resource.StayNightString);
+            tbFlight.Attributes.Add("placeholder", Resources.Resource.AddString + Resources.Resource.FlightString);
+            tbContact.Attributes.Add("placeholder", Resources.Resource.AddString + Resources.Resource.ContactString);
 
 
             //1-2
-            tbPastorLanguage.Attributes.Add("placeholder", Resources.Resource.SeletionRemindString + Resources.Resource.AccessoryMaintainString);
-            tbWelcomeCard.Attributes.Add("placeholder", Resources.Resource.SeletionRemindString + Resources.Resource.AccessoryMaintainString);
-            tbBouquetCorsage.Attributes.Add("placeholder", Resources.Resource.SeletionRemindString + Resources.Resource.AccessoryMaintainString);
-            tbChampagne.Attributes.Add("placeholder", Resources.Resource.SeletionRemindString + Resources.Resource.AccessoryMaintainString);
-            tbGuest.Attributes.Add("placeholder", Resources.Resource.SeletionRemindString + Resources.Resource.AccessoryMaintainString);
-            tbWeddingSequence.Attributes.Add("placeholder", Resources.Resource.SeletionRemindString + Resources.Resource.AccessoryMaintainString);
-            tbChurchArrangements.Attributes.Add("placeholder", Resources.Resource.SeletionRemindString + Resources.Resource.AccessoryMaintainString);
-            tbAdditionService.Attributes.Add("placeholder", Resources.Resource.SeletionRemindString + Resources.Resource.AccessoryMaintainString);
+            tbWeddingStyle.Attributes.Add("placeholder", Resources.Resource.AddString + Resources.Resource.WeddingStyleString);
+            tbLegalWedding.Attributes.Add("placeholder", Resources.Resource.AddString + Resources.Resource.LegalWeddingString);
+            tbPastorLanguage.Attributes.Add("placeholder", Resources.Resource.AddString + Resources.Resource.PastorString + Resources.Resource.LanguageString);
+            tbWelcomeCard.Attributes.Add("placeholder", Resources.Resource.AddString + Resources.Resource.WelcomeCardString);
+            tbBouquetCorsage.Attributes.Add("placeholder", Resources.Resource.AddString + Resources.Resource.BouquetCorsageString);
+            tbChampagne.Attributes.Add("placeholder", Resources.Resource.AddString + Resources.Resource.ChampagneString);
+            tbGuest.Attributes.Add("placeholder", Resources.Resource.AddString + Resources.Resource.GuestString);
+            tbWeddingSequence.Attributes.Add("placeholder", Resources.Resource.AddString + Resources.Resource.WeddingSequenceString);
+            tbChurchArrangements.Attributes.Add("placeholder", Resources.Resource.AddString + Resources.Resource.ChurchArrangementsString);
+            tbAdditionService.Attributes.Add("placeholder", Resources.Resource.AddString + Resources.Resource.AdditionServiceString);
 
             //1-3
-            tbRoutePlan.Attributes.Add("placeholder", Resources.Resource.SeletionRemindString + Resources.Resource.AccessoryMaintainString);
-            tbPhotoItem.Attributes.Add("placeholder", Resources.Resource.SeletionRemindString + Resources.Resource.AccessoryMaintainString);
-            tbPhotoBouquet.Attributes.Add("placeholder", Resources.Resource.SeletionRemindString + Resources.Resource.AccessoryMaintainString);
-            tbPhotoSpecialClaim.Attributes.Add("placeholder", Resources.Resource.SeletionRemindString + Resources.Resource.AccessoryMaintainString);
-            tbPhotoAvoid.Attributes.Add("placeholder", Resources.Resource.SeletionRemindString + Resources.Resource.AccessoryMaintainString);
+            tbRoutePlan.Attributes.Add("placeholder", Resources.Resource.AddString + Resources.Resource.RoutePlanString);
+            tbPhotoItem.Attributes.Add("placeholder", Resources.Resource.AddString + Resources.Resource.PhotoItemString);
+            tbPhotoBouquet.Attributes.Add("placeholder", Resources.Resource.AddString + Resources.Resource.PhotoBouquetString);
+            tbPhotoSpecialClaim.Attributes.Add("placeholder", Resources.Resource.AddString + Resources.Resource.PhotoSpecialClaimString);
+            tbPhotoAvoid.Attributes.Add("placeholder", Resources.Resource.AddString + Resources.Resource.PhotoAvoidString);
 
             //1-4
-            tbBridalDress1.Attributes.Add("placeholder", Resources.Resource.SeletionRemindString + Resources.Resource.AccessoryMaintainString);
-            tbBridalDress2.Attributes.Add("placeholder", Resources.Resource.SeletionRemindString + Resources.Resource.AccessoryMaintainString);
-            tbBridalDress3.Attributes.Add("placeholder", Resources.Resource.SeletionRemindString + Resources.Resource.AccessoryMaintainString);
-            tbBridalDress4.Attributes.Add("placeholder", Resources.Resource.SeletionRemindString + Resources.Resource.AccessoryMaintainString);
-            tbBridalDress5.Attributes.Add("placeholder", Resources.Resource.SeletionRemindString + Resources.Resource.AccessoryMaintainString);
-            tbBridalDress6.Attributes.Add("placeholder", Resources.Resource.SeletionRemindString + Resources.Resource.AccessoryMaintainString);
-            tbBridalSpecialClaim.Attributes.Add("placeholder", Resources.Resource.SeletionRemindString + Resources.Resource.AccessoryMaintainString);
-            tbGroomDressNum.Attributes.Add("placeholder", Resources.Resource.SeletionRemindString + Resources.Resource.AccessoryMaintainString);
-            tbGroomSpecialClaim.Attributes.Add("placeholder", Resources.Resource.SeletionRemindString + Resources.Resource.AccessoryMaintainString);
+            tbBridalDress1.Attributes.Add("placeholder", Resources.Resource.AddString + Resources.Resource.BridalString + Resources.Resource.WhiteDressString + Resources.Resource.ChooseString);
+            tbBridalDress2.Attributes.Add("placeholder", Resources.Resource.AddString + Resources.Resource.BridalString + Resources.Resource.EveningDressString + "1" + Resources.Resource.ChooseString);
+            tbBridalDress3.Attributes.Add("placeholder", Resources.Resource.AddString + Resources.Resource.BridalString + Resources.Resource.EveningDressString + "2" + Resources.Resource.ChooseString);
+            tbBridalDress4.Attributes.Add("placeholder", Resources.Resource.AddString + Resources.Resource.BridalString + Resources.Resource.EveningDressString + "3" + Resources.Resource.ChooseString);
+            tbBridalDress5.Attributes.Add("placeholder", Resources.Resource.AddString + Resources.Resource.BridalString + Resources.Resource.BathrobeString + Resources.Resource.ChooseString);
+            tbBridalDress6.Attributes.Add("placeholder", Resources.Resource.AddString + Resources.Resource.BridalString + Resources.Resource.KimonoString + Resources.Resource.ChooseString);
+            tbBridalSpecialClaim.Attributes.Add("placeholder", Resources.Resource.AddString + Resources.Resource.BridalString + Resources.Resource.DressString + Resources.Resource.SpecialClaimString);
+            tbGroomDressNum.Attributes.Add("placeholder", Resources.Resource.AddString + Resources.Resource.GroomString + Resources.Resource.SuitString + Resources.Resource.NumberString);
+            tbGroomSpecialClaim.Attributes.Add("placeholder", Resources.Resource.AddString + Resources.Resource.GroomString + Resources.Resource.SuitString + Resources.Resource.SpecialClaimString);
 
             //1-5
-            tbSitePlan.Attributes.Add("placeholder", Resources.Resource.SeletionRemindString + Resources.Resource.AccessoryMaintainString);
-            tbDinnerContent.Attributes.Add("placeholder", Resources.Resource.SeletionRemindString + Resources.Resource.AccessoryMaintainString);
-            tbFood.Attributes.Add("placeholder", Resources.Resource.SeletionRemindString + Resources.Resource.AccessoryMaintainString);
-            tbDinnerGuest.Attributes.Add("placeholder", Resources.Resource.SeletionRemindString + Resources.Resource.AccessoryMaintainString);
-            tbAdditionClaim.Attributes.Add("placeholder", Resources.Resource.SeletionRemindString + Resources.Resource.AccessoryMaintainString);
+            tbSitePlan.Attributes.Add("placeholder", Resources.Resource.AddString + Resources.Resource.SitePlanString);
+            tbDinnerContent.Attributes.Add("placeholder", Resources.Resource.AddString + Resources.Resource.BanquetContentString);
+            tbFood.Attributes.Add("placeholder", Resources.Resource.AddString + Resources.Resource.FoodString);
+            tbDinnerGuest.Attributes.Add("placeholder", Resources.Resource.AddString + Resources.Resource.BanquetPeopleString);
+            tbAdditionClaim.Attributes.Add("placeholder", Resources.Resource.AddString + Resources.Resource.AdditionServiceString);
 
 
             //2-1
-            tbBridalTryDress1.Attributes.Add("placeholder", Resources.Resource.SeletionRemindString + Resources.Resource.AccessoryMaintainString);
-            tbBridalTryDress2.Attributes.Add("placeholder", Resources.Resource.SeletionRemindString + Resources.Resource.AccessoryMaintainString);
-            tbBridalTryDress3.Attributes.Add("placeholder", Resources.Resource.SeletionRemindString + Resources.Resource.AccessoryMaintainString);
-            tbBridalTryDress4.Attributes.Add("placeholder", Resources.Resource.SeletionRemindString + Resources.Resource.AccessoryMaintainString);
-            tbBridalTryDress5.Attributes.Add("placeholder", Resources.Resource.SeletionRemindString + Resources.Resource.AccessoryMaintainString);
-            tbBridalTryDress6.Attributes.Add("placeholder", Resources.Resource.SeletionRemindString + Resources.Resource.AccessoryMaintainString);
+            tbBridalTryDress1.Attributes.Add("placeholder", Resources.Resource.AddString + Resources.Resource.BridalString + Resources.Resource.WhiteDressString + Resources.Resource.ChooseString);
+            tbBridalTryDress2.Attributes.Add("placeholder", Resources.Resource.AddString + Resources.Resource.BridalString + Resources.Resource.EveningDressString + "1" + Resources.Resource.ChooseString);
+            tbBridalTryDress3.Attributes.Add("placeholder", Resources.Resource.AddString + Resources.Resource.BridalString + Resources.Resource.EveningDressString + "2" + Resources.Resource.ChooseString);
+            tbBridalTryDress4.Attributes.Add("placeholder", Resources.Resource.AddString + Resources.Resource.BridalString + Resources.Resource.EveningDressString + "3" + Resources.Resource.ChooseString);
+            tbBridalTryDress5.Attributes.Add("placeholder", Resources.Resource.AddString + Resources.Resource.BridalString + Resources.Resource.BathrobeString + Resources.Resource.ChooseString);
+            tbBridalTryDress6.Attributes.Add("placeholder", Resources.Resource.AddString + Resources.Resource.BridalString + Resources.Resource.KimonoString + Resources.Resource.ChooseString);
 
             //2-2
-            tbBridalModeling.Attributes.Add("placeholder", Resources.Resource.SeletionRemindString + Resources.Resource.AccessoryMaintainString);
-            tbBridalMakeupEmphasis.Attributes.Add("placeholder", Resources.Resource.SeletionRemindString + Resources.Resource.AccessoryMaintainString);
-            tbBridalHair1.Attributes.Add("placeholder", Resources.Resource.SeletionRemindString + Resources.Resource.AccessoryMaintainString);
-            tbBridalHair2.Attributes.Add("placeholder", Resources.Resource.SeletionRemindString + Resources.Resource.AccessoryMaintainString);
-            tbBridalHair3.Attributes.Add("placeholder", Resources.Resource.SeletionRemindString + Resources.Resource.AccessoryMaintainString);
-            tbBridalHair4.Attributes.Add("placeholder", Resources.Resource.SeletionRemindString + Resources.Resource.AccessoryMaintainString);
-            tbBridalHair5.Attributes.Add("placeholder", Resources.Resource.SeletionRemindString + Resources.Resource.AccessoryMaintainString);
-            tbBridalHair6.Attributes.Add("placeholder", Resources.Resource.SeletionRemindString + Resources.Resource.AccessoryMaintainString);
-            tbBridalHairSpecailClaim.Attributes.Add("placeholder", Resources.Resource.SeletionRemindString + Resources.Resource.AccessoryMaintainString);
-            tbGroomHair.Attributes.Add("placeholder", Resources.Resource.SeletionRemindString + Resources.Resource.AccessoryMaintainString);
-            tbGroomHairSpecailClaim.Attributes.Add("placeholder", Resources.Resource.SeletionRemindString + Resources.Resource.AccessoryMaintainString);
+            tbBridalModeling.Attributes.Add("placeholder", Resources.Resource.AddString + Resources.Resource.BridalString + Resources.Resource.ModelingString);
+            tbBridalMakeupEmphasis.Attributes.Add("placeholder", Resources.Resource.AddString + Resources.Resource.BridalString + Resources.Resource.MakeupEmphasisString);
+            tbBridalHair1.Attributes.Add("placeholder", Resources.Resource.AddString + Resources.Resource.BridalString + Resources.Resource.WhiteDressString + Resources.Resource.HairString);
+            tbBridalHair2.Attributes.Add("placeholder", Resources.Resource.AddString + Resources.Resource.BridalString + Resources.Resource.EveningDressString + "1" + Resources.Resource.HairString);
+            tbBridalHair3.Attributes.Add("placeholder", Resources.Resource.AddString + Resources.Resource.BridalString + Resources.Resource.EveningDressString + "2" + Resources.Resource.HairString);
+            tbBridalHair4.Attributes.Add("placeholder", Resources.Resource.AddString + Resources.Resource.BridalString + Resources.Resource.EveningDressString + "3" + Resources.Resource.HairString);
+            tbBridalHair5.Attributes.Add("placeholder", Resources.Resource.AddString + Resources.Resource.BridalString + Resources.Resource.BathrobeString + Resources.Resource.HairString);
+            tbBridalHair6.Attributes.Add("placeholder", Resources.Resource.AddString + Resources.Resource.BridalString + Resources.Resource.KimonoString + Resources.Resource.HairString);
+            tbBridalHairSpecailClaim.Attributes.Add("placeholder", Resources.Resource.AddString + Resources.Resource.BridalString + Resources.Resource.HairString + Resources.Resource.SpecialClaimString);
+            tbGroomHair.Attributes.Add("placeholder", Resources.Resource.AddString + Resources.Resource.GroomString + Resources.Resource.HairString);
+            tbGroomHairSpecailClaim.Attributes.Add("placeholder", Resources.Resource.AddString + Resources.Resource.GroomString + Resources.Resource.HairString + Resources.Resource.SpecialClaimString);
 
             //3-1
-            tbBridalCheckDress1.Attributes.Add("placeholder", Resources.Resource.SeletionRemindString + Resources.Resource.AccessoryMaintainString);
-            tbBridalCheckDress2.Attributes.Add("placeholder", Resources.Resource.SeletionRemindString + Resources.Resource.AccessoryMaintainString);
-            tbBridalCheckDress3.Attributes.Add("placeholder", Resources.Resource.SeletionRemindString + Resources.Resource.AccessoryMaintainString);
-            tbBridalCheckDress4.Attributes.Add("placeholder", Resources.Resource.SeletionRemindString + Resources.Resource.AccessoryMaintainString);
-            tbBridalCheckDress5.Attributes.Add("placeholder", Resources.Resource.SeletionRemindString + Resources.Resource.AccessoryMaintainString);
-            tbBridalCheckDress6.Attributes.Add("placeholder", Resources.Resource.SeletionRemindString + Resources.Resource.AccessoryMaintainString);
+            tbBridalCheckDress1.Attributes.Add("placeholder", Resources.Resource.AddString + Resources.Resource.BridalString + Resources.Resource.WhiteDressString + Resources.Resource.SizeCheckString);
+            tbBridalCheckDress2.Attributes.Add("placeholder", Resources.Resource.AddString + Resources.Resource.BridalString + Resources.Resource.EveningDressString + "1" + Resources.Resource.SizeCheckString);
+            tbBridalCheckDress3.Attributes.Add("placeholder", Resources.Resource.AddString + Resources.Resource.BridalString + Resources.Resource.EveningDressString + "2" + Resources.Resource.SizeCheckString);
+            tbBridalCheckDress4.Attributes.Add("placeholder", Resources.Resource.AddString + Resources.Resource.BridalString + Resources.Resource.EveningDressString + "3" + Resources.Resource.SizeCheckString);
+            tbBridalCheckDress5.Attributes.Add("placeholder", Resources.Resource.AddString + Resources.Resource.BridalString + Resources.Resource.BathrobeString + Resources.Resource.SizeCheckString);
+            tbBridalCheckDress6.Attributes.Add("placeholder", Resources.Resource.AddString + Resources.Resource.BridalString + Resources.Resource.KimonoString + Resources.Resource.SizeCheckString);
 
 
             //3-3
-            tbGetDress.Attributes.Add("placeholder", Resources.Resource.SeletionRemindString + Resources.Resource.AccessoryMaintainString);
-            tbDeposit.Attributes.Add("placeholder", Resources.Resource.SeletionRemindString + Resources.Resource.AccessoryMaintainString);
-            tbBalanceDue.Attributes.Add("placeholder", Resources.Resource.SeletionRemindString + Resources.Resource.AccessoryMaintainString);
+            tbGetDress.Attributes.Add("placeholder", Resources.Resource.AddString + Resources.Resource.GetDressString);
+            tbDeposit.Attributes.Add("placeholder", Resources.Resource.AddString + Resources.Resource.DepositString + Resources.Resource.PaymentString);
+            tbBalanceDue.Attributes.Add("placeholder", Resources.Resource.AddString + Resources.Resource.BalanceDueString + Resources.Resource.PaymentString);
 
             //Oth
-            tbOth.Attributes.Add("placeholder", Resources.Resource.SeletionRemindString + Resources.Resource.AccessoryMaintainString);
-
+            tbOth.Attributes.Add("placeholder", Resources.Resource.AddString + Resources.Resource.RemarkString);
         }
 
         private void Div()
@@ -744,6 +744,55 @@ namespace TheWeWebSite.CaseMgt
                 , ddlOrderType.SelectedItem.Text, labelWeddingCategory.Text, string.Empty);
         }
 
+        private void SetDivByItemId(string ItemId)
+        {
+            ResetAllDivControl();
+            switch (ItemId)
+            {
+                case "CI1005":
+                    divHotel.Visible = true;
+                    break;
+                case "CI1006":
+                    divWeddingInfo.Visible = true;
+                    break;
+                case "CI1007":
+                    divTakePicture.Visible = true;
+                    break;
+                case "CI1008":
+                    divChooseDress.Visible = true;
+                    break;
+                case "CI1009":
+                    divDinner.Visible = true;
+                    break;
+                case "CI2011":
+                    divTryDress.Visible = true;
+                    break;
+                case "CI2012":
+                    divModelCheck.Visible = true;
+                    break;
+                case "CI3015":
+                    divCehckDress.Visible = true;
+                    break;
+                case "CI3017":
+                    divGetDress.Visible = true;
+                    break;
+            }
+        }
+
+        private void ResetAllDivControl()
+        {
+            divCehckDress.Visible = false;
+            divChooseDress.Visible = false;
+            divDinner.Visible = false;
+            divGetDress.Visible = false;
+            divHotel.Visible = false;
+            divModelCheck.Visible = false;
+            divTakePicture.Visible = false;
+            divTryDress.Visible = false;
+            divWeddingInfo.Visible = false;
+        }
+
+
         private void CreateCouplesInfoDoc(
             string sn, string weddingDate, string churchName
             , string bridalName, string bridalEngName, string bridalPhone
@@ -799,4 +848,7 @@ namespace TheWeWebSite.CaseMgt
             }
         }
     }
+
+
+
 }

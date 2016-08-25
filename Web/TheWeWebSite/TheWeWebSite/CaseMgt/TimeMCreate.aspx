@@ -107,15 +107,13 @@
                             </div>
                             <div class="4u 12u(mobilep)">
                                 <div class="Div">
-                                    <div class="TimeMaintainDiv">
-                                        <asp:Label runat="server" Text="<%$ Resources:Resource,RemarkString%>"></asp:Label>
-                                    </div>
-                                    <asp:UpdatePanel runat="server">
-                                        <ContentTemplate>
-                                            <asp:TextBox runat="server" placeholder="<%$ Resources:Resource,ContentInputString%>" ID="tbRemark" />
-                                        </ContentTemplate>
-                                    </asp:UpdatePanel>
+                                    <asp:Label runat="server" Text="<%$ Resources:Resource,RemarkString%>"></asp:Label>
                                 </div>
+                                <asp:UpdatePanel runat="server">
+                                    <ContentTemplate>
+                                        <asp:TextBox runat="server" placeholder="<%$ Resources:Resource,ContentInputString%>" ID="tbRemark" />
+                                    </ContentTemplate>
+                                </asp:UpdatePanel>
                             </div>
                         </div>
                     </div>
@@ -167,7 +165,7 @@
                             <!--Content-->
                             <div>
                                 <!-- Step 1-1 飯店住宿-->
-                                <div runat="server" visible="false" id="divHotel" >
+                                <div runat="server" visible="false" id="divHotel">
                                     <div class="2u 12u(mobilep) TimeMaintain">
                                         <div class="TimeMaintainDiv">
                                             <asp:Label runat="server" ID="lblHotelName"></asp:Label>
@@ -199,10 +197,10 @@
                                         <asp:TextBox runat="server" ID="tbHotelAddr" />
                                     </div>
                                     <div class="2u 12u(mobilep) TimeMaintain">
-                                        <div class="TimeMaintainDiv" >
+                                        <div class="TimeMaintainDiv">
                                             <asp:Label runat="server" ID="lblHotelName2"></asp:Label>
                                         </div>
-                                        <asp:TextBox runat="server" ID="tbHotelName2"/>
+                                        <asp:TextBox runat="server" ID="tbHotelName2" />
                                     </div>
                                     <div class="2u 12u(mobilep) TimeMaintain">
                                         <div class="TimeMaintainDiv">
@@ -222,7 +220,7 @@
                                         </div>
                                         <asp:TextBox runat="server" ID="tbHotelJpName2" />
                                     </div>
-                                    <div class="2u 12u(mobilep) TimeMaintain">
+                                    <div class="4u 12u(mobilep) TimeMaintain">
                                         <div class="TimeMaintainDiv">
                                             <asp:Label runat="server" ID="lblHotelAddr2"></asp:Label>
                                         </div>
@@ -333,7 +331,7 @@
                                         <asp:TextBox runat="server" ID="tbPhotoItem" />
                                     </div>
                                     <div class="2u 12u(mobilep) TimeMaintain">
-                                        <div class="TimeMaintainDiv" >
+                                        <div class="TimeMaintainDiv">
                                             <asp:Label runat="server" ID="lblPhotoBouquet"></asp:Label>
                                         </div>
                                         <asp:TextBox runat="server" ID="tbPhotoBouquet" />
@@ -594,7 +592,7 @@
                                         <asp:TextBox runat="server" ID="tbBridalCheckDress5" />
                                     </div>
                                     <div class="2u 12u(mobilep) TimeMaintain">
-                                        <div class="TimeMaintainDiv" >
+                                        <div class="TimeMaintainDiv">
                                             <asp:Label runat="server" ID="lblBridalCheckDress6"></asp:Label>
                                         </div>
                                         <asp:TextBox runat="server" ID="tbBridalCheckDress6" />
