@@ -27,7 +27,6 @@
         <section class="insert">
             <asp:Label runat="server" ID="labelWarnString" ForeColor="Red" Visible="false" />
             <div>
-                <asp:ScriptManager runat="server"></asp:ScriptManager>
                 <asp:Panel runat="server" ID="panelBasicInfo">
                     <div class="12u">
 

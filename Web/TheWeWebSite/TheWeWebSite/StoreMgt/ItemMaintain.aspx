@@ -31,7 +31,6 @@
                 <!-- Input -->
 
                 <section class="box special">
-                    <asp:ScriptManager runat="server"></asp:ScriptManager>
                     <div>
                         <div class="row uniform 50%">
                             <div class="2u 12u(mobilep)">
@@ -165,25 +164,16 @@
                             <hr />
                         </div>
                     </div>
-
-
                 </section>
-
-
-
             </section>
-
-
             <!-- Footer -->
             <footer id="footer">
                 <ul class="copyright">
                     <li>rights.</li>
                     <li>The We Wedding</li>
-                </ul>
+                </ul>                
             </footer>
         </div>
-
-
         <!-- Scripts -->
         <script src="../assets/js/jquery.min.js"></script>
         <script src="../assets/js/jquery.dropotron.min.js"></script>

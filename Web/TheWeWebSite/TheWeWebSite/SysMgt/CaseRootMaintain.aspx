@@ -24,7 +24,6 @@
             <section id="main" runat="server">
                 <!-- Text -->
                 <section class="box title">
-                    <asp:ScriptManager runat="server"></asp:ScriptManager>
                     <h3>
                         <asp:Label runat="server" Text="" ID="labelPageTitle"></asp:Label></h3>
                 </section>

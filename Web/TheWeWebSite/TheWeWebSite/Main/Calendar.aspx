@@ -30,7 +30,6 @@
 
                 <!-- Input -->
                 <section class="box special">
-                    <asp:ScriptManager runat="server"></asp:ScriptManager>
                     <div class="2u 12u(mobilep)" runat="server" id="divStore" style="display: none;">
                         <asp:DropDownList runat="server" ID="ddlStore" />
                     </div>

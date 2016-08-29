@@ -23,12 +23,6 @@
 
         <!-- Input -->
         <section class="insert">
-            <asp:ScriptManager runat="server">
-                <Scripts>
-                    <asp:ScriptReference Path="../assets/js/picker.js" />
-                    <asp:ScriptReference Path="../assets/js/jquery.min.js" />
-                </Scripts>
-            </asp:ScriptManager>
             <div>
                 <asp:Label runat="server" ID="labelWarnString" ForeColor="Red" Visible="false" />
                 <asp:Panel runat="server" ID="panelBasicInfo">

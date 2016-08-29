@@ -32,7 +32,6 @@
 
                 <!-- Input -->
                 <section class="box special">
-                    <asp:ScriptManager runat="server"></asp:ScriptManager>
                     <!-- Calendar-->
                     <asp:Label runat="server" ID="labelWarnString" ForeColor="Red" Visible="false" />
                     <div class="12u">

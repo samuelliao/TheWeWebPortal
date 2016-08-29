@@ -14,15 +14,17 @@ namespace TheWeWebSite
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            Timer1.Enabled = true;
+            Timer1_Tick(Timer1, new EventArgs());
             SetOperationPermission();
             StoreName();
         }
 
         public void SetOperationPermission()
         {
-            if(Session["Operation"]==null) liSysMgt.Visible = false;
+            if (Session["Operation"] == null) liSysMgt.Visible = false;
             Dictionary<string, PermissionItem> permission = ((Dictionary<string, PermissionItem>)Session["Operation"]);
-            if(permission==null) liSysMgt.Visible = false;
+            if (permission == null) liSysMgt.Visible = false;
             else
             {
                 SetHeaderLink(permission);
@@ -85,6 +87,50 @@ namespace TheWeWebSite
         {
             Session.RemoveAll();
             Response.Redirect("~/Login.aspx");
+        }
+
+        protected void Timer1_Tick(object sender, EventArgs e)
+        {
+            if (Session["AccountInfo"] != null)
+            {
+                string employeeId = ((DataRow)Session["AccountInfo"])["Id"].ToString();
+                if (string.IsNullOrEmpty(employeeId)) return;
+                DateTime startTime = DateTime.Now;
+                DateTime endTime = DateTime.Now.AddHours(1);
+                string sql = "Select 'Case' as Type, Id, Sn, BookingDate From OrderInfo Where BookingDate >= '" + startTime.ToString("yyyy/MM/dd HH:mm:ss") + "' And BookingDate <= '" + endTime.AddDays(1).ToString("yyyy/MM/dd HH:mm:ss") + "'";
+                //sql += " Union ";
+                //sql += " Select 'Advisory' as Type, Id, Sn, BookingTime From Consultation Where BookingTime >= '" + startTime.ToString("yyyy / MM / dd HH: mm: ss") + "' And BookingTime <= '" + endTime.AddMinutes(30).ToString("yyyy / MM / dd HH: mm: ss") + "'";
+                try
+                {
+                    DataSet ds = SysProperty.GenDbCon.GetDataFromTable(sql);
+                    linkCaseReminder.Text = Resources.Resource.ContractScheduleString + ": " + ds.Tables[0].Rows.Count;
+                }
+                catch (Exception ex)
+                {
+                    SysProperty.Log.Error(ex.Message);
+                }
+
+                sql = "Select 'Advisory' as Type, Id, Sn, BookingDate From OrderInfo Where BookingDate >= '" + startTime.ToString("yyyy/MM/dd") + " 00:00:00'  And BookingDate <= '" + endTime.AddDays(1).ToString("yyyy/MM/dd") + " 00:00:00'";
+                try
+                {
+                    DataSet ds = SysProperty.GenDbCon.GetDataFromTable(sql);
+                    LinkAdvisoryReminder.Text = Resources.Resource.ConsultScheduleString + ": " + ds.Tables[0].Rows.Count;
+                }
+                catch (Exception ex)
+                {
+                    SysProperty.Log.Error(ex.Message);
+                }
+            }
+        }
+
+        protected void linkCaseReminder_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("~/Main/Case.aspx");
+        }
+
+        protected void LinkAdvisoryReminder_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("~/Main/Unsigned.aspx");
         }
     }
 }

@@ -24,7 +24,6 @@
         <!-- Input -->
         <section class="insert">
             <asp:Label runat="server" ID="labelWarnString" ForeColor="Red" Visible="false" />
-            <asp:ScriptManager runat="server"></asp:ScriptManager>
             <div>
                 <div class="12u">
                     <div class="row uniform 50%">

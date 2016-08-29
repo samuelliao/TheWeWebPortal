@@ -133,6 +133,8 @@ namespace TheWeWebSite.Main
                 + " left join ConferenceItem as con on c.StatusId = con.Id"
                 + " left join Employee as e on e.Id = c.EmployeeId"
                 + " WHERE c.IsDelete = 0"
+                + " And BookingDate >='" + DateTime.Now.ToString("yyyy/MM/dd") + " 00:00:00'"
+                + " And BookingDate <='" + DateTime.Now.AddDays(1).ToString("yyyy/MM/dd") + " 00:00:00'"
                 + (string.IsNullOrEmpty(storeId) ? string.Empty : " And c.StoreId='" + storeId + "'")
                 + " " + sortStr;
             try

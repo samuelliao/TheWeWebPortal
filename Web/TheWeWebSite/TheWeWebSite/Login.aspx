@@ -10,7 +10,7 @@
 </head>
 <body>
     <form runat="server">
-        <asp:ScriptManager runat="server"></asp:ScriptManager>
+        <asp:ScriptManager runat="server" />
         <div>
             <!-- Banner -->
             <section id="banner">

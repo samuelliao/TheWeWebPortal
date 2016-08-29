@@ -24,7 +24,6 @@
             <section id="main">
 
                 <!-- Text -->
-                <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
 
                 <section class="box title">
                     <h3>

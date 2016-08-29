@@ -22,6 +22,24 @@ namespace TheWeWebSite {
         protected global::System.Web.UI.WebControls.Label labelStoreName;
         
         /// <summary>
+        /// linkCaseReminder 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton linkCaseReminder;
+        
+        /// <summary>
+        /// LinkAdvisoryReminder 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton LinkAdvisoryReminder;
+        
+        /// <summary>
         /// linkWorkReminder 控制項。
         /// </summary>
         /// <remarks>
@@ -461,5 +479,14 @@ namespace TheWeWebSite {
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton btnLogout;
+        
+        /// <summary>
+        /// Timer1 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.Timer Timer1;
     }
 }

@@ -22,7 +22,6 @@
 
             <!-- Main -->
             <section id="main">
-
                 <!-- Text -->
                 <section class="box title">
                     <h3>

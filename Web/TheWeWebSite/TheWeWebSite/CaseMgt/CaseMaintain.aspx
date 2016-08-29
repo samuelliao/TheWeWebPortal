@@ -32,7 +32,6 @@
                 </section>
                 <!-- Input -->
                 <section class="box special">
-                    <asp:ScriptManager runat="server" />
                     <div>
                         <div class="12u">
                             <div class="row uniform 50%">

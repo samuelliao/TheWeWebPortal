@@ -28,7 +28,6 @@
 
                 <!-- Input -->
                 <section class="box special">
-                    <asp:ScriptManager runat="server" />
                     <asp:Label runat="server" ID="labelWarnString" ForeColor="Red" Visible="false" />
                     <div>
                         <div class="12u">

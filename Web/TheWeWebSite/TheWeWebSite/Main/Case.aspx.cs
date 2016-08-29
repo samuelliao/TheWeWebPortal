@@ -50,7 +50,8 @@ namespace TheWeWebSite.Main
                         ddlStore.SelectedValue = ((DataRow)Session["LocateStore"])["Id"].ToString();
                     }
                 }
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 SysProperty.Log.Error(ex.Message);
                 ShowErrorMsg(ex.Message);
@@ -183,6 +184,8 @@ namespace TheWeWebSite.Main
                             + " Left join vwEN_Partner as pr on pr.Id = o.PartnerId"
                             + " Left join Employee as e on e.Id = o.EmployeeId"
                             + " WHERE o.IsDelete = 0"
+                            + " And BookingDate >='" + DateTime.Now.ToString("yyyy/MM/dd") + " 00:00:00'"
+                            + " And BookingDate <='" + DateTime.Now.AddDays(1).ToString("yyyy/MM/dd") + " 00:00:00'"
                             + (string.IsNullOrEmpty(storeId) ? string.Empty : " And o.StoreId='" + storeId + "'");
                     }
 
@@ -204,7 +207,9 @@ namespace TheWeWebSite.Main
                                 + " Left join ConferenceItem as ci on ci.Id = o.ConferenceCategory"
                                 + " Left join vwEN_Partner as pr on pr.Id = o.PartnerId"
                                 + " Left join Employee as e on e.Id = o.EmployeeId"
-                                + " WHERE o.IsDelete = 0";
+                                + " WHERE o.IsDelete = 0" 
+                                + " And BookingDate >='" + DateTime.Now.ToString("yyyy/MM/dd") + " 00:00:00'"
+                                + " And BookingDate <='" + DateTime.Now.AddDays(1).ToString("yyyy/MM/dd") + " 00:00:00'";
                             if (item.Value.Type == "Store")
                             {
                                 sqlTxt += " And o.StoreId ='" + item.Value.ObjectId + "'";

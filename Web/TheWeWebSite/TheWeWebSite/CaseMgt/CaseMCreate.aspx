@@ -25,7 +25,6 @@
 
         <!-- Input -->
         <section class="insert">
-            <asp:ScriptManager runat="server"></asp:ScriptManager>
             <asp:Panel runat="server" ID="panelBasicInfo">
                 <div>
                     <asp:Label runat="server" ID="labelWarnString" ForeColor="Red" Visible="false" />
