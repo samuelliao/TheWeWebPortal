@@ -87,9 +87,9 @@
                     <li>
                         <asp:LinkButton CausesValidation="false" runat="server" Text="<%$ Resources:Resource,TimetableMaintainString%>" PostBackUrl="~/CaseMgt/TimeMaintain.aspx" ID="LinkTimeMaintain" />
                     </li>
-                    <li>
+                <!--    <li>
                         <asp:LinkButton CausesValidation="false" runat="server" Text="<%$ Resources:Resource,DressRentString%>" PostBackUrl="~/StoreMgt/DressRentMaintain.aspx" ID="LinkDressRentMaintain" />
-                    </li>
+                    </li> -->
                 </ul>
             </li>
             <li runat="server" id="liPurchaseMgt" style="display: none;">

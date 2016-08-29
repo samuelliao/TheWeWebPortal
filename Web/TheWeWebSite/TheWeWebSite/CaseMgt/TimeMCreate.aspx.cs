@@ -22,11 +22,12 @@ namespace TheWeWebSite.CaseMgt
                 else
                 {
                     SysProperty.DataSetSortType = true;
-
+                    InitialPastorLanguage();
                     InitialConferenceItem();
                     InitialLangList();
                     InitialOrderType();
                     InitialTextAndHint();
+                    
                     if (Session["OrderId"] != null)
                     {
                         labelPageTitle.Text = Resources.Resource.OrderMgtString
@@ -54,61 +55,68 @@ namespace TheWeWebSite.CaseMgt
             Div();
         }
 
+        private void InitialPastorLanguage()
+        {
+            ddlLangPastor.Items.Add(new ListItem(Resources.Resource.LanguageSelectionReminderString, string.Empty));
+            ddlLangPastor.Items.Add(new ListItem(Resources.Resource.TraditionalChineseString, "1"));
+            ddlLangPastor.Items.Add(new ListItem(Resources.Resource.SimplifiedChineseString, "2"));
+            ddlLangPastor.Items.Add(new ListItem(Resources.Resource.EnglishString, "0"));
+            ddlLangPastor.Items.Add(new ListItem(Resources.Resource.JapaneseString, "3"));
+        }
+
+
         private void InitiallblText()
         {
             //1-1
-            lblHotelName.Text = Resources.Resource.HotelString+"1" + Resources.Resource.NameString;
-            lblHotelCnName.Text = Resources.Resource.HotelString + "1" + Resources.Resource.CnNameString;
-            lblHotelEngName.Text = Resources.Resource.HotelString + "1" + Resources.Resource.EnglishNameString;
-            lblHotelJpName.Text = Resources.Resource.HotelString + "1" + Resources.Resource.JpNameString;
+            lblHotelName.Text = Resources.Resource.HotelString + "1" + Resources.Resource.NameString;
+            lblHotelOthName.Text = Resources.Resource.HotelString + "1" + Resources.Resource.OtherNameString;
             lblHotelAddr.Text = Resources.Resource.HotelString + "1" + Resources.Resource.AddressString;
             lblHotelName2.Text = Resources.Resource.HotelString + "2" + Resources.Resource.NameString;
-            lblHotelCnName2.Text = Resources.Resource.HotelString + "2" + Resources.Resource.CnNameString;
-            lblHotelEngName2.Text = Resources.Resource.HotelString + "2" + Resources.Resource.EnglishNameString;
-            lblHotelJpName2.Text = Resources.Resource.HotelString + "2" + Resources.Resource.JpNameString;
+            lblHotelOthName2.Text = Resources.Resource.HotelString + "2" + Resources.Resource.OtherNameString;
             lblHotelAddr2.Text = Resources.Resource.HotelString + "2" + Resources.Resource.AddressString;
             lblTravelPeriod.Text = Resources.Resource.TravelPeriodString;
             lblStayNight.Text = Resources.Resource.StayNightString;
-            lblFlight.Text = Resources.Resource.FlightString;
+            lblFlight.Text = Resources.Resource.FlightInfoString;
             lblContact.Text = Resources.Resource.ContactString;
 
 
             //1-2
-            lblWeddingStyle.Text = Resources.Resource.WeddingStyleString;
-            lblLegalWedding.Text = Resources.Resource.LegalWeddingString;
-            lblPastorLanguage.Text = Resources.Resource.PastorString+ Resources.Resource.LanguageString;
+            //lblWeddingStyle.Text = Resources.Resource.WeddingStyleString;
+            cbLegalWedding.Text = Resources.Resource.LegalWeddingString;
+            lblPastorLanguage.Text = Resources.Resource.PastorString + Resources.Resource.LanguageString;
             lblWelcomeCard.Text = Resources.Resource.WelcomeCardString;
             lblBouquetCorsage.Text = Resources.Resource.BouquetCorsageString;
             lblChampagne.Text = Resources.Resource.ChampagneString;
             lblGuest.Text = Resources.Resource.GuestString;
             lblWeddingSequence.Text = Resources.Resource.WeddingSequenceString;
             lblChurchArrangements.Text = Resources.Resource.ChurchArrangementsString;
-            lblAdditionService.Text = Resources.Resource.AdditionServiceString;
+            lblWSp.Text = Resources.Resource.AdditionServiceString;
 
             //1-3
             lblRoutePlan.Text = Resources.Resource.RoutePlanString;
             lblPhotoItem.Text = Resources.Resource.PhotoItemString;
             lblPhotoBouquet.Text = Resources.Resource.PhotoBouquetString;
-            lblPhotoSpecialClaim.Text = Resources.Resource.PhotoSpecialClaimString;
             lblPhotoAvoid.Text = Resources.Resource.PhotoAvoidString;
+            lblPSp.Text = Resources.Resource.PhotoSpecialClaimString;
+            lblAttractions.Text = Resources.Resource.AttractionsString;
+
 
             //1-4
             lblBridalDress1.Text = Resources.Resource.BridalString + Resources.Resource.WhiteDressString + Resources.Resource.ChooseString;
-            lblBridalDress2.Text = Resources.Resource.BridalString + Resources.Resource.EveningDressString+"1" + Resources.Resource.ChooseString;
-            lblBridalDress3.Text = Resources.Resource.BridalString + Resources.Resource.EveningDressString+"2" + Resources.Resource.ChooseString;
-            lblBridalDress4.Text = Resources.Resource.BridalString + Resources.Resource.EveningDressString+"3" + Resources.Resource.ChooseString;
+            lblBridalDress2.Text = Resources.Resource.BridalString + Resources.Resource.EveningDressString + "1" + Resources.Resource.ChooseString;
+            lblBridalDress3.Text = Resources.Resource.BridalString + Resources.Resource.EveningDressString + "2" + Resources.Resource.ChooseString;
+            lblBridalDress4.Text = Resources.Resource.BridalString + Resources.Resource.EveningDressString + "3" + Resources.Resource.ChooseString;
             lblBridalDress5.Text = Resources.Resource.BridalString + Resources.Resource.BathrobeString + Resources.Resource.ChooseString;
             lblBridalDress6.Text = Resources.Resource.BridalString + Resources.Resource.KimonoString + Resources.Resource.ChooseString;
-            lblBridalSpecialClaim.Text = Resources.Resource.BridalString + Resources.Resource.DressString + Resources.Resource.SpecialClaimString;
-            lblGroomDressNum.Text = Resources.Resource.GroomString+Resources.Resource.SuitString + Resources.Resource.NumberString;
+            lblGroomDressNum.Text = Resources.Resource.GroomString + Resources.Resource.SuitString + Resources.Resource.NumberString;
             lblGroomSpecialClaim.Text = Resources.Resource.GroomString + Resources.Resource.SuitString + Resources.Resource.SpecialClaimString;
-
+            lblBridalSpecialClaim.Text = Resources.Resource.BridalString + Resources.Resource.DressString + Resources.Resource.SpecialClaimString;
             //1-5
             lblSitePlan.Text = Resources.Resource.SitePlanString;
             lblDinnerContent.Text = Resources.Resource.BanquetContentString;
             lblFood.Text = Resources.Resource.FoodString;
             lblDinnerGuest.Text = Resources.Resource.BanquetPeopleString;
-            lblAdditionClaim.Text = Resources.Resource.AdditionServiceString;
+            lblBSp.Text = Resources.Resource.AdditionServiceString;
 
 
             //2-1
@@ -143,8 +151,8 @@ namespace TheWeWebSite.CaseMgt
 
             //3-3
             lblGetDress.Text = Resources.Resource.GetDressString;
-            lblDeposit.Text = Resources.Resource.DepositString+Resources.Resource.PaymentString;
-            lblBalanceDue.Text = Resources.Resource.BalanceDueString+Resources.Resource.PaymentString;
+            lblDeposit.Text = Resources.Resource.DepositString + Resources.Resource.PaymentString;
+            lblBalanceDue.Text = Resources.Resource.BalanceDueString + Resources.Resource.PaymentString;
 
             //Oth
             lblOth.Text = Resources.Resource.RemarkString;
@@ -152,40 +160,37 @@ namespace TheWeWebSite.CaseMgt
         }
         private void InitialtbPlaceHolder()
         {
+            tbOsp.Attributes.Add("placeholder", Resources.Resource.AddString + Resources.Resource.SpecialClaimString);
+
             //1-1
             tbHotelName.Attributes.Add("placeholder", Resources.Resource.AddString + Resources.Resource.HotelString + "1" + Resources.Resource.NameString);
-            tbHotelCnName.Attributes.Add("placeholder", Resources.Resource.AddString + Resources.Resource.HotelString + "1" + Resources.Resource.CnNameString);
-            tbHotelEngName.Attributes.Add("placeholder", Resources.Resource.AddString + Resources.Resource.HotelString + "1" + Resources.Resource.EnglishNameString);
-            tbHotelJpName.Attributes.Add("placeholder", Resources.Resource.AddString + Resources.Resource.HotelString + "1" + Resources.Resource.JpNameString);
+            tbHotelOthName.Attributes.Add("placeholder", Resources.Resource.AddString + Resources.Resource.HotelString + "1" + Resources.Resource.OtherNameString);
             tbHotelAddr.Attributes.Add("placeholder", Resources.Resource.AddString + Resources.Resource.HotelString + "1" + Resources.Resource.AddressString);
             tbHotelName2.Attributes.Add("placeholder", Resources.Resource.AddString + Resources.Resource.HotelString + "2" + Resources.Resource.NameString);
-            tbHotelCnName2.Attributes.Add("placeholder", Resources.Resource.AddString + Resources.Resource.HotelString + "2" + Resources.Resource.CnNameString);
-            tbHotelEngName2.Attributes.Add("placeholder", Resources.Resource.AddString + Resources.Resource.HotelString + "2" + Resources.Resource.EnglishNameString);
-            tbHotelJpName2.Attributes.Add("placeholder", Resources.Resource.AddString + Resources.Resource.HotelString + "2" + Resources.Resource.JpNameString);
+            tbHotelOthName2.Attributes.Add("placeholder", Resources.Resource.AddString + Resources.Resource.HotelString + "2" + Resources.Resource.OtherNameString);
             tbHotelAddr2.Attributes.Add("placeholder", Resources.Resource.AddString + Resources.Resource.HotelString + "2" + Resources.Resource.AddressString);
             tbTravelPeriod.Attributes.Add("placeholder", Resources.Resource.AddString + Resources.Resource.TravelPeriodString);
             tbStayNight.Attributes.Add("placeholder", Resources.Resource.AddString + Resources.Resource.StayNightString);
-            tbFlight.Attributes.Add("placeholder", Resources.Resource.AddString + Resources.Resource.FlightString);
             tbContact.Attributes.Add("placeholder", Resources.Resource.AddString + Resources.Resource.ContactString);
+            tbFlight.Attributes.Add("placeholder", Resources.Resource.AddString + Resources.Resource.FlightInfoString);
 
 
             //1-2
-            tbWeddingStyle.Attributes.Add("placeholder", Resources.Resource.AddString + Resources.Resource.WeddingStyleString);
-            tbLegalWedding.Attributes.Add("placeholder", Resources.Resource.AddString + Resources.Resource.LegalWeddingString);
-            tbPastorLanguage.Attributes.Add("placeholder", Resources.Resource.AddString + Resources.Resource.PastorString + Resources.Resource.LanguageString);
+            //tbWeddingStyle.Attributes.Add("placeholder", Resources.Resource.AddString + Resources.Resource.WeddingStyleString);
             tbWelcomeCard.Attributes.Add("placeholder", Resources.Resource.AddString + Resources.Resource.WelcomeCardString);
             tbBouquetCorsage.Attributes.Add("placeholder", Resources.Resource.AddString + Resources.Resource.BouquetCorsageString);
             tbChampagne.Attributes.Add("placeholder", Resources.Resource.AddString + Resources.Resource.ChampagneString);
             tbGuest.Attributes.Add("placeholder", Resources.Resource.AddString + Resources.Resource.GuestString);
             tbWeddingSequence.Attributes.Add("placeholder", Resources.Resource.AddString + Resources.Resource.WeddingSequenceString);
             tbChurchArrangements.Attributes.Add("placeholder", Resources.Resource.AddString + Resources.Resource.ChurchArrangementsString);
-            tbAdditionService.Attributes.Add("placeholder", Resources.Resource.AddString + Resources.Resource.AdditionServiceString);
+            tbWSp.Attributes.Add("placeholder", Resources.Resource.AddString + Resources.Resource.AdditionServiceString);
 
             //1-3
+            tbPSp.Attributes.Add("placeholder", Resources.Resource.AddString + Resources.Resource.PhotoSpecialClaimString);
+            tbAttractions.Attributes.Add("placeholder", Resources.Resource.AddString + Resources.Resource.AttractionsString);
             tbRoutePlan.Attributes.Add("placeholder", Resources.Resource.AddString + Resources.Resource.RoutePlanString);
             tbPhotoItem.Attributes.Add("placeholder", Resources.Resource.AddString + Resources.Resource.PhotoItemString);
             tbPhotoBouquet.Attributes.Add("placeholder", Resources.Resource.AddString + Resources.Resource.PhotoBouquetString);
-            tbPhotoSpecialClaim.Attributes.Add("placeholder", Resources.Resource.AddString + Resources.Resource.PhotoSpecialClaimString);
             tbPhotoAvoid.Attributes.Add("placeholder", Resources.Resource.AddString + Resources.Resource.PhotoAvoidString);
 
             //1-4
@@ -204,7 +209,7 @@ namespace TheWeWebSite.CaseMgt
             tbDinnerContent.Attributes.Add("placeholder", Resources.Resource.AddString + Resources.Resource.BanquetContentString);
             tbFood.Attributes.Add("placeholder", Resources.Resource.AddString + Resources.Resource.FoodString);
             tbDinnerGuest.Attributes.Add("placeholder", Resources.Resource.AddString + Resources.Resource.BanquetPeopleString);
-            tbAdditionClaim.Attributes.Add("placeholder", Resources.Resource.AddString + Resources.Resource.AdditionServiceString);
+            tbBSp.Attributes.Add("placeholder", Resources.Resource.AddString + Resources.Resource.AdditionServiceString);
 
 
             //2-1
@@ -248,15 +253,15 @@ namespace TheWeWebSite.CaseMgt
 
         private void Div()
         {
-            divCehckDress.Visible = true;
-            divChooseDress.Visible = true;
-            divDinner.Visible = true;
-            divGetDress.Visible = true;
-            divHotel.Visible = true;
-            divModelCheck.Visible = true;
-            divTakePicture.Visible = true;
-            divTryDress.Visible = true;
-            divWeddingInfo.Visible = true;
+            divCehckDress.Visible = false;
+            divChooseDress.Visible = false;
+            divDinner.Visible = false;
+            divGetDress.Visible = false;
+            divHotel.Visible = false;
+            divModelCheck.Visible = false;
+            divTakePicture.Visible = false;
+            divTryDress.Visible = false;
+            divWeddingInfo.Visible = false;
         }
         private void InitialControlWithPermission()
         {
@@ -357,6 +362,22 @@ namespace TheWeWebSite.CaseMgt
         }
 
         #region Get Data Info
+        private DataSet GetProductSet(string id)
+        {
+            try
+            {
+                string sql = "select * from ProductSet "
+                    + " where id ='" + id + "'";
+                return SysProperty.GenDbCon.GetDataFromTable(sql);
+            }
+            catch (Exception ex)
+            {
+                SysProperty.Log.Error(ex.Message);
+                ShowErrorMsg(ex.Message);
+                return null;
+            }
+        }
+
         private DataSet GetOrderInfo(string id)
         {
             try
@@ -364,17 +385,29 @@ namespace TheWeWebSite.CaseMgt
                 string sql = "SELECT o.[Id] as Id,[ConsultId], c.Sn As ConsultSn,o.[Sn],o.[StartTime]"
                 + ",o.[CustomerId],cus.Name AS CustomerName,o.[ConferenceCategory], ci.Name As StatusName, ci.JpName AS StatusJpName"
                 + ", cus.EngName AS CustomerEngName, pr.EngName AS PartnerEngName, cus.Phone As CustomerPhone, pr.Phone AS PartnerPhone"
-                + ", ci.CnName AS StatusCnName, ci.EngName AS StatusEngName,[CloseTime],o.[CountryId],o.[AreaId]"
+                + ", ci.CnName AS StatusCnName, ci.EngName AS StatusEngName,[CloseTime],o.[CountryId],o.[AreaId] , o.PS_CheckLegal"
                 + ", o.[ChurchId],SetId, p.Name AS SetName, p.EngName AS SetEngName, o.ServiceType"
                 + ", o.[OverseaFilmDate], o.[OverseaWeddingDate], o.[LocalFilmingDate], o.[LocalWeddingDate]"
                 + ", p.JpName AS SetJpName, p.CnName AS SetCnName,o.BookingDate,o.PartnerId, pr.Name AS PartnerName"
-                + ", p.WeddingCategory"
+                + ", p.WeddingCategory , o.PS_PastorLanguage , o.PS_WelcomeCard , o.PS_Guest , o.PS_Champagne ,o.PS_TravelPeriod "
+                + ", o.PS_Flight , o.PS_SpecialClaim as OSp , o.PS_ChurchArrangements , o.PS_WeddingSequence"
+                + ", o.PS_BridalHopeName , o.PS_Suit , o.PS_FirstHotelName , o.PS_FirstHotelName2 , o.PS_FirstHotelAddress"
+                + ", o.PS_SecondHotelName , o.PS_SecondHotelName2 , o.PS_SecondHotelAddress , o.PS_Contact , wc.Name as WCname"
+                + ", o.PS_HotelStayNight ,o.PS_WeddingSpecial as WSp"
+                + ", o.PS_SuitSpC , o.PS_DressSpC"
+                + ", o.PS_BModel , o.PS_BModelFocus , o.PS_BSPc , o.PS_GModel , o.PS_GSPc"
+                + ", p.IsLegal , p.StayNight , p.Corsage , p.Decoration"
+                + ", o.PS_RoutePlan , o.PS_Attractions , o.PS_PhotoItem , o.PS_Avoid , o.PS_PSpecialClaim"
+                + ", o.PS_SitePlan , o.PS_BanquetContent , o.PS_Food, o.PS_BanquetGuest , o.PS_BSpecialClaim"
+                + ", do.Bust , do.Waist , do.Hips , do.IsCheck , do.IsTry "
                 + " FROM[TheWe].[dbo].[OrderInfo] as o"
                 + " Left join Consultation as c on c.Id = o.ConsultId"
                 + " Left join vwEN_Customer as cus on cus.Id = o.CustomerId"
                 + " Left join ProductSet as p on p.Id = o.SetId"
                 + " Left join ConferenceItem as ci on ci.Id = o.ConferenceCategory"
+                + " Left join WeddingCategory as wc on wc.id=p.WeddingCategory"
                 + " Left join vwEN_Partner as pr on pr.Id = o.PartnerId"
+                + " Left join DressOrder as do on do.OrderId = o.id"
                 + " WHERE o.IsDelete = 0 and o.Id='" + id + "'";
                 return SysProperty.GenDbCon.GetDataFromTable(sql);
             }
@@ -460,6 +493,98 @@ namespace TheWeWebSite.CaseMgt
             labelGroomEngName.Text = dr["PartnerEngName"].ToString();
             labelGroomPhone.Text = dr["PartnerPhone"].ToString();
             tbContractDate.Text = GetExpectDate(dr);
+            tbOsp.Text = dr["OSp"].ToString();
+
+            //1-1
+            tbHotelName.Text = dr["PS_FirstHotelName"].ToString();
+            tbHotelOthName.Text = dr["PS_FirstHotelName2"].ToString();
+            tbHotelAddr.Text = dr["PS_FirstHotelAddress"].ToString();
+            tbHotelName2.Text = dr["PS_SecondHotelName"].ToString();
+            tbHotelOthName2.Text = dr["PS_SecondHotelName2"].ToString();
+            tbHotelAddr2.Text = dr["PS_SecondHotelAddress"].ToString();
+            tbTravelPeriod.Text = dr["PS_TravelPeriod"].ToString();
+            tbStayNight.Text = dr["PS_HotelStayNight"].ToString();
+            tbContact.Text = dr["PS_Contact"].ToString();
+            tbFlight.Text = dr["PS_Flight"].ToString();
+
+
+            //1-2
+            //tbWeddingStyle.Text = dr["WCname"].ToString();
+            //cbLegalWedding 從productset
+            cbLegalWedding.Checked = bool.Parse(dr["PS_CheckLegal"].ToString());
+            if (dr["IsLegal"].ToString() == "True")
+            { cbLegalWedding.Enabled = false; }
+            tbWelcomeCard.Text = dr["PS_WelcomeCard"].ToString();
+            tbBouquetCorsage.Text = dr["Corsage"].ToString(); //教堂新娘新郎捧花(照片選擇)
+            tbChampagne.Text = dr["PS_Champagne"].ToString();
+            tbGuest.Text = dr["PS_Guest"].ToString();
+            tbWeddingSequence.Text = dr["PS_WeddingSequence"].ToString();
+            tbChurchArrangements.Text = dr["PS_ChurchArrangements"].ToString();
+            tbWSp.Text = dr["WSp"].ToString();
+            ddlLangPastor.SelectedValue = dr["PS_PastorLanguage"].ToString();
+
+            //1-3
+            tbRoutePlan.Text = dr["PS_RoutePlan"].ToString();
+            tbPhotoItem.Text = dr["PS_PhotoItem"].ToString();
+            //tbPhotoBouquet.Text = dr["Bouquet"].ToString();//教堂新娘新郎捧花(照片選擇)
+            tbPhotoAvoid.Text = dr["PS_Avoid"].ToString();
+            tbPSp.Text = dr["PS_PSpecialClaim"].ToString();
+            tbAttractions.Text = dr["PS_Attractions"].ToString();
+
+            //1-4
+            tbBridalDress1.Text = dr["Sn"].ToString(); //從DressOrder那撈
+            tbBridalDress2.Text = dr["Sn"].ToString();//從DressOrder那撈
+            tbBridalDress3.Text = dr["Sn"].ToString();//從DressOrder那撈
+            tbBridalDress4.Text = dr["Sn"].ToString();//從DressOrder那撈
+            tbBridalDress5.Text = dr["Sn"].ToString();//從DressOrder那撈
+            tbBridalDress6.Text = dr["Sn"].ToString();//從DressOrder那撈
+            tbBridalSpecialClaim.Text = dr["PS_DressSpC"].ToString();
+            tbGroomDressNum.Text = dr["PS_Suit"].ToString();
+            tbGroomSpecialClaim.Text = dr["PS_SuitSpC"].ToString();
+
+            //1-5
+            tbSitePlan.Text = dr["PS_SitePlan"].ToString();
+            tbDinnerContent.Text = dr["PS_BanquetContent"].ToString();
+            tbFood.Text = dr["PS_Food"].ToString();
+            tbDinnerGuest.Text = dr["PS_BanquetGuest"].ToString();
+            tbBSp.Text = dr["PS_BSpecialClaim"].ToString();
+
+
+            //2-1
+            tbBridalTryDress1.Text = dr["Sn"].ToString();//從DressOrder那撈
+            tbBridalTryDress2.Text = dr["Sn"].ToString();//從DressOrder那撈
+            tbBridalTryDress3.Text = dr["Sn"].ToString();//從DressOrder那撈
+            tbBridalTryDress4.Text = dr["Sn"].ToString();//從DressOrder那撈
+            tbBridalTryDress5.Text = dr["Sn"].ToString();//從DressOrder那撈
+            tbBridalTryDress6.Text = dr["Sn"].ToString();//從DressOrder那撈
+
+            //2-2
+            
+            tbBridalHair1.Text = dr["Sn"].ToString(); //從DressOrder那撈
+            tbBridalHair2.Text = dr["Sn"].ToString(); //從DressOrder那撈
+            tbBridalHair3.Text = dr["Sn"].ToString(); //從DressOrder那撈
+            tbBridalHair4.Text = dr["Sn"].ToString(); //從DressOrder那撈
+            tbBridalHair5.Text = dr["Sn"].ToString();//從DressOrder那撈
+            tbBridalHair6.Text = dr["Sn"].ToString(); //從DressOrder那撈
+
+            tbBridalHairSpecailClaim.Text = dr["PS_BSPc"].ToString();
+            tbGroomHair.Text = dr["PS_GModel"].ToString(); 
+            tbGroomHairSpecailClaim.Text = dr["PS_GSPc"].ToString(); 
+            tbBridalModeling.Text = dr["PS_BModel"].ToString(); 
+            tbBridalMakeupEmphasis.Text = dr["PS_BModelFocus"].ToString();
+            //3-1
+            tbBridalCheckDress1.Text = dr["Sn"].ToString();//從DressOrder那撈
+            tbBridalCheckDress2.Text = dr["Sn"].ToString();//從DressOrder那撈
+            tbBridalCheckDress3.Text = dr["Sn"].ToString();//從DressOrder那撈
+            tbBridalCheckDress4.Text = dr["Sn"].ToString();//從DressOrder那撈
+            tbBridalCheckDress5.Text = dr["Sn"].ToString();//從DressOrder那撈
+            tbBridalCheckDress6.Text = dr["Sn"].ToString();//從DressOrder那撈
+
+
+            //3-3
+            tbGetDress.Text = dr["Sn"].ToString();//?
+            tbDeposit.Text = dr["Sn"].ToString();//?
+            tbBalanceDue.Text = dr["Sn"].ToString();//?
 
             DataSet weddingType = GetWeddingCategory(dr["WeddingCategory"].ToString());
             if (!SysProperty.Util.IsDataSetEmpty(weddingType))
@@ -479,7 +604,7 @@ namespace TheWeWebSite.CaseMgt
             {
                 btnModify.Visible = false;
                 cbCompleted.Enabled = false;
-                tbRemark.Enabled = false;
+                tbOth.Enabled = false;
             }
         }
 
@@ -549,28 +674,29 @@ namespace TheWeWebSite.CaseMgt
             {
                 tbConDate.Enabled = false;
                 cbCompleted.Enabled = false;
-                tbRemark.Enabled = false;
+                tbOth.Enabled = false;
                 btnModify.Enabled = false;
             }
             else
             {
                 tbConDate.Enabled = !cbIsClose.Checked;
                 cbCompleted.Enabled = !cbIsClose.Checked;
-                tbRemark.Enabled = !cbIsClose.Checked;
+                tbOth.Enabled = !cbIsClose.Checked;
                 btnModify.Enabled = !cbIsClose.Checked;
                 DataSet ds = GetConferenceList(
                     " And OrderId = '" + Session["OrderId"].ToString() + "'"
                     + " And ItemId = '" + id + "'");
+                SetDivByItemId(id);
                 if (SysProperty.Util.IsDataSetEmpty(ds))
                 {
-                    tbRemark.Text = string.Empty;
+                    tbOth.Text = string.Empty;
                     tbConDate.Text = string.Empty;
                     cbCompleted.Checked = false;
                 }
                 else
                 {
                     DataRow dr = ds.Tables[0].Rows[0];
-                    tbRemark.Text = dr["Remark"].ToString();
+                    tbOth.Text = dr["Remark"].ToString();
                     tbConDate.Text = SysProperty.Util.ParseDateTime("DateTime", dr["BookingDate"].ToString());
                     cbCompleted.Checked = bool.Parse(dr["IsCheck"].ToString());
                 }
@@ -605,6 +731,240 @@ namespace TheWeWebSite.CaseMgt
                 , AttrSymbolItem.Equal
                 , ((DataRow)Session["AccountInfo"])["Id"].ToString()
                 ));
+            lst.Add(new DbSearchObject(
+                "PS_SpecialClaim"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , tbOsp.Text
+                ));
+
+            //1-1
+            lst.Add(new DbSearchObject(
+                "PS_FirstHotelName"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , tbHotelName.Text
+                ));
+            lst.Add(new DbSearchObject(
+                "PS_FirstHotelName2"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , tbHotelOthName.Text
+                ));
+            lst.Add(new DbSearchObject(
+                "PS_FirstHotelAddress"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , tbHotelAddr.Text
+                ));
+            lst.Add(new DbSearchObject(
+                "PS_SecondHotelName"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , tbHotelName2.Text
+                ));
+            lst.Add(new DbSearchObject(
+                "PS_SecondHotelName2"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , tbHotelOthName2.Text
+                ));
+            lst.Add(new DbSearchObject(
+                "PS_SecondHotelAddress"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , tbHotelAddr2.Text
+                ));
+            lst.Add(new DbSearchObject(
+                "PS_TravelPeriod"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , tbTravelPeriod.Text
+                ));
+            lst.Add(new DbSearchObject(
+                "PS_Contact"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , tbContact.Text
+                ));
+            lst.Add(new DbSearchObject(
+               "PS_HotelStayNight"
+               , AtrrTypeItem.String
+               , AttrSymbolItem.Equal
+               , tbStayNight.Text
+               ));
+            lst.Add(new DbSearchObject(
+               "PS_Flight"
+               , AtrrTypeItem.String
+               , AttrSymbolItem.Equal
+               , tbFlight.Text
+               ));
+
+            //1-2
+            lst.Add(new DbSearchObject(
+                "PS_CheckLegal"
+                , AtrrTypeItem.Bit
+                , AttrSymbolItem.Equal
+                , cbLegalWedding.Checked ? "1" : "0"
+                ));
+            lst.Add(new DbSearchObject(
+               "PS_WelcomeCard"
+               , AtrrTypeItem.String
+               , AttrSymbolItem.Equal
+               , tbWelcomeCard.Text
+               ));
+            lst.Add(new DbSearchObject(
+               "PS_Champagne"
+               , AtrrTypeItem.String
+               , AttrSymbolItem.Equal
+               , tbChampagne.Text
+               ));
+            lst.Add(new DbSearchObject(
+               "PS_Guest"
+               , AtrrTypeItem.String
+               , AttrSymbolItem.Equal
+               , tbGuest.Text
+               ));
+            lst.Add(new DbSearchObject(
+               "PS_WeddingSequence"
+               , AtrrTypeItem.String
+               , AttrSymbolItem.Equal
+               , tbWeddingSequence.Text
+               ));
+            lst.Add(new DbSearchObject(
+               "PS_ChurchArrangements"
+               , AtrrTypeItem.String
+               , AttrSymbolItem.Equal
+               , tbChurchArrangements.Text
+               ));
+            lst.Add(new DbSearchObject(
+                "PS_PastorLanguage"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , ddlLangPastor.SelectedValue
+                ));
+            lst.Add(new DbSearchObject(
+                "PS_WeddingSpecial"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , tbWSp.Text
+                ));
+
+            //1-3
+            lst.Add(new DbSearchObject(
+                "PS_RoutePlan"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , tbRoutePlan.Text
+                ));
+            lst.Add(new DbSearchObject(
+                "PS_Attractions"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , tbAttractions.Text
+                ));
+            lst.Add(new DbSearchObject(
+                "PS_PhotoItem"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , tbPhotoItem.Text
+                ));
+            lst.Add(new DbSearchObject(
+                "PS_Avoid"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , tbPhotoAvoid.Text
+                ));
+            lst.Add(new DbSearchObject(
+                "PS_PSpecialClaim"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , tbPSp.Text
+                ));
+
+            //1-4
+            lst.Add(new DbSearchObject(
+                "PS_SuitSpC"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , tbGroomSpecialClaim.Text
+                ));
+            lst.Add(new DbSearchObject(
+                "PS_DressSpC"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , tbBridalSpecialClaim.Text
+                ));
+            lst.Add(new DbSearchObject(
+                "PS_Suit"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , tbGroomDressNum.Text
+                ));
+
+            //1-5
+            lst.Add(new DbSearchObject(
+                "PS_SitePlan"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , tbSitePlan.Text
+                ));
+            lst.Add(new DbSearchObject(
+                "PS_BanquetContent"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , tbDinnerContent.Text
+                ));
+            lst.Add(new DbSearchObject(
+                "PS_Food"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , tbFood.Text
+                ));
+            lst.Add(new DbSearchObject(
+                "PS_BanquetGuest"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , tbDinnerGuest.Text
+                ));
+            lst.Add(new DbSearchObject(
+                "PS_BSpecialClaim"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , tbBSp.Text
+                ));
+
+            //2-2
+            lst.Add(new DbSearchObject(
+                "PS_BModel"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , tbBridalModeling.Text
+                ));
+            lst.Add(new DbSearchObject(
+                "PS_BModelFocus"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , tbBridalMakeupEmphasis.Text
+                ));
+            lst.Add(new DbSearchObject(
+                "PS_BSPc"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , tbBridalHairSpecailClaim.Text
+                ));
+            lst.Add(new DbSearchObject(
+                "PS_GModel"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , tbGroomHair.Text
+                ));
+            lst.Add(new DbSearchObject(
+                "PS_GSPc"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , tbGroomHairSpecailClaim.Text
+                ));
             return lst;
         }
         private List<DbSearchObject> ConferenceItemDbObject(string itemId, string orderId)
@@ -638,7 +998,7 @@ namespace TheWeWebSite.CaseMgt
                 "Remark"
                 , AtrrTypeItem.String
                 , AttrSymbolItem.Equal
-                , tbRemark.Text
+                , tbOth.Text
                 ));
             if (cbCompleted.Checked)
             {
@@ -663,6 +1023,7 @@ namespace TheWeWebSite.CaseMgt
                 ));
             return lst;
         }
+
         #endregion
 
         private bool WriteBackData(MsSqlTable table, List<DbSearchObject> lst, string orderId, string itemId)
@@ -749,31 +1110,31 @@ namespace TheWeWebSite.CaseMgt
             ResetAllDivControl();
             switch (ItemId)
             {
-                case "CI1005":
+                case "1e739102-b86d-45db-ba67-3674f8393bb2":
                     divHotel.Visible = true;
                     break;
-                case "CI1006":
+                case "73b4f75a-26a2-4818-94f7-a8834d2d4a23":
                     divWeddingInfo.Visible = true;
                     break;
-                case "CI1007":
+                case "efef815c-cac3-4ea5-9e8e-e83138f56272":
                     divTakePicture.Visible = true;
                     break;
-                case "CI1008":
+                case "25536c21-df26-4986-bda1-8b3dd187f4e8":
                     divChooseDress.Visible = true;
                     break;
-                case "CI1009":
+                case "2d9983e0-8a96-473a-a492-8c68df58a63b":
                     divDinner.Visible = true;
                     break;
-                case "CI2011":
+                case "947fe231-4bb0-4790-841f-04a16c7def3a":
                     divTryDress.Visible = true;
                     break;
-                case "CI2012":
+                case "095eca7c-2b6f-4d78-9eae-676acf064a9b":
                     divModelCheck.Visible = true;
                     break;
-                case "CI3015":
+                case "f3aa0079-0896-4816-9db0-5abb66f1aac1":
                     divCehckDress.Visible = true;
                     break;
-                case "CI3017":
+                case "735dd34b-70f5-4361-a28f-f443f3ad6d1d":
                     divGetDress.Visible = true;
                     break;
             }

@@ -1086,7 +1086,7 @@
   <data name="TravelPeriodString" xml:space="preserve">
     <value></value>
   </data>
-  <data name="FlightString" xml:space="preserve">
+  <data name="FlightInfoString" xml:space="preserve">
     <value></value>
   </data>
   <data name="ContactString" xml:space="preserve">
@@ -1177,6 +1177,15 @@
     <value></value>
   </data>
   <data name="PaymentString" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="OtherNameString" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="GoString" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="BackString" xml:space="preserve">
     <value></value>
   </data>
 </root>

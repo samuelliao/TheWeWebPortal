@@ -1086,8 +1086,8 @@
   <data name="TravelPeriodString" xml:space="preserve">
     <value>旅遊期間</value>
   </data>
-  <data name="FlightString" xml:space="preserve">
-    <value>航班日期</value>
+  <data name="FlightInfoString" xml:space="preserve">
+    <value>航班資訊</value>
   </data>
   <data name="ContactString" xml:space="preserve">
     <value>聯絡人</value>
@@ -1178,5 +1178,14 @@
   </data>
   <data name="PaymentString" xml:space="preserve">
     <value>付款</value>
+  </data>
+  <data name="OtherNameString" xml:space="preserve">
+    <value>其他名稱</value>
+  </data>
+  <data name="GoString" xml:space="preserve">
+    <value>去程</value>
+  </data>
+  <data name="BackString" xml:space="preserve">
+    <value>回程</value>
   </data>
 </root>
