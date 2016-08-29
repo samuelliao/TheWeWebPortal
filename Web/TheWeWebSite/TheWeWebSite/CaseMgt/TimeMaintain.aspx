@@ -30,7 +30,6 @@
 
                 <!-- Input -->
                 <section class="box special">
-                    <asp:ScriptManager runat="server"></asp:ScriptManager>
                     <div>
                         <div class="12u">
                             <div class="row uniform 50%">
