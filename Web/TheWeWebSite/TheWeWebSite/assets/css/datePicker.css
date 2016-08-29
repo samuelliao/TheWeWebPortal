@@ -8,6 +8,7 @@
 	background: #fff;
 	border-radius: 5px;
 	box-shadow: 6px 6px 12px rgba(0, 0, 0, 0.1);
+    text-align:right;
 }
 .date-picker:before, .date-picker:after {
 	content: "";
@@ -18,11 +19,14 @@
     border: 8px solid #ccc;
     border-width: 0px 8px 8px;
     border-color: transparent transparent #ffafaf;
+    text-align:right;
+
 }
 
 /* ------ months ------ */
 .date-picker .cal-month th {
 	padding-bottom: 4px;
+    text-align:right;
 }
 
 .week-end {
@@ -127,6 +131,7 @@
 
 .date-picker { /* options.datePickerClass; the picker itself */
 	position: absolute;
+    text-align:right;
 }
 .previous-month, .next-month { /* option.prevMonthClass ,... */
 	color: #ddd; /* days outside of current month */

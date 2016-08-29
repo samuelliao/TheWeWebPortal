@@ -184,13 +184,13 @@ namespace TheWeWebSite.CaseMgt {
         protected global::System.Web.UI.WebControls.DropDownList ddlOrderType;
         
         /// <summary>
-        /// tbRemark 控制項。
+        /// tbOsp 控制項。
         /// </summary>
         /// <remarks>
         /// 自動產生的欄位。
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbRemark;
+        protected global::System.Web.UI.WebControls.TextBox tbOsp;
         
         /// <summary>
         /// tvConf 控制項。
@@ -247,58 +247,22 @@ namespace TheWeWebSite.CaseMgt {
         protected global::System.Web.UI.WebControls.TextBox tbHotelName;
         
         /// <summary>
-        /// lblHotelCnName 控制項。
+        /// lblHotelOthName 控制項。
         /// </summary>
         /// <remarks>
         /// 自動產生的欄位。
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblHotelCnName;
+        protected global::System.Web.UI.WebControls.Label lblHotelOthName;
         
         /// <summary>
-        /// tbHotelCnName 控制項。
+        /// tbHotelOthName 控制項。
         /// </summary>
         /// <remarks>
         /// 自動產生的欄位。
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbHotelCnName;
-        
-        /// <summary>
-        /// lblHotelEngName 控制項。
-        /// </summary>
-        /// <remarks>
-        /// 自動產生的欄位。
-        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblHotelEngName;
-        
-        /// <summary>
-        /// tbHotelEngName 控制項。
-        /// </summary>
-        /// <remarks>
-        /// 自動產生的欄位。
-        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbHotelEngName;
-        
-        /// <summary>
-        /// lblHotelJpName 控制項。
-        /// </summary>
-        /// <remarks>
-        /// 自動產生的欄位。
-        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblHotelJpName;
-        
-        /// <summary>
-        /// tbHotelJpName 控制項。
-        /// </summary>
-        /// <remarks>
-        /// 自動產生的欄位。
-        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbHotelJpName;
+        protected global::System.Web.UI.WebControls.TextBox tbHotelOthName;
         
         /// <summary>
         /// lblHotelAddr 控制項。
@@ -337,58 +301,22 @@ namespace TheWeWebSite.CaseMgt {
         protected global::System.Web.UI.WebControls.TextBox tbHotelName2;
         
         /// <summary>
-        /// lblHotelCnName2 控制項。
+        /// lblHotelOthName2 控制項。
         /// </summary>
         /// <remarks>
         /// 自動產生的欄位。
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblHotelCnName2;
+        protected global::System.Web.UI.WebControls.Label lblHotelOthName2;
         
         /// <summary>
-        /// tbHotelCnName2 控制項。
+        /// tbHotelOthName2 控制項。
         /// </summary>
         /// <remarks>
         /// 自動產生的欄位。
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbHotelCnName2;
-        
-        /// <summary>
-        /// lblHotelEngName2 控制項。
-        /// </summary>
-        /// <remarks>
-        /// 自動產生的欄位。
-        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblHotelEngName2;
-        
-        /// <summary>
-        /// tbHotelEngName2 控制項。
-        /// </summary>
-        /// <remarks>
-        /// 自動產生的欄位。
-        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbHotelEngName2;
-        
-        /// <summary>
-        /// lblHotelJpName2 控制項。
-        /// </summary>
-        /// <remarks>
-        /// 自動產生的欄位。
-        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblHotelJpName2;
-        
-        /// <summary>
-        /// tbHotelJpName2 控制項。
-        /// </summary>
-        /// <remarks>
-        /// 自動產生的欄位。
-        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbHotelJpName2;
+        protected global::System.Web.UI.WebControls.TextBox tbHotelOthName2;
         
         /// <summary>
         /// lblHotelAddr2 控制項。
@@ -445,24 +373,6 @@ namespace TheWeWebSite.CaseMgt {
         protected global::System.Web.UI.WebControls.TextBox tbStayNight;
         
         /// <summary>
-        /// lblFlight 控制項。
-        /// </summary>
-        /// <remarks>
-        /// 自動產生的欄位。
-        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblFlight;
-        
-        /// <summary>
-        /// tbFlight 控制項。
-        /// </summary>
-        /// <remarks>
-        /// 自動產生的欄位。
-        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbFlight;
-        
-        /// <summary>
         /// lblContact 控制項。
         /// </summary>
         /// <remarks>
@@ -481,6 +391,24 @@ namespace TheWeWebSite.CaseMgt {
         protected global::System.Web.UI.WebControls.TextBox tbContact;
         
         /// <summary>
+        /// lblFlight 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblFlight;
+        
+        /// <summary>
+        /// tbFlight 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tbFlight;
+        
+        /// <summary>
         /// divWeddingInfo 控制項。
         /// </summary>
         /// <remarks>
@@ -490,40 +418,13 @@ namespace TheWeWebSite.CaseMgt {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl divWeddingInfo;
         
         /// <summary>
-        /// lblWeddingStyle 控制項。
+        /// cbLegalWedding 控制項。
         /// </summary>
         /// <remarks>
         /// 自動產生的欄位。
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblWeddingStyle;
-        
-        /// <summary>
-        /// tbWeddingStyle 控制項。
-        /// </summary>
-        /// <remarks>
-        /// 自動產生的欄位。
-        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbWeddingStyle;
-        
-        /// <summary>
-        /// lblLegalWedding 控制項。
-        /// </summary>
-        /// <remarks>
-        /// 自動產生的欄位。
-        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblLegalWedding;
-        
-        /// <summary>
-        /// tbLegalWedding 控制項。
-        /// </summary>
-        /// <remarks>
-        /// 自動產生的欄位。
-        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbLegalWedding;
+        protected global::System.Web.UI.WebControls.CheckBox cbLegalWedding;
         
         /// <summary>
         /// lblPastorLanguage 控制項。
@@ -535,13 +436,13 @@ namespace TheWeWebSite.CaseMgt {
         protected global::System.Web.UI.WebControls.Label lblPastorLanguage;
         
         /// <summary>
-        /// tbPastorLanguage 控制項。
+        /// ddlLangPastor 控制項。
         /// </summary>
         /// <remarks>
         /// 自動產生的欄位。
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbPastorLanguage;
+        protected global::System.Web.UI.WebControls.DropDownList ddlLangPastor;
         
         /// <summary>
         /// lblWelcomeCard 控制項。
@@ -560,24 +461,6 @@ namespace TheWeWebSite.CaseMgt {
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox tbWelcomeCard;
-        
-        /// <summary>
-        /// lblBouquetCorsage 控制項。
-        /// </summary>
-        /// <remarks>
-        /// 自動產生的欄位。
-        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblBouquetCorsage;
-        
-        /// <summary>
-        /// tbBouquetCorsage 控制項。
-        /// </summary>
-        /// <remarks>
-        /// 自動產生的欄位。
-        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbBouquetCorsage;
         
         /// <summary>
         /// lblChampagne 控制項。
@@ -616,6 +499,24 @@ namespace TheWeWebSite.CaseMgt {
         protected global::System.Web.UI.WebControls.TextBox tbGuest;
         
         /// <summary>
+        /// lblBouquetCorsage 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblBouquetCorsage;
+        
+        /// <summary>
+        /// tbBouquetCorsage 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tbBouquetCorsage;
+        
+        /// <summary>
         /// lblWeddingSequence 控制項。
         /// </summary>
         /// <remarks>
@@ -652,22 +553,22 @@ namespace TheWeWebSite.CaseMgt {
         protected global::System.Web.UI.WebControls.TextBox tbChurchArrangements;
         
         /// <summary>
-        /// lblAdditionService 控制項。
+        /// lblWSp 控制項。
         /// </summary>
         /// <remarks>
         /// 自動產生的欄位。
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblAdditionService;
+        protected global::System.Web.UI.WebControls.Label lblWSp;
         
         /// <summary>
-        /// tbAdditionService 控制項。
+        /// tbWSp 控制項。
         /// </summary>
         /// <remarks>
         /// 自動產生的欄位。
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbAdditionService;
+        protected global::System.Web.UI.WebControls.TextBox tbWSp;
         
         /// <summary>
         /// divTakePicture 控制項。
@@ -677,6 +578,24 @@ namespace TheWeWebSite.CaseMgt {
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl divTakePicture;
+        
+        /// <summary>
+        /// lblAttractions 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblAttractions;
+        
+        /// <summary>
+        /// tbAttractions 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tbAttractions;
         
         /// <summary>
         /// lblRoutePlan 控制項。
@@ -715,42 +634,6 @@ namespace TheWeWebSite.CaseMgt {
         protected global::System.Web.UI.WebControls.TextBox tbPhotoItem;
         
         /// <summary>
-        /// lblPhotoBouquet 控制項。
-        /// </summary>
-        /// <remarks>
-        /// 自動產生的欄位。
-        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblPhotoBouquet;
-        
-        /// <summary>
-        /// tbPhotoBouquet 控制項。
-        /// </summary>
-        /// <remarks>
-        /// 自動產生的欄位。
-        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbPhotoBouquet;
-        
-        /// <summary>
-        /// lblPhotoSpecialClaim 控制項。
-        /// </summary>
-        /// <remarks>
-        /// 自動產生的欄位。
-        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblPhotoSpecialClaim;
-        
-        /// <summary>
-        /// tbPhotoSpecialClaim 控制項。
-        /// </summary>
-        /// <remarks>
-        /// 自動產生的欄位。
-        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbPhotoSpecialClaim;
-        
-        /// <summary>
         /// lblPhotoAvoid 控制項。
         /// </summary>
         /// <remarks>
@@ -769,6 +652,42 @@ namespace TheWeWebSite.CaseMgt {
         protected global::System.Web.UI.WebControls.TextBox tbPhotoAvoid;
         
         /// <summary>
+        /// lblPSp 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblPSp;
+        
+        /// <summary>
+        /// tbPSp 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tbPSp;
+        
+        /// <summary>
+        /// lblPhotoBouquet 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblPhotoBouquet;
+        
+        /// <summary>
+        /// tbPhotoBouquet 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tbPhotoBouquet;
+        
+        /// <summary>
         /// divChooseDress 控制項。
         /// </summary>
         /// <remarks>
@@ -776,6 +695,60 @@ namespace TheWeWebSite.CaseMgt {
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl divChooseDress;
+        
+        /// <summary>
+        /// lblBridalSpecialClaim 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblBridalSpecialClaim;
+        
+        /// <summary>
+        /// tbBridalSpecialClaim 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tbBridalSpecialClaim;
+        
+        /// <summary>
+        /// lblGroomDressNum 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblGroomDressNum;
+        
+        /// <summary>
+        /// tbGroomDressNum 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tbGroomDressNum;
+        
+        /// <summary>
+        /// lblGroomSpecialClaim 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblGroomSpecialClaim;
+        
+        /// <summary>
+        /// tbGroomSpecialClaim 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tbGroomSpecialClaim;
         
         /// <summary>
         /// lblBridalDress1 控制項。
@@ -886,60 +859,6 @@ namespace TheWeWebSite.CaseMgt {
         protected global::System.Web.UI.WebControls.TextBox tbBridalDress6;
         
         /// <summary>
-        /// lblBridalSpecialClaim 控制項。
-        /// </summary>
-        /// <remarks>
-        /// 自動產生的欄位。
-        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblBridalSpecialClaim;
-        
-        /// <summary>
-        /// tbBridalSpecialClaim 控制項。
-        /// </summary>
-        /// <remarks>
-        /// 自動產生的欄位。
-        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbBridalSpecialClaim;
-        
-        /// <summary>
-        /// lblGroomDressNum 控制項。
-        /// </summary>
-        /// <remarks>
-        /// 自動產生的欄位。
-        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblGroomDressNum;
-        
-        /// <summary>
-        /// tbGroomDressNum 控制項。
-        /// </summary>
-        /// <remarks>
-        /// 自動產生的欄位。
-        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbGroomDressNum;
-        
-        /// <summary>
-        /// lblGroomSpecialClaim 控制項。
-        /// </summary>
-        /// <remarks>
-        /// 自動產生的欄位。
-        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblGroomSpecialClaim;
-        
-        /// <summary>
-        /// tbGroomSpecialClaim 控制項。
-        /// </summary>
-        /// <remarks>
-        /// 自動產生的欄位。
-        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbGroomSpecialClaim;
-        
-        /// <summary>
         /// divDinner 控制項。
         /// </summary>
         /// <remarks>
@@ -947,6 +866,24 @@ namespace TheWeWebSite.CaseMgt {
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl divDinner;
+        
+        /// <summary>
+        /// lblDinnerGuest 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblDinnerGuest;
+        
+        /// <summary>
+        /// tbDinnerGuest 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tbDinnerGuest;
         
         /// <summary>
         /// lblSitePlan 控制項。
@@ -1003,40 +940,22 @@ namespace TheWeWebSite.CaseMgt {
         protected global::System.Web.UI.WebControls.TextBox tbFood;
         
         /// <summary>
-        /// lblDinnerGuest 控制項。
+        /// lblBSp 控制項。
         /// </summary>
         /// <remarks>
         /// 自動產生的欄位。
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblDinnerGuest;
+        protected global::System.Web.UI.WebControls.Label lblBSp;
         
         /// <summary>
-        /// tbDinnerGuest 控制項。
+        /// tbBSp 控制項。
         /// </summary>
         /// <remarks>
         /// 自動產生的欄位。
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbDinnerGuest;
-        
-        /// <summary>
-        /// lblAdditionClaim 控制項。
-        /// </summary>
-        /// <remarks>
-        /// 自動產生的欄位。
-        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblAdditionClaim;
-        
-        /// <summary>
-        /// tbAdditionClaim 控制項。
-        /// </summary>
-        /// <remarks>
-        /// 自動產生的欄位。
-        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbAdditionClaim;
+        protected global::System.Web.UI.WebControls.TextBox tbBSp;
         
         /// <summary>
         /// divTryDress 控制項。
@@ -1201,6 +1120,60 @@ namespace TheWeWebSite.CaseMgt {
         protected global::System.Web.UI.WebControls.TextBox tbBridalMakeupEmphasis;
         
         /// <summary>
+        /// lblBridalHairSpecailClaim 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblBridalHairSpecailClaim;
+        
+        /// <summary>
+        /// tbBridalHairSpecailClaim 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tbBridalHairSpecailClaim;
+        
+        /// <summary>
+        /// lblGroomHair 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblGroomHair;
+        
+        /// <summary>
+        /// tbGroomHair 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tbGroomHair;
+        
+        /// <summary>
+        /// lblGroomHairSpecailClaim 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblGroomHairSpecailClaim;
+        
+        /// <summary>
+        /// tbGroomHairSpecailClaim 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tbGroomHairSpecailClaim;
+        
+        /// <summary>
         /// lblBridalHair1 控制項。
         /// </summary>
         /// <remarks>
@@ -1307,60 +1280,6 @@ namespace TheWeWebSite.CaseMgt {
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox tbBridalHair6;
-        
-        /// <summary>
-        /// lblBridalHairSpecailClaim 控制項。
-        /// </summary>
-        /// <remarks>
-        /// 自動產生的欄位。
-        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblBridalHairSpecailClaim;
-        
-        /// <summary>
-        /// tbBridalHairSpecailClaim 控制項。
-        /// </summary>
-        /// <remarks>
-        /// 自動產生的欄位。
-        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbBridalHairSpecailClaim;
-        
-        /// <summary>
-        /// lblGroomHair 控制項。
-        /// </summary>
-        /// <remarks>
-        /// 自動產生的欄位。
-        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblGroomHair;
-        
-        /// <summary>
-        /// tbGroomHair 控制項。
-        /// </summary>
-        /// <remarks>
-        /// 自動產生的欄位。
-        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbGroomHair;
-        
-        /// <summary>
-        /// lblGroomHairSpecailClaim 控制項。
-        /// </summary>
-        /// <remarks>
-        /// 自動產生的欄位。
-        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblGroomHairSpecailClaim;
-        
-        /// <summary>
-        /// tbGroomHairSpecailClaim 控制項。
-        /// </summary>
-        /// <remarks>
-        /// 自動產生的欄位。
-        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbGroomHairSpecailClaim;
         
         /// <summary>
         /// divCehckDress 控制項。

@@ -199,7 +199,7 @@ function (a, b) {
             , header: '<div class="dp-title"><button class="dp-prev" type="button"{{disable-prev}}>{{prev}}</button><button class="dp-next" type="button"{{disable-next}}>{{next}}</button><div class="dp-label dp-label-month">{{month}}<select class="dp-select dp-select-month" tabindex="-1">{{months}}</select></div><div class="dp-label dp-label-year">{{year}}<select class="dp-select dp-select-year" tabindex="-1">{{years}}</select></div></div>'
             , nextLabel: "Next month"
             , prevLabel: "Previous month"
-            , minDate: "1930    -01-01"
+            , minDate: "1930-01-01"
             , maxDate: "2050-12-31"
             , minDateAttribute: "data-mindate"
             , maxDateAttribute: "data-maxdate"
