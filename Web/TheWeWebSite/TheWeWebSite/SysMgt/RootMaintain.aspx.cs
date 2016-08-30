@@ -235,7 +235,7 @@ namespace TheWeWebSite.SysMgt
         }
         #endregion
 
-        #region Db instqance 
+        #region Db instance 
         private List<DbSearchObject> PermissionDbObject(bool isCreate)
         {
             List<DbSearchObject> lst = new List<DbSearchObject>();
@@ -368,7 +368,7 @@ namespace TheWeWebSite.SysMgt
                     + ",p.Type,p.[IsDelete],p.[UpdateAccId],p.[UpdateTime]"
                     + ",e.Name as EmloyeeName,s." + new ResourceUtil().OutputLangNameToAttrName(((string)Session["CultureCode"]))
                     + " as StoreName,s.Sn as StoreSn"
-                    + " FROM[TheWe].[dbo].[Permission] as p"
+                    + " FROM [dbo].[Permission] as p"
                     + " left join Store as s on s.Id = p.ObjectId"
                     + " left join Employee as e on e.Id = p.UpdateAccId"
                     + " Where p.IsDelete = 0 And p.Type = 'Operation' " + sortString;
@@ -387,7 +387,7 @@ namespace TheWeWebSite.SysMgt
             try
             {
                 string sql = "SELECT [Id],[Name],[Type]"
-                    + " FROM [TheWe].[dbo].[FunctionItem]"
+                    + " FROM  [dbo].[FunctionItem]"
                     + " where IsDelete = 0 And Type != 0"
                     + " Order by Type";
                 return SysProperty.GenDbCon.GetDataFromTable(sql);

@@ -228,7 +228,7 @@ namespace TheWeWebSite.StoreMgt
                 string sql = "select a.[Id],a.[CountryId],d.[Name] as [CountryName] ,a.[Sn],a.[Name],a.[Addr],a.[Phone]"
                     + " ,a.[Bday],a.[OnBoard],a.[QuitDay],a.[Salary],a.[CurrencyId],a.[Remark]"
                     + " ,a.[StoreId],b.[Name] as [StoreName],a.[IsValid],a.[IsDelete], a.Account,a.[StoreHolder]"
-                    + " from [TheWe].[dbo].[vwEN_Employee] as a"
+                    + " from  [dbo].[vwEN_Employee] as a"
                     + " left join Store as b on b.[Id]=a.[StoreId]"
                     + " left join Country as d on d.[Id]=a.[CountryId]"
                     + " where a.[IsValid]=1 and a.[IsDelete]=0 " + OtherConditionString

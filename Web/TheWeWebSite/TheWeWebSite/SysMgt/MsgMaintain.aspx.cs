@@ -46,7 +46,7 @@ namespace TheWeWebSite.SysMgt
             try
             {
                 string sqlTxt = "SELECT s.[Id],s.Name,s.SnsContent,s.UpdateAccId,s.UpdateTime,e.Name as EmployeeName"
-                    + " FROM[TheWe].[dbo].[SnsMgt] as s"
+                    + " FROM [dbo].[SnsMgt] as s"
                     + " left join Employee as e on e.Id = s.UpdateAccId"
                     + " Where s.IsDelete=0 " + sortString;
                 DS = SysProperty.GenDbCon.GetDataFromTable(sqlTxt);

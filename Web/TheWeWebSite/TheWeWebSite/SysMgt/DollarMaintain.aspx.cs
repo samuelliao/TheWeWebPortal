@@ -114,7 +114,7 @@ namespace TheWeWebSite.SysMgt
             try
             {
                 string sqlTxt = "SELECT c.[Id],c.Name,Rate,c.UpdateAccId,c.UpdateTime,c.IsDelete,e.Name as EmployeeName"
-                    + " FROM[TheWe].[dbo].[Currency] as c"
+                    + " FROM [dbo].[Currency] as c"
                     + " inner join Employee as e on e.Id = c.UpdateAccId"
                     + " WHERE c.IsDelete = 0 " + sortString;
                 CurrencyDataSet = SysProperty.GenDbCon.GetDataFromTable(sqlTxt);

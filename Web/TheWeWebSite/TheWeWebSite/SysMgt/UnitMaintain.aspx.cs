@@ -50,7 +50,7 @@ namespace TheWeWebSite.SysMgt
         {
             string sqlTxt = "SELECT i.[Id],i.[Name],i.[CnName],i.[JpName],i.[EngName]"
                 + ",i.[IsDelete],i.[UpdateAccId],i.[UpdateTime],e.Name as EmployeeName"
-                + " FROM[TheWe].[dbo].[ItemUnit] as i"
+                + " FROM [dbo].[ItemUnit] as i"
                 + " left join Employee as e on e.Id = i.UpdateAccId";
             try
             {

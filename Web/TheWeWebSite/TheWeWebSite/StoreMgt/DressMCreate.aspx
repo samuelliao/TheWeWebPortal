@@ -232,7 +232,10 @@
             </div>
 
             <div class="12u">
-                <div class="row uniform 50%">
+                <div class="row uniform 50%">                    
+                    <div>
+                        <asp:CheckBox runat="server" CssClass="Div" Text="<%$ Resources:Resource,DomesticWeddingOnlyString%>" ID="cbDomesticWedding" />
+                    </div>
                     <div>
                         <asp:UpdatePanel runat="server">
                             <ContentTemplate>
@@ -272,9 +275,6 @@
                                     ErrorMessage="Only Numbers allowed" ValidationExpression="\d+[.]*\d*" CssClass="error" Display="Dynamic"></asp:RegularExpressionValidator>
                             </ContentTemplate>
                         </asp:UpdatePanel>
-                    </div>
-                    <div>
-                        <asp:CheckBox runat="server" CssClass="Div" Text="<%$ Resources:Resource,DomesticWeddingOnlyString%>" ID="cbDomesticWedding" />
                     </div>
                     <div>
                         <asp:CheckBox runat="server" CssClass="Div" Text="<%$ Resources:Resource,BigSizeString%>" ID="cbBigSize" />

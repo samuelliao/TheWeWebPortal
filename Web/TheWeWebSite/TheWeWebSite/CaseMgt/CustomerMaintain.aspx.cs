@@ -221,7 +221,7 @@ namespace TheWeWebSite.CaseMgt
                 string sql = "SELECT c.[Id],c.Sn,c.Name,c.EngName,c.Nickname"
                     + ",c.Phone,c.Email,c.Bday,m.Name as MsgerName,c.MessengerId"
                     + ",c.[IsDelete],c.UpdateAccId,c.UpdateTime,c.StoreId"
-                    + " FROM[TheWe].[dbo].[vwEN_Customer] as c"
+                    + " FROM [dbo].[vwEN_Customer] as c"
                     + " left join Messenger as m on m.Id = c.MessengerType"
                     + " where c.IsDelete = 0 " + OtherConditionString
                     + (string.IsNullOrEmpty(ddlStore.SelectedValue)

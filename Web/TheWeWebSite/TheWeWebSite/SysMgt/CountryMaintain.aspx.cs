@@ -309,7 +309,7 @@ namespace TheWeWebSite.SysMgt
                     + ",co.[CurrencyId],co.[LangCode],co.[CnName],co.[JpName]"
                     + ",co.[IsDelete],co.[UpdateAccId],co.[UpdateTime]"
                     + ",cu.Name as CurrencyName, em.Name as EmployeeName"
-                    + " FROM[TheWe].[dbo].[Country] as co"
+                    + " FROM [dbo].[Country] as co"
                     + " left join Currency as cu on cu.Id = co.CurrencyId"
                     + " left join vwEN_Employee as em on em.Id = co.UpdateAccId"
                     + " where co.IsDelete = 0 " + sortString;

@@ -218,7 +218,7 @@ namespace TheWeWebSite.StoreMgt
                         + " ,a.[SupplierId],a.[Cost],a.[StoreId],a.[CnName]"
                         + " ,a.[EngName],a.[JpName],a.[IsDelete],a.[CategoryId]"
                         + " ,a.[UpdateAccId],a.[UpdateTime],a.IsGeneral,b.Name as TypeName,c.Name as CategoryName,a.StoreId"
-                        + " from [TheWe].[dbo].[ServiceItem] as a "
+                        + " from  [dbo].[ServiceItem] as a "
                         + " left join ServiceItemCategory as b on b.id=a.Type "
                         + " left join ServiceItemCategory as c on c.id=a.CategoryId"
                         + " WHERE a.IsDelete = 0 " + condStr + " " + sortStr;

@@ -390,7 +390,7 @@ namespace TheWeWebSite.StoreMgt
                 + ",w.CnName as TypeCnName,w.EngName as TypeEngName,w.JpName as TypeJpName,s.Name as CategoryName"
                 + ",s.CnName as CategoryCnName,s.EngName as CategoryEngName,s.JpName as CategoryJpName"
                 + ",lv.Price AS LvPrice"
-                + " FROM[TheWe].[dbo].[ProductSet] as p"
+                + " FROM [dbo].[ProductSet] as p"
                 + " Left join WeddingCategory as w on w.Id = p.WeddingCategory"
                 + " Left join ServiceItemCategory as s on s.Id = p.Category"
                 + " Left Join Store as st on st.Id = p.StoreId"

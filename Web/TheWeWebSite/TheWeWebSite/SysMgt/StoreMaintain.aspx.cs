@@ -109,7 +109,7 @@ namespace TheWeWebSite.SysMgt
                     + ",s.Name,s.CnName,s.EngName,s.JpName,s.Addr,s.Description"
                     + ",s.IsDelete,s.UpdateAccId,s.UpdateTime,e.Name as EmployeeName"
                     + ", s.HoldingCompany, s.GradeLv"
-                    + " FROM[TheWe].[dbo].[Store] as s"
+                    + " FROM [dbo].[Store] as s"
                     + " left join Employee as e on e.Id = s.UpdateAccId"
                     + " left join Country as c on c.Id = s.CountryId"
                     + " left join Area as a on a.Id = s.AreaId"
@@ -318,11 +318,17 @@ namespace TheWeWebSite.SysMgt
             List<DbSearchObject> lst = CreateDbObject(true);
             try
             {
-                if (SysProperty.GenDbCon.InsertDataInToTable(
-                    SysProperty.Util.MsSqlTableConverter(MsSqlTable.Store)
-                    , SysProperty.Util.SqlQueryInsertInstanceConverter(lst)
-                    , SysProperty.Util.SqlQueryInsertValueConverter(lst)
-                    ))
+                bool result = WriteBackData(MsSqlTable.Store, true, lst, string.Empty);
+                if (!result) return;
+                string storeId = GetCreatedObjectId(MsSqlTable.Store, lst);
+                if (string.IsNullOrEmpty(storeId)) return;
+                lst = PermissionDbObject(tbName.Text, storeId);
+                result = WriteBackData(MsSqlTable.Permission, true, lst, string.Empty);
+                if (!result) return;
+                string permissionId = GetCreatedObjectId(MsSqlTable.Permission, lst);
+                if (string.IsNullOrEmpty(permissionId)) return;
+                result = WriteBackPermissionItem(true, PermissionItemListFromTable(true, permissionId), permissionId);
+                if (result)
                 {
                     BindData(string.Empty);
                     btnClear_Click(sender, e);
@@ -431,6 +437,281 @@ namespace TheWeWebSite.SysMgt
             lst.Add(new DbSearchObject("HoldingCompany", AtrrTypeItem.Bit, AttrSymbolItem.Equal, (ddlLv.SelectedValue == "0" ? "1" : "0")));
             lst.Add(new DbSearchObject("GradeLv", AtrrTypeItem.String, AttrSymbolItem.Equal, ddlLv.SelectedValue));
             return lst;
+        }
+
+        private List<DbSearchObject> PermissionDbObject(string name, string storeId)
+        {
+            List<DbSearchObject> lst = new List<DbSearchObject>();
+            lst.Add(new DbSearchObject(
+                "Name"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , name)
+                );
+            lst.Add(new DbSearchObject(
+                "UpdateTime"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss"))
+                );
+            lst.Add(new DbSearchObject(
+                "UpdateAccId"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , ((DataRow)Session["AccountInfo"])["Id"].ToString())
+                );
+            lst.Add(new DbSearchObject(
+            "CreatedateAccId"
+            , AtrrTypeItem.String
+            , AttrSymbolItem.Equal
+            , ((DataRow)Session["AccountInfo"])["Id"].ToString()
+            ));
+            lst.Add(new DbSearchObject(
+                "ObjectId"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , storeId)
+                );
+            lst.Add(new DbSearchObject(
+                "Type"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , "Operation")
+                );
+            lst.Add(new DbSearchObject(
+                "IsDelete"
+                , AtrrTypeItem.Bit
+                , AttrSymbolItem.Equal
+                , "0"));
+            return lst;
+        }
+
+        private List<List<DbSearchObject>> PermissionItemListFromTable(bool isCreate, string newId)
+        {
+            List<List<DbSearchObject>> root = new List<List<DbSearchObject>>();
+            List<DbSearchObject> lst = new List<DbSearchObject>();
+            DbSearchObject obj = new DbSearchObject();
+            string sql = "SELECT * FROM [dbo].[FunctionItem] Where IsDelete = 0 And Type > 0 Order by Type";
+            DataSet funDS = GetDataFromDb(sql);
+            if (SysProperty.Util.IsDataSetEmpty(funDS)) return null;
+            foreach (DataRow dr in funDS.Tables[0].Rows)
+            {
+                lst = new List<DbSearchObject>();
+                lst.Add(new DbSearchObject(
+                    "ObjectId"
+                    , AtrrTypeItem.String
+                    , AttrSymbolItem.Equal
+                    , dr["Id"].ToString()));
+                lst.Add(new DbSearchObject(
+                    "PermissionId"
+                    , AtrrTypeItem.String
+                    , AttrSymbolItem.Equal
+                    , newId));
+                lst.Add(new DbSearchObject(
+                    "CanEntry"
+                    , AtrrTypeItem.Bit
+                    , AttrSymbolItem.Equal
+                    , (int.Parse(dr["Type"].ToString()) < 3 ? "1" : "0")));
+                lst.Add(new DbSearchObject(
+                    "CanCreate"
+                    , AtrrTypeItem.Bit
+                    , AttrSymbolItem.Equal
+                    , (int.Parse(dr["Type"].ToString()) < 3 ? "1" : "0")));
+                lst.Add(new DbSearchObject(
+                    "CanModify"
+                    , AtrrTypeItem.Bit
+                    , AttrSymbolItem.Equal
+                    , (int.Parse(dr["Type"].ToString()) < 3 ? "1" : "0")));
+                lst.Add(new DbSearchObject(
+                    "CanDelete"
+                    , AtrrTypeItem.Bit
+                    , AttrSymbolItem.Equal
+                    , (int.Parse(dr["Type"].ToString()) < 3 ? "1" : "0")));
+                lst.Add(new DbSearchObject(
+                    "CanExport"
+                    , AtrrTypeItem.Bit
+                    , AttrSymbolItem.Equal
+                    , (int.Parse(dr["Type"].ToString()) < 3 ? "1" : "0")));
+                lst.Add(new DbSearchObject(
+                    "Type"
+                    , AtrrTypeItem.String
+                    , AttrSymbolItem.Equal
+                    , "Operation"));
+                lst.Add(new DbSearchObject(
+                    "ObjectSn"
+                    , AtrrTypeItem.String
+                    , AttrSymbolItem.Equal
+                    , dr["Type"].ToString()));
+                lst.Add(new DbSearchObject("UpdateAccId", AtrrTypeItem.String, AttrSymbolItem.Equal, ((DataRow)Session["AccountInfo"])["Id"].ToString()));
+                lst.Add(new DbSearchObject("UpdateTime", AtrrTypeItem.String, AttrSymbolItem.Equal, DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss")));
+                lst.Add(new DbSearchObject(
+                "CreatedateAccId"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , ((DataRow)Session["AccountInfo"])["Id"].ToString()
+                ));
+                root.Add(lst);
+            }
+            return root;
+        }
+
+        #region Data Control
+        #region Read Related
+        private void GetPermissionList(string sortString)
+        {
+            try
+            {
+                string sqlTxt = "SELECT p.[Id],p.Name,p.Description,p.ObjectId"
+                    + ",p.Type,p.[IsDelete],p.[UpdateAccId],p.[UpdateTime]"
+                    + ",e.Name as EmloyeeName,s." + new ResourceUtil().OutputLangNameToAttrName(((string)Session["CultureCode"]))
+                    + " as StoreName,s.Sn as StoreSn"
+                    + " FROM [dbo].[Permission] as p"
+                    + " left join Store as s on s.Id = p.ObjectId"
+                    + " left join Employee as e on e.Id = p.UpdateAccId"
+                    + " Where p.IsDelete = 0 And p.Type = 'Operation' " + sortString;
+                DS = SysProperty.GenDbCon.GetDataFromTable(sqlTxt);
+            }
+            catch (Exception ex)
+            {
+                SysProperty.Log.Error(ex.Message);
+                DS = null;
+                ShowErrorMsg(ex.Message);
+            }
+        }
+
+        private DataSet GetFunctionList()
+        {
+            try
+            {
+                string sql = "SELECT [Id],[Name],[Type]"
+                    + " FROM  [dbo].[FunctionItem]"
+                    + " where IsDelete = 0 And Type != 0"
+                    + " Order by Type";
+                return SysProperty.GenDbCon.GetDataFromTable(sql);
+            }
+            catch (Exception ex)
+            {
+                SysProperty.Log.Error(ex.Message);
+                ShowErrorMsg(ex.Message);
+                return null;
+            }
+        }
+
+        private DataSet GetPermissionItemByPermissionId(string permissionId)
+        {
+            try
+            {
+                string sql = "select * from PermissionItem "
+                    + "where PermissionId = '" + permissionId + "' "
+                    + " And IsDelete=0  Order by ObjectSn";
+                return SysProperty.GenDbCon.GetDataFromTable(sql);
+            }
+            catch (Exception ex)
+            {
+                SysProperty.Log.Error(ex.Message);
+                ShowErrorMsg(ex.Message);
+                return null;
+            }
+        }
+
+        private DataSet GetStoreList()
+        {
+            try
+            {
+                string sql = "";
+                return SysProperty.GenDbCon.GetDataFromTable(sql);
+            }
+            catch (Exception ex)
+            {
+                SysProperty.Log.Error(ex.Message);
+                ShowErrorMsg(ex.Message);
+                return null;
+            }
+        }
+        #endregion
+        #region Write Related
+        private bool WriteBackData(MsSqlTable table, bool isInsert, List<DbSearchObject> lst, string id)
+        {
+            try
+            {
+                return isInsert ?
+                    (SysProperty.GenDbCon.InsertDataInToTable(
+                    SysProperty.Util.MsSqlTableConverter(table)
+                    , SysProperty.Util.SqlQueryInsertInstanceConverter(lst)
+                    , SysProperty.Util.SqlQueryInsertValueConverter(lst)
+                    ))
+                    : (SysProperty.GenDbCon.UpdateDataIntoTable(
+                        SysProperty.Util.MsSqlTableConverter(MsSqlTable.Permission)
+                        , SysProperty.Util.SqlQueryUpdateConverter(lst)
+                        , " Where Id = '" + id + "'"));
+            }
+            catch (Exception ex)
+            {
+                SysProperty.Log.Error(ex.Message);
+                ShowErrorMsg(ex.Message);
+                return false;
+            }
+        }
+
+        private string GetCreatedObjectId(MsSqlTable table, List<DbSearchObject> lst)
+        {
+            try
+            {
+                return SysProperty.GenDbCon.GetDataFromTable("Id"
+                    , SysProperty.Util.MsSqlTableConverter(table)
+                    , SysProperty.Util.SqlQueryConditionConverter(lst)).Tables[0].Rows[0]["Id"].ToString();
+            }
+            catch (Exception ex)
+            {
+                SysProperty.Log.Error(ex.Message);
+                ShowErrorMsg(ex.Message);
+                return string.Empty;
+            }
+        }
+
+        private bool WriteBackPermissionItem(bool isInsert, List<List<DbSearchObject>> lst, string permissionId)
+        {
+            bool result = true;
+            foreach (List<DbSearchObject> item in lst)
+            {
+                try
+                {
+                    result = result |
+                        (isInsert ? SysProperty.GenDbCon.InsertDataInToTable
+                        (SysProperty.Util.MsSqlTableConverter(MsSqlTable.PermissionItem)
+                        , SysProperty.Util.SqlQueryInsertInstanceConverter(item)
+                        , SysProperty.Util.SqlQueryInsertValueConverter(item))
+                        : (SysProperty.GenDbCon.UpdateDataIntoTable
+                        (SysProperty.Util.MsSqlTableConverter(MsSqlTable.PermissionItem)
+                        , SysProperty.Util.SqlQueryUpdateConverter(item)
+                        , " Where PermissionId = '" + permissionId
+                        + "' And ObjectId='" + item[0].AttrValue + "'")));
+                }
+                catch (Exception ex)
+                {
+                    SysProperty.Log.Error(ex.Message);
+                    ShowErrorMsg(ex.Message);
+                    result = false;
+                }
+            }
+            return result;
+        }
+        #endregion
+        #endregion
+
+        private DataSet GetDataFromDb(string sql)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(sql)) return null;
+                return SysProperty.GenDbCon.GetDataFromTable(sql);
+            }
+            catch (Exception ex)
+            {
+                SysProperty.Log.Error(ex.Message);
+                ShowErrorMsg(ex.Message);
+                return null;
+            }
         }
 
         private void ShowErrorMsg(string msg)

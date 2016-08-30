@@ -190,7 +190,7 @@ namespace TheWeWebSite.CaseMgt
                 + ",[GroomEngName],c.[StatusId],con.Name as StatusName,[LastReceivedDate],c.[Remark]"
                 + ",[ConsultDate],[IsReply],[CloseDate],c.[BookingDate],[ContactMethod]"
                 + ",c.[Description],c.[IsDelete],c.[UpdateAccId],c.[UpdateTime],c.StoreId"
-                + " FROM[TheWe].[dbo].[Consultation] as c"
+                + " FROM [dbo].[Consultation] as c"
                 + " left join ConferenceItem as con on c.StatusId = con.Id"
                 + " left join Employee as e on e.Id = c.EmployeeId"
                 + " WHERE c.IsDelete = 0"

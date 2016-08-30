@@ -369,7 +369,7 @@ namespace TheWeWebSite.CaseMgt
             ddlOrderType.Items.Add(new ListItem(Resources.Resource.ProjectString, string.Empty));
             try
             {
-                string sql = "SELECT * FROM [TheWe].[dbo].[ServiceItemCategory] Where TypeLv=0 order by Sn";
+                string sql = "SELECT * FROM [dbo].[ServiceItemCategory] Where TypeLv=0 order by Sn";
                 DataSet ds = SysProperty.GenDbCon.GetDataFromTable(sql);
                 if (SysProperty.Util.IsDataSetEmpty(ds)) return;
                 foreach (DataRow dr in ds.Tables[0].Rows)
@@ -637,7 +637,7 @@ namespace TheWeWebSite.CaseMgt
                     + ",[WeddingRecord],[DynamicRecord],[BridalSecretary],[WeddingPerform],[WeddingType]"
                     + ",[WeddingDecorate],[WeddingHost],[TotalPrice],[Discount],o.[Remark],[Referral],o.Img"
                     + ",DepositFirstType,DepositSecondType,BalancePayementType"
-                    + " FROM[TheWe].[dbo].[OrderInfo] as o"
+                    + " FROM [dbo].[OrderInfo] as o"
                     + " Left join Consultation as c on c.Id = o.ConsultId"
                     + " Where o.IsDelete = 0 And o.Id = '" + id + "'";
                 return SysProperty.GenDbCon.GetDataFromTable(sql);

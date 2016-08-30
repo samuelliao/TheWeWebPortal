@@ -274,7 +274,7 @@ namespace TheWeWebSite.CaseMgt
             {
                 if (string.IsNullOrEmpty(sql))
                 {
-                    sql = "SELECT * FROM [TheWe].[dbo].[Country]"
+                    sql = "SELECT * FROM [dbo].[Country]"
                         + " Where IsDelete = 0"
                         + " And Id in (Select Distinct CountryId From Church)";
                 }
@@ -302,7 +302,7 @@ namespace TheWeWebSite.CaseMgt
             {
                 if (string.IsNullOrEmpty(sql))
                 {
-                    sql = "SELECT * FROM [TheWe].[dbo].[Area]"
+                    sql = "SELECT * FROM [dbo].[Area]"
                         + " Where IsDelete = 0"
                         + " And Id in (Select Distinct AreaId From Church)";
                 }
@@ -332,7 +332,7 @@ namespace TheWeWebSite.CaseMgt
             {
                 if (string.IsNullOrEmpty(sql))
                 {
-                    sql = "SELECT * FROM [TheWe].[dbo].[Church]"
+                    sql = "SELECT * FROM [dbo].[Church]"
                         + " Where IsDelete = 0";
                 }
 
@@ -1366,7 +1366,7 @@ namespace TheWeWebSite.CaseMgt
             {
                 string sql = "SELECT c.[Id],c.[ConsultId],c.[ServiceCategoryId],c.[Description]"
                     + ",c.[IsDelete],c.[UpdateAccId],c.[UpdateTime],s.TypeLv"
-                    + " FROM [TheWe].[dbo].[ConsultServiceItem] as c"
+                    + " FROM [dbo].[ConsultServiceItem] as c"
                     + " left join ServiceItemCategory as s on s.Id = c.ServiceCategoryId"
                     + " Where c.IsDelete = 0 And c.ConsultId = '" + id + "'";
                 return SysProperty.GenDbCon.GetDataFromTable(sql);
@@ -1385,7 +1385,7 @@ namespace TheWeWebSite.CaseMgt
             try
             {
                 string sql = "SELECT *"
-                    + "FROM [TheWe].[dbo].[InfoSource]"
+                    + "FROM [dbo].[InfoSource]"
                     + " Where IsDelete = 0 And ConsultId = '" + id + "'";
                 return SysProperty.GenDbCon.GetDataFromTable(sql);
             }
@@ -1513,13 +1513,13 @@ namespace TheWeWebSite.CaseMgt
 
             if (!string.IsNullOrEmpty(condStr))
             {
-                string sql = "SELECT * FROM [TheWe].[dbo].[Area]"
+                string sql = "SELECT * FROM [dbo].[Area]"
                              + " Where IsDelete = 0"
                              + " And Id in ( Select Distinct AreaId From Church Where CountryId in (" + condStr + ")) Order by CountryId, Name";
                 InitialArea(sql);
 
                 List<string> churchTmp = GetCurrentChurchSelection(cblLocation);
-                sql = "SELECT * FROM [TheWe].[dbo].[Church]"
+                sql = "SELECT * FROM [dbo].[Church]"
                              + " Where IsDelete = 0"
                              + " And CountryId in (" + condStr + ")  Order by CountryId, AreaId, Name";
                 InitialChurch(sql);
@@ -1538,7 +1538,7 @@ namespace TheWeWebSite.CaseMgt
             if (!string.IsNullOrEmpty(condStr))
             {
                 List<string> churchTmp = GetCurrentChurchSelection(cblLocation);
-                string sql = "SELECT * FROM [TheWe].[dbo].[Church]"
+                string sql = "SELECT * FROM [dbo].[Church]"
                          + " Where IsDelete = 0"
                          + " And AreaId in (" + condStr + ") Order by CountryId, AreaId, Name";
                 InitialChurch(sql);

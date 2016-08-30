@@ -41,6 +41,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AjaxControlToolkit, Version=16.1.1.0, Culture=neutral, PublicKeyToken=28f01b0e84b6d53e, processorArchitecture=MSIL">
+      <HintPath>..\packages\AjaxControlToolkit.16.1.1.0\lib\net40\AjaxControlToolkit.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="DocX, Version=1.0.0.22, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>bin\DocX.dll</HintPath>
@@ -145,6 +149,7 @@
     <Content Include="SysMgt\RootMaintain.aspx" />
     <Content Include="SysMgt\StoreMaintain.aspx" />
     <Content Include="SysMgt\UnitMaintain.aspx" />
+    <Content Include="UC\DressSelection.ascx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -463,6 +468,13 @@
     </Compile>
     <Compile Include="SysMgt\UnitMaintain.aspx.designer.cs">
       <DependentUpon>UnitMaintain.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="UC\DressSelection.ascx.cs">
+      <DependentUpon>DressSelection.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UC\DressSelection.ascx.designer.cs">
+      <DependentUpon>DressSelection.ascx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

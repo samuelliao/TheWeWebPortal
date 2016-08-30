@@ -48,7 +48,7 @@ namespace TheWeWebSite.SysMgt
                     + ",a.IsDelete,a.UpdateAccId as EmployeeId,a.UpdateTime,a.CountryId"
                     + ",c." + new ResourceUtil().OutputLangNameToAttrName(((string)Session["CultureCode"]))
                     + " as CountryName,e.Name as EmployeeName"
-                    + " FROM[TheWe].[dbo].[Area] as a"
+                    + " FROM [dbo].[Area] as a"
                     + " left join Country as c on c.Id = a.CountryId"
                     + " left join Employee as e on e.Id = a.UpdateAccId"
                     + " where a.IsDelete = 0 " + sortString;

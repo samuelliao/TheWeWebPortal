@@ -156,7 +156,7 @@ namespace TheWeWebSite.StoreMgt
             try
             {
                 string sql = "select a.[Id],a.[Sn],b.[Name],a.[Type],a.[Img],a.[IsDelete],a.[UpdateAccId],a.[UpdateTime],a.[Description],a.[Img]"
-                    + " from [TheWe].[dbo].[HairStyleItem] as a "
+                    + " from  [dbo].[HairStyleItem] as a "
                     + " left join HairStyleCategory as b on b.Id=a.Type"
                     + " where a.IsDelete =0 " + OtherConditionString
                     + (bool.Parse(((DataRow)Session["LocateStore"])["HoldingCompany"].ToString())
