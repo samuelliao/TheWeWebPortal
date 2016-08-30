@@ -12,6 +12,7 @@ namespace TheWeWebSite.StoreMgt
 {
     public partial class DressMCreate : System.Web.UI.Page
     {
+        public DataSet RentData;
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!Page.IsPostBack)
@@ -28,6 +29,7 @@ namespace TheWeWebSite.StoreMgt
                         + " > " + Resources.Resource.DressMaintainString
                         + " > " + Resources.Resource.ModifyString;
                         SetDressInfoData(Session["DressId"].ToString());
+                        tabRentRecord.Visible = true;
                     }
                     else
                     {
@@ -37,9 +39,10 @@ namespace TheWeWebSite.StoreMgt
                         btnModify.Visible = false;
                         btnDelete.Visible = false;
                         btnClear.Visible = false;
-                        ddlStore.SelectedValue = Session["LocateStore"] == null 
-                            ? string.Empty 
+                        ddlStore.SelectedValue = Session["LocateStore"] == null
+                            ? string.Empty
                             : ((DataRow)Session["LocateStore"])["Id"].ToString();
+                        tabRentRecord.Visible = false;
                     }
                 }
             }
@@ -54,7 +57,7 @@ namespace TheWeWebSite.StoreMgt
             tbMaterial2.Attributes.Add("placeHolder", Resources.Resource.AddString + Resources.Resource.MaterialString);
             tbFitting.Attributes.Add("placeHolder", Resources.Resource.AddString + Resources.Resource.FittingString);
             tbOthers.Attributes.Add("placeHolder", Resources.Resource.AddString + Resources.Resource.OtherString);
-            tbCustomPrice.Attributes.Add("placeHolder","0.00");
+            tbCustomPrice.Attributes.Add("placeHolder", "0.00");
             tbOutdoorPlusPrice.Attributes.Add("placeHolder", "0.00");
             tbPlusItemPrice.Attributes.Add("placeHolder", "0.00");
             tbRentPrice.Attributes.Add("placeHolder", "0.00");
@@ -240,13 +243,19 @@ namespace TheWeWebSite.StoreMgt
         }
         private void StatusCodeList()
         {
+            ddlStatus2.Items.Clear();
             ddlStatus.Items.Clear();
             ddlStatus.Items.Add(new ListItem(Resources.Resource.SeletionRemindString, string.Empty));
+            ddlStatus2.Items.Add(new ListItem(Resources.Resource.SeletionRemindString, string.Empty));
             string sql = "Select * From DressStatusCode where IsDelete = 0";
             DataSet ds = GetDataSetFromTable(sql);
             if (SysProperty.Util.IsDataSetEmpty(ds)) return;
             foreach (DataRow dr in ds.Tables[0].Rows)
             {
+                ddlStatus2.Items.Add(new ListItem(
+                    SysProperty.Util.OutputRelatedLangName(Session["CultureCode"].ToString(), dr)
+                    , dr["Id"].ToString()
+                    ));
                 ddlStatus.Items.Add(new ListItem(
                     SysProperty.Util.OutputRelatedLangName(Session["CultureCode"].ToString(), dr)
                     , dr["Id"].ToString()
@@ -531,6 +540,10 @@ namespace TheWeWebSite.StoreMgt
                     #endregion
                 }
             }
+
+            // Set Dress Rent Table
+            tbDressId2.Text = Session["DressId"].ToString();
+            BindData();
         }
 
         private List<DbSearchObject> DressInfoMainDbObject(bool isCreate)
@@ -620,7 +633,7 @@ namespace TheWeWebSite.StoreMgt
                 , AttrSymbolItem.Equal
                 , tbRentPrice.Text
                 ));
-           
+
             if (!string.IsNullOrEmpty(ddlBack.SelectedValue))
             {
                 lst.Add(new DbSearchObject(
@@ -822,7 +835,7 @@ namespace TheWeWebSite.StoreMgt
                 ShowErrorMsg(ex.Message);
                 return false;
             }
-        }        
+        }
 
         protected void cbOutPhoto_CheckedChanged(object sender, EventArgs e)
         {
@@ -840,7 +853,7 @@ namespace TheWeWebSite.StoreMgt
             switch (type)
             {
                 case 1:
-                    ImgFront.ImageUrl = "http:"+path + "\\" + tbSn.Text + "_1.jpg?" + DateTime.Now.Ticks.ToString();
+                    ImgFront.ImageUrl = "http:" + path + "\\" + tbSn.Text + "_1.jpg?" + DateTime.Now.Ticks.ToString();
                     break;
                 case 2:
                     ImgBack.ImageUrl = "http:" + path + "\\" + tbSn.Text + "_2.jpg?" + DateTime.Now.Ticks.ToString();
@@ -863,7 +876,7 @@ namespace TheWeWebSite.StoreMgt
                     ImgOther2.ImageUrl = "http:" + path + "\\" + tbSn.Text + "_5.jpg?" + DateTime.Now.Ticks.ToString();
                     break;
             }
-        }        
+        }
 
         private void CheckFolder(string path)
         {
@@ -878,7 +891,7 @@ namespace TheWeWebSite.StoreMgt
             if (string.IsNullOrEmpty(tbFolderPath.Text)) return;
             bool needRefresh = false;
             CheckFolder(tbFolderPath.Text);
-            for(int i = 1; i <= 5; i++)
+            for (int i = 1; i <= 5; i++)
             {
                 FileUpload upload = Page.FindControl("FileUpload" + i) as FileUpload;
                 if (upload.HasFile)
@@ -894,5 +907,104 @@ namespace TheWeWebSite.StoreMgt
             }
         }
         #endregion
+
+        protected void btnSearch_Click(object sender, EventArgs e)
+        {
+            BindData();
+        }
+
+        private void BindData()
+        {
+            GetRentData(QueryCondStr(), " Order by d.StartTime DESC");
+            dataGrid.DataSource = RentData;
+            dataGrid.AllowPaging = !SysProperty.Util.IsDataSetEmpty(RentData);
+            dataGrid.DataBind();
+        }
+
+        private void GetRentData(string condStr, string sortStr)
+        {
+            string sql = "SELECT d.[Id],[DressId],d.[UpdateTime],d.[UpdateAccId],d.[CreateAccId],d.[CreateTime],d.[StartTime]"
+                + ",[EndTime],d.StatusCode,[OrderId],o.ChurchId,o.Sn As OrderSn,o.CountryId"
+                + " FROM [dbo].[DressRent] AS d"
+                + " Left join OrderInfo as o on o.Id = d.OrderId"
+                + " Where d.IsDelete = 0 And d.DressId = '" + Session["DressId"].ToString() + "'"
+                + condStr
+                + sortStr;
+            RentData = GetDataSetFromTable(sql);
+        }
+
+        private string QueryCondStr()
+        {
+            string condStr = string.Empty;
+            if (!string.IsNullOrEmpty(ddlStatus2.SelectedValue))
+            {
+                condStr += " And d.StatusCode = '" + ddlStatus2.SelectedValue + "'";
+            }
+            if (!string.IsNullOrEmpty(tbSearchStartDate.Text))
+            {
+                condStr += " And d.StartTime = '" + tbSearchStartDate.Text + "'";
+            }
+            if (!string.IsNullOrEmpty(tbSearchEndDate.Text))
+            {
+                condStr += " And d.EndTime = '" + tbSearchEndDate.Text + "'";
+            }
+            return condStr;
+        }
+
+        #region Rent Table
+        protected void dataGrid_PageIndexChanged(object source, DataGridPageChangedEventArgs e)
+        {
+            dataGrid.CurrentPageIndex = e.NewPageIndex;
+            BindData();
+        }
+
+        protected void dataGrid_ItemDataBound(object sender, DataGridItemEventArgs e)
+        {
+            DataRowView dataItem1 = (DataRowView)e.Item.DataItem;
+            if (dataItem1 != null)
+            {
+                ((Label)e.Item.FindControl("labelStatus")).Text = ddlStatus2.Items.FindByValue(dataItem1["StatusCode"].ToString()).Text;
+
+                ((Label)e.Item.FindControl("labelLocation")).Text = SysProperty.Util.OutputRelatedLangName(Session["CultureCode"].ToString()
+                    , SysProperty.GetChurchById(dataItem1["ChurchId"].ToString()))
+                    + "(" + (SysProperty.Util.OutputRelatedLangName(Session["CultureCode"].ToString(),
+                    SysProperty.GetCountryById(dataItem1["CountryId"].ToString()))) + ")";
+
+                LinkButton hyperLink2 = (LinkButton)e.Item.FindControl("linkConsult");
+                hyperLink2.CommandArgument = dataItem1["OrderId"].ToString();
+                hyperLink2.Text = dataItem1["OrderSn"].ToString();
+                hyperLink2.Enabled = IsHyperLinkEnable("CaseMCreate");
+            }
+        }
+
+        private bool IsHyperLinkEnable(string pageName)
+        {
+            PermissionUtil util = new PermissionUtil();
+            string sn = util.OperationSn(pageName);
+            PermissionItem item = util.GetPermissionByKey(Session["Operation"], sn);
+            if (item == null) return false;
+            return item.CanEntry;
+        }
+
+        protected void dataGrid_SortCommand(object source, DataGridSortCommandEventArgs e)
+        {
+            if (RentData == null)
+            {
+                GetRentData(QueryCondStr()
+                    , "Order by d." + e.SortExpression + " " + SysProperty.Util.GetSortDirection(e.SortExpression));
+            }
+            if (RentData != null)
+            {
+                dataGrid.DataSource = RentData;
+                dataGrid.DataBind();
+            }
+        }
+        #endregion
+
+        protected void linkConsult_Click(object sender, EventArgs e)
+        {
+            Session["OrderId"] = ((LinkButton)sender).CommandArgument;
+            Response.Redirect("~/CaseMgt/CaseMCreate.aspx");
+        }
     }
 }

@@ -47,7 +47,7 @@
                             <asp:LinkButton CausesValidation="false" runat="server" Text="<%$ Resources:Resource,LocationReservationString%>" PostBackUrl="~/Main/ChurchReservation.aspx" ID="LinkChurchReservtion" />
                         </li>
                         <li>
-                            <asp:LinkButton CausesValidation="false" runat="server" Text="<%$ Resources:Resource,DressMaintainString%>" PostBackUrl="~/Main/DressMaintain.aspx" ID="LinkDressTimeMaintain" />
+                            <asp:LinkButton CausesValidation="false" runat="server" Text="<%$ Resources:Resource,DressRentString%>" PostBackUrl="~/Main/DressRentMaintain.aspx" ID="LinkDressTimeMaintain" />
                         </li>
                     </ul>
                 </li>
@@ -93,9 +93,6 @@
                         </li>-->
                         <li>
                             <asp:LinkButton CausesValidation="false" runat="server" Text="<%$ Resources:Resource,TimetableMaintainString%>" PostBackUrl="~/CaseMgt/TimeMaintain.aspx" ID="LinkTimeMaintain" />
-                        </li>
-                        <li>
-                            <asp:LinkButton CausesValidation="false" runat="server" Text="<%$ Resources:Resource,DressRentString%>" PostBackUrl="~/StoreMgt/DressRentMaintain.aspx" ID="LinkDressRentMaintain" />
                         </li>
                     </ul>
                 </li>

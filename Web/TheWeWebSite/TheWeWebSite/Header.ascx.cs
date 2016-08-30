@@ -97,7 +97,8 @@ namespace TheWeWebSite
                 if (string.IsNullOrEmpty(employeeId)) return;
                 DateTime startTime = DateTime.Now;
                 DateTime endTime = DateTime.Now.AddHours(1);
-                string sql = "Select 'Case' as Type, Id, Sn, BookingDate From OrderInfo Where BookingDate >= '" + startTime.ToString("yyyy/MM/dd HH:mm:ss") + "' And BookingDate <= '" + endTime.AddDays(1).ToString("yyyy/MM/dd HH:mm:ss") + "'";
+                string sql = "Select 'Case' as Type, Id, Sn, BookingDate From OrderInfo Where StoreId = '" + ((DataRow)Session["LocateStore"])["Id"].ToString() + "'"
+                    + " And BookingDate >= '" + startTime.ToString("yyyy/MM/dd") + " 00:00:00' And BookingDate <= '" + endTime.AddDays(1).ToString("yyyy/MM/dd") + " 00:00:00'";
                 //sql += " Union ";
                 //sql += " Select 'Advisory' as Type, Id, Sn, BookingTime From Consultation Where BookingTime >= '" + startTime.ToString("yyyy / MM / dd HH: mm: ss") + "' And BookingTime <= '" + endTime.AddMinutes(30).ToString("yyyy / MM / dd HH: mm: ss") + "'";
                 try
@@ -110,7 +111,8 @@ namespace TheWeWebSite
                     SysProperty.Log.Error(ex.Message);
                 }
 
-                sql = "Select 'Advisory' as Type, Id, Sn, BookingDate From OrderInfo Where BookingDate >= '" + startTime.ToString("yyyy/MM/dd") + " 00:00:00'  And BookingDate <= '" + endTime.AddDays(1).ToString("yyyy/MM/dd") + " 00:00:00'";
+                sql = "Select 'Advisory' as Type, Id, Sn, BookingDate From Consultation Where StoreId = '" + ((DataRow)Session["LocateStore"])["Id"].ToString() + "'"
+                    + " And BookingDate >= '" + startTime.ToString("yyyy/MM/dd") + " 00:00:00' And BookingDate <= '" + endTime.AddDays(1).ToString("yyyy/MM/dd") + " 00:00:00'";
                 try
                 {
                     DataSet ds = SysProperty.GenDbCon.GetDataFromTable(sql);

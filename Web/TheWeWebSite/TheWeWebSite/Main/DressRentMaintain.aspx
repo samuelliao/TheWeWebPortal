@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="DressMaintain.aspx.cs" Inherits="TheWeWebSite.Main.DressMaintain" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="DressRentMaintain.aspx.cs" Inherits="TheWeWebSite.Main.DressRentMaintain" %>
 <%@ Register TagPrefix="My" TagName="Header" Src="~/Header.ascx" %>
 <!DOCTYPE html>
 
@@ -119,60 +119,40 @@
 
                     <div class="row">
                         <div class="12u">
-
                             <div class="table-wrapper">
                                 <asp:DataGrid runat="server" ID="dataGrid" AutoGenerateColumns="false"
                                     AllowPaging="true" AllowSorting="true" OnPageIndexChanged="dataGrid_PageIndexChanged"
-                                    OnItemDataBound="dataGrid_ItemDataBound" OnSelectedIndexChanged="dataGrid_SelectedIndexChanged"
+                                    OnItemDataBound="dataGrid_ItemDataBound"
                                     DataKeyField="Id" OnSortCommand="dataGrid_SortCommand" Font-Size="Small">
                                     <HeaderStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                     <PagerStyle Mode="NumericPages" HorizontalAlign="Center" VerticalAlign="Middle" />
                                     <Columns>
-                                        <asp:ButtonColumn Text="<%$ Resources:Resource,SearchString%>" CommandName="Select" />
                                         <asp:BoundColumn Visible="false" DataField="Id" />
                                         <asp:TemplateColumn HeaderText="<%$ Resources:Resource,StoreString%>" SortExpression="StoreId">
                                             <ItemTemplate>
                                                 <asp:Label runat="server" ID="labelStore" />
                                             </ItemTemplate>
-                                        </asp:TemplateColumn>
-                                        <asp:TemplateColumn HeaderText="<%$ Resources:Resource,AdviosryIdString%>">
+                                        </asp:TemplateColumn>                                        
+                                         <asp:TemplateColumn HeaderText="<%$ Resources:Resource,SnString%>">
                                             <ItemTemplate>
-                                                <asp:LinkButton runat="server" ID="linkConsult" Text="" OnClick="linkConsult_Click" />
+                                                <asp:LinkButton runat="server" ID="linkDressSn" Text="" OnClick="linkDressSn_Click" />
                                             </ItemTemplate>
-                                        </asp:TemplateColumn>
-                                        <asp:BoundColumn HeaderText="<%$ Resources:Resource,ContractSnString%>" DataField="Sn" />
-                                        <asp:TemplateColumn HeaderText="<%$ Resources:Resource,BridalNameString%>">
-                                            <ItemTemplate>
-                                                <asp:LinkButton runat="server" ID="linkCustomerName" Text="" OnClick="linkCustomerName_Click" />
-                                            </ItemTemplate>
-                                        </asp:TemplateColumn>
-                                        <asp:BoundColumn HeaderText="<%$ Resources:Resource,BridalNameString%>" DataField="CustomerName" />
-                                        <asp:BoundColumn HeaderText="<%$ Resources:Resource,GroomNameString%>" DataField="PartnerName" />
-                                        <asp:BoundColumn HeaderText="<%$ Resources:Resource,ContractDateString%>" DataField="StartTime" />
+                                        </asp:TemplateColumn>   
+                                        <asp:BoundColumn HeaderText="<%$ Resources:Resource,StartString%>" DataField="StartTime" SortExpression="StartTime" />
+                                        <asp:BoundColumn HeaderText="<%$ Resources:Resource,EndString%>" DataField="EndTime" />
                                         <asp:TemplateColumn HeaderText="<%$ Resources:Resource,StatusString%>">
                                             <ItemTemplate>
                                                 <asp:Label runat="server" ID="labelStatus" />
                                             </ItemTemplate>
                                         </asp:TemplateColumn>
-                                        <asp:BoundColumn HeaderText="<%$ Resources:Resource,AppointmentDateString%>" DataField="BookingDate" />
-                                        <asp:TemplateColumn HeaderText="<%$ Resources:Resource,CountryString%>">
+                                        <asp:TemplateColumn HeaderText="<%$ Resources:Resource,ContractSnString%>">
                                             <ItemTemplate>
-                                                <asp:Label runat="server" ID="labelCountry" />
+                                                <asp:LinkButton runat="server" ID="linkConsult" Text="" OnClick="linkConsult_Click" />
                                             </ItemTemplate>
-                                        </asp:TemplateColumn>
-                                        <asp:TemplateColumn HeaderText="<%$ Resources:Resource,AreaString%>">
-                                            <ItemTemplate>
-                                                <asp:Label runat="server" ID="labelArea" />
-                                            </ItemTemplate>
-                                        </asp:TemplateColumn>
+                                        </asp:TemplateColumn>         
                                         <asp:TemplateColumn HeaderText="<%$ Resources:Resource,LocateString%>">
                                             <ItemTemplate>
                                                 <asp:Label runat="server" ID="labelLocation" />
-                                            </ItemTemplate>
-                                        </asp:TemplateColumn>
-                                        <asp:TemplateColumn HeaderText="<%$ Resources:Resource,ProductSetString%>">
-                                            <ItemTemplate>
-                                                <asp:Label runat="server" ID="labelSet" />
                                             </ItemTemplate>
                                         </asp:TemplateColumn>
                                     </Columns>

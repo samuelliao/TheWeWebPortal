@@ -10,7 +10,7 @@
 namespace TheWeWebSite.Main {
     
     
-    public partial class DressMaintain {
+    public partial class DressRentMaintain {
         
         /// <summary>
         /// ucHeader 控制項。
