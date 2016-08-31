@@ -628,7 +628,7 @@ namespace TheWeWebSite.CaseMgt
                     + ",o.[StartTime],[CustomerId],[PartnerId],o.[StatusId]"
                     + ",o.[CloseTime],[CountryId],o.[AreaId],o.[ChurchId],o.[SetId]"
                     + ",[ServiceWindowId],o.[StoreId],[PermissionId],[Price]"
-                    + ",[CurrencyId],[DepositFirst],[HotelName],[CustomerImg]"
+                    + ",[CurrencyId],[DepositFirst],[PS_FirstHotelName],[PS_SecondHotelName],[CustomerImg]"
                     + ",o.[BookingDate],[OverseaWeddingDate],[DepositFirstDate]"
                     + ",[DepositSecondDate],[DepositSecond],[OverseaFilmDate]"
                     + ",[LocalFilmingDate],[LocalEngagementDate],[LocalWeddingDate]"

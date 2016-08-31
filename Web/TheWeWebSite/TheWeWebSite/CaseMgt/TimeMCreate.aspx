@@ -262,17 +262,17 @@
                                         </div>
                                         <asp:TextBox runat="server" ID="tbBouquetCorsage" />
                                     </div>
-                                    <div>
+                                    <div runat="server">
                                         <div class="2u  12u(mobilep) TimeMaintain">
                                             <div class="TimeMaintainDiv" style="text-align: center">
-                                                <asp:Label runat="server" Text="<%$ Resources:Resource,BouquetPictureString%>"></asp:Label>
+                                                <asp:Label runat="server" Text="A"></asp:Label>
                                                 <asp:Label runat="server" Text="" ID="tbFolderPath" Visible="false"></asp:Label>
-
                                             </div>
                                             <span class="image fit">
                                                 <asp:Image runat="server" ID="ImgFront" ImageUrl="http://127.0.0.1/Photo/HairStyleItem/DDW003/UJDDW003_1.jpg?636082462096647960" />
                                             </span>
                                         </div>
+
                                     </div>
                                     <!--BouquetCorsage End-->
                                     <div class="12u 12u(mobilep) TimeMaintain " style="margin-left: 0!important">
