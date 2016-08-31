@@ -18,6 +18,7 @@ namespace TheWeWebSite.CaseMgt
         {
             if (!Page.IsPostBack)
             {
+                SetImg();
                 if (SysProperty.Util == null) Response.Redirect("../Login.aspx", true);
                 else
                 {
@@ -27,7 +28,7 @@ namespace TheWeWebSite.CaseMgt
                     InitialLangList();
                     InitialOrderType();
                     InitialTextAndHint();
-                    
+
                     if (Session["OrderId"] != null)
                     {
                         labelPageTitle.Text = Resources.Resource.OrderMgtString
@@ -262,6 +263,7 @@ namespace TheWeWebSite.CaseMgt
             divTakePicture.Visible = false;
             divTryDress.Visible = false;
             divWeddingInfo.Visible = false;
+
         }
         private void InitialControlWithPermission()
         {
@@ -559,7 +561,7 @@ namespace TheWeWebSite.CaseMgt
             tbBridalTryDress6.Text = dr["Sn"].ToString();//從DressOrder那撈
 
             //2-2
-            
+
             tbBridalHair1.Text = dr["Sn"].ToString(); //從DressOrder那撈
             tbBridalHair2.Text = dr["Sn"].ToString(); //從DressOrder那撈
             tbBridalHair3.Text = dr["Sn"].ToString(); //從DressOrder那撈
@@ -568,9 +570,9 @@ namespace TheWeWebSite.CaseMgt
             tbBridalHair6.Text = dr["Sn"].ToString(); //從DressOrder那撈
 
             tbBridalHairSpecailClaim.Text = dr["PS_BSPc"].ToString();
-            tbGroomHair.Text = dr["PS_GModel"].ToString(); 
-            tbGroomHairSpecailClaim.Text = dr["PS_GSPc"].ToString(); 
-            tbBridalModeling.Text = dr["PS_BModel"].ToString(); 
+            tbGroomHair.Text = dr["PS_GModel"].ToString();
+            tbGroomHairSpecailClaim.Text = dr["PS_GSPc"].ToString();
+            tbBridalModeling.Text = dr["PS_BModel"].ToString();
             tbBridalMakeupEmphasis.Text = dr["PS_BModelFocus"].ToString();
             //3-1
             tbBridalCheckDress1.Text = dr["Sn"].ToString();//從DressOrder那撈
@@ -606,6 +608,8 @@ namespace TheWeWebSite.CaseMgt
                 cbCompleted.Enabled = false;
                 tbOth.Enabled = false;
             }
+
+
         }
 
         private string GetExpectDate(DataRow dr)
@@ -1207,9 +1211,33 @@ namespace TheWeWebSite.CaseMgt
                 l.Attributes.Add("rel", "stylesheet");
                 Page.Header.Controls.Add(l);
             }
+
+        }
+
+
+
+        private void SetImg()
+        {
+
+            //DataSet ds = SysProperty.GenDbCon.GetDataFromTable("Select Sn From HairStyleItem Where IsDelete = 0 And Id='7882E54F-4DAA-4CF0-9C59-EB87DBD0B65A'");
+            //if (SysProperty.Util.IsDataSetEmpty(ds)) return;
+            int cnt = 0;
+
+            foreach (string fname in System.IO.Directory.GetFileSystemEntries(@"C:\inetpub\wwwroot\photo\HairStyleItem\DDW005"))
+            {
+                //((Label)dgCutomServiceItem.Rows[cnt].FindControl("lblBouquet1")).Text = fname;
+                cnt++;
+
+            }
+
+            for (int i = 0; i < cnt; i++)
+            {
+                //((Label)dgCutomServiceItem.Rows[cnt].FindControl("lblBouquet1")).Text = "09876540987654";
+            }
         }
     }
 
-
-
 }
+
+
+

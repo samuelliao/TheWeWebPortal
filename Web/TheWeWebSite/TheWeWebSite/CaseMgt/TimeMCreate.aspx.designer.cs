@@ -517,22 +517,22 @@ namespace TheWeWebSite.CaseMgt {
         protected global::System.Web.UI.WebControls.TextBox tbBouquetCorsage;
         
         /// <summary>
-        /// tbFolderPath 控制項。
+        /// lblBouquet 控制項。
         /// </summary>
         /// <remarks>
         /// 自動產生的欄位。
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label tbFolderPath;
+        protected global::System.Web.UI.WebControls.Label lblBouquet;
         
         /// <summary>
-        /// ImgFront 控制項。
+        /// ImgBouquet 控制項。
         /// </summary>
         /// <remarks>
         /// 自動產生的欄位。
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Image ImgFront;
+        protected global::System.Web.UI.WebControls.Image ImgBouquet;
         
         /// <summary>
         /// lblWeddingSequence 控制項。

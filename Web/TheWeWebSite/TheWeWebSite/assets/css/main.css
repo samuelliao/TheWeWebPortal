@@ -2773,6 +2773,36 @@ dl {
     border-top: 0;
 }
 
+/* Table */
+
+.cal table {
+    margin: 0 0 2em 0;
+    width: 100%;
+}
+
+    .cal table tbody tr {
+        border: solid 1px #e5e5e5;
+        border: 0;
+    }
+
+        .cal table tbody tr:nth-child(2n + 1) {
+            background-color: #f8f8f8;
+        }
+
+
+    .cal table td {
+        padding: 0.75em 0.75em;
+    }
+
+    .cal table th {
+        color: #646464;
+        font-size: 0.9em;
+        font-weight: 300;
+        padding-top: 0.3em;
+        padding-bottom: 0.3em;
+        text-align: center;
+        background-color: #ffbdbd;
+    }
 
 
 

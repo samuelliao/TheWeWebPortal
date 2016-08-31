@@ -262,38 +262,38 @@
                                         </div>
                                         <asp:TextBox runat="server" ID="tbBouquetCorsage" />
                                     </div>
-                                    <div runat="server">
-                                        <div class="2u  12u(mobilep) TimeMaintain">
-                                            <div class="TimeMaintainDiv" style="text-align: center">
-                                                <asp:Label runat="server" Text="A"></asp:Label>
-                                                <asp:Label runat="server" Text="" ID="tbFolderPath" Visible="false"></asp:Label>
+                                    <!---->
+                                    <asp:UpdatePanel runat="server">
+                                        <ContentTemplate>
+                                            <div class="2u 12u(mobilep) TimeMaintain" runat="server">
+                                                <div class="TimeMaintainDiv" style="text-align: center">
+                                                    <asp:Label runat="server" ID="lblBouquet" Text="B"></asp:Label>
+                                                </div>
+                                                <span class="image fit">
+                                                    <asp:Image runat="server" ID="ImgBouquet" ImageUrl="http://127.0.0.1/Photo/HairStyleItem/DDW004/jnDDW004_1.jpg" />
+                                                </span>
                                             </div>
-                                            <span class="image fit">
-                                                <asp:Image runat="server" ID="ImgFront" ImageUrl="http://127.0.0.1/Photo/HairStyleItem/DDW003/UJDDW003_1.jpg?636082462096647960" />
-                                            </span>
-                                        </div>
+                                        </ContentTemplate>
+                                    </asp:UpdatePanel>
 
-                                    </div>
                                     <!--BouquetCorsage End-->
-                                    <div class="12u 12u(mobilep) TimeMaintain " style="margin-left: 0!important">
-                                        <div class="3u 12u(mobilep) TimeMaintain">
-                                            <div class="TimeMaintainDiv">
-                                                <asp:Label runat="server" ID="lblWeddingSequence"></asp:Label>
-                                            </div>
-                                            <asp:TextBox runat="server" ID="tbWeddingSequence" Rows="5" TextMode="MultiLine" />
+                                    <div class="11u 12u(mobilep) TimeMaintain">
+                                        <div class="TimeMaintainDiv">
+                                            <asp:Label runat="server" ID="lblWeddingSequence"></asp:Label>
                                         </div>
-                                        <div class="3u 12u(mobilep) TimeMaintain">
-                                            <div class="TimeMaintainDiv">
-                                                <asp:Label runat="server" ID="lblChurchArrangements"></asp:Label>
-                                            </div>
-                                            <asp:TextBox runat="server" ID="tbChurchArrangements" Rows="5" TextMode="MultiLine" />
+                                        <asp:TextBox runat="server" ID="tbWeddingSequence" />
+                                    </div>
+                                    <div class="11u 12u(mobilep) TimeMaintain">
+                                        <div class="TimeMaintainDiv">
+                                            <asp:Label runat="server" ID="lblChurchArrangements"></asp:Label>
                                         </div>
-                                        <div class="4u 12u(mobilep) TimeMaintain">
-                                            <div class="TimeMaintainDiv">
-                                                <asp:Label runat="server" ID="lblWSp"></asp:Label>
-                                            </div>
-                                            <asp:TextBox runat="server" ID="tbWSp" Rows="5" TextMode="MultiLine" />
+                                        <asp:TextBox runat="server" ID="tbChurchArrangements" />
+                                    </div>
+                                    <div class="11u 12u(mobilep) TimeMaintain">
+                                        <div class="TimeMaintainDiv">
+                                            <asp:Label runat="server" ID="lblWSp"></asp:Label>
                                         </div>
+                                        <asp:TextBox runat="server" ID="tbWSp" />
                                     </div>
                                 </div>
 

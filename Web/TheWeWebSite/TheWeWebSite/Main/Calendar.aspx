@@ -8,11 +8,11 @@
 <head runat="server">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>The We Wedding</title>
-    <link href="../assets/css/Calendar.css" rel="stylesheet" />
+    <link href="../assets/css/main.css" rel="stylesheet" />
 
 </head>
 
-<body class="landing">
+<body class="landing ">
     <form runat="server">
         <div id="page-wrapper">
 
@@ -34,7 +34,7 @@
                         <asp:DropDownList runat="server" ID="ddlStore" />
                     </div>
                     <!-- Calendar-->
-                    <div class="row">
+                    <div class="row ">
                         <asp:Label runat="server" ID="labelWarnString" ForeColor="Red" Visible="false" />
                         <div class="12u">
                             <div class="row uniform 50%">

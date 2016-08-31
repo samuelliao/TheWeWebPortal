@@ -9,7 +9,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>The We Wedding</title>
     <link href="../assets/css/font-awesome.min.css" rel="stylesheet" />
-    <link href="../assets/css/Calendar.css" rel="stylesheet" />
+    <link href="../assets/css/main.css" rel="stylesheet" />
 
 
 </head>
