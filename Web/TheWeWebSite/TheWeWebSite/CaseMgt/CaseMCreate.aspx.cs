@@ -716,15 +716,15 @@ namespace TheWeWebSite.CaseMgt
             ddlArea.SelectedValue = dr["AreaId"].ToString();
             ddlLocate.SelectedValue = dr["ChurchId"].ToString();
 
+            SetOrderServiceItem(id);
+            DynamicSn(ddlOrderType.SelectedValue, ddlCountry.SelectedValue);
+
             string imgPath = @dr["Img"].ToString();
             if (string.IsNullOrEmpty(imgPath)) imgPath = SysProperty.ImgRootFolderpath + @"OrderInfo\" + tbCaseSn.Text;
             else imgPath = SysProperty.ImgRootFolderpath + imgPath;
             string ImgFolderPath = imgPath;
             RefreshImage(ImgFolderPath);
             tbFolderPath.Text = ImgFolderPath;
-
-            SetOrderServiceItem(id);
-            DynamicSn(ddlOrderType.SelectedValue, ddlCountry.SelectedValue);
         }
 
         private void InitialCustomerInfo(string id)

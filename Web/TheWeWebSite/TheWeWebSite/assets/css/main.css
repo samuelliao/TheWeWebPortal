@@ -2199,19 +2199,17 @@ input[type="radio"] {
     margin-top: -10px !important;
 }
 
-.TimeMaintainDiv{
-    text-align:left;
-    font-size:1em;
-    margin-top:5px;
-    margin-bottom:5px;
-
-
+.TimeMaintainDiv {
+    text-align: left;
+    font-size: 1em;
+    margin-top: 5px;
+    margin-bottom: 5px;
 }
-.ImageUploadBtn{
-    text-align:left!important;
-    bottom:0px!important;
-    position:page!important;
-    
+
+.ImageUploadBtn {
+    text-align: left !important;
+    bottom: 0px !important;
+    position: page !important;
 }
 
 .required {
@@ -2235,15 +2233,14 @@ input[type="radio"] {
 
 
     .fileUpload ::-ms-browse {
-    display:none;
+        display: none;
     }
 
     .fileUpload [type=file]::-ms-value {
         margin: 0px;
-       
     }
-   
- 
+
+
 
 /* */
 
@@ -2267,9 +2264,9 @@ input:disabled {
 .Check.Div {
 }
 
-.TimeMaintain{
-    float:left;
-    margin-left:30px;
+.TimeMaintain {
+    float: left;
+    margin-left: 30px;
 }
 
 input[type="checkbox"] {
@@ -2756,21 +2753,21 @@ dl {
             border-top-width: 0;
         }
 
-           .serch t able.alt tbody tr td:first-child {
-                border-left-width: 1px;
-            }
+.serch t able.alt tbody tr td:first-child {
+    border-left-width: 1px;
+}
 
-        .serch table.alt tbody tr:first-child td {
-            border-top-width: 1px;
-        }
+.serch table.alt tbody tr:first-child td {
+    border-top-width: 1px;
+}
 
-        .serch table.alt thead {
-            border-bottom: 0;
-        }
+.serch table.alt thead {
+    border-bottom: 0;
+}
 
-        .serch table.alt tfoot {
-            border-top: 0;
-        }
+.serch table.alt tfoot {
+    border-top: 0;
+}
 
 
 
@@ -3896,7 +3893,7 @@ body.landing #main {
     background: #fff;
     border-radius: 5px;
     box-shadow: 6px 6px 12px rgba(0, 0, 0, 0.1);
-    text-align:right;
+    text-align: center !important;
 }
 
     .date-picker:before, .date-picker:after {
@@ -3908,13 +3905,15 @@ body.landing #main {
         border: 8px solid #ccc;
         border-width: 0px 8px 8px;
         border-color: transparent transparent #ffafaf;
-    text-align:right;
+        text-align: center;
     }
 
     /* ------ months ------ */
     .date-picker .cal-month th {
-        padding: 14px;
-    text-align:right;
+        padding: 0px 14px 0px 14px;
+        border-bottom-color: #999 !important;
+        border-bottom-width: 2px !important;
+        border-bottom-style: solid !important;
     }
 
 .week-end {
@@ -4026,7 +4025,7 @@ body.landing #main {
 
 .date-picker { /* options.datePickerClass; the picker itself */
     position: absolute;
-    text-align:right;
+    text-align: right;
 }
 
 .previous-month, .next-month { /* option.prevMonthClass ,... */
@@ -4044,11 +4043,13 @@ body.landing #main {
     width: 15em; /* good for time picker or year/month only */
 }
 
+/* 上方年+日 */
 .dp-label {
     position: relative;
     display: inline-block;
     overflow: hidden;
     margin-top: 0.1em;
+    margin-left: 0.3em;
 }
 
 .dp-title select, .dp-footer select {
