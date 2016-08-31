@@ -1209,4 +1209,7 @@
   <data name="SalesString" xml:space="preserve">
     <value>銷貨額</value>
   </data>
+  <data name="BouquetPictureString" xml:space="preserve">
+    <value>捧花照片</value>
+  </data>
 </root>

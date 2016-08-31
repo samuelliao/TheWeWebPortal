@@ -237,47 +237,47 @@
 
                 <div class="12u">
                     <div class="row uniform 50%">
-                        <div class="Check Div">
+                        <div class="Check">
                             <asp:CheckBox runat="server" Text="<%$ Resources:Resource,ChurchFeeString%>" ID="cbChurchCost" />
                         </div>
-                        <div class="Check Div">
+                        <div class="Check">
                             <asp:CheckBox runat="server" Text="<%$ Resources:Resource,PastorString%>" ID="cbPastor" />
                         </div>
-                        <div class="Check Div">
+                        <div class="Check">
                             <asp:CheckBox runat="server" Text="<%$ Resources:Resource,WeddingCertificateString%>" ID="cbCertificate" />
                         </div>
-                        <div class="Check Div">
+                        <div class="Check">
                             <asp:CheckBox runat="server" Text="<%$ Resources:Resource,RingPillowString%>" ID="cbPillow" />
                         </div>
-                        <div class="Check Div">
+                        <div class="Check">
                             <asp:CheckBox runat="server" Text="<%$ Resources:Resource,WeddingPensString%>" ID="cbPen" />
                         </div>
-                        <div class="Check Div">
+                        <div class="Check">
                             <asp:CheckBox runat="server" Text="<%$ Resources:Resource,LoungeString%>" ID="cbLounge" />
                         </div>
-                        <div class="Check Div">
+                        <div class="Check">
                             <asp:CheckBox runat="server" Text="<%$ Resources:Resource,DressIroningString%>" ID="cbIroning" />
                         </div>
-                        <div class="Check Div">
+                        <div class="Check">
                             <asp:CheckBox runat="server" Text="<%$ Resources:Resource,MeetingString%>" ID="cbMeeting" />
                         </div>
-                        <div class="Check Div">
+                        <div class="Check">
                             <asp:CheckBox runat="server" Text="<%$ Resources:Resource,BreakfastString%>" ID="cbBreakfast" />
 
                         </div>
-                        <div class="Check Div">
+                        <div class="Check">
                             <asp:CheckBox runat="server" Text="<%$ Resources:Resource,LunchString%>" ID="cbLunch" />
 
                         </div>
-                         <div class="Check Div">
+                         <div class="Check">
                             <asp:CheckBox runat="server" Text="<%$ Resources:Resource,CandlelightDinnerString%>" ID="cbDinner" />
 
                         </div>
-                        <div class="Check Div">
+                        <div class="Check">
                             <asp:CheckBox runat="server" Text="<%$ Resources:Resource,WeddingRehersalString%>" ID="cbRehersal" />
 
                         </div>
-                        <div class="Check Div">
+                        <div class="Check">
                             <asp:CheckBox runat="server" Text="<%$ Resources:Resource,LegalWeddingString%>" ID="cbLegal" />
                         </div>
 

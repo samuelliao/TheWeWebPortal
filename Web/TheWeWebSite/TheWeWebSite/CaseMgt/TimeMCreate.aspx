@@ -255,13 +255,27 @@
                                         </div>
                                         <asp:TextBox runat="server" ID="tbGuest" />
                                     </div>
+                                    <!--BouquetCorsage Start-->
                                     <div class="2u 12u(mobilep) TimeMaintain">
                                         <div class="TimeMaintainDiv">
                                             <asp:Label runat="server" ID="lblBouquetCorsage"></asp:Label>
                                         </div>
                                         <asp:TextBox runat="server" ID="tbBouquetCorsage" />
                                     </div>
-                                    <div class="12u 12u(mobilep) TimeMaintain " style="margin-left:0!important">
+                                    <div runat="server">
+                                        <div class="2u  12u(mobilep) TimeMaintain">
+                                            <div class="TimeMaintainDiv" style="text-align: center">
+                                                <asp:Label runat="server" Text="A"></asp:Label>
+                                                <asp:Label runat="server" Text="" ID="tbFolderPath" Visible="false"></asp:Label>
+                                            </div>
+                                            <span class="image fit">
+                                                <asp:Image runat="server" ID="ImgFront" ImageUrl="http://127.0.0.1/Photo/HairStyleItem/DDW003/UJDDW003_1.jpg?636082462096647960" />
+                                            </span>
+                                        </div>
+
+                                    </div>
+                                    <!--BouquetCorsage End-->
+                                    <div class="12u 12u(mobilep) TimeMaintain " style="margin-left: 0!important">
                                         <div class="3u 12u(mobilep) TimeMaintain">
                                             <div class="TimeMaintainDiv">
                                                 <asp:Label runat="server" ID="lblWeddingSequence"></asp:Label>
@@ -295,7 +309,7 @@
                                         <div class="TimeMaintainDiv">
                                             <asp:Label runat="server" ID="lblRoutePlan"></asp:Label>
                                         </div>
-                                        <asp:TextBox runat="server" ID="tbRoutePlan"  />
+                                        <asp:TextBox runat="server" ID="tbRoutePlan" />
                                     </div>
                                     <div class="11u 12u(mobilep) TimeMaintain">
                                         <div class="TimeMaintainDiv">
@@ -303,7 +317,7 @@
                                         </div>
                                         <asp:TextBox runat="server" ID="tbPhotoItem" />
                                     </div>
-                                    
+
                                     <div class="11u 12u(mobilep) TimeMaintain">
                                         <div class="TimeMaintainDiv">
                                             <asp:Label runat="server" ID="lblPhotoAvoid"></asp:Label>
@@ -314,7 +328,7 @@
                                         <div class="TimeMaintainDiv">
                                             <asp:Label runat="server" ID="lblPSp"></asp:Label>
                                         </div>
-                                        <asp:TextBox runat="server" ID="tbPSp"  />
+                                        <asp:TextBox runat="server" ID="tbPSp" />
                                     </div>
                                     <div class="11u 12u(mobilep) TimeMaintain">
                                         <div class="TimeMaintainDiv">
@@ -381,9 +395,9 @@
                                         </div>
                                         <asp:TextBox runat="server" ID="tbBridalDress6" />
                                     </div>
-                                    
-                                    
-                                    
+
+
+
                                 </div>
 
                                 <!-- Step 1-5 晚宴菜單-->
@@ -416,8 +430,7 @@
                                         <div class="TimeMaintainDiv">
                                             <asp:Label runat="server" ID="lblBSp"></asp:Label>
                                         </div>
-                                        <asp:TextBox runat="server" ID="tbBSp" Rows="3" TextMode="MultiLine"
-/>
+                                        <asp:TextBox runat="server" ID="tbBSp" Rows="3" TextMode="MultiLine" />
                                     </div>
                                 </div>
 
@@ -532,7 +545,7 @@
                                         </div>
                                         <asp:TextBox runat="server" ID="tbBridalHair6" />
                                     </div>
-                                    
+
                                 </div>
 
                                 <!-- Step 2-3 禮服行程規劃-->

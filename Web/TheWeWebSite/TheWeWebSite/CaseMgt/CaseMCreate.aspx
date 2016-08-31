@@ -583,7 +583,7 @@
                             <div class="row no-collapse 20% uniform" style="position:fixed;bottom:0px;">
                                 <div class="5u 12u(mobilep)">
                                     <div style="text-align: center">
-                                        <asp:Label runat="server" Text="" ID="tbFolderPath" Visible="false"></asp:Label>
+                                        <asp:Label runat="server" Text="" ID="tbFolderPath" Visible="false" ></asp:Label>
                                     </div>
                                     <span class="image fit">
                                         <asp:Image runat="server" ID="ImgFront" />

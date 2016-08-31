@@ -2109,13 +2109,12 @@ textarea {
     padding: 0.75em 1em;
 }
 
-input[type="checkbox"],
-input[type="radio"] {
+input[type="checkbox"]
+ {
     display: block;
 }
 
-    input[type="checkbox"] + label,
-    input[type="radio"] + label {
+    input[type="checkbox"] + label{
         text-decoration: none;
         font-size: 1em;
         font-weight: 100;
@@ -2125,13 +2124,22 @@ input[type="radio"] {
         margin-top: -25px;
     }
 
-        input[type="checkbox"] + label:before,
-        input[type="radio"] + label:before {
-        }
+    input[type="radio"]
+    {
+         margin-top:15px;
+    }
 
+    input[type="radio"] + label {
+        text-decoration: none;
+        font-size: 1em;
+        font-weight: 100;
+        padding-left: 2.55em;
+        padding-right: 0.75em;
+        position: relative;
+        margin-top: -30px;
+    }
 
-        input[type="checkbox"] + label:before,
-        input[type="radio"] + label:before {
+        input[type="checkbox"] + label:before {
             background: #f8f8f8;
             border: solid 1px #e5e5e5;
             content: 'NO';
@@ -2145,16 +2153,14 @@ input[type="radio"] {
             width: 1.8em;
         }
 
-    input[type="checkbox"]:checked + label:before,
-    input[type="radio"]:checked + label:before {
+    input[type="checkbox"]:checked + label:before{
         background: #f2a6a6;
         border-color: #f2a6a6;
         color: #ffffff;
         content: "YES";
     }
 
-    input[type="checkbox"]:focus + label:before,
-    input[type="radio"]:focus + label:before {
+    input[type="checkbox"]:focus + label:before {
         border-color: #e89980;
         box-shadow: 0 0 0 1px #e89980;
     }
@@ -2163,9 +2169,7 @@ input[type="radio"] {
         border-radius: 6px;
     }
 
-    input[type="radio"] + label:before {
-        border-radius: 100%;
-    }
+
 
 ::-webkit-input-placeholder {
     color: #999 !important;
@@ -2199,19 +2203,17 @@ input[type="radio"] {
     margin-top: -10px !important;
 }
 
-.TimeMaintainDiv{
-    text-align:left;
-    font-size:1em;
-    margin-top:5px;
-    margin-bottom:5px;
-
-
+.TimeMaintainDiv {
+    text-align: left;
+    font-size: 1em;
+    margin-top: 5px;
+    margin-bottom: 5px;
 }
-.ImageUploadBtn{
-    text-align:left!important;
-    bottom:0px!important;
-    position:page!important;
-    
+
+.ImageUploadBtn {
+    text-align: left !important;
+    bottom: 0px !important;
+    position: page !important;
 }
 
 .required {
@@ -2235,15 +2237,14 @@ input[type="radio"] {
 
 
     .fileUpload ::-ms-browse {
-    display:none;
+        display: none;
     }
 
     .fileUpload [type=file]::-ms-value {
         margin: 0px;
-       
     }
-   
- 
+
+
 
 /* */
 
@@ -2267,9 +2268,9 @@ input:disabled {
 .Check.Div {
 }
 
-.TimeMaintain{
-    float:left;
-    margin-left:30px;
+.TimeMaintain {
+    float: left;
+    margin-left: 30px;
 }
 
 input[type="checkbox"] {
@@ -2756,21 +2757,21 @@ dl {
             border-top-width: 0;
         }
 
-           .serch t able.alt tbody tr td:first-child {
-                border-left-width: 1px;
-            }
+.serch t able.alt tbody tr td:first-child {
+    border-left-width: 1px;
+}
 
-        .serch table.alt tbody tr:first-child td {
-            border-top-width: 1px;
-        }
+.serch table.alt tbody tr:first-child td {
+    border-top-width: 1px;
+}
 
-        .serch table.alt thead {
-            border-bottom: 0;
-        }
+.serch table.alt thead {
+    border-bottom: 0;
+}
 
-        .serch table.alt tfoot {
-            border-top: 0;
-        }
+.serch table.alt tfoot {
+    border-top: 0;
+}
 
 
 
@@ -3896,7 +3897,7 @@ body.landing #main {
     background: #fff;
     border-radius: 5px;
     box-shadow: 6px 6px 12px rgba(0, 0, 0, 0.1);
-    text-align:right;
+    text-align: center !important;
 }
 
     .date-picker:before, .date-picker:after {
@@ -3908,13 +3909,15 @@ body.landing #main {
         border: 8px solid #ccc;
         border-width: 0px 8px 8px;
         border-color: transparent transparent #ffafaf;
-    text-align:right;
+        text-align: center;
     }
 
     /* ------ months ------ */
     .date-picker .cal-month th {
-        padding: 14px;
-    text-align:right;
+        padding: 0px 14px 0px 14px;
+        border-bottom-color: #999 !important;
+        border-bottom-width: 2px !important;
+        border-bottom-style: solid !important;
     }
 
 .week-end {
@@ -4026,7 +4029,7 @@ body.landing #main {
 
 .date-picker { /* options.datePickerClass; the picker itself */
     position: absolute;
-    text-align:right;
+    text-align: right;
 }
 
 .previous-month, .next-month { /* option.prevMonthClass ,... */
@@ -4044,11 +4047,13 @@ body.landing #main {
     width: 15em; /* good for time picker or year/month only */
 }
 
+/* 上方年+日 */
 .dp-label {
     position: relative;
     display: inline-block;
     overflow: hidden;
     margin-top: 0.1em;
+    margin-left: 0.3em;
 }
 
 .dp-title select, .dp-footer select {

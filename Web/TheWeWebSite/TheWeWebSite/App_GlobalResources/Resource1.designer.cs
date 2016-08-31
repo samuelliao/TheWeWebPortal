@@ -367,6 +367,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   查詢類似  的當地語系化字串。
+        /// </summary>
+        internal static string BouquetPictureString {
+            get {
+                return ResourceManager.GetString("BouquetPictureString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查詢類似 Breakfast 的當地語系化字串。
         /// </summary>
         internal static string BreakfastString {
