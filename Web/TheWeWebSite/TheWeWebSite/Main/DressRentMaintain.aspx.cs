@@ -248,10 +248,13 @@ namespace TheWeWebSite.Main
                 ((Label)e.Item.FindControl("labelStore")).Text = ddlStore.Items.FindByValue(dataItem1["StoreId"].ToString()).Text;
                 ((Label)e.Item.FindControl("labelStatus")).Text = ddlStatus.Items.FindByValue(dataItem1["StatusCode"].ToString()).Text;
 
-                ((Label)e.Item.FindControl("labelLocation")).Text = SysProperty.Util.OutputRelatedLangName(Session["CultureCode"].ToString()
-                    , SysProperty.GetChurchById(dataItem1["ChurchId"].ToString()))
-                    + "(" + (SysProperty.Util.OutputRelatedLangName(Session["CultureCode"].ToString(),
-                    SysProperty.GetCountryById(dataItem1["CountryId"].ToString()))) + ")";
+                if (!string.IsNullOrEmpty(dataItem1["ChurchId"].ToString()))
+                {
+                    ((Label)e.Item.FindControl("labelLocation")).Text = SysProperty.Util.OutputRelatedLangName(Session["CultureCode"].ToString()
+                        , SysProperty.GetChurchById(dataItem1["ChurchId"].ToString()))
+                        + "(" + (SysProperty.Util.OutputRelatedLangName(Session["CultureCode"].ToString(),
+                        SysProperty.GetCountryById(dataItem1["CountryId"].ToString()))) + ")";
+                }
 
                 LinkButton hyperLink1 = (LinkButton)e.Item.FindControl("linkDressSn");
                 hyperLink1.CommandArgument = dataItem1["DressId"].ToString();
@@ -280,20 +283,7 @@ namespace TheWeWebSite.Main
             dataGrid.DataSource = RentData;
             dataGrid.AllowPaging = !SysProperty.Util.IsDataSetEmpty(RentData);
             dataGrid.DataBind();
-        }
-
-        private void GetRentData(string condStr, string sortStr)
-        {
-            string sql = "SELECT d.[Id],[DressId],d.[UpdateTime],d.[UpdateAccId],d.[CreateAccId],d.[CreateTime],d.[StartTime]"
-                + ",[EndTime],d.StatusCode,[OrderId],o.ChurchId,o.Sn As OrderSn,o.CountryId,o.AreaId,dr.StoreId,dr.Sn As DressSn"
-                + " FROM [dbo].[DressRent] AS d"
-                + " Left join OrderInfo as o on o.Id = d.OrderId"
-                + " Left join Dress as dr on dr.Id = d.DressId"
-                + " Where d.IsDelete = 0 "
-                + condStr
-                + sortStr;
-            RentData = GetDataSetFromTable(sql);
-        }
+        }        
 
         private string QueryCondStr()
         {
@@ -330,18 +320,17 @@ namespace TheWeWebSite.Main
         }
 
         #region DB Control
-        private void GetDressList(string condStr)
+        private void GetRentData(string condStr, string sortStr)
         {
-            string sqlTxt = "  Select * From (Select dr.Id, dr.StartTime, dr.EndTime, dr.DressId, dr.OrderId"
-                + ", d.Sn as DressSn, d.StatusCode,d.StoreId"
-                + ",oi.Sn as OrderSn, oi.CountryId, oi.AreaId, oi.ChurchId, oi.ServiceType"
-                + ",c.Sn as CustomerSn,c.Name as CustomerName"
-                + " From DressRent as dr"
-                + " Left join Dress as d on d.Id = dr.DressId"
-                + " Left join OrderInfo as oi on oi.Id = dr.OrderId"
-                + " Left join vwEN_Customer as c on c.Id = oi.CustomerId)TBL "
-                + condStr;
-            RentData = (DataSet)GetDataSetFromTable(sqlTxt);
+            string sql = "SELECT d.[Id],[DressId],d.[UpdateTime],d.[UpdateAccId],d.[CreatedateAccId],d.[CreatedateTime],d.[StartTime]"
+                + ",[EndTime],d.StatusCode,[OrderId],o.ChurchId,o.Sn As OrderSn,o.CountryId,o.AreaId,dr.StoreId,dr.Sn As DressSn"
+                + " FROM [dbo].[DressRent] AS d"
+                + " Left join OrderInfo as o on o.Id = d.OrderId"
+                + " Left join Dress as dr on dr.Id = d.DressId"
+                + " Where d.IsDelete = 0 "
+                + condStr
+                + sortStr;
+            RentData = GetDataSetFromTable(sql);
         }
 
         private DataSet GetDataFromDb(string tableName, List<DbSearchObject> lst)

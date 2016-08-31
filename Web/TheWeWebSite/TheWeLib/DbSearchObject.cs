@@ -125,7 +125,8 @@ namespace TheWeLib
         ProductSetChurchServiceItem = 79,
         vwEN_Consultation = 80,
         StoreLvSetPrice = 81,
-        TakePicture = 82
+        TakePicture = 82,
+        DressRent = 83
     }
 
     public enum LanguageCode
