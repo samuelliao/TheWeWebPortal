@@ -9,7 +9,7 @@
     <title>The We Wedding</title>
     <link href="../assets/css/font-awesome.min.css" rel="stylesheet" />
     <link href="../assets/css/main.css" rel="stylesheet" />
-    <link href="../assets/css/calendar.css" rel="stylesheet" />
+    <link href="../assets/css/main.css" rel="stylesheet" />
 </head>
 <body class="landing">
     <form runat="server">
@@ -21,7 +21,7 @@
             <!-- Main -->
             <section id="main">
                 <!-- Text -->
-                <section class="box title">
+                <section class="box title" >
                     <h3>
                         <asp:Label runat="server" Text="" ID="labelPageTitle"></asp:Label></h3>
                 </section>
@@ -63,7 +63,7 @@
                     <hr />
 
                     <!-- Table -->
-                    <div class="row">
+                    <div class="row serch">
                         <div class="12u">
                             <div class="table-wrapper">
                                 <asp:DataGrid runat="server" ID="dgUnit" AllowPaging="true" AllowSorting="true" AutoGenerateColumns="false"

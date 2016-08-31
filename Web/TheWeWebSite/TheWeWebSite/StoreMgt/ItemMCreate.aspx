@@ -10,7 +10,7 @@
     <title>The We Wedding</title>
     <link href="../assets/css/font-awesome.min.css" rel="stylesheet" />
     <link href="../assets/css/main.css" rel="stylesheet" />
-        <link href="../assets/css/datePicker.css" rel="stylesheet" />
+        
 </head>
 <body>
     <form runat="server">
@@ -284,7 +284,7 @@
                     </div>
                 </div>
                
-                <div class="12u">
+                <div class="12u serch">
                     <div class="row uniform 50%">
                         <div class="10u 12u(mobilep)">
                             <div class="Div" style="padding-top: 20px">
@@ -328,7 +328,7 @@
 
             <!-- Table -->
 
-            <div style="margin-top: 1.5em">
+            <div style="margin-top: 1.5em" class="serch">
                 <div class="12u">
                     <div class="table-wrapper">
                         <asp:Label runat="server" ID="labelTitle" Text="<%$ Resources:Resource,ChurchAdditionalItemString%>" />
@@ -367,7 +367,7 @@
                     </div>
                 </div>
             </div>
-            <div style="margin-top: 1.5em">
+            <div style="margin-top: 1.5em" class="serch">
                 <div class="12u">
                     <div class="table-wrapper">
                         <asp:Label runat="server" ID="label1" Text="<%$ Resources:Resource,CustomAdditionalItemString%>" />

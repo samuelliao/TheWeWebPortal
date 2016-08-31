@@ -11,7 +11,7 @@
     <link href="../assets/css/font-awesome.min.css" rel="stylesheet" />
     <link href="../assets/css/main.css" rel="stylesheet" />
     <link href="../assets/css/jquery-ui.css" rel="stylesheet" />
-    <link href="../assets/css/datePicker.css" rel="stylesheet" />
+    
 </head>
 <body class="landing">
     <form runat="server">
@@ -176,7 +176,7 @@
                     <hr />
                     <!-- Table -->
 
-                    <div class="row">
+                    <div class="row serch">
                         <div class="12u">
 
                             <div class="table-wrapper">

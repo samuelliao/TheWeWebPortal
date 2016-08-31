@@ -10,7 +10,7 @@
     <title>The We Wedding</title>
     <link href="../assets/css/font-awesome.min.css" rel="stylesheet" />
     <link href="../assets/css/main.css" rel="stylesheet" />
-    <link href="../assets/css/calendar.css" rel="stylesheet" />
+    <link href="../assets/css/main.css" rel="stylesheet" />
 </head>
 <body class="landing">
     <form runat="server">
@@ -22,7 +22,7 @@
 
             <!-- Main -->
 
-            <section id="main">
+            <section id="main" class="serch">
 
                 <!-- Text -->
                 <section class="box title">
@@ -73,7 +73,7 @@
                                             </div>
                                             <asp:TextBox runat="server" ID="tbStoreCode" MaxLength="3"></asp:TextBox>
                                             <asp:RegularExpressionValidator ID="RegularExpressionValidator6" ControlToValidate="tbStoreCode" runat="server"
-                                        ErrorMessage="Only Three Characters allowed" ValidationExpression="[A-Za-z0-9]{1,3}"></asp:RegularExpressionValidator>
+                                        ErrorMessage="Only Three Characters allowed" ValidationExpression="[A-Za-z0-9]{1,3}" Display="Dynamic"></asp:RegularExpressionValidator>
                                         </div>                               
                                     </div>                                   
                                 </div>

@@ -160,7 +160,7 @@
 
                     <!-- Table -->
 
-                    <div class="row">
+                    <div class="row serch">
                         <div class="12u">
                             <div class="table-wrapper">
                                 <asp:UpdatePanel runat="server">

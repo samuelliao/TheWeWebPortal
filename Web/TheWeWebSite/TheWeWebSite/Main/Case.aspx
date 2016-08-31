@@ -10,7 +10,7 @@
     <title>The We Wedding</title>
     <link href="../assets/css/font-awesome.min.css" rel="stylesheet" />
     <link href="../assets/css/main.css" rel="stylesheet" />
-    <link href="../assets/css/calendar.css" rel="stylesheet" />
+    <link href="../assets/css/main.css" rel="stylesheet" />
 </head>
 <body class="landing">
     <form runat="server">
@@ -30,7 +30,7 @@
                 <!-- Input -->
                 <section class="box special">
                     <!-- Table -->
-                    <div class="row">
+                    <div class="row serch">
                         <div class="12u">
                             <div class="2u 12u(mobilep)" runat="server" id="divStore" style="display: none;">
                                 <asp:DropDownList runat="server" ID="ddlStore" />

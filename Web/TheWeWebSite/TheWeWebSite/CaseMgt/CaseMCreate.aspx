@@ -11,7 +11,7 @@
     <link href="../assets/css/font-awesome.min.css" rel="stylesheet" />
     <link href="../assets/css/main.css" rel="stylesheet" />
     <link href="../assets/css/jquery-ui.css" rel="stylesheet" />
-    <link href="../assets/css/datePicker.css" rel="stylesheet" />
+    
 
 </head>
 <body>
@@ -594,7 +594,7 @@
                         </div>
                     </div>
                 </div>
-                <div style="margin-top: 1.5em">
+                <div style="margin-top: 1.5em" class="serch">
                     <div class="12u">
                         <div class="table-wrapper">
                             <asp:Label runat="server" ID="labelTitle" Text="<%$ Resources:Resource,AdditionalItemString%>" />

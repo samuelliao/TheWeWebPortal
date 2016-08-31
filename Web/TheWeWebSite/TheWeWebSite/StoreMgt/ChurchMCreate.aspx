@@ -8,7 +8,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>The We Wedding</title>
     <link href="../assets/css/font-awesome.min.css" rel="stylesheet" />
-    <link href="../assets/css/calendar.css" rel="stylesheet" />
+    <link href="../assets/css/main.css" rel="stylesheet" />
 </head>
 <body>
     <form runat="server">
@@ -152,11 +152,11 @@
                                 <asp:TextBox runat="server" TextMode="MultiLine" ID="tbRemark" Height="150px"></asp:TextBox>
                             </div>
                         </div>
-                        <div class="4u 12u(mobilep)">
+                        <div class="4u 12u(mobilep) serch">
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,WeddingAppointmentTimeString%>"></asp:Label>
                             </div>
-                            <div style="overflow-y: auto; height: 150px; margin-left: 50px">
+                            <div>
                                 <asp:UpdatePanel runat="server">
                                     <ContentTemplate>
                                         <asp:GridView ID="dgBookTable" runat="server"

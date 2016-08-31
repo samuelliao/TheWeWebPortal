@@ -10,7 +10,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>The We Wedding</title>
     <link href="../assets/css/font-awesome.min.css" rel="stylesheet" />
-    <link href="../assets/css/calendar.css" rel="stylesheet" />
+    <link href="../assets/css/main.css" rel="stylesheet" />
 </head>
 <body>
     <form runat="server">
@@ -444,40 +444,40 @@
                             </ul>
                         </div>
                         <div class="row">
-                        <div class="12u">
-                            <div class="table-wrapper">
-                                <asp:DataGrid runat="server" ID="dataGrid" AutoGenerateColumns="false"
-                                    AllowPaging="true" AllowSorting="true" OnPageIndexChanged="dataGrid_PageIndexChanged"
-                                    OnItemDataBound="dataGrid_ItemDataBound" DataKeyField="Id" 
-                                    OnSortCommand="dataGrid_SortCommand" Font-Size="Small">
-                                    <HeaderStyle VerticalAlign="Middle" HorizontalAlign="Center" />
-                                    <PagerStyle Mode="NumericPages" HorizontalAlign="Center" VerticalAlign="Middle" />
-                                    <Columns>
-                                        <asp:ButtonColumn Text="<%$ Resources:Resource,SearchString%>" CommandName="Select" />
-                                        <asp:BoundColumn Visible="false" DataField="Id" />
-                                        <asp:BoundColumn HeaderText="<%$ Resources:Resource,StartString%>" DataField="StartTime" />
-                                        <asp:BoundColumn HeaderText="<%$ Resources:Resource,EndString%>" DataField="EndTime" />
-                                        <asp:TemplateColumn HeaderText="<%$ Resources:Resource,StatusString%>">
-                                            <ItemTemplate>
-                                                <asp:Label runat="server" ID="labelStatus" />
-                                            </ItemTemplate>
-                                        </asp:TemplateColumn>
-                                        <asp:TemplateColumn HeaderText="<%$ Resources:Resource,ContractSnString%>">
-                                            <ItemTemplate>
-                                                <asp:LinkButton runat="server" ID="linkConsult" Text="" OnClick="linkConsult_Click" />
-                                            </ItemTemplate>
-                                        </asp:TemplateColumn>         
-                                        <asp:TemplateColumn HeaderText="<%$ Resources:Resource,LocateString%>">
-                                            <ItemTemplate>
-                                                <asp:Label runat="server" ID="labelLocation" />
-                                            </ItemTemplate>
-                                        </asp:TemplateColumn>
-                                    </Columns>
-                                </asp:DataGrid>
+                            <div class="12u">
+                                <div class="table-wrapper">
+                                    <asp:DataGrid runat="server" ID="dataGrid" AutoGenerateColumns="false"
+                                        AllowPaging="true" AllowSorting="true" OnPageIndexChanged="dataGrid_PageIndexChanged"
+                                        OnItemDataBound="dataGrid_ItemDataBound" DataKeyField="Id"
+                                        OnSortCommand="dataGrid_SortCommand" Font-Size="Small">
+                                        <HeaderStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                        <PagerStyle Mode="NumericPages" HorizontalAlign="Center" VerticalAlign="Middle" />
+                                        <Columns>
+                                            <asp:ButtonColumn Text="<%$ Resources:Resource,SearchString%>" CommandName="Select" />
+                                            <asp:BoundColumn Visible="false" DataField="Id" />
+                                            <asp:BoundColumn HeaderText="<%$ Resources:Resource,StartString%>" DataField="StartTime" />
+                                            <asp:BoundColumn HeaderText="<%$ Resources:Resource,EndString%>" DataField="EndTime" />
+                                            <asp:TemplateColumn HeaderText="<%$ Resources:Resource,StatusString%>">
+                                                <ItemTemplate>
+                                                    <asp:Label runat="server" ID="labelStatus" />
+                                                </ItemTemplate>
+                                            </asp:TemplateColumn>
+                                            <asp:TemplateColumn HeaderText="<%$ Resources:Resource,ContractSnString%>">
+                                                <ItemTemplate>
+                                                    <asp:LinkButton runat="server" ID="linkConsult" Text="" OnClick="linkConsult_Click" />
+                                                </ItemTemplate>
+                                            </asp:TemplateColumn>
+                                            <asp:TemplateColumn HeaderText="<%$ Resources:Resource,LocateString%>">
+                                                <ItemTemplate>
+                                                    <asp:Label runat="server" ID="labelLocation" />
+                                                </ItemTemplate>
+                                            </asp:TemplateColumn>
+                                        </Columns>
+                                    </asp:DataGrid>
+                                </div>
+                                <hr />
                             </div>
-                            <hr />
                         </div>
-                    </div>
                     </ContentTemplate>
                 </cc1:TabPanel>
             </cc1:TabContainer>

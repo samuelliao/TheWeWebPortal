@@ -10,7 +10,7 @@
     <title>The We Wedding</title>
     <link href="../assets/css/font-awesome.min.css" rel="stylesheet" />
     <link href="../assets/css/main.css" rel="stylesheet" />
-    <link href="../assets/css/calendar.css" rel="stylesheet" />
+    <link href="../assets/css/main.css" rel="stylesheet" />
 </head>
 <body class="landing">
     <form runat="server">
@@ -21,7 +21,7 @@
 
             <!-- Main -->
 
-            <section id="main">
+            <section id="main" class="serch">
                 <!-- Text -->
                 <section class="box title">
                     <h3>

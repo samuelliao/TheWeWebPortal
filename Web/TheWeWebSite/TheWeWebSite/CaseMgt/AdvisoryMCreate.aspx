@@ -10,7 +10,7 @@
     <title>The We Wedding</title>
     <link href="../assets/css/font-awesome.min.css" rel="stylesheet" />
     <link href="../assets/css/jquery-ui.css" rel="stylesheet" />
-    <link href="../assets/css/calendar.css" rel="stylesheet" />
+    <link href="../assets/css/main.css" rel="stylesheet" />
 </head>
 <body>
     <form runat="server">
@@ -45,7 +45,7 @@
                                 <asp:Label runat="server" ID="labelConsultDate" Visible="false" />
                             </div>
                             <div class="2u 12u(mobilep)">
-                            <div style="margin-top: 26px">
+                            <div style="margin-top: 22px">
                                 <asp:CheckBox runat="server" ID="cbReply" Text="<%$ Resources:Resource,IsReplyString%>"></asp:CheckBox>
                             </div>
                                 </div>
