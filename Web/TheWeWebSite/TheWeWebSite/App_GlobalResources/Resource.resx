@@ -1188,4 +1188,7 @@
   <data name="BackString" xml:space="preserve">
     <value></value>
   </data>
+  <data name="BouquetPictureString" xml:space="preserve">
+    <value></value>
+  </data>
 </root>
