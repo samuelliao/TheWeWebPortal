@@ -820,7 +820,7 @@
     <value>Color</value>
   </data>
   <data name="CategoryString" xml:space="preserve">
-    <value>CategoryString</value>
+    <value>Category</value>
   </data>
   <data name="MaleString" xml:space="preserve">
     <value>Male</value>
@@ -1187,6 +1187,27 @@
   </data>
   <data name="BackString" xml:space="preserve">
     <value></value>
+  </data>
+  <data name="DateString" xml:space="preserve">
+    <value>Date</value>
+  </data>
+  <data name="CashString" xml:space="preserve">
+    <value>Cash</value>
+  </data>
+  <data name="RemitMoneyString" xml:space="preserve">
+    <value>Remit Money</value>
+  </data>
+  <data name="TaxString" xml:space="preserve">
+    <value>Tax</value>
+  </data>
+  <data name="ReceiptDateString" xml:space="preserve">
+    <value>Receipt Date</value>
+  </data>
+  <data name="ReceiptSnString" xml:space="preserve">
+    <value>Receipt Sn</value>
+  </data>
+  <data name="SalesString" xml:space="preserve">
+    <value>Sales</value>
   </data>
   <data name="BouquetPictureString" xml:space="preserve">
     <value></value>

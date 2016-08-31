@@ -1188,6 +1188,27 @@
   <data name="BackString" xml:space="preserve">
     <value>回程</value>
   </data>
+  <data name="DateString" xml:space="preserve">
+    <value>日期</value>
+  </data>
+  <data name="CashString" xml:space="preserve">
+    <value>現金</value>
+  </data>
+  <data name="RemitMoneyString" xml:space="preserve">
+    <value>匯款</value>
+  </data>
+  <data name="TaxString" xml:space="preserve">
+    <value>稅額</value>
+  </data>
+  <data name="ReceiptDateString" xml:space="preserve">
+    <value>發票日期</value>
+  </data>
+  <data name="ReceiptSnString" xml:space="preserve">
+    <value>發票編號</value>
+  </data>
+  <data name="SalesString" xml:space="preserve">
+    <value>銷貨額</value>
+  </data>
   <data name="BouquetPictureString" xml:space="preserve">
     <value>捧花照片</value>
   </data>

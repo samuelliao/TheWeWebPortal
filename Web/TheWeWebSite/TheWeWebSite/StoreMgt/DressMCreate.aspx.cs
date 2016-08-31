@@ -348,9 +348,10 @@ namespace TheWeWebSite.StoreMgt
         #region Button Control
         protected void btnCreate_Click(object sender, EventArgs e)
         {
-            bool result = WriteBackInfo(true, DressInfoMainDbObject(true), string.Empty);
+            bool result = WriteBackInfo(MsSqlTable.Dress, true, DressInfoMainDbObject(true), string.Empty);            
             if (result)
             {
+                WriteBackDressStatus();
                 TransferToOtherPage(false);
             }
         }
@@ -358,9 +359,10 @@ namespace TheWeWebSite.StoreMgt
         protected void btnModify_Click(object sender, EventArgs e)
         {
             if (Session["DressId"] == null) return;
-            bool result = WriteBackInfo(false, DressInfoMainDbObject(false), Session["DressId"].ToString());
+            bool result = WriteBackInfo(MsSqlTable.Dress, false, DressInfoMainDbObject(false), Session["DressId"].ToString());            
             if (result)
             {
+                WriteBackDressStatus();
                 TransferToOtherPage(false);
             }
         }
@@ -542,10 +544,15 @@ namespace TheWeWebSite.StoreMgt
             }
 
             // Set Dress Rent Table
-            tbDressId2.Text = Session["DressId"].ToString();
+            tbDressId2.Text = tbSn.Text;
             BindData();
+            if (!SysProperty.Util.IsDataSetEmpty(RentData))
+            {
+                ddlStatus.SelectedValue = RentData.Tables[0].Rows[0]["StatusCode"].ToString();
+            }
         }
 
+        #region Db object instance
         private List<DbSearchObject> DressInfoMainDbObject(bool isCreate)
         {
             List<DbSearchObject> lst = new List<DbSearchObject>();
@@ -815,17 +822,88 @@ namespace TheWeWebSite.StoreMgt
             return lst;
         }
 
-        private bool WriteBackInfo(bool isInsert, List<DbSearchObject> lst, string id)
+        private List<DbSearchObject> DressRentDbObject(bool isStart)
+        {
+            List<DbSearchObject> lst = new List<DbSearchObject>();
+            lst.Add(new DbSearchObject(
+                "DressId"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , Session["DressId"].ToString()
+                ));
+            lst.Add(new DbSearchObject(
+                (isStart ? "StartTime" : "EndTime")
+                , AtrrTypeItem.DateTime
+                , AttrSymbolItem.Equal
+                , DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss")
+                ));
+            lst.Add(new DbSearchObject(
+                "UpdateAccId"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , ((DataRow)Session["AccountInfo"])["Id"].ToString()
+                ));
+            if (isStart && !string.IsNullOrEmpty(ddlStatus.SelectedValue))
+            {
+                lst.Add(new DbSearchObject(
+                        "StatusCode"
+                        , AtrrTypeItem.String
+                        , AttrSymbolItem.Equal
+                        , ddlStatus.SelectedValue
+                        ));
+            }
+            if (isStart)
+            {
+                lst.Add(new DbSearchObject(
+                "CreatedateAccId"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , ((DataRow)Session["AccountInfo"])["Id"].ToString()
+                ));
+            }
+            return lst;
+        }
+        #endregion
+
+        private void WriteBackDressStatus()
+        {
+            if (SysProperty.Util.IsDataSetEmpty(RentData))
+            {
+                GetRentData(string.Empty, " Order by StartTime DESC");
+            }
+            if (!SysProperty.Util.IsDataSetEmpty(RentData))
+            {
+                DataRow dr = RentData.Tables[0].Rows[0];
+                string endTime = SysProperty.Util.ParseDateTime("DateTime", dr["EndTime"].ToString());
+
+                // Check the latest status.
+                if (string.IsNullOrEmpty(endTime))
+                {
+                    // Not finish yet, then finish.
+                    WriteBackInfo(MsSqlTable.DressRent, false, DressRentDbObject(false), dr["Id"].ToString());
+                }
+                if (ddlStatus.SelectedValue != dr["StatusCode"].ToString())
+                {
+                    WriteBackInfo(MsSqlTable.DressRent, true, DressRentDbObject(true), dr["Id"].ToString());
+                }
+            }else
+            {
+                WriteBackInfo(MsSqlTable.DressRent, true, DressRentDbObject(true), string.Empty);
+            }
+            
+        }
+
+        private bool WriteBackInfo(MsSqlTable table, bool isInsert, List<DbSearchObject> lst, string id)
         {
             try
             {
                 return isInsert ?
                     SysProperty.GenDbCon.InsertDataInToTable(
-                        SysProperty.Util.MsSqlTableConverter(MsSqlTable.Dress)
+                        SysProperty.Util.MsSqlTableConverter(table)
                         , SysProperty.Util.SqlQueryInsertInstanceConverter(lst)
                         , SysProperty.Util.SqlQueryInsertValueConverter(lst))
                         : SysProperty.GenDbCon.UpdateDataIntoTable(
-                            SysProperty.Util.MsSqlTableConverter(MsSqlTable.Dress)
+                            SysProperty.Util.MsSqlTableConverter(table)
                             , SysProperty.Util.SqlQueryUpdateConverter(lst)
                             , " Where Id = '" + id + "'");
             }
@@ -908,14 +986,19 @@ namespace TheWeWebSite.StoreMgt
         }
         #endregion
 
+        #region Rent Data Page
         protected void btnSearch_Click(object sender, EventArgs e)
         {
+            GetRentData(QueryCondStr(), " Order by d.StartTime DESC");
             BindData();
         }
 
         private void BindData()
         {
-            GetRentData(QueryCondStr(), " Order by d.StartTime DESC");
+            if (RentData == null)
+            {
+                GetRentData(QueryCondStr(), " Order by d.StartTime DESC");
+            }
             dataGrid.DataSource = RentData;
             dataGrid.AllowPaging = !SysProperty.Util.IsDataSetEmpty(RentData);
             dataGrid.DataBind();
@@ -923,7 +1006,7 @@ namespace TheWeWebSite.StoreMgt
 
         private void GetRentData(string condStr, string sortStr)
         {
-            string sql = "SELECT d.[Id],[DressId],d.[UpdateTime],d.[UpdateAccId],d.[CreateAccId],d.[CreateTime],d.[StartTime]"
+            string sql = "SELECT d.[Id],[DressId],d.[UpdateTime],d.[UpdateAccId],d.[CreatedateAccId],d.[CreatedateTime],d.[StartTime]"
                 + ",[EndTime],d.StatusCode,[OrderId],o.ChurchId,o.Sn As OrderSn,o.CountryId"
                 + " FROM [dbo].[DressRent] AS d"
                 + " Left join OrderInfo as o on o.Id = d.OrderId"
@@ -964,12 +1047,13 @@ namespace TheWeWebSite.StoreMgt
             if (dataItem1 != null)
             {
                 ((Label)e.Item.FindControl("labelStatus")).Text = ddlStatus2.Items.FindByValue(dataItem1["StatusCode"].ToString()).Text;
-
-                ((Label)e.Item.FindControl("labelLocation")).Text = SysProperty.Util.OutputRelatedLangName(Session["CultureCode"].ToString()
+                if (!string.IsNullOrEmpty(dataItem1["ChurchId"].ToString()))
+                {
+                    ((Label)e.Item.FindControl("labelLocation")).Text = SysProperty.Util.OutputRelatedLangName(Session["CultureCode"].ToString()
                     , SysProperty.GetChurchById(dataItem1["ChurchId"].ToString()))
                     + "(" + (SysProperty.Util.OutputRelatedLangName(Session["CultureCode"].ToString(),
                     SysProperty.GetCountryById(dataItem1["CountryId"].ToString()))) + ")";
-
+                }
                 LinkButton hyperLink2 = (LinkButton)e.Item.FindControl("linkConsult");
                 hyperLink2.CommandArgument = dataItem1["OrderId"].ToString();
                 hyperLink2.Text = dataItem1["OrderSn"].ToString();
@@ -1006,5 +1090,7 @@ namespace TheWeWebSite.StoreMgt
             Session["OrderId"] = ((LinkButton)sender).CommandArgument;
             Response.Redirect("~/CaseMgt/CaseMCreate.aspx");
         }
+        #endregion
+
     }
 }

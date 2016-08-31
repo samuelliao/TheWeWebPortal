@@ -547,7 +547,16 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   查詢類似 CategoryString 的當地語系化字串。
+        ///   查詢類似 Cash 的當地語系化字串。
+        /// </summary>
+        internal static string CashString {
+            get {
+                return ResourceManager.GetString("CashString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查詢類似 Category 的當地語系化字串。
         /// </summary>
         internal static string CategoryString {
             get {
@@ -1002,6 +1011,15 @@ namespace Resources {
         internal static string CustomPriceString {
             get {
                 return ResourceManager.GetString("CustomPriceString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查詢類似 Date 的當地語系化字串。
+        /// </summary>
+        internal static string DateString {
+            get {
+                return ResourceManager.GetString("DateString", resourceCulture);
             }
         }
         
@@ -2491,6 +2509,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   查詢類似 Receipt Date 的當地語系化字串。
+        /// </summary>
+        internal static string ReceiptDateString {
+            get {
+                return ResourceManager.GetString("ReceiptDateString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查詢類似 Receipt Sn 的當地語系化字串。
+        /// </summary>
+        internal static string ReceiptSnString {
+            get {
+                return ResourceManager.GetString("ReceiptSnString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查詢類似 Received 的當地語系化字串。
         /// </summary>
         internal static string ReceivedString {
@@ -2541,6 +2577,15 @@ namespace Resources {
         internal static string RemarkString {
             get {
                 return ResourceManager.GetString("RemarkString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查詢類似 Remit Money 的當地語系化字串。
+        /// </summary>
+        internal static string RemitMoneyString {
+            get {
+                return ResourceManager.GetString("RemitMoneyString", resourceCulture);
             }
         }
         
@@ -2622,6 +2667,15 @@ namespace Resources {
         internal static string SalesMgtString {
             get {
                 return ResourceManager.GetString("SalesMgtString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查詢類似 Sales 的當地語系化字串。
+        /// </summary>
+        internal static string SalesString {
+            get {
+                return ResourceManager.GetString("SalesString", resourceCulture);
             }
         }
         
@@ -2991,6 +3045,15 @@ namespace Resources {
         internal static string SystemString {
             get {
                 return ResourceManager.GetString("SystemString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查詢類似 Tax 的當地語系化字串。
+        /// </summary>
+        internal static string TaxString {
+            get {
+                return ResourceManager.GetString("TaxString", resourceCulture);
             }
         }
         

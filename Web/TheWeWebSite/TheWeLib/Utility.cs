@@ -531,6 +531,8 @@ namespace TheWeLib
                     return "RentRecord";
                 case MsSqlTable.StoreLvSetPrice:
                     return "StoreLvSetPrice";
+                case MsSqlTable.DressRent:
+                    return "DressRent";
                 default:
                     return string.Empty;
 
