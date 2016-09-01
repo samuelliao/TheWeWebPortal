@@ -12,7 +12,53 @@
     <link href="../assets/css/font-awesome.min.css" rel="stylesheet" />
     <link href="../assets/css/main.css" rel="stylesheet" />
     <link href="../assets/css/jquery-ui.css" rel="stylesheet" />
+    <style type="text/css">
+        .fancy-green .ajax__tab_header {
+            background: url(green_bg_Tab.gif) repeat-x;
+            cursor: pointer;
+        }
 
+        .fancy-green .ajax__tab_hover .ajax__tab_outer, .fancy-green .ajax__tab_active .ajax__tab_outer {
+            background: url(green_left_Tab.gif) no-repeat left top;
+        }
+
+        .fancy-green .ajax__tab_hover .ajax__tab_inner, .fancy-green .ajax__tab_active .ajax__tab_inner {
+            background: url(green_right_Tab.gif) no-repeat right top;
+        }
+
+        .fancy .ajax__tab_header {
+            font-size: 13px;
+            font-weight: bold;
+            color: #000;
+            font-family: sans-serif;
+        }
+
+            .fancy .ajax__tab_active .ajax__tab_outer, .fancy .ajax__tab_header .ajax__tab_outer, .fancy .ajax__tab_hover.ajax__tab_outer {
+                height: 46px;
+            }
+
+            .fancy .ajax__tab_active .ajax__tab_inner, .fancy .ajax__tab_header .ajax__tab_inner, .fancy .ajax__tab_hover .ajax__tab_inner {
+                height: 46px;
+                margin-left: 16px; /* offset the width of the left image */
+            }
+
+            .fancy .ajax__tab_active .ajax__tab_tab, .fancy .ajax__tab_hover .ajax__tab_tab, .fancy .ajax__tab_header .ajax__tab_tab {
+                margin: 16px 16px 0px 0px;
+            }
+
+        .fancy .ajax__tab_hover .ajax__tab_tab, .fancy .ajax__tab_active .ajax__tab_tab {
+            color: #fff;
+        }
+
+        .fancy .ajax__tab_body {
+            font-family: Arial;
+            font-size: 10pt;
+            border-top: 0;
+            border: 1px solid #999999;
+            padding: 8px;
+            background-color: #ffffff;
+        }
+    </style>
 
 </head>
 <body>
@@ -27,7 +73,7 @@
         <!-- Input -->
         <section class="insert">
             <asp:Label runat="server" ID="labelWarnString" ForeColor="Red" Visible="false" />
-            <cc1:TabContainer runat="server">
+            <cc1:TabContainer runat="server" CssClass="fancy fancy-green">
                 <cc1:TabPanel runat="server">
                     <HeaderTemplate>
                         Basic Info
@@ -445,8 +491,7 @@
                                             </div>
                                             <asp:UpdatePanel runat="server">
                                                 <ContentTemplate>
-                                                    <asp:TextBox CssClass="required" runat="server" ID="tbTotalPrice" Style="text-align: right"
-                                                        OnTextChanged="tbTotalPrice_TextChanged" AutoPostBack="true"></asp:TextBox>
+                                                    <asp:TextBox CssClass="required" runat="server" ID="tbTotalPrice" Style="text-align: right"></asp:TextBox>
                                                     <asp:RegularExpressionValidator CssClass="error" Display="Dynamic" ID="RegularExpressionValidator3" ControlToValidate="tbTotalPrice" runat="server" ErrorMessage="Only Numbers allowed" ValidationExpression="\d+[.]*\d*"></asp:RegularExpressionValidator>
                                                 </ContentTemplate>
                                             </asp:UpdatePanel>
@@ -556,9 +601,9 @@
                                                 ShowFooter="True" AutoGenerateColumns="False" OnRowDataBound="GridView2_RowDataBound"
                                                 OnRowDeleting="GridView2_RowDeleting" Font-Size="Small">
                                                 <Columns>
-                                                    <asp:TemplateField ItemStyle-Width="0px" >
+                                                    <asp:TemplateField ItemStyle-Width="0px">
                                                         <ItemTemplate>
-                                                            <asp:TextBox runat="server" ID="tbReceiptId" ReadOnly="true" Width="0px" Style="display:none;" />
+                                                            <asp:TextBox runat="server" ID="tbReceiptId" ReadOnly="true" Width="0px" Style="display: none;" />
                                                         </ItemTemplate>
                                                     </asp:TemplateField>
                                                     <asp:TemplateField HeaderText="<%$ Resources:Resource,CategoryString%>">
@@ -569,7 +614,7 @@
                                                     <asp:TemplateField HeaderText="<%$ Resources:Resource,DateString%>">
                                                         <ItemTemplate>
                                                             <asp:TextBox runat="server" Style="text-align: right" ID="tbIncomeDate"
-                                                    CssClass="date date-1" value="" placeholder="YYYY-MM-DD HH:MM APM" data-timeformat="HH:MM"></asp:TextBox>
+                                                                CssClass="date date-1" value="" placeholder="YYYY-MM-DD HH:MM APM" data-timeformat="HH:MM"></asp:TextBox>
                                                         </ItemTemplate>
                                                     </asp:TemplateField>
                                                     <asp:TemplateField HeaderText="<%$ Resources:Resource,CurrencyString%>">
@@ -579,14 +624,14 @@
                                                     </asp:TemplateField>
                                                     <asp:TemplateField HeaderText="<%$ Resources:Resource,CashString%>">
                                                         <ItemTemplate>
-                                                            <asp:TextBox runat="server" ID="tbCash" Style="text-align: right" Width="100px"/>
+                                                            <asp:TextBox runat="server" ID="tbCash" Style="text-align: right" Width="100px" />
                                                             <asp:RegularExpressionValidator ID="RegularExpressionValidator2" ControlToValidate="tbCash" runat="server"
                                                                 ErrorMessage="Only Numbers allowed" ValidationExpression="\d+[.]*\d*" CssClass="error" Display="Dynamic"></asp:RegularExpressionValidator>
                                                         </ItemTemplate>
                                                     </asp:TemplateField>
                                                     <asp:TemplateField HeaderText="<%$ Resources:Resource,RemitMoneyString%>">
                                                         <ItemTemplate>
-                                                            <asp:TextBox runat="server" ID="tbRemit" Style="text-align: right"  Width="100px"/>
+                                                            <asp:TextBox runat="server" ID="tbRemit" Style="text-align: right" Width="100px" />
                                                             <asp:RegularExpressionValidator ID="RegularExpressionValidator3" ControlToValidate="tbRemit" runat="server"
                                                                 ErrorMessage="Only Numbers allowed" ValidationExpression="\d+[.]*\d*" CssClass="error" Display="Dynamic"></asp:RegularExpressionValidator>
                                                         </ItemTemplate>
@@ -594,7 +639,7 @@
                                                     <asp:TemplateField HeaderText="<%$ Resources:Resource,ReceiptDateString%>">
                                                         <ItemTemplate>
                                                             <asp:TextBox runat="server" Style="text-align: right" ID="tbReceiptDate"
-                                                    CssClass="date date-1" value="" placeholder="YYYY-MM-DD HH:MM APM" data-timeformat="HH:MM"></asp:TextBox>
+                                                                CssClass="date date-1" value="" placeholder="YYYY-MM-DD HH:MM APM" data-timeformat="HH:MM"></asp:TextBox>
                                                         </ItemTemplate>
                                                     </asp:TemplateField>
                                                     <asp:TemplateField HeaderText="<%$ Resources:Resource,ReceiptSnString%>">
@@ -604,14 +649,14 @@
                                                     </asp:TemplateField>
                                                     <asp:TemplateField HeaderText="<%$ Resources:Resource,TotalPriceString%>">
                                                         <ItemTemplate>
-                                                            <asp:TextBox runat="server" ID="tbTotalPrice" Style="text-align: right"  Width="100px"/>
+                                                            <asp:TextBox runat="server" ID="tbTotalPrice" Style="text-align: right" Width="100px" />
                                                             <asp:RegularExpressionValidator ID="RegularExpressionValidator4" ControlToValidate="tbTotalPrice" runat="server"
                                                                 ErrorMessage="Only Numbers allowed" ValidationExpression="\d+[.]*\d*" CssClass="error" Display="Dynamic"></asp:RegularExpressionValidator>
                                                         </ItemTemplate>
                                                     </asp:TemplateField>
                                                     <asp:TemplateField HeaderText="<%$ Resources:Resource,SalesString%>">
                                                         <ItemTemplate>
-                                                            <asp:TextBox runat="server" ID="tbSales" Style="text-align: right"  Width="100px"/>
+                                                            <asp:TextBox runat="server" ID="tbSales" Style="text-align: right" Width="100px" />
                                                             <asp:RegularExpressionValidator ID="RegularExpressionValidator5" ControlToValidate="tbSales" runat="server"
                                                                 ErrorMessage="Only Numbers allowed" ValidationExpression="\d+[.]*\d*" CssClass="error" Display="Dynamic"></asp:RegularExpressionValidator>
                                                         </ItemTemplate>
@@ -628,10 +673,10 @@
                                                                 ID="btnAddRow2" runat="server"
                                                                 Text="Add New Row" OnClick="btnAddRow2_Click" />
                                                         </FooterTemplate>
-                                                    </asp:TemplateField>                                                    
-                                                    <asp:TemplateField ItemStyle-Width="0px" >
+                                                    </asp:TemplateField>
+                                                    <asp:TemplateField ItemStyle-Width="0px">
                                                         <ItemTemplate>
-                                                            <asp:TextBox runat="server" ID="tbType" ReadOnly="true" Width="0px" Style="display:none;" />
+                                                            <asp:TextBox runat="server" ID="tbType" ReadOnly="true" Width="0px" Style="display: none;" />
                                                         </ItemTemplate>
                                                     </asp:TemplateField>
                                                     <asp:CommandField ShowDeleteButton="True" ItemStyle-Width="50px" />
