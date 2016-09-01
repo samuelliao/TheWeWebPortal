@@ -23,7 +23,8 @@ namespace TheWeWebSite.SysMgt
                     labelPageTitle.Text = Resources.Resource.SysMgtString + " > " + Resources.Resource.StoreString;
                     InitialLangList();
                     InitialCountryList();
-                    InitialStoreLvList();
+                    InitialCurrency();
+                    InitialStoreLvList();                    
                     InitialAreaList(string.Empty);
                     InitialControlWithPermission();
                     BindData(string.Empty);
@@ -41,6 +42,16 @@ namespace TheWeWebSite.SysMgt
             dgStore.Columns[dgStore.Columns.Count - 2].Visible = item.CanModify;
         }
         #region DropDownList Control
+        private void InitialCurrency()
+        {
+            ddlCurrency.Items.Clear();
+            DataSet ds = SysProperty.GenDbCon.GetDataFromTable("Select * From Currency Where IsDelete = 0");
+            if (SysProperty.Util.IsDataSetEmpty(ds)) return;
+            foreach(DataRow dr in ds.Tables[0].Rows)
+            {
+                ddlCurrency.Items.Add(new ListItem(dr["Name"].ToString(), dr["Id"].ToString()));
+            }
+        }
         private void InitialAreaList(string countryId)
         {
             ddlArea.Items.Clear();
@@ -108,7 +119,7 @@ namespace TheWeWebSite.SysMgt
                 string sqlTxt = "SELECT s.[Id],s.Sn,s.CountryId,s.AreaId,s.Code"
                     + ",s.Name,s.CnName,s.EngName,s.JpName,s.Addr,s.Description"
                     + ",s.IsDelete,s.UpdateAccId,s.UpdateTime,e.Name as EmployeeName"
-                    + ", s.HoldingCompany, s.GradeLv"
+                    + ", s.HoldingCompany, s.GradeLv, s.Currency"
                     + " FROM [dbo].[Store] as s"
                     + " left join Employee as e on e.Id = s.UpdateAccId"
                     + " left join Country as c on c.Id = s.CountryId"
@@ -173,6 +184,7 @@ namespace TheWeWebSite.SysMgt
                 DropDownList ddl1 = (DropDownList)dgStore.Items[dgStore.EditItemIndex].FindControl("ddlDgCountry");
                 DropDownList ddl2 = (DropDownList)dgStore.Items[dgStore.EditItemIndex].FindControl("ddlDgArea");
                 DropDownList ddl3 = (DropDownList)dgStore.Items[dgStore.EditItemIndex].FindControl("ddlDgHoldingCompany");
+                DropDownList ddl4 = (DropDownList)dgStore.Items[dgStore.EditItemIndex].FindControl("ddlDgCurrency");
                 List<DbSearchObject> updateLst = new List<DbSearchObject>();
                 updateLst.Add(new DbSearchObject("Code", AtrrTypeItem.String, AttrSymbolItem.Equal, ((TextBox)e.Item.Cells[2].Controls[0]).Text));
                 updateLst.Add(new DbSearchObject("Name", AtrrTypeItem.String, AttrSymbolItem.Equal, ((TextBox)e.Item.Cells[3].Controls[0]).Text));
@@ -185,6 +197,7 @@ namespace TheWeWebSite.SysMgt
                 updateLst.Add(new DbSearchObject("HoldingCompany", AtrrTypeItem.Bit, AttrSymbolItem.Equal, (ddl3.SelectedValue == "0" ? "1" : "0")));
                 updateLst.Add(new DbSearchObject("GradeLv", AtrrTypeItem.String, AttrSymbolItem.Equal, ddl3.SelectedValue));
                 updateLst.Add(new DbSearchObject("AreaId", AtrrTypeItem.String, AttrSymbolItem.Equal, ddl2.SelectedValue));
+                updateLst.Add(new DbSearchObject("Currency", AtrrTypeItem.String, AttrSymbolItem.Equal, ddl4.SelectedValue));
                 updateLst.Add(new DbSearchObject("UpdateAccId", AtrrTypeItem.String, AttrSymbolItem.Equal, ((DataRow)Session["AccountInfo"])["Id"].ToString()));
                 updateLst.Add(new DbSearchObject("UpdateTime", AtrrTypeItem.String, AttrSymbolItem.Equal, DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss")));
                 if (SysProperty.GenDbCon.UpdateDataIntoTable
@@ -250,6 +263,13 @@ namespace TheWeWebSite.SysMgt
                     ddlLv.Items.Add(new ListItem("1", "1"));
                     ddlLv.Items.Add(new ListItem("2", "2"));
                     ddlLv.SelectedValue = dataItem1["GradeLv"].ToString();
+
+                    DropDownList ddlCur = (DropDownList)e.Item.FindControl("ddlDgCurrency");
+                    foreach(ListItem item in ddlCurrency.Items)
+                    {
+                        ddlCur.Items.Add(new ListItem(item.Text, item.Value));
+                    }
+                    ddlCur.SelectedValue = dataItem1["Currency"].ToString();
                 }
                 else
                 {
@@ -258,6 +278,7 @@ namespace TheWeWebSite.SysMgt
                     Label labe2 = (Label)e.Item.FindControl("labelDgArea");
                     labe2.Text = SysProperty.Util.OutputRelatedLangName(Session["CultureCode"].ToString(), SysProperty.GetAreaById(dataItem1["AreaId"].ToString()));
                     ((Label)e.Item.FindControl("labelDgHoldingCompany")).Text = dataItem1["GradeLv"].ToString();
+                    ((Label)e.Item.FindControl("labelDgCurrency")).Text = ddlCurrency.Items.FindByValue(dataItem1["Currency"].ToString()).Text;
                 }
             }
         }
@@ -379,6 +400,7 @@ namespace TheWeWebSite.SysMgt
             return otherConditionString;
         }
 
+        #region Db instance
         private List<DbSearchObject> CreateDbObject(bool isCreate)
         {
             List<DbSearchObject> lst = new List<DbSearchObject>();
@@ -387,12 +409,6 @@ namespace TheWeWebSite.SysMgt
                 , AtrrTypeItem.String
                 , AttrSymbolItem.Equal
                 , tbName.Text)
-                );
-            lst.Add(new DbSearchObject(
-                "UpdateTime"
-                , AtrrTypeItem.String
-                , AttrSymbolItem.Equal
-                , DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss"))
                 );
             lst.Add(new DbSearchObject(
                 "UpdateAccId"
@@ -433,12 +449,23 @@ namespace TheWeWebSite.SysMgt
                 , AttrSymbolItem.Equal
                 , tbRemark.Text)
                 );
+            lst.Add(new DbSearchObject(
+                "Code"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , tbStoreCode.Text)
+                );
+            lst.Add(new DbSearchObject(
+                "Currency"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , ddlCurrency.SelectedValue)
+                );
 
             lst.Add(new DbSearchObject("HoldingCompany", AtrrTypeItem.Bit, AttrSymbolItem.Equal, (ddlLv.SelectedValue == "0" ? "1" : "0")));
             lst.Add(new DbSearchObject("GradeLv", AtrrTypeItem.String, AttrSymbolItem.Equal, ddlLv.SelectedValue));
             return lst;
         }
-
         private List<DbSearchObject> PermissionDbObject(string name, string storeId)
         {
             List<DbSearchObject> lst = new List<DbSearchObject>();
@@ -485,7 +512,6 @@ namespace TheWeWebSite.SysMgt
                 , "0"));
             return lst;
         }
-
         private List<List<DbSearchObject>> PermissionItemListFromTable(bool isCreate, string newId)
         {
             List<List<DbSearchObject>> root = new List<List<DbSearchObject>>();
@@ -554,7 +580,7 @@ namespace TheWeWebSite.SysMgt
             }
             return root;
         }
-
+        #endregion
         #region Data Control
         #region Read Related
         private void GetPermissionList(string sortString)
