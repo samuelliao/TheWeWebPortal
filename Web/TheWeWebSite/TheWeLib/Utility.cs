@@ -533,6 +533,8 @@ namespace TheWeLib
                     return "StoreLvSetPrice";
                 case MsSqlTable.DressRent:
                     return "DressRent";
+                case MsSqlTable.ReceiptDetail:
+                    return "ReceiptDetail";
                 default:
                     return string.Empty;
 

@@ -1033,7 +1033,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   查詢類似  的當地語系化字串。
+        ///   查詢類似 Desposit 的當地語系化字串。
         /// </summary>
         internal static string DepositString {
             get {
