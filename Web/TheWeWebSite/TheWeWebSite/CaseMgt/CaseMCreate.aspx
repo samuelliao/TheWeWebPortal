@@ -12,53 +12,6 @@
     <link href="../assets/css/font-awesome.min.css" rel="stylesheet" />
     <link href="../assets/css/main.css" rel="stylesheet" />
     <link href="../assets/css/jquery-ui.css" rel="stylesheet" />
-    <style type="text/css">
-        .fancy-green .ajax__tab_header {
-            background: url(green_bg_Tab.gif) repeat-x;
-            cursor: pointer;
-        }
-
-        .fancy-green .ajax__tab_hover .ajax__tab_outer, .fancy-green .ajax__tab_active .ajax__tab_outer {
-            background: url(green_left_Tab.gif) no-repeat left top;
-        }
-
-        .fancy-green .ajax__tab_hover .ajax__tab_inner, .fancy-green .ajax__tab_active .ajax__tab_inner {
-            background: url(green_right_Tab.gif) no-repeat right top;
-        }
-
-        .fancy .ajax__tab_header {
-            font-size: 13px;
-            font-weight: bold;
-            color: #000;
-            font-family: sans-serif;
-        }
-
-            .fancy .ajax__tab_active .ajax__tab_outer, .fancy .ajax__tab_header .ajax__tab_outer, .fancy .ajax__tab_hover.ajax__tab_outer {
-                height: 46px;
-            }
-
-            .fancy .ajax__tab_active .ajax__tab_inner, .fancy .ajax__tab_header .ajax__tab_inner, .fancy .ajax__tab_hover .ajax__tab_inner {
-                height: 46px;
-                margin-left: 16px; /* offset the width of the left image */
-            }
-
-            .fancy .ajax__tab_active .ajax__tab_tab, .fancy .ajax__tab_hover .ajax__tab_tab, .fancy .ajax__tab_header .ajax__tab_tab {
-                margin: 16px 16px 0px 0px;
-            }
-
-        .fancy .ajax__tab_hover .ajax__tab_tab, .fancy .ajax__tab_active .ajax__tab_tab {
-            color: #fff;
-        }
-
-        .fancy .ajax__tab_body {
-            font-family: Arial;
-            font-size: 10pt;
-            border-top: 0;
-            border: 1px solid #999999;
-            padding: 8px;
-            background-color: #ffffff;
-        }
-    </style>
 
 </head>
 <body>
@@ -76,7 +29,7 @@
             <cc1:TabContainer runat="server" CssClass="fancy fancy-green">
                 <cc1:TabPanel runat="server">
                     <HeaderTemplate>
-                        Basic Info
+                        <asp:Label runat="server" Text="<%$ Resources:Resource,BasicInfoString%>"></asp:Label>
                     </HeaderTemplate>
                     <ContentTemplate>
                         <asp:Panel runat="server" ID="panelBasicInfo">
@@ -560,7 +513,7 @@
                 </cc1:TabPanel>
                 <cc1:TabPanel runat="server">
                     <HeaderTemplate>
-                        Income Detail
+                        <asp:Label runat="server" Text="<%$ Resources:Resource,IncomeDetailString%>"></asp:Label>
                     </HeaderTemplate>
                     <ContentTemplate>
                         <div class="12u">

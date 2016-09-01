@@ -1212,4 +1212,7 @@
   <data name="BouquetPictureString" xml:space="preserve">
     <value>捧花照片</value>
   </data>
+  <data name="IncomeDetailString" xml:space="preserve">
+    <value>收款明細表</value>
+  </data>
 </root>

@@ -20,31 +20,36 @@ namespace TheWeWebSite.StoreMgt
                 if (SysProperty.Util == null) Response.Redirect("../Login.aspx", true);
                 else
                 {
-                    InitialControl();
-                    InitialControlWithPermission();
-                    TextHint();
-                    if (Session["DressId"] != null)
-                    {
-                        labelPageTitle.Text = Resources.Resource.StoreMgtString
-                        + " > " + Resources.Resource.DressMaintainString
-                        + " > " + Resources.Resource.ModifyString;
-                        SetDressInfoData(Session["DressId"].ToString());
-                        tabRentRecord.Visible = true;
-                    }
-                    else
-                    {
-                        labelPageTitle.Text = Resources.Resource.StoreMgtString
-                        + " > " + Resources.Resource.DressMaintainString
-                        + " > " + Resources.Resource.CreateString;
-                        btnModify.Visible = false;
-                        btnDelete.Visible = false;
-                        btnClear.Visible = false;
-                        ddlStore.SelectedValue = Session["LocateStore"] == null
-                            ? string.Empty
-                            : ((DataRow)Session["LocateStore"])["Id"].ToString();
-                        tabRentRecord.Visible = false;
-                    }
+                    InitialPage();
                 }
+            }
+        }
+
+        private void InitialPage()
+        {
+            InitialControl();
+            InitialControlWithPermission();
+            TextHint();
+            if (Session["DressId"] != null)
+            {
+                labelPageTitle.Text = Resources.Resource.StoreMgtString
+                + " > " + Resources.Resource.DressMaintainString
+                + " > " + Resources.Resource.ModifyString;
+                SetDressInfoData(Session["DressId"].ToString());
+                tabRentRecord.Visible = true;
+            }
+            else
+            {
+                labelPageTitle.Text = Resources.Resource.StoreMgtString
+                + " > " + Resources.Resource.DressMaintainString
+                + " > " + Resources.Resource.CreateString;
+                btnModify.Visible = false;
+                btnDelete.Visible = false;
+                btnClear.Visible = false;
+                ddlStore.SelectedValue = Session["LocateStore"] == null
+                    ? string.Empty
+                    : ((DataRow)Session["LocateStore"])["Id"].ToString();
+                tabRentRecord.Visible = false;
             }
         }
 
@@ -63,8 +68,6 @@ namespace TheWeWebSite.StoreMgt
             tbRentPrice.Attributes.Add("placeHolder", "0.00");
             tbSellsPrice.Attributes.Add("placeHolder", "0.00");
             tbCost.Attributes.Add("placeHolder", "0.00");
-
-
         }
 
 
@@ -82,8 +85,7 @@ namespace TheWeWebSite.StoreMgt
             }
             else
             {
-                //string display = "Pop-up!";
-                //ClientScript.RegisterStartupScript(this.GetType(), "Successful", "alert('" + display + "');", true);
+                InitialPage();
             }
         }
         private void InitialControlWithPermission()
@@ -348,10 +350,13 @@ namespace TheWeWebSite.StoreMgt
         #region Button Control
         protected void btnCreate_Click(object sender, EventArgs e)
         {
-            bool result = WriteBackInfo(MsSqlTable.Dress, true, DressInfoMainDbObject(true), string.Empty);            
-            if (result)
+            List<DbSearchObject> lst = DressInfoMainDbObject(true);
+            bool result = WriteBackInfo(MsSqlTable.Dress, true, lst, string.Empty);
+            string dressId = GetCreatedDressId(MsSqlTable.Dress, lst);
+            if (!string.IsNullOrEmpty(dressId))
             {
-                WriteBackDressStatus();
+                WriteBackDressStatus(dressId);
+                Session["DressId"] = dressId;
                 TransferToOtherPage(false);
             }
         }
@@ -362,7 +367,7 @@ namespace TheWeWebSite.StoreMgt
             bool result = WriteBackInfo(MsSqlTable.Dress, false, DressInfoMainDbObject(false), Session["DressId"].ToString());            
             if (result)
             {
-                WriteBackDressStatus();
+                WriteBackDressStatus(Session["DressId"].ToString());
                 TransferToOtherPage(false);
             }
         }
@@ -464,7 +469,7 @@ namespace TheWeWebSite.StoreMgt
             ddlCorsage.SelectedValue = dr["Corsage"].ToString();
             ddlDressCategory.SelectedValue = dr["Category"].ToString();
             ddlDressType.SelectedValue = dr["Type"].ToString();
-            ddlGender.SelectedValue = dr["Gender"].ToString();
+            ddlGender.SelectedValue = bool.Parse(dr["Gender"].ToString()) ? "1" : "0";
             ddlGloves.SelectedValue = dr["Gloves"].ToString();
             ddlNeckline.SelectedValue = dr["Neckline"].ToString();
             ddlShoulder.SelectedValue = dr["Shoulder"].ToString();
@@ -791,12 +796,17 @@ namespace TheWeWebSite.StoreMgt
                 , AttrSymbolItem.Equal
                 , cbPlusItem.Checked ? "1" : "0"
                 ));
-
             lst.Add(new DbSearchObject(
                 "UpdateAccId"
                 , AtrrTypeItem.String
                 , AttrSymbolItem.Equal
                 , ((DataRow)Session["AccountInfo"])["Id"].ToString()
+                ));
+            lst.Add(new DbSearchObject(
+                "UpdateTime"
+                , AtrrTypeItem.DateTime
+                , AttrSymbolItem.Equal
+                , DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss")
                 ));
             if (isCreate)
             {
@@ -805,6 +815,12 @@ namespace TheWeWebSite.StoreMgt
                 , AtrrTypeItem.String
                 , AttrSymbolItem.Equal
                 , ((DataRow)Session["AccountInfo"])["Id"].ToString()
+                ));
+                lst.Add(new DbSearchObject(
+                "CreatedateTime"
+                , AtrrTypeItem.DateTime
+                , AttrSymbolItem.Equal
+                , DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss")
                 ));
             }
             lst.Add(new DbSearchObject(
@@ -821,15 +837,14 @@ namespace TheWeWebSite.StoreMgt
                 ));
             return lst;
         }
-
-        private List<DbSearchObject> DressRentDbObject(bool isStart)
+        private List<DbSearchObject> DressRentDbObject(string dressId, bool isStart)
         {
             List<DbSearchObject> lst = new List<DbSearchObject>();
             lst.Add(new DbSearchObject(
                 "DressId"
                 , AtrrTypeItem.String
                 , AttrSymbolItem.Equal
-                , Session["DressId"].ToString()
+                , dressId
                 ));
             lst.Add(new DbSearchObject(
                 (isStart ? "StartTime" : "EndTime")
@@ -865,11 +880,11 @@ namespace TheWeWebSite.StoreMgt
         }
         #endregion
 
-        private void WriteBackDressStatus()
+        private void WriteBackDressStatus(string dressId)
         {
             if (SysProperty.Util.IsDataSetEmpty(RentData))
             {
-                GetRentData(string.Empty, " Order by StartTime DESC");
+                GetRentData(dressId, string.Empty, " Order by StartTime DESC");
             }
             if (!SysProperty.Util.IsDataSetEmpty(RentData))
             {
@@ -880,17 +895,55 @@ namespace TheWeWebSite.StoreMgt
                 if (string.IsNullOrEmpty(endTime))
                 {
                     // Not finish yet, then finish.
-                    WriteBackInfo(MsSqlTable.DressRent, false, DressRentDbObject(false), dr["Id"].ToString());
+                    WriteBackInfo(MsSqlTable.DressRent, false, DressRentDbObject(dressId, false), dr["Id"].ToString());
                 }
                 if (ddlStatus.SelectedValue != dr["StatusCode"].ToString())
                 {
-                    WriteBackInfo(MsSqlTable.DressRent, true, DressRentDbObject(true), dr["Id"].ToString());
+                    WriteBackInfo(MsSqlTable.DressRent, true, DressRentDbObject(dressId, true), dr["Id"].ToString());
                 }
             }else
             {
-                WriteBackInfo(MsSqlTable.DressRent, true, DressRentDbObject(true), string.Empty);
+                WriteBackInfo(MsSqlTable.DressRent, true, DressRentDbObject(dressId, true), string.Empty);
             }
             
+        }
+
+        private string GetCreatedDressId(MsSqlTable table, List<DbSearchObject> item)
+        {
+            try
+            {
+                List<DbSearchObject> lst = new List<DbSearchObject>();
+                lst.Add(item.Find(x=>x.AttrName=="Category"));
+                lst.Add(item.Find(x => x.AttrName == "StoreId"));
+                lst.Add(item.Find(x => x.AttrName == "UpdateAccId"));
+                lst.Add(item.Find(x => x.AttrName == "CreatedateAccId"));
+                lst.Add(item.Find(x => x.AttrName == "UpdateTime"));
+                lst.Add(item.Find(x => x.AttrName == "CreatedateTime"));
+                DataSet ds = GetDataFromTable(table, SysProperty.Util.SqlQueryConditionConverter(lst));
+                if (SysProperty.Util.IsDataSetEmpty(ds)) return string.Empty;
+                return ds.Tables[0].Rows[0]["Id"].ToString();
+            }
+            catch (Exception ex)
+            {
+                SysProperty.Log.Error(ex.Message);
+                ShowErrorMsg(ex.Message);
+                return string.Empty;
+            }
+        }
+        private DataSet GetDataFromTable(MsSqlTable table, string conStr)
+        {
+            try
+            {
+                return SysProperty.GenDbCon.GetDataFromTable("*"
+                    , SysProperty.Util.MsSqlTableConverter(table)
+                    , conStr);
+            }
+            catch (Exception ex)
+            {
+                SysProperty.Log.Error(ex.Message);
+                ShowErrorMsg(ex.Message);
+                return null;
+            }
         }
 
         private bool WriteBackInfo(MsSqlTable table, bool isInsert, List<DbSearchObject> lst, string id)
@@ -989,7 +1042,8 @@ namespace TheWeWebSite.StoreMgt
         #region Rent Data Page
         protected void btnSearch_Click(object sender, EventArgs e)
         {
-            GetRentData(QueryCondStr(), " Order by d.StartTime DESC");
+            if (Session["DressId"] == null) return;
+            GetRentData(Session["DressId"].ToString(), QueryCondStr(), " Order by d.StartTime DESC");
             BindData();
         }
 
@@ -997,20 +1051,21 @@ namespace TheWeWebSite.StoreMgt
         {
             if (RentData == null)
             {
-                GetRentData(QueryCondStr(), " Order by d.StartTime DESC");
+                if (Session["DressId"] == null) return;
+                GetRentData(Session["DressId"].ToString(), QueryCondStr(), " Order by d.StartTime DESC");
             }
             dataGrid.DataSource = RentData;
             dataGrid.AllowPaging = !SysProperty.Util.IsDataSetEmpty(RentData);
             dataGrid.DataBind();
         }
 
-        private void GetRentData(string condStr, string sortStr)
+        private void GetRentData(string dressId, string condStr, string sortStr)
         {
             string sql = "SELECT d.[Id],[DressId],d.[UpdateTime],d.[UpdateAccId],d.[CreatedateAccId],d.[CreatedateTime],d.[StartTime]"
                 + ",[EndTime],d.StatusCode,[OrderId],o.ChurchId,o.Sn As OrderSn,o.CountryId"
                 + " FROM [dbo].[DressRent] AS d"
                 + " Left join OrderInfo as o on o.Id = d.OrderId"
-                + " Where d.IsDelete = 0 And d.DressId = '" + Session["DressId"].ToString() + "'"
+                + " Where d.IsDelete = 0 And d.DressId = '" + dressId + "'"
                 + condStr
                 + sortStr;
             RentData = GetDataSetFromTable(sql);
@@ -1074,7 +1129,8 @@ namespace TheWeWebSite.StoreMgt
         {
             if (RentData == null)
             {
-                GetRentData(QueryCondStr()
+                if (Session["DressId"] == null) return;
+                GetRentData(Session["DressId"].ToString(), QueryCondStr()
                     , "Order by d." + e.SortExpression + " " + SysProperty.Util.GetSortDirection(e.SortExpression));
             }
             if (RentData != null)

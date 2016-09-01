@@ -1212,4 +1212,7 @@
   <data name="BouquetPictureString" xml:space="preserve">
     <value></value>
   </data>
+  <data name="IncomeDetailString" xml:space="preserve">
+    <value>Income Detail</value>
+  </data>
 </root>

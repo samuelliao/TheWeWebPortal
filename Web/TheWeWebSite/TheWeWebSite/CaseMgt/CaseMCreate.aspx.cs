@@ -1821,10 +1821,16 @@ namespace TheWeWebSite.CaseMgt
                         , dr["Id"].ToString()
                         ));
                 }
+                if (string.IsNullOrEmpty(dataItem1["Currency"].ToString()))
+                {
+                    ddlCurrency.SelectedValue = ((DataRow)Session["LocateStore"])["Currency"].ToString();
+                }
+
                 if (!string.IsNullOrEmpty(dataItem1["Id"].ToString()))
                 {
                     e.Row.Cells[e.Row.Cells.Count - 1].Controls[0].Visible = false;
                 }
+                
             }
         }
 

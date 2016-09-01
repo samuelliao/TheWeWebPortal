@@ -1672,6 +1672,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   查詢類似 Income Detail 的當地語系化字串。
+        /// </summary>
+        internal static string IncomeDetailString {
+            get {
+                return ResourceManager.GetString("IncomeDetailString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查詢類似 Insurance 的當地語系化字串。
         /// </summary>
         internal static string InsuranceString {
