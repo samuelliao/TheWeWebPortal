@@ -67,15 +67,7 @@ namespace TheWeWebSite.CaseMgt
             tbContractPrice.Attributes.Add("placeHolder", "0.00");
 
             tbCustomerSn.Attributes.Add("placeHolder", Resources.Resource.SystemString);
-
-
-            tbDeposit1.Attributes.Add("placeHolder", "0.00");
-            tbDeposit1Date.Attributes.Add("placeHolder", Resources.Resource.AddString + Resources.Resource.DepositString + Resources.Resource.PaymentTimeString);
-            tbDeposit1Type.Attributes.Add("placeHolder", Resources.Resource.AddString + Resources.Resource.DepositString + Resources.Resource.PaymentMethodString);
-
-            tbDeposit2.Attributes.Add("placeHolder", "0.00");
-            tbDeposit2Date.Attributes.Add("placeHolder", Resources.Resource.AddString + Resources.Resource.SecondString + Resources.Resource.PaymentTimeString);
-            tbDeposit2Type.Attributes.Add("placeHolder", Resources.Resource.AddString + Resources.Resource.SecondString + Resources.Resource.PaymentMethodString);
+            
 
             tbDiscount.Attributes.Add("placeHolder", Resources.Resource.AddString + Resources.Resource.DiscountString);
 
@@ -86,27 +78,12 @@ namespace TheWeWebSite.CaseMgt
             tbGroomPassportName.Attributes.Add("placeHolder", Resources.Resource.AddString + Resources.Resource.GroomPassportString);
             tbGroomPhone.Attributes.Add("placeHolder", Resources.Resource.AddString + Resources.Resource.GroomPhoneString);
             tbMsgerTitle.Attributes.Add("placeHolder", Resources.Resource.AddString + Resources.Resource.SnsTitleString);
-
-
-            tbPayOff.Attributes.Add("placeHolder", "0.00");
-            tbPayOffDate.Attributes.Add("placeHolder", Resources.Resource.AddString + Resources.Resource.BalanceDueString + Resources.Resource.PaymentTimeString);
-            tbPayOffType.Attributes.Add("placeHolder", Resources.Resource.AddString + Resources.Resource.BalanceDueString + Resources.Resource.PaymentMethodString);
+            
 
             tbReferrals.Attributes.Add("placeHolder", Resources.Resource.AddString + Resources.Resource.ReferralsString);
 
             tbRemark.Attributes.Add("placeHolder", Resources.Resource.AddString + Resources.Resource.RemarkString);
             tbTotalPrice.Attributes.Add("placeHolder", "0.00");
-
-            labelDeposit1.Text = Resources.Resource.DepositString;
-            labelDepositDate1.Text = Resources.Resource.DepositString + Resources.Resource.PaymentTimeString;
-            labelDepositMethod1.Text = Resources.Resource.DepositString + Resources.Resource.PaymentMethodString;
-            labelDeposit2.Text = Resources.Resource.SecondPayString;
-            labelDepositDate2.Text = Resources.Resource.SecondString + Resources.Resource.PaymentTimeString;
-            labelDepositMethod2.Text = Resources.Resource.SecondString + Resources.Resource.PaymentMethodString;
-            labelDeposit3.Text = Resources.Resource.BalanceDueString;
-            labelDepositDate3.Text = Resources.Resource.BalanceDueString + Resources.Resource.PaymentTimeString;
-            labelDepositMethod3.Text = Resources.Resource.BalanceDueString + Resources.Resource.PaymentMethodString;
-
         }
 
         private void ShowErrorMsg(string msg)
@@ -524,10 +501,6 @@ namespace TheWeWebSite.CaseMgt
             tbCloseDay.Text = string.Empty;
             tbContractPrice.Text = string.Empty;
             tbContractTime.Text = string.Empty;
-            tbDeposit1.Text = string.Empty;
-            tbDeposit1Date.Text = string.Empty;
-            tbDeposit2.Text = string.Empty;
-            tbDeposit2Date.Text = string.Empty;
             tbDiscount.Text = string.Empty;
             tbGroomBday.Text = string.Empty;
             tbGroomName.Text = string.Empty;
@@ -535,8 +508,6 @@ namespace TheWeWebSite.CaseMgt
             tbGroomPassportName.Text = string.Empty;
             tbBridalMsgerId.Text = string.Empty;
             tbMsgerTitle.Text = string.Empty;
-            tbPayOff.Text = string.Empty;
-            tbPayOffDate.Text = string.Empty;
             tbBridalPhone.Text = string.Empty;
             tbBridalEmail.Text = string.Empty;
             tbGroomPhone.Text = string.Empty;
@@ -679,10 +650,6 @@ namespace TheWeWebSite.CaseMgt
             tbCloseDay.Text = SysProperty.Util.ParseDateTime("DateTime", dr["CloseTime"].ToString());
             tbContractPrice.Text = SysProperty.Util.ParseMoney(dr["Price"].ToString()).ToString("#0.00");
             tbContractTime.Text = SysProperty.Util.ParseDateTime("DateTime", dr["StartTime"].ToString());
-            tbDeposit1.Text = SysProperty.Util.ParseMoney(dr["DepositFirst"].ToString()).ToString("#0.00");
-            tbDeposit1Date.Text = SysProperty.Util.ParseDateTime("DateTime", dr["DepositFirstDate"].ToString());
-            tbDeposit2.Text = SysProperty.Util.ParseMoney(dr["DepositSecond"].ToString()).ToString("#0.00");
-            tbDeposit2Date.Text = SysProperty.Util.ParseDateTime("DateTime", dr["DepositSecondDate"].ToString());
             tbDiscount.Text = SysProperty.Util.ParseMoney(dr["Discount"].ToString()).ToString("#0.00");
             tbDomesticEngagementDate.Text = SysProperty.Util.ParseDateTime("Date", dr["LocalEngagementDate"].ToString());
             tbDomesticMotheringDate.Text = SysProperty.Util.ParseDateTime("Date", dr["LocalMotheringDate"].ToString());
@@ -691,21 +658,11 @@ namespace TheWeWebSite.CaseMgt
             tbDomesticWedFilmDate.Text = SysProperty.Util.ParseDateTime("Date", dr["LocalFilmingDate"].ToString());
             tbOverseaWeddingDate.Text = SysProperty.Util.ParseDateTime("Date", dr["OverseaWeddingDate"].ToString());
             tbOverSeaWedFilmDate.Text = SysProperty.Util.ParseDateTime("Date", dr["OverseaFilmDate"].ToString());
-            tbPayOffDate.Text = SysProperty.Util.ParseDateTime("DateTime", dr["BalancePayementDate"].ToString());
-            tbDeposit1Type.Text = dr["DepositFirstType"].ToString();
-            tbDeposit2Type.Text = dr["DepositSecondType"].ToString();
-            tbPayOffType.Text = dr["BalancePayementType"].ToString();
             tbReferrals.Text = dr["Referral"].ToString();
             tbRemark.Text = dr["Remark"].ToString();
             tbTotalPrice.Text = string.IsNullOrEmpty(dr["TotalPrice"].ToString())
                 ? tbContractPrice.Text
                 : SysProperty.Util.ParseMoney(dr["TotalPrice"].ToString()).ToString("#0.00");
-
-            tbPayOff.Text = (SysProperty.Util.ParseMoney(tbTotalPrice.Text) - (
-                SysProperty.Util.ParseMoney(tbDiscount.Text)
-                + SysProperty.Util.ParseMoney(tbDeposit1.Text)
-                + SysProperty.Util.ParseMoney(tbDeposit2.Text)
-                )).ToString("#0.00");
 
             ddlStatus.SelectedValue = dr["StatusId"].ToString();
             if (ddlStatus.SelectedIndex != 0)
@@ -902,18 +859,6 @@ namespace TheWeWebSite.CaseMgt
                 , string.IsNullOrEmpty(tbCloseDay.Text) ? string.Empty : tbCloseDay.Text
                 ));
             lst.Add(new DbSearchObject(
-                "DepositFirstDate"
-                , AtrrTypeItem.String
-                , AttrSymbolItem.Equal
-                , string.IsNullOrEmpty(tbDeposit1Date.Text) ? string.Empty : tbDeposit1Date.Text
-                ));
-            lst.Add(new DbSearchObject(
-                "DepositSecondDate"
-                , AtrrTypeItem.String
-                , AttrSymbolItem.Equal
-                , string.IsNullOrEmpty(tbDeposit2Date.Text) ? string.Empty : tbDeposit2Date.Text
-                ));
-            lst.Add(new DbSearchObject(
                 "LocalEngagementDate"
                 , AtrrTypeItem.String
                 , AttrSymbolItem.Equal
@@ -956,12 +901,6 @@ namespace TheWeWebSite.CaseMgt
                 , string.IsNullOrEmpty(tbOverSeaWedFilmDate.Text) ? string.Empty : tbOverSeaWedFilmDate.Text
                 ));
             lst.Add(new DbSearchObject(
-                "BalancePayementDate"
-                , AtrrTypeItem.String
-                , AttrSymbolItem.Equal
-                , string.IsNullOrEmpty(tbPayOffDate.Text) ? string.Empty : tbPayOffDate.Text
-                ));
-            lst.Add(new DbSearchObject(
                 "TotalPrice"
                 , AtrrTypeItem.String
                 , AttrSymbolItem.Equal
@@ -986,41 +925,11 @@ namespace TheWeWebSite.CaseMgt
                 , tbDiscount.Text
                 ));
             lst.Add(new DbSearchObject(
-                "DepositSecond"
-                , AtrrTypeItem.String
-                , AttrSymbolItem.Equal
-                , tbDeposit2.Text
-            ));
-            lst.Add(new DbSearchObject(
-                "DepositSecondType"
-                , AtrrTypeItem.String
-                , AttrSymbolItem.Equal
-                , tbDeposit2Type.Text
-            ));
-            lst.Add(new DbSearchObject(
-                "DepositFirstType"
-                , AtrrTypeItem.String
-                , AttrSymbolItem.Equal
-                , tbDeposit1Type.Text
-            ));
-            lst.Add(new DbSearchObject(
-                "BalancePayementType"
-                , AtrrTypeItem.String
-                , AttrSymbolItem.Equal
-                , tbPayOffType.Text
-            ));
-            lst.Add(new DbSearchObject(
                 "EmployeeId"
                 , AtrrTypeItem.String
                 , AttrSymbolItem.Equal
                 , ((DataRow)Session["LocateStore"])["Id"].ToString()
             ));
-            lst.Add(new DbSearchObject(
-                "DepositFirst"
-                , AtrrTypeItem.String
-                , AttrSymbolItem.Equal
-                , tbDeposit1.Text
-                ));
             lst.Add(new DbSearchObject(
                 "Price"
                 , AtrrTypeItem.String
@@ -1782,47 +1691,6 @@ namespace TheWeWebSite.CaseMgt
             if (result)
             {
                 tbTotalPrice.Text = (SysProperty.Util.ParseMoney(tbTotalPrice.Text) - dec).ToString();
-            }
-        }
-
-        protected void tbDeposit1_TextChanged(object sender, EventArgs e)
-        {
-            bool result = false;
-            decimal dec = 0;
-            result = decimal.TryParse(((TextBox)sender).Text, out dec);
-            if (result)
-            {
-                tbPayOff.Text = (SysProperty.Util.ParseMoney(tbTotalPrice.Text)
-                    - (dec + SysProperty.Util.ParseMoney(tbDeposit2.Text)))
-                    .ToString();
-                tbDeposit1Date.Text = DateTime.Now.ToString("yyyy-MM-dd HH:mm");
-            }
-        }
-
-        protected void tbTotalPrice_TextChanged(object sender, EventArgs e)
-        {
-            bool result = false;
-            decimal dec = 0;
-            result = decimal.TryParse(((TextBox)sender).Text, out dec);
-            if (result)
-            {
-                tbPayOff.Text = (dec
-                    - (SysProperty.Util.ParseMoney(tbDeposit1.Text) + SysProperty.Util.ParseMoney(tbDeposit2.Text)))
-                    .ToString();
-            }
-        }
-
-        protected void tbDeposit2_TextChanged(object sender, EventArgs e)
-        {
-            bool result = false;
-            decimal dec = 0;
-            result = decimal.TryParse(((TextBox)sender).Text, out dec);
-            if (result)
-            {
-                tbPayOff.Text = (SysProperty.Util.ParseMoney(tbTotalPrice.Text)
-                    - (dec + SysProperty.Util.ParseMoney(tbDeposit1.Text)))
-                    .ToString();
-                tbDeposit2Date.Text = DateTime.Now.ToString("yyyy-MM-dd HH:mm");
             }
         }
 
