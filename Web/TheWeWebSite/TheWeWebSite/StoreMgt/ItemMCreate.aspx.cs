@@ -1317,7 +1317,9 @@ namespace TheWeWebSite.StoreMgt
             {
                 DropDownList ddlService = (DropDownList)e.Row.FindControl("ddlServiceItem");
                 ddlService.Items.Add(new ListItem(Resources.Resource.ServiceItemSelectRemindString, string.Empty));
-                DataSet ds = SysProperty.GenDbCon.GetDataFromTable("Select * From ServiceItem Where IsGeneral = 1 And IsDelete = 0");
+                string sql = "Select * From ServiceItem Where IsGeneral = 1 And IsDelete = 0";
+                sql += " UNION Select * From ServiceItem Where IsDelete = 0 And StoreId = '" + ((DataRow)Session["LocateStore"])["Id"].ToString() + "'";
+                DataSet ds = SysProperty.GenDbCon.GetDataFromTable(sql);
                 if (SysProperty.Util.IsDataSetEmpty(ds)) return;
                 foreach (DataRow dr in ds.Tables[0].Rows)
                 {

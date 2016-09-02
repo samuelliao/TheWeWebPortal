@@ -52,6 +52,18 @@
                             </div>
                             <asp:UpdatePanel runat="server">
                                 <ContentTemplate>
+                                    <asp:DropDownList CssClass="required" runat="server" ID="ddlCategory" AutoPostBack="true" OnSelectedIndexChanged="ddlCategory_SelectedIndexChanged" />
+                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator7" ControlToValidate="ddlCategory" runat="server"
+                                        ErrorMessage="required" CssClass="error" Display="Dynamic"></asp:RequiredFieldValidator>
+                                </ContentTemplate>
+                            </asp:UpdatePanel>
+                        </div>
+                        <div class="2u 12u(mobilep)">
+                            <div class="Div">
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,CategoryString%>"></asp:Label>
+                            </div>
+                            <asp:UpdatePanel runat="server">
+                                <ContentTemplate>
                                     <asp:DropDownList CssClass="required" runat="server" ID="ddlOthCategory" AutoPostBack="true" OnSelectedIndexChanged="ddlOthCategory_SelectedIndexChanged" />
                                     <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate="ddlOthCategory" runat="server"
                                         ErrorMessage="required" CssClass="error" Display="Dynamic"></asp:RequiredFieldValidator>
@@ -77,6 +89,10 @@
                                 </ContentTemplate>
                             </asp:UpdatePanel>
                         </div>
+                    </div>
+                </div>
+                <div class="12u">
+                    <div class="row uniform 50%">
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,PriceString%>"></asp:Label>
@@ -91,20 +107,47 @@
                             <asp:TextBox runat="server" ID="tbOthCost" Style="text-align: right"></asp:TextBox>
                             <asp:RegularExpressionValidator CssClass="error" Display="Dynamic" ID="RegularExpressionValidator2" ControlToValidate="tbOthCost" runat="server" ErrorMessage="Only Numbers allowed" ValidationExpression="\d+[.]*\d*"></asp:RegularExpressionValidator>
                         </div>
-
                     </div>
                 </div>
                 <div class="12u">
                     <div class="row uniform 50%">
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
-                                <asp:Label runat="server" Text="<%$ Resources:Resource,StoreString%>" />
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,CountryString%>" />
                             </div>
-                            <asp:DropDownList CssClass="required" runat="server" ID="ddlStore" />
-                            <asp:RequiredFieldValidator ID="RequiredFieldValidator4" ControlToValidate="ddlStore" runat="server"
-                                ErrorMessage="required" CssClass="error" Display="Dynamic"></asp:RequiredFieldValidator>
+                            <asp:UpdatePanel runat="server">
+                                <ContentTemplate>
+                                    <asp:DropDownList CssClass="required" runat="server" ID="ddlCountry" AutoPostBack="true" OnSelectedIndexChanged="ddlCountry_SelectedIndexChanged" />
+                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator8" ControlToValidate="ddlCountry" runat="server"
+                                        ErrorMessage="required" CssClass="error" Display="Dynamic"></asp:RequiredFieldValidator>
+                                </ContentTemplate>
+                            </asp:UpdatePanel>
                         </div>
-                        <div class="8u 12u(mobilep)">
+                        <div class="2u 12u(mobilep)">
+                            <div class="Div">
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,AreaString%>" />
+                            </div>
+                            <asp:UpdatePanel runat="server">
+                                <ContentTemplate>
+                                    <asp:DropDownList CssClass="required" runat="server" ID="ddlArea" AutoPostBack="true" OnSelectedIndexChanged="ddlArea_SelectedIndexChanged" />
+                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator9" ControlToValidate="ddlArea" runat="server"
+                                        ErrorMessage="required" CssClass="error" Display="Dynamic"></asp:RequiredFieldValidator>
+                                </ContentTemplate>
+                            </asp:UpdatePanel>
+                        </div>
+                        <div class="2u 12u(mobilep)">
+                            <div class="Div">
+                                <asp:Label runat="server" ID="labelHolderTitle" Text="<%$ Resources:Resource,StoreString%>" />
+                            </div>
+                            <asp:UpdatePanel runat="server">
+                                <ContentTemplate>
+                                    <asp:DropDownList CssClass="required" runat="server" ID="ddlStore" AutoPostBack="true" OnSelectedIndexChanged="ddlStore_SelectedIndexChanged" />
+                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator4" ControlToValidate="ddlStore" runat="server"
+                                        ErrorMessage="required" CssClass="error" Display="Dynamic"></asp:RequiredFieldValidator>
+                                </ContentTemplate>
+                            </asp:UpdatePanel>
+                        </div>
+                        <div class="6u 12u(mobilep)">
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,DescriptionString%>"></asp:Label>
                             </div>
@@ -127,19 +170,19 @@
                             <div id="uploadPanel" style="display: none;">
                                 <div class="fileUpload">
                                     <asp:Label runat="server" Text="<%$ Resources:Resource,ImgFrontString%>"></asp:Label>
-                                    <asp:FileUpload ID="FileUpload1"  runat="server" />
+                                    <asp:FileUpload ID="FileUpload1" runat="server" />
                                 </div>
                                 <div class="fileUpload">
                                     <asp:Label runat="server" Text="<%$ Resources:Resource,ImgBackString%>"></asp:Label>
-                                    <asp:FileUpload ID="FileUpload2"  runat="server" />
+                                    <asp:FileUpload ID="FileUpload2" runat="server" />
                                 </div>
                                 <div class="fileUpload">
                                     <asp:Label runat="server" Text="<%$ Resources:Resource,ImgSideString%>"></asp:Label>
-                                    <asp:FileUpload ID="FileUpload3"  runat="server" />
+                                    <asp:FileUpload ID="FileUpload3" runat="server" />
                                 </div>
                                 <div class="fileUpload">
                                     <asp:Label runat="server" Text="<%$ Resources:Resource,ImgOtherString%>"></asp:Label>
-                                    <asp:FileUpload ID="FileUpload4"  runat="server" />
+                                    <asp:FileUpload ID="FileUpload4" runat="server" />
                                 </div>
                                 <div style="text-align: left; margin-top: 15px;">
                                     <asp:Button CausesValidation="true" runat="server" Text="<%$ Resources:Resource,UploadString%>" ID="btnUpload"
