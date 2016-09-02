@@ -22,29 +22,33 @@ namespace TheWeWebSite.StoreMgt
                 if (SysProperty.Util == null) Response.Redirect("../Login.aspx", true);
                 else
                 {
-                    FirstGridViewRow();
-                    InitialControl();
-                    InitialControlWithPermission();
-                    SetPlaceHolder();
-                    if (Session["ChurchId"] != null)
-                    {
-                        
-                        labelPageTitle.Text = Resources.Resource.StoreMgtString
-                        + " > " + Resources.Resource.ChurchMaintainString
-                        + " > " + Resources.Resource.ModifyString;
-                        SetChurchData(Session["ChurchId"].ToString());
-                    }
-                    else
-                    {
-                        //SetEnableCss();
-                        labelPageTitle.Text = Resources.Resource.StoreMgtString
-                        + " > " + Resources.Resource.ChurchMaintainString
-                        + " > " + Resources.Resource.CreateString;
-                        btnModify.Visible = false;
-                        btnDelete.Visible = false;
-                    }
-
+                    InitialPage();
                 }
+            }
+        }
+
+        private void InitialPage()
+        {
+            FirstGridViewRow();
+            InitialControl();
+            InitialControlWithPermission();
+            SetPlaceHolder();
+            if (Session["ChurchId"] != null)
+            {
+
+                labelPageTitle.Text = Resources.Resource.StoreMgtString
+                + " > " + Resources.Resource.ChurchMaintainString
+                + " > " + Resources.Resource.ModifyString;
+                SetChurchData(Session["ChurchId"].ToString());
+            }
+            else
+            {
+                //SetEnableCss();
+                labelPageTitle.Text = Resources.Resource.StoreMgtString
+                + " > " + Resources.Resource.ChurchMaintainString
+                + " > " + Resources.Resource.CreateString;
+                btnModify.Visible = false;
+                btnDelete.Visible = false;
             }
         }
 
@@ -109,17 +113,24 @@ namespace TheWeWebSite.StoreMgt
                 btnModify.Enabled = item.CanModify;
             }
         }
-        private void TransferToOtherPage()
+        private void TransferToOtherPage(bool reload)
         {
-            ViewState.Remove("CurrentTable");
-            Session.Remove("ChurchId");
-            Server.Transfer("ChurchMaintain.aspx", true);
+            if (!reload)
+            {
+                ViewState.Remove("CurrentTable");
+                Session.Remove("ChurchId");
+                Server.Transfer("ChurchMaintain.aspx", true);
+            }
+            else
+            {
+                InitialPage();
+            }
         }
 
         #region Button Control
         protected void btnCancel_Click(object sender, EventArgs e)
         {
-            TransferToOtherPage();
+            TransferToOtherPage(false);
         }
 
         protected void btnDelete_Click(object sender, EventArgs e)
@@ -133,7 +144,7 @@ namespace TheWeWebSite.StoreMgt
                 + " Where Id = '" + Session["ChurchId"].ToString() + "'";
                 if (SysProperty.GenDbCon.ModifyDataInToTable(sql))
                 {
-                    TransferToOtherPage();
+                    TransferToOtherPage(false);
                 }
             }
             catch (Exception ex)
@@ -179,7 +190,7 @@ namespace TheWeWebSite.StoreMgt
 
             if (result)
             {
-                TransferToOtherPage();
+                TransferToOtherPage(true);
             }
         }
 
@@ -194,7 +205,8 @@ namespace TheWeWebSite.StoreMgt
             result = WriteBackAppointment(true, AppointmentTimeDbObject(true, id), id);
             if (result)
             {
-                TransferToOtherPage();
+                Session["ChurchId"] = id;
+                TransferToOtherPage(true);
             }
         }
         #endregion

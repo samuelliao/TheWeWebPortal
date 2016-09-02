@@ -19,30 +19,34 @@ namespace TheWeWebSite.StoreMgt
                 if (SysProperty.Util == null) Response.Redirect("../Login.aspx", true);
                 else
                 {
-                    InitialControl();
-                    InitialControlWithPermission();
-                    TextHint();
-                    if (Session["OthId"] != null)
-                    {
-                        labelPageTitle.Text = Resources.Resource.StoreMgtString
-                        + " > " + Resources.Resource.WeddingItemMaintainString
-                        + " > " + Resources.Resource.ModifyString;
-                        btnModify.Visible = true;
-                        btnDelete.Visible = true;
-                        SetOthItemInfoData(Session["OthId"].ToString());
-                    }
-                    else
-                    {
-                        labelPageTitle.Text = Resources.Resource.StoreMgtString
-                        + " > " + Resources.Resource.WeddingItemMaintainString
-                        + " > " + Resources.Resource.CreateString;
-                        btnModify.Visible = false;
-                        btnDelete.Visible = false;
-                    }
+                    InitialPage();
                 }
             }
         }
 
+        private void InitialPage()
+        {
+            InitialControl();
+            InitialControlWithPermission();
+            TextHint();
+            if (Session["OthId"] != null)
+            {
+                labelPageTitle.Text = Resources.Resource.StoreMgtString
+                + " > " + Resources.Resource.WeddingItemMaintainString
+                + " > " + Resources.Resource.ModifyString;
+                btnModify.Visible = true;
+                btnDelete.Visible = true;
+                SetOthItemInfoData(Session["OthId"].ToString());
+            }
+            else
+            {
+                labelPageTitle.Text = Resources.Resource.StoreMgtString
+                + " > " + Resources.Resource.WeddingItemMaintainString
+                + " > " + Resources.Resource.CreateString;
+                btnModify.Visible = false;
+                btnDelete.Visible = false;
+            }
+        }
 
         private void TextHint()
         {
@@ -50,9 +54,9 @@ namespace TheWeWebSite.StoreMgt
             tbOthCost.Attributes.Add("placeHolder", "0.00");
             tbOthDescription.Attributes.Add("placeHolder", Resources.Resource.AddString + Resources.Resource.DescriptionString);
             tbOthName.Attributes.Add("placeHolder", Resources.Resource.AddString + Resources.Resource.NameString);
-            tbOthPrice.Attributes.Add("placeHolder","0.00");
+            tbOthPrice.Attributes.Add("placeHolder", "0.00");
             tbType.Attributes.Add("placeHolder", Resources.Resource.AddString + Resources.Resource.CreateItemString);
-           
+
 
         }
         private void ShowErrorMsg(string msg)
@@ -60,10 +64,17 @@ namespace TheWeWebSite.StoreMgt
             labelWarnString.Text = msg;
             labelWarnString.Visible = !string.IsNullOrEmpty(msg);
         }
-        private void TransferToOtherPage()
+        private void TransferToOtherPage(bool reload)
         {
-            Session.Remove("OthId");
-            Response.Redirect("OtherItemMaintain.aspx", true);
+            if (reload)
+            {
+                InitialPage();
+            }
+            else
+            {
+                Session.Remove("OthId");
+                Response.Redirect("OtherItemMaintain.aspx", true);
+            }
         }
         private void InitialControl()
         {
@@ -161,10 +172,14 @@ namespace TheWeWebSite.StoreMgt
         protected void btnCreate_Click(object sender, EventArgs e)
         {
             string typeId = CreateNewType(ddlType.SelectedValue);
-            bool result = WriteBackInfo(MsSqlTable.ServiceItem, true, OthItemInfoDbObject(true, typeId), string.Empty);
-            if (result)
+            if (string.IsNullOrEmpty(typeId)) return;
+            List<DbSearchObject> lst = OthItemInfoDbObject(true, typeId);
+            bool result = WriteBackInfo(MsSqlTable.ServiceItem, true, lst, string.Empty);
+            string id = GetCreatedId(MsSqlTable.ServiceItem, lst);
+            if (!string.IsNullOrEmpty(id))
             {
-                TransferToOtherPage();
+                Session["OthId"] = id;
+                TransferToOtherPage(true);
             }
         }
 
@@ -172,10 +187,11 @@ namespace TheWeWebSite.StoreMgt
         {
             if (Session["OthId"] == null) return;
             string typeId = CreateNewType(ddlType.SelectedValue);
+            if (string.IsNullOrEmpty(typeId)) return;
             bool result = WriteBackInfo(MsSqlTable.ServiceItem, false, OthItemInfoDbObject(false, typeId), Session["OthId"].ToString());
             if (result)
             {
-                TransferToOtherPage();
+                TransferToOtherPage(true);
             }
         }
 
@@ -212,7 +228,7 @@ namespace TheWeWebSite.StoreMgt
             if (bool.Parse(((DataRow)Session["LocateStore"])["HoldingCompany"].ToString()))
             {
                 tbOthSn.Text = string.Empty;
-                tbOthName.Text = string.Empty;                
+                tbOthName.Text = string.Empty;
                 tbOthCost.Text = string.Empty;
                 ddlOthCategory.SelectedIndex = 0;
                 ddlStore.SelectedIndex = 0;
@@ -225,7 +241,7 @@ namespace TheWeWebSite.StoreMgt
 
         protected void btnCancel_Click(object sender, EventArgs e)
         {
-            TransferToOtherPage();
+            TransferToOtherPage(false);
         }
 
         protected void btnDelete_Click(object sender, EventArgs e)
@@ -239,7 +255,7 @@ namespace TheWeWebSite.StoreMgt
                 + " Where Id = '" + Session["OthId"].ToString() + "'";
                 if (SysProperty.GenDbCon.ModifyDataInToTable(sql))
                 {
-                    TransferToOtherPage();
+                    TransferToOtherPage(false);
                 }
             }
             catch (Exception ex)
@@ -303,9 +319,11 @@ namespace TheWeWebSite.StoreMgt
             tbOthPrice.Text = SysProperty.Util.ParseMoney(dr["Price"].ToString()).ToString("#0.00");
             tbOthDescription.Text = dr["Description"].ToString();
             tbOthName.Text = dr["Name"].ToString();
-            ddlType.SelectedValue = dr["Type"].ToString();
+            ddlStore.SelectedValue = dr["StoreId"].ToString();            
             ddlOthCategory.SelectedValue = dr["CategoryId"].ToString();
-            ddlStore.SelectedValue = dr["StoreId"].ToString();
+            ddlOthCategory_SelectedIndexChanged(ddlOthCategory, new EventArgs());
+            ddlType.SelectedValue = dr["Type"].ToString();
+            ddlType_SelectedIndexChanged(ddlType, new EventArgs());            
 
             string imgPath = @dr["Img"].ToString();
             if (string.IsNullOrEmpty(imgPath)) imgPath = SysProperty.ImgRootFolderpath + @"\Item\" + tbOthSn.Text;
@@ -391,19 +409,25 @@ namespace TheWeWebSite.StoreMgt
                     , typeId
                     ));
             }
-            
-                lst.Add(new DbSearchObject(
-                    "StoreId"
-                    , AtrrTypeItem.String
-                    , AttrSymbolItem.Equal
-                    , ddlStore.SelectedValue
-                    ));
-            
+
+            lst.Add(new DbSearchObject(
+                "StoreId"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , ddlStore.SelectedValue
+                ));
+
             lst.Add(new DbSearchObject(
                 "UpdateAccId"
                 , AtrrTypeItem.String
                 , AttrSymbolItem.Equal
                 , ((DataRow)Session["AccountInfo"])["Id"].ToString()
+                ));
+            lst.Add(new DbSearchObject(
+                "UpdateTime"
+                , AtrrTypeItem.DateTime
+                , AttrSymbolItem.Equal
+                , DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss")
                 ));
             if (isCreate)
             {
@@ -412,6 +436,12 @@ namespace TheWeWebSite.StoreMgt
                 , AtrrTypeItem.String
                 , AttrSymbolItem.Equal
                 , ((DataRow)Session["AccountInfo"])["Id"].ToString()
+                ));
+                lst.Add(new DbSearchObject(
+                "CreatedateTime"
+                , AtrrTypeItem.DateTime
+                , AttrSymbolItem.Equal
+                , DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss")
                 ));
             }
             return lst;
@@ -444,7 +474,7 @@ namespace TheWeWebSite.StoreMgt
                 , AttrSymbolItem.Equal
                 , "2"
                 ));
-    
+
             lst.Add(new DbSearchObject(
                 "UpdateAccId"
                 , AtrrTypeItem.String
@@ -469,9 +499,24 @@ namespace TheWeWebSite.StoreMgt
         {
             try
             {
+                List<DbSearchObject> conds = new List<DbSearchObject>();
+                if (table == MsSqlTable.ServiceItem)
+                {
+                    conds.Add(lst.Find(x => x.AttrName == "CategoryId"));
+                    conds.Add(lst.Find(x => x.AttrName == "StoreId"));
+                    conds.Add(lst.Find(x => x.AttrName == "Name"));
+                    conds.Add(lst.Find(x => x.AttrName == "UpdateAccId"));
+                    conds.Add(lst.Find(x => x.AttrName == "CreatedateAccId"));
+                    conds.Add(lst.Find(x => x.AttrName == "UpdateTime"));
+                    conds.Add(lst.Find(x => x.AttrName == "CreatedateTime"));
+                }
+                else
+                {
+                    conds = lst;
+                }
                 DataSet ds = SysProperty.GenDbCon.GetDataFromTable("Id"
                     , SysProperty.Util.MsSqlTableConverter(table)
-                    , SysProperty.Util.SqlQueryConditionConverter(lst));
+                    , SysProperty.Util.SqlQueryConditionConverter(conds));
                 if (SysProperty.Util.IsDataSetEmpty(ds)) return string.Empty;
                 return ds.Tables[0].Rows[0]["Id"].ToString();
             }
@@ -540,7 +585,7 @@ namespace TheWeWebSite.StoreMgt
             switch (type)
             {
                 case 1:
-                    ImgFront.ImageUrl ="http:" +path + "\\" + tbOthSn.Text + "_1.jpg?" + DateTime.Now.Ticks.ToString();
+                    ImgFront.ImageUrl = "http:" + path + "\\" + tbOthSn.Text + "_1.jpg?" + DateTime.Now.Ticks.ToString();
                     break;
                 case 2:
                     ImgBack.ImageUrl = "http:" + path + "\\" + tbOthSn.Text + "_2.jpg?" + DateTime.Now.Ticks.ToString();
@@ -560,7 +605,7 @@ namespace TheWeWebSite.StoreMgt
                     break;
             }
         }
-        
+
         private void CheckFolder(string path)
         {
             if (!Directory.Exists(path))

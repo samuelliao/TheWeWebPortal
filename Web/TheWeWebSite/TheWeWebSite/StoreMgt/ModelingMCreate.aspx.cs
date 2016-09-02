@@ -19,30 +19,34 @@ namespace TheWeWebSite.StoreMgt
                 if (SysProperty.Util == null) Response.Redirect("../Login.aspx", true);
                 else
                 {
-                    InitialControl();
-                    InitialControlWithPermission();
-                    TextHint();
-                    if (Session["ModelingId"] != null)
-                    {
-                        labelPageTitle.Text = Resources.Resource.StoreMgtString
-                        + " > " + Resources.Resource.StyleMaintainString
-                        + " > " + Resources.Resource.ModifyString;
-                        btnModify.Visible = true;
-                        btnDelete.Visible = true;
-                        SetStyleInfoData(Session["ModelingId"].ToString());
-                    }
-                    else
-                    {
-                        labelPageTitle.Text = Resources.Resource.StoreMgtString
-                        + " > " + Resources.Resource.StyleMaintainString
-                        + " > " + Resources.Resource.CreateString;
-                        btnModify.Visible = false;
-                        btnDelete.Visible = false;
-                    }
+                    InitialPage();
                 }
             }
         }
 
+        private void InitialPage()
+        {
+            InitialControl();
+            InitialControlWithPermission();
+            TextHint();
+            if (Session["ModelingId"] != null)
+            {
+                labelPageTitle.Text = Resources.Resource.StoreMgtString
+                + " > " + Resources.Resource.StyleMaintainString
+                + " > " + Resources.Resource.ModifyString;
+                btnModify.Visible = true;
+                btnDelete.Visible = true;
+                SetStyleInfoData(Session["ModelingId"].ToString());
+            }
+            else
+            {
+                labelPageTitle.Text = Resources.Resource.StoreMgtString
+                + " > " + Resources.Resource.StyleMaintainString
+                + " > " + Resources.Resource.CreateString;
+                btnModify.Visible = false;
+                btnDelete.Visible = false;
+            }
+        }
 
         private void TextHint()
         {
@@ -55,10 +59,17 @@ namespace TheWeWebSite.StoreMgt
             labelWarnString.Text = msg;
             labelWarnString.Visible = !string.IsNullOrEmpty(msg);
         }
-        private void TransferToOtherPage()
+        private void TransferToOtherPage(bool reload)
         {
-            Session.Remove("ModelingId");
-            Response.Redirect("ModelingMaintain.aspx", true);
+            if (reload)
+            {
+                InitialPage();
+            }
+            else
+            {
+                Session.Remove("ModelingId");
+                Response.Redirect("ModelingMaintain.aspx", true);
+            }
         }
         private void InitialControl()
         {
@@ -80,6 +91,7 @@ namespace TheWeWebSite.StoreMgt
         private void TypeList()
         {
             ddlType.Items.Clear();
+            ddlType.Items.Add(new ListItem(Resources.Resource.SeletionRemindString, string.Empty));
             string sql = "select * from HairStyleCategory";
             DataSet ds = GetDataSetFromTable(sql);
             if (!SysProperty.Util.IsDataSetEmpty(ds))
@@ -100,10 +112,13 @@ namespace TheWeWebSite.StoreMgt
         {
             string typeId = CreateNewStyleType(ddlType.SelectedValue);
             if (string.IsNullOrEmpty(typeId)) return;
-            bool result = WriteBackInfo(MsSqlTable.HairStyleItem, true, StyleDbObject(true, typeId), string.Empty);
-            if (result)
+            List<DbSearchObject> lst = StyleDbObject(true, typeId);
+            bool result = WriteBackInfo(MsSqlTable.HairStyleItem, true, lst, string.Empty);
+            string id = GetCreatedId(MsSqlTable.HairStyleItem, lst);
+            if (!string.IsNullOrEmpty(id))
             {
-                TransferToOtherPage();
+                Session["ModelingId"] = id;
+                TransferToOtherPage(true);
             }
         }
 
@@ -115,7 +130,7 @@ namespace TheWeWebSite.StoreMgt
             bool result = WriteBackInfo(MsSqlTable.HairStyleItem, false, StyleDbObject(false, typeId), Session["ModelingId"].ToString());
             if (result)
             {
-                TransferToOtherPage();
+                TransferToOtherPage(true);
             }
         }
 
@@ -131,7 +146,7 @@ namespace TheWeWebSite.StoreMgt
 
         protected void btnCancel_Click(object sender, EventArgs e)
         {
-            TransferToOtherPage();
+            TransferToOtherPage(false);
         }
 
         protected void btnDelete_Click(object sender, EventArgs e)
@@ -145,7 +160,7 @@ namespace TheWeWebSite.StoreMgt
                 + " Where Id = '" + Session["ModelingId"].ToString() + "'";
                 if (SysProperty.GenDbCon.ModifyDataInToTable(sql))
                 {
-                    TransferToOtherPage();
+                    TransferToOtherPage(false);
                 }
             }
             catch (Exception ex)
@@ -155,8 +170,6 @@ namespace TheWeWebSite.StoreMgt
             }
         }
         #endregion
-
-
 
         private string CreateNewStyleType(string ddlValue)
         {
@@ -194,7 +207,7 @@ namespace TheWeWebSite.StoreMgt
             tbSn.Text = dr["Sn"].ToString();
             tbDescription.Text = dr["Description"].ToString();
             ddlType.SelectedValue = dr["Type"].ToString();
-
+            ddlType_SelectedIndexChanged(ddlType, new EventArgs());
             string imgPath = @dr["Img"].ToString();
             if (string.IsNullOrEmpty(imgPath)) imgPath = SysProperty.ImgRootFolderpath + @"HairStyleItem\" + tbSn.Text;
             else imgPath = SysProperty.ImgRootFolderpath + imgPath;
@@ -234,6 +247,12 @@ namespace TheWeWebSite.StoreMgt
                 , AttrSymbolItem.Equal
                 , ((DataRow)Session["AccountInfo"])["Id"].ToString()
                 ));
+            lst.Add(new DbSearchObject(
+                "UpdateTime"
+                , AtrrTypeItem.DateTime
+                , AttrSymbolItem.Equal
+                , DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss")
+                ));
             if (isCreate)
             {
                 lst.Add(new DbSearchObject(
@@ -241,6 +260,12 @@ namespace TheWeWebSite.StoreMgt
                 , AtrrTypeItem.String
                 , AttrSymbolItem.Equal
                 , ((DataRow)Session["AccountInfo"])["Id"].ToString()
+                ));
+                lst.Add(new DbSearchObject(
+                "CreatedateTime"
+                , AtrrTypeItem.DateTime
+                , AttrSymbolItem.Equal
+                , DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss")
                 ));
             }
             lst.Add(new DbSearchObject(
@@ -314,9 +339,23 @@ namespace TheWeWebSite.StoreMgt
         {
             try
             {
+                List<DbSearchObject> conds = new List<DbSearchObject>();
+                if (table == MsSqlTable.HairStyleItem)
+                {
+                    conds.Add(lst.Find(x => x.AttrName == "Type"));
+                    conds.Add(lst.Find(x => x.AttrName == "StoreId"));
+                    conds.Add(lst.Find(x => x.AttrName == "UpdateAccId"));
+                    conds.Add(lst.Find(x => x.AttrName == "CreatedateAccId"));
+                    conds.Add(lst.Find(x => x.AttrName == "UpdateTime"));
+                    conds.Add(lst.Find(x => x.AttrName == "CreatedateTime"));
+                }
+                else
+                {
+                    conds = lst;
+                }
                 DataSet ds = SysProperty.GenDbCon.GetDataFromTable("Id"
                     , SysProperty.Util.MsSqlTableConverter(table)
-                    , SysProperty.Util.SqlQueryConditionConverter(lst));
+                    , SysProperty.Util.SqlQueryConditionConverter(conds));
                 if (SysProperty.Util.IsDataSetEmpty(ds)) return string.Empty;
                 return ds.Tables[0].Rows[0]["Id"].ToString();
             }

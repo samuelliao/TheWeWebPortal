@@ -113,13 +113,8 @@
                             <hr />
                         </div>
                     </div>
-
-
-
                 </section>
             </section>
-
-
             <!-- Footer -->
             <footer id="footer">
                 <ul class="copyright">

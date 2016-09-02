@@ -26,33 +26,38 @@ namespace TheWeWebSite.CaseMgt
                 if (SysProperty.Util == null) Response.Redirect("../Login.aspx", true);
                 else
                 {
-                    SysProperty.DataSetSortType = true;
-                    InitialControls();
-                    TextHint();
-
-                    if (Session["ConsultId"] != null)
-                    {
-                        labelPageTitle.Text = Resources.Resource.OrderMgtString
-                        + " > " + Resources.Resource.ConsultMaintainString
-                        + " > " + Resources.Resource.ModifyString;
-                        btnModify.Visible = true;
-                        btnDelete.Visible = true;
-                        GetConsultInfo(Session["ConsultId"].ToString());
-                    }
-                    else
-                    {
-                        labelPageTitle.Text = Resources.Resource.OrderMgtString
-                        + " > " + Resources.Resource.ConsultMaintainString
-                        + " > " + Resources.Resource.CreateString;
-                        btnModify.Visible = false;
-                        btnClear.Visible = false;
-                        tbLastReceived.Text = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-                        tbBookingDate.Text = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-                        labelConsultDate.Text = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-                    }
-                    InitialControlWithPermission();
+                    InitialPage();
                 }
             }
+        }
+
+        private void InitialPage()
+        {
+            SysProperty.DataSetSortType = true;
+            InitialControls();
+            TextHint();
+
+            if (Session["ConsultId"] != null)
+            {
+                labelPageTitle.Text = Resources.Resource.OrderMgtString
+                + " > " + Resources.Resource.ConsultMaintainString
+                + " > " + Resources.Resource.ModifyString;
+                btnModify.Visible = true;
+                btnDelete.Visible = true;
+                GetConsultInfo(Session["ConsultId"].ToString());
+            }
+            else
+            {
+                labelPageTitle.Text = Resources.Resource.OrderMgtString
+                + " > " + Resources.Resource.ConsultMaintainString
+                + " > " + Resources.Resource.CreateString;
+                btnModify.Visible = false;
+                btnClear.Visible = false;
+                tbLastReceived.Text = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                tbBookingDate.Text = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                labelConsultDate.Text = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+            }
+            InitialControlWithPermission();
         }
 
         private void TextHint()
@@ -377,7 +382,7 @@ namespace TheWeWebSite.CaseMgt
                 + " Where Id = '" + Session["ConsultId"].ToString() + "'";
                 if (((bool)InvokeDbControlFunction(sql, false)))
                 {
-                    TransferToOtherPage();
+                    TransferToOtherPage(false);
                 }
             }
             catch (Exception ex)
@@ -446,7 +451,7 @@ namespace TheWeWebSite.CaseMgt
 
             if (result)
             {
-                TransferToOtherPage();
+                TransferToOtherPage(true);
             }
         }
         protected void btnCreate_Click(object sender, EventArgs e)
@@ -488,12 +493,13 @@ namespace TheWeWebSite.CaseMgt
 
             if (result)
             {
-                TransferToOtherPage();
+                Session["ConsultId"] = id;
+                TransferToOtherPage(true);
             }
         }
         protected void btnCancel_Click(object sender, EventArgs e)
         {
-            TransferToOtherPage();
+            TransferToOtherPage(false);
         }
         #endregion
 
@@ -1275,10 +1281,17 @@ namespace TheWeWebSite.CaseMgt
 
         #endregion
 
-        private void TransferToOtherPage()
+        private void TransferToOtherPage(bool reload)
         {
-            Session.Remove("ConsultId");
-            Server.Transfer("AdvisoryMaintain.aspx", true);
+            if (reload)
+            {
+                InitialPage();
+            }
+            else
+            {
+                Session.Remove("ConsultId");
+                Server.Transfer("AdvisoryMaintain.aspx", true);
+            }
         }
 
         #region Exist Data Set
@@ -1290,7 +1303,10 @@ namespace TheWeWebSite.CaseMgt
                 DS = SysProperty.GenDbCon.GetDataFromTable(string.Empty
                     , SysProperty.Util.MsSqlTableConverter(MsSqlTable.vwEN_Consultation)
                     , " Where Id='" + id + "'");
-                if (SysProperty.Util.IsDataSetEmpty(DS)) TransferToOtherPage();
+                if (SysProperty.Util.IsDataSetEmpty(DS))
+                {
+                    TransferToOtherPage(false);
+                }
                 SetAllControlValue(DS);
             }
             catch (Exception ex)

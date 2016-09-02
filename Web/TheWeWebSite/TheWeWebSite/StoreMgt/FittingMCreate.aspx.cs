@@ -19,25 +19,31 @@ namespace TheWeWebSite.StoreMgt
                 if (SysProperty.Util == null) Response.Redirect("../Login.aspx", true);
                 else
                 {
-                    InitialControls();
-                    InitialControlWithPermission();
-                    TextHint();
-                    if (Session["FittingId"] != null && Session["FittingCategory"] != null)
-                    {
-                        labelPageTitle.Text = Resources.Resource.StoreMgtString
-                        + " > " + Resources.Resource.AccessoryMaintainString
-                        + " > " + Resources.Resource.ModifyString;
-                        SetAllData(Session["FittingCategory"].ToString(), Session["FittingId"].ToString());
-                    }
-                    else
-                    {
-                        labelPageTitle.Text = Resources.Resource.StoreMgtString
-                        + " > " + Resources.Resource.AccessoryMaintainString
-                        + " > " + Resources.Resource.CreateString;
-                        btnModify.Visible = false;
-                        btnDelete.Visible = false;
-                    }
+                    InitialPage();
                 }
+            }
+        }
+        private void InitialPage()
+        {
+            InitialControls();
+            InitialControlWithPermission();
+            TextHint();
+            if (Session["FittingId"] != null && Session["FittingCategory"] != null)
+            {
+                labelPageTitle.Text = Resources.Resource.StoreMgtString
+                + " > " + Resources.Resource.AccessoryMaintainString
+                + " > " + Resources.Resource.ModifyString;
+                btnModify.Visible = true;
+                btnDelete.Visible = true;
+                SetAllData(Session["FittingCategory"].ToString(), Session["FittingId"].ToString());
+            }
+            else
+            {
+                labelPageTitle.Text = Resources.Resource.StoreMgtString
+                + " > " + Resources.Resource.AccessoryMaintainString
+                + " > " + Resources.Resource.CreateString;
+                btnModify.Visible = false;
+                btnDelete.Visible = false;
             }
         }
         private void TextHint()
@@ -63,11 +69,18 @@ namespace TheWeWebSite.StoreMgt
             labelWarnString.Text = msg;
             labelWarnString.Visible = !string.IsNullOrEmpty(msg);
         }
-        private void TransferToOtherPage()
+        private void TransferToOtherPage(bool reload)
         {
-            Session.Remove("FittingId");
-            Session.Remove("FittingCategory");
-            Server.Transfer("FittingMaintain.aspx", true);
+            if (reload)
+            {
+                InitialPage();
+            }
+            else
+            {
+                Session.Remove("FittingId");
+                Session.Remove("FittingCategory");
+                Server.Transfer("FittingMaintain.aspx", true);
+            }
         }
 
         private void InitialControls()
@@ -226,6 +239,7 @@ namespace TheWeWebSite.StoreMgt
         private void FittingTypeList()
         {
             ddlType.Items.Clear();
+            ddlType.Items.Add(new ListItem(Resources.Resource.SeletionRemindString, string.Empty));
             string sql = "select * from DressCategory Where IsDelete=0 And Type='"
                 + GetTypeNameFromCategory(ddlCategory.SelectedValue) + "' Order by Sn";
             DataSet ds = GetDataFromDb(sql);
@@ -239,7 +253,7 @@ namespace TheWeWebSite.StoreMgt
                         ));
                 }
             }
-            ddlType.Items.Add(new ListItem(Resources.Resource.CreateItemString, "CreateItem"));
+            ddlType.Items.Add(new ListItem(Resources.Resource.CreateItemString, "CreateItem"));            
         }
         protected void ddlType_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -316,10 +330,14 @@ namespace TheWeWebSite.StoreMgt
         {
             string typeId = CreateNewType(ddlType.SelectedValue);
             if (string.IsNullOrEmpty(typeId)) return;
-            bool result = WriteBackData(ddlCategory.SelectedValue, AccessoryDbObject(true, typeId), true, string.Empty);
-            if (result)
+            List<DbSearchObject> lst = AccessoryDbObject(true, typeId);
+            bool result = WriteBackData(ddlCategory.SelectedValue, lst, true, string.Empty);
+            string id = GetCreatedId(ddlCategory.SelectedValue, lst);
+            if (!string.IsNullOrEmpty(id))
             {
-                TransferToOtherPage();
+                Session["FittingCategory"] = ddlCategory.SelectedValue;
+                Session["FittingId"] = id;
+                TransferToOtherPage(true);
             }
         }
 
@@ -333,7 +351,7 @@ namespace TheWeWebSite.StoreMgt
             if (result)
             {
                 UpdateRentRecords(typeId, Session["FittingId"].ToString());
-                TransferToOtherPage();
+                TransferToOtherPage(true);
             }
         }
 
@@ -402,7 +420,7 @@ namespace TheWeWebSite.StoreMgt
                 + " Where Id = '" + Session["FittingId"].ToString() + "'";
                 if (SysProperty.GenDbCon.ModifyDataInToTable(sql))
                 {
-                    TransferToOtherPage();
+                    TransferToOtherPage(false);
                 }
             }
             catch (Exception ex)
@@ -414,7 +432,7 @@ namespace TheWeWebSite.StoreMgt
 
         protected void btnCancel_Click(object sender, EventArgs e)
         {
-            TransferToOtherPage();
+            TransferToOtherPage(false);
         }
         #endregion
 
@@ -443,6 +461,7 @@ namespace TheWeWebSite.StoreMgt
             tbColor1.Text = dr["Color"].ToString();
             tbMaterial1.Text = dr["Material"].ToString();
             ddlType.SelectedValue = dr["Category"].ToString();
+            ddlType_SelectedIndexChanged(ddlType, new EventArgs());
             ddlSupplier.SelectedValue = dr["SupplierId"].ToString();
             ddlStatus.SelectedValue = dr["StatusCode"].ToString();
             ddlStore.SelectedValue = dr["StoreId"].ToString();
@@ -707,19 +726,23 @@ namespace TheWeWebSite.StoreMgt
                     , ddlEarringType.SelectedValue
                     ));
             }
-
             lst.Add(new DbSearchObject(
                 "StoreId"
                     , AtrrTypeItem.String
                     , AttrSymbolItem.Equal
                     , ddlStore.SelectedValue
                     ));
-
             lst.Add(new DbSearchObject(
                 "UpdateAccId"
                 , AtrrTypeItem.String
                 , AttrSymbolItem.Equal
                 , ((DataRow)Session["AccountInfo"])["Id"].ToString()
+                ));
+            lst.Add(new DbSearchObject(
+                "UpdateTime"
+                , AtrrTypeItem.DateTime
+                , AttrSymbolItem.Equal
+                , DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss")
                 ));
             if (isCreate)
             {
@@ -728,6 +751,12 @@ namespace TheWeWebSite.StoreMgt
                 , AtrrTypeItem.String
                 , AttrSymbolItem.Equal
                 , ((DataRow)Session["AccountInfo"])["Id"].ToString()
+                ));
+                lst.Add(new DbSearchObject(
+                "CreatedateTime"
+                , AtrrTypeItem.DateTime
+                , AttrSymbolItem.Equal
+                , DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss")
                 ));
             }
             return lst;
@@ -798,6 +827,12 @@ namespace TheWeWebSite.StoreMgt
                 , AttrSymbolItem.Equal
                 , ((DataRow)Session["AccountInfo"])["Id"].ToString()
                 ));
+            lst.Add(new DbSearchObject(
+                "UpdateTime"
+                , AtrrTypeItem.DateTime
+                , AttrSymbolItem.Equal
+                , DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss")
+                ));
             if (isCreate)
             {
                 lst.Add(new DbSearchObject(
@@ -805,6 +840,12 @@ namespace TheWeWebSite.StoreMgt
                 , AtrrTypeItem.String
                 , AttrSymbolItem.Equal
                 , ((DataRow)Session["AccountInfo"])["Id"].ToString()
+                ));
+                lst.Add(new DbSearchObject(
+                "CreatedateTime"
+                , AtrrTypeItem.DateTime
+                , AttrSymbolItem.Equal
+                , DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss")
                 ));
             }
             return lst;
@@ -836,11 +877,30 @@ namespace TheWeWebSite.StoreMgt
 
         private string GetCreatedId(MsSqlTable table, List<DbSearchObject> lst)
         {
+            return GetCreatedId(SysProperty.Util.MsSqlTableConverter(table), lst);
+        }
+        private string GetCreatedId(string table, List<DbSearchObject> lst)
+        {
             try
             {
+                List<DbSearchObject> conds = new List<DbSearchObject>();
+                if (table != SysProperty.Util.MsSqlTableConverter(MsSqlTable.DressCategory))
+                {
+                    conds.Add(lst.Find(x => x.AttrName == "Category"));
+                    conds.Add(lst.Find(x => x.AttrName == "StoreId"));
+                    conds.Add(lst.Find(x => x.AttrName == "StatusCode"));
+                    conds.Add(lst.Find(x => x.AttrName == "UpdateAccId"));
+                    conds.Add(lst.Find(x => x.AttrName == "CreatedateAccId"));
+                    conds.Add(lst.Find(x => x.AttrName == "UpdateTime"));
+                    conds.Add(lst.Find(x => x.AttrName == "CreatedateTime"));
+                }
+                else
+                {
+                    conds = lst;
+                }
                 DataSet ds = SysProperty.GenDbCon.GetDataFromTable("Id"
-                    , SysProperty.Util.MsSqlTableConverter(table)
-                    , SysProperty.Util.SqlQueryConditionConverter(lst));
+                    , table
+                    , SysProperty.Util.SqlQueryConditionConverter(conds));
                 if (SysProperty.Util.IsDataSetEmpty(ds)) return string.Empty;
                 return ds.Tables[0].Rows[0]["Id"].ToString();
             }

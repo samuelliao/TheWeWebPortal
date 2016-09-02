@@ -24,31 +24,36 @@ namespace TheWeWebSite.CaseMgt
                 if (SysProperty.Util == null) Response.Redirect("../Login.aspx", true);
                 else
                 {
-                    InitialControl();
-                    FirstGridViewRow();
-                    FirstGridViewRow2();
-                    TextHint();
-                    if (Session["OrderId"] != null)
-                    {
-                        labelPageTitle.Text = Resources.Resource.OrderMgtString
-                        + " > " + Resources.Resource.ContractMaintainString
-                        + " > " + Resources.Resource.ModifyString;
-                        btnModify.Visible = true;
-                        btnDelete.Visible = true;
-                        SetOrderData(Session["OrderId"].ToString());
-                        SetByCasePermission();
-                    }
-                    else
-                    {
-                        labelPageTitle.Text = Resources.Resource.OrderMgtString
-                        + " > " + Resources.Resource.ContractMaintainString
-                        + " > " + Resources.Resource.CreateString;
-                        btnModify.Visible = false;
-                        btnDelete.Visible = false;
-                    }
-                    InitialControlWithPermission();
+                    InitialPage();
                 }
             }
+        }
+
+        private void InitialPage()
+        {
+            InitialControl();
+            FirstGridViewRow();
+            FirstGridViewRow2();
+            TextHint();
+            if (Session["OrderId"] != null)
+            {
+                labelPageTitle.Text = Resources.Resource.OrderMgtString
+                + " > " + Resources.Resource.ContractMaintainString
+                + " > " + Resources.Resource.ModifyString;
+                btnModify.Visible = true;
+                btnDelete.Visible = true;
+                SetOrderData(Session["OrderId"].ToString());
+                SetByCasePermission();
+            }
+            else
+            {
+                labelPageTitle.Text = Resources.Resource.OrderMgtString
+                + " > " + Resources.Resource.ContractMaintainString
+                + " > " + Resources.Resource.CreateString;
+                btnModify.Visible = false;
+                btnDelete.Visible = false;
+            }
+            InitialControlWithPermission();
         }
 
         private void TextHint()
@@ -91,13 +96,20 @@ namespace TheWeWebSite.CaseMgt
             labelWarnString.Text = msg;
             labelWarnString.Visible = !string.IsNullOrEmpty(msg);
         }
-        private void TransferToOtherPage()
+        private void TransferToOtherPage(bool reload)
         {
-            Server.Transfer("CaseMaintain.aspx", true);
-            Session.Remove("OrderId");
-            if (Session["CustomerId"] != null) Session.Remove("CustomerId");
-            if (Session["PartnerId"] != null) Session.Remove("PartnerId");
-            ViewState.Remove("CurrentTable");
+            if (reload)
+            {
+                InitialPage();
+            }
+            else
+            {
+                Server.Transfer("CaseMaintain.aspx", true);
+                Session.Remove("OrderId");
+                if (Session["CustomerId"] != null) Session.Remove("CustomerId");
+                if (Session["PartnerId"] != null) Session.Remove("PartnerId");
+                ViewState.Remove("CurrentTable");
+            }
         }
 
         private void InitialControl()
@@ -464,7 +476,7 @@ namespace TheWeWebSite.CaseMgt
         #region Button Control
         protected void btnCancel_Click(object sender, EventArgs e)
         {
-            TransferToOtherPage();
+            TransferToOtherPage(false);
         }
 
         protected void btnDelete_Click(object sender, EventArgs e)
@@ -478,7 +490,7 @@ namespace TheWeWebSite.CaseMgt
                 + " Where Id = '" + Session["ChurchId"].ToString() + "'";
                 if (SysProperty.GenDbCon.ModifyDataInToTable(sql))
                 {
-                    TransferToOtherPage();
+                    TransferToOtherPage(false);
                 }
             }
             catch (Exception ex)
@@ -566,7 +578,9 @@ namespace TheWeWebSite.CaseMgt
             result = WriteBackServiceItem(true, ServiceItemDbObject(true, id), id);
             if (result)
             {
+                Session["OrderId"] = id;
                 WriteBackReceiptInfo(ReceiptDbObject(id));
+                TransferToOtherPage(true);
             }
         }
 
@@ -587,6 +601,7 @@ namespace TheWeWebSite.CaseMgt
             if (result)
             {
                 WriteBackReceiptInfo(ReceiptDbObject(id));
+                TransferToOtherPage(true);
             }
         }
         #endregion
@@ -625,7 +640,10 @@ namespace TheWeWebSite.CaseMgt
         private void SetOrderData(string id)
         {
             DataSet ds = GetOrderInfo(id);
-            if (SysProperty.Util.IsDataSetEmpty(ds)) TransferToOtherPage();
+            if (SysProperty.Util.IsDataSetEmpty(ds))
+            {
+                TransferToOtherPage(false);
+            }
 
             DataRow dr = ds.Tables[0].Rows[0];
             Session["CustomerId"] = dr["CustomerId"].ToString();

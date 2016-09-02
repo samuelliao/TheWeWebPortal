@@ -19,29 +19,34 @@ namespace TheWeWebSite.StoreMgt
                 if (SysProperty.Util == null) Response.Redirect("../Login.aspx", true);
                 else
                 {
-                    InitialControl();
-                    InitialControlWithPermission();
-                    TextHint();
-                    if (Session["EmpId"] != null)
-                    {
-                        labelPageTitle.Text = Resources.Resource.StoreMgtString
-                        + " > " + Resources.Resource.EmployeeMaintainString
-                        + " > " + Resources.Resource.ModifyString;
-                        btnModify.Visible = true;
-                        btnDelete.Visible = true;
-                        SetEmpInfoData(Session["EmpId"].ToString());
-                        CheckStoreHolderPermission();
-                    }
-                    else
-                    {
-                        labelPageTitle.Text = Resources.Resource.StoreMgtString
-                        + " > " + Resources.Resource.EmployeeMaintainString
-                        + " > " + Resources.Resource.CreateString;
-                        btnModify.Visible = false;
-                        btnDelete.Visible = false;
-                        EmpOnBoardDay.Text = DateTime.Now.ToString("yyyy-MM-dd");
-                    }
+                    InitialPage();
                 }
+            }
+        }
+
+        private void InitialPage()
+        {
+            InitialControl();
+            InitialControlWithPermission();
+            TextHint();
+            if (Session["EmpId"] != null)
+            {
+                labelPageTitle.Text = Resources.Resource.StoreMgtString
+                + " > " + Resources.Resource.EmployeeMaintainString
+                + " > " + Resources.Resource.ModifyString;
+                btnModify.Visible = true;
+                btnDelete.Visible = true;
+                SetEmpInfoData(Session["EmpId"].ToString());
+                CheckStoreHolderPermission();
+            }
+            else
+            {
+                labelPageTitle.Text = Resources.Resource.StoreMgtString
+                + " > " + Resources.Resource.EmployeeMaintainString
+                + " > " + Resources.Resource.CreateString;
+                btnModify.Visible = false;
+                btnDelete.Visible = false;
+                EmpOnBoardDay.Text = DateTime.Now.ToString("yyyy-MM-dd");
             }
         }
 
@@ -62,8 +67,6 @@ namespace TheWeWebSite.StoreMgt
             tbEmpRemark.Attributes.Add("placeHolder", Resources.Resource.AddString + Resources.Resource.RemarkString);
             tbEmpSalary.Attributes.Add("placeHolder", Resources.Resource.AddString + Resources.Resource.SalaryString);
             tbEmpSn.Attributes.Add("placeHolder", Resources.Resource.AddString + Resources.Resource.SnString);
-
-
         }
 
         private void ShowErrorMsg(string msg)
@@ -71,11 +74,18 @@ namespace TheWeWebSite.StoreMgt
             labelWarnString.Text = msg;
             labelWarnString.Visible = !string.IsNullOrEmpty(msg);
         }
-        private void TransferToOtherPage()
+        private void TransferToOtherPage(bool reload)
         {
-            Session.Remove("EmpId");
-            Response.Redirect("EmployeeMaintain.aspx", true);
+            if (!reload)
+            {
+                Session.Remove("EmpId");
+                Response.Redirect("EmployeeMaintain.aspx", true);
+            }else
+            {
+                InitialPage();
+            }
         }
+
         private void InitialControlWithPermission()
         {
             PermissionUtil util = new PermissionUtil();
@@ -103,7 +113,7 @@ namespace TheWeWebSite.StoreMgt
             bool holder = bool.Parse(user["StoreHolder"].ToString());
             if (!holder)
             {
-                TransferToOtherPage();
+                TransferToOtherPage(false);
             }
         }
 
@@ -202,7 +212,8 @@ namespace TheWeWebSite.StoreMgt
             result = WriteBackPermissionItem(PermissionItemDbObject(true, pid), pid, "Store");
             if (result)
             {
-                TransferToOtherPage();
+                Session["EmpId"] = eid;
+                TransferToOtherPage(true);
             }
             //
         }
@@ -213,7 +224,7 @@ namespace TheWeWebSite.StoreMgt
             bool result = WriteBackInfo(false, EmployeeInfoDbObject(string.IsNullOrEmpty(labelPw.Text)), Session["EmpId"].ToString());
             if (result)
             {
-                TransferToOtherPage();
+                TransferToOtherPage(true);
             }
         }
 
@@ -245,7 +256,7 @@ namespace TheWeWebSite.StoreMgt
 
         protected void btnCancel_Click(object sender, EventArgs e)
         {
-            TransferToOtherPage();
+            TransferToOtherPage(false);
         }
 
         protected void btnDelete_Click(object sender, EventArgs e)
@@ -261,7 +272,7 @@ namespace TheWeWebSite.StoreMgt
                 + " Where Id = '" + Session["EmpId"].ToString() + "'";
                 if (SysProperty.GenDbCon.ModifyDataInToTable(sql))
                 {
-                    TransferToOtherPage();
+                    TransferToOtherPage(false);
                 }
             }
             catch (Exception ex)

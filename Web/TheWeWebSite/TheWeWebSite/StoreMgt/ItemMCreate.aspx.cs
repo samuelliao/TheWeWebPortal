@@ -18,30 +18,35 @@ namespace TheWeWebSite.StoreMgt
                 if (SysProperty.Util == null) Response.Redirect("../Login.aspx", true);
                 else
                 {
-                    InitialAllDropDownList();
-                    FirstGridViewRow_dgChurchServiceItem();
-                    FirstGridViewRow_dgCutomServiceItem();
-                    InitialControlWithPermission();
-                    TextHint();
-
-                    if (Session["SetId"] != null)
-                    {
-                        labelPageTitle.Text = Resources.Resource.OrderMgtString
-                        + " > " + Resources.Resource.ProductMaintainString
-                        + " > " + Resources.Resource.ModifyString;
-                        btnModify.Visible = true;
-                        btnDelete.Visible = true;
-                        SetSetAllData(Session["SetId"].ToString());
-                    }
-                    else
-                    {
-                        labelPageTitle.Text = Resources.Resource.OrderMgtString
-                        + " > " + Resources.Resource.ProductMaintainString
-                        + " > " + Resources.Resource.CreateString;
-                        btnModify.Visible = false;
-                        btnDelete.Visible = false;
-                    }
+                    InitialPage();
                 }
+            }
+        }
+
+        private void InitialPage()
+        {
+            InitialAllDropDownList();
+            FirstGridViewRow_dgChurchServiceItem();
+            FirstGridViewRow_dgCutomServiceItem();
+            InitialControlWithPermission();
+            TextHint();
+
+            if (Session["SetId"] != null)
+            {
+                labelPageTitle.Text = Resources.Resource.OrderMgtString
+                + " > " + Resources.Resource.ProductMaintainString
+                + " > " + Resources.Resource.ModifyString;
+                btnModify.Visible = true;
+                btnDelete.Visible = true;
+                SetSetAllData(Session["SetId"].ToString());
+            }
+            else
+            {
+                labelPageTitle.Text = Resources.Resource.OrderMgtString
+                + " > " + Resources.Resource.ProductMaintainString
+                + " > " + Resources.Resource.CreateString;
+                btnModify.Visible = false;
+                btnDelete.Visible = false;
             }
         }
 
@@ -74,11 +79,18 @@ namespace TheWeWebSite.StoreMgt
             labelWarnString.Text = msg;
             labelWarnString.Visible = !string.IsNullOrEmpty(msg);
         }
-        private void TransferToOtherPage()
+        private void TransferToOtherPage(bool reload)
         {
-            Session.Remove("SetId");
-            ViewState.Remove("CurrentTable");
-            Response.Redirect("ItemMaintain.aspx", true);
+            if (reload)
+            {
+                InitialPage();
+            }
+            else
+            {
+                Session.Remove("SetId");
+                ViewState.Remove("CurrentTable");
+                Response.Redirect("ItemMaintain.aspx", true);
+            }
         }
         private void InitialControlWithPermission()
         {
@@ -282,7 +294,7 @@ namespace TheWeWebSite.StoreMgt
         #region Button Control
         protected void btnCancel_Click(object sender, EventArgs e)
         {
-            TransferToOtherPage();
+            TransferToOtherPage(false);
         }
 
         protected void btnDelete_Click(object sender, EventArgs e)
@@ -296,7 +308,7 @@ namespace TheWeWebSite.StoreMgt
                 + " Where Id = '" + Session["ConsultId"].ToString() + "'";
                 if (((bool)InvokeDbControlFunction(sql, false)))
                 {
-                    TransferToOtherPage();
+                    TransferToOtherPage(false);
                 }
             }
             catch (Exception ex)
@@ -370,7 +382,7 @@ namespace TheWeWebSite.StoreMgt
             result = WriteBackServiceItem(MsSqlTable.ProductSetServiceItem, false, ServiceItemDbObject(true, "Custom", id), id);
             if (result)
             {
-                TransferToOtherPage();
+                TransferToOtherPage(true);
             }
         }
 
@@ -391,7 +403,8 @@ namespace TheWeWebSite.StoreMgt
             result = WriteBackServiceItem(MsSqlTable.ProductSetChurchServiceItem, false, ServiceItemDbObject(true, "Custom", id), id);
             if (result)
             {
-                TransferToOtherPage();
+                Session["SetId"] = id;
+                TransferToOtherPage(true);
             }
         }
         #endregion
