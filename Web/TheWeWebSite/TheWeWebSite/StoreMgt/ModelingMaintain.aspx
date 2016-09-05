@@ -51,7 +51,7 @@
                                 <ul class="actions">
 
                                     <li>
-                                        <asp:Button runat="server" Text="<%$ Resources:Resource,CreateString%>" ID="LinkModelingMCreate" PostBackUrl="~/StoreMgt/ModelingMCreate.aspx" />
+                                        <asp:Button runat="server" Text="<%$ Resources:Resource,CreateString%>" ID="LinkModelingMCreate" OnClick="LinkModelingMCreate_Click" />
                                     </li>
                                     <li>
                                         <asp:Button runat="server" CssClass="button alt" Text="<%$ Resources:Resource,SearchString%>" OnClick="btnSearch_Click" id="btnSearch"/>

@@ -292,5 +292,12 @@ namespace TheWeWebSite.StoreMgt
                 return false;
             }
         }
+
+        protected void LinkFittingMCreate_Click(object sender, EventArgs e)
+        {
+            Session.Remove("FittingId");
+            Session.Remove("FittingCategory");
+            Response.Redirect("FittingMCreate.aspx", true);
+        }
     }
 }

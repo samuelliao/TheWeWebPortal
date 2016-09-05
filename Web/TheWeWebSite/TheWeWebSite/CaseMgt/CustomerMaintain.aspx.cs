@@ -237,5 +237,11 @@ namespace TheWeWebSite.CaseMgt
                 DS = null;
             }
         }
+
+        protected void LinkCustomerMCreate_Click(object sender, EventArgs e)
+        {
+            Session.Remove("CustomerId");
+            Server.Transfer("CustomerMCreate.aspx", true);
+        }
     }
 }

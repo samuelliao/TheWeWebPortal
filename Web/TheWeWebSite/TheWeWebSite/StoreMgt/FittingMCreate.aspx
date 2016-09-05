@@ -1,5 +1,6 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="FittingMCreate.aspx.cs" Inherits="TheWeWebSite.StoreMgt.FittingMCreate" %>
 
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 <%@ Register TagPrefix="My" TagName="Header" Src="~/Header.ascx" %>
 
 <!DOCTYPE html>
@@ -25,194 +26,262 @@
         <section class="insert">
             <div>
                 <asp:Label runat="server" ID="labelWarnString" ForeColor="Red" Visible="false" />
-                <div class="12u">
-                    <div class="row uniform 50%">
-                        <div class="2u 12u(mobilep)">
-                            <div class="Div">
-                                <asp:Label runat="server" Text="<%$ Resources:Resource,StoreString%>"></asp:Label>
-                            </div>
-                            <asp:DropDownList runat="server" ID="ddlStore" />
-                        </div>
-                        <div class="2u 12u(mobilep)">
-                            <div class="Div">
-                                <asp:Label runat="server" Text="<%$ Resources:Resource,SnString%>"></asp:Label>
-                            </div>
-
-                            <asp:TextBox CssClass="required" runat="server" ID="tbSn"></asp:TextBox>
-                            <asp:RequiredFieldValidator ID="RequiredFieldValidator1"
-                                ControlToValidate="tbSn" runat="server"
-                                ErrorMessage="required"
-                                CssClass="error" Display="Dynamic"></asp:RequiredFieldValidator>
-                        </div>
-                        <div class="2u 12u(mobilep)">
-                            <div class="Div">
-                                <asp:Label runat="server" Text="<%$ Resources:Resource,CategoryString%>"></asp:Label>
-                            </div>
-                            <asp:DropDownList CssClass="required" runat="server" ID="ddlCategory" AutoPostBack="true" OnSelectedIndexChanged="ddlCategory_SelectedIndexChanged" />
-                            <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="ddlCategory" runat="server"
-                                ErrorMessage="required" CssClass="error" Display="Dynamic"></asp:RequiredFieldValidator>
-                            <asp:TextBox runat="server" ID="tbCategory" Style="display: none;" />
-                        </div>
-                        <div class="2u 12u(mobilep)">
-                            <div class="Div">
-                                <asp:Label runat="server" Text="<%$ Resources:Resource,TypeString%>"></asp:Label>
-                            </div>
-                            <asp:UpdatePanel runat="server">
-                                <ContentTemplate>
-                                    <asp:DropDownList CssClass="required" runat="server" ID="ddlType" AutoPostBack="true" OnSelectedIndexChanged="ddlType_SelectedIndexChanged" />
-                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator4" ControlToValidate="ddlType" runat="server"
-                                        ErrorMessage="required" CssClass="error" Display="Dynamic"></asp:RequiredFieldValidator>
-                                    <div style="display: none;" runat="server" id="divNewType" >
-                                        <div style="margin-left:0.5em;margin-top:7px">
-                                            <asp:Label runat="server" Text="<%$ Resources:Resource,CreateItemString%>"></asp:Label>
+                <cc1:TabContainer runat="server">
+                    <cc1:TabPanel runat="server" HeaderText="<%$ Resources:Resource,BasicInfoString%>">
+                        <ContentTemplate>
+                            <div class="12u">
+                                <div class="row uniform 50%">
+                                    <div class="2u 12u(mobilep)">
+                                        <div class="Div">
+                                            <asp:Label runat="server" Text="<%$ Resources:Resource,StoreString%>"></asp:Label>
                                         </div>
-                                        <asp:TextBox CssClass="required" runat="server" ID="tbType" Style="display: none;" />
+                                        <asp:DropDownList runat="server" ID="ddlStore" />
                                     </div>
-                                </ContentTemplate>
-                            </asp:UpdatePanel>
-                        </div>
-                        <div class="2u 12u(mobilep)" runat="server" id="divEarringType" visible="false">
-                            <div class="Div">
-                                <asp:Label runat="server" Text="<%$ Resources:Resource,TypeString%>"></asp:Label>
-                            </div>
-                            <asp:UpdatePanel runat="server">
-                                <ContentTemplate>
-                                    <asp:DropDownList runat="server" ID="ddlEarringType" />
-                                </ContentTemplate>
-                            </asp:UpdatePanel>
-                        </div>
-                        <div class="2u 12u(mobilep)" runat="server" id="divGender" visible="false">
-                            <div class="Div">
-                                <asp:Label runat="server" Text="<%$ Resources:Resource,GenderString%>"></asp:Label>
-                            </div>
-                            <asp:UpdatePanel runat="server">
-                                <ContentTemplate>
-                                    <asp:DropDownList runat="server" ID="ddlGender" />
-                                </ContentTemplate>
-                            </asp:UpdatePanel>
-                        </div>
-                        <div class="2u 12u(mobilep)">
-                            <div class="Div">
-                                <asp:Label runat="server" Text="<%$ Resources:Resource,StatusString%>"></asp:Label>
-                            </div>
-                            <asp:UpdatePanel runat="server">
-                                <ContentTemplate>
-                                    <asp:DropDownList CssClass="required" runat="server" ID="ddlStatus" />
-                                </ContentTemplate>
-                            </asp:UpdatePanel>
-                            <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate="ddlStatus" runat="server"
-                                ErrorMessage="required" CssClass="error" Display="Dynamic"></asp:RequiredFieldValidator>
-                        </div>
-                        <div class="2u 12u(mobilep)" runat="server" id="divRelatedCategory" visible="false">
-                            <div class="Div">
-                                <asp:Label runat="server" Text="<%$ Resources:Resource,CorrespondString%>"></asp:Label>
-                            </div>
-                            <asp:DropDownList runat="server" ID="ddlRelatedCategory" />
-                        </div>
-                        <div class="2u 12u(mobilep)" runat="server" id="divRelatedSn" visible="false">
-                            <div class="Div">
-                                <asp:Label runat="server" Text="<%$ Resources:Resource,CorrespondSnString%>"></asp:Label>
-                            </div>
-                            <asp:TextBox runat="server" ID="tbRelatedSn"></asp:TextBox>
-                        </div>
-                        <div class="2u 12u(mobilep)">
-                            <div class="Div">
-                                <asp:Label runat="server" Text="<%$ Resources:Resource,ColorString%>"></asp:Label>
-                            </div>
-                            <asp:TextBox runat="server" ID="tbColor1"></asp:TextBox>
-                        </div>
-                        <div class="2u 12u(mobilep)" runat="server" id="divColor2" visible="false">
-                            <div class="Div">
-                                <asp:Label runat="server" Text="<%$ Resources:Resource,ColorString%>"></asp:Label>
-                            </div>
-                            <asp:TextBox runat="server" ID="tbColor2"></asp:TextBox>
-                        </div>
-                        <div class="2u 12u(mobilep)" runat="server" id="divMaterial1">
-                            <div class="Div">
-                                <asp:Label runat="server" Text="<%$ Resources:Resource,MaterialString%>"></asp:Label>
-                            </div>
-                            <asp:TextBox runat="server" ID="tbMaterial1"></asp:TextBox>
-                        </div>
-                        <div class="2u 12u(mobilep)" runat="server" id="divMaterial2" visible="false">
-                            <div class="Div">
-                                <asp:Label runat="server" Text="<%$ Resources:Resource,MaterialString%>"></asp:Label>
-                            </div>
-                            <asp:TextBox runat="server" ID="tbMaterial2"></asp:TextBox>
-                        </div>
-                        <div class="2u 12u(mobilep)" runat="server" id="divLength" visible="false">
-                            <div class="Div">
-                                <asp:Label runat="server" Text="<%$ Resources:Resource,LengthString%>"></asp:Label>
-                            </div>
-                            <asp:DropDownList runat="server" ID="ddlLength" />
-                        </div>
-                        <div class="2u 12u(mobilep)" runat="server" id="divLace" visible="false">
-                            <div class="Div">
-                                <asp:Label runat="server" Text="<%$ Resources:Resource,LaceString%>"></asp:Label>
-                            </div>
-                            <asp:TextBox runat="server" ID="tbLace" />
-                        </div>
-                        <div class="2u 12u(mobilep)">
-                            <div class="Div">
-                                <asp:Label runat="server" Text="<%$ Resources:Resource,SupplierString%>"></asp:Label>
-                            </div>
-                            <asp:DropDownList runat="server" ID="ddlSupplier" />
-                        </div>
-                        <div class="2u 12u(mobilep)">
-                            <div class="Div">
-                                <asp:Label runat="server" Text="<%$ Resources:Resource,CostString%>"></asp:Label>
-                            </div>
-                            <asp:TextBox runat="server" ID="tbCost" Style="text-align: right"></asp:TextBox>
-                            <asp:RegularExpressionValidator CssClass="error" Display="Dynamic" ID="RegularExpressionValidator1" ControlToValidate="tbCost" runat="server" ErrorMessage="Only Numbers allowed" ValidationExpression="\d+[.]*\d*"></asp:RegularExpressionValidator>
-                        </div>
-                        <div class="2u 12u(mobilep)">
-                            <div class="Div">
-                                <asp:Label runat="server" Text="<%$ Resources:Resource,RentPriceString%>"></asp:Label>
-                            </div>
-                            <asp:TextBox runat="server" ID="tbRentPrice" Style="text-align: right"></asp:TextBox>
-                            <asp:RegularExpressionValidator CssClass="error" Display="Dynamic" ID="RegularExpressionValidator2" ControlToValidate="tbRentPrice" runat="server" ErrorMessage="Only Numbers allowed" ValidationExpression="\d+[.]*\d*"></asp:RegularExpressionValidator>
-                        </div>
-                        <div class="2u 12u(mobilep)">
-                            <div class="Div">
-                                <asp:Label runat="server" Text="<%$ Resources:Resource,OptionalPriceString%>"></asp:Label>
-                            </div>
-                            <asp:TextBox runat="server" ID="tbOptionalPrice" Style="text-align: right"></asp:TextBox>
-                            <asp:RegularExpressionValidator CssClass="error" Display="Dynamic" ID="RegularExpressionValidator3" ControlToValidate="tbOptionalPrice" runat="server" ErrorMessage="Only Numbers allowed" ValidationExpression="\d+[.]*\d*"></asp:RegularExpressionValidator>
-                        </div>
-                        <div class="2u 12u(mobilep)">
-                            <div class="Div">
-                                <asp:Label runat="server" Text="<%$ Resources:Resource,SellingPriceString%>"></asp:Label>
-                            </div>
-                            <asp:TextBox runat="server" ID="tbSalesPrice" Style="text-align: right"></asp:TextBox>
-                            <asp:RegularExpressionValidator CssClass="error" Display="Dynamic" ID="RegularExpressionValidator4" ControlToValidate="tbSalesPrice" runat="server" ErrorMessage="Only Numbers allowed" ValidationExpression="\d+[.]*\d*"></asp:RegularExpressionValidator>
-                        </div>
-                    </div>
-                </div>
+                                    <div class="2u 12u(mobilep)">
+                                        <div class="Div">
+                                            <asp:Label runat="server" Text="<%$ Resources:Resource,SnString%>"></asp:Label>
+                                        </div>
 
-                <div class="12u">
-                    <div class="row uniform 50%">
-                        <div class="4u 12u(mobilep)">
-                            <div class="Div">
-                                <asp:Label runat="server" Text="<%$ Resources:Resource,RentRecordString%>"></asp:Label>
+                                        <asp:TextBox CssClass="required" runat="server" ID="tbSn"></asp:TextBox>
+                                        <asp:RequiredFieldValidator ID="RequiredFieldValidator1"
+                                            ControlToValidate="tbSn" runat="server"
+                                            ErrorMessage="required"
+                                            CssClass="error" Display="Dynamic"></asp:RequiredFieldValidator>
+                                    </div>
+                                    <div class="2u 12u(mobilep)">
+                                        <div class="Div">
+                                            <asp:Label runat="server" Text="<%$ Resources:Resource,CategoryString%>"></asp:Label>
+                                        </div>
+                                        <asp:DropDownList CssClass="required" runat="server" ID="ddlCategory" AutoPostBack="true" OnSelectedIndexChanged="ddlCategory_SelectedIndexChanged" />
+                                        <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="ddlCategory" runat="server"
+                                            ErrorMessage="required" CssClass="error" Display="Dynamic"></asp:RequiredFieldValidator>
+                                        <asp:TextBox runat="server" ID="tbCategory" Style="display: none;" />
+                                    </div>
+                                    <div class="2u 12u(mobilep)">
+                                        <div class="Div">
+                                            <asp:Label runat="server" Text="<%$ Resources:Resource,TypeString%>"></asp:Label>
+                                        </div>
+                                        <asp:UpdatePanel runat="server">
+                                            <ContentTemplate>
+                                                <asp:DropDownList CssClass="required" runat="server" ID="ddlType" AutoPostBack="true" OnSelectedIndexChanged="ddlType_SelectedIndexChanged" />
+                                                <asp:RequiredFieldValidator ID="RequiredFieldValidator4" ControlToValidate="ddlType" runat="server"
+                                                    ErrorMessage="required" CssClass="error" Display="Dynamic"></asp:RequiredFieldValidator>
+                                                <div style="display: none;" runat="server" id="divNewType">
+                                                    <div style="margin-left: 0.5em; margin-top: 7px">
+                                                        <asp:Label runat="server" Text="<%$ Resources:Resource,CreateItemString%>"></asp:Label>
+                                                    </div>
+                                                    <asp:TextBox CssClass="required" runat="server" ID="tbType" Style="display: none;" />
+                                                </div>
+                                            </ContentTemplate>
+                                        </asp:UpdatePanel>
+                                    </div>
+                                    <div class="2u 12u(mobilep)" runat="server" id="divEarringType" visible="false">
+                                        <div class="Div">
+                                            <asp:Label runat="server" Text="<%$ Resources:Resource,TypeString%>"></asp:Label>
+                                        </div>
+                                        <asp:UpdatePanel runat="server">
+                                            <ContentTemplate>
+                                                <asp:DropDownList runat="server" ID="ddlEarringType" />
+                                            </ContentTemplate>
+                                        </asp:UpdatePanel>
+                                    </div>
+                                    <div class="2u 12u(mobilep)" runat="server" id="divGender" visible="false">
+                                        <div class="Div">
+                                            <asp:Label runat="server" Text="<%$ Resources:Resource,GenderString%>"></asp:Label>
+                                        </div>
+                                        <asp:UpdatePanel runat="server">
+                                            <ContentTemplate>
+                                                <asp:DropDownList runat="server" ID="ddlGender" />
+                                            </ContentTemplate>
+                                        </asp:UpdatePanel>
+                                    </div>
+                                    <div class="2u 12u(mobilep)">
+                                        <div class="Div">
+                                            <asp:Label runat="server" Text="<%$ Resources:Resource,StatusString%>"></asp:Label>
+                                        </div>
+                                        <asp:UpdatePanel runat="server">
+                                            <ContentTemplate>
+                                                <asp:DropDownList CssClass="required" runat="server" ID="ddlStatus" />
+                                            </ContentTemplate>
+                                        </asp:UpdatePanel>
+                                        <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate="ddlStatus" runat="server"
+                                            ErrorMessage="required" CssClass="error" Display="Dynamic"></asp:RequiredFieldValidator>
+                                    </div>
+                                    <div class="2u 12u(mobilep)" runat="server" id="divRelatedCategory" visible="false">
+                                        <div class="Div">
+                                            <asp:Label runat="server" Text="<%$ Resources:Resource,CorrespondString%>"></asp:Label>
+                                        </div>
+                                        <asp:DropDownList runat="server" ID="ddlRelatedCategory" />
+                                    </div>
+                                    <div class="2u 12u(mobilep)" runat="server" id="divRelatedSn" visible="false">
+                                        <div class="Div">
+                                            <asp:Label runat="server" Text="<%$ Resources:Resource,CorrespondSnString%>"></asp:Label>
+                                        </div>
+                                        <asp:TextBox runat="server" ID="tbRelatedSn"></asp:TextBox>
+                                    </div>
+                                    <div class="2u 12u(mobilep)">
+                                        <div class="Div">
+                                            <asp:Label runat="server" Text="<%$ Resources:Resource,ColorString%>"></asp:Label>
+                                        </div>
+                                        <asp:TextBox runat="server" ID="tbColor1"></asp:TextBox>
+                                    </div>
+                                    <div class="2u 12u(mobilep)" runat="server" id="divColor2" visible="false">
+                                        <div class="Div">
+                                            <asp:Label runat="server" Text="<%$ Resources:Resource,ColorString%>"></asp:Label>
+                                        </div>
+                                        <asp:TextBox runat="server" ID="tbColor2"></asp:TextBox>
+                                    </div>
+                                    <div class="2u 12u(mobilep)" runat="server" id="divMaterial1">
+                                        <div class="Div">
+                                            <asp:Label runat="server" Text="<%$ Resources:Resource,MaterialString%>"></asp:Label>
+                                        </div>
+                                        <asp:TextBox runat="server" ID="tbMaterial1"></asp:TextBox>
+                                    </div>
+                                    <div class="2u 12u(mobilep)" runat="server" id="divMaterial2" visible="false">
+                                        <div class="Div">
+                                            <asp:Label runat="server" Text="<%$ Resources:Resource,MaterialString%>"></asp:Label>
+                                        </div>
+                                        <asp:TextBox runat="server" ID="tbMaterial2"></asp:TextBox>
+                                    </div>
+                                    <div class="2u 12u(mobilep)" runat="server" id="divLength" visible="false">
+                                        <div class="Div">
+                                            <asp:Label runat="server" Text="<%$ Resources:Resource,LengthString%>"></asp:Label>
+                                        </div>
+                                        <asp:DropDownList runat="server" ID="ddlLength" />
+                                    </div>
+                                    <div class="2u 12u(mobilep)" runat="server" id="divLace" visible="false">
+                                        <div class="Div">
+                                            <asp:Label runat="server" Text="<%$ Resources:Resource,LaceString%>"></asp:Label>
+                                        </div>
+                                        <asp:TextBox runat="server" ID="tbLace" />
+                                    </div>
+                                    <div class="2u 12u(mobilep)">
+                                        <div class="Div">
+                                            <asp:Label runat="server" Text="<%$ Resources:Resource,SupplierString%>"></asp:Label>
+                                        </div>
+                                        <asp:DropDownList runat="server" ID="ddlSupplier" />
+                                    </div>
+                                    <div class="2u 12u(mobilep)">
+                                        <div class="Div">
+                                            <asp:Label runat="server" Text="<%$ Resources:Resource,CostString%>"></asp:Label>
+                                        </div>
+                                        <asp:TextBox runat="server" ID="tbCost" Style="text-align: right"></asp:TextBox>
+                                        <asp:RegularExpressionValidator CssClass="error" Display="Dynamic" ID="RegularExpressionValidator1" ControlToValidate="tbCost" runat="server" ErrorMessage="Only Numbers allowed" ValidationExpression="\d+[.]*\d*"></asp:RegularExpressionValidator>
+                                    </div>
+                                    <div class="2u 12u(mobilep)">
+                                        <div class="Div">
+                                            <asp:Label runat="server" Text="<%$ Resources:Resource,RentPriceString%>"></asp:Label>
+                                        </div>
+                                        <asp:TextBox runat="server" ID="tbRentPrice" Style="text-align: right"></asp:TextBox>
+                                        <asp:RegularExpressionValidator CssClass="error" Display="Dynamic" ID="RegularExpressionValidator2" ControlToValidate="tbRentPrice" runat="server" ErrorMessage="Only Numbers allowed" ValidationExpression="\d+[.]*\d*"></asp:RegularExpressionValidator>
+                                    </div>
+                                    <div class="2u 12u(mobilep)">
+                                        <div class="Div">
+                                            <asp:Label runat="server" Text="<%$ Resources:Resource,OptionalPriceString%>"></asp:Label>
+                                        </div>
+                                        <asp:TextBox runat="server" ID="tbOptionalPrice" Style="text-align: right"></asp:TextBox>
+                                        <asp:RegularExpressionValidator CssClass="error" Display="Dynamic" ID="RegularExpressionValidator3" ControlToValidate="tbOptionalPrice" runat="server" ErrorMessage="Only Numbers allowed" ValidationExpression="\d+[.]*\d*"></asp:RegularExpressionValidator>
+                                    </div>
+                                    <div class="2u 12u(mobilep)">
+                                        <div class="Div">
+                                            <asp:Label runat="server" Text="<%$ Resources:Resource,SellingPriceString%>"></asp:Label>
+                                        </div>
+                                        <asp:TextBox runat="server" ID="tbSalesPrice" Style="text-align: right"></asp:TextBox>
+                                        <asp:RegularExpressionValidator CssClass="error" Display="Dynamic" ID="RegularExpressionValidator4" ControlToValidate="tbSalesPrice" runat="server" ErrorMessage="Only Numbers allowed" ValidationExpression="\d+[.]*\d*"></asp:RegularExpressionValidator>
+                                    </div>
+                                </div>
                             </div>
-                            <div style="overflow-y: auto; height: 200px">
-                                <asp:UpdatePanel runat="server">
-                                    <ContentTemplate>
-                                        <asp:DataGrid runat="server" ID="dataGrid" AllowPaging="true" AllowSorting="false"
-                                            AutoGenerateColumns="false" DataKeyField="Id">
-                                            <HeaderStyle VerticalAlign="Middle" HorizontalAlign="Center" />
-                                            <PagerStyle Mode="NumericPages" />
-                                            <Columns>
-                                                <asp:BoundColumn DataField="Id" Visible="false"></asp:BoundColumn>
-                                                <asp:BoundColumn HeaderText="<%$ Resources:Resource,StartString%>" DataField="RentStartTime" />
-                                                <asp:BoundColumn HeaderText="<%$ Resources:Resource,EndString%>" DataField="RentEndTime" />
-                                            </Columns>
-                                        </asp:DataGrid>
-                                    </ContentTemplate>
-                                </asp:UpdatePanel>
+                        </ContentTemplate>
+                    </cc1:TabPanel>
+                    <cc1:TabPanel runat="server" ID="tabRentRecord" HeaderText="<%$ Resources:Resource,RentRecordString%>">
+                        <ContentTemplate>
+                            <div class="12u">
+                            <div class="row uniform 50%">
+                                <div class="2u 12u(mobilep)">
+                                    <div class="Div">
+                                        <asp:Label runat="server" Text="<%$ Resources:Resource,SnString%>"></asp:Label>
+                                    </div>
+                                    <asp:DropDownList runat="server" ID="ddlCategory2" Enabled="false" />
+                                </div>
+                                <div class="2u 12u(mobilep)">
+                                    <div class="Div">
+                                        <asp:Label runat="server" Text="<%$ Resources:Resource,SnString%>"></asp:Label>
+                                    </div>
+                                    <asp:TextBox runat="server" ID="tbDressId2" ReadOnly="true" />
+                                </div>
+                                <div class="2u 12u(mobilep)">
+                                    <div class="Div">
+                                        <asp:Label runat="server" Text="<%$ Resources:Resource,StatusString%>"></asp:Label>
+                                    </div>
+                                    <asp:DropDownList runat="server" ID="ddlStatus2" />
+                                </div>
+                                <div class="2u 12u(mobilep)">
+                                    <div class="Div">
+                                        <asp:Label runat="server" Text="開案日期選擇範圍(開始)" ID="labelSearchStartDate"></asp:Label>
+                                    </div>
+                                    <div>
+                                        <asp:TextBox runat="server" Style="text-align: right" CssClass="date date-1" value=""
+                                            placeholder="YYYY-MM-DD" ID="tbSearchStartDate"></asp:TextBox>
+                                    </div>
+                                </div>
+                                <div class="2u 12u(mobilep)">
+                                    <div class="Div">
+                                        <asp:Label runat="server" Text="開案日期選擇範圍(結束)" ID="labelSearchEndDate"></asp:Label>
+                                    </div>
+                                    <div>
+                                        <asp:TextBox runat="server" Style="text-align: right" CssClass="date date-1" value="" placeholder="YYYY-MM-DD"
+                                            ID="tbSearchEndDate"></asp:TextBox>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </div>
+                        <div class="Div btn">
+                            <ul class="actions">
+                                <li>
+                                    <asp:Button runat="server" CssClass="button alt" Text="<%$ Resources:Resource,SearchString%>"
+                                        ID="btnSearch" OnClick="btnSearch_Click" />
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="row serch">
+                            <div class="12u">
+                                <div class="table-wrapper">
+                                    <asp:DataGrid runat="server" ID="dataGrid" AutoGenerateColumns="false"
+                                        AllowPaging="true" AllowSorting="true" OnPageIndexChanged="dataGrid_PageIndexChanged"
+                                        OnItemDataBound="dataGrid_ItemDataBound" DataKeyField="Id"
+                                        OnSortCommand="dataGrid_SortCommand" Font-Size="Small">
+                                        <HeaderStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                        <PagerStyle Mode="NumericPages" HorizontalAlign="Center" VerticalAlign="Middle" />
+                                        <Columns>
+                                            <asp:ButtonColumn Text="<%$ Resources:Resource,SearchString%>" CommandName="Select" />
+                                            <asp:BoundColumn Visible="false" DataField="Id" />
+                                            <asp:BoundColumn HeaderText="<%$ Resources:Resource,StartString%>" DataField="StartTime" />
+                                            <asp:BoundColumn HeaderText="<%$ Resources:Resource,EndString%>" DataField="EndTime" />
+                                            <asp:TemplateColumn HeaderText="<%$ Resources:Resource,StatusString%>">
+                                                <ItemTemplate>
+                                                    <asp:Label runat="server" ID="labelStatus" />
+                                                </ItemTemplate>
+                                            </asp:TemplateColumn>
+                                            <asp:TemplateColumn HeaderText="<%$ Resources:Resource,ContractSnString%>">
+                                                <ItemTemplate>
+                                                    <asp:LinkButton runat="server" ID="linkConsult" Text="" OnClick="linkConsult_Click" />
+                                                </ItemTemplate>
+                                            </asp:TemplateColumn>
+                                            <asp:TemplateColumn HeaderText="<%$ Resources:Resource,LocateString%>">
+                                                <ItemTemplate>
+                                                    <asp:Label runat="server" ID="labelLocation" />
+                                                </ItemTemplate>
+                                            </asp:TemplateColumn>
+                                        </Columns>
+                                    </asp:DataGrid>
+                                </div>
+                                <hr />
+                            </div>
+                        </div>
+                        </ContentTemplate>
+                    </cc1:TabPanel>
+                </cc1:TabContainer>
                 <hr />
                 <!-- 照片 -->
                 <section>

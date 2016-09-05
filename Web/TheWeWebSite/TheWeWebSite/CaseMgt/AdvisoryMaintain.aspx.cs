@@ -242,8 +242,13 @@ namespace TheWeWebSite.CaseMgt
                 return null;
             }
         }
+
         #endregion
 
-
+        protected void LinkAdvisoryMCreate_Click(object sender, EventArgs e)
+        {
+            Session.Remove("ConsultId");
+            Response.Redirect("~/CaseMgt/AdvisoryMCreate.aspx", true);
+        }
     }
 }

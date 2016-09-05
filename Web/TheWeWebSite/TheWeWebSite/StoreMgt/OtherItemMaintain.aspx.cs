@@ -231,5 +231,11 @@ namespace TheWeWebSite.StoreMgt
                 return null;
             }
         }
+
+        protected void LinkOtherItemMCreate_Click(object sender, EventArgs e)
+        {
+            Session.Remove("OthId");
+            Server.Transfer("OtherItemMCreate.aspx", true);
+        }
     }
 }

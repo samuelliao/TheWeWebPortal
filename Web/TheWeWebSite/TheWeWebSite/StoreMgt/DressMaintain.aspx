@@ -147,7 +147,7 @@
                         <ul class="actions">
 
                             <li>
-                                <asp:Button runat="server" Text="<%$ Resources:Resource,CreateString%>" ID="LinkDressMCreate" PostBackUrl="~/StoreMgt/DressMCreate.aspx" />
+                                <asp:Button runat="server" Text="<%$ Resources:Resource,CreateString%>" ID="LinkDressMCreate" OnClick="LinkDressMCreate_Click" />
                             </li>
                             <li>
                                 <asp:Button runat="server" CssClass="button alt" Text="<%$ Resources:Resource,SearchString%>" ID="btnSearch" OnClick="btnSearch_Click" />

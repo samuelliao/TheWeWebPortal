@@ -106,7 +106,7 @@
 
                             <li>
                                 <asp:Button runat="server" Text="<%$ Resources:Resource,CreateString%>"
-                                     ID="LinkCustomerMCreate" PostBackUrl="~/CaseMgt/CustomerMCreate.aspx" />
+                                     ID="LinkCustomerMCreate" OnClick="LinkCustomerMCreate_Click" />
                             </li>
                             <li>
                                 <asp:Button runat="server" CssClass="button alt" Text="<%$ Resources:Resource,SearchString%>"

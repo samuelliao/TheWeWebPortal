@@ -379,5 +379,11 @@ namespace TheWeWebSite.StoreMgt
                 return null;
             }
         }
+
+        protected void LinkDressMCreate_Click(object sender, EventArgs e)
+        {
+            Session.Remove("DressId");
+            Response.Redirect("DressMCreate.aspx", true);
+        }
     }
 }

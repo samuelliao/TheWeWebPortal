@@ -106,7 +106,7 @@
                     <div class="Div btn">
                         <ul class="actions">
                             <li>
-                                <asp:Button runat="server" Text="<%$ Resources:Resource,CreateString%>" ID="LinkAdvisoryMCreate" PostBackUrl="~/CaseMgt/AdvisoryMCreate.aspx" />
+                                <asp:Button runat="server" Text="<%$ Resources:Resource,CreateString%>" ID="LinkAdvisoryMCreate" OnClick="LinkAdvisoryMCreate_Click"/>
                             </li>
                             <li>
                                 <asp:Button runat="server" CssClass="button alt" Text="<%$ Resources:Resource,SearchString%>"

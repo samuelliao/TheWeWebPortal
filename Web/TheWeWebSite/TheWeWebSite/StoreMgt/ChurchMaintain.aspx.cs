@@ -223,5 +223,11 @@ namespace TheWeWebSite.StoreMgt
             return condStr;
         }
         #endregion
+
+        protected void btnCreate_Click(object sender, EventArgs e)
+        {
+            Session.Remove("ChurchId");
+            Server.Transfer("ChurchMCreate.aspx", true);
+        }
     }
 }

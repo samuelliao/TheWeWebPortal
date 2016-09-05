@@ -82,7 +82,7 @@
                                     <ul class="actions">
                                         <li>
                                             <asp:Button runat="server" Text="<%$ Resources:Resource,CreateString%>"
-                                                ID="LinkFittingMCreate" PostBackUrl="~/StoreMgt/FittingMCreate.aspx" />
+                                                ID="LinkFittingMCreate" OnClick="LinkFittingMCreate_Click" />
                                         </li>
                                         <li>
                                             <asp:Button runat="server" CssClass="button alt" Text="<%$ Resources:Resource,SearchString%>"

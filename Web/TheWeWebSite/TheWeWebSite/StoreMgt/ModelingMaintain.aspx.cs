@@ -172,5 +172,11 @@ namespace TheWeWebSite.StoreMgt
                 DS = null;
             }
         }
+
+        protected void LinkModelingMCreate_Click(object sender, EventArgs e)
+        {
+            Session.Remove("ModelingId");
+            Server.Transfer("ModelingMCreate.aspx", true);
+        }
     }
 }
