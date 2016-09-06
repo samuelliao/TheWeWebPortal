@@ -255,28 +255,6 @@
                                         </div>
                                         <asp:TextBox runat="server" ID="tbGuest" />
                                     </div>
-                                    <!--BouquetCorsage Start-->
-                                    <div class="2u 12u(mobilep) TimeMaintain">
-                                        <div class="TimeMaintainDiv">
-                                            <asp:Label runat="server" ID="lblBouquetCorsage"></asp:Label>
-                                        </div>
-                                        <asp:TextBox runat="server" ID="tbBouquetCorsage" />
-                                    </div>
-                                    <!---->
-                                    <asp:UpdatePanel runat="server">
-                                        <ContentTemplate>
-                                            <div class="2u 12u(mobilep) TimeMaintain" runat="server">
-                                                <div class="TimeMaintainDiv" style="text-align: center">
-                                                    <asp:Label runat="server" ID="lblBouquet" Text="B"></asp:Label>
-                                                </div>
-                                                <span class="image fit">
-                                                    <asp:Image runat="server" ID="ImgBouquet" ImageUrl="http://127.0.0.1/Photo/HairStyleItem/DDW004/jnDDW004_1.jpg" />
-                                                </span>
-                                            </div>
-                                        </ContentTemplate>
-                                    </asp:UpdatePanel>
-
-                                    <!--BouquetCorsage End-->
                                     <div class="11u 12u(mobilep) TimeMaintain">
                                         <div class="TimeMaintainDiv">
                                             <asp:Label runat="server" ID="lblWeddingSequence"></asp:Label>
@@ -358,46 +336,6 @@
                                         </div>
                                         <asp:TextBox runat="server" ID="tbGroomSpecialClaim" />
                                     </div>
-                                    <!--以下切割-->
-                                    <div class="2u 12u(mobilep) TimeMaintain">
-                                        <div class="TimeMaintainDiv">
-                                            <asp:Label runat="server" ID="lblBridalDress1"></asp:Label>
-                                        </div>
-                                        <asp:TextBox runat="server" ID="tbBridalDress1" />
-                                    </div>
-                                    <div class="2u 12u(mobilep) TimeMaintain">
-                                        <div class="TimeMaintainDiv">
-                                            <asp:Label runat="server" ID="lblBridalDress2"></asp:Label>
-                                        </div>
-                                        <asp:TextBox runat="server" ID="tbBridalDress2" />
-                                    </div>
-                                    <div class="2u 12u(mobilep) TimeMaintain">
-                                        <div class="TimeMaintainDiv">
-                                            <asp:Label runat="server" ID="lblBridalDress3"></asp:Label>
-                                        </div>
-                                        <asp:TextBox runat="server" ID="tbBridalDress3" />
-                                    </div>
-                                    <div class="2u 12u(mobilep) TimeMaintain">
-                                        <div class="TimeMaintainDiv">
-                                            <asp:Label runat="server" ID="lblBridalDress4"></asp:Label>
-                                        </div>
-                                        <asp:TextBox runat="server" ID="tbBridalDress4" />
-                                    </div>
-                                    <div class="2u 12u(mobilep) TimeMaintain">
-                                        <div class="TimeMaintainDiv">
-                                            <asp:Label runat="server" ID="lblBridalDress5"></asp:Label>
-                                        </div>
-                                        <asp:TextBox runat="server" ID="tbBridalDress5" />
-                                    </div>
-                                    <div class="2u 12u(mobilep) TimeMaintain">
-                                        <div class="TimeMaintainDiv">
-                                            <asp:Label runat="server" ID="lblBridalDress6"></asp:Label>
-                                        </div>
-                                        <asp:TextBox runat="server" ID="tbBridalDress6" />
-                                    </div>
-
-
-
                                 </div>
 
                                 <!-- Step 1-5 晚宴菜單-->
@@ -632,6 +570,172 @@
                                 <!-- Step 5-6 -->
                                 <!-- Step 5-7 -->
 
+                                <!--BouquetPhoto-->
+                                <!--BouquetCorsage Start-->
+                                <div runat="server" id="divBouquet">
+                                    <div class="2u 12u(mobilep) TimeMaintain">
+                                        <div class="TimeMaintainDiv">
+                                            <asp:Label runat="server" ID="lblBouquetCorsage"></asp:Label>
+                                        </div>
+                                        <asp:TextBox runat="server" ID="tbBouquetCorsage" />
+                                    </div>
+                                    <!---->
+                                    <asp:UpdatePanel runat="server">
+                                        <ContentTemplate>
+                                            <asp:Panel runat="server" ID="pnBouquet">
+                                                <columns>
+                                                    <div class="2u 12u(mobilep) TimeMaintain">
+                                                        <div class="TimeMaintainDiv" style="text-align: center">
+                                                            <asp:Label runat="server" ID="lblBouquet1"  ></asp:Label>
+                                                        </div>
+                                                        <span class="image fit">
+                                                            <asp:Image runat="server" ID="ImgBouquet1"  />
+                                                        </span>
+                                                    </div>
+                                                <div class="2u 12u(mobilep) TimeMaintain">
+                                                        <div class="TimeMaintainDiv" style="text-align: center">
+                                                            <asp:Label runat="server" ID="lblBouquet2"  ></asp:Label>
+                                                        </div>
+                                                        <span class="image fit">
+                                                            <asp:Image runat="server" ID="ImgBouquet2"  />
+                                                        </span>
+                                                    </div>
+                                                    <div class="2u 12u(mobilep) TimeMaintain">
+                                                        <div class="TimeMaintainDiv" style="text-align: center">
+                                                            <asp:Label runat="server" ID="lblBouquet3"  ></asp:Label>
+                                                        </div>
+                                                        <span class="image fit">
+                                                            <asp:Image runat="server" ID="ImgBouquet3"  />
+                                                        </span>
+                                                    </div>
+                                                    <div class="2u 12u(mobilep) TimeMaintain">
+                                                        <div class="TimeMaintainDiv" style="text-align: center">
+                                                            <asp:Label runat="server" ID="lblBouquet4"  ></asp:Label>
+                                                        </div>
+                                                        <span class="image fit">
+                                                            <asp:Image runat="server" ID="ImgBouquet4"  />
+                                                        </span>
+                                                    </div>
+                                                    <div class="2u 12u(mobilep) TimeMaintain">
+                                                        <div class="TimeMaintainDiv" style="text-align: center">
+                                                            <asp:Label runat="server" ID="lblBouquet5"  ></asp:Label>
+                                                        </div>
+                                                        <span class="image fit">
+                                                            <asp:Image runat="server" ID="ImgBouquet5"  />
+                                                        </span>
+                                                    </div>
+
+                                                </columns>
+                                            </asp:Panel>
+                                        </ContentTemplate>
+                                    </asp:UpdatePanel>
+                                </div>
+                                <!--BouquetCorsage End-->
+                                <!--挑選禮服-->
+                                <div id="divDress" runat="server" class="11u 12u(mobilep) TimeMaintain serch" style="overflow-x: scroll!important">
+                                    <div class="TimeMaintainDiv">
+                                        <asp:Label runat="server" ID="label1" Text="<%$ Resources:Resource,DressString%>" />
+                                    </div>
+                                    <asp:UpdatePanel runat="server">
+                                        <ContentTemplate>
+                                            <asp:GridView ID="dgCutomServiceItem" runat="server"
+                                                ShowFooter="True" AutoGenerateColumns="False" OnRowDataBound="dgCutomServiceItem_RowDataBound"
+                                                OnRowDeleting="dgCutomServiceItem_RowDeleting" Width="2500px">
+                                                <Columns>
+                                                    <asp:TemplateField HeaderText="<%$ Resources:Resource,CategoryString%>">
+                                                        <ItemTemplate>
+                                                            <asp:DropDownList runat="server" ID="ddlServiceItem" AutoPostBack="True" />
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
+                                                    <asp:TemplateField HeaderText="<%$ Resources:Resource,SnString%>">
+                                                        <ItemTemplate>
+                                                            <ajaxToolkit:ComboBox ID="cbxChooseDSn" runat="server" AutoCompleteMode="SuggestAppend"></ajaxToolkit:ComboBox>
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
+                                                    <asp:TemplateField HeaderText="<%$ Resources:Resource,BustString%>">
+                                                        <ItemTemplate>
+                                                            <asp:TextBox runat="server" ID="tbBust" AutoPostBack="True" />
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
+                                                    <asp:TemplateField HeaderText="<%$ Resources:Resource,WaistString%>">
+                                                        <ItemTemplate>
+                                                            <asp:TextBox runat="server" ID="tbWaist" AutoPostBack="True" />
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
+                                                    <asp:TemplateField HeaderText="<%$ Resources:Resource,HipsString%>">
+                                                        <ItemTemplate>
+                                                            <asp:TextBox runat="server" ID="tbHips" AutoPostBack="True" />
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
+                                                    <asp:TemplateField HeaderText="<%$ Resources:Resource,TryDressString%>">
+                                                        <ItemTemplate>
+                                                            <asp:CheckBox runat="server" ID="cbIsTry" AutoPostBack="True" />
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
+                                                    <asp:TemplateField HeaderText="<%$ Resources:Resource,CheckDressString%>">
+                                                        <ItemTemplate>
+                                                            <asp:CheckBox runat="server" ID="cbIsCheck" AutoPostBack="True" />
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
+                                                    <asp:TemplateField HeaderText="<%$ Resources:Resource,ImgFrontString%>">
+                                                        <ItemTemplate>
+                                                            <div class="6u 12u(mobilep) ">
+                                                                <span class="image fit">
+                                                                    <asp:Image ID="ImgCDress1" runat="server" ImageUrl="http://127.0.0.1/Photo/Church/CH006/Bouquet/CH006_2.jpg" />
+                                                                </span>
+                                                            </div>
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
+                                                    <asp:TemplateField HeaderText="<%$ Resources:Resource,ImgBackString%>">
+                                                        <ItemTemplate>
+                                                            <div class="6u 12u(mobilep) ">
+                                                                <span class="image fit">
+                                                                    <asp:Image ID="ImgCDress2" runat="server" ImageUrl="http://127.0.0.1/Photo/Church/CH006/Bouquet/CH006_2.jpg" />
+                                                                </span>
+                                                            </div>
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
+                                                    <asp:TemplateField HeaderText="<%$ Resources:Resource,ImgSideString%>">
+                                                        <ItemTemplate>
+                                                            <div class="6u 12u(mobilep) ">
+                                                                <span class="image fit">
+                                                                    <asp:Image ID="ImgCDress3" runat="server" ImageUrl="http://127.0.0.1/Photo/Church/CH006/Bouquet/CH006_2.jpg" />
+                                                                </span>
+                                                            </div>
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
+                                                    <asp:TemplateField HeaderText="<%$ Resources:Resource,ModelingString%>">
+                                                        <ItemTemplate>
+                                                            <asp:DropDownList runat="server" ID="ddlHairCategory" AutoPostBack="True" />
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
+                                                    <asp:TemplateField HeaderText="<%$ Resources:Resource,ModelingSnString%>">
+                                                        <ItemTemplate>
+                                                            <ajaxToolkit:ComboBox ID="cbxChooseHSn" runat="server" AutoCompleteMode="SuggestAppend"></ajaxToolkit:ComboBox>
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
+                                                    <asp:TemplateField HeaderText="<%$ Resources:Resource,ModelingPhotoString%>">
+                                                        <ItemTemplate>
+                                                            <div class="5u 12u(mobilep) ">
+                                                                <span class="image fit">
+                                                                    <asp:Image ID="ImgCHair1" runat="server" />
+                                                                </span>
+                                                            </div>
+                                                        </ItemTemplate>
+                                                        <FooterStyle HorizontalAlign="Right" />
+                                                        <FooterTemplate>
+                                                            <asp:Button ID="btnAddRowCutomServiceItem" runat="server"
+                                                                Text="Add New Row" OnClick="btnAddRowCutomServiceItem_Click" />
+                                                        </FooterTemplate>
+                                                    </asp:TemplateField>
+                                                    <asp:CommandField ShowDeleteButton="True" />
+                                                </Columns>
+                                            </asp:GridView>
+                                        </ContentTemplate>
+                                    </asp:UpdatePanel>
+                                </div>
+
+                                <!--Remark-->
                                 <div class="11u 12u(mobilep) TimeMaintain">
                                     <div class="TimeMaintainDiv">
                                         <asp:Label runat="server" ID="lblOth"></asp:Label>

@@ -18,7 +18,6 @@ namespace TheWeWebSite.CaseMgt
         {
             if (!Page.IsPostBack)
             {
-                SetImg();
                 if (SysProperty.Util == null) Response.Redirect("../Login.aspx", true);
                 else
                 {
@@ -46,6 +45,7 @@ namespace TheWeWebSite.CaseMgt
                         btnModify.Visible = false;
                     }
                     InitialControlWithPermission();
+                    FirstGridViewRow_dgCutomServiceItem();
                 }
             }
         }
@@ -86,7 +86,7 @@ namespace TheWeWebSite.CaseMgt
             cbLegalWedding.Text = Resources.Resource.LegalWeddingString;
             lblPastorLanguage.Text = Resources.Resource.PastorString + Resources.Resource.LanguageString;
             lblWelcomeCard.Text = Resources.Resource.WelcomeCardString;
-            lblBouquetCorsage.Text = Resources.Resource.BouquetCorsageString;
+            lblBouquetCorsage.Text = Resources.Resource.BouquetPictureString;
             lblChampagne.Text = Resources.Resource.ChampagneString;
             lblGuest.Text = Resources.Resource.GuestString;
             lblWeddingSequence.Text = Resources.Resource.WeddingSequenceString;
@@ -103,12 +103,14 @@ namespace TheWeWebSite.CaseMgt
 
 
             //1-4
+            /*
             lblBridalDress1.Text = Resources.Resource.BridalString + Resources.Resource.WhiteDressString + Resources.Resource.ChooseString;
             lblBridalDress2.Text = Resources.Resource.BridalString + Resources.Resource.EveningDressString + "1" + Resources.Resource.ChooseString;
             lblBridalDress3.Text = Resources.Resource.BridalString + Resources.Resource.EveningDressString + "2" + Resources.Resource.ChooseString;
             lblBridalDress4.Text = Resources.Resource.BridalString + Resources.Resource.EveningDressString + "3" + Resources.Resource.ChooseString;
             lblBridalDress5.Text = Resources.Resource.BridalString + Resources.Resource.BathrobeString + Resources.Resource.ChooseString;
             lblBridalDress6.Text = Resources.Resource.BridalString + Resources.Resource.KimonoString + Resources.Resource.ChooseString;
+            */
             lblGroomDressNum.Text = Resources.Resource.GroomString + Resources.Resource.SuitString + Resources.Resource.NumberString;
             lblGroomSpecialClaim.Text = Resources.Resource.GroomString + Resources.Resource.SuitString + Resources.Resource.SpecialClaimString;
             lblBridalSpecialClaim.Text = Resources.Resource.BridalString + Resources.Resource.DressString + Resources.Resource.SpecialClaimString;
@@ -179,7 +181,7 @@ namespace TheWeWebSite.CaseMgt
             //1-2
             //tbWeddingStyle.Attributes.Add("placeholder", Resources.Resource.AddString + Resources.Resource.WeddingStyleString);
             tbWelcomeCard.Attributes.Add("placeholder", Resources.Resource.AddString + Resources.Resource.WelcomeCardString);
-            tbBouquetCorsage.Attributes.Add("placeholder", Resources.Resource.AddString + Resources.Resource.BouquetCorsageString);
+            tbBouquetCorsage.Attributes.Add("placeholder", Resources.Resource.AddString + Resources.Resource.BouquetPictureString);
             tbChampagne.Attributes.Add("placeholder", Resources.Resource.AddString + Resources.Resource.ChampagneString);
             tbGuest.Attributes.Add("placeholder", Resources.Resource.AddString + Resources.Resource.GuestString);
             tbWeddingSequence.Attributes.Add("placeholder", Resources.Resource.AddString + Resources.Resource.WeddingSequenceString);
@@ -195,12 +197,14 @@ namespace TheWeWebSite.CaseMgt
             tbPhotoAvoid.Attributes.Add("placeholder", Resources.Resource.AddString + Resources.Resource.PhotoAvoidString);
 
             //1-4
+            /*
             tbBridalDress1.Attributes.Add("placeholder", Resources.Resource.AddString + Resources.Resource.BridalString + Resources.Resource.WhiteDressString + Resources.Resource.ChooseString);
             tbBridalDress2.Attributes.Add("placeholder", Resources.Resource.AddString + Resources.Resource.BridalString + Resources.Resource.EveningDressString + "1" + Resources.Resource.ChooseString);
             tbBridalDress3.Attributes.Add("placeholder", Resources.Resource.AddString + Resources.Resource.BridalString + Resources.Resource.EveningDressString + "2" + Resources.Resource.ChooseString);
             tbBridalDress4.Attributes.Add("placeholder", Resources.Resource.AddString + Resources.Resource.BridalString + Resources.Resource.EveningDressString + "3" + Resources.Resource.ChooseString);
             tbBridalDress5.Attributes.Add("placeholder", Resources.Resource.AddString + Resources.Resource.BridalString + Resources.Resource.BathrobeString + Resources.Resource.ChooseString);
             tbBridalDress6.Attributes.Add("placeholder", Resources.Resource.AddString + Resources.Resource.BridalString + Resources.Resource.KimonoString + Resources.Resource.ChooseString);
+            */
             tbBridalSpecialClaim.Attributes.Add("placeholder", Resources.Resource.AddString + Resources.Resource.BridalString + Resources.Resource.DressString + Resources.Resource.SpecialClaimString);
             tbGroomDressNum.Attributes.Add("placeholder", Resources.Resource.AddString + Resources.Resource.GroomString + Resources.Resource.SuitString + Resources.Resource.NumberString);
             tbGroomSpecialClaim.Attributes.Add("placeholder", Resources.Resource.AddString + Resources.Resource.GroomString + Resources.Resource.SuitString + Resources.Resource.SpecialClaimString);
@@ -263,6 +267,7 @@ namespace TheWeWebSite.CaseMgt
             divTakePicture.Visible = false;
             divTryDress.Visible = false;
             divWeddingInfo.Visible = false;
+            divDress.Visible = false;
 
         }
         private void InitialControlWithPermission()
@@ -356,6 +361,8 @@ namespace TheWeWebSite.CaseMgt
             {
                 tvConf.SelectedNode.Checked = cbCompleted.Checked;
                 WriteBackData(MsSqlTable.OrderInfo, OrderInfoDbObject(itemId), orderId, itemId);
+                //  WriteBackDressOrderData(MsSqlTable.DressOrder, ServiceItemDbObject(orderId),orderId);
+
             }
         }
         protected void btnCancel_Click(object sender, EventArgs e)
@@ -400,8 +407,9 @@ namespace TheWeWebSite.CaseMgt
                 + ", o.PS_BModel , o.PS_BModelFocus , o.PS_BSPc , o.PS_GModel , o.PS_GSPc"
                 + ", p.IsLegal , p.StayNight , p.Corsage , p.Decoration"
                 + ", o.PS_RoutePlan , o.PS_Attractions , o.PS_PhotoItem , o.PS_Avoid , o.PS_PSpecialClaim"
-                + ", o.PS_SitePlan , o.PS_BanquetContent , o.PS_Food, o.PS_BanquetGuest , o.PS_BSpecialClaim"
+                + ", o.PS_SitePlan , o.PS_BanquetContent , o.PS_Food, o.PS_BanquetGuest , o.PS_BSpecialClaim , o.PS_BouquetCheck ,o.PS_TakePictureBouquetCheck"
                 + ", do.Bust , do.Waist , do.Hips , do.IsCheck , do.IsTry "
+                + ", ch.BouquetImg , ch.Sn as ChSn"
                 + " FROM[TheWe].[dbo].[OrderInfo] as o"
                 + " Left join Consultation as c on c.Id = o.ConsultId"
                 + " Left join vwEN_Customer as cus on cus.Id = o.CustomerId"
@@ -410,6 +418,7 @@ namespace TheWeWebSite.CaseMgt
                 + " Left join WeddingCategory as wc on wc.id=p.WeddingCategory"
                 + " Left join vwEN_Partner as pr on pr.Id = o.PartnerId"
                 + " Left join DressOrder as do on do.OrderId = o.id"
+                + " Left join Church as ch on ch.id = o.ChurchId"
                 + " WHERE o.IsDelete = 0 and o.Id='" + id + "'";
                 return SysProperty.GenDbCon.GetDataFromTable(sql);
             }
@@ -517,7 +526,7 @@ namespace TheWeWebSite.CaseMgt
             if (dr["IsLegal"].ToString() == "True")
             { cbLegalWedding.Enabled = false; }
             tbWelcomeCard.Text = dr["PS_WelcomeCard"].ToString();
-            tbBouquetCorsage.Text = dr["Corsage"].ToString(); //教堂新娘新郎捧花(照片選擇)
+            tbBouquetCorsage.Text = dr["PS_BouquetCheck"].ToString();
             tbChampagne.Text = dr["PS_Champagne"].ToString();
             tbGuest.Text = dr["PS_Guest"].ToString();
             tbWeddingSequence.Text = dr["PS_WeddingSequence"].ToString();
@@ -528,18 +537,20 @@ namespace TheWeWebSite.CaseMgt
             //1-3
             tbRoutePlan.Text = dr["PS_RoutePlan"].ToString();
             tbPhotoItem.Text = dr["PS_PhotoItem"].ToString();
-            //tbPhotoBouquet.Text = dr["Bouquet"].ToString();//教堂新娘新郎捧花(照片選擇)
+            tbPhotoBouquet.Text = dr["PS_TakePictureBouquetCheck"].ToString();
             tbPhotoAvoid.Text = dr["PS_Avoid"].ToString();
             tbPSp.Text = dr["PS_PSpecialClaim"].ToString();
             tbAttractions.Text = dr["PS_Attractions"].ToString();
 
             //1-4
+            /*
             tbBridalDress1.Text = dr["Sn"].ToString(); //從DressOrder那撈
             tbBridalDress2.Text = dr["Sn"].ToString();//從DressOrder那撈
             tbBridalDress3.Text = dr["Sn"].ToString();//從DressOrder那撈
             tbBridalDress4.Text = dr["Sn"].ToString();//從DressOrder那撈
             tbBridalDress5.Text = dr["Sn"].ToString();//從DressOrder那撈
             tbBridalDress6.Text = dr["Sn"].ToString();//從DressOrder那撈
+            */
             tbBridalSpecialClaim.Text = dr["PS_DressSpC"].ToString();
             tbGroomDressNum.Text = dr["PS_Suit"].ToString();
             tbGroomSpecialClaim.Text = dr["PS_SuitSpC"].ToString();
@@ -608,6 +619,9 @@ namespace TheWeWebSite.CaseMgt
                 cbCompleted.Enabled = false;
                 tbOth.Enabled = false;
             }
+
+
+            SetImg(dr["BouquetImg"].ToString(), dr["ChSn"].ToString());
 
 
         }
@@ -853,6 +867,12 @@ namespace TheWeWebSite.CaseMgt
                 , AttrSymbolItem.Equal
                 , tbWSp.Text
                 ));
+            lst.Add(new DbSearchObject(
+                "PS_BouquetCheck"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , tbBouquetCorsage.Text
+                ));
 
             //1-3
             lst.Add(new DbSearchObject(
@@ -1028,6 +1048,104 @@ namespace TheWeWebSite.CaseMgt
             return lst;
         }
 
+        private List<List<DbSearchObject>> ServiceItemDbObject(bool isCreate, string type, string orderId)
+        {
+            List<List<DbSearchObject>> result = new List<List<DbSearchObject>>();
+            List<DbSearchObject> lst = new List<DbSearchObject>();
+            string str = string.Empty;
+            GridView gridView;
+            if (type == "Custom") gridView = dgCutomServiceItem;
+            else gridView = dgCutomServiceItem;
+            if (gridView.Rows.Count > 0)
+            {
+                foreach (GridViewRow dr in gridView.Rows)
+                {
+                    lst = new List<DbSearchObject>();
+                    if (string.IsNullOrEmpty(str)) continue;
+                    str = ((CheckBox)dr.Cells[5].FindControl("cbIsCheck")).Checked ? "1" : "0";
+                    lst.Add(new DbSearchObject(
+                         "IsCheck"
+                         , AtrrTypeItem.String
+                         , AttrSymbolItem.Equal
+                         , str
+                         ));
+                    if (string.IsNullOrEmpty(str)) continue;
+                    str = ((CheckBox)dr.Cells[6].FindControl("cbIsCheck")).Checked ? "1" : "0";
+                    lst.Add(new DbSearchObject(
+                         "IsTry"
+                         , AtrrTypeItem.String
+                         , AttrSymbolItem.Equal
+                         , str
+                         ));
+                    lst.Add(new DbSearchObject(
+                         "HairItemId"
+                         , AtrrTypeItem.String
+                         , AttrSymbolItem.Equal
+                         , null
+                         ));
+                    lst.Add(new DbSearchObject(
+                         "RentId"
+                         , AtrrTypeItem.String
+                         , AttrSymbolItem.Equal
+                         , null
+                         ));
+                    lst.Add(new DbSearchObject(
+                         "DressId"
+                         , AtrrTypeItem.String
+                         , AttrSymbolItem.Equal
+                         , null
+                         ));
+                    lst.Add(new DbSearchObject(
+                         "OrderId"
+                         , AtrrTypeItem.String
+                         , AttrSymbolItem.Equal
+                         , null
+                         ));
+                    str = ((TextBox)dr.Cells[2].FindControl("tbBust")).Text;
+                    lst.Add(new DbSearchObject(
+                         "Bust"
+                         , AtrrTypeItem.String
+                         , AttrSymbolItem.Equal
+                         , str
+                         ));
+                    if (string.IsNullOrEmpty(str)) continue;
+                    str = ((TextBox)dr.Cells[3].FindControl("tbWaist")).Text;
+                    lst.Add(new DbSearchObject(
+                         "Waist"
+                         , AtrrTypeItem.String
+                         , AttrSymbolItem.Equal
+                         , str
+                         ));
+                    if (string.IsNullOrEmpty(str)) continue;
+                    str = ((TextBox)dr.Cells[4].FindControl("tbHips")).Text;
+                    lst.Add(new DbSearchObject(
+                         "Hips"
+                         , AtrrTypeItem.String
+                         , AttrSymbolItem.Equal
+                         , str
+                         ));
+                    lst.Add(new DbSearchObject(
+                         "UpdateAccId"
+                         , AtrrTypeItem.String
+                         , AttrSymbolItem.Equal
+                         , ((DataRow)Session["AccountInfo"])["Id"].ToString()
+                         ));
+                    if (isCreate)
+                    {
+                        lst.Add(new DbSearchObject(
+                        "CreatedateAccId"
+                        , AtrrTypeItem.String
+                        , AttrSymbolItem.Equal
+                        , ((DataRow)Session["AccountInfo"])["Id"].ToString()
+                        ));
+                    }
+                    result.Add(lst);
+                }
+            }
+            return result;
+        }
+
+
         #endregion
 
         private bool WriteBackData(MsSqlTable table, List<DbSearchObject> lst, string orderId, string itemId)
@@ -1047,6 +1165,36 @@ namespace TheWeWebSite.CaseMgt
                         "Delete From ConferenceInfo"
                         + " Where OrderId = '" + orderId + "'"
                         + " And ItemId = '" + itemId + "'");
+                    return SysProperty.GenDbCon.InsertDataInToTable(
+                        SysProperty.Util.MsSqlTableConverter(table)
+                        , SysProperty.Util.SqlQueryInsertInstanceConverter(lst)
+                        , SysProperty.Util.SqlQueryInsertValueConverter(lst));
+                }
+            }
+            catch (Exception ex)
+            {
+                SysProperty.Log.Error(ex.Message);
+                ShowErrorMsg(ex.Message);
+                return false;
+            }
+        }
+
+        private bool WriteBackDressOrderData(MsSqlTable table, List<DbSearchObject> lst, string orderId)
+        {
+            try
+            {
+                if (table == MsSqlTable.OrderInfo)
+                {
+                    return SysProperty.GenDbCon.UpdateDataIntoTable(
+                        SysProperty.Util.MsSqlTableConverter(table)
+                        , SysProperty.Util.SqlQueryUpdateConverter(lst)
+                        , " Where Id='" + orderId + "'");
+                }
+                else
+                {
+                    SysProperty.GenDbCon.ModifyDataInToTable(
+                        "Delete From DressOrder"
+                        + " Where OrderId = '" + orderId + "'");
                     return SysProperty.GenDbCon.InsertDataInToTable(
                         SysProperty.Util.MsSqlTableConverter(table)
                         , SysProperty.Util.SqlQueryInsertInstanceConverter(lst)
@@ -1114,30 +1262,39 @@ namespace TheWeWebSite.CaseMgt
             ResetAllDivControl();
             switch (ItemId)
             {
+                //1
                 case "1e739102-b86d-45db-ba67-3674f8393bb2":
-                    divHotel.Visible = true;
                     break;
                 case "73b4f75a-26a2-4818-94f7-a8834d2d4a23":
                     divWeddingInfo.Visible = true;
+                    divBouquet.Visible = true;
                     break;
                 case "efef815c-cac3-4ea5-9e8e-e83138f56272":
                     divTakePicture.Visible = true;
+                    divBouquet.Visible = true;
                     break;
                 case "25536c21-df26-4986-bda1-8b3dd187f4e8":
                     divChooseDress.Visible = true;
+                    divDress.Visible = true;
                     break;
                 case "2d9983e0-8a96-473a-a492-8c68df58a63b":
                     divDinner.Visible = true;
                     break;
+                //2
                 case "947fe231-4bb0-4790-841f-04a16c7def3a":
                     divTryDress.Visible = true;
+                    divDress.Visible = true;
                     break;
                 case "095eca7c-2b6f-4d78-9eae-676acf064a9b":
                     divModelCheck.Visible = true;
+                    divDress.Visible = true;
                     break;
+                //3
                 case "f3aa0079-0896-4816-9db0-5abb66f1aac1":
                     divCehckDress.Visible = true;
+                    divDress.Visible = true;
                     break;
+                //
                 case "735dd34b-70f5-4361-a28f-f443f3ad6d1d":
                     divGetDress.Visible = true;
                     break;
@@ -1155,6 +1312,7 @@ namespace TheWeWebSite.CaseMgt
             divTakePicture.Visible = false;
             divTryDress.Visible = false;
             divWeddingInfo.Visible = false;
+            divBouquet.Visible = false;
         }
 
 
@@ -1215,26 +1373,346 @@ namespace TheWeWebSite.CaseMgt
         }
 
 
-
-        private void SetImg()
+        //BouquetImg
+        private void SetImg(string path, string sn)
         {
-
-            //DataSet ds = SysProperty.GenDbCon.GetDataFromTable("Select Sn From HairStyleItem Where IsDelete = 0 And Id='7882E54F-4DAA-4CF0-9C59-EB87DBD0B65A'");
-            //if (SysProperty.Util.IsDataSetEmpty(ds)) return;
             int cnt = 0;
-
-            foreach (string fname in System.IO.Directory.GetFileSystemEntries(@"C:\inetpub\wwwroot\photo\HairStyleItem\DDW005"))
+            foreach (string fname in System.IO.Directory.GetFileSystemEntries(@"C:\inetpub\wwwroot\photo\" + path))
             {
-                //((Label)dgCutomServiceItem.Rows[cnt].FindControl("lblBouquet1")).Text = fname;
                 cnt++;
-
             }
 
-            for (int i = 0; i < cnt; i++)
+            
+            lblBouquet1.Text = "A";
+            ImgBouquet1.ImageUrl = "http:" + SysProperty.ImgRootFolderpath + path + @"\" + sn + "_" + "1" + @".jpg";
+            lblBouquet2.Text = "B";
+            ImgBouquet2.ImageUrl = "http:" + SysProperty.ImgRootFolderpath + path + @"\" + sn + "_" + "2" + @".jpg";
+            lblBouquet3.Text = "C";
+            ImgBouquet3.ImageUrl = "http:" + SysProperty.ImgRootFolderpath + path + @"\" + sn + "_" + "3" + @".jpg";
+            lblBouquet4.Text = "D";
+            ImgBouquet4.ImageUrl = "http:" + SysProperty.ImgRootFolderpath + path + @"\" + sn + "_" + "4" + @".jpg";
+
+        }
+
+
+        #region 1-4 Choose Dress
+
+
+        protected void dgCutomServiceItem_RowDeleting(object sender, GridViewDeleteEventArgs e)
+        {
+            SetRowData_dgCutomServiceItem();
+            if (ViewState["CurrentTable2"] != null)
             {
-                //((Label)dgCutomServiceItem.Rows[cnt].FindControl("lblBouquet1")).Text = "09876540987654";
+                DataTable dt = (DataTable)ViewState["CurrentTable2"];
+                DataRow drCurrentRow = null;
+                int rowIndex = Convert.ToInt32(e.RowIndex);
+                if (dt.Rows.Count > 1)
+                {
+                    dt.Rows.Remove(dt.Rows[rowIndex]);
+                    drCurrentRow = dt.NewRow();
+                    ViewState["CurrentTable2"] = dt;
+                    dgCutomServiceItem.DataSource = dt;
+                    dgCutomServiceItem.DataBind();
+
+                    SetPreviousData_dgCutomServiceItem();
+                }
             }
         }
+
+        protected void dgCutomServiceItem_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            ddlHairCategory(sender, e);
+            ddlService(sender, e);
+
+        }
+
+        private void ddlService(object sender, GridViewRowEventArgs e)
+        {
+            DataRowView dataItem1 = (DataRowView)e.Row.DataItem;
+            if (dataItem1 != null)
+            {
+                DropDownList ddlService = (DropDownList)e.Row.FindControl("ddlServiceItem");
+                ddlService.Items.Add(new ListItem(Resources.Resource.SeletionRemindString, string.Empty));
+                DataSet ds = SysProperty.GenDbCon.GetDataFromTable("Select * From DressCategory Where IsDelete = 0 and Type='Dress'");
+                if (SysProperty.Util.IsDataSetEmpty(ds)) return;
+                foreach (DataRow dr in ds.Tables[0].Rows)
+                {
+                    ddlService.Items.Add(new ListItem(
+                        SysProperty.Util.OutputRelatedLangName(Session["CultureCode"].ToString(), dr)
+                        , dr["Id"].ToString()
+                        ));
+                }
+                //ddlService.SelectedIndex = 0;
+                cbSerSn(sender, e, ddlService.SelectedValue);
+            }
+        }
+
+
+
+        private void cbSerSn(object sender, GridViewRowEventArgs e, string id)
+        {
+
+            AjaxControlToolkit.ComboBox cbxChooseDSn = (AjaxControlToolkit.ComboBox)e.Row.FindControl("cbxChooseDSn");
+            DataSet ds1 = SysProperty.GenDbCon.GetDataFromTable("select * from [TheWe].[dbo].[Dress] Where IsDelete=0 and cast(Category as nvarchar(max))='" + id + "'");
+
+            if (SysProperty.Util.IsDataSetEmpty(ds1))
+            {
+                cbxChooseDSn.Enabled = false;
+            }
+            else
+            {
+                cbxChooseDSn.Enabled = true;
+                foreach (DataRow dr in ds1.Tables[0].Rows)
+                {
+                    cbxChooseDSn.Items.Add(new ListItem(dr["Sn"].ToString()
+                        ));
+                }
+            }
+        }
+
+
+        private void ddlHairCategory(object sender, GridViewRowEventArgs e)
+        {
+            DataRowView dataItem1 = (DataRowView)e.Row.DataItem;
+            if (dataItem1 != null)
+            {
+                DropDownList ddlHairCategory = (DropDownList)e.Row.FindControl("ddlHairCategory");
+                ddlHairCategory.Items.Add(new ListItem(Resources.Resource.SeletionRemindString, string.Empty));
+                DataSet ds = SysProperty.GenDbCon.GetDataFromTable("select * from HairStyleCategory where IsDelete=0");
+                if (SysProperty.Util.IsDataSetEmpty(ds)) return;
+                foreach (DataRow dr in ds.Tables[0].Rows)
+                {
+                    ddlHairCategory.Items.Add(new ListItem(
+                        SysProperty.Util.OutputRelatedLangName(Session["CultureCode"].ToString(), dr)
+                        , dr["Id"].ToString()
+                        ));
+                }
+                ddlHairCategory.SelectedIndex = 0;
+                cbSerHSn(sender, e, ddlHairCategory.SelectedValue);
+            }
+        }
+
+        private void cbSerHSn(object sender, GridViewRowEventArgs e, string id)
+        {
+
+            AjaxControlToolkit.ComboBox cbxChooseHSn = (AjaxControlToolkit.ComboBox)e.Row.FindControl("cbxChooseHSn");
+            DataSet ds1 = SysProperty.GenDbCon.GetDataFromTable("select * from [TheWe].[dbo].HairStyleItem Where IsDelete=0 and cast(Type as nvarchar(max))='" + id + "'");
+
+            if (SysProperty.Util.IsDataSetEmpty(ds1))
+            {
+                cbxChooseHSn.Enabled = false;
+            }
+            else
+            {
+                cbxChooseHSn.Enabled = true;
+                foreach (DataRow dr in ds1.Tables[0].Rows)
+                {
+                    cbxChooseHSn.Items.Add(new ListItem(dr["Sn"].ToString()
+                        ));
+                }
+            }
+        }
+        private void SetRowData_dgCutomServiceItem()
+        {
+            int rowIndex = 0;
+
+            if (ViewState["CurrentTable2"] != null)
+            {
+                DataTable dtCurrentTable = (DataTable)ViewState["CurrentTable2"];
+                DataRow drCurrentRow = null;
+                if (dtCurrentTable.Rows.Count > 0)
+                {
+                    for (int i = 1; i <= dtCurrentTable.Rows.Count; i++)
+                    {
+                        DropDownList DdlItem = (DropDownList)dgCutomServiceItem.Rows[rowIndex].Cells[0].FindControl("ddlServiceItem");
+                        AjaxControlToolkit.ComboBox cbxChooseDSn = (AjaxControlToolkit.ComboBox)dgCutomServiceItem.Rows[rowIndex].Cells[1].FindControl("cbxChooseDSn");
+                        TextBox tbBust = (TextBox)dgCutomServiceItem.Rows[rowIndex].Cells[2].FindControl("tbBust");
+                        TextBox tbWaist = (TextBox)dgCutomServiceItem.Rows[rowIndex].Cells[3].FindControl("tbWaist");
+                        TextBox tbHips = (TextBox)dgCutomServiceItem.Rows[rowIndex].Cells[4].FindControl("tbHips");
+                        CheckBox cbIsTry = (CheckBox)dgCutomServiceItem.Rows[rowIndex].Cells[5].FindControl("cbIsTry");
+                        CheckBox cbIsCheck = (CheckBox)dgCutomServiceItem.Rows[rowIndex].Cells[6].FindControl("cbIsCheck");
+                        Image ImgCDress1 = (Image)dgCutomServiceItem.Rows[rowIndex].Cells[7].FindControl("ImgCDress1");
+                        Image ImgCDress2 = (Image)dgCutomServiceItem.Rows[rowIndex].Cells[8].FindControl("ImgCDress2");
+                        Image ImgCDress3 = (Image)dgCutomServiceItem.Rows[rowIndex].Cells[9].FindControl("ImgCDress3");
+                        DropDownList ddlHairCategory = (DropDownList)dgCutomServiceItem.Rows[rowIndex].Cells[10].FindControl("ddlHairCategory");
+                        AjaxControlToolkit.ComboBox cbxChooseHSn = (AjaxControlToolkit.ComboBox)dgCutomServiceItem.Rows[rowIndex].Cells[11].FindControl("cbxChooseHSn");
+                        Image ImgCHair1 = (Image)dgCutomServiceItem.Rows[rowIndex].Cells[12].FindControl("ImgCHair1");
+                        drCurrentRow = dtCurrentTable.NewRow();
+                        dtCurrentTable.Rows[i - 1]["Col1"] = DdlItem.SelectedValue;
+                        dtCurrentTable.Rows[i - 1]["Col2"] = cbxChooseDSn.Text;
+                        dtCurrentTable.Rows[i - 1]["Col3"] = tbBust.Text;
+                        dtCurrentTable.Rows[i - 1]["Col4"] = tbWaist.Text;
+                        dtCurrentTable.Rows[i - 1]["Col5"] = tbHips.Text;
+                        dtCurrentTable.Rows[i - 1]["Col6"] = cbIsTry.Checked;
+                        dtCurrentTable.Rows[i - 1]["Col7"] = cbIsCheck.Checked;
+                        dtCurrentTable.Rows[i - 1]["Col8"] = ImgCDress1.ImageUrl;
+                        dtCurrentTable.Rows[i - 1]["Col9"] = ImgCDress2.ImageUrl;
+                        dtCurrentTable.Rows[i - 1]["Col10"] = ImgCDress3.ImageUrl;
+                        dtCurrentTable.Rows[i - 1]["Col11"] = ddlHairCategory.SelectedValue;
+                        dtCurrentTable.Rows[i - 1]["Col12"] = cbxChooseHSn.Text;
+                        dtCurrentTable.Rows[i - 1]["Col13"] = ImgCHair1.ImageUrl;
+                        rowIndex++;
+                    }
+
+                    ViewState["CurrentTable2"] = dtCurrentTable;
+                }
+            }
+            else
+            {
+                Response.Write("ViewState is null");
+            }
+        }
+
+        private void SetPreviousData_dgCutomServiceItem()
+        {
+            int rowIndex = 0;
+            if (ViewState["CurrentTable2"] != null)
+            {
+                DataTable dt = (DataTable)ViewState["CurrentTable2"];
+                if (dt.Rows.Count > 0)
+                {
+                    for (int i = 0; i < dt.Rows.Count; i++)
+                    {
+                        DropDownList DdlItem = (DropDownList)dgCutomServiceItem.Rows[rowIndex].Cells[0].FindControl("ddlServiceItem");
+                        AjaxControlToolkit.ComboBox TextStart = (AjaxControlToolkit.ComboBox)dgCutomServiceItem.Rows[rowIndex].Cells[1].FindControl("cbxChooseDSn");
+
+                        TextBox tbBust = (TextBox)dgCutomServiceItem.Rows[rowIndex].Cells[2].FindControl("tbBust");
+                        TextBox tbWaist = (TextBox)dgCutomServiceItem.Rows[rowIndex].Cells[3].FindControl("tbWaist");
+                        TextBox tbHips = (TextBox)dgCutomServiceItem.Rows[rowIndex].Cells[4].FindControl("tbHips");
+                        CheckBox cbIsTry = (CheckBox)dgCutomServiceItem.Rows[rowIndex].Cells[5].FindControl("cbIsTry");
+                        CheckBox cbIsCheck = (CheckBox)dgCutomServiceItem.Rows[rowIndex].Cells[6].FindControl("cbIsCheck");
+                        Image ImgCDress1 = (Image)dgCutomServiceItem.Rows[rowIndex].Cells[7].FindControl("ImgCDress1");
+                        Image ImgCDress2 = (Image)dgCutomServiceItem.Rows[rowIndex].Cells[8].FindControl("ImgCDress2");
+                        Image ImgCDress3 = (Image)dgCutomServiceItem.Rows[rowIndex].Cells[9].FindControl("ImgCDress3");
+                        DropDownList ddlHairCategory = (DropDownList)dgCutomServiceItem.Rows[rowIndex].Cells[10].FindControl("ddlHairCategory");
+                        AjaxControlToolkit.ComboBox cbxChooseHSn = (AjaxControlToolkit.ComboBox)dgCutomServiceItem.Rows[rowIndex].Cells[11].FindControl("cbxChooseHSn");
+                        Image ImgCHair1 = (Image)dgCutomServiceItem.Rows[rowIndex].Cells[12].FindControl("ImgCHair1");
+
+                        if (TextStart == null) continue;
+                        DdlItem.SelectedValue = dt.Rows[i]["Col1"].ToString();
+                        TextStart.Text = dt.Rows[i]["Col2"] == null ? string.Empty : dt.Rows[i]["Col2"].ToString();
+                        tbBust.Text = dt.Rows[i]["Col3"] == null ? string.Empty : dt.Rows[i]["Col3"].ToString();
+                        tbWaist.Text = dt.Rows[i]["Col4"] == null ? string.Empty : dt.Rows[i]["Col4"].ToString();
+                        tbHips.Text = dt.Rows[i]["Col5"] == null ? string.Empty : dt.Rows[i]["Col5"].ToString();
+                       //  cbIsTry.Checked = dt.Rows[i]["Col6"] == null ? string.Empty : dt.Rows[i]["Col6"].ToString();
+                       //  cbIsCheck.Text = dt.Rows[i]["Col7"] == null ? string.Empty : dt.Rows[i]["Col7"].ToString();
+                        ImgCDress1.ImageUrl = dt.Rows[i]["Col8"] == null ? string.Empty : dt.Rows[i]["Col8"].ToString();
+                        ImgCDress2.ImageUrl = dt.Rows[i]["Col9"] == null ? string.Empty : dt.Rows[i]["Col9"].ToString();
+                        ImgCDress3.ImageUrl = dt.Rows[i]["Col10"] == null ? string.Empty : dt.Rows[i]["Col10"].ToString();
+                        ddlHairCategory.SelectedValue = dt.Rows[i]["Col11"].ToString();
+                        cbxChooseHSn.Text = dt.Rows[i]["Col12"] == null ? string.Empty : dt.Rows[i]["Col12"].ToString();
+                        ImgCHair1.ImageUrl = dt.Rows[i]["Col13"] == null ? string.Empty : dt.Rows[i]["Col13"].ToString();
+                        rowIndex++;
+                    }
+                }
+            }
+        }
+
+        protected void btnAddRowCutomServiceItem_Click(object sender, EventArgs e)
+        {
+            AddNewRow_dgCutomServiceItem();
+        }
+
+        private void AddNewRow_dgCutomServiceItem()
+        {
+            int rowIndex = 0;
+
+            if (ViewState["CurrentTable2"] != null)
+            {
+                DataTable dtCurrentTable = (DataTable)ViewState["CurrentTable2"];
+                DataRow drCurrentRow = null;
+                if (dtCurrentTable.Rows.Count > 0)
+                {
+                    for (int i = 1; i <= dtCurrentTable.Rows.Count; i++)
+                    {
+                        DropDownList DdlItem =
+                            (DropDownList)dgCutomServiceItem.Rows[rowIndex].Cells[0].FindControl("ddlServiceItem");
+                        AjaxControlToolkit.ComboBox TextStart =
+                          (AjaxControlToolkit.ComboBox)dgCutomServiceItem.Rows[rowIndex].Cells[1].FindControl("cbxChooseDSn");
+                        TextBox tbBust = (TextBox)dgCutomServiceItem.Rows[rowIndex].Cells[2].FindControl("tbBust");
+                        TextBox tbWaist = (TextBox)dgCutomServiceItem.Rows[rowIndex].Cells[3].FindControl("tbWaist");
+                        TextBox tbHips = (TextBox)dgCutomServiceItem.Rows[rowIndex].Cells[4].FindControl("tbHips");
+                        CheckBox cbIsTry = (CheckBox)dgCutomServiceItem.Rows[rowIndex].Cells[5].FindControl("cbIsTry");
+                        CheckBox cbIsCheck = (CheckBox)dgCutomServiceItem.Rows[rowIndex].Cells[6].FindControl("cbIsCheck");
+                        Image ImgCDress1 = (Image)dgCutomServiceItem.Rows[rowIndex].Cells[7].FindControl("ImgCDress1");
+                        Image ImgCDress2 = (Image)dgCutomServiceItem.Rows[rowIndex].Cells[8].FindControl("ImgCDress2");
+                        Image ImgCDress3 = (Image)dgCutomServiceItem.Rows[rowIndex].Cells[9].FindControl("ImgCDress3");
+                        DropDownList ddlHairCategory =
+                            (DropDownList)dgCutomServiceItem.Rows[rowIndex].Cells[10].FindControl("ddlHairCategory");
+                        AjaxControlToolkit.ComboBox cbxChooseHSn =
+                          (AjaxControlToolkit.ComboBox)dgCutomServiceItem.Rows[rowIndex].Cells[11].FindControl("cbxChooseHSn");
+                        Image ImgCHair1 = (Image)dgCutomServiceItem.Rows[rowIndex].Cells[12].FindControl("ImgCHair1");
+
+
+                        drCurrentRow = dtCurrentTable.NewRow();
+                        dtCurrentTable.Rows[i - 1]["Col1"] = DdlItem.SelectedValue;
+                        dtCurrentTable.Rows[i - 1]["Col2"] = TextStart.Text;
+                        dtCurrentTable.Rows[i - 1]["Col3"] = tbBust.Text;
+                        dtCurrentTable.Rows[i - 1]["Col4"] = tbWaist.Text;
+                        dtCurrentTable.Rows[i - 1]["Col5"] = tbHips.Text;
+                        dtCurrentTable.Rows[i - 1]["Col6"] = cbIsTry.Checked;
+                        dtCurrentTable.Rows[i - 1]["Col7"] = cbIsCheck.Checked;
+                        dtCurrentTable.Rows[i - 1]["Col8"] = ImgCDress1.ImageUrl;
+                        dtCurrentTable.Rows[i - 1]["Col9"] = ImgCDress2.ImageUrl;
+                        dtCurrentTable.Rows[i - 1]["Col10"] = ImgCDress3.ImageUrl;
+                        dtCurrentTable.Rows[i - 1]["Col11"] = ddlHairCategory.SelectedValue;
+                        dtCurrentTable.Rows[i - 1]["Col12"] = cbxChooseHSn.Text;
+                        dtCurrentTable.Rows[i - 1]["Col13"] = ImgCHair1.ImageUrl;
+                        rowIndex++;
+                    }
+                    dtCurrentTable.Rows.Add(drCurrentRow);
+                    ViewState["CurrentTable2"] = dtCurrentTable;
+
+                    dgCutomServiceItem.DataSource = dtCurrentTable;
+                    dgCutomServiceItem.DataBind();
+                }
+            }
+            else
+            {
+                Response.Write("ViewState is null");
+            }
+            SetPreviousData_dgCutomServiceItem();
+        }
+
+        private void FirstGridViewRow_dgCutomServiceItem()
+        {
+            DataTable dt = new DataTable();
+            DataRow dr = null;
+            dt.Columns.Add(new DataColumn("Col1", typeof(string)));
+            dt.Columns.Add(new DataColumn("Col2", typeof(string)));
+            dt.Columns.Add(new DataColumn("Col3", typeof(string)));
+            dt.Columns.Add(new DataColumn("Col4", typeof(string)));
+            dt.Columns.Add(new DataColumn("Col5", typeof(string)));
+            dt.Columns.Add(new DataColumn("Col6", typeof(string)));
+            dt.Columns.Add(new DataColumn("Col7", typeof(string)));
+            dt.Columns.Add(new DataColumn("Col8", typeof(string)));
+            dt.Columns.Add(new DataColumn("Col9", typeof(string)));
+            dt.Columns.Add(new DataColumn("Col10", typeof(string)));
+            dt.Columns.Add(new DataColumn("Col11", typeof(string)));
+            dt.Columns.Add(new DataColumn("Col12", typeof(string)));
+            dt.Columns.Add(new DataColumn("Col13", typeof(string)));
+            dr = dt.NewRow();
+            dr["Col1"] = string.Empty;
+            dr["Col2"] = string.Empty;
+            dr["Col3"] = string.Empty;
+            dr["Col4"] = string.Empty;
+            dr["Col5"] = string.Empty;
+            dr["Col6"] = string.Empty;
+            dr["Col7"] = string.Empty;
+            dr["Col8"] = string.Empty;
+            dr["Col9"] = string.Empty;
+            dr["Col10"] = string.Empty;
+            dr["Col11"] = string.Empty;
+            dr["Col12"] = string.Empty;
+            dr["Col13"] = string.Empty;
+            dt.Rows.Add(dr);
+
+            ViewState["CurrentTable2"] = dt;
+            dgCutomServiceItem.DataSource = dt;
+            dgCutomServiceItem.DataBind();
+        }
+        #endregion
+
     }
 
 }

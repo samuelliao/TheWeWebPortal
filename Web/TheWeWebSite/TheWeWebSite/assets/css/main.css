@@ -2710,17 +2710,20 @@ dl {
 .table-wrapper {
     -webkit-overflow-scrolling: touch;
     overflow-x: auto;
+
 }
 
 .serch table {
     margin: 0 0 2em 0;
     width: 100%;
+
 }
 
     .serch table tbody tr {
         border: solid 1px #e5e5e5;
         border-left: 0;
         border-right: 0;
+ 
     }
 
         .serch table tbody tr:nth-child(2n + 1) {
@@ -2729,6 +2732,7 @@ dl {
 
     .serch table td {
         padding: 0.75em 0.75em;
+
     }
 
     .serch table th {
@@ -2773,8 +2777,16 @@ dl {
     border-top: 0;
 }
 
+/*table for TimeMCreate*/
+
+.tmc{
+    width:2500PX;
+}
 /* Table */
 
+.tmc top{
+    text-align:left
+}
 .cal table {
     margin: 0 0 2em 0;
     width: 100%;

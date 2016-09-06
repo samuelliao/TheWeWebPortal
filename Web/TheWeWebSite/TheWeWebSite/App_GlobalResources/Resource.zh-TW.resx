@@ -1215,4 +1215,22 @@
   <data name="IncomeDetailString" xml:space="preserve">
     <value>收款明細表</value>
   </data>
+  <data name="BustString" xml:space="preserve">
+    <value>胸圍</value>
+  </data>
+  <data name="WaistString" xml:space="preserve">
+    <value>腰圍</value>
+  </data>
+  <data name="HipsString" xml:space="preserve">
+    <value>臀圍</value>
+  </data>
+  <data name="CheckDressString" xml:space="preserve">
+    <value>最後確認</value>
+  </data>
+  <data name="TryDressString" xml:space="preserve">
+    <value>試穿確認</value>
+  </data>
+  <data name="ModelingPhotoString" xml:space="preserve">
+    <value>造型照片</value>
+  </data>
 </root>
