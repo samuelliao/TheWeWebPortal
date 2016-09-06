@@ -679,7 +679,7 @@
                                                     </asp:TemplateField>
                                                     <asp:TemplateField HeaderText="<%$ Resources:Resource,ImgFrontString%>">
                                                         <ItemTemplate>
-                                                            <div class="3u 12u(mobilep) ">
+                                                            <div class="6u 12u(mobilep) ">
                                                                 <span class="image fit">
                                                                     <asp:Image ID="ImgCDress1" runat="server" ImageUrl="http://127.0.0.1/Photo/Church/CH006/Bouquet/CH006_2.jpg" />
                                                                 </span>
@@ -688,7 +688,7 @@
                                                     </asp:TemplateField>
                                                     <asp:TemplateField HeaderText="<%$ Resources:Resource,ImgBackString%>">
                                                         <ItemTemplate>
-                                                            <div class="3u 12u(mobilep) ">
+                                                            <div class="6u 12u(mobilep) ">
                                                                 <span class="image fit">
                                                                     <asp:Image ID="ImgCDress2" runat="server" ImageUrl="http://127.0.0.1/Photo/Church/CH006/Bouquet/CH006_2.jpg" />
                                                                 </span>
@@ -697,7 +697,7 @@
                                                     </asp:TemplateField>
                                                     <asp:TemplateField HeaderText="<%$ Resources:Resource,ImgSideString%>">
                                                         <ItemTemplate>
-                                                            <div class="3u 12u(mobilep) ">
+                                                            <div class="6u 12u(mobilep) ">
                                                                 <span class="image fit">
                                                                     <asp:Image ID="ImgCDress3" runat="server" ImageUrl="http://127.0.0.1/Photo/Church/CH006/Bouquet/CH006_2.jpg" />
                                                                 </span>
@@ -716,9 +716,9 @@
                                                     </asp:TemplateField>
                                                     <asp:TemplateField HeaderText="<%$ Resources:Resource,ModelingPhotoString%>">
                                                         <ItemTemplate>
-                                                            <div class="3u 12u(mobilep) ">
+                                                            <div class="5u 12u(mobilep) ">
                                                                 <span class="image fit">
-                                                                    <asp:Image ID="ImgCHair1" runat="server" ImageUrl="http://127.0.0.1/Photo/Church/CH006/Bouquet/CH006_2.jpg" />
+                                                                    <asp:Image ID="ImgCHair1" runat="server" />
                                                                 </span>
                                                             </div>
                                                         </ItemTemplate>

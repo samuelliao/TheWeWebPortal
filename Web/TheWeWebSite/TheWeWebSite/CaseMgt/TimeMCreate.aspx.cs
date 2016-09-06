@@ -1373,7 +1373,7 @@ namespace TheWeWebSite.CaseMgt
         }
 
 
-
+        //BouquetImg
         private void SetImg(string path, string sn)
         {
             int cnt = 0;
@@ -1382,7 +1382,7 @@ namespace TheWeWebSite.CaseMgt
                 cnt++;
             }
 
-
+            
             lblBouquet1.Text = "A";
             ImgBouquet1.ImageUrl = "http:" + SysProperty.ImgRootFolderpath + path + @"\" + sn + "_" + "1" + @".jpg";
             lblBouquet2.Text = "B";
@@ -1488,6 +1488,28 @@ namespace TheWeWebSite.CaseMgt
                         ));
                 }
                 ddlHairCategory.SelectedIndex = 0;
+                cbSerHSn(sender, e, ddlHairCategory.SelectedValue);
+            }
+        }
+
+        private void cbSerHSn(object sender, GridViewRowEventArgs e, string id)
+        {
+
+            AjaxControlToolkit.ComboBox cbxChooseHSn = (AjaxControlToolkit.ComboBox)e.Row.FindControl("cbxChooseHSn");
+            DataSet ds1 = SysProperty.GenDbCon.GetDataFromTable("select * from [TheWe].[dbo].HairStyleItem Where IsDelete=0 and cast(Type as nvarchar(max))='" + id + "'");
+
+            if (SysProperty.Util.IsDataSetEmpty(ds1))
+            {
+                cbxChooseHSn.Enabled = false;
+            }
+            else
+            {
+                cbxChooseHSn.Enabled = true;
+                foreach (DataRow dr in ds1.Tables[0].Rows)
+                {
+                    cbxChooseHSn.Items.Add(new ListItem(dr["Sn"].ToString()
+                        ));
+                }
             }
         }
         private void SetRowData_dgCutomServiceItem()
@@ -1572,8 +1594,8 @@ namespace TheWeWebSite.CaseMgt
                         tbBust.Text = dt.Rows[i]["Col3"] == null ? string.Empty : dt.Rows[i]["Col3"].ToString();
                         tbWaist.Text = dt.Rows[i]["Col4"] == null ? string.Empty : dt.Rows[i]["Col4"].ToString();
                         tbHips.Text = dt.Rows[i]["Col5"] == null ? string.Empty : dt.Rows[i]["Col5"].ToString();
-                        // cbIsTry.Checked = dt.Rows[i]["Col6"] == null ? string.Empty : dt.Rows[i]["Col7"].ToString();
-                        // cbIsCheck.Text = dt.Rows[i]["Col7"] == null ? string.Empty : dt.Rows[i]["Col7"].ToString();
+                       //  cbIsTry.Checked = dt.Rows[i]["Col6"] == null ? string.Empty : dt.Rows[i]["Col6"].ToString();
+                       //  cbIsCheck.Text = dt.Rows[i]["Col7"] == null ? string.Empty : dt.Rows[i]["Col7"].ToString();
                         ImgCDress1.ImageUrl = dt.Rows[i]["Col8"] == null ? string.Empty : dt.Rows[i]["Col8"].ToString();
                         ImgCDress2.ImageUrl = dt.Rows[i]["Col9"] == null ? string.Empty : dt.Rows[i]["Col9"].ToString();
                         ImgCDress3.ImageUrl = dt.Rows[i]["Col10"] == null ? string.Empty : dt.Rows[i]["Col10"].ToString();
