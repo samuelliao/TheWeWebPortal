@@ -1233,4 +1233,10 @@
   <data name="ModelingPhotoString" xml:space="preserve">
     <value></value>
   </data>
+  <data name="MapPhotoString" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="DMPhotoString" xml:space="preserve">
+    <value></value>
+  </data>
 </root>

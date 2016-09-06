@@ -176,6 +176,10 @@ namespace TheWeWebSite.StoreMgt
             ImgSide.ImageUrl = null;
             ImgOther1.ImageUrl = null;
             ImgMeal.ImageUrl = null;
+            ImgBouquet.ImageUrl = null;
+            ImgMap.ImageUrl = null;
+            ImgDM.ImageUrl = null;
+
         }
 
         protected void btnModify_Click(object sender, EventArgs e)
@@ -341,6 +345,27 @@ namespace TheWeWebSite.StoreMgt
             string ImgFolderMealPath = imgMeal;
             RefreshImage(0, ImgFolderMealPath);
             tbFolderMealPath.Text = ImgFolderMealPath;
+
+            string imgMap = @dr["MapImg"].ToString();
+            if (string.IsNullOrEmpty(imgMap)) imgMap = SysProperty.ImgRootFolderpath + @"\Church\" + tbSn.Text;
+            else imgMap = SysProperty.ImgRootFolderpath + imgMap;
+            string ImgFolderMapPath = imgMap;
+            RefreshImage(0, ImgFolderMapPath);
+            tbFolderMealPath.Text = ImgFolderMapPath;
+
+            string imgDM = @dr["DmImg"].ToString();
+            if (string.IsNullOrEmpty(imgDM)) imgDM = SysProperty.ImgRootFolderpath + @"\Church\" + tbSn.Text;
+            else imgDM = SysProperty.ImgRootFolderpath + imgDM;
+            string ImgFolderDMPath = imgDM;
+            RefreshImage(0, ImgFolderDMPath);
+            tbFolderMealPath.Text = ImgFolderDMPath;
+
+            string imgBouquet = @dr["BOuquetImg"].ToString();
+            if (string.IsNullOrEmpty(imgBouquet)) imgBouquet = SysProperty.ImgRootFolderpath + @"\Church\" + tbSn.Text;
+            else imgBouquet = SysProperty.ImgRootFolderpath + imgBouquet;
+            string ImgFolderBouquetPath = imgBouquet;
+            RefreshImage(0, ImgFolderBouquetPath);
+            tbFolderMealPath.Text = ImgFolderBouquetPath;
 
             if (Session["LocateStore"] != null)
             {
@@ -759,6 +784,15 @@ namespace TheWeWebSite.StoreMgt
                     ImgOther1.ImageUrl = "http:" + path + "\\" + tbSn.Text + "_4.jpg?" + DateTime.Now.Ticks.ToString();
                     break;
                 case 5:
+                    ImgBouquet.ImageUrl = "http:" + path + "\\" + tbSn.Text + "_bouquet.jpg?" + DateTime.Now.Ticks.ToString();
+                    break;
+                case 6:
+                    ImgMap.ImageUrl = "http:" + path + "\\" + tbSn.Text + "_map.jpg?" + DateTime.Now.Ticks.ToString();
+                    break;
+                case 7:
+                    ImgDM.ImageUrl = "http:" + path + "\\" + tbSn.Text + "dm.jpg?" + DateTime.Now.Ticks.ToString();
+                    break;
+                case 8:
                     ImgMeal.ImageUrl = "http:" + path + "\\" + tbSn.Text + "_meal.jpg?" + DateTime.Now.Ticks.ToString();
                     break;
                 case 0:
@@ -767,7 +801,10 @@ namespace TheWeWebSite.StoreMgt
                     ImgBack.ImageUrl = "http:" + path + "\\" + tbSn.Text + "_2.jpg?" + DateTime.Now.Ticks.ToString();
                     ImgSide.ImageUrl = "http:" + path + "\\" + tbSn.Text + "_3.jpg?" + DateTime.Now.Ticks.ToString();
                     ImgOther1.ImageUrl = "http:" + path + "\\" + tbSn.Text + "_4.jpg?" + DateTime.Now.Ticks.ToString();
-                    ImgMeal.ImageUrl = "http:" + path + "\\" + tbSn.Text + "_meal.jpg?" + DateTime.Now.Ticks.ToString();
+                    ImgMeal.ImageUrl = "http:" + path + "\\" + tbSn.Text + "_1.jpg?" + DateTime.Now.Ticks.ToString();
+                    ImgDM.ImageUrl = "http:" + path + "\\" + tbSn.Text + "_1.jpg?" + DateTime.Now.Ticks.ToString();
+                    ImgMap.ImageUrl = "http:" + path + "\\" + tbSn.Text + "_1.jpg?" + DateTime.Now.Ticks.ToString();
+                    ImgBouquet.ImageUrl = "http:" + path + "\\" + tbSn.Text + "_1.jpg?" + DateTime.Now.Ticks.ToString();
                     break;
             }
         }
@@ -784,12 +821,12 @@ namespace TheWeWebSite.StoreMgt
             if (string.IsNullOrEmpty(tbFolderPath.Text)) return;
             bool needRefresh = false;
             CheckFolder(tbFolderPath.Text);
-            for (int i = 1; i <= 5; i++)
+            for (int i = 1; i <= 8; i++)
             {
                 FileUpload upload = Page.FindControl("FileUpload" + i) as FileUpload;
                 if (upload.HasFile)
                 {
-                    upload.PostedFile.SaveAs(tbFolderPath.Text + "\\" + tbSn.Text + "_" + (i == 5 ? "meal" : i.ToString()) + ".jpg");
+                    upload.PostedFile.SaveAs(tbFolderPath.Text + "\\" + tbSn.Text + "_" + (i == 8 ? "meal" : i.ToString()) + ".jpg");
                     needRefresh = true;
                 }
             }

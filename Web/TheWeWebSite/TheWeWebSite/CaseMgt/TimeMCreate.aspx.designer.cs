@@ -1363,15 +1363,6 @@ namespace TheWeWebSite.CaseMgt {
         protected global::System.Web.UI.WebControls.TextBox tbBouquetCorsage;
         
         /// <summary>
-        /// pnBouquet 控制項。
-        /// </summary>
-        /// <remarks>
-        /// 自動產生的欄位。
-        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnBouquet;
-        
-        /// <summary>
         /// lblBouquet1 控制項。
         /// </summary>
         /// <remarks>
@@ -1388,78 +1379,6 @@ namespace TheWeWebSite.CaseMgt {
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
         protected global::System.Web.UI.WebControls.Image ImgBouquet1;
-        
-        /// <summary>
-        /// lblBouquet2 控制項。
-        /// </summary>
-        /// <remarks>
-        /// 自動產生的欄位。
-        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblBouquet2;
-        
-        /// <summary>
-        /// ImgBouquet2 控制項。
-        /// </summary>
-        /// <remarks>
-        /// 自動產生的欄位。
-        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Image ImgBouquet2;
-        
-        /// <summary>
-        /// lblBouquet3 控制項。
-        /// </summary>
-        /// <remarks>
-        /// 自動產生的欄位。
-        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblBouquet3;
-        
-        /// <summary>
-        /// ImgBouquet3 控制項。
-        /// </summary>
-        /// <remarks>
-        /// 自動產生的欄位。
-        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Image ImgBouquet3;
-        
-        /// <summary>
-        /// lblBouquet4 控制項。
-        /// </summary>
-        /// <remarks>
-        /// 自動產生的欄位。
-        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblBouquet4;
-        
-        /// <summary>
-        /// ImgBouquet4 控制項。
-        /// </summary>
-        /// <remarks>
-        /// 自動產生的欄位。
-        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Image ImgBouquet4;
-        
-        /// <summary>
-        /// lblBouquet5 控制項。
-        /// </summary>
-        /// <remarks>
-        /// 自動產生的欄位。
-        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblBouquet5;
-        
-        /// <summary>
-        /// ImgBouquet5 控制項。
-        /// </summary>
-        /// <remarks>
-        /// 自動產生的欄位。
-        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Image ImgBouquet5;
         
         /// <summary>
         /// divDress 控制項。
