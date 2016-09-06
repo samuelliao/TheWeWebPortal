@@ -1078,6 +1078,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   查詢類似  的當地語系化字串。
+        /// </summary>
+        internal static string DMPhotoString {
+            get {
+                return ResourceManager.GetString("DMPhotoString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查詢類似 Domestic Engagement Date 的當地語系化字串。
         /// </summary>
         internal static string DomesticEngagementDateString {
@@ -1974,6 +1983,15 @@ namespace Resources {
         internal static string ManagerString {
             get {
                 return ResourceManager.GetString("ManagerString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查詢類似  的當地語系化字串。
+        /// </summary>
+        internal static string MapPhotoString {
+            get {
+                return ResourceManager.GetString("MapPhotoString", resourceCulture);
             }
         }
         

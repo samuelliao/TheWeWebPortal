@@ -202,8 +202,14 @@
                             <asp:FileUpload ID="FileUpload3" Width="80px"  runat="server" />
                             <asp:Label runat="server" Text="<%$ Resources:Resource,ImgOtherString%>"></asp:Label>
                             <asp:FileUpload ID="FileUpload4" Width="80px"  runat="server" />
-                            <asp:Label runat="server" Text="<%$ Resources:Resource,ImgOtherString%>"></asp:Label>
+                            <asp:Label runat="server" Text="<%$ Resources:Resource,BouquetPictureString%>"></asp:Label>
                             <asp:FileUpload ID="FileUpload5" Width="80px"  runat="server" />
+                            <asp:Label runat="server" Text="<%$ Resources:Resource,MapPhotoString%>"></asp:Label>
+                            <asp:FileUpload ID="FileUpload6" Width="80px"  runat="server" />
+                            <asp:Label runat="server" Text="<%$ Resources:Resource,DMPhotoString%>"></asp:Label>
+                            <asp:FileUpload ID="FileUpload7" Width="80px"  runat="server" />
+                            <asp:Label runat="server" Text="<%$ Resources:Resource,MealString%>"></asp:Label>
+                            <asp:FileUpload ID="FileUpload8" Width="80px"  runat="server" />
                         </div>
                     <div style="text-align: left; margin-top: 15px;">
                         <asp:Button CausesValidation="true" runat="server" Text="<%$ Resources:Resource,UploadString%>" ID="btnUpload"
@@ -256,7 +262,34 @@
             </div>
             <hr />
             <div class="row no-collapse 50% uniform">
-                <div class="4u 12u(mobilep)">
+                <div class="6u 12u(mobilep)">
+                    <div style="text-align: center">
+                        <asp:Label runat="server" Text="<%$ Resources:Resource,BouquetPictureString%>"></asp:Label>
+                    </div>
+                    <span class="image fit">
+                        <asp:Image runat="server" ID="ImgBouquet" />
+                    </span>
+                </div>
+                <div class="6u 12u(mobilep)">
+                    <div style="text-align: center">
+                        <asp:Label runat="server" Text="<%$ Resources:Resource,MapPhotoString%>"></asp:Label>
+                    </div>
+                    <span class="image fit">
+                        <asp:Image runat="server" ID="ImgMap" />
+                    </span>
+                </div>
+            </div>
+            <hr />
+            <div class="row no-collapse 50% uniform">
+                <div class="6u 12u(mobilep)">
+                    <div style="text-align: center">
+                        <asp:Label runat="server" Text="<%$ Resources:Resource,DMPhotoString%>"></asp:Label>
+                    </div>
+                    <span class="image fit">
+                        <asp:Image runat="server" ID="ImgDM" />
+                    </span>
+                </div>
+                <div class="6u 12u(mobilep)">
                     <div style="text-align: center">
                         <asp:Label runat="server" Text="<%$ Resources:Resource,MealString%>"></asp:Label>
                     </div>

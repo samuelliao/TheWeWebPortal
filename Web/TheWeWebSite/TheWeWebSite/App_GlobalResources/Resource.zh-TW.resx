@@ -1233,4 +1233,10 @@
   <data name="ModelingPhotoString" xml:space="preserve">
     <value>造型照片</value>
   </data>
+  <data name="MapPhotoString" xml:space="preserve">
+    <value>地圖照片</value>
+  </data>
+  <data name="DMPhotoString" xml:space="preserve">
+    <value>DM照片</value>
+  </data>
 </root>
