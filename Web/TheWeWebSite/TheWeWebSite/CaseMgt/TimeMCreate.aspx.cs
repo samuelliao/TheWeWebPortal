@@ -320,7 +320,7 @@ namespace TheWeWebSite.CaseMgt
             ddlOrderType.Items.Add(new ListItem(Resources.Resource.ProjectString, string.Empty));
             try
             {
-                string sql = "SELECT * FROM [TheWe].[dbo].[ServiceItemCategory] Where TypeLv=0 order by Type";
+                string sql = "SELECT * FROM [dbo].[ServiceItemCategory] Where TypeLv=0 order by Type";
                 DataSet ds = SysProperty.GenDbCon.GetDataFromTable(sql);
                 if (SysProperty.Util.IsDataSetEmpty(ds)) return;
                 foreach (DataRow dr in ds.Tables[0].Rows)
@@ -410,7 +410,7 @@ namespace TheWeWebSite.CaseMgt
                 + ", o.PS_SitePlan , o.PS_BanquetContent , o.PS_Food, o.PS_BanquetGuest , o.PS_BSpecialClaim , o.PS_BouquetCheck ,o.PS_TakePictureBouquetCheck"
                 + ", do.Bust , do.Waist , do.Hips , do.IsCheck , do.IsTry "
                 + ", ch.BouquetImg , ch.Sn as ChSn"
-                + " FROM[TheWe].[dbo].[OrderInfo] as o"
+                + " FROM [dbo].[OrderInfo] as o"
                 + " Left join Consultation as c on c.Id = o.ConsultId"
                 + " Left join vwEN_Customer as cus on cus.Id = o.CustomerId"
                 + " Left join ProductSet as p on p.Id = o.SetId"
@@ -436,7 +436,7 @@ namespace TheWeWebSite.CaseMgt
                 string sql = "SELECT info.[Id],[ItemId],[OrderId],[BookingDate],[IsCheck]"
                     + ",[CheckTime],[EmployeeId],info.Remark,info.[IsDelete],info.[UpdateAccId]"
                     + ",info.[UpdateTime],item.ConferenceLv"
-                    + " FROM[TheWe].[dbo].[ConferenceInfo] as info"
+                    + " FROM [dbo].[ConferenceInfo] as info"
                     + " Left join ConferenceItem as item on item.Id = info.ItemId"
                     + " Where info.IsDelete=0 " + condStr;
                 return SysProperty.GenDbCon.GetDataFromTable(sql);
@@ -1453,7 +1453,7 @@ namespace TheWeWebSite.CaseMgt
         {
 
             AjaxControlToolkit.ComboBox cbxChooseDSn = (AjaxControlToolkit.ComboBox)e.Row.FindControl("cbxChooseDSn");
-            DataSet ds1 = SysProperty.GenDbCon.GetDataFromTable("select * from [TheWe].[dbo].[Dress] Where IsDelete=0 and cast(Category as nvarchar(max))='" + id + "'");
+            DataSet ds1 = SysProperty.GenDbCon.GetDataFromTable("select * from [dbo].[Dress] Where IsDelete=0 and cast(Category as nvarchar(max))='" + id + "'");
 
             if (SysProperty.Util.IsDataSetEmpty(ds1))
             {
@@ -1496,7 +1496,7 @@ namespace TheWeWebSite.CaseMgt
         {
 
             AjaxControlToolkit.ComboBox cbxChooseHSn = (AjaxControlToolkit.ComboBox)e.Row.FindControl("cbxChooseHSn");
-            DataSet ds1 = SysProperty.GenDbCon.GetDataFromTable("select * from [TheWe].[dbo].HairStyleItem Where IsDelete=0 and cast(Type as nvarchar(max))='" + id + "'");
+            DataSet ds1 = SysProperty.GenDbCon.GetDataFromTable("select * from [dbo].HairStyleItem Where IsDelete=0 and cast(Type as nvarchar(max))='" + id + "'");
 
             if (SysProperty.Util.IsDataSetEmpty(ds1))
             {
@@ -1713,6 +1713,10 @@ namespace TheWeWebSite.CaseMgt
         }
         #endregion
 
+        protected void ddlServiceItem_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 
 }

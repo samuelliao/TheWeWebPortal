@@ -92,14 +92,26 @@ namespace TheWeWebSite.CaseMgt
             PermissionUtil util = new PermissionUtil();
             if (Session["Operation"] == null) Response.Redirect("~/Login.aspx");
             PermissionItem item = util.GetPermissionByKey(Session["Operation"], util.GetOperationSnByPage(this.Page.AppRelativeVirtualPath));
-            btnCreate.Visible = item.CanCreate;
-            btnCreate.Enabled = item.CanCreate;
-            btnDelete.Visible = item.CanDelete;
-            btnDelete.Enabled = item.CanDelete;
-            btnModify.Visible = item.CanModify;
-            btnModify.Enabled = item.CanModify;
-            btnExport.Enabled = item.CanExport;
-            btnExport.Visible = item.CanExport;
+            if (btnCreate.Visible)
+            {
+                btnCreate.Visible = item.CanCreate;
+                btnCreate.Enabled = item.CanCreate;
+            }
+            if (btnDelete.Visible)
+            {
+                btnDelete.Visible = item.CanDelete;
+                btnDelete.Enabled = item.CanDelete;
+            }
+            if (btnModify.Visible)
+            {
+                btnModify.Visible = item.CanModify;
+                btnModify.Enabled = item.CanModify;
+            }
+            if (btnExport.Visible)
+            {
+                btnExport.Enabled = item.CanExport;
+                btnExport.Visible = item.CanExport;
+            }
             if (bool.Parse(((DataRow)Session["LocateStore"])["HoldingCompany"].ToString()))
             {
                 btnDelete.Visible = false;
@@ -113,7 +125,7 @@ namespace TheWeWebSite.CaseMgt
                 tbBridalPhone.CssClass = "Enable";
                 tbBridalEmail.CssClass = "Enable";
             }
-           
+
 
         }
         private void InitialControls()
@@ -947,6 +959,12 @@ namespace TheWeWebSite.CaseMgt
                         , AttrSymbolItem.Equal
                         , ((DataRow)Session["AccountInfo"])["Id"].ToString()));
             lst.Add(new DbSearchObject(
+                "UpdateTime"
+                , AtrrTypeItem.DateTime
+                , AttrSymbolItem.Equal
+                , DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss")
+                ));
+            lst.Add(new DbSearchObject(
                         "StoreId"
                         , AtrrTypeItem.String
                         , AttrSymbolItem.Equal
@@ -968,6 +986,12 @@ namespace TheWeWebSite.CaseMgt
                 , AtrrTypeItem.String
                 , AttrSymbolItem.Equal
                 , ((DataRow)Session["AccountInfo"])["Id"].ToString()
+                ));
+                lst.Add(new DbSearchObject(
+                "CreatedateTime"
+                , AtrrTypeItem.DateTime
+                , AttrSymbolItem.Equal
+                , DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss")
                 ));
             }
             return lst;
@@ -1015,6 +1039,12 @@ namespace TheWeWebSite.CaseMgt
                         , AtrrTypeItem.String
                         , AttrSymbolItem.Equal
                         , ((DataRow)Session["AccountInfo"])["Id"].ToString()));
+            lst.Add(new DbSearchObject(
+                "UpdateTime"
+                , AtrrTypeItem.DateTime
+                , AttrSymbolItem.Equal
+                , DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss")
+                ));
             if (!string.IsNullOrEmpty(ddlGroomMsgerType.SelectedValue))
             {
                 lst.Add(new DbSearchObject(
@@ -1030,6 +1060,12 @@ namespace TheWeWebSite.CaseMgt
                 , AtrrTypeItem.String
                 , AttrSymbolItem.Equal
                 , ((DataRow)Session["AccountInfo"])["Id"].ToString()
+                ));
+                lst.Add(new DbSearchObject(
+                "CreatedateTime"
+                , AtrrTypeItem.DateTime
+                , AttrSymbolItem.Equal
+                , DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss")
                 ));
             }
             return lst;
@@ -1665,9 +1701,15 @@ namespace TheWeWebSite.CaseMgt
         {
             try
             {
+                List<DbSearchObject> conds = new List<DbSearchObject>();
+                conds.Add(lst.Find(x => x.AttrName == "Name"));
+                conds.Add(lst.Find(x => x.AttrName == "UpdateAccId"));
+                conds.Add(lst.Find(x => x.AttrName == "CreatedateAccId"));
+                conds.Add(lst.Find(x => x.AttrName == "UpdateTime"));
+                conds.Add(lst.Find(x => x.AttrName == "CreatedateTime"));
                 return SysProperty.GenDbCon.GetDataFromTable("Id"
                     , SysProperty.Util.MsSqlTableConverter(MsSqlTable.vwEN_Customer)
-                    , SysProperty.Util.SqlQueryConditionConverter(lst)).Tables[0].Rows[0]["Id"].ToString();
+                    , SysProperty.Util.SqlQueryConditionConverter(conds)).Tables[0].Rows[0]["Id"].ToString();
             }
             catch (Exception ex)
             {
@@ -1681,9 +1723,15 @@ namespace TheWeWebSite.CaseMgt
         {
             try
             {
+                List<DbSearchObject> conds = new List<DbSearchObject>();
+                conds.Add(lst.Find(x => x.AttrName == "Name"));
+                conds.Add(lst.Find(x => x.AttrName == "UpdateAccId"));
+                conds.Add(lst.Find(x => x.AttrName == "CreatedateAccId"));
+                conds.Add(lst.Find(x => x.AttrName == "UpdateTime"));
+                conds.Add(lst.Find(x => x.AttrName == "CreatedateTime"));
                 return SysProperty.GenDbCon.GetDataFromTable("Id"
                     , SysProperty.Util.MsSqlTableConverter(MsSqlTable.vwEN_Partner)
-                    , SysProperty.Util.SqlQueryConditionConverter(lst)).Tables[0].Rows[0]["Id"].ToString();
+                    , SysProperty.Util.SqlQueryConditionConverter(conds)).Tables[0].Rows[0]["Id"].ToString();
             }
             catch (Exception ex)
             {
