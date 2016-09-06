@@ -904,8 +904,7 @@ namespace TheWeWebSite.StoreMgt
             }else
             {
                 WriteBackInfo(MsSqlTable.DressRent, true, DressRentDbObject(dressId, true), string.Empty);
-            }
-            
+            }            
         }
 
         private string GetCreatedDressId(MsSqlTable table, List<DbSearchObject> item)

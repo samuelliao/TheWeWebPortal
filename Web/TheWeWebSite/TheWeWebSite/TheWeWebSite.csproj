@@ -121,13 +121,11 @@
     <Content Include="Main\CustomerCalendar.aspx" />
     <Content Include="Main\DressRentMaintain.aspx" />
     <Content Include="Main\Unsigned.aspx" />
-    <Content Include="remind.aspx" />
     <Content Include="Setting\AccInfoSetting.aspx" />
     <Content Include="StoreMgt\ChurchMaintain.aspx" />
     <Content Include="StoreMgt\ChurchMCreate.aspx" />
     <Content Include="StoreMgt\DressMaintain.aspx" />
     <Content Include="StoreMgt\DressMCreate.aspx" />
-    <Content Include="StoreMgt\DressRentMaintain.aspx" />
     <Content Include="StoreMgt\EmployeeMaintain.aspx" />
     <Content Include="StoreMgt\EmployeeMCreate.aspx" />
     <Content Include="StoreMgt\FittingMaintain.aspx" />
@@ -283,13 +281,6 @@
     <Compile Include="Output\CouplesInfoDoc.cs" />
     <Compile Include="Output\GroupPhotoNotification.cs" />
     <Compile Include="PermissionUtil.cs" />
-    <Compile Include="remind.aspx.cs">
-      <DependentUpon>remind.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="remind.aspx.designer.cs">
-      <DependentUpon>remind.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ResourceUtil.cs" />
     <Compile Include="Setting\AccInfoSetting.aspx.cs">
@@ -326,13 +317,6 @@
     </Compile>
     <Compile Include="StoreMgt\DressMCreate.aspx.designer.cs">
       <DependentUpon>DressMCreate.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="StoreMgt\DressRentMaintain.aspx.cs">
-      <DependentUpon>DressRentMaintain.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="StoreMgt\DressRentMaintain.aspx.designer.cs">
-      <DependentUpon>DressRentMaintain.aspx</DependentUpon>
     </Compile>
     <Compile Include="StoreMgt\EmployeeMaintain.aspx.cs">
       <DependentUpon>EmployeeMaintain.aspx</DependentUpon>

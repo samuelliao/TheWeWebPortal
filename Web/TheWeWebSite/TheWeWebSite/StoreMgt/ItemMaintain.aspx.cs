@@ -429,5 +429,11 @@ namespace TheWeWebSite.StoreMgt
             }
             return str;
         }
+
+        protected void LinkItemMCreate_Click(object sender, EventArgs e)
+        {
+            Session.Remove("SetId");
+            Server.Transfer("ItemMCreate.aspx", true);
+        }
     }
 }

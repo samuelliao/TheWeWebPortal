@@ -619,5 +619,11 @@ namespace TheWeWebSite.CaseMgt
             Session["CustomerId"] = ((LinkButton)sender).CommandArgument;
             Server.Transfer("~/CaseMgt/CustomerMCreate.aspx");
         }
+
+        protected void btnCreate_Click(object sender, EventArgs e)
+        {
+            Session.Remove("OrderId");
+            Response.Redirect("CaseMCreate.aspx");
+        }
     }
 }

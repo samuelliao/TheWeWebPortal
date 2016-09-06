@@ -1839,7 +1839,7 @@ namespace TheWeWebSite.CaseMgt
                         , dr["Id"].ToString()
                         ));
                 }
-                if (string.IsNullOrEmpty(dataItem1["Currency"].ToString()))
+                if (string.IsNullOrEmpty(dataItem1["Col3"].ToString()))
                 {
                     ddlCurrency.SelectedValue = ((DataRow)Session["LocateStore"])["Currency"].ToString();
                 }

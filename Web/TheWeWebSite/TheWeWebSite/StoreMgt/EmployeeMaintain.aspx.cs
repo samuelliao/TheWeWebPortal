@@ -245,5 +245,11 @@ namespace TheWeWebSite.StoreMgt
                 DS = null;
             }
         }
+
+        protected void LinkEmployeeMCreate_Click(object sender, EventArgs e)
+        {
+            Session.Remove("EmpId");
+            Server.Transfer("EmployeeMCreate.aspx", true);
+        }
     }
 }
