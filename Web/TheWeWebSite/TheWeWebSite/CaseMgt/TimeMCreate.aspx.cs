@@ -621,8 +621,8 @@ namespace TheWeWebSite.CaseMgt
             }
 
 
-            SetImg(dr["BouquetImg"].ToString(), dr["ChSn"].ToString());
-
+            lblBouquet1.Text = Resources.Resource.PhotoBouquetString;
+            ImgBouquet1.ImageUrl = "http:" + SysProperty.ImgRootFolderpath + dr["BouquetImg"].ToString() + @"\" + dr["ChSn"].ToString() + "_" + "1" + @".jpg";
 
         }
 
@@ -1373,23 +1373,6 @@ namespace TheWeWebSite.CaseMgt
         }
 
 
-        //BouquetImg
-        private void SetImg(string path, string sn)
-        {
-            int cnt = 0;
-            foreach (string fname in System.IO.Directory.GetFileSystemEntries(@"C:\inetpub\wwwroot\photo\" + path))
-            {
-                cnt++;
-            }
-
-            
-            lblBouquet1.Text = "A";
-            ImgBouquet1.ImageUrl = "http:" + SysProperty.ImgRootFolderpath + path + @"\" + sn + "_" + "1" + @".jpg";
-           
-
-        }
-
-
         #region 1-4 Choose Dress
 
 
@@ -1434,34 +1417,28 @@ namespace TheWeWebSite.CaseMgt
                 {
                     ddlService.Items.Add(new ListItem(
                         SysProperty.Util.OutputRelatedLangName(Session["CultureCode"].ToString(), dr)
-                        , dr["Id"].ToString()
+                        , dr["Id"].ToString() + ";" + e.Row.RowIndex
                         ));
                 }
                 //ddlService.SelectedIndex = 0;
-                cbSerSn(sender, e, ddlService.SelectedValue);
+                //cbSerSn(sender, e, ddlService.SelectedValue.ToString().Split(';')[0], e.Row.RowIndex);
             }
         }
 
 
 
-        private void cbSerSn(object sender, GridViewRowEventArgs e, string id)
+        private void cbSerSn(object sender, GridViewRowEventArgs e, string id, int Index)
         {
 
             AjaxControlToolkit.ComboBox cbxChooseDSn = (AjaxControlToolkit.ComboBox)e.Row.FindControl("cbxChooseDSn");
             DataSet ds1 = SysProperty.GenDbCon.GetDataFromTable("select * from [TheWe].[dbo].[Dress] Where IsDelete=0 and cast(Category as nvarchar(max))='" + id + "'");
 
-            if (SysProperty.Util.IsDataSetEmpty(ds1))
+
+            cbxChooseDSn.Enabled = true;
+            foreach (DataRow dr in ds1.Tables[0].Rows)
             {
-                cbxChooseDSn.Enabled = false;
-            }
-            else
-            {
-                cbxChooseDSn.Enabled = true;
-                foreach (DataRow dr in ds1.Tables[0].Rows)
-                {
-                    cbxChooseDSn.Items.Add(new ListItem(dr["Sn"].ToString()
-                        ));
-                }
+                cbxChooseDSn.Items.Add(new ListItem(dr["Sn"].ToString(), Index.ToString()
+                    ));
             }
         }
 
@@ -1589,8 +1566,8 @@ namespace TheWeWebSite.CaseMgt
                         tbBust.Text = dt.Rows[i]["Col3"] == null ? string.Empty : dt.Rows[i]["Col3"].ToString();
                         tbWaist.Text = dt.Rows[i]["Col4"] == null ? string.Empty : dt.Rows[i]["Col4"].ToString();
                         tbHips.Text = dt.Rows[i]["Col5"] == null ? string.Empty : dt.Rows[i]["Col5"].ToString();
-                       //  cbIsTry.Checked = dt.Rows[i]["Col6"] == null ? string.Empty : dt.Rows[i]["Col6"].ToString();
-                       //  cbIsCheck.Text = dt.Rows[i]["Col7"] == null ? string.Empty : dt.Rows[i]["Col7"].ToString();
+                        //  cbIsTry.Checked = dt.Rows[i]["Col6"] == null ? string.Empty : dt.Rows[i]["Col6"].ToString();
+                        //  cbIsCheck.Text = dt.Rows[i]["Col7"] == null ? string.Empty : dt.Rows[i]["Col7"].ToString();
                         ImgCDress1.ImageUrl = dt.Rows[i]["Col8"] == null ? string.Empty : dt.Rows[i]["Col8"].ToString();
                         ImgCDress2.ImageUrl = dt.Rows[i]["Col9"] == null ? string.Empty : dt.Rows[i]["Col9"].ToString();
                         ImgCDress3.ImageUrl = dt.Rows[i]["Col10"] == null ? string.Empty : dt.Rows[i]["Col10"].ToString();
@@ -1708,6 +1685,27 @@ namespace TheWeWebSite.CaseMgt
         }
         #endregion
 
+        protected void ddlServiceItem_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string[] var = ((DropDownList)sender).SelectedValue.ToString().Split(';');
+            AjaxControlToolkit.ComboBox cbxChooseDSn = dgCutomServiceItem.Rows[int.Parse(var[1])].FindControl("cbxChooseDSn") as AjaxControlToolkit.ComboBox;
+            cbxChooseDSn.Items.Clear();
+
+            DataSet ds1 = SysProperty.GenDbCon.GetDataFromTable("select * from [dbo].[Dress] Where IsDelete=0 and cast(Category as nvarchar(max))='" + var[0] + "'");
+
+
+            cbxChooseDSn.Enabled = true;
+            foreach (DataRow dr in ds1.Tables[0].Rows)
+            {
+                cbxChooseDSn.Items.Add(new ListItem(dr["Sn"].ToString(), dr["Sn"].ToString()+";"+var[1]
+                    ));
+            }
+        }
+
+        protected void cbxChooseDSn_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string[] var = ((DropDownList)sender).SelectedValue.ToString().Split(';');
+        }
     }
 
 }

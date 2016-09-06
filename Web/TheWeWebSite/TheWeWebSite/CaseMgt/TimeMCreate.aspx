@@ -603,12 +603,12 @@
                                                 <Columns>
                                                     <asp:TemplateField HeaderText="<%$ Resources:Resource,CategoryString%>">
                                                         <ItemTemplate>
-                                                            <asp:DropDownList runat="server" ID="ddlServiceItem" AutoPostBack="True" />
+                                                            <asp:DropDownList runat="server" ID="ddlServiceItem" AutoPostBack="True" OnSelectedIndexChanged="ddlServiceItem_SelectedIndexChanged" />
                                                         </ItemTemplate>
                                                     </asp:TemplateField>
                                                     <asp:TemplateField HeaderText="<%$ Resources:Resource,SnString%>">
                                                         <ItemTemplate>
-                                                            <ajaxToolkit:ComboBox ID="cbxChooseDSn" runat="server" AutoCompleteMode="SuggestAppend"></ajaxToolkit:ComboBox>
+                                                            <ajaxToolkit:ComboBox ID="cbxChooseDSn" runat="server" AutoCompleteMode="SuggestAppend" AutoPostBack="true" OnSelectedIndexChanged="cbxChooseDSn_SelectedIndexChanged"></ajaxToolkit:ComboBox>
                                                         </ItemTemplate>
                                                     </asp:TemplateField>
                                                     <asp:TemplateField HeaderText="<%$ Resources:Resource,BustString%>">
