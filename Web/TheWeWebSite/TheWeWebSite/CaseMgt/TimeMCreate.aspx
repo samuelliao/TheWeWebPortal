@@ -665,7 +665,7 @@
                                                     </asp:TemplateField>
                                                     <asp:TemplateField HeaderText="<%$ Resources:Resource,ModelingString%>">
                                                         <ItemTemplate>
-                                                            <asp:DropDownList runat="server" ID="ddlHairCategory" AutoPostBack="True" />
+                                                            <asp:DropDownList runat="server" ID="ddlHairCategory" AutoPostBack="True" OnSelectedIndexChanged="ddlHairCategory_SelectedIndexChanged" />
                                                         </ItemTemplate>
                                                     </asp:TemplateField>
                                                     <asp:TemplateField HeaderText="<%$ Resources:Resource,ModelingSnString%>">

@@ -1420,28 +1420,8 @@ namespace TheWeWebSite.CaseMgt
                         , dr["Id"].ToString() + ";" + e.Row.RowIndex
                         ));
                 }
-                //ddlService.SelectedIndex = 0;
-                //cbSerSn(sender, e, ddlService.SelectedValue.ToString().Split(';')[0], e.Row.RowIndex);
             }
         }
-
-
-
-        private void cbSerSn(object sender, GridViewRowEventArgs e, string id, int Index)
-        {
-
-            AjaxControlToolkit.ComboBox cbxChooseDSn = (AjaxControlToolkit.ComboBox)e.Row.FindControl("cbxChooseDSn");
-            DataSet ds1 = SysProperty.GenDbCon.GetDataFromTable("select * from [TheWe].[dbo].[Dress] Where IsDelete=0 and cast(Category as nvarchar(max))='" + id + "'");
-
-
-            cbxChooseDSn.Enabled = true;
-            foreach (DataRow dr in ds1.Tables[0].Rows)
-            {
-                cbxChooseDSn.Items.Add(new ListItem(dr["Sn"].ToString(), Index.ToString()
-                    ));
-            }
-        }
-
 
         private void ddlHairCategory(object sender, GridViewRowEventArgs e)
         {
@@ -1456,34 +1436,14 @@ namespace TheWeWebSite.CaseMgt
                 {
                     ddlHairCategory.Items.Add(new ListItem(
                         SysProperty.Util.OutputRelatedLangName(Session["CultureCode"].ToString(), dr)
-                        , dr["Id"].ToString()
+                        , dr["Id"].ToString() + ";" + e.Row.RowIndex
                         ));
                 }
-                ddlHairCategory.SelectedIndex = 0;
-                cbSerHSn(sender, e, ddlHairCategory.SelectedValue);
+                //ddlHairCategory.SelectedIndex = 0;
+                //cbSerHSn(sender, e, ddlHairCategory.SelectedValue);
             }
         }
 
-        private void cbSerHSn(object sender, GridViewRowEventArgs e, string id)
-        {
-
-            AjaxControlToolkit.ComboBox cbxChooseHSn = (AjaxControlToolkit.ComboBox)e.Row.FindControl("cbxChooseHSn");
-            DataSet ds1 = SysProperty.GenDbCon.GetDataFromTable("select * from [TheWe].[dbo].HairStyleItem Where IsDelete=0 and cast(Type as nvarchar(max))='" + id + "'");
-
-            if (SysProperty.Util.IsDataSetEmpty(ds1))
-            {
-                cbxChooseHSn.Enabled = false;
-            }
-            else
-            {
-                cbxChooseHSn.Enabled = true;
-                foreach (DataRow dr in ds1.Tables[0].Rows)
-                {
-                    cbxChooseHSn.Items.Add(new ListItem(dr["Sn"].ToString()
-                        ));
-                }
-            }
-        }
         private void SetRowData_dgCutomServiceItem()
         {
             int rowIndex = 0;
@@ -1693,18 +1653,48 @@ namespace TheWeWebSite.CaseMgt
 
             DataSet ds1 = SysProperty.GenDbCon.GetDataFromTable("select * from [dbo].[Dress] Where IsDelete=0 and cast(Category as nvarchar(max))='" + var[0] + "'");
 
-
-            cbxChooseDSn.Enabled = true;
-            foreach (DataRow dr in ds1.Tables[0].Rows)
+            if (SysProperty.Util.IsDataSetEmpty(ds1))
             {
-                cbxChooseDSn.Items.Add(new ListItem(dr["Sn"].ToString(), dr["Sn"].ToString()+";"+var[1]
-                    ));
+                cbxChooseDSn.Enabled = false;
+            }
+            else
+            {
+                cbxChooseDSn.Enabled = true;
+                foreach (DataRow dr in ds1.Tables[0].Rows)
+                {
+                    cbxChooseDSn.Items.Add(new ListItem(dr["Sn"].ToString(), dr["Id"].ToString() + ";" + var[1]
+                        ));
+                }
             }
         }
 
         protected void cbxChooseDSn_SelectedIndexChanged(object sender, EventArgs e)
         {
             string[] var = ((DropDownList)sender).SelectedValue.ToString().Split(';');
+        }
+
+        protected void ddlHairCategory_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string[] var = ((DropDownList)sender).SelectedValue.ToString().Split(';');
+            AjaxControlToolkit.ComboBox cbxChooseHSn = dgCutomServiceItem.Rows[int.Parse(var[1])].FindControl("cbxChooseHSn") as AjaxControlToolkit.ComboBox;
+            cbxChooseHSn.Items.Clear();
+
+            DataSet ds1 = SysProperty.GenDbCon.GetDataFromTable("select * from [dbo].HairStyleItem Where IsDelete=0 and cast(Type as nvarchar(max))='" + var[0] + "'");
+
+            if (SysProperty.Util.IsDataSetEmpty(ds1))
+            {
+                cbxChooseHSn.Enabled = false;
+            }
+            else
+            {
+                cbxChooseHSn.Enabled = true;
+                foreach (DataRow dr in ds1.Tables[0].Rows)
+                {
+                    cbxChooseHSn.Items.Add(new ListItem(dr["Sn"].ToString(), dr["Id"].ToString() + ";" + var[1]
+                        ));
+                }
+            }
+
         }
     }
 
