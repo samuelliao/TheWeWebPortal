@@ -580,55 +580,14 @@
                                         <asp:TextBox runat="server" ID="tbBouquetCorsage" />
                                     </div>
                                     <!---->
-                                    <asp:UpdatePanel runat="server">
-                                        <ContentTemplate>
-                                            <asp:Panel runat="server" ID="pnBouquet">
-                                                <columns>
-                                                    <div class="2u 12u(mobilep) TimeMaintain">
-                                                        <div class="TimeMaintainDiv" style="text-align: center">
-                                                            <asp:Label runat="server" ID="lblBouquet1"  ></asp:Label>
-                                                        </div>
-                                                        <span class="image fit">
-                                                            <asp:Image runat="server" ID="ImgBouquet1"  />
-                                                        </span>
-                                                    </div>
-                                                <div class="2u 12u(mobilep) TimeMaintain">
-                                                        <div class="TimeMaintainDiv" style="text-align: center">
-                                                            <asp:Label runat="server" ID="lblBouquet2"  ></asp:Label>
-                                                        </div>
-                                                        <span class="image fit">
-                                                            <asp:Image runat="server" ID="ImgBouquet2"  />
-                                                        </span>
-                                                    </div>
-                                                    <div class="2u 12u(mobilep) TimeMaintain">
-                                                        <div class="TimeMaintainDiv" style="text-align: center">
-                                                            <asp:Label runat="server" ID="lblBouquet3"  ></asp:Label>
-                                                        </div>
-                                                        <span class="image fit">
-                                                            <asp:Image runat="server" ID="ImgBouquet3"  />
-                                                        </span>
-                                                    </div>
-                                                    <div class="2u 12u(mobilep) TimeMaintain">
-                                                        <div class="TimeMaintainDiv" style="text-align: center">
-                                                            <asp:Label runat="server" ID="lblBouquet4"  ></asp:Label>
-                                                        </div>
-                                                        <span class="image fit">
-                                                            <asp:Image runat="server" ID="ImgBouquet4"  />
-                                                        </span>
-                                                    </div>
-                                                    <div class="2u 12u(mobilep) TimeMaintain">
-                                                        <div class="TimeMaintainDiv" style="text-align: center">
-                                                            <asp:Label runat="server" ID="lblBouquet5"  ></asp:Label>
-                                                        </div>
-                                                        <span class="image fit">
-                                                            <asp:Image runat="server" ID="ImgBouquet5"  />
-                                                        </span>
-                                                    </div>
-
-                                                </columns>
-                                            </asp:Panel>
-                                        </ContentTemplate>
-                                    </asp:UpdatePanel>
+                                    <div class="4u 12u(mobilep) TimeMaintain">
+                                        <div class="TimeMaintainDiv" style="text-align: center">
+                                            <asp:Label runat="server" ID="lblBouquet1"></asp:Label>
+                                        </div>
+                                        <span class="image fit">
+                                            <asp:Image runat="server" ID="ImgBouquet1" />
+                                        </span>
+                                    </div>
                                 </div>
                                 <!--BouquetCorsage End-->
                                 <!--挑選禮服-->

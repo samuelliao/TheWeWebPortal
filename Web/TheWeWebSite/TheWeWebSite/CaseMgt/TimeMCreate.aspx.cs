@@ -1385,12 +1385,7 @@ namespace TheWeWebSite.CaseMgt
             
             lblBouquet1.Text = "A";
             ImgBouquet1.ImageUrl = "http:" + SysProperty.ImgRootFolderpath + path + @"\" + sn + "_" + "1" + @".jpg";
-            lblBouquet2.Text = "B";
-            ImgBouquet2.ImageUrl = "http:" + SysProperty.ImgRootFolderpath + path + @"\" + sn + "_" + "2" + @".jpg";
-            lblBouquet3.Text = "C";
-            ImgBouquet3.ImageUrl = "http:" + SysProperty.ImgRootFolderpath + path + @"\" + sn + "_" + "3" + @".jpg";
-            lblBouquet4.Text = "D";
-            ImgBouquet4.ImageUrl = "http:" + SysProperty.ImgRootFolderpath + path + @"\" + sn + "_" + "4" + @".jpg";
+           
 
         }
 
