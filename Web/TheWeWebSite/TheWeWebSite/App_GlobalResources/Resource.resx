@@ -1215,4 +1215,22 @@
   <data name="IncomeDetailString" xml:space="preserve">
     <value>Income Detail</value>
   </data>
+  <data name="BustString" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="WaistString" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="HipsString" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="TryDressString" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="CheckDressString" xml:space="preserve">
+    <value></value>
+  </data>
+  <data name="ModelingPhotoString" xml:space="preserve">
+    <value></value>
+  </data>
 </root>
