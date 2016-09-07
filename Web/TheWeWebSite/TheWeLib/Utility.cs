@@ -535,6 +535,8 @@ namespace TheWeLib
                     return "DressRent";
                 case MsSqlTable.ReceiptDetail:
                     return "ReceiptDetail";
+                case MsSqlTable.DressOrder:
+                    return "DressOrder";
                 default:
                     return string.Empty;
 

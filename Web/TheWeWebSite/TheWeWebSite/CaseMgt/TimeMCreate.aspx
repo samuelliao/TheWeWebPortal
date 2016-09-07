@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="TimeMCreate.aspx.cs" Inherits="TheWeWebSite.CaseMgt.TimeMCreate" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="TimeMCreate.aspx.cs" Inherits="TheWeWebSite.CaseMgt.TimeMCreate" MaintainScrollPositionOnPostback="true" %>
 
 <%@ Register TagPrefix="My" TagName="Header" Src="~/Header.ascx" %>
 <!DOCTYPE html>
@@ -201,13 +201,15 @@
                                         <div class="TimeMaintainDiv">
                                             <asp:Label runat="server" ID="lblTravelPeriod"></asp:Label>
                                         </div>
-                                        <asp:TextBox runat="server" ID="tbTravelPeriod" />
+                                        <asp:TextBox runat="server" ID="tbTravelPeriod" Style="text-align: right" />
+                                        <asp:RegularExpressionValidator CssClass="error" Display="Dynamic" ID="RegularExpressionValidator3" ControlToValidate="tbTravelPeriod" runat="server" ErrorMessage="Only Numbers allowed" ValidationExpression="\d+"></asp:RegularExpressionValidator>
                                     </div>
                                     <div class="2u 12u(mobilep) TimeMaintain">
                                         <div class="TimeMaintainDiv">
                                             <asp:Label runat="server" ID="lblStayNight"></asp:Label>
                                         </div>
-                                        <asp:TextBox runat="server" ID="tbStayNight" />
+                                        <asp:TextBox runat="server" ID="tbStayNight" Style="text-align: right" />
+                                        <asp:RegularExpressionValidator CssClass="error" Display="Dynamic" ID="RegularExpressionValidator2" ControlToValidate="tbStayNight" runat="server" ErrorMessage="Only Numbers allowed" ValidationExpression="\d+"></asp:RegularExpressionValidator>
                                     </div>
                                     <div class="2u 12u(mobilep) TimeMaintain">
                                         <div class="TimeMaintainDiv">
@@ -247,13 +249,13 @@
                                         <div class="TimeMaintainDiv">
                                             <asp:Label runat="server" ID="lblChampagne"></asp:Label>
                                         </div>
-                                        <asp:TextBox runat="server" ID="tbChampagne" />
+                                        <asp:TextBox runat="server" ID="tbChampagne" Style="text-align: right" />
                                     </div>
                                     <div class="2u 12u(mobilep) TimeMaintain">
                                         <div class="TimeMaintainDiv">
                                             <asp:Label runat="server" ID="lblGuest"></asp:Label>
                                         </div>
-                                        <asp:TextBox runat="server" ID="tbGuest" />
+                                        <asp:TextBox runat="server" ID="tbGuest" Style="text-align: right" />
                                     </div>
                                     <div class="11u 12u(mobilep) TimeMaintain">
                                         <div class="TimeMaintainDiv">
@@ -328,7 +330,8 @@
                                         <div class="TimeMaintainDiv">
                                             <asp:Label runat="server" ID="lblGroomDressNum"></asp:Label>
                                         </div>
-                                        <asp:TextBox runat="server" ID="tbGroomDressNum" />
+                                        <asp:TextBox runat="server" ID="tbGroomDressNum" Style="text-align: right" />
+                                        <asp:RegularExpressionValidator CssClass="error" Display="Dynamic" ID="RegularExpressionValidator1" ControlToValidate="tbGroomDressNum" runat="server" ErrorMessage="Only Numbers allowed" ValidationExpression="\d+"></asp:RegularExpressionValidator>
                                     </div>
                                     <div class="9u 12u(mobilep) TimeMaintain">
                                         <div class="TimeMaintainDiv">
@@ -446,44 +449,44 @@
                                         </div>
                                         <asp:TextBox runat="server" ID="tbGroomHairSpecailClaim" />
                                     </div>
-
-                                    <div class="2u 12u(mobilep) TimeMaintain">
-                                        <div class="TimeMaintainDiv">
-                                            <asp:Label runat="server" ID="lblBridalHair1"></asp:Label>
+                                    <div style="display: none;">
+                                        <div class="2u 12u(mobilep) TimeMaintain">
+                                            <div class="TimeMaintainDiv">
+                                                <asp:Label runat="server" ID="lblBridalHair1"></asp:Label>
+                                            </div>
+                                            <asp:TextBox runat="server" ID="tbBridalHair1" />
                                         </div>
-                                        <asp:TextBox runat="server" ID="tbBridalHair1" />
-                                    </div>
-                                    <div class="2u 12u(mobilep) TimeMaintain">
-                                        <div class="TimeMaintainDiv">
-                                            <asp:Label runat="server" ID="lblBridalHair2"></asp:Label>
+                                        <div class="2u 12u(mobilep) TimeMaintain">
+                                            <div class="TimeMaintainDiv">
+                                                <asp:Label runat="server" ID="lblBridalHair2"></asp:Label>
+                                            </div>
+                                            <asp:TextBox runat="server" ID="tbBridalHair2" />
                                         </div>
-                                        <asp:TextBox runat="server" ID="tbBridalHair2" />
-                                    </div>
-                                    <div class="2u 12u(mobilep) TimeMaintain">
-                                        <div class="TimeMaintainDiv">
-                                            <asp:Label runat="server" ID="lblBridalHair3"></asp:Label>
+                                        <div class="2u 12u(mobilep) TimeMaintain">
+                                            <div class="TimeMaintainDiv">
+                                                <asp:Label runat="server" ID="lblBridalHair3"></asp:Label>
+                                            </div>
+                                            <asp:TextBox runat="server" ID="tbBridalHair3" />
                                         </div>
-                                        <asp:TextBox runat="server" ID="tbBridalHair3" />
-                                    </div>
-                                    <div class="2u 12u(mobilep) TimeMaintain">
-                                        <div class="TimeMaintainDiv">
-                                            <asp:Label runat="server" ID="lblBridalHair4"></asp:Label>
+                                        <div class="2u 12u(mobilep) TimeMaintain">
+                                            <div class="TimeMaintainDiv">
+                                                <asp:Label runat="server" ID="lblBridalHair4"></asp:Label>
+                                            </div>
+                                            <asp:TextBox runat="server" ID="tbBridalHair4" />
                                         </div>
-                                        <asp:TextBox runat="server" ID="tbBridalHair4" />
-                                    </div>
-                                    <div class="2u 12u(mobilep) TimeMaintain">
-                                        <div class="TimeMaintainDiv">
-                                            <asp:Label runat="server" ID="lblBridalHair5"></asp:Label>
+                                        <div class="2u 12u(mobilep) TimeMaintain">
+                                            <div class="TimeMaintainDiv">
+                                                <asp:Label runat="server" ID="lblBridalHair5"></asp:Label>
+                                            </div>
+                                            <asp:TextBox runat="server" ID="tbBridalHair5" />
                                         </div>
-                                        <asp:TextBox runat="server" ID="tbBridalHair5" />
-                                    </div>
-                                    <div class="2u 12u(mobilep) TimeMaintain">
-                                        <div class="TimeMaintainDiv">
-                                            <asp:Label runat="server" ID="lblBridalHair6"></asp:Label>
+                                        <div class="2u 12u(mobilep) TimeMaintain">
+                                            <div class="TimeMaintainDiv">
+                                                <asp:Label runat="server" ID="lblBridalHair6"></asp:Label>
+                                            </div>
+                                            <asp:TextBox runat="server" ID="tbBridalHair6" />
                                         </div>
-                                        <asp:TextBox runat="server" ID="tbBridalHair6" />
                                     </div>
-
                                 </div>
 
                                 <!-- Step 2-3 禮服行程規劃-->
@@ -538,19 +541,102 @@
                                         <div class="TimeMaintainDiv">
                                             <asp:Label runat="server" ID="lblGetDress"></asp:Label>
                                         </div>
-                                        <asp:TextBox runat="server" ID="tbGetDress" />
+                                        <asp:TextBox runat="server" ID="tbGetDress" Style="text-align: right"
+                                            Width="200px"
+                                            CssClass="date date-1" value="" placeholder="YYYY-MM-DD HH:MM APM" data-timeformat="HH:MM" />
                                     </div>
-                                    <div class="2u 12u(mobilep) TimeMaintain">
-                                        <div class="TimeMaintainDiv">
-                                            <asp:Label runat="server" ID="lblDeposit"></asp:Label>
-                                        </div>
-                                        <asp:TextBox runat="server" ID="tbDeposit" />
-                                    </div>
-                                    <div class="2u 12u(mobilep) TimeMaintain">
-                                        <div class="TimeMaintainDiv">
-                                            <asp:Label runat="server" ID="lblBalanceDue"></asp:Label>
-                                        </div>
-                                        <asp:TextBox runat="server" ID="tbBalanceDue" />
+                                    <br />
+                                    <div class="11u 12u(mobilep) TimeMaintain serch" style="overflow-x: scroll!important; margin-top: 10px;">
+                                        <asp:Label runat="server" ID="label4" Text="<%$ Resources:Resource,IncomeDetailString%>" />
+                                        <asp:UpdatePanel runat="server">
+                                            <ContentTemplate>
+                                                <asp:GridView ID="GridView2" runat="server"
+                                                    ShowFooter="True" AutoGenerateColumns="False" OnRowDataBound="GridView2_RowDataBound"
+                                                    OnRowDeleting="GridView2_RowDeleting" Font-Size="Small" Width="1500px">
+                                                    <Columns>
+                                                        <asp:TemplateField ItemStyle-Width="0px">
+                                                            <ItemTemplate>
+                                                                <asp:TextBox runat="server" ID="tbReceiptId" ReadOnly="true" Width="0px" Style="display: none;" />
+                                                            </ItemTemplate>
+                                                        </asp:TemplateField>
+                                                        <asp:TemplateField HeaderText="<%$ Resources:Resource,CategoryString%>">
+                                                            <ItemTemplate>
+                                                                <asp:TextBox runat="server" ID="tbCategory" Font-Size="Small" />
+                                                            </ItemTemplate>
+                                                        </asp:TemplateField>
+                                                        <asp:TemplateField HeaderText="<%$ Resources:Resource,DateString%>">
+                                                            <ItemTemplate>
+                                                                <asp:TextBox runat="server" Style="text-align: right" ID="tbIncomeDate"
+                                                                    CssClass="date date-1" value="" placeholder="YYYY-MM-DD HH:MM APM" data-timeformat="HH:MM"></asp:TextBox>
+                                                            </ItemTemplate>
+                                                        </asp:TemplateField>
+                                                        <asp:TemplateField HeaderText="<%$ Resources:Resource,CurrencyString%>">
+                                                            <ItemTemplate>
+                                                                <asp:DropDownList runat="server" ID="ddlCurrency" Font-Size="Small" Width="80px" />
+                                                            </ItemTemplate>
+                                                        </asp:TemplateField>
+                                                        <asp:TemplateField HeaderText="<%$ Resources:Resource,CashString%>">
+                                                            <ItemTemplate>
+                                                                <asp:TextBox runat="server" ID="tbCash" Style="text-align: right" Width="100px" />
+                                                                <asp:RegularExpressionValidator ID="RegularExpressionValidator2" ControlToValidate="tbCash" runat="server"
+                                                                    ErrorMessage="Only Numbers allowed" ValidationExpression="\d+[.]*\d*" CssClass="error" Display="Dynamic"></asp:RegularExpressionValidator>
+                                                            </ItemTemplate>
+                                                        </asp:TemplateField>
+                                                        <asp:TemplateField HeaderText="<%$ Resources:Resource,RemitMoneyString%>">
+                                                            <ItemTemplate>
+                                                                <asp:TextBox runat="server" ID="tbRemit" Style="text-align: right" Width="100px" />
+                                                                <asp:RegularExpressionValidator ID="RegularExpressionValidator3" ControlToValidate="tbRemit" runat="server"
+                                                                    ErrorMessage="Only Numbers allowed" ValidationExpression="\d+[.]*\d*" CssClass="error" Display="Dynamic"></asp:RegularExpressionValidator>
+                                                            </ItemTemplate>
+                                                        </asp:TemplateField>
+                                                        <asp:TemplateField HeaderText="<%$ Resources:Resource,ReceiptDateString%>">
+                                                            <ItemTemplate>
+                                                                <asp:TextBox runat="server" Style="text-align: right" ID="tbReceiptDate"
+                                                                    CssClass="date date-1" value="" placeholder="YYYY-MM-DD HH:MM APM" data-timeformat="HH:MM"></asp:TextBox>
+                                                            </ItemTemplate>
+                                                        </asp:TemplateField>
+                                                        <asp:TemplateField HeaderText="<%$ Resources:Resource,ReceiptSnString%>">
+                                                            <ItemTemplate>
+                                                                <asp:TextBox runat="server" ID="tbReceiptSn"></asp:TextBox>
+                                                            </ItemTemplate>
+                                                        </asp:TemplateField>
+                                                        <asp:TemplateField HeaderText="<%$ Resources:Resource,TotalPriceString%>">
+                                                            <ItemTemplate>
+                                                                <asp:TextBox runat="server" ID="tbTotalPrice" Style="text-align: right" Width="100px" />
+                                                                <asp:RegularExpressionValidator ID="RegularExpressionValidator4" ControlToValidate="tbTotalPrice" runat="server"
+                                                                    ErrorMessage="Only Numbers allowed" ValidationExpression="\d+[.]*\d*" CssClass="error" Display="Dynamic"></asp:RegularExpressionValidator>
+                                                            </ItemTemplate>
+                                                        </asp:TemplateField>
+                                                        <asp:TemplateField HeaderText="<%$ Resources:Resource,SalesString%>">
+                                                            <ItemTemplate>
+                                                                <asp:TextBox runat="server" ID="tbSales" Style="text-align: right" Width="100px" />
+                                                                <asp:RegularExpressionValidator ID="RegularExpressionValidator5" ControlToValidate="tbSales" runat="server"
+                                                                    ErrorMessage="Only Numbers allowed" ValidationExpression="\d+[.]*\d*" CssClass="error" Display="Dynamic"></asp:RegularExpressionValidator>
+                                                            </ItemTemplate>
+                                                        </asp:TemplateField>
+                                                        <asp:TemplateField HeaderText="<%$ Resources:Resource,TaxString%>">
+                                                            <ItemTemplate>
+                                                                <asp:TextBox ID="tbTax" runat="server" Style="text-align: right" Width="100px"></asp:TextBox>
+                                                                <asp:RegularExpressionValidator ID="RegularExpressionValidator6" ControlToValidate="tbTax" runat="server"
+                                                                    ErrorMessage="Only Numbers allowed" ValidationExpression="\d+[.]*\d*" CssClass="error" Display="Dynamic"></asp:RegularExpressionValidator>
+                                                            </ItemTemplate>
+                                                            <FooterStyle HorizontalAlign="Right" />
+                                                            <FooterTemplate>
+                                                                <asp:Button CausesValidation="false"
+                                                                    ID="btnAddRow2" runat="server"
+                                                                    Text="Add New Row" OnClick="btnAddRow2_Click" />
+                                                            </FooterTemplate>
+                                                        </asp:TemplateField>
+                                                        <asp:TemplateField ItemStyle-Width="0px">
+                                                            <ItemTemplate>
+                                                                <asp:TextBox runat="server" ID="tbType" ReadOnly="true" Width="0px" Style="display: none;" />
+                                                            </ItemTemplate>
+                                                        </asp:TemplateField>
+                                                        <asp:CommandField ShowDeleteButton="True" ItemStyle-Width="50px" />
+                                                    </Columns>
+                                                </asp:GridView>
+                                            </ContentTemplate>
+                                        </asp:UpdatePanel>
                                     </div>
                                 </div>
 
@@ -599,7 +685,7 @@
                                         <ContentTemplate>
                                             <asp:GridView ID="dgCutomServiceItem" runat="server"
                                                 ShowFooter="True" AutoGenerateColumns="False" OnRowDataBound="dgCutomServiceItem_RowDataBound"
-                                                OnRowDeleting="dgCutomServiceItem_RowDeleting" Width="2500px">
+                                                OnRowDeleting="dgCutomServiceItem_RowDeleting" Width="2000px">
                                                 <Columns>
                                                     <asp:TemplateField ItemStyle-Width="0px">
                                                         <ItemTemplate>
@@ -608,37 +694,37 @@
                                                     </asp:TemplateField>
                                                     <asp:TemplateField HeaderText="<%$ Resources:Resource,CategoryString%>">
                                                         <ItemTemplate>
-                                                            <asp:DropDownList runat="server" ID="ddlServiceItem" AutoPostBack="True" OnSelectedIndexChanged="ddlServiceItem_SelectedIndexChanged" />
+                                                            <asp:DropDownList runat="server" Font-Size="Small" ID="ddlServiceItem" AutoPostBack="True" OnSelectedIndexChanged="ddlServiceItem_SelectedIndexChanged" />
                                                         </ItemTemplate>
                                                     </asp:TemplateField>
                                                     <asp:TemplateField HeaderText="<%$ Resources:Resource,SnString%>">
                                                         <ItemTemplate>
-                                                            <ajaxToolkit:ComboBox ID="cbxChooseDSn" runat="server" AutoCompleteMode="SuggestAppend" AutoPostBack="true" OnSelectedIndexChanged="cbxChooseDSn_SelectedIndexChanged"></ajaxToolkit:ComboBox>
+                                                            <ajaxToolkit:ComboBox ID="cbxChooseDSn" Font-Size="Small" runat="server" AutoCompleteMode="SuggestAppend" AutoPostBack="true" OnSelectedIndexChanged="cbxChooseDSn_SelectedIndexChanged"></ajaxToolkit:ComboBox>
                                                         </ItemTemplate>
                                                     </asp:TemplateField>
                                                     <asp:TemplateField HeaderText="<%$ Resources:Resource,BustString%>">
                                                         <ItemTemplate>
-                                                            <asp:TextBox runat="server" ID="tbBust" AutoPostBack="True" />
+                                                            <asp:TextBox runat="server" ID="tbBust" Width="70px" Style="text-align: right" />
                                                         </ItemTemplate>
                                                     </asp:TemplateField>
                                                     <asp:TemplateField HeaderText="<%$ Resources:Resource,WaistString%>">
                                                         <ItemTemplate>
-                                                            <asp:TextBox runat="server" ID="tbWaist" AutoPostBack="True" />
+                                                            <asp:TextBox runat="server" ID="tbWaist" Width="70px" Style="text-align: right" />
                                                         </ItemTemplate>
                                                     </asp:TemplateField>
                                                     <asp:TemplateField HeaderText="<%$ Resources:Resource,HipsString%>">
                                                         <ItemTemplate>
-                                                            <asp:TextBox runat="server" ID="tbHips" AutoPostBack="True" />
+                                                            <asp:TextBox runat="server" ID="tbHips" Width="70px" Style="text-align: right" />
                                                         </ItemTemplate>
                                                     </asp:TemplateField>
                                                     <asp:TemplateField HeaderText="<%$ Resources:Resource,TryDressString%>">
                                                         <ItemTemplate>
-                                                            <asp:CheckBox runat="server" ID="cbIsTry" AutoPostBack="True" />
+                                                            <asp:CheckBox runat="server" ID="cbIsTry" />
                                                         </ItemTemplate>
                                                     </asp:TemplateField>
                                                     <asp:TemplateField HeaderText="<%$ Resources:Resource,CheckDressString%>">
                                                         <ItemTemplate>
-                                                            <asp:CheckBox runat="server" ID="cbIsCheck" AutoPostBack="True" />
+                                                            <asp:CheckBox runat="server" ID="cbIsCheck"/>
                                                         </ItemTemplate>
                                                     </asp:TemplateField>
                                                     <asp:TemplateField HeaderText="<%$ Resources:Resource,ImgFrontString%>">
@@ -670,12 +756,12 @@
                                                     </asp:TemplateField>
                                                     <asp:TemplateField HeaderText="<%$ Resources:Resource,ModelingString%>">
                                                         <ItemTemplate>
-                                                            <asp:DropDownList runat="server" ID="ddlHairCategory" AutoPostBack="True" OnSelectedIndexChanged="ddlHairCategory_SelectedIndexChanged" />
+                                                            <asp:DropDownList runat="server" ID="ddlHairCategory" Font-Size="Small" AutoPostBack="True" OnSelectedIndexChanged="ddlHairCategory_SelectedIndexChanged" />
                                                         </ItemTemplate>
                                                     </asp:TemplateField>
                                                     <asp:TemplateField HeaderText="<%$ Resources:Resource,ModelingSnString%>">
                                                         <ItemTemplate>
-                                                            <ajaxToolkit:ComboBox ID="cbxChooseHSn" runat="server" AutoCompleteMode="SuggestAppend" AutoPostBack="true" OnSelectedIndexChanged="cbxChooseHSn_SelectedIndexChanged"></ajaxToolkit:ComboBox>
+                                                            <ajaxToolkit:ComboBox ID="cbxChooseHSn" runat="server" Font-Size="Small" AutoCompleteMode="SuggestAppend" AutoPostBack="true" OnSelectedIndexChanged="cbxChooseHSn_SelectedIndexChanged"></ajaxToolkit:ComboBox>
                                                         </ItemTemplate>
                                                     </asp:TemplateField>
                                                     <asp:TemplateField HeaderText="<%$ Resources:Resource,ModelingPhotoString%>">

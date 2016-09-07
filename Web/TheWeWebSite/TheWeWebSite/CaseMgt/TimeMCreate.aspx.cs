@@ -27,7 +27,8 @@ namespace TheWeWebSite.CaseMgt
                     InitialLangList();
                     InitialOrderType();
                     InitialTextAndHint();
-
+                    FirstGridViewRow_dgCutomServiceItem();
+                    FirstGridViewRow2();
                     if (Session["OrderId"] != null)
                     {
                         labelPageTitle.Text = Resources.Resource.OrderMgtString
@@ -45,7 +46,6 @@ namespace TheWeWebSite.CaseMgt
                         btnModify.Visible = false;
                     }
                     InitialControlWithPermission();
-                    FirstGridViewRow_dgCutomServiceItem();
                 }
             }
         }
@@ -154,8 +154,8 @@ namespace TheWeWebSite.CaseMgt
 
             //3-3
             lblGetDress.Text = Resources.Resource.GetDressString;
-            lblDeposit.Text = Resources.Resource.DepositString + Resources.Resource.PaymentString;
-            lblBalanceDue.Text = Resources.Resource.BalanceDueString + Resources.Resource.PaymentString;
+            //lblDeposit.Text = Resources.Resource.DepositString + Resources.Resource.PaymentString;
+            //lblBalanceDue.Text = Resources.Resource.BalanceDueString + Resources.Resource.PaymentString;
 
             //Oth
             lblOth.Text = Resources.Resource.RemarkString;
@@ -249,8 +249,8 @@ namespace TheWeWebSite.CaseMgt
 
             //3-3
             tbGetDress.Attributes.Add("placeholder", Resources.Resource.AddString + Resources.Resource.GetDressString);
-            tbDeposit.Attributes.Add("placeholder", Resources.Resource.AddString + Resources.Resource.DepositString + Resources.Resource.PaymentString);
-            tbBalanceDue.Attributes.Add("placeholder", Resources.Resource.AddString + Resources.Resource.BalanceDueString + Resources.Resource.PaymentString);
+            //tbDeposit.Attributes.Add("placeholder", Resources.Resource.AddString + Resources.Resource.DepositString + Resources.Resource.PaymentString);
+            //tbBalanceDue.Attributes.Add("placeholder", Resources.Resource.AddString + Resources.Resource.BalanceDueString + Resources.Resource.PaymentString);
 
             //Oth
             tbOth.Attributes.Add("placeholder", Resources.Resource.AddString + Resources.Resource.RemarkString);
@@ -361,10 +361,37 @@ namespace TheWeWebSite.CaseMgt
             {
                 tvConf.SelectedNode.Checked = cbCompleted.Checked;
                 WriteBackData(MsSqlTable.OrderInfo, OrderInfoDbObject(itemId), orderId, itemId);
-                //  WriteBackDressOrderData(MsSqlTable.DressOrder, ServiceItemDbObject(orderId),orderId);
-
+                SetDivByItemId(tvConf.SelectedValue.Split(';')[1], orderId, itemId);
+                SetDivByItemId(tvConf.SelectedValue.Split(';')[1]);
             }
         }
+
+        private void SetDivByItemId(string ItemSn, string orderId, string itemId)
+        {
+            ResetAllDivControl();
+            switch (ItemSn)
+            {
+                case "CI1008":
+                case "CI2011":
+                case "CI2012":
+                case "CI3015":
+                    //divCehckDress.Visible = true;
+                    WriteBackMultipleInfo(MsSqlTable.DressOrder, DressOrderDbObject(orderId));
+                    break;
+                //
+                case "CI3017":
+                    if (!string.IsNullOrEmpty(tbGetDress.Text))
+                    {
+                        DataSet ds = GetDressOrder(orderId);
+                        WriteBackMultipleInfo(MsSqlTable.DressRent, DressRentDbObject(orderId, ds, tbGetDress.Text));
+                    }
+                    WriteBackMultipleInfo(MsSqlTable.ReceiptDetail, ReceiptDbObject(orderId));
+                    break;
+                default:
+                    break;
+            }
+        }
+
         protected void btnCancel_Click(object sender, EventArgs e)
         {
             TransferToOtherPage();
@@ -403,7 +430,7 @@ namespace TheWeWebSite.CaseMgt
                 + ", o.PS_BridalHopeName , o.PS_Suit , o.PS_FirstHotelName , o.PS_FirstHotelName2 , o.PS_FirstHotelAddress"
                 + ", o.PS_SecondHotelName , o.PS_SecondHotelName2 , o.PS_SecondHotelAddress , o.PS_Contact , wc.Name as WCname"
                 + ", o.PS_HotelStayNight ,o.PS_WeddingSpecial as WSp"
-                + ", o.PS_SuitSpC , o.PS_DressSpC"
+                + ", o.PS_SuitSpC , o.PS_DressSpC,o.PS_GetDress"
                 + ", o.PS_BModel , o.PS_BModelFocus , o.PS_BSPc , o.PS_GModel , o.PS_GSPc"
                 + ", p.IsLegal , p.StayNight , p.Corsage , p.Decoration"
                 + ", o.PS_RoutePlan , o.PS_Attractions , o.PS_PhotoItem , o.PS_Avoid , o.PS_PSpecialClaim"
@@ -453,9 +480,9 @@ namespace TheWeWebSite.CaseMgt
         {
             try
             {
-                string sql = "SELECT do.[id],do.[OrderId],do.[DressId],do.[RentId],do.[HairItemId]"
+                string sql = "SELECT do.[id],do.[OrderId],do.[DressId],do.[HairItemId]"
                     + ",do.[Bust],do.[Waist],do.[Hips],do.[Remark],do.[IsCheck]"
-                    + ",do.[IsDelete],do.[CreateAccId],do.[UpdateAccId]"
+                    + ",do.[IsDelete],do.[CreatedateAccId],do.[UpdateAccId]"
                     + ",do.[CreatedateTime],do.[UpdatedateTime]"
                     + ",do.[SpecialClaim],do.[IsTry],d.Sn as DressSn"
                     + ",hs.Sn as HairItemSn,d.Category as DressCategory,hs.Type as HairItemType"
@@ -567,15 +594,6 @@ namespace TheWeWebSite.CaseMgt
             tbAttractions.Text = dr["PS_Attractions"].ToString();
 
             //1-4
-            SetDressOrder(id);
-            /*
-            tbBridalDress1.Text = dr["Sn"].ToString(); //從DressOrder那撈
-            tbBridalDress2.Text = dr["Sn"].ToString();//從DressOrder那撈
-            tbBridalDress3.Text = dr["Sn"].ToString();//從DressOrder那撈
-            tbBridalDress4.Text = dr["Sn"].ToString();//從DressOrder那撈
-            tbBridalDress5.Text = dr["Sn"].ToString();//從DressOrder那撈
-            tbBridalDress6.Text = dr["Sn"].ToString();//從DressOrder那撈
-            */
             tbBridalSpecialClaim.Text = dr["PS_DressSpC"].ToString();
             tbGroomDressNum.Text = dr["PS_Suit"].ToString();
             tbGroomSpecialClaim.Text = dr["PS_SuitSpC"].ToString();
@@ -587,43 +605,18 @@ namespace TheWeWebSite.CaseMgt
             tbDinnerGuest.Text = dr["PS_BanquetGuest"].ToString();
             tbBSp.Text = dr["PS_BSpecialClaim"].ToString();
 
-
-            //2-1
-            tbBridalTryDress1.Text = dr["Sn"].ToString();//從DressOrder那撈
-            tbBridalTryDress2.Text = dr["Sn"].ToString();//從DressOrder那撈
-            tbBridalTryDress3.Text = dr["Sn"].ToString();//從DressOrder那撈
-            tbBridalTryDress4.Text = dr["Sn"].ToString();//從DressOrder那撈
-            tbBridalTryDress5.Text = dr["Sn"].ToString();//從DressOrder那撈
-            tbBridalTryDress6.Text = dr["Sn"].ToString();//從DressOrder那撈
-
+            //2-1 從DressOrder那撈
             //2-2
-
-            tbBridalHair1.Text = dr["Sn"].ToString(); //從DressOrder那撈
-            tbBridalHair2.Text = dr["Sn"].ToString(); //從DressOrder那撈
-            tbBridalHair3.Text = dr["Sn"].ToString(); //從DressOrder那撈
-            tbBridalHair4.Text = dr["Sn"].ToString(); //從DressOrder那撈
-            tbBridalHair5.Text = dr["Sn"].ToString();//從DressOrder那撈
-            tbBridalHair6.Text = dr["Sn"].ToString(); //從DressOrder那撈
-
             tbBridalHairSpecailClaim.Text = dr["PS_BSPc"].ToString();
             tbGroomHair.Text = dr["PS_GModel"].ToString();
             tbGroomHairSpecailClaim.Text = dr["PS_GSPc"].ToString();
             tbBridalModeling.Text = dr["PS_BModel"].ToString();
             tbBridalMakeupEmphasis.Text = dr["PS_BModelFocus"].ToString();
-            //3-1
-            tbBridalCheckDress1.Text = dr["Sn"].ToString();//從DressOrder那撈
-            tbBridalCheckDress2.Text = dr["Sn"].ToString();//從DressOrder那撈
-            tbBridalCheckDress3.Text = dr["Sn"].ToString();//從DressOrder那撈
-            tbBridalCheckDress4.Text = dr["Sn"].ToString();//從DressOrder那撈
-            tbBridalCheckDress5.Text = dr["Sn"].ToString();//從DressOrder那撈
-            tbBridalCheckDress6.Text = dr["Sn"].ToString();//從DressOrder那撈
+            //3-1 從DressOrder那撈
+            //3-3 Receipt
+            tbGetDress.Text = SysProperty.Util.ParseDateTime("DateTime", dr["PS_GetDress"].ToString());//?
 
-
-            //3-3
-            tbGetDress.Text = dr["Sn"].ToString();//?
-            tbDeposit.Text = dr["Sn"].ToString();//?
-            tbBalanceDue.Text = dr["Sn"].ToString();//?
-
+            // Set wedding category data
             DataSet weddingType = GetWeddingCategory(dr["WeddingCategory"].ToString());
             if (!SysProperty.Util.IsDataSetEmpty(weddingType))
             {
@@ -632,8 +625,8 @@ namespace TheWeWebSite.CaseMgt
                 , weddingType.Tables[0].Rows[0]
                 );
             }
-            SetConferenceItem(id, dr["ConferenceCategory"].ToString());
 
+            SetConferenceItem(id, dr["ConferenceCategory"].ToString());
 
             // Hide edit button when case closed.
             bool isClose = !string.IsNullOrEmpty(SysProperty.Util.ParseDateTime("DateTime", dr["CloseTime"].ToString()));
@@ -694,16 +687,24 @@ namespace TheWeWebSite.CaseMgt
                     index = int.Parse(dr["ConferenceLv"].ToString()) - 1;
                     for (int i = 0; i < tvConf.Nodes[index].ChildNodes.Count; i++)
                     {
-                        if (tvConf.Nodes[index].ChildNodes[i].Value == nowConf)
+                        try
                         {
-                            tvConf.Nodes[index].ChildNodes[i].Selected = true;
-                            tvConf_SelectedNodeChanged(tvConf, new EventArgs());
-                        }
+                            if (tvConf.Nodes[index].ChildNodes[i].Value.Trim().StartsWith(nowConf))
+                            {
+                                tvConf.Nodes[index].ChildNodes[i].Selected = true;
+                                tvConf_SelectedNodeChanged(tvConf, new EventArgs());
+                            }
 
-                        if (tvConf.Nodes[index].ChildNodes[i].Value == dr["ItemId"].ToString())
+                            if (tvConf.Nodes[index].ChildNodes[i].Value.Trim().StartsWith(dr["ItemId"].ToString()))
+                            {
+                                tvConf.Nodes[index].ChildNodes[i].Checked = true;
+                                break;
+                            }
+                        }
+                        catch (Exception ex)
                         {
-                            tvConf.Nodes[index].ChildNodes[i].Checked = true;
-                            break;
+                            SysProperty.Log.Error(ex.Message);
+                            continue;
                         }
                     }
                 }
@@ -733,7 +734,7 @@ namespace TheWeWebSite.CaseMgt
                 if (SysProperty.Util.IsDataSetEmpty(ds))
                 {
                     tbOth.Text = string.Empty;
-                    tbConDate.Text = string.Empty;
+                    tbConDate.Text = DateTime.Now.ToString("yyyy/MM/dd HH:mm");
                     cbCompleted.Checked = false;
                 }
                 else
@@ -741,6 +742,7 @@ namespace TheWeWebSite.CaseMgt
                     DataRow dr = ds.Tables[0].Rows[0];
                     tbOth.Text = dr["Remark"].ToString();
                     tbConDate.Text = SysProperty.Util.ParseDateTime("DateTime", dr["BookingDate"].ToString());
+                    if(string.IsNullOrEmpty(tbConDate.Text)) tbConDate.Text = DateTime.Now.ToString("yyyy/MM/dd HH:mm");
                     cbCompleted.Checked = bool.Parse(dr["IsCheck"].ToString());
                 }
             }
@@ -748,6 +750,7 @@ namespace TheWeWebSite.CaseMgt
 
         private void SetDressOrder(string orderId)
         {
+            FirstGridViewRow_dgCutomServiceItem();
             DataSet ds = GetDressOrder(orderId);
             if (SysProperty.Util.IsDataSetEmpty(ds)) return;
             int rowIndex = 0;
@@ -759,9 +762,10 @@ namespace TheWeWebSite.CaseMgt
                 }
                 ((TextBox)dgCutomServiceItem.Rows[rowIndex].FindControl("tbId")).Text = dr["Id"].ToString();
                 DropDownList ddlService = ((DropDownList)dgCutomServiceItem.Rows[rowIndex].Cells[0].FindControl("ddlServiceItem"));
-                ddlService.SelectedValue = dr["DressCategory"].ToString();
+                ddlService.SelectedValue = dr["DressCategory"].ToString() + ";" + rowIndex;
                 ddlServiceItem_SelectedIndexChanged(ddlService, new EventArgs());
                 AjaxControlToolkit.ComboBox cbxDress = (AjaxControlToolkit.ComboBox)dgCutomServiceItem.Rows[rowIndex].Cells[1].FindControl("cbxChooseDSn");
+                cbxDress.Text = dr["DressSn"].ToString();
                 cbxDress.SelectedValue = dr["DressId"] + ";" + rowIndex;
                 cbxChooseDSn_SelectedIndexChanged(cbxDress, new EventArgs());
                 ((TextBox)dgCutomServiceItem.Rows[rowIndex].Cells[2].FindControl("tbBust")).Text = dr["Bust"].ToString();
@@ -770,13 +774,61 @@ namespace TheWeWebSite.CaseMgt
                 ((CheckBox)dgCutomServiceItem.Rows[rowIndex].Cells[5].FindControl("cbIsTry")).Checked = bool.Parse(dr["IsTry"].ToString());
                 ((CheckBox)dgCutomServiceItem.Rows[rowIndex].Cells[6].FindControl("cbIsCheck")).Checked = bool.Parse(dr["IsCheck"].ToString());
                 DropDownList ddlHairType = ((DropDownList)dgCutomServiceItem.Rows[rowIndex].Cells[10].FindControl("ddlHairCategory"));
-                ddlHairType.SelectedValue = dr["HairItemType"].ToString();
+                ddlHairType.SelectedValue = dr["HairItemType"].ToString() + ";" + rowIndex;
                 ddlHairCategory_SelectedIndexChanged(ddlHairType, new EventArgs());
                 AjaxControlToolkit.ComboBox cbxHair = (AjaxControlToolkit.ComboBox)dgCutomServiceItem.Rows[rowIndex].Cells[11].FindControl("cbxChooseHSn");
+                cbxHair.SelectedValue = dr["HairItemId"].ToString() + ";" + rowIndex;
+                cbxHair.Text = dr["HairItemSn"].ToString();
                 cbxChooseHSn_SelectedIndexChanged(cbxHair, new EventArgs());
 
                 rowIndex++;
                 AddNewRow_dgCutomServiceItem();
+            }
+        }
+        private void SetReceiptDetail(string orderId)
+        {
+            FirstGridViewRow2();
+            if (string.IsNullOrEmpty(orderId)) return;
+            DataSet ds = SysProperty.GenDbCon.GetDataFromTable("Select * From ReceiptDetail Where IsDelete = 0 And OrderId = '" + orderId + "' order by Type, CreatedateTime");
+            int cnt = 0;
+            if (!SysProperty.Util.IsDataSetEmpty(ds))
+            {
+                foreach (DataRow dr in ds.Tables[0].Rows)
+                {
+                    if (GridView2.Rows.Count == 0)
+                    {
+                        AddNewRow2();
+                    }
+                    ((TextBox)GridView2.Rows[cnt].FindControl("tbReceiptId")).Text = dr["Id"].ToString();
+                    ((TextBox)GridView2.Rows[cnt].FindControl("tbCategory")).Text = dr["Category"].ToString();
+                    ((TextBox)GridView2.Rows[cnt].FindControl("tbIncomeDate")).Text = SysProperty.Util.ParseDateTime("DateTime", dr["PayDate"].ToString());
+                    ((DropDownList)GridView2.Rows[cnt].FindControl("ddlCurrency")).SelectedValue = dr["Currency"].ToString();
+                    ((TextBox)GridView2.Rows[cnt].FindControl("tbCash")).Text = SysProperty.Util.ParseMoney(dr["Cash"].ToString()).ToString("#0.00");
+                    ((TextBox)GridView2.Rows[cnt].FindControl("tbRemit")).Text = SysProperty.Util.ParseMoney(dr["Remit"].ToString()).ToString("#0.00");
+                    ((TextBox)GridView2.Rows[cnt].FindControl("tbReceiptDate")).Text = SysProperty.Util.ParseDateTime("DateTime", dr["ReceiptDate"].ToString());
+                    ((TextBox)GridView2.Rows[cnt].FindControl("tbReceiptSn")).Text = dr["ReceiptSn"].ToString();
+                    ((TextBox)GridView2.Rows[cnt].FindControl("tbTotalPrice")).Text = SysProperty.Util.ParseMoney(dr["TotalPrice"].ToString()).ToString("#0.00");
+                    ((TextBox)GridView2.Rows[cnt].FindControl("tbSales")).Text = SysProperty.Util.ParseMoney(dr["SalesPrice"].ToString()).ToString("#0.00");
+                    ((TextBox)GridView2.Rows[cnt].FindControl("tbTax")).Text = SysProperty.Util.ParseMoney(dr["Tax"].ToString()).ToString("#0.00");
+                    ((TextBox)GridView2.Rows[cnt].FindControl("tbType")).Text = dr["Type"].ToString();
+                    GridView2.Rows[cnt].Cells[GridView2.Rows[cnt].Cells.Count - 1].Controls[0].Visible = false;
+                    cnt++;
+                    AddNewRow2();
+                }
+            }
+            else
+            {
+                if (GridView2.Rows.Count == 0)
+                {
+                    AddNewRow2();
+                }
+                for (cnt = 0; cnt < 2; cnt++)
+                {
+                    ((TextBox)GridView2.Rows[cnt].FindControl("tbCategory")).Text = (cnt == 0 ? Resources.Resource.DepositString : Resources.Resource.BalanceDueString);
+                    ((TextBox)GridView2.Rows[cnt].FindControl("tbType")).Text = cnt.ToString();
+                    GridView2.Rows[cnt].Cells[GridView2.Rows[cnt].Cells.Count - 1].Controls[0].Visible = false;
+                    AddNewRow2();
+                }
             }
         }
 
@@ -1048,6 +1100,12 @@ namespace TheWeWebSite.CaseMgt
                 , AttrSymbolItem.Equal
                 , tbGroomHairSpecailClaim.Text
                 ));
+            lst.Add(new DbSearchObject(
+                "PS_GetDress"
+                , AtrrTypeItem.DateTime
+                , AttrSymbolItem.Equal
+                , tbGetDress.Text
+                ));
             return lst;
         }
         private List<DbSearchObject> ConferenceItemDbObject(string itemId, string orderId)
@@ -1106,103 +1164,7 @@ namespace TheWeWebSite.CaseMgt
                 ));
             return lst;
         }
-        private List<List<DbSearchObject>> ServiceItemDbObject(bool isCreate, string type, string orderId)
-        {
-            List<List<DbSearchObject>> result = new List<List<DbSearchObject>>();
-            List<DbSearchObject> lst = new List<DbSearchObject>();
-            string str = string.Empty;
-            GridView gridView;
-            if (type == "Custom") gridView = dgCutomServiceItem;
-            else gridView = dgCutomServiceItem;
-            if (gridView.Rows.Count > 0)
-            {
-                foreach (GridViewRow dr in gridView.Rows)
-                {
-                    lst = new List<DbSearchObject>();
-                    if (string.IsNullOrEmpty(str)) continue;
-                    str = ((CheckBox)dr.Cells[5].FindControl("cbIsCheck")).Checked ? "1" : "0";
-                    lst.Add(new DbSearchObject(
-                         "IsCheck"
-                         , AtrrTypeItem.String
-                         , AttrSymbolItem.Equal
-                         , str
-                         ));
-                    if (string.IsNullOrEmpty(str)) continue;
-                    str = ((CheckBox)dr.Cells[6].FindControl("cbIsCheck")).Checked ? "1" : "0";
-                    lst.Add(new DbSearchObject(
-                         "IsTry"
-                         , AtrrTypeItem.String
-                         , AttrSymbolItem.Equal
-                         , str
-                         ));
-                    lst.Add(new DbSearchObject(
-                         "HairItemId"
-                         , AtrrTypeItem.String
-                         , AttrSymbolItem.Equal
-                         , null
-                         ));
-                    lst.Add(new DbSearchObject(
-                         "RentId"
-                         , AtrrTypeItem.String
-                         , AttrSymbolItem.Equal
-                         , null
-                         ));
-                    lst.Add(new DbSearchObject(
-                         "DressId"
-                         , AtrrTypeItem.String
-                         , AttrSymbolItem.Equal
-                         , null
-                         ));
-                    lst.Add(new DbSearchObject(
-                         "OrderId"
-                         , AtrrTypeItem.String
-                         , AttrSymbolItem.Equal
-                         , null
-                         ));
-                    str = ((TextBox)dr.Cells[2].FindControl("tbBust")).Text;
-                    lst.Add(new DbSearchObject(
-                         "Bust"
-                         , AtrrTypeItem.String
-                         , AttrSymbolItem.Equal
-                         , str
-                         ));
-                    if (string.IsNullOrEmpty(str)) continue;
-                    str = ((TextBox)dr.Cells[3].FindControl("tbWaist")).Text;
-                    lst.Add(new DbSearchObject(
-                         "Waist"
-                         , AtrrTypeItem.String
-                         , AttrSymbolItem.Equal
-                         , str
-                         ));
-                    if (string.IsNullOrEmpty(str)) continue;
-                    str = ((TextBox)dr.Cells[4].FindControl("tbHips")).Text;
-                    lst.Add(new DbSearchObject(
-                         "Hips"
-                         , AtrrTypeItem.String
-                         , AttrSymbolItem.Equal
-                         , str
-                         ));
-                    lst.Add(new DbSearchObject(
-                         "UpdateAccId"
-                         , AtrrTypeItem.String
-                         , AttrSymbolItem.Equal
-                         , ((DataRow)Session["AccountInfo"])["Id"].ToString()
-                         ));
-                    if (isCreate)
-                    {
-                        lst.Add(new DbSearchObject(
-                        "CreatedateAccId"
-                        , AtrrTypeItem.String
-                        , AttrSymbolItem.Equal
-                        , ((DataRow)Session["AccountInfo"])["Id"].ToString()
-                        ));
-                    }
-                    result.Add(lst);
-                }
-            }
-            return result;
-        }
-        private List<List<DbSearchObject>> DressOrderDbObject(string id, string rentId)
+        private List<List<DbSearchObject>> DressOrderDbObject(string id)
         {
             List<List<DbSearchObject>> result = new List<List<DbSearchObject>>();
             List<DbSearchObject> lst = new List<DbSearchObject>();
@@ -1230,12 +1192,6 @@ namespace TheWeWebSite.CaseMgt
                             , AtrrTypeItem.String
                             , AttrSymbolItem.Equal
                             , id
-                            ));
-                        lst.Add(new DbSearchObject(
-                            "RentId"
-                            , AtrrTypeItem.DateTime
-                            , AttrSymbolItem.Equal
-                            , rentId
                             ));
                         str = ((AjaxControlToolkit.ComboBox)dr.Cells[1].FindControl("cbxChooseHSn")).SelectedValue;
                         if (!string.IsNullOrEmpty(str) && str.Contains(";"))
@@ -1266,12 +1222,6 @@ namespace TheWeWebSite.CaseMgt
                             , ((TextBox)dr.Cells[5].FindControl("tbHips")).Text
                             ));
                         lst.Add(new DbSearchObject(
-                            "Remark"
-                            , AtrrTypeItem.String
-                            , AttrSymbolItem.Equal
-                            , ((TextBox)dr.Cells[7].FindControl("tbReceiptSn")).Text
-                            ));
-                        lst.Add(new DbSearchObject(
                             "IsCheck"
                             , AtrrTypeItem.Bit
                             , AttrSymbolItem.Equal
@@ -1281,13 +1231,19 @@ namespace TheWeWebSite.CaseMgt
                             "IsTry"
                             , AtrrTypeItem.Bit
                             , AttrSymbolItem.Equal
-                            , (((CheckBox)dr.Cells[7].FindControl("cbIsCheck")).Checked ? "1" : "0")
+                            , (((CheckBox)dr.Cells[7].FindControl("cbIsTry")).Checked ? "1" : "0")
                             ));
                         lst.Add(new DbSearchObject(
                             "UpdateAccId"
                             , AtrrTypeItem.String
                             , AttrSymbolItem.Equal
                             , ((DataRow)Session["AccountInfo"])["Id"].ToString()
+                            ));
+                        lst.Add(new DbSearchObject(
+                            "UpdatedateTime"
+                            , AtrrTypeItem.DateTime
+                            , AttrSymbolItem.Equal
+                            , DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss")
                             ));
                         result.Add(lst);
                         if (isCreate)
@@ -1313,61 +1269,188 @@ namespace TheWeWebSite.CaseMgt
             }
             return result;
         }
-        private List<DbSearchObject> DressRentDbObject(string dressId, string startTime, string endTime)
+        private List<List<DbSearchObject>> DressRentDbObject(string orderId, DataSet ds, string startTime)
         {
-            List<DbSearchObject> lst = new List<DbSearchObject>();
-            lst.Add(new DbSearchObject(
-                "DressId"
-                , AtrrTypeItem.String
-                , AttrSymbolItem.Equal
-                , dressId
-                ));
-            lst.Add(new DbSearchObject(
-                "StartTime"
-                , AtrrTypeItem.DateTime
-                , AttrSymbolItem.Equal
-                , startTime
-                ));
-            lst.Add(new DbSearchObject(
-                "EndTime"
-                , AtrrTypeItem.DateTime
-                , AttrSymbolItem.Equal
-                , endTime
-                ));
-            lst.Add(new DbSearchObject(
-                "UpdateAccId"
+            List<List<DbSearchObject>> result = new List<List<DbSearchObject>>();
+            if (SysProperty.Util.IsDataSetEmpty(ds)) return result;
+            foreach (DataRow dr in ds.Tables[0].Rows)
+            {
+                List<DbSearchObject> lst = new List<DbSearchObject>();
+                lst.Add(new DbSearchObject(
+                    "DressId"
+                    , AtrrTypeItem.String
+                    , AttrSymbolItem.Equal
+                    , dr["DressId"].ToString()
+                    ));
+                lst.Add(new DbSearchObject(
+                    "OrderId"
+                    , AtrrTypeItem.String
+                    , AttrSymbolItem.Equal
+                    , orderId
+                    ));
+                lst.Add(new DbSearchObject(
+                    "StartTime"
+                    , AtrrTypeItem.DateTime
+                    , AttrSymbolItem.Equal
+                    , startTime
+                    ));
+                lst.Add(new DbSearchObject(
+                    "UpdateAccId"
+                    , AtrrTypeItem.String
+                    , AttrSymbolItem.Equal
+                    , ((DataRow)Session["AccountInfo"])["Id"].ToString()
+                    ));
+                lst.Add(new DbSearchObject(
+                    "UpdateTime"
+                    , AtrrTypeItem.DateTime
+                    , AttrSymbolItem.Equal
+                    , DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss")
+                    ));
+                lst.Add(new DbSearchObject(
+                        "StatusCode"
+                        , AtrrTypeItem.String
+                        , AttrSymbolItem.Equal
+                        , "67F14E3B-5294-44EE-97CF-948BB2FC3031"
+                        ));
+                lst.Add(new DbSearchObject(
+                "CreatedateAccId"
                 , AtrrTypeItem.String
                 , AttrSymbolItem.Equal
                 , ((DataRow)Session["AccountInfo"])["Id"].ToString()
                 ));
-            lst.Add(new DbSearchObject(
-                "UpdateTime"
-                , AtrrTypeItem.DateTime
-                , AttrSymbolItem.Equal
-                , DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss")
-                ));
-            lst.Add(new DbSearchObject(
-                    "StatusCode"
-                    , AtrrTypeItem.String
+                lst.Add(new DbSearchObject(
+                    "CreatedateTime"
+                    , AtrrTypeItem.DateTime
                     , AttrSymbolItem.Equal
-                    , "67F14E3B-5294-44EE-97CF-948BB2FC3031"
+                    , DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss")
                     ));
-            lst.Add(new DbSearchObject(
-            "CreatedateAccId"
-            , AtrrTypeItem.String
-            , AttrSymbolItem.Equal
-            , ((DataRow)Session["AccountInfo"])["Id"].ToString()
-            ));
-            lst.Add(new DbSearchObject(
-                "CreatedateTime"
-                , AtrrTypeItem.DateTime
-                , AttrSymbolItem.Equal
-                , DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss")
-                ));
-            return lst;
+                result.Add(lst);
+            }
+            return result;
+        }
+        private List<List<DbSearchObject>> ReceiptDbObject(string id)
+        {
+            List<List<DbSearchObject>> result = new List<List<DbSearchObject>>();
+            List<DbSearchObject> lst = new List<DbSearchObject>();
+            if (ViewState["CurrentTable2"] != null)
+            {
+                string str = string.Empty;
+                bool isCreate = false;
+                if (GridView2.Rows.Count > 0)
+                {
+                    foreach (GridViewRow dr in GridView2.Rows)
+                    {
+                        lst = new List<DbSearchObject>();
+                        str = ((TextBox)dr.Cells[0].FindControl("tbReceiptId")).Text;
+                        isCreate = string.IsNullOrEmpty(str);
+                        str = ((TextBox)dr.Cells[1].FindControl("tbCategory")).Text;
+                        if (string.IsNullOrEmpty(str)) continue;
+                        lst.Add(new DbSearchObject(
+                            "Category"
+                            , AtrrTypeItem.String
+                            , AttrSymbolItem.Equal
+                            , str
+                            ));
+                        lst.Add(new DbSearchObject(
+                            "OrderId"
+                            , AtrrTypeItem.String
+                            , AttrSymbolItem.Equal
+                            , id
+                            ));
+                        lst.Add(new DbSearchObject(
+                            "PayDate"
+                            , AtrrTypeItem.DateTime
+                            , AttrSymbolItem.Equal
+                            , ((TextBox)dr.Cells[2].FindControl("tbIncomeDate")).Text
+                            ));
+                        lst.Add(new DbSearchObject(
+                            "Currency"
+                            , AtrrTypeItem.String
+                            , AttrSymbolItem.Equal
+                            , ((DropDownList)dr.Cells[3].FindControl("ddlCurrency")).SelectedValue
+                            ));
+                        lst.Add(new DbSearchObject(
+                            "Cash"
+                            , AtrrTypeItem.String
+                            , AttrSymbolItem.Equal
+                            , ((TextBox)dr.Cells[4].FindControl("tbCash")).Text
+                            ));
+                        lst.Add(new DbSearchObject(
+                            "Remit"
+                            , AtrrTypeItem.String
+                            , AttrSymbolItem.Equal
+                            , ((TextBox)dr.Cells[5].FindControl("tbRemit")).Text
+                            ));
+                        lst.Add(new DbSearchObject(
+                            "ReceiptDate"
+                            , AtrrTypeItem.DateTime
+                            , AttrSymbolItem.Equal
+                            , ((TextBox)dr.Cells[6].FindControl("tbReceiptDate")).Text
+                            ));
+                        lst.Add(new DbSearchObject(
+                            "ReceiptSn"
+                            , AtrrTypeItem.String
+                            , AttrSymbolItem.Equal
+                            , ((TextBox)dr.Cells[7].FindControl("tbReceiptSn")).Text
+                            ));
+                        lst.Add(new DbSearchObject(
+                            "TotalPrice"
+                            , AtrrTypeItem.String
+                            , AttrSymbolItem.Equal
+                            , ((TextBox)dr.Cells[8].FindControl("tbTotalPrice")).Text
+                            ));
+                        lst.Add(new DbSearchObject(
+                            "SalesPrice"
+                            , AtrrTypeItem.String
+                            , AttrSymbolItem.Equal
+                            , ((TextBox)dr.Cells[9].FindControl("tbSales")).Text
+                            ));
+                        str = ((TextBox)dr.Cells[11].FindControl("tbType")).Text;
+                        lst.Add(new DbSearchObject(
+                            "Type"
+                            , AtrrTypeItem.String
+                            , AttrSymbolItem.Equal
+                            , string.IsNullOrEmpty(str) ? "2" : str
+                            ));
+                        lst.Add(new DbSearchObject(
+                            "Tax"
+                            , AtrrTypeItem.String
+                            , AttrSymbolItem.Equal
+                            , ((TextBox)dr.Cells[10].FindControl("tbTax")).Text
+                            ));
+                        lst.Add(new DbSearchObject(
+                            "UpdateAccId"
+                            , AtrrTypeItem.String
+                            , AttrSymbolItem.Equal
+                            , ((DataRow)Session["AccountInfo"])["Id"].ToString()
+                            ));
+                        result.Add(lst);
+                        if (isCreate)
+                        {
+                            lst.Add(new DbSearchObject(
+                            "CreatedateAccId"
+                            , AtrrTypeItem.String
+                            , AttrSymbolItem.Equal
+                            , ((DataRow)Session["AccountInfo"])["Id"].ToString()
+                            ));
+                        }
+                        else
+                        {
+                            lst.Add(new DbSearchObject(
+                            "Id"
+                            , AtrrTypeItem.String
+                            , AttrSymbolItem.Equal
+                            , ((TextBox)dr.Cells[0].FindControl("tbReceiptId")).Text
+                            ));
+                        }
+                    }
+                }
+            }
+            return result;
         }
         #endregion
 
+        #region Db Write back
         private bool WriteBackData(MsSqlTable table, List<DbSearchObject> lst, string orderId, string itemId)
         {
             try
@@ -1398,28 +1481,19 @@ namespace TheWeWebSite.CaseMgt
                 return false;
             }
         }
-
-        private bool WriteBackDressOrderData(MsSqlTable table, List<DbSearchObject> lst, string orderId)
+        private bool WriteBackData(MsSqlTable tableName, bool isInsert, List<DbSearchObject> lst, string condStr)
         {
             try
             {
-                if (table == MsSqlTable.OrderInfo)
-                {
-                    return SysProperty.GenDbCon.UpdateDataIntoTable(
-                        SysProperty.Util.MsSqlTableConverter(table)
+                return isInsert ?
+                    (SysProperty.GenDbCon.InsertDataInToTable(
+                    SysProperty.Util.MsSqlTableConverter(tableName)
+                    , SysProperty.Util.SqlQueryInsertInstanceConverter(lst)
+                    , SysProperty.Util.SqlQueryInsertValueConverter(lst))) :
+                    (SysProperty.GenDbCon.UpdateDataIntoTable(
+                        SysProperty.Util.MsSqlTableConverter(tableName)
                         , SysProperty.Util.SqlQueryUpdateConverter(lst)
-                        , " Where Id='" + orderId + "'");
-                }
-                else
-                {
-                    SysProperty.GenDbCon.ModifyDataInToTable(
-                        "Delete From DressOrder"
-                        + " Where OrderId = '" + orderId + "'");
-                    return SysProperty.GenDbCon.InsertDataInToTable(
-                        SysProperty.Util.MsSqlTableConverter(table)
-                        , SysProperty.Util.SqlQueryInsertInstanceConverter(lst)
-                        , SysProperty.Util.SqlQueryInsertValueConverter(lst));
-                }
+                        , condStr));
             }
             catch (Exception ex)
             {
@@ -1428,6 +1502,46 @@ namespace TheWeWebSite.CaseMgt
                 return false;
             }
         }
+        private bool WriteBackMultipleInfo(MsSqlTable table, List<List<DbSearchObject>> lst)
+        {
+            bool result = true;
+            bool isInsert = false;
+            string condStr = string.Empty;
+            foreach (List<DbSearchObject> item in lst)
+            {
+                if (item.Exists(x => x.AttrName == "Id"))
+                {
+                    isInsert = false;
+                    condStr = " Where Id = '" + item.Find(x => x.AttrName == "Id").AttrValue + "'";
+                }
+                else
+                {
+                    isInsert = true;
+                    condStr = string.Empty;
+                }
+                result = result | WriteBackData(table, isInsert, item, condStr);
+            }
+            return result;
+        }
+        private bool DeleteDresOrder(string id)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(id)) return true;
+                string sql = "UPDATE DressOrder SET IsDelete = 1"
+                + ", UpdateAccId=N'" + ((DataRow)Session["AccountInfo"])["Id"].ToString() + "'"
+                + ", UpdatedateTime='" + DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss") + "'"
+                + " Where Id = '" + id + "'";
+                return SysProperty.GenDbCon.ModifyDataInToTable(sql);
+            }
+            catch (Exception ex)
+            {
+                SysProperty.Log.Error(ex.Message);
+                ShowErrorMsg(ex.Message);
+                return false;
+            }
+        }
+        #endregion
 
         #region Document Export
         private void InitialLangList()
@@ -1496,6 +1610,7 @@ namespace TheWeWebSite.CaseMgt
                     break;
                 case "CI1008":
                     divChooseDress.Visible = true;
+                    SetDressOrder(Session["OrderId"].ToString());
                     divDress.Visible = true;
                     break;
                 case "CI1009":
@@ -1503,38 +1618,27 @@ namespace TheWeWebSite.CaseMgt
                     break;
                 //2
                 case "CI2011":
-                    divTryDress.Visible = true;
+                    //divTryDress.Visible = true;
+                    SetDressOrder(Session["OrderId"].ToString());
                     divDress.Visible = true;
                     break;
                 case "CI2012":
                     divModelCheck.Visible = true;
+                    SetDressOrder(Session["OrderId"].ToString());
                     divDress.Visible = true;
                     break;
                 //3
                 case "CI3015":
-                    divCehckDress.Visible = true;
+                    //divCehckDress.Visible = true;
+                    SetDressOrder(Session["OrderId"].ToString());
                     divDress.Visible = true;
                     break;
                 //
                 case "CI3017":
                     divGetDress.Visible = true;
+                    SetReceiptDetail(Session["OrderId"].ToString());
                     break;
                 default:
-                    divHotel.Visible = false;
-                    divWeddingInfo.Visible = false;
-                    divBouquet.Visible = false;
-                    divTakePicture.Visible = false;
-                    divBouquet.Visible = false;
-                    divChooseDress.Visible = false;
-                    divDress.Visible = false;
-                    divDinner.Visible = false;
-                    divTryDress.Visible = false;
-                    divDress.Visible = false;
-                    divModelCheck.Visible = false;
-                    divDress.Visible = false;
-                    divCehckDress.Visible = false;
-                    divDress.Visible = false;
-                    divGetDress.Visible = false;
                     break;
             }
         }
@@ -1551,6 +1655,7 @@ namespace TheWeWebSite.CaseMgt
             divTryDress.Visible = false;
             divWeddingInfo.Visible = false;
             divBouquet.Visible = false;
+            divDress.Visible = false;
         }
 
 
@@ -1612,6 +1717,7 @@ namespace TheWeWebSite.CaseMgt
 
 
         #region 1-4 Choose Dress        
+        #region Dress Choosen Table
         protected void dgCutomServiceItem_RowDeleting(object sender, GridViewDeleteEventArgs e)
         {
             SetRowData_dgCutomServiceItem();
@@ -1620,7 +1726,12 @@ namespace TheWeWebSite.CaseMgt
                 DataTable dt = (DataTable)ViewState["CurrentTable2"];
                 DataRow drCurrentRow = null;
                 int rowIndex = Convert.ToInt32(e.RowIndex);
-                if (dt.Rows.Count > 1)
+                bool result = true;
+                if (!string.IsNullOrEmpty(dt.Rows[rowIndex]["Id"].ToString()))
+                {
+                    result = DeleteDresOrder(dt.Rows[rowIndex]["Id"].ToString());
+                }
+                if (dt.Rows.Count > 1 && result)
                 {
                     dt.Rows.Remove(dt.Rows[rowIndex]);
                     drCurrentRow = dt.NewRow();
@@ -1637,46 +1748,6 @@ namespace TheWeWebSite.CaseMgt
         {
             ddlHairCategory(sender, e);
             ddlService(sender, e);
-        }
-
-        private void ddlService(object sender, GridViewRowEventArgs e)
-        {
-            DataRowView dataItem1 = (DataRowView)e.Row.DataItem;
-            if (dataItem1 != null)
-            {
-                DropDownList ddlService = (DropDownList)e.Row.FindControl("ddlServiceItem");
-                ddlService.Items.Add(new ListItem(Resources.Resource.SeletionRemindString, string.Empty));
-                DataSet ds = SysProperty.GenDbCon.GetDataFromTable("Select * From DressCategory Where IsDelete = 0 and Type='Dress'");
-                if (SysProperty.Util.IsDataSetEmpty(ds)) return;
-                foreach (DataRow dr in ds.Tables[0].Rows)
-                {
-                    ddlService.Items.Add(new ListItem(
-                        SysProperty.Util.OutputRelatedLangName(Session["CultureCode"].ToString(), dr)
-                        , dr["Id"].ToString() + ";" + e.Row.RowIndex
-                        ));
-                }
-            }
-        }
-
-        private void ddlHairCategory(object sender, GridViewRowEventArgs e)
-        {
-            DataRowView dataItem1 = (DataRowView)e.Row.DataItem;
-            if (dataItem1 != null)
-            {
-                DropDownList ddlHairCategory = (DropDownList)e.Row.FindControl("ddlHairCategory");
-                ddlHairCategory.Items.Add(new ListItem(Resources.Resource.SeletionRemindString, string.Empty));
-                DataSet ds = SysProperty.GenDbCon.GetDataFromTable("select * from HairStyleCategory where IsDelete=0");
-                if (SysProperty.Util.IsDataSetEmpty(ds)) return;
-                foreach (DataRow dr in ds.Tables[0].Rows)
-                {
-                    ddlHairCategory.Items.Add(new ListItem(
-                        SysProperty.Util.OutputRelatedLangName(Session["CultureCode"].ToString(), dr)
-                        , dr["Id"].ToString() + ";" + e.Row.RowIndex
-                        ));
-                }
-                //ddlHairCategory.SelectedIndex = 0;
-                //cbSerHSn(sender, e, ddlHairCategory.SelectedValue);
-            }
         }
 
         private void SetRowData_dgCutomServiceItem()
@@ -1761,16 +1832,24 @@ namespace TheWeWebSite.CaseMgt
                         if (cbxChooseDSn == null) continue;
                         tbId.Text = dt.Rows[i]["Id"].ToString();
                         DdlItem.SelectedValue = dt.Rows[i]["Col1"].ToString();
+                        if (!string.IsNullOrEmpty(DdlItem.SelectedValue))
+                        {
+                            ddlServiceItem_SelectedIndexChanged(DdlItem, new EventArgs());
+                        }
                         cbxChooseDSn.SelectedValue = dt.Rows[i]["Col2"] == null ? string.Empty : dt.Rows[i]["Col2"].ToString();
                         tbBust.Text = dt.Rows[i]["Col3"] == null ? string.Empty : dt.Rows[i]["Col3"].ToString();
                         tbWaist.Text = dt.Rows[i]["Col4"] == null ? string.Empty : dt.Rows[i]["Col4"].ToString();
                         tbHips.Text = dt.Rows[i]["Col5"] == null ? string.Empty : dt.Rows[i]["Col5"].ToString();
-                        cbIsTry.Checked = dt.Rows[i]["Col6"] == null ? false : bool.Parse(dt.Rows[i]["Col6"].ToString());
-                        cbIsCheck.Checked = dt.Rows[i]["Col7"] == null ? false : bool.Parse(dt.Rows[i]["Col7"].ToString());
+                        cbIsTry.Checked = dt.Rows[i]["Col6"] == null ? false : (string.IsNullOrEmpty(dt.Rows[i]["Col6"].ToString()) ? false : bool.Parse(dt.Rows[i]["Col6"].ToString()));
+                        cbIsCheck.Checked = dt.Rows[i]["Col7"] == null ? false : (string.IsNullOrEmpty(dt.Rows[i]["Col7"].ToString()) ? false : bool.Parse(dt.Rows[i]["Col7"].ToString()));
                         ImgCDress1.ImageUrl = dt.Rows[i]["Col8"] == null ? string.Empty : dt.Rows[i]["Col8"].ToString();
                         ImgCDress2.ImageUrl = dt.Rows[i]["Col9"] == null ? string.Empty : dt.Rows[i]["Col9"].ToString();
                         ImgCDress3.ImageUrl = dt.Rows[i]["Col10"] == null ? string.Empty : dt.Rows[i]["Col10"].ToString();
                         ddlHairCategory.SelectedValue = dt.Rows[i]["Col11"].ToString();
+                        if (!string.IsNullOrEmpty(ddlHairCategory.SelectedValue))
+                        {
+                            ddlHairCategory_SelectedIndexChanged(ddlHairCategory, new EventArgs());
+                        }
                         cbxChooseHSn.SelectedValue = dt.Rows[i]["Col12"] == null ? string.Empty : dt.Rows[i]["Col12"].ToString();
                         ImgCHair1.ImageUrl = dt.Rows[i]["Col13"] == null ? string.Empty : dt.Rows[i]["Col13"].ToString();
                         rowIndex++;
@@ -1868,8 +1947,8 @@ namespace TheWeWebSite.CaseMgt
             dr["Col3"] = string.Empty;
             dr["Col4"] = string.Empty;
             dr["Col5"] = string.Empty;
-            dr["Col6"] = string.Empty;
-            dr["Col7"] = string.Empty;
+            dr["Col6"] = false;
+            dr["Col7"] = false;
             dr["Col8"] = string.Empty;
             dr["Col9"] = string.Empty;
             dr["Col10"] = string.Empty;
@@ -1883,6 +1962,46 @@ namespace TheWeWebSite.CaseMgt
             dgCutomServiceItem.DataBind();
         }
         #endregion
+
+        private void ddlService(object sender, GridViewRowEventArgs e)
+        {
+            DataRowView dataItem1 = (DataRowView)e.Row.DataItem;
+            if (dataItem1 != null)
+            {
+                DropDownList ddlService = (DropDownList)e.Row.FindControl("ddlServiceItem");
+                ddlService.Items.Add(new ListItem(Resources.Resource.SeletionRemindString, string.Empty));
+                DataSet ds = SysProperty.GenDbCon.GetDataFromTable("Select * From DressCategory Where IsDelete = 0 and Type='Dress'");
+                if (SysProperty.Util.IsDataSetEmpty(ds)) return;
+                foreach (DataRow dr in ds.Tables[0].Rows)
+                {
+                    ddlService.Items.Add(new ListItem(
+                        SysProperty.Util.OutputRelatedLangName(Session["CultureCode"].ToString(), dr)
+                        , dr["Id"].ToString() + ";" + e.Row.RowIndex
+                        ));
+                }
+            }
+        }
+
+        private void ddlHairCategory(object sender, GridViewRowEventArgs e)
+        {
+            DataRowView dataItem1 = (DataRowView)e.Row.DataItem;
+            if (dataItem1 != null)
+            {
+                DropDownList ddlHairCategory = (DropDownList)e.Row.FindControl("ddlHairCategory");
+                ddlHairCategory.Items.Add(new ListItem(Resources.Resource.SeletionRemindString, string.Empty));
+                DataSet ds = SysProperty.GenDbCon.GetDataFromTable("select * from HairStyleCategory where IsDelete=0");
+                if (SysProperty.Util.IsDataSetEmpty(ds)) return;
+                foreach (DataRow dr in ds.Tables[0].Rows)
+                {
+                    ddlHairCategory.Items.Add(new ListItem(
+                        SysProperty.Util.OutputRelatedLangName(Session["CultureCode"].ToString(), dr)
+                        , dr["Id"].ToString() + ";" + e.Row.RowIndex
+                        ));
+                }
+                //ddlHairCategory.SelectedIndex = 0;
+                //cbSerHSn(sender, e, ddlHairCategory.SelectedValue);
+            }
+        }
 
         protected void ddlServiceItem_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -1974,6 +2093,228 @@ namespace TheWeWebSite.CaseMgt
                 SysProperty.Log.Error(ex.Message);
             }
         }
+        #endregion
+
+        #region Receipt Table
+        protected void GridView2_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            DataRowView dataItem1 = (DataRowView)e.Row.DataItem;
+            if (dataItem1 != null)
+            {
+                if (Session["CultureCode"] == null) return;
+                string cultureCode = Session["CultureCode"].ToString();
+                DropDownList ddlCurrency = (DropDownList)e.Row.FindControl("ddlCurrency");
+                ddlCurrency.Items.Clear();
+                DataSet ds = SysProperty.GenDbCon.GetDataFromTable("Select * From Currency Where IsDelete = 0");
+                if (SysProperty.Util.IsDataSetEmpty(ds)) return;
+                foreach (DataRow dr in ds.Tables[0].Rows)
+                {
+                    ddlCurrency.Items.Add(new ListItem(
+                        dr["Name"].ToString()
+                        , dr["Id"].ToString()
+                        ));
+                }
+                if (string.IsNullOrEmpty(dataItem1["Col3"].ToString()))
+                {
+                    ddlCurrency.SelectedValue = ((DataRow)Session["LocateStore"])["Currency"].ToString();
+                }
+
+                if (!string.IsNullOrEmpty(dataItem1["Id"].ToString()))
+                {
+                    e.Row.Cells[e.Row.Cells.Count - 1].Controls[0].Visible = false;
+                }
+
+            }
+        }
+        protected void GridView2_RowDeleting(object sender, GridViewDeleteEventArgs e)
+        {
+            SetRowData2();
+            if (ViewState["CurrentTableReceipt"] != null)
+            {
+                DataTable dt = (DataTable)ViewState["CurrentTableReceipt"];
+                DataRow drCurrentRow = null;
+                int rowIndex = Convert.ToInt32(e.RowIndex);
+                if (dt.Rows.Count > 1)
+                {
+                    dt.Rows.Remove(dt.Rows[rowIndex]);
+                    drCurrentRow = dt.NewRow();
+                    ViewState["CurrentTableReceipt"] = dt;
+                    GridView2.DataSource = dt;
+                    GridView2.DataBind();
+
+                    SetPreviousData2();
+                }
+            }
+        }
+        protected void btnAddRow2_Click(object sender, EventArgs e)
+        {
+            AddNewRow2();
+        }
+        private void FirstGridViewRow2()
+        {
+            DataTable dt = new DataTable();
+            DataRow dr = null;
+            dt.Columns.Add(new DataColumn("Id", typeof(string)));
+            for (int i = 1; i <= 11; i++)
+            {
+                dt.Columns.Add(new DataColumn("Col" + i, typeof(string)));
+            }
+            dr = dt.NewRow();
+            dr["Id"] = string.Empty;
+            for (int i = 1; i <= 11; i++)
+            {
+                dr["Col" + i] = string.Empty;
+            }
+            dt.Rows.Add(dr);
+
+            ViewState["CurrentTableReceipt"] = dt;
+            GridView2.DataSource = dt;
+            GridView2.DataBind();
+        }
+        private void AddNewRow2()
+        {
+            int rowIndex = 0;
+
+            if (ViewState["CurrentTableReceipt"] != null)
+            {
+                DataTable dtCurrentTable = (DataTable)ViewState["CurrentTableReceipt"];
+                DataRow drCurrentRow = null;
+                if (dtCurrentTable.Rows.Count > 0)
+                {
+                    for (int i = 1; i <= dtCurrentTable.Rows.Count; i++)
+                    {
+                        TextBox TextReceiptId = (TextBox)GridView2.Rows[rowIndex].Cells[0].FindControl("tbReceiptId");
+                        TextBox TextCategory = (TextBox)GridView2.Rows[rowIndex].Cells[1].FindControl("tbCategory");
+                        TextBox TextDate = (TextBox)GridView2.Rows[rowIndex].Cells[2].FindControl("tbIncomeDate");
+                        DropDownList DdlItem = (DropDownList)GridView2.Rows[rowIndex].Cells[3].FindControl("ddlCurrency");
+                        TextBox TextCash = (TextBox)GridView2.Rows[rowIndex].Cells[4].FindControl("tbCash");
+                        TextBox TextRemit = (TextBox)GridView2.Rows[rowIndex].Cells[5].FindControl("tbRemit");
+                        TextBox TextReceiptDate = (TextBox)GridView2.Rows[rowIndex].Cells[6].FindControl("tbReceiptDate");
+                        TextBox TextReceiptSn = (TextBox)GridView2.Rows[rowIndex].Cells[7].FindControl("tbReceiptSn");
+                        TextBox TextTotalPrice = (TextBox)GridView2.Rows[rowIndex].Cells[8].FindControl("tbTotalPrice");
+                        TextBox TextSales = (TextBox)GridView2.Rows[rowIndex].Cells[9].FindControl("tbSales");
+                        TextBox TextTax = (TextBox)GridView2.Rows[rowIndex].Cells[10].FindControl("tbTax");
+                        TextBox TextType = (TextBox)GridView2.Rows[rowIndex].Cells[11].FindControl("tbType");
+
+
+                        drCurrentRow = dtCurrentTable.NewRow();
+                        dtCurrentTable.Rows[i - 1]["Id"] = TextReceiptId.Text;
+                        dtCurrentTable.Rows[i - 1]["Col1"] = TextCategory.Text;
+                        dtCurrentTable.Rows[i - 1]["Col2"] = TextDate.Text;
+                        dtCurrentTable.Rows[i - 1]["Col3"] = DdlItem.SelectedValue;
+                        dtCurrentTable.Rows[i - 1]["Col4"] = TextCash.Text;
+                        dtCurrentTable.Rows[i - 1]["Col5"] = TextRemit.Text;
+                        dtCurrentTable.Rows[i - 1]["Col6"] = TextReceiptDate.Text;
+                        dtCurrentTable.Rows[i - 1]["Col7"] = TextReceiptSn.Text;
+                        dtCurrentTable.Rows[i - 1]["Col8"] = TextTotalPrice.Text;
+                        dtCurrentTable.Rows[i - 1]["Col9"] = TextSales.Text;
+                        dtCurrentTable.Rows[i - 1]["Col10"] = TextTax.Text;
+                        dtCurrentTable.Rows[i - 1]["Col11"] = TextType.Text;
+                        rowIndex++;
+                    }
+                    dtCurrentTable.Rows.Add(drCurrentRow);
+                    ViewState["CurrentTableReceipt"] = dtCurrentTable;
+
+                    GridView2.DataSource = dtCurrentTable;
+                    GridView2.DataBind();
+                }
+            }
+            else
+            {
+                Response.Write("ViewState is null");
+            }
+            SetPreviousData2();
+        }
+        private void SetPreviousData2()
+        {
+            int rowIndex = 0;
+            if (ViewState["CurrentTableReceipt"] != null)
+            {
+                DataTable dt = (DataTable)ViewState["CurrentTableReceipt"];
+                if (dt.Rows.Count > 0)
+                {
+                    for (int i = 0; i < dt.Rows.Count; i++)
+                    {
+                        TextBox TextReceiptId = (TextBox)GridView2.Rows[rowIndex].Cells[0].FindControl("tbReceiptId");
+                        TextBox TextCategory = (TextBox)GridView2.Rows[rowIndex].Cells[1].FindControl("tbCategory");
+                        TextBox TextDate = (TextBox)GridView2.Rows[rowIndex].Cells[2].FindControl("tbIncomeDate");
+                        DropDownList DdlItem = (DropDownList)GridView2.Rows[rowIndex].Cells[3].FindControl("ddlCurrency");
+                        TextBox TextCash = (TextBox)GridView2.Rows[rowIndex].Cells[4].FindControl("tbCash");
+                        TextBox TextRemit = (TextBox)GridView2.Rows[rowIndex].Cells[5].FindControl("tbRemit");
+                        TextBox TextReceiptDate = (TextBox)GridView2.Rows[rowIndex].Cells[6].FindControl("tbReceiptDate");
+                        TextBox TextReceiptSn = (TextBox)GridView2.Rows[rowIndex].Cells[7].FindControl("tbReceiptSn");
+                        TextBox TextTotalPrice = (TextBox)GridView2.Rows[rowIndex].Cells[8].FindControl("tbTotalPrice");
+                        TextBox TextSales = (TextBox)GridView2.Rows[rowIndex].Cells[9].FindControl("tbSales");
+                        TextBox TextTax = (TextBox)GridView2.Rows[rowIndex].Cells[10].FindControl("tbTax");
+                        TextBox TextType = (TextBox)GridView2.Rows[rowIndex].Cells[11].FindControl("tbType");
+
+                        TextReceiptId.Text = dt.Rows[i]["Id"] == null ? string.Empty : dt.Rows[i]["Id"].ToString();
+                        TextCategory.Text = dt.Rows[i]["Col1"] == null ? string.Empty : dt.Rows[i]["Col1"].ToString();
+                        TextDate.Text = dt.Rows[i]["Col2"] == null ? string.Empty : dt.Rows[i]["Col2"].ToString();
+                        DdlItem.SelectedValue = dt.Rows[i]["Col3"].ToString();
+                        TextCash.Text = dt.Rows[i]["Col4"] == null ? string.Empty : dt.Rows[i]["Col4"].ToString();
+                        TextRemit.Text = dt.Rows[i]["Col5"] == null ? string.Empty : dt.Rows[i]["Col5"].ToString();
+                        TextReceiptDate.Text = dt.Rows[i]["Col6"] == null ? string.Empty : dt.Rows[i]["Col6"].ToString();
+                        TextReceiptSn.Text = dt.Rows[i]["Col7"] == null ? string.Empty : dt.Rows[i]["Col7"].ToString();
+                        TextTotalPrice.Text = dt.Rows[i]["Col8"] == null ? string.Empty : dt.Rows[i]["Col8"].ToString();
+                        TextSales.Text = dt.Rows[i]["Col9"] == null ? string.Empty : dt.Rows[i]["Col9"].ToString();
+                        TextTax.Text = dt.Rows[i]["Col10"] == null ? string.Empty : dt.Rows[i]["Col10"].ToString();
+                        TextType.Text = dt.Rows[i]["Col11"] == null ? string.Empty : dt.Rows[i]["Col11"].ToString();
+                        rowIndex++;
+                    }
+                }
+            }
+        }
+        private void SetRowData2()
+        {
+            int rowIndex = 0;
+
+            if (ViewState["CurrentTableReceipt"] != null)
+            {
+                DataTable dtCurrentTable = (DataTable)ViewState["CurrentTableReceipt"];
+                DataRow drCurrentRow = null;
+                if (dtCurrentTable.Rows.Count > 0)
+                {
+                    for (int i = 1; i <= dtCurrentTable.Rows.Count; i++)
+                    {
+                        TextBox TextReceiptId = (TextBox)GridView2.Rows[rowIndex].Cells[0].FindControl("tbReceiptId");
+                        TextBox TextCategory = (TextBox)GridView2.Rows[rowIndex].Cells[1].FindControl("tbCategory");
+                        TextBox TextDate = (TextBox)GridView2.Rows[rowIndex].Cells[2].FindControl("tbIncomeDate");
+                        DropDownList DdlItem = (DropDownList)GridView2.Rows[rowIndex].Cells[3].FindControl("ddlCurrency");
+                        TextBox TextCash = (TextBox)GridView2.Rows[rowIndex].Cells[4].FindControl("tbCash");
+                        TextBox TextRemit = (TextBox)GridView2.Rows[rowIndex].Cells[5].FindControl("tbRemit");
+                        TextBox TextReceiptDate = (TextBox)GridView2.Rows[rowIndex].Cells[6].FindControl("tbReceiptDate");
+                        TextBox TextReceiptSn = (TextBox)GridView2.Rows[rowIndex].Cells[7].FindControl("tbReceiptSn");
+                        TextBox TextTotalPrice = (TextBox)GridView2.Rows[rowIndex].Cells[8].FindControl("tbTotalPrice");
+                        TextBox TextSales = (TextBox)GridView2.Rows[rowIndex].Cells[9].FindControl("tbSales");
+                        TextBox TextTax = (TextBox)GridView2.Rows[rowIndex].Cells[10].FindControl("tbTax");
+                        TextBox TextType = (TextBox)GridView2.Rows[rowIndex].Cells[11].FindControl("tbType");
+
+                        drCurrentRow = dtCurrentTable.NewRow();
+                        dtCurrentTable.Rows[i - 1]["Id"] = TextReceiptId.Text;
+                        dtCurrentTable.Rows[i - 1]["Col1"] = TextCategory.Text;
+                        dtCurrentTable.Rows[i - 1]["Col2"] = TextDate.Text;
+                        dtCurrentTable.Rows[i - 1]["Col3"] = DdlItem.SelectedValue;
+                        dtCurrentTable.Rows[i - 1]["Col4"] = TextCash.Text;
+                        dtCurrentTable.Rows[i - 1]["Col5"] = TextRemit.Text;
+                        dtCurrentTable.Rows[i - 1]["Col6"] = TextReceiptDate.Text;
+                        dtCurrentTable.Rows[i - 1]["Col7"] = TextReceiptSn.Text;
+                        dtCurrentTable.Rows[i - 1]["Col8"] = TextTotalPrice.Text;
+                        dtCurrentTable.Rows[i - 1]["Col9"] = TextSales.Text;
+                        dtCurrentTable.Rows[i - 1]["Col10"] = TextTax.Text;
+                        dtCurrentTable.Rows[i - 1]["Col11"] = TextType.Text;
+                        rowIndex++;
+                    }
+
+                    ViewState["CurrentTableReceipt"] = dtCurrentTable;
+                }
+            }
+            else
+            {
+                Response.Write("ViewState is null");
+            }
+        }
+        #endregion
     }
 
 }

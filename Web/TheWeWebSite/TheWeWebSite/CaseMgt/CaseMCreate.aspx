@@ -486,12 +486,14 @@
                                                         </asp:TemplateField>
                                                         <asp:TemplateField HeaderText="<%$ Resources:Resource,NumberString%>">
                                                             <ItemTemplate>
-                                                                <asp:TextBox ID="tbNumber" runat="server"></asp:TextBox>
+                                                                <asp:TextBox ID="tbNumber" runat="server" Style="text-align: right"></asp:TextBox>
+                                                                <asp:RegularExpressionValidator CssClass="error" Display="Dynamic" ID="RegularExpressionValidator3" ControlToValidate="tbNumber" runat="server" ErrorMessage="Only Numbers allowed" ValidationExpression="\d+"></asp:RegularExpressionValidator>
                                                             </ItemTemplate>
                                                         </asp:TemplateField>
                                                         <asp:TemplateField HeaderText="<%$ Resources:Resource,PriceString%>">
                                                             <ItemTemplate>
-                                                                <asp:TextBox ID="tbPrice" runat="server" OnTextChanged="tbPrice_TextChanged" AutoPostBack="true"></asp:TextBox>
+                                                                <asp:TextBox ID="tbPrice" runat="server" OnTextChanged="tbPrice_TextChanged" Style="text-align: right" AutoPostBack="true"></asp:TextBox>
+                                                                <asp:RegularExpressionValidator CssClass="error" Display="Dynamic" ID="RegularExpressionValidator3" ControlToValidate="tbPrice" runat="server" ErrorMessage="Only Numbers allowed" ValidationExpression="\d+[.]*\d*"></asp:RegularExpressionValidator>
                                                             </ItemTemplate>
                                                             <FooterStyle HorizontalAlign="Right" />
                                                             <FooterTemplate>
@@ -547,7 +549,7 @@
                         <div class="row serch">
                             <div class="12u">
                                 <div class="table-wrapper">
-                                    <asp:Label runat="server" ID="label4" Text="<%$ Resources:Resource,AdditionalItemString%>" />
+                                    <asp:Label runat="server" ID="label4" Text="<%$ Resources:Resource,IncomeDetailString%>" />
                                     <asp:UpdatePanel runat="server">
                                         <ContentTemplate>
                                             <asp:GridView ID="GridView2" runat="server"

@@ -404,7 +404,7 @@ namespace TheWeWebSite.CaseMgt
                             + " Left join Consultation as c on c.Id = o.ConsultId"
                             + " Left join vwEN_Customer as cus on cus.Id = o.CustomerId"
                             + " Left join ProductSet as p on p.Id = o.SetId"
-                            + " Left join ConferenceItem as ci on ci.Id = o.StatusId"
+                            + " Left join ConferenceItem as ci on ci.Id = o.ConferenceCategory"
                             + " Left join vwEN_Partner as pr on pr.Id = o.PartnerId"
                             + " WHERE o.IsDelete = 0"
                             + (string.IsNullOrEmpty(storeId) ? string.Empty : " And o.StoreId='" + storeId + "'");
@@ -425,7 +425,7 @@ namespace TheWeWebSite.CaseMgt
                             + " Left join Consultation as c on c.Id = o.ConsultId"
                             + " Left join vwEN_Customer as cus on cus.Id = o.CustomerId"
                             + " Left join ProductSet as p on p.Id = o.SetId"
-                            + " Left join ConferenceItem as ci on ci.Id = o.StatusId"
+                            + " Left join ConferenceItem as ci on ci.Id = o.ConferenceCategory"
                             + " Left join vwEN_Partner as pr on pr.Id = o.PartnerId"
                             + " WHERE o.IsDelete = 0";
                             if (item.Value.Type == "Store")
@@ -461,7 +461,7 @@ namespace TheWeWebSite.CaseMgt
                             + " Left join Consultation as c on c.Id = o.ConsultId"
                             + " Left join vwEN_Customer as cus on cus.Id = o.CustomerId"
                             + " Left join ProductSet as p on p.Id = o.SetId"
-                            + " Left join ConferenceItem as ci on ci.Id = o.StatusId"
+                            + " Left join ConferenceItem as ci on ci.Id = o.ConferenceCategory"
                             + " Left join vwEN_Partner as pr on pr.Id = o.PartnerId"
                             + " WHERE o.IsDelete = 0";
                 return "Select * From (" + sqlTxt + ")TBL " + otherCondition;
