@@ -10,7 +10,7 @@
     <link href="../assets/css/font-awesome.min.css" rel="stylesheet" />
     <link href="../assets/css/main.css" rel="stylesheet" />
     <link href="../assets/css/jquery-ui.css" rel="stylesheet" />
-    
+
 </head>
 <body>
     <form runat="server">
@@ -202,20 +202,22 @@
                             </button>
                         </div>
                         <div id="uploadPanel" style="display: none;">
-                            <div class="fileUpload">
-                                <asp:Label runat="server" Text="<%$ Resources:Resource,ImgFrontString%>"></asp:Label>
-                                <asp:FileUpload ID="FileUpload1" runat="server" />
-                            </div>
-                            <div class="fileUpload">
-                                <asp:Label runat="server" Text="<%$ Resources:Resource,ImgIdCardFrontString%>"></asp:Label>
-                                <asp:FileUpload ID="FileUpload2"  runat="server" />
-                            </div>
-                            <div class="fileUpload">
-                                <asp:Label runat="server" Text="<%$ Resources:Resource,ImgIdCardBackString%>"></asp:Label>
-                                <asp:FileUpload ID="FileUpload3"  runat="server" />
-                                <div style="text-align: left; margin-top: 15px;">
-                                    <asp:Button CausesValidation="true" runat="server" Text="<%$ Resources:Resource,UploadString%>" ID="btnUpload"
-                                        OnClick="btnUpload_Click" OnClientClick="uploadPanelControl();" />
+                            <div runat="server" id="divUpload">
+                                <div class="fileUpload">
+                                    <asp:Label runat="server" Text="<%$ Resources:Resource,ImgFrontString%>"></asp:Label>
+                                    <asp:FileUpload ID="FileUpload1" runat="server" />
+                                </div>
+                                <div class="fileUpload">
+                                    <asp:Label runat="server" Text="<%$ Resources:Resource,ImgIdCardFrontString%>"></asp:Label>
+                                    <asp:FileUpload ID="FileUpload2" runat="server" />
+                                </div>
+                                <div class="fileUpload">
+                                    <asp:Label runat="server" Text="<%$ Resources:Resource,ImgIdCardBackString%>"></asp:Label>
+                                    <asp:FileUpload ID="FileUpload3" runat="server" />
+                                    <div style="text-align: left; margin-top: 15px;">
+                                        <asp:Button CausesValidation="true" runat="server" Text="<%$ Resources:Resource,UploadString%>" ID="btnUpload"
+                                            OnClick="btnUpload_Click" OnClientClick="uploadPanelControl();" />
+                                    </div>
                                 </div>
                             </div>
                         </div>

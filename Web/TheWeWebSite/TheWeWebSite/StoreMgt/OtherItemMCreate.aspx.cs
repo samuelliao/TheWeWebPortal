@@ -722,7 +722,8 @@ namespace TheWeWebSite.StoreMgt
             CheckFolder(tbFolderPath.Text);
             for (int i = 1; i <= 4; i++)
             {
-                FileUpload upload = Page.FindControl("FileUpload" + i) as FileUpload;
+                FileUpload upload = divUpload.FindControl("FileUpload" + i) as FileUpload;
+                if (upload == null) continue;
                 if (upload.HasFile)
                 {
                     upload.PostedFile.SaveAs(tbFolderPath.Text + "\\" + tbOthSn.Text + "_" + i + ".jpg");

@@ -11,7 +11,7 @@
     <link href="../assets/css/font-awesome.min.css" rel="stylesheet" />
     <link href="../assets/css/main.css" rel="stylesheet" />
     <link href="../assets/css/jquery-ui.css" rel="stylesheet" />
-    
+
 </head>
 <body>
     <form runat="server">
@@ -34,14 +34,14 @@
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,EmpOnboardDayString%>"></asp:Label>
                             </div>
                             <div>
-                                <asp:textbox runat="server" ID="EmpOnBoardDay" Style="text-align:right" Enabled="false"></asp:textbox>
+                                <asp:TextBox runat="server" ID="EmpOnBoardDay" Style="text-align: right" Enabled="false"></asp:TextBox>
                             </div>
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,EmployeeSnString%>"></asp:Label>
                             </div>
-                            <asp:textbox runat="server" Style="text-align: right" ID="tbEmpSn" Enabled="false"></asp:textbox>
+                            <asp:TextBox runat="server" Style="text-align: right" ID="tbEmpSn" Enabled="false"></asp:TextBox>
                             <asp:Label runat="server" ID="labelPw" Visible="false" />
                         </div>
                         <div class="2u 12u(mobilep)">
@@ -54,7 +54,7 @@
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,AccountString%>"></asp:Label>
                             </div>
-                            <asp:textbox runat="server" ID="tbAccount" Enabled="false"></asp:textbox>
+                            <asp:TextBox runat="server" ID="tbAccount" Enabled="false"></asp:TextBox>
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
@@ -150,7 +150,6 @@
             <hr />
             <!-- 照片 -->
             <section>
-                
                 <div class="row no-collapse 50% uniform">
                     <div class="2u" runat="server" id="divPhotoUpload">
                         <div class="ImageUploadBtn">
@@ -159,17 +158,19 @@
                             </button>
                         </div>
                         <div id="uploadPanel" style="display: none;">
-                            <div class="fileUpload">
-                                <asp:Label runat="server" Text="<%$ Resources:Resource,ImgFrontString%>"></asp:Label>
-                                <asp:FileUpload ID="FileUpload1" runat="server" />
-                            </div>
-                            <div class="fileUpload">
-                                <asp:Label runat="server" Text="<%$ Resources:Resource,ImgIdCardFrontString%>"></asp:Label>
-                                <asp:FileUpload ID="FileUpload2"  runat="server" />
+                            <div runat="server" id="divUpload">
+                                <div class="fileUpload">
+                                    <asp:Label runat="server" Text="<%$ Resources:Resource,ImgFrontString%>"></asp:Label>
+                                    <asp:FileUpload ID="FileUpload1" runat="server" />
+                                </div>
+                                <div class="fileUpload">
+                                    <asp:Label runat="server" Text="<%$ Resources:Resource,ImgIdCardFrontString%>"></asp:Label>
+                                    <asp:FileUpload ID="FileUpload2" runat="server" />
+                                </div>
                             </div>
                             <div class="fileUpload">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,ImgIdCardBackString%>"></asp:Label>
-                                <asp:FileUpload ID="FileUpload3"  runat="server" />
+                                <asp:FileUpload ID="FileUpload3" runat="server" />
                                 <div style="text-align: left; margin-top: 15px;">
                                     <asp:Button CausesValidation="true" runat="server" Text="<%$ Resources:Resource,UploadString%>" ID="btnUpload"
                                         OnClick="btnUpload_Click" OnClientClick="uploadPanelControl();" />
@@ -185,7 +186,7 @@
                         </div>
                         <span class="image fit">
                             <asp:Image runat="server" ID="ImgSide" />
-                            </span>
+                        </span>
                     </div>
                     <div class="2u">
                         <div style="text-align: center">

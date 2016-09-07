@@ -193,7 +193,7 @@
                     </button>
                 </div>
                 <div id="uploadPanel" style="display: none;">
-                        <div class="fileUpload">
+                        <div class="fileUpload" runat="server" id="divUpload">
                             <asp:Label runat="server" Text="<%$ Resources:Resource,ImgFrontString%>"></asp:Label>
                             <asp:FileUpload ID="FileUpload1" Width="80px"  runat="server" />
                             <asp:Label runat="server" Text="<%$ Resources:Resource,ImgBackString%>"></asp:Label>

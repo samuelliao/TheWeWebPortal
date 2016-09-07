@@ -196,89 +196,89 @@
                     <cc1:TabPanel runat="server" ID="tabRentRecord" HeaderText="<%$ Resources:Resource,RentRecordString%>">
                         <ContentTemplate>
                             <div class="12u">
-                            <div class="row uniform 50%">
-                                <div class="2u 12u(mobilep)">
-                                    <div class="Div">
-                                        <asp:Label runat="server" Text="<%$ Resources:Resource,SnString%>"></asp:Label>
+                                <div class="row uniform 50%">
+                                    <div class="2u 12u(mobilep)">
+                                        <div class="Div">
+                                            <asp:Label runat="server" Text="<%$ Resources:Resource,SnString%>"></asp:Label>
+                                        </div>
+                                        <asp:DropDownList runat="server" ID="ddlCategory2" Enabled="false" />
                                     </div>
-                                    <asp:DropDownList runat="server" ID="ddlCategory2" Enabled="false" />
-                                </div>
-                                <div class="2u 12u(mobilep)">
-                                    <div class="Div">
-                                        <asp:Label runat="server" Text="<%$ Resources:Resource,SnString%>"></asp:Label>
+                                    <div class="2u 12u(mobilep)">
+                                        <div class="Div">
+                                            <asp:Label runat="server" Text="<%$ Resources:Resource,SnString%>"></asp:Label>
+                                        </div>
+                                        <asp:TextBox runat="server" ID="tbDressId2" ReadOnly="true" />
                                     </div>
-                                    <asp:TextBox runat="server" ID="tbDressId2" ReadOnly="true" />
-                                </div>
-                                <div class="2u 12u(mobilep)">
-                                    <div class="Div">
-                                        <asp:Label runat="server" Text="<%$ Resources:Resource,StatusString%>"></asp:Label>
+                                    <div class="2u 12u(mobilep)">
+                                        <div class="Div">
+                                            <asp:Label runat="server" Text="<%$ Resources:Resource,StatusString%>"></asp:Label>
+                                        </div>
+                                        <asp:DropDownList runat="server" ID="ddlStatus2" />
                                     </div>
-                                    <asp:DropDownList runat="server" ID="ddlStatus2" />
-                                </div>
-                                <div class="2u 12u(mobilep)">
-                                    <div class="Div">
-                                        <asp:Label runat="server" Text="開案日期選擇範圍(開始)" ID="labelSearchStartDate"></asp:Label>
+                                    <div class="2u 12u(mobilep)">
+                                        <div class="Div">
+                                            <asp:Label runat="server" Text="開案日期選擇範圍(開始)" ID="labelSearchStartDate"></asp:Label>
+                                        </div>
+                                        <div>
+                                            <asp:TextBox runat="server" Style="text-align: right" CssClass="date date-1" value=""
+                                                placeholder="YYYY-MM-DD" ID="tbSearchStartDate"></asp:TextBox>
+                                        </div>
                                     </div>
-                                    <div>
-                                        <asp:TextBox runat="server" Style="text-align: right" CssClass="date date-1" value=""
-                                            placeholder="YYYY-MM-DD" ID="tbSearchStartDate"></asp:TextBox>
-                                    </div>
-                                </div>
-                                <div class="2u 12u(mobilep)">
-                                    <div class="Div">
-                                        <asp:Label runat="server" Text="開案日期選擇範圍(結束)" ID="labelSearchEndDate"></asp:Label>
-                                    </div>
-                                    <div>
-                                        <asp:TextBox runat="server" Style="text-align: right" CssClass="date date-1" value="" placeholder="YYYY-MM-DD"
-                                            ID="tbSearchEndDate"></asp:TextBox>
+                                    <div class="2u 12u(mobilep)">
+                                        <div class="Div">
+                                            <asp:Label runat="server" Text="開案日期選擇範圍(結束)" ID="labelSearchEndDate"></asp:Label>
+                                        </div>
+                                        <div>
+                                            <asp:TextBox runat="server" Style="text-align: right" CssClass="date date-1" value="" placeholder="YYYY-MM-DD"
+                                                ID="tbSearchEndDate"></asp:TextBox>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="Div btn">
-                            <ul class="actions">
-                                <li>
-                                    <asp:Button runat="server" CssClass="button alt" Text="<%$ Resources:Resource,SearchString%>"
-                                        ID="btnSearch" OnClick="btnSearch_Click" />
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="row serch">
-                            <div class="12u">
-                                <div class="table-wrapper">
-                                    <asp:DataGrid runat="server" ID="dataGrid" AutoGenerateColumns="false"
-                                        AllowPaging="true" AllowSorting="true" OnPageIndexChanged="dataGrid_PageIndexChanged"
-                                        OnItemDataBound="dataGrid_ItemDataBound" DataKeyField="Id"
-                                        OnSortCommand="dataGrid_SortCommand" Font-Size="Small">
-                                        <HeaderStyle VerticalAlign="Middle" HorizontalAlign="Center" />
-                                        <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
-                                        <PagerStyle Mode="NumericPages" HorizontalAlign="Center" VerticalAlign="Middle" />
-                                        <Columns>
-                                            <asp:ButtonColumn Text="<%$ Resources:Resource,SearchString%>" CommandName="Select" />
-                                            <asp:BoundColumn Visible="false" DataField="Id" />
-                                            <asp:BoundColumn HeaderText="<%$ Resources:Resource,StartString%>" DataField="StartTime" />
-                                            <asp:BoundColumn HeaderText="<%$ Resources:Resource,EndString%>" DataField="EndTime" />
-                                            <asp:TemplateColumn HeaderText="<%$ Resources:Resource,StatusString%>">
-                                                <ItemTemplate>
-                                                    <asp:Label runat="server" ID="labelStatus" />
-                                                </ItemTemplate>
-                                            </asp:TemplateColumn>
-                                            <asp:TemplateColumn HeaderText="<%$ Resources:Resource,ContractSnString%>">
-                                                <ItemTemplate>
-                                                    <asp:LinkButton runat="server" ID="linkConsult" Text="" OnClick="linkConsult_Click" />
-                                                </ItemTemplate>
-                                            </asp:TemplateColumn>
-                                            <asp:TemplateColumn HeaderText="<%$ Resources:Resource,LocateString%>">
-                                                <ItemTemplate>
-                                                    <asp:Label runat="server" ID="labelLocation" />
-                                                </ItemTemplate>
-                                            </asp:TemplateColumn>
-                                        </Columns>
-                                    </asp:DataGrid>
-                                </div>
-                                <hr />
+                            <div class="Div btn">
+                                <ul class="actions">
+                                    <li>
+                                        <asp:Button runat="server" CssClass="button alt" Text="<%$ Resources:Resource,SearchString%>"
+                                            ID="btnSearch" OnClick="btnSearch_Click" />
+                                    </li>
+                                </ul>
                             </div>
-                        </div>
+                            <div class="row serch">
+                                <div class="12u">
+                                    <div class="table-wrapper">
+                                        <asp:DataGrid runat="server" ID="dataGrid" AutoGenerateColumns="false"
+                                            AllowPaging="true" AllowSorting="true" OnPageIndexChanged="dataGrid_PageIndexChanged"
+                                            OnItemDataBound="dataGrid_ItemDataBound" DataKeyField="Id"
+                                            OnSortCommand="dataGrid_SortCommand" Font-Size="Small">
+                                            <HeaderStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                            <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
+                                            <PagerStyle Mode="NumericPages" HorizontalAlign="Center" VerticalAlign="Middle" />
+                                            <Columns>
+                                                <asp:ButtonColumn Text="<%$ Resources:Resource,SearchString%>" CommandName="Select" />
+                                                <asp:BoundColumn Visible="false" DataField="Id" />
+                                                <asp:BoundColumn HeaderText="<%$ Resources:Resource,StartString%>" DataField="StartTime" />
+                                                <asp:BoundColumn HeaderText="<%$ Resources:Resource,EndString%>" DataField="EndTime" />
+                                                <asp:TemplateColumn HeaderText="<%$ Resources:Resource,StatusString%>">
+                                                    <ItemTemplate>
+                                                        <asp:Label runat="server" ID="labelStatus" />
+                                                    </ItemTemplate>
+                                                </asp:TemplateColumn>
+                                                <asp:TemplateColumn HeaderText="<%$ Resources:Resource,ContractSnString%>">
+                                                    <ItemTemplate>
+                                                        <asp:LinkButton runat="server" ID="linkConsult" Text="" OnClick="linkConsult_Click" />
+                                                    </ItemTemplate>
+                                                </asp:TemplateColumn>
+                                                <asp:TemplateColumn HeaderText="<%$ Resources:Resource,LocateString%>">
+                                                    <ItemTemplate>
+                                                        <asp:Label runat="server" ID="labelLocation" />
+                                                    </ItemTemplate>
+                                                </asp:TemplateColumn>
+                                            </Columns>
+                                        </asp:DataGrid>
+                                    </div>
+                                    <hr />
+                                </div>
+                            </div>
                         </ContentTemplate>
                     </cc1:TabPanel>
                 </cc1:TabContainer>
@@ -294,26 +294,28 @@
                                 </button>
                             </div>
                             <div id="uploadPanel" style="display: none;">
-                                <div class="fileUpload">
-                                    <asp:Label runat="server" Text="<%$ Resources:Resource,ImgFrontString%>"></asp:Label>
-                                    <asp:FileUpload ID="FileUpload1" runat="server" />
-                                </div>
-                                <div class="fileUpload">
-                                    <asp:Label runat="server" Text="<%$ Resources:Resource,ImgOtherString%>"></asp:Label>
-                                    <asp:FileUpload ID="FileUpload2" runat="server" />
-                                </div>
-                                <div class="fileUpload">
-                                    <asp:Label runat="server" Text="<%$ Resources:Resource,ImgOtherString%>"></asp:Label>
-                                    <asp:FileUpload ID="FileUpload3" runat="server" />
+                                <div runat="server" id="divUpload">
+                                    <div class="fileUpload">
+                                        <asp:Label runat="server" Text="<%$ Resources:Resource,ImgFrontString%>"></asp:Label>
+                                        <asp:FileUpload ID="FileUpload1" runat="server" />
+                                    </div>
+                                    <div class="fileUpload">
+                                        <asp:Label runat="server" Text="<%$ Resources:Resource,ImgOtherString%>"></asp:Label>
+                                        <asp:FileUpload ID="FileUpload2" runat="server" />
+                                    </div>
+                                    <div class="fileUpload">
+                                        <asp:Label runat="server" Text="<%$ Resources:Resource,ImgOtherString%>"></asp:Label>
+                                        <asp:FileUpload ID="FileUpload3" runat="server" />
 
-                                </div>
-                                <div class="fileUpload">
-                                    <asp:Label runat="server" Text="<%$ Resources:Resource,ImgOtherString%>"></asp:Label>
-                                    <asp:FileUpload ID="FileUpload4" runat="server" />
-                                </div>
-                                <div class="fileUpload">
-                                    <asp:Label runat="server" Text="<%$ Resources:Resource,ImgOtherString%>"></asp:Label>
-                                    <asp:FileUpload ID="FileUpload5" runat="server" />
+                                    </div>
+                                    <div class="fileUpload">
+                                        <asp:Label runat="server" Text="<%$ Resources:Resource,ImgOtherString%>"></asp:Label>
+                                        <asp:FileUpload ID="FileUpload4" runat="server" />
+                                    </div>
+                                    <div class="fileUpload">
+                                        <asp:Label runat="server" Text="<%$ Resources:Resource,ImgOtherString%>"></asp:Label>
+                                        <asp:FileUpload ID="FileUpload5" runat="server" />
+                                    </div>
                                 </div>
                                 <div style="text-align: left; margin-top: 15px;">
                                     <asp:Button CausesValidation="true" runat="server" Text="<%$ Resources:Resource,UploadString%>" ID="btnUpload"

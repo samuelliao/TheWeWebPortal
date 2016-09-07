@@ -68,17 +68,19 @@
                                 </button>
                             </div>
                             <div id="uploadPanel" style="display: none;">
-                                <div class="fileUpload">
-                                    <asp:Label runat="server" Text="<%$ Resources:Resource,ImgFrontString%>"></asp:Label>
-                                    <asp:FileUpload ID="FileUpload1" runat="server" />
-                                </div>
-                                <div class="fileUpload">
-                                    <asp:Label runat="server" Text="<%$ Resources:Resource,ImgBackString%>"></asp:Label>
-                                    <asp:FileUpload ID="FileUpload2" runat="server" />
-                                </div>
-                                <div class="fileUpload">
-                                    <asp:Label runat="server" Text="<%$ Resources:Resource,ImgSideString%>"></asp:Label>
-                                    <asp:FileUpload ID="FileUpload3" runat="server" />
+                                <div runat="server" id="divUpload">
+                                    <div class="fileUpload">
+                                        <asp:Label runat="server" Text="<%$ Resources:Resource,ImgFrontString%>"></asp:Label>
+                                        <asp:FileUpload ID="FileUpload1" runat="server" />
+                                    </div>
+                                    <div class="fileUpload">
+                                        <asp:Label runat="server" Text="<%$ Resources:Resource,ImgBackString%>"></asp:Label>
+                                        <asp:FileUpload ID="FileUpload2" runat="server" />
+                                    </div>
+                                    <div class="fileUpload">
+                                        <asp:Label runat="server" Text="<%$ Resources:Resource,ImgSideString%>"></asp:Label>
+                                        <asp:FileUpload ID="FileUpload3" runat="server" />
+                                    </div>
                                 </div>
                                 <div style="text-align: left; margin-top: 15px;">
                                     <asp:Button CausesValidation="true" runat="server" Text="<%$ Resources:Resource,UploadString%>" ID="btnUpload"

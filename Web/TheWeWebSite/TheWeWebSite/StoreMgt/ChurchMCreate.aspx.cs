@@ -823,7 +823,8 @@ namespace TheWeWebSite.StoreMgt
             CheckFolder(tbFolderPath.Text);
             for (int i = 1; i <= 8; i++)
             {
-                FileUpload upload = Page.FindControl("FileUpload" + i) as FileUpload;
+                FileUpload upload = divUpload.FindControl("FileUpload" + i) as FileUpload;
+                if (upload == null) continue;
                 if (upload.HasFile)
                 {
                     upload.PostedFile.SaveAs(tbFolderPath.Text + "\\" + tbSn.Text + "_" + (i == 8 ? "meal" : i.ToString()) + ".jpg");

@@ -49,13 +49,14 @@ namespace TheWeWebSite.CaseMgt
                 }
             }
         }
+
+        #region Page initialize
         private void InitialTextAndHint()
         {
             InitiallblText();
             InitialtbPlaceHolder();
             Div();
         }
-
         private void InitialPastorLanguage()
         {
             ddlLangPastor.Items.Add(new ListItem(Resources.Resource.LanguageSelectionReminderString, string.Empty));
@@ -64,7 +65,6 @@ namespace TheWeWebSite.CaseMgt
             ddlLangPastor.Items.Add(new ListItem(Resources.Resource.EnglishString, "0"));
             ddlLangPastor.Items.Add(new ListItem(Resources.Resource.JapaneseString, "3"));
         }
-
 
         private void InitiallblText()
         {
@@ -255,7 +255,6 @@ namespace TheWeWebSite.CaseMgt
             //Oth
             tbOth.Attributes.Add("placeholder", Resources.Resource.AddString + Resources.Resource.RemarkString);
         }
-
         private void Div()
         {
             divCehckDress.Visible = false;
@@ -303,7 +302,7 @@ namespace TheWeWebSite.CaseMgt
                     {
                         conNode.ChildNodes.Add(new TreeNode(
                             SysProperty.Util.OutputRelatedLangName(Session["CultureCode"].ToString(), dr)
-                            , dr["Id"].ToString()));
+                            , dr["Id"].ToString() + ";" + dr["Sn"].ToString()));
                     }
                     tvConf.Nodes.Add(conNode);
                 }
@@ -338,6 +337,7 @@ namespace TheWeWebSite.CaseMgt
                 ShowErrorMsg(ex.Message);
             }
         }
+        #endregion
 
         private void ShowErrorMsg(string msg)
         {
@@ -352,7 +352,7 @@ namespace TheWeWebSite.CaseMgt
 
         protected void btnModify_Click(object sender, EventArgs e)
         {
-            string itemId = tvConf.SelectedValue;
+            string itemId = tvConf.SelectedValue.Split(';')[0];
             string orderId = Session["OrderId"].ToString();
             if (string.IsNullOrEmpty(itemId)) return;
             bool result = WriteBackData(MsSqlTable.ConferenceInfo, ConferenceItemDbObject(itemId, orderId), orderId, itemId);
@@ -448,6 +448,30 @@ namespace TheWeWebSite.CaseMgt
                 return null;
             }
         }
+
+        private DataSet GetDressOrder(string orderId)
+        {
+            try
+            {
+                string sql = "SELECT do.[id],do.[OrderId],do.[DressId],do.[RentId],do.[HairItemId]"
+                    + ",do.[Bust],do.[Waist],do.[Hips],do.[Remark],do.[IsCheck]"
+                    + ",do.[IsDelete],do.[CreateAccId],do.[UpdateAccId]"
+                    + ",do.[CreatedateTime],do.[UpdatedateTime]"
+                    + ",do.[SpecialClaim],do.[IsTry],d.Sn as DressSn"
+                    + ",hs.Sn as HairItemSn,d.Category as DressCategory,hs.Type as HairItemType"
+                    + " FROM[TheWe_C].[dbo].[DressOrder] as do"
+                    + " Left join Dress as d on d.Id = do.DressId"
+                    + " Left Join HairStyleItem as hs on hs.Id = do.HairItemId"
+                    + " Where do.IsDelete=0 And do.OrderId='" + orderId + "'";
+                return SysProperty.GenDbCon.GetDataFromTable(sql);
+            }
+            catch (Exception ex)
+            {
+                SysProperty.Log.Error(ex.Message);
+                ShowErrorMsg(ex.Message);
+                return null;
+            }
+        }
         private DataSet GetConferenceItem(string condStr)
         {
             try
@@ -466,6 +490,7 @@ namespace TheWeWebSite.CaseMgt
         {
             try
             {
+                if (string.IsNullOrEmpty(id)) return null;
                 string sql = "Select * From WeddingCategory Where Id = '" + id + "'";
                 return SysProperty.GenDbCon.GetDataFromTable(sql);
             }
@@ -485,7 +510,6 @@ namespace TheWeWebSite.CaseMgt
             if (SysProperty.Util.IsDataSetEmpty(ds)) return;
             DataRow dr = ds.Tables[0].Rows[0];
             tbBridalName.Text = dr["CustomerName"].ToString();
-
             tbGroomName.Text = dr["PartnerName"].ToString();
             tbProductSet.Text = SysProperty.Util.OutputRelatedLangName(
                 cultureCode
@@ -543,6 +567,7 @@ namespace TheWeWebSite.CaseMgt
             tbAttractions.Text = dr["PS_Attractions"].ToString();
 
             //1-4
+            SetDressOrder(id);
             /*
             tbBridalDress1.Text = dr["Sn"].ToString(); //從DressOrder那撈
             tbBridalDress2.Text = dr["Sn"].ToString();//從DressOrder那撈
@@ -622,7 +647,7 @@ namespace TheWeWebSite.CaseMgt
 
 
             lblBouquet1.Text = Resources.Resource.PhotoBouquetString;
-            ImgBouquet1.ImageUrl = "http:" + SysProperty.ImgRootFolderpath + dr["BouquetImg"].ToString() + @"\" + dr["ChSn"].ToString() + "_" + "1" + @".jpg";
+            ImgBouquet1.ImageUrl = "http:" + SysProperty.ImgRootFolderpath + dr["BouquetImg"].ToString() + @"\" + dr["ChSn"].ToString() + "_" + "1" + @".jpg?" + DateTime.Now.Ticks.ToString();
 
         }
 
@@ -687,8 +712,8 @@ namespace TheWeWebSite.CaseMgt
 
         protected void tvConf_SelectedNodeChanged(object sender, EventArgs e)
         {
-            string id = tvConf.SelectedValue;
-            if (string.IsNullOrEmpty(id))
+            string[] var = tvConf.SelectedValue.Split(';');
+            if (string.IsNullOrEmpty(var[0]))
             {
                 tbConDate.Enabled = false;
                 cbCompleted.Enabled = false;
@@ -703,8 +728,8 @@ namespace TheWeWebSite.CaseMgt
                 btnModify.Enabled = !cbIsClose.Checked;
                 DataSet ds = GetConferenceList(
                     " And OrderId = '" + Session["OrderId"].ToString() + "'"
-                    + " And ItemId = '" + id + "'");
-                SetDivByItemId(id);
+                    + " And ItemId = '" + var[0] + "'");
+                SetDivByItemId(var[1]);
                 if (SysProperty.Util.IsDataSetEmpty(ds))
                 {
                     tbOth.Text = string.Empty;
@@ -718,6 +743,40 @@ namespace TheWeWebSite.CaseMgt
                     tbConDate.Text = SysProperty.Util.ParseDateTime("DateTime", dr["BookingDate"].ToString());
                     cbCompleted.Checked = bool.Parse(dr["IsCheck"].ToString());
                 }
+            }
+        }
+
+        private void SetDressOrder(string orderId)
+        {
+            DataSet ds = GetDressOrder(orderId);
+            if (SysProperty.Util.IsDataSetEmpty(ds)) return;
+            int rowIndex = 0;
+            foreach (DataRow dr in ds.Tables[0].Rows)
+            {
+                if (dgCutomServiceItem.Rows.Count == 0)
+                {
+                    AddNewRow_dgCutomServiceItem();
+                }
+                ((TextBox)dgCutomServiceItem.Rows[rowIndex].FindControl("tbId")).Text = dr["Id"].ToString();
+                DropDownList ddlService = ((DropDownList)dgCutomServiceItem.Rows[rowIndex].Cells[0].FindControl("ddlServiceItem"));
+                ddlService.SelectedValue = dr["DressCategory"].ToString();
+                ddlServiceItem_SelectedIndexChanged(ddlService, new EventArgs());
+                AjaxControlToolkit.ComboBox cbxDress = (AjaxControlToolkit.ComboBox)dgCutomServiceItem.Rows[rowIndex].Cells[1].FindControl("cbxChooseDSn");
+                cbxDress.SelectedValue = dr["DressId"] + ";" + rowIndex;
+                cbxChooseDSn_SelectedIndexChanged(cbxDress, new EventArgs());
+                ((TextBox)dgCutomServiceItem.Rows[rowIndex].Cells[2].FindControl("tbBust")).Text = dr["Bust"].ToString();
+                ((TextBox)dgCutomServiceItem.Rows[rowIndex].Cells[3].FindControl("tbWaist")).Text = dr["Waist"].ToString();
+                ((TextBox)dgCutomServiceItem.Rows[rowIndex].Cells[4].FindControl("tbHips")).Text = dr["Hips"].ToString();
+                ((CheckBox)dgCutomServiceItem.Rows[rowIndex].Cells[5].FindControl("cbIsTry")).Checked = bool.Parse(dr["IsTry"].ToString());
+                ((CheckBox)dgCutomServiceItem.Rows[rowIndex].Cells[6].FindControl("cbIsCheck")).Checked = bool.Parse(dr["IsCheck"].ToString());
+                DropDownList ddlHairType = ((DropDownList)dgCutomServiceItem.Rows[rowIndex].Cells[10].FindControl("ddlHairCategory"));
+                ddlHairType.SelectedValue = dr["HairItemType"].ToString();
+                ddlHairCategory_SelectedIndexChanged(ddlHairType, new EventArgs());
+                AjaxControlToolkit.ComboBox cbxHair = (AjaxControlToolkit.ComboBox)dgCutomServiceItem.Rows[rowIndex].Cells[11].FindControl("cbxChooseHSn");
+                cbxChooseHSn_SelectedIndexChanged(cbxHair, new EventArgs());
+
+                rowIndex++;
+                AddNewRow_dgCutomServiceItem();
             }
         }
 
@@ -1047,7 +1106,6 @@ namespace TheWeWebSite.CaseMgt
                 ));
             return lst;
         }
-
         private List<List<DbSearchObject>> ServiceItemDbObject(bool isCreate, string type, string orderId)
         {
             List<List<DbSearchObject>> result = new List<List<DbSearchObject>>();
@@ -1144,8 +1202,170 @@ namespace TheWeWebSite.CaseMgt
             }
             return result;
         }
-
-
+        private List<List<DbSearchObject>> DressOrderDbObject(string id, string rentId)
+        {
+            List<List<DbSearchObject>> result = new List<List<DbSearchObject>>();
+            List<DbSearchObject> lst = new List<DbSearchObject>();
+            if (ViewState["CurrentTable2"] != null)
+            {
+                string str = string.Empty;
+                bool isCreate = false;
+                if (dgCutomServiceItem.Rows.Count > 0)
+                {
+                    foreach (GridViewRow dr in dgCutomServiceItem.Rows)
+                    {
+                        lst = new List<DbSearchObject>();
+                        str = ((TextBox)dr.Cells[0].FindControl("tbId")).Text;
+                        isCreate = string.IsNullOrEmpty(str);
+                        str = ((AjaxControlToolkit.ComboBox)dr.Cells[1].FindControl("cbxChooseDSn")).SelectedValue;
+                        if (string.IsNullOrEmpty(str) || !str.Contains(";")) continue;
+                        lst.Add(new DbSearchObject(
+                            "DressId"
+                            , AtrrTypeItem.String
+                            , AttrSymbolItem.Equal
+                            , str.Split(';')[0]
+                            ));
+                        lst.Add(new DbSearchObject(
+                            "OrderId"
+                            , AtrrTypeItem.String
+                            , AttrSymbolItem.Equal
+                            , id
+                            ));
+                        lst.Add(new DbSearchObject(
+                            "RentId"
+                            , AtrrTypeItem.DateTime
+                            , AttrSymbolItem.Equal
+                            , rentId
+                            ));
+                        str = ((AjaxControlToolkit.ComboBox)dr.Cells[1].FindControl("cbxChooseHSn")).SelectedValue;
+                        if (!string.IsNullOrEmpty(str) && str.Contains(";"))
+                        {
+                            lst.Add(new DbSearchObject(
+                                "HairItemId"
+                                , AtrrTypeItem.String
+                                , AttrSymbolItem.Equal
+                                , str.Split(';')[0]
+                                ));
+                        }
+                        lst.Add(new DbSearchObject(
+                            "Bust"
+                            , AtrrTypeItem.String
+                            , AttrSymbolItem.Equal
+                            , ((TextBox)dr.Cells[3].FindControl("tbBust")).Text
+                            ));
+                        lst.Add(new DbSearchObject(
+                            "Waist"
+                            , AtrrTypeItem.String
+                            , AttrSymbolItem.Equal
+                            , ((TextBox)dr.Cells[4].FindControl("tbWaist")).Text
+                            ));
+                        lst.Add(new DbSearchObject(
+                            "Hips"
+                            , AtrrTypeItem.String
+                            , AttrSymbolItem.Equal
+                            , ((TextBox)dr.Cells[5].FindControl("tbHips")).Text
+                            ));
+                        lst.Add(new DbSearchObject(
+                            "Remark"
+                            , AtrrTypeItem.String
+                            , AttrSymbolItem.Equal
+                            , ((TextBox)dr.Cells[7].FindControl("tbReceiptSn")).Text
+                            ));
+                        lst.Add(new DbSearchObject(
+                            "IsCheck"
+                            , AtrrTypeItem.Bit
+                            , AttrSymbolItem.Equal
+                            , (((CheckBox)dr.Cells[6].FindControl("cbIsCheck")).Checked ? "1" : "0")
+                            ));
+                        lst.Add(new DbSearchObject(
+                            "IsTry"
+                            , AtrrTypeItem.Bit
+                            , AttrSymbolItem.Equal
+                            , (((CheckBox)dr.Cells[7].FindControl("cbIsCheck")).Checked ? "1" : "0")
+                            ));
+                        lst.Add(new DbSearchObject(
+                            "UpdateAccId"
+                            , AtrrTypeItem.String
+                            , AttrSymbolItem.Equal
+                            , ((DataRow)Session["AccountInfo"])["Id"].ToString()
+                            ));
+                        result.Add(lst);
+                        if (isCreate)
+                        {
+                            lst.Add(new DbSearchObject(
+                            "CreatedateAccId"
+                            , AtrrTypeItem.String
+                            , AttrSymbolItem.Equal
+                            , ((DataRow)Session["AccountInfo"])["Id"].ToString()
+                            ));
+                        }
+                        else
+                        {
+                            lst.Add(new DbSearchObject(
+                            "Id"
+                            , AtrrTypeItem.String
+                            , AttrSymbolItem.Equal
+                            , ((TextBox)dr.Cells[0].FindControl("tbId")).Text
+                            ));
+                        }
+                    }
+                }
+            }
+            return result;
+        }
+        private List<DbSearchObject> DressRentDbObject(string dressId, string startTime, string endTime)
+        {
+            List<DbSearchObject> lst = new List<DbSearchObject>();
+            lst.Add(new DbSearchObject(
+                "DressId"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , dressId
+                ));
+            lst.Add(new DbSearchObject(
+                "StartTime"
+                , AtrrTypeItem.DateTime
+                , AttrSymbolItem.Equal
+                , startTime
+                ));
+            lst.Add(new DbSearchObject(
+                "EndTime"
+                , AtrrTypeItem.DateTime
+                , AttrSymbolItem.Equal
+                , endTime
+                ));
+            lst.Add(new DbSearchObject(
+                "UpdateAccId"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , ((DataRow)Session["AccountInfo"])["Id"].ToString()
+                ));
+            lst.Add(new DbSearchObject(
+                "UpdateTime"
+                , AtrrTypeItem.DateTime
+                , AttrSymbolItem.Equal
+                , DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss")
+                ));
+            lst.Add(new DbSearchObject(
+                    "StatusCode"
+                    , AtrrTypeItem.String
+                    , AttrSymbolItem.Equal
+                    , "67F14E3B-5294-44EE-97CF-948BB2FC3031"
+                    ));
+            lst.Add(new DbSearchObject(
+            "CreatedateAccId"
+            , AtrrTypeItem.String
+            , AttrSymbolItem.Equal
+            , ((DataRow)Session["AccountInfo"])["Id"].ToString()
+            ));
+            lst.Add(new DbSearchObject(
+                "CreatedateTime"
+                , AtrrTypeItem.DateTime
+                , AttrSymbolItem.Equal
+                , DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss")
+                ));
+            return lst;
+        }
         #endregion
 
         private bool WriteBackData(MsSqlTable table, List<DbSearchObject> lst, string orderId, string itemId)
@@ -1257,46 +1477,64 @@ namespace TheWeWebSite.CaseMgt
                 , ddlOrderType.SelectedItem.Text, labelWeddingCategory.Text, string.Empty);
         }
 
-        private void SetDivByItemId(string ItemId)
+        private void SetDivByItemId(string ItemSn)
         {
             ResetAllDivControl();
-            switch (ItemId)
+            switch (ItemSn)
             {
                 //1
-                case "1e739102-b86d-45db-ba67-3674f8393bb2":
+                case "CI1005":
+                    divHotel.Visible = true;
                     break;
-                case "73b4f75a-26a2-4818-94f7-a8834d2d4a23":
+                case "CI1006":
                     divWeddingInfo.Visible = true;
                     divBouquet.Visible = true;
                     break;
-                case "efef815c-cac3-4ea5-9e8e-e83138f56272":
+                case "CI1007":
                     divTakePicture.Visible = true;
                     divBouquet.Visible = true;
                     break;
-                case "25536c21-df26-4986-bda1-8b3dd187f4e8":
+                case "CI1008":
                     divChooseDress.Visible = true;
                     divDress.Visible = true;
                     break;
-                case "2d9983e0-8a96-473a-a492-8c68df58a63b":
+                case "CI1009":
                     divDinner.Visible = true;
                     break;
                 //2
-                case "947fe231-4bb0-4790-841f-04a16c7def3a":
+                case "CI2011":
                     divTryDress.Visible = true;
                     divDress.Visible = true;
                     break;
-                case "095eca7c-2b6f-4d78-9eae-676acf064a9b":
+                case "CI2012":
                     divModelCheck.Visible = true;
                     divDress.Visible = true;
                     break;
                 //3
-                case "f3aa0079-0896-4816-9db0-5abb66f1aac1":
+                case "CI3015":
                     divCehckDress.Visible = true;
                     divDress.Visible = true;
                     break;
                 //
-                case "735dd34b-70f5-4361-a28f-f443f3ad6d1d":
+                case "CI3017":
                     divGetDress.Visible = true;
+                    break;
+                default:
+                    divHotel.Visible = false;
+                    divWeddingInfo.Visible = false;
+                    divBouquet.Visible = false;
+                    divTakePicture.Visible = false;
+                    divBouquet.Visible = false;
+                    divChooseDress.Visible = false;
+                    divDress.Visible = false;
+                    divDinner.Visible = false;
+                    divTryDress.Visible = false;
+                    divDress.Visible = false;
+                    divModelCheck.Visible = false;
+                    divDress.Visible = false;
+                    divCehckDress.Visible = false;
+                    divDress.Visible = false;
+                    divGetDress.Visible = false;
                     break;
             }
         }
@@ -1373,9 +1611,7 @@ namespace TheWeWebSite.CaseMgt
         }
 
 
-        #region 1-4 Choose Dress
-
-
+        #region 1-4 Choose Dress        
         protected void dgCutomServiceItem_RowDeleting(object sender, GridViewDeleteEventArgs e)
         {
             SetRowData_dgCutomServiceItem();
@@ -1401,7 +1637,6 @@ namespace TheWeWebSite.CaseMgt
         {
             ddlHairCategory(sender, e);
             ddlService(sender, e);
-
         }
 
         private void ddlService(object sender, GridViewRowEventArgs e)
@@ -1456,20 +1691,23 @@ namespace TheWeWebSite.CaseMgt
                 {
                     for (int i = 1; i <= dtCurrentTable.Rows.Count; i++)
                     {
-                        DropDownList DdlItem = (DropDownList)dgCutomServiceItem.Rows[rowIndex].Cells[0].FindControl("ddlServiceItem");
-                        AjaxControlToolkit.ComboBox cbxChooseDSn = (AjaxControlToolkit.ComboBox)dgCutomServiceItem.Rows[rowIndex].Cells[1].FindControl("cbxChooseDSn");
-                        TextBox tbBust = (TextBox)dgCutomServiceItem.Rows[rowIndex].Cells[2].FindControl("tbBust");
-                        TextBox tbWaist = (TextBox)dgCutomServiceItem.Rows[rowIndex].Cells[3].FindControl("tbWaist");
-                        TextBox tbHips = (TextBox)dgCutomServiceItem.Rows[rowIndex].Cells[4].FindControl("tbHips");
-                        CheckBox cbIsTry = (CheckBox)dgCutomServiceItem.Rows[rowIndex].Cells[5].FindControl("cbIsTry");
-                        CheckBox cbIsCheck = (CheckBox)dgCutomServiceItem.Rows[rowIndex].Cells[6].FindControl("cbIsCheck");
-                        Image ImgCDress1 = (Image)dgCutomServiceItem.Rows[rowIndex].Cells[7].FindControl("ImgCDress1");
-                        Image ImgCDress2 = (Image)dgCutomServiceItem.Rows[rowIndex].Cells[8].FindControl("ImgCDress2");
-                        Image ImgCDress3 = (Image)dgCutomServiceItem.Rows[rowIndex].Cells[9].FindControl("ImgCDress3");
-                        DropDownList ddlHairCategory = (DropDownList)dgCutomServiceItem.Rows[rowIndex].Cells[10].FindControl("ddlHairCategory");
-                        AjaxControlToolkit.ComboBox cbxChooseHSn = (AjaxControlToolkit.ComboBox)dgCutomServiceItem.Rows[rowIndex].Cells[11].FindControl("cbxChooseHSn");
-                        Image ImgCHair1 = (Image)dgCutomServiceItem.Rows[rowIndex].Cells[12].FindControl("ImgCHair1");
+                        TextBox tbId = (TextBox)dgCutomServiceItem.Rows[rowIndex].Cells[0].FindControl("tbId");
+                        DropDownList DdlItem = (DropDownList)dgCutomServiceItem.Rows[rowIndex].Cells[1].FindControl("ddlServiceItem");
+                        AjaxControlToolkit.ComboBox cbxChooseDSn = (AjaxControlToolkit.ComboBox)dgCutomServiceItem.Rows[rowIndex].Cells[2].FindControl("cbxChooseDSn");
+                        TextBox tbBust = (TextBox)dgCutomServiceItem.Rows[rowIndex].Cells[3].FindControl("tbBust");
+                        TextBox tbWaist = (TextBox)dgCutomServiceItem.Rows[rowIndex].Cells[4].FindControl("tbWaist");
+                        TextBox tbHips = (TextBox)dgCutomServiceItem.Rows[rowIndex].Cells[5].FindControl("tbHips");
+                        CheckBox cbIsTry = (CheckBox)dgCutomServiceItem.Rows[rowIndex].Cells[6].FindControl("cbIsTry");
+                        CheckBox cbIsCheck = (CheckBox)dgCutomServiceItem.Rows[rowIndex].Cells[7].FindControl("cbIsCheck");
+                        Image ImgCDress1 = (Image)dgCutomServiceItem.Rows[rowIndex].Cells[8].FindControl("ImgCDress1");
+                        Image ImgCDress2 = (Image)dgCutomServiceItem.Rows[rowIndex].Cells[9].FindControl("ImgCDress2");
+                        Image ImgCDress3 = (Image)dgCutomServiceItem.Rows[rowIndex].Cells[10].FindControl("ImgCDress3");
+                        DropDownList ddlHairCategory = (DropDownList)dgCutomServiceItem.Rows[rowIndex].Cells[11].FindControl("ddlHairCategory");
+                        AjaxControlToolkit.ComboBox cbxChooseHSn = (AjaxControlToolkit.ComboBox)dgCutomServiceItem.Rows[rowIndex].Cells[12].FindControl("cbxChooseHSn");
+                        Image ImgCHair1 = (Image)dgCutomServiceItem.Rows[rowIndex].Cells[13].FindControl("ImgCHair1");
+
                         drCurrentRow = dtCurrentTable.NewRow();
+                        dtCurrentTable.Rows[i - 1]["Id"] = tbId.Text;
                         dtCurrentTable.Rows[i - 1]["Col1"] = DdlItem.SelectedValue;
                         dtCurrentTable.Rows[i - 1]["Col2"] = cbxChooseDSn.Text;
                         dtCurrentTable.Rows[i - 1]["Col3"] = tbBust.Text;
@@ -1505,34 +1743,35 @@ namespace TheWeWebSite.CaseMgt
                 {
                     for (int i = 0; i < dt.Rows.Count; i++)
                     {
-                        DropDownList DdlItem = (DropDownList)dgCutomServiceItem.Rows[rowIndex].Cells[0].FindControl("ddlServiceItem");
-                        AjaxControlToolkit.ComboBox TextStart = (AjaxControlToolkit.ComboBox)dgCutomServiceItem.Rows[rowIndex].Cells[1].FindControl("cbxChooseDSn");
+                        TextBox tbId = (TextBox)dgCutomServiceItem.Rows[rowIndex].Cells[0].FindControl("tbId");
+                        DropDownList DdlItem = (DropDownList)dgCutomServiceItem.Rows[rowIndex].Cells[1].FindControl("ddlServiceItem");
+                        AjaxControlToolkit.ComboBox cbxChooseDSn = (AjaxControlToolkit.ComboBox)dgCutomServiceItem.Rows[rowIndex].Cells[2].FindControl("cbxChooseDSn");
+                        TextBox tbBust = (TextBox)dgCutomServiceItem.Rows[rowIndex].Cells[3].FindControl("tbBust");
+                        TextBox tbWaist = (TextBox)dgCutomServiceItem.Rows[rowIndex].Cells[4].FindControl("tbWaist");
+                        TextBox tbHips = (TextBox)dgCutomServiceItem.Rows[rowIndex].Cells[5].FindControl("tbHips");
+                        CheckBox cbIsTry = (CheckBox)dgCutomServiceItem.Rows[rowIndex].Cells[6].FindControl("cbIsTry");
+                        CheckBox cbIsCheck = (CheckBox)dgCutomServiceItem.Rows[rowIndex].Cells[7].FindControl("cbIsCheck");
+                        Image ImgCDress1 = (Image)dgCutomServiceItem.Rows[rowIndex].Cells[8].FindControl("ImgCDress1");
+                        Image ImgCDress2 = (Image)dgCutomServiceItem.Rows[rowIndex].Cells[9].FindControl("ImgCDress2");
+                        Image ImgCDress3 = (Image)dgCutomServiceItem.Rows[rowIndex].Cells[10].FindControl("ImgCDress3");
+                        DropDownList ddlHairCategory = (DropDownList)dgCutomServiceItem.Rows[rowIndex].Cells[11].FindControl("ddlHairCategory");
+                        AjaxControlToolkit.ComboBox cbxChooseHSn = (AjaxControlToolkit.ComboBox)dgCutomServiceItem.Rows[rowIndex].Cells[12].FindControl("cbxChooseHSn");
+                        Image ImgCHair1 = (Image)dgCutomServiceItem.Rows[rowIndex].Cells[13].FindControl("ImgCHair1");
 
-                        TextBox tbBust = (TextBox)dgCutomServiceItem.Rows[rowIndex].Cells[2].FindControl("tbBust");
-                        TextBox tbWaist = (TextBox)dgCutomServiceItem.Rows[rowIndex].Cells[3].FindControl("tbWaist");
-                        TextBox tbHips = (TextBox)dgCutomServiceItem.Rows[rowIndex].Cells[4].FindControl("tbHips");
-                        CheckBox cbIsTry = (CheckBox)dgCutomServiceItem.Rows[rowIndex].Cells[5].FindControl("cbIsTry");
-                        CheckBox cbIsCheck = (CheckBox)dgCutomServiceItem.Rows[rowIndex].Cells[6].FindControl("cbIsCheck");
-                        Image ImgCDress1 = (Image)dgCutomServiceItem.Rows[rowIndex].Cells[7].FindControl("ImgCDress1");
-                        Image ImgCDress2 = (Image)dgCutomServiceItem.Rows[rowIndex].Cells[8].FindControl("ImgCDress2");
-                        Image ImgCDress3 = (Image)dgCutomServiceItem.Rows[rowIndex].Cells[9].FindControl("ImgCDress3");
-                        DropDownList ddlHairCategory = (DropDownList)dgCutomServiceItem.Rows[rowIndex].Cells[10].FindControl("ddlHairCategory");
-                        AjaxControlToolkit.ComboBox cbxChooseHSn = (AjaxControlToolkit.ComboBox)dgCutomServiceItem.Rows[rowIndex].Cells[11].FindControl("cbxChooseHSn");
-                        Image ImgCHair1 = (Image)dgCutomServiceItem.Rows[rowIndex].Cells[12].FindControl("ImgCHair1");
-
-                        if (TextStart == null) continue;
+                        if (cbxChooseDSn == null) continue;
+                        tbId.Text = dt.Rows[i]["Id"].ToString();
                         DdlItem.SelectedValue = dt.Rows[i]["Col1"].ToString();
-                        TextStart.Text = dt.Rows[i]["Col2"] == null ? string.Empty : dt.Rows[i]["Col2"].ToString();
+                        cbxChooseDSn.SelectedValue = dt.Rows[i]["Col2"] == null ? string.Empty : dt.Rows[i]["Col2"].ToString();
                         tbBust.Text = dt.Rows[i]["Col3"] == null ? string.Empty : dt.Rows[i]["Col3"].ToString();
                         tbWaist.Text = dt.Rows[i]["Col4"] == null ? string.Empty : dt.Rows[i]["Col4"].ToString();
                         tbHips.Text = dt.Rows[i]["Col5"] == null ? string.Empty : dt.Rows[i]["Col5"].ToString();
-                        //  cbIsTry.Checked = dt.Rows[i]["Col6"] == null ? string.Empty : dt.Rows[i]["Col6"].ToString();
-                        //  cbIsCheck.Text = dt.Rows[i]["Col7"] == null ? string.Empty : dt.Rows[i]["Col7"].ToString();
+                        cbIsTry.Checked = dt.Rows[i]["Col6"] == null ? false : bool.Parse(dt.Rows[i]["Col6"].ToString());
+                        cbIsCheck.Checked = dt.Rows[i]["Col7"] == null ? false : bool.Parse(dt.Rows[i]["Col7"].ToString());
                         ImgCDress1.ImageUrl = dt.Rows[i]["Col8"] == null ? string.Empty : dt.Rows[i]["Col8"].ToString();
                         ImgCDress2.ImageUrl = dt.Rows[i]["Col9"] == null ? string.Empty : dt.Rows[i]["Col9"].ToString();
                         ImgCDress3.ImageUrl = dt.Rows[i]["Col10"] == null ? string.Empty : dt.Rows[i]["Col10"].ToString();
                         ddlHairCategory.SelectedValue = dt.Rows[i]["Col11"].ToString();
-                        cbxChooseHSn.Text = dt.Rows[i]["Col12"] == null ? string.Empty : dt.Rows[i]["Col12"].ToString();
+                        cbxChooseHSn.SelectedValue = dt.Rows[i]["Col12"] == null ? string.Empty : dt.Rows[i]["Col12"].ToString();
                         ImgCHair1.ImageUrl = dt.Rows[i]["Col13"] == null ? string.Empty : dt.Rows[i]["Col13"].ToString();
                         rowIndex++;
                     }
@@ -1557,28 +1796,26 @@ namespace TheWeWebSite.CaseMgt
                 {
                     for (int i = 1; i <= dtCurrentTable.Rows.Count; i++)
                     {
-                        DropDownList DdlItem =
-                            (DropDownList)dgCutomServiceItem.Rows[rowIndex].Cells[0].FindControl("ddlServiceItem");
-                        AjaxControlToolkit.ComboBox TextStart =
-                          (AjaxControlToolkit.ComboBox)dgCutomServiceItem.Rows[rowIndex].Cells[1].FindControl("cbxChooseDSn");
-                        TextBox tbBust = (TextBox)dgCutomServiceItem.Rows[rowIndex].Cells[2].FindControl("tbBust");
-                        TextBox tbWaist = (TextBox)dgCutomServiceItem.Rows[rowIndex].Cells[3].FindControl("tbWaist");
-                        TextBox tbHips = (TextBox)dgCutomServiceItem.Rows[rowIndex].Cells[4].FindControl("tbHips");
-                        CheckBox cbIsTry = (CheckBox)dgCutomServiceItem.Rows[rowIndex].Cells[5].FindControl("cbIsTry");
-                        CheckBox cbIsCheck = (CheckBox)dgCutomServiceItem.Rows[rowIndex].Cells[6].FindControl("cbIsCheck");
-                        Image ImgCDress1 = (Image)dgCutomServiceItem.Rows[rowIndex].Cells[7].FindControl("ImgCDress1");
-                        Image ImgCDress2 = (Image)dgCutomServiceItem.Rows[rowIndex].Cells[8].FindControl("ImgCDress2");
-                        Image ImgCDress3 = (Image)dgCutomServiceItem.Rows[rowIndex].Cells[9].FindControl("ImgCDress3");
-                        DropDownList ddlHairCategory =
-                            (DropDownList)dgCutomServiceItem.Rows[rowIndex].Cells[10].FindControl("ddlHairCategory");
-                        AjaxControlToolkit.ComboBox cbxChooseHSn =
-                          (AjaxControlToolkit.ComboBox)dgCutomServiceItem.Rows[rowIndex].Cells[11].FindControl("cbxChooseHSn");
-                        Image ImgCHair1 = (Image)dgCutomServiceItem.Rows[rowIndex].Cells[12].FindControl("ImgCHair1");
+                        TextBox tbId = (TextBox)dgCutomServiceItem.Rows[rowIndex].Cells[0].FindControl("tbId");
+                        DropDownList DdlItem = (DropDownList)dgCutomServiceItem.Rows[rowIndex].Cells[1].FindControl("ddlServiceItem");
+                        AjaxControlToolkit.ComboBox cbxChooseDSn = (AjaxControlToolkit.ComboBox)dgCutomServiceItem.Rows[rowIndex].Cells[2].FindControl("cbxChooseDSn");
+                        TextBox tbBust = (TextBox)dgCutomServiceItem.Rows[rowIndex].Cells[3].FindControl("tbBust");
+                        TextBox tbWaist = (TextBox)dgCutomServiceItem.Rows[rowIndex].Cells[4].FindControl("tbWaist");
+                        TextBox tbHips = (TextBox)dgCutomServiceItem.Rows[rowIndex].Cells[5].FindControl("tbHips");
+                        CheckBox cbIsTry = (CheckBox)dgCutomServiceItem.Rows[rowIndex].Cells[6].FindControl("cbIsTry");
+                        CheckBox cbIsCheck = (CheckBox)dgCutomServiceItem.Rows[rowIndex].Cells[7].FindControl("cbIsCheck");
+                        Image ImgCDress1 = (Image)dgCutomServiceItem.Rows[rowIndex].Cells[8].FindControl("ImgCDress1");
+                        Image ImgCDress2 = (Image)dgCutomServiceItem.Rows[rowIndex].Cells[9].FindControl("ImgCDress2");
+                        Image ImgCDress3 = (Image)dgCutomServiceItem.Rows[rowIndex].Cells[10].FindControl("ImgCDress3");
+                        DropDownList ddlHairCategory = (DropDownList)dgCutomServiceItem.Rows[rowIndex].Cells[11].FindControl("ddlHairCategory");
+                        AjaxControlToolkit.ComboBox cbxChooseHSn = (AjaxControlToolkit.ComboBox)dgCutomServiceItem.Rows[rowIndex].Cells[12].FindControl("cbxChooseHSn");
+                        Image ImgCHair1 = (Image)dgCutomServiceItem.Rows[rowIndex].Cells[13].FindControl("ImgCHair1");
 
 
                         drCurrentRow = dtCurrentTable.NewRow();
+                        dtCurrentTable.Rows[i - 1]["Id"] = tbId.Text;
                         dtCurrentTable.Rows[i - 1]["Col1"] = DdlItem.SelectedValue;
-                        dtCurrentTable.Rows[i - 1]["Col2"] = TextStart.Text;
+                        dtCurrentTable.Rows[i - 1]["Col2"] = cbxChooseDSn.SelectedValue;
                         dtCurrentTable.Rows[i - 1]["Col3"] = tbBust.Text;
                         dtCurrentTable.Rows[i - 1]["Col4"] = tbWaist.Text;
                         dtCurrentTable.Rows[i - 1]["Col5"] = tbHips.Text;
@@ -1588,7 +1825,7 @@ namespace TheWeWebSite.CaseMgt
                         dtCurrentTable.Rows[i - 1]["Col9"] = ImgCDress2.ImageUrl;
                         dtCurrentTable.Rows[i - 1]["Col10"] = ImgCDress3.ImageUrl;
                         dtCurrentTable.Rows[i - 1]["Col11"] = ddlHairCategory.SelectedValue;
-                        dtCurrentTable.Rows[i - 1]["Col12"] = cbxChooseHSn.Text;
+                        dtCurrentTable.Rows[i - 1]["Col12"] = cbxChooseHSn.SelectedValue;
                         dtCurrentTable.Rows[i - 1]["Col13"] = ImgCHair1.ImageUrl;
                         rowIndex++;
                     }
@@ -1610,6 +1847,7 @@ namespace TheWeWebSite.CaseMgt
         {
             DataTable dt = new DataTable();
             DataRow dr = null;
+            dt.Columns.Add(new DataColumn("Id", typeof(string)));
             dt.Columns.Add(new DataColumn("Col1", typeof(string)));
             dt.Columns.Add(new DataColumn("Col2", typeof(string)));
             dt.Columns.Add(new DataColumn("Col3", typeof(string)));
@@ -1624,6 +1862,7 @@ namespace TheWeWebSite.CaseMgt
             dt.Columns.Add(new DataColumn("Col12", typeof(string)));
             dt.Columns.Add(new DataColumn("Col13", typeof(string)));
             dr = dt.NewRow();
+            dr["Id"] = string.Empty;
             dr["Col1"] = string.Empty;
             dr["Col2"] = string.Empty;
             dr["Col3"] = string.Empty;
@@ -1651,7 +1890,9 @@ namespace TheWeWebSite.CaseMgt
             AjaxControlToolkit.ComboBox cbxChooseDSn = dgCutomServiceItem.Rows[int.Parse(var[1])].FindControl("cbxChooseDSn") as AjaxControlToolkit.ComboBox;
             cbxChooseDSn.Items.Clear();
 
-            DataSet ds1 = SysProperty.GenDbCon.GetDataFromTable("select * from [dbo].[Dress] Where IsDelete=0 and cast(Category as nvarchar(max))='" + var[0] + "'");
+            DataSet ds1 = SysProperty.GenDbCon.GetDataFromTable("select * from [dbo].[Dress] Where IsDelete=0 And StoreId='"
+                + ((DataRow)Session["LocateStore"])["Id"].ToString()
+                + "' and cast(Category as nvarchar(max))='" + var[0] + "'");
 
             if (SysProperty.Util.IsDataSetEmpty(ds1))
             {
@@ -1670,7 +1911,25 @@ namespace TheWeWebSite.CaseMgt
 
         protected void cbxChooseDSn_SelectedIndexChanged(object sender, EventArgs e)
         {
-            string[] var = ((DropDownList)sender).SelectedValue.ToString().Split(';');
+            AjaxControlToolkit.ComboBox cbx = sender as AjaxControlToolkit.ComboBox;
+            if (string.IsNullOrEmpty(cbx.SelectedValue) || !cbx.SelectedValue.Contains(";")) return;
+            string[] var = cbx.SelectedValue.ToString().Split(';');
+            try
+            {
+                for (int cnt = 1; cnt <= 3; cnt++)
+                {
+                    Image img = dgCutomServiceItem.Rows[int.Parse(var[1].ToString())].FindControl("ImgCDress" + cnt) as Image;
+                    if (img != null)
+                    {
+                        img.ImageUrl = "http:" + SysProperty.ImgRootFolderpath + @"\Dress\" + cbx.SelectedItem.Text.Substring(cbx.SelectedItem.Text.Length - 8) + @"\" + cbx.SelectedItem.Text + "_" + cnt + @".jpg?" + DateTime.Now.Ticks.ToString();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                SysProperty.Log.Error(ex.Message);
+            }
+
         }
 
         protected void ddlHairCategory_SelectedIndexChanged(object sender, EventArgs e)
@@ -1695,6 +1954,25 @@ namespace TheWeWebSite.CaseMgt
                 }
             }
 
+        }
+
+        protected void cbxChooseHSn_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            AjaxControlToolkit.ComboBox cbx = sender as AjaxControlToolkit.ComboBox;
+            if (string.IsNullOrEmpty(cbx.SelectedValue) || !cbx.SelectedValue.Contains(";")) return;
+            string[] var = cbx.SelectedValue.ToString().Split(';');
+            try
+            {
+                Image img = dgCutomServiceItem.Rows[int.Parse(var[1].ToString())].FindControl("ImgCHair1") as Image;
+                if (img != null)
+                {
+                    img.ImageUrl = "http:" + SysProperty.ImgRootFolderpath + @"\HairStyleItem\" + cbx.SelectedItem.Text.Substring(cbx.SelectedItem.Text.Length - 6) + @"\" + cbx.SelectedItem.Text + "_1.jpg?" + DateTime.Now.Ticks.ToString();
+                }
+            }
+            catch (Exception ex)
+            {
+                SysProperty.Log.Error(ex.Message);
+            }
         }
     }
 

@@ -601,6 +601,11 @@
                                                 ShowFooter="True" AutoGenerateColumns="False" OnRowDataBound="dgCutomServiceItem_RowDataBound"
                                                 OnRowDeleting="dgCutomServiceItem_RowDeleting" Width="2500px">
                                                 <Columns>
+                                                    <asp:TemplateField ItemStyle-Width="0px">
+                                                        <ItemTemplate>
+                                                            <asp:TextBox runat="server" ID="tbId" ReadOnly="true" Width="0px" Style="display: none;" />
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
                                                     <asp:TemplateField HeaderText="<%$ Resources:Resource,CategoryString%>">
                                                         <ItemTemplate>
                                                             <asp:DropDownList runat="server" ID="ddlServiceItem" AutoPostBack="True" OnSelectedIndexChanged="ddlServiceItem_SelectedIndexChanged" />
@@ -640,7 +645,7 @@
                                                         <ItemTemplate>
                                                             <div class="6u 12u(mobilep) ">
                                                                 <span class="image fit">
-                                                                    <asp:Image ID="ImgCDress1" runat="server" ImageUrl="http://127.0.0.1/Photo/Church/CH006/Bouquet/CH006_2.jpg" />
+                                                                    <asp:Image ID="ImgCDress1" Height="150px" Width="100px" runat="server" ImageUrl="http://127.0.0.1/Photo/Church/CH006/Bouquet/CH006_2.jpg" />
                                                                 </span>
                                                             </div>
                                                         </ItemTemplate>
@@ -649,7 +654,7 @@
                                                         <ItemTemplate>
                                                             <div class="6u 12u(mobilep) ">
                                                                 <span class="image fit">
-                                                                    <asp:Image ID="ImgCDress2" runat="server" ImageUrl="http://127.0.0.1/Photo/Church/CH006/Bouquet/CH006_2.jpg" />
+                                                                    <asp:Image ID="ImgCDress2" Height="150px" Width="100px" runat="server" ImageUrl="http://127.0.0.1/Photo/Church/CH006/Bouquet/CH006_2.jpg" />
                                                                 </span>
                                                             </div>
                                                         </ItemTemplate>
@@ -658,7 +663,7 @@
                                                         <ItemTemplate>
                                                             <div class="6u 12u(mobilep) ">
                                                                 <span class="image fit">
-                                                                    <asp:Image ID="ImgCDress3" runat="server" ImageUrl="http://127.0.0.1/Photo/Church/CH006/Bouquet/CH006_2.jpg" />
+                                                                    <asp:Image ID="ImgCDress3" Height="150px" Width="100px" runat="server" ImageUrl="http://127.0.0.1/Photo/Church/CH006/Bouquet/CH006_2.jpg" />
                                                                 </span>
                                                             </div>
                                                         </ItemTemplate>
@@ -670,14 +675,14 @@
                                                     </asp:TemplateField>
                                                     <asp:TemplateField HeaderText="<%$ Resources:Resource,ModelingSnString%>">
                                                         <ItemTemplate>
-                                                            <ajaxToolkit:ComboBox ID="cbxChooseHSn" runat="server" AutoCompleteMode="SuggestAppend"></ajaxToolkit:ComboBox>
+                                                            <ajaxToolkit:ComboBox ID="cbxChooseHSn" runat="server" AutoCompleteMode="SuggestAppend" AutoPostBack="true" OnSelectedIndexChanged="cbxChooseHSn_SelectedIndexChanged"></ajaxToolkit:ComboBox>
                                                         </ItemTemplate>
                                                     </asp:TemplateField>
                                                     <asp:TemplateField HeaderText="<%$ Resources:Resource,ModelingPhotoString%>">
                                                         <ItemTemplate>
                                                             <div class="5u 12u(mobilep) ">
                                                                 <span class="image fit">
-                                                                    <asp:Image ID="ImgCHair1" runat="server" />
+                                                                    <asp:Image ID="ImgCHair1" runat="server" Height="150px" Width="100px" />
                                                                 </span>
                                                             </div>
                                                         </ItemTemplate>
