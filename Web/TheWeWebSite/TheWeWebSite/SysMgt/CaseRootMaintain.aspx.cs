@@ -82,7 +82,6 @@ namespace TheWeWebSite.SysMgt
             ddlEmployee.Items.Clear();
             ddlEmployee.Items.Add(new ListItem(Resources.Resource.SeletionRemindString, string.Empty));
             string condStr = " Where IsDelete = 0 And IsValid = 1 "
-                + (string.IsNullOrEmpty(countryId) ? string.Empty : " And CountryId='" + countryId + "'")
                 + (string.IsNullOrEmpty(storeId) ? string.Empty : " And StoreId = '" + storeId + "'");
             DataSet ds = GetDataFromDb("Select * from Employee " + condStr);
             if (SysProperty.Util.IsDataSetEmpty(ds)) return;
@@ -97,7 +96,6 @@ namespace TheWeWebSite.SysMgt
             ddlType.Items.Clear();
             ddlType.Items.Add(new ListItem(Resources.Resource.StoreString, "Store"));
             ddlType.Items.Add(new ListItem(Resources.Resource.CountryString, "Country"));
-            //ddlType.Items.Add(new ListItem(Resources.Resource.CaseString, "Case"));
         }
         #endregion
 

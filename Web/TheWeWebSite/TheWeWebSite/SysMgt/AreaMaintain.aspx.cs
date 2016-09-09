@@ -24,7 +24,7 @@ namespace TheWeWebSite.SysMgt
                     InitialLangList();
                     InitialCountryList();
                     InitialControlWithPermission();
-                    BindData();
+                    BindData(GenQueryCond());
                 }
             }
         }
@@ -40,18 +40,14 @@ namespace TheWeWebSite.SysMgt
             dgArea.Columns[dgArea.Columns.Count - 2].Visible = item.CanModify;
         }
 
-        private void GetAreaList(string sortString)
+        private void GetAreaList(string condStr, string sortString)
         {
             try
             {
-                string sqlTxt = "SELECT a.[Id],a.[Name],a.[EngName],a.JpName,a.CnName"
-                    + ",a.IsDelete,a.UpdateAccId as EmployeeId,a.UpdateTime,a.CountryId"
-                    + ",c." + new ResourceUtil().OutputLangNameToAttrName(((string)Session["CultureCode"]))
-                    + " as CountryName,e.Name as EmployeeName"
-                    + " FROM [dbo].[Area] as a"
-                    + " left join Country as c on c.Id = a.CountryId"
-                    + " left join Employee as e on e.Id = a.UpdateAccId"
-                    + " where a.IsDelete = 0 " + sortString;
+                string sqlTxt = "SELECT [Id],[Name],[EngName],JpName,CnName"
+                    + ",IsDelete,UpdateAccId as EmployeeId,UpdateTime,CountryId"
+                    + " FROM [dbo].[Area]"
+                    + " where IsDelete = 0 " + condStr + " " + sortString;
                 AreaDataSet = SysProperty.GenDbCon.GetDataFromTable(sqlTxt);
             }
             catch (Exception ex)
@@ -147,15 +143,15 @@ namespace TheWeWebSite.SysMgt
                 , SysProperty.Util.SqlQueryInsertValueConverter(lst)
                 ))
             {
-                BindData();
+                BindData(GenQueryCond());
                 tbName.Text = string.Empty;
                 ddlCountry.SelectedIndex = 0;
             }
         }
 
-        private void BindData()
+        private void BindData(string condStr)
         {
-            GetAreaList(string.Empty);
+            GetAreaList(condStr, string.Empty);
             dgArea.DataSource = AreaDataSet;
             dgArea.AllowPaging = !SysProperty.Util.IsDataSetEmpty(AreaDataSet);
             dgArea.DataBind();
@@ -164,13 +160,13 @@ namespace TheWeWebSite.SysMgt
         protected void dgArea_CancelCommand(object source, DataGridCommandEventArgs e)
         {
             dgArea.EditItemIndex = -1;
-            BindData();
+            BindData(GenQueryCond());
         }
 
         protected void dgArea_EditCommand(object source, DataGridCommandEventArgs e)
         {
             dgArea.EditItemIndex = e.Item.ItemIndex;
-            BindData();
+            BindData(GenQueryCond());
         }
 
         protected void dgArea_DeleteCommand(object source, DataGridCommandEventArgs e)
@@ -182,14 +178,14 @@ namespace TheWeWebSite.SysMgt
                 + " Where Id = '" + id + "'";
             if (SysProperty.GenDbCon.ModifyDataInToTable(sqlTxt))
             {
-                BindData();
+                BindData(GenQueryCond());
             }
         }
 
         protected void dgArea_PageIndexChanged(object source, DataGridPageChangedEventArgs e)
         {
             dgArea.CurrentPageIndex = e.NewPageIndex;
-            BindData();
+            BindData(GenQueryCond());
         }
 
         protected void dgArea_UpdateCommand(object source, DataGridCommandEventArgs e)
@@ -211,7 +207,7 @@ namespace TheWeWebSite.SysMgt
                     , " Where Id = '" + dgArea.DataKeys[dgArea.EditItemIndex].ToString() + "'"))
                 {
                     dgArea.EditItemIndex = -1;
-                    BindData();
+                    BindData(GenQueryCond());
                 }
             }
             catch (Exception ex)
@@ -250,8 +246,7 @@ namespace TheWeWebSite.SysMgt
                 }
                 else
                 {
-                    Label label = (Label)e.Item.FindControl("labelDgCountry");
-                    label.Text = dataItem1["CountryName"].ToString();
+                    ((Label)e.Item.FindControl("labelDgCountry")).Text = ddlCountry.Items.FindByValue(dataItem1["CountryId"].ToString()).Text;
                 }
             }
         }
@@ -260,7 +255,7 @@ namespace TheWeWebSite.SysMgt
         {
             if (AreaDataSet == null)
             {
-                GetAreaList("Order by " + e.SortExpression + " " + SysProperty.Util.GetSortDirection(e.SortExpression));
+                GetAreaList(GenQueryCond(), "Order by " + e.SortExpression + " " + SysProperty.Util.GetSortDirection(e.SortExpression));
             }
             if (AreaDataSet != null)
             {
@@ -273,6 +268,28 @@ namespace TheWeWebSite.SysMgt
         {
             labelWarnStr.Text = msg;
             labelWarnStr.Visible = !string.IsNullOrEmpty(msg);
+        }
+
+        protected void btnSearch_Click(object sender, EventArgs e)
+        {
+            BindData(GenQueryCond());
+        }
+
+        private string GenQueryCond()
+        {
+            string condStr = string.Empty;
+            if (!string.IsNullOrEmpty(ddlCountry.SelectedValue))
+            {
+                condStr += " And CountryId = '" + ddlCountry.SelectedValue + "'";
+            }
+            if (!string.IsNullOrEmpty(tbName.Text))
+            {
+                condStr = " And ( Name like N'%" + tbName.Text + "%'"
+                    + " OR ChName like N'%" + tbName.Text + "%'"
+                    + " EngOR Name like N'%" + tbName.Text + "%'"
+                    + " OR JpName like N'%" + tbName.Text + "%')";
+            }
+            return condStr;
         }
     }
 }

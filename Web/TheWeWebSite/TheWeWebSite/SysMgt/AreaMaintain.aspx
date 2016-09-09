@@ -56,7 +56,10 @@
 
                                 <div class="Div btn">
                                     <ul class="actions">
-
+                                        <li>
+                                            <asp:Button runat="server" Text="<%$ Resources:Resource,SearchString%>" ID="btnSearch"
+                                                OnClick="btnSearch_Click" />
+                                        </li>
                                         <li>
                                             <asp:Button runat="server" Text="<%$ Resources:Resource,CreateString%>" ID="btnCreate"
                                                 OnClick="btnCreate_Click" />
@@ -100,9 +103,7 @@
                                             <ItemTemplate>
                                                 <asp:Label runat="server" ID="labelDgCountry" />
                                             </ItemTemplate>
-                                        </asp:TemplateColumn>
-                                        <asp:BoundColumn HeaderText="<%$ Resources:Resource,UpdateTimeString%>" DataField="UpdateTime"  SortExpression="UpdateTime" />
-                                        <asp:BoundColumn HeaderText="<%$ Resources:Resource,EmployeeString%>" DataField="EmployeeName"   SortExpression="EmployeeName"/>
+                                        </asp:TemplateColumn>                                        
                                         <asp:EditCommandColumn EditText="<%$ Resources:Resource,ModifyString%>"
                                             CancelText="<%$ Resources:Resource,CancelString%>"
                                             UpdateText="<%$ Resources:Resource,UpdateString%>"

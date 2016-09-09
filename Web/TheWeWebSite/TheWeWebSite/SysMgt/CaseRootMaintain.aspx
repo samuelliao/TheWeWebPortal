@@ -64,7 +64,7 @@
                                     </asp:UpdatePanel>
                                 </div>
                                 <!-- Btn -->
-                                <div class="Div btn">
+                                <div class="Div btn" style="display:none;">
                                     <ul class="actions">
                                         <li>
                                             <asp:Button runat="server" CssClass="button alt" Text="<%$ Resources:Resource,SearchString%>" ID="Button2" OnClick="btnSearch_Click" />

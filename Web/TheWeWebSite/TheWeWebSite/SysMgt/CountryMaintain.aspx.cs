@@ -188,10 +188,8 @@ namespace TheWeWebSite.SysMgt
                 }
                 else
                 {
-                    Label label = (Label)e.Item.FindControl("labelDgCurrency");
-                    label.Text = dataItem1["CurrencyName"].ToString();
-                    Label label2 = (Label)e.Item.FindControl("labelDgLang");
-                    label2.Text = ddlUseLang.Items.FindByValue(dataItem1["LangCode"].ToString()).Text;
+                    ((Label)e.Item.FindControl("labelDgCurrency")).Text = dataItem1["CurrencyName"].ToString();                    
+                    ((Label)e.Item.FindControl("labelDgLang")).Text = ddlUseLang.Items.FindByValue(dataItem1["LangCode"].ToString()).Text;
                 }
             }
         }

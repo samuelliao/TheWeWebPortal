@@ -104,7 +104,7 @@
                                         <asp:BoundColumn DataField="CnName" HeaderText="<%$ Resources:Resource,CnNameString%>" SortExpression="CnName" />
                                         <asp:BoundColumn DataField="EngName" HeaderText="<%$ Resources:Resource,EnglishNameString%>" SortExpression="EngName" />
                                         <asp:BoundColumn DataField="JpName" HeaderText="<%$ Resources:Resource,JpNameString%>" SortExpression="JpName" />
-                                        <asp:BoundColumn DataField="Code" HeaderText="<%$ Resources:Resource,UpdateTimeString%>" SortExpression="Code" />
+                                        <asp:BoundColumn DataField="Code" HeaderText="<%$ Resources:Resource,CodeString%>" SortExpression="Code" />
                                         <asp:TemplateColumn HeaderText="<%$ Resources:Resource,CurrencyString%>"  SortExpression="CurrencyName">
                                             <EditItemTemplate>
                                                 <asp:DropDownList runat="server" ID="ddlDgCurrency" />
@@ -120,9 +120,7 @@
                                             <ItemTemplate>
                                                 <asp:Label runat="server" ID="labelDgLang" />
                                             </ItemTemplate>
-                                        </asp:TemplateColumn>
-                                        <asp:BoundColumn HeaderText="<%$ Resources:Resource,UpdateTimeString%>" DataField="UpdateTime"   SortExpression="UpdateTime"/>
-                                        <asp:BoundColumn HeaderText="<%$ Resources:Resource,EmployeeString%>" DataField="EmployeeName"   SortExpression="EmployeeName"/>
+                                        </asp:TemplateColumn>                                        
                                         <asp:EditCommandColumn EditText="<%$ Resources:Resource,ModifyString%>"
                                             CancelText="<%$ Resources:Resource,CancelString%>"
                                             UpdateText="<%$ Resources:Resource,UpdateString%>"
