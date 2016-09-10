@@ -742,7 +742,7 @@ namespace TheWeWebSite.CaseMgt
                     DataRow dr = ds.Tables[0].Rows[0];
                     tbOth.Text = dr["Remark"].ToString();
                     tbConDate.Text = SysProperty.Util.ParseDateTime("DateTime", dr["BookingDate"].ToString());
-                    if(string.IsNullOrEmpty(tbConDate.Text)) tbConDate.Text = DateTime.Now.ToString("yyyy/MM/dd HH:mm");
+                    if (string.IsNullOrEmpty(tbConDate.Text)) tbConDate.Text = DateTime.Now.ToString("yyyy/MM/dd HH:mm");
                     cbCompleted.Checked = bool.Parse(dr["IsCheck"].ToString());
                 }
             }
@@ -853,6 +853,12 @@ namespace TheWeWebSite.CaseMgt
                 , AtrrTypeItem.String
                 , AttrSymbolItem.Equal
                 , ((DataRow)Session["AccountInfo"])["Id"].ToString()
+                ));
+            lst.Add(new DbSearchObject(
+                "UpdateTime"
+                , AtrrTypeItem.DateTime
+                , AttrSymbolItem.Equal
+                , DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss")
                 ));
             lst.Add(new DbSearchObject(
                 "EmployeeId"
@@ -1157,6 +1163,12 @@ namespace TheWeWebSite.CaseMgt
                 , ((DataRow)Session["AccountInfo"])["Id"].ToString()
                 ));
             lst.Add(new DbSearchObject(
+                            "UpdateTime"
+                            , AtrrTypeItem.DateTime
+                            , AttrSymbolItem.Equal
+                            , DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss")
+                            ));
+            lst.Add(new DbSearchObject(
                 "EmployeeId"
                 , AtrrTypeItem.String
                 , AttrSymbolItem.Equal
@@ -1238,6 +1250,12 @@ namespace TheWeWebSite.CaseMgt
                             , AtrrTypeItem.String
                             , AttrSymbolItem.Equal
                             , ((DataRow)Session["AccountInfo"])["Id"].ToString()
+                            ));
+                        lst.Add(new DbSearchObject(
+                            "UpdateTime"
+                            , AtrrTypeItem.DateTime
+                            , AttrSymbolItem.Equal
+                            , DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss")
                             ));
                         lst.Add(new DbSearchObject(
                             "UpdatedateTime"
@@ -1424,7 +1442,12 @@ namespace TheWeWebSite.CaseMgt
                             , AttrSymbolItem.Equal
                             , ((DataRow)Session["AccountInfo"])["Id"].ToString()
                             ));
-                        result.Add(lst);
+                        lst.Add(new DbSearchObject(
+                            "UpdateTime"
+                            , AtrrTypeItem.DateTime
+                            , AttrSymbolItem.Equal
+                            , DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss")
+                            ));                        
                         if (isCreate)
                         {
                             lst.Add(new DbSearchObject(
@@ -1443,6 +1466,7 @@ namespace TheWeWebSite.CaseMgt
                             , ((TextBox)dr.Cells[0].FindControl("tbReceiptId")).Text
                             ));
                         }
+                        result.Add(lst);
                     }
                 }
             }

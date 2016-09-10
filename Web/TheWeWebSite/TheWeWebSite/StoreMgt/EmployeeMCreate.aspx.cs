@@ -346,7 +346,7 @@ namespace TheWeWebSite.StoreMgt
                 "AccInfo"
                 , AtrrTypeItem.String
                 , AttrSymbolItem.Equal
-                , SysProperty.Util.GetMD5(tbAccount.Text)
+                , SysProperty.Util.GetMD5(tbAccount.Text.Trim())
                 ));
                 lst.Add(new DbSearchObject(
                 "CreatedateAccId"
@@ -389,7 +389,7 @@ namespace TheWeWebSite.StoreMgt
                 "Account"
                 , AtrrTypeItem.String
                 , AttrSymbolItem.Equal
-                , tbAccount.Text
+                , tbAccount.Text.Trim()
                 ));
             lst.Add(new DbSearchObject(
                 "EmContName"
@@ -481,6 +481,12 @@ namespace TheWeWebSite.StoreMgt
             , AttrSymbolItem.Equal
             , ((DataRow)Session["AccountInfo"])["Id"].ToString()
             ));
+            lst.Add(new DbSearchObject(
+                            "UpdateTime"
+                            , AtrrTypeItem.DateTime
+                            , AttrSymbolItem.Equal
+                            , DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss")
+                            ));
             return lst;
         }
         private List<DbSearchObject> PermissionDbObject(bool isCreate, string eid)
@@ -498,6 +504,12 @@ namespace TheWeWebSite.StoreMgt
                 , AttrSymbolItem.Equal
                 , ((DataRow)Session["AccountInfo"])["Id"].ToString()
                 ));
+            lst.Add(new DbSearchObject(
+                            "UpdateTime"
+                            , AtrrTypeItem.DateTime
+                            , AttrSymbolItem.Equal
+                            , DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss")
+                            ));
             if (isCreate)
             {
                 lst.Add(new DbSearchObject(
@@ -543,6 +555,12 @@ namespace TheWeWebSite.StoreMgt
                 , AttrSymbolItem.Equal
                 , ((DataRow)Session["AccountInfo"])["Id"].ToString()
                 ));
+            lst.Add(new DbSearchObject(
+                            "UpdateTime"
+                            , AtrrTypeItem.DateTime
+                            , AttrSymbolItem.Equal
+                            , DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss")
+                            ));
             if (isCreate)
             {
                 lst.Add(new DbSearchObject(

@@ -72,7 +72,7 @@ namespace TheWeWebSite.CaseMgt
             tbContractPrice.Attributes.Add("placeHolder", "0.00");
 
             tbCustomerSn.Attributes.Add("placeHolder", Resources.Resource.SystemString);
-            
+
 
             tbDiscount.Attributes.Add("placeHolder", Resources.Resource.AddString + Resources.Resource.DiscountString);
 
@@ -83,7 +83,7 @@ namespace TheWeWebSite.CaseMgt
             tbGroomPassportName.Attributes.Add("placeHolder", Resources.Resource.AddString + Resources.Resource.GroomPassportString);
             tbGroomPhone.Attributes.Add("placeHolder", Resources.Resource.AddString + Resources.Resource.GroomPhoneString);
             tbMsgerTitle.Attributes.Add("placeHolder", Resources.Resource.AddString + Resources.Resource.SnsTitleString);
-            
+
 
             tbReferrals.Attributes.Add("placeHolder", Resources.Resource.AddString + Resources.Resource.ReferralsString);
 
@@ -969,6 +969,12 @@ namespace TheWeWebSite.CaseMgt
                 , AttrSymbolItem.Equal
                 , ((DataRow)Session["AccountInfo"])["Id"].ToString()
                 ));
+            lst.Add(new DbSearchObject(
+                    "UpdateTime"
+                    , AtrrTypeItem.DateTime
+                    , AttrSymbolItem.Equal
+                    , DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss")
+                    ));
             if (!string.IsNullOrEmpty(ddlProductSet.SelectedValue))
             {
                 lst.Add(new DbSearchObject(
@@ -1095,6 +1101,12 @@ namespace TheWeWebSite.CaseMgt
                         , AtrrTypeItem.String
                         , AttrSymbolItem.Equal
                         , ((DataRow)Session["AccountInfo"])["Id"].ToString()));
+            lst.Add(new DbSearchObject(
+                    "UpdateTime"
+                    , AtrrTypeItem.DateTime
+                    , AttrSymbolItem.Equal
+                    , DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss")
+                    ));
             if (isCreate)
             {
                 lst.Add(new DbSearchObject(
@@ -1157,6 +1169,12 @@ namespace TheWeWebSite.CaseMgt
                         , AtrrTypeItem.String
                         , AttrSymbolItem.Equal
                         , ((DataRow)Session["AccountInfo"])["Id"].ToString()));
+            lst.Add(new DbSearchObject(
+                    "UpdateTime"
+                    , AtrrTypeItem.DateTime
+                    , AttrSymbolItem.Equal
+                    , DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss")
+                    ));
             if (isCreate)
             {
                 lst.Add(new DbSearchObject(
@@ -1224,7 +1242,12 @@ namespace TheWeWebSite.CaseMgt
                             , AttrSymbolItem.Equal
                             , ((DataRow)Session["AccountInfo"])["Id"].ToString()
                             ));
-                        result.Add(lst);
+                        lst.Add(new DbSearchObject(
+                            "UpdateTime"
+                            , AtrrTypeItem.DateTime
+                            , AttrSymbolItem.Equal
+                            , DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss")
+                            ));
                         if (isCreate)
                         {
                             lst.Add(new DbSearchObject(
@@ -1234,6 +1257,7 @@ namespace TheWeWebSite.CaseMgt
                             , ((DataRow)Session["AccountInfo"])["Id"].ToString()
                             ));
                         }
+                        result.Add(lst);
                     }
                 }
             }
@@ -1248,7 +1272,7 @@ namespace TheWeWebSite.CaseMgt
                 string str = string.Empty;
                 bool isCreate = false;
                 if (GridView2.Rows.Count > 0)
-                {                    
+                {
                     foreach (GridViewRow dr in GridView2.Rows)
                     {
                         lst = new List<DbSearchObject>();
@@ -1273,7 +1297,7 @@ namespace TheWeWebSite.CaseMgt
                             , AtrrTypeItem.DateTime
                             , AttrSymbolItem.Equal
                             , ((TextBox)dr.Cells[2].FindControl("tbIncomeDate")).Text
-                            ));                        
+                            ));
                         lst.Add(new DbSearchObject(
                             "Currency"
                             , AtrrTypeItem.String
@@ -1344,7 +1368,8 @@ namespace TheWeWebSite.CaseMgt
                             , AttrSymbolItem.Equal
                             , ((DataRow)Session["AccountInfo"])["Id"].ToString()
                             ));
-                        }else
+                        }
+                        else
                         {
                             lst.Add(new DbSearchObject(
                             "Id"
@@ -1848,7 +1873,7 @@ namespace TheWeWebSite.CaseMgt
                 {
                     e.Row.Cells[e.Row.Cells.Count - 1].Controls[0].Visible = false;
                 }
-                
+
             }
         }
 
@@ -1938,7 +1963,7 @@ namespace TheWeWebSite.CaseMgt
                         dtCurrentTable.Rows[i - 1]["Col8"] = TextTotalPrice.Text;
                         dtCurrentTable.Rows[i - 1]["Col9"] = TextSales.Text;
                         dtCurrentTable.Rows[i - 1]["Col10"] = TextTax.Text;
-                        dtCurrentTable.Rows[i - 1]["Col11"] = TextType.Text;                        
+                        dtCurrentTable.Rows[i - 1]["Col11"] = TextType.Text;
                         rowIndex++;
                     }
                     dtCurrentTable.Rows.Add(drCurrentRow);

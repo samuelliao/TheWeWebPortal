@@ -307,6 +307,12 @@ namespace TheWeWebSite.SysMgt
                 , ((DataRow)Session["AccountInfo"])["Id"].ToString()
                 ));
             lst.Add(new DbSearchObject(
+                "UpdateTime"
+                , AtrrTypeItem.DateTime
+                , AttrSymbolItem.Equal
+                , DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss")
+                ));
+            lst.Add(new DbSearchObject(
                 "Type"
                 , AtrrTypeItem.String
                 , AttrSymbolItem.Equal
@@ -351,6 +357,12 @@ namespace TheWeWebSite.SysMgt
                         , AttrSymbolItem.Equal
                         , ((DataRow)Session["AccountInfo"])["Id"].ToString()
                         ));
+                    lst.Add(new DbSearchObject(
+                            "UpdateTime"
+                            , AtrrTypeItem.DateTime
+                            , AttrSymbolItem.Equal
+                            , DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss")
+                            ));
                     lst.Add(new DbSearchObject(
                         "PermissionId"
                         , AtrrTypeItem.String

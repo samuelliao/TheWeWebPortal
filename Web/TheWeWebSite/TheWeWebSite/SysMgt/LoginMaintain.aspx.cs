@@ -78,7 +78,7 @@ namespace TheWeWebSite.SysMgt
             }
 
             if (Session["EmployeeId"] == null) return;
-            string condStr = Session["EmployeeId"].ToString();
+            string condStr = " Where Id = '" + Session["EmployeeId"].ToString() + "'";
             if (ModifyDataToDb(EmployeeDbObject(), condStr))
             {
                 BindData();
@@ -101,6 +101,7 @@ namespace TheWeWebSite.SysMgt
             }
             cbIsValid.Checked = ((Label)dataGrid.SelectedItem.FindControl("labelIsValid")).Text == Resources.Resource.YesString;
             tbAccount.Text = dataGrid.SelectedItem.Cells[3].Text;
+            Session["EmployeeId"] = dataGrid.DataKeys[dataGrid.SelectedIndex].ToString();
         }
 
         protected void dataGrid_PageIndexChanged(object source, DataGridPageChangedEventArgs e)
@@ -196,10 +197,10 @@ namespace TheWeWebSite.SysMgt
                 "Account"
                 , AtrrTypeItem.String
                 , AttrSymbolItem.Equal
-                , tbAccount.Text
+                , tbAccount.Text.Trim()
                 ));
             lst.Add(new DbSearchObject(
-                "Password"
+                "AccInfo"
                 , AtrrTypeItem.String
                 , AttrSymbolItem.Equal
                 , SysProperty.Util.GetMD5(tbPwd.Text)
@@ -217,11 +218,6 @@ namespace TheWeWebSite.SysMgt
                 , cbIsValid.Checked ? "1" : "0"
                 ));
             return lst;
-        }
-
-        protected void Unnamed_Unload(object sender, EventArgs e)
-        {
-            if (Session["EmployeeId"] != null) Session.Remove("EmployeeId");
         }
     }
 }

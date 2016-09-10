@@ -555,6 +555,12 @@ namespace TheWeWebSite.CaseMgt
                 , ((DataRow)Session["AccountInfo"])["Id"].ToString()
                 ));
             lst.Add(new DbSearchObject(
+                    "UpdateTime"
+                    , AtrrTypeItem.DateTime
+                    , AttrSymbolItem.Equal
+                    , DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss")
+                    ));
+            lst.Add(new DbSearchObject(
                 "SeekerGender"
                 , AtrrTypeItem.Bit
                 , AttrSymbolItem.Equal
@@ -752,6 +758,12 @@ namespace TheWeWebSite.CaseMgt
                         , AttrSymbolItem.Equal
                         , ((DataRow)Session["AccountInfo"])["Id"].ToString())
                         );
+                    lst2.Add(new DbSearchObject(
+                    "UpdateTime"
+                    , AtrrTypeItem.DateTime
+                    , AttrSymbolItem.Equal
+                    , DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss")
+                    ));
                     if (isCreate)
                     {
                         lst2.Add(new DbSearchObject(
@@ -803,6 +815,12 @@ namespace TheWeWebSite.CaseMgt
                         , AtrrTypeItem.String
                         , AttrSymbolItem.Equal
                         , ((DataRow)Session["AccountInfo"])[0].ToString()));
+                    lst.Add(new DbSearchObject(
+                    "UpdateTime"
+                    , AtrrTypeItem.DateTime
+                    , AttrSymbolItem.Equal
+                    , DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss")
+                    ));
                     if (isCreate)
                     {
                         lst.Add(new DbSearchObject(
@@ -844,6 +862,12 @@ namespace TheWeWebSite.CaseMgt
                         , ((DataRow)Session["AccountInfo"])["Id"].ToString())
                         );
                     lst.Add(new DbSearchObject(
+                    "UpdateTime"
+                    , AtrrTypeItem.DateTime
+                    , AttrSymbolItem.Equal
+                    , DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss")
+                    ));
+                    lst.Add(new DbSearchObject(
                         "Lv"
                         , AtrrTypeItem.Bit
                         , AttrSymbolItem.Equal
@@ -882,6 +906,12 @@ namespace TheWeWebSite.CaseMgt
                         , AttrSymbolItem.Equal
                         , ((DataRow)Session["AccountInfo"])["Id"].ToString())
                         );
+                    lst.Add(new DbSearchObject(
+                    "UpdateTime"
+                    , AtrrTypeItem.DateTime
+                    , AttrSymbolItem.Equal
+                    , DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss")
+                    ));
                     lst.Add(new DbSearchObject(
                         "Lv"
                         , AtrrTypeItem.Bit
@@ -1114,6 +1144,12 @@ namespace TheWeWebSite.CaseMgt
                 , AttrSymbolItem.Equal
                 , ((DataRow)Session["AccountInfo"])["Id"].ToString()
                 ));
+            lst.Add(new DbSearchObject(
+                    "UpdateTime"
+                    , AtrrTypeItem.DateTime
+                    , AttrSymbolItem.Equal
+                    , DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss")
+                    ));
             if (isCreate)
             {
                 lst.Add(new DbSearchObject(

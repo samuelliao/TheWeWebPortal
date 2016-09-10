@@ -959,6 +959,12 @@ namespace TheWeWebSite.StoreMgt
                         , AttrSymbolItem.Equal
                         , ((DataRow)Session["AccountInfo"])["Id"].ToString()
                         ));
+                    lst.Add(new DbSearchObject(
+                            "UpdateTime"
+                            , AtrrTypeItem.DateTime
+                            , AttrSymbolItem.Equal
+                            , DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss")
+                            ));
                     if (isCreate)
                     {
                         lst.Add(new DbSearchObject(
@@ -1293,6 +1299,12 @@ namespace TheWeWebSite.StoreMgt
                         , AttrSymbolItem.Equal
                         , ((DataRow)Session["AccountInfo"])["Id"].ToString()
                         ));
+                    lst.Add(new DbSearchObject(
+                            "UpdateTime"
+                            , AtrrTypeItem.DateTime
+                            , AttrSymbolItem.Equal
+                            , DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss")
+                            ));
                     if (isCreate)
                     {
                         lst.Add(new DbSearchObject(

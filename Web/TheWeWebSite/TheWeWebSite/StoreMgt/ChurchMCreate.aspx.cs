@@ -15,7 +15,7 @@ namespace TheWeWebSite.StoreMgt
         DataSet ChurchDataSet;
         protected void Page_Load(object sender, EventArgs e)
         {
-            
+
 
             if (!Page.IsPostBack)
             {
@@ -309,7 +309,7 @@ namespace TheWeWebSite.StoreMgt
             DataRow dr = ChurchDataSet.Tables[0].Rows[0];
             if (dr["Sn"].ToString().Length > 3)
             {
-                tbSysSn.Text = dr["Sn"].ToString().Substring(dr["Sn"].ToString().Length-3, 3);
+                tbSysSn.Text = dr["Sn"].ToString().Substring(dr["Sn"].ToString().Length - 3, 3);
             }
             else
             {
@@ -643,6 +643,12 @@ namespace TheWeWebSite.StoreMgt
                 , AttrSymbolItem.Equal
                 , ((DataRow)Session["AccountInfo"])["Id"].ToString()
                 ));
+            lst.Add(new DbSearchObject(
+                "UpdateTime"
+                , AtrrTypeItem.DateTime
+                , AttrSymbolItem.Equal
+                , DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss")
+                ));
             if (isCreate)
             {
                 lst.Add(new DbSearchObject(
@@ -687,6 +693,12 @@ namespace TheWeWebSite.StoreMgt
                             , AtrrTypeItem.String
                             , AttrSymbolItem.Equal
                             , ((DataRow)Session["AccountInfo"])["Id"].ToString()
+                            ));
+                        lst.Add(new DbSearchObject(
+                            "UpdateTime"
+                            , AtrrTypeItem.DateTime
+                            , AttrSymbolItem.Equal
+                            , DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss")
                             ));
                         if (isCreate)
                         {
@@ -808,7 +820,7 @@ namespace TheWeWebSite.StoreMgt
                     break;
             }
         }
-        
+
         private void CheckFolder(string path)
         {
             if (!Directory.Exists(path))

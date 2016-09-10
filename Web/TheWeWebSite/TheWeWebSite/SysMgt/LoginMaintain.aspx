@@ -12,7 +12,7 @@
     <link href="../assets/css/main.css" rel="stylesheet" />
     <link href="../assets/css/main.css" rel="stylesheet" />
 </head>
-<body class="landing" runat="server" onunload="Unnamed_Unload">
+<body class="landing" runat="server">
     <form runat="server">
         <div id="page-wrapper">
 
