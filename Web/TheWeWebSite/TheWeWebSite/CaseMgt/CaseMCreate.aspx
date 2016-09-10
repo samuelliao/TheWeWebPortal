@@ -493,7 +493,7 @@
                                                         <asp:TemplateField HeaderText="<%$ Resources:Resource,PriceString%>">
                                                             <ItemTemplate>
                                                                 <asp:TextBox ID="tbPrice" runat="server" OnTextChanged="tbPrice_TextChanged" Style="text-align: right" AutoPostBack="true"></asp:TextBox>
-                                                                <asp:RegularExpressionValidator CssClass="error" Display="Dynamic" ID="RegularExpressionValidator3" ControlToValidate="tbPrice" runat="server" ErrorMessage="Only Numbers allowed" ValidationExpression="\d+[.]*\d*"></asp:RegularExpressionValidator>
+                                                                <asp:RegularExpressionValidator CssClass="error" Display="Dynamic" ID="RegularExpressionValidator4" ControlToValidate="tbPrice" runat="server" ErrorMessage="Only Numbers allowed" ValidationExpression="\d+[.]*\d*"></asp:RegularExpressionValidator>
                                                             </ItemTemplate>
                                                             <FooterStyle HorizontalAlign="Right" />
                                                             <FooterTemplate>

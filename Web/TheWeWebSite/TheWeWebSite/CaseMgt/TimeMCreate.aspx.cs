@@ -713,6 +713,7 @@ namespace TheWeWebSite.CaseMgt
 
         protected void tvConf_SelectedNodeChanged(object sender, EventArgs e)
         {
+            if (Session["OrderId"] == null) TransferToOtherPage();
             string[] var = tvConf.SelectedValue.Split(';');
             if (string.IsNullOrEmpty(var[0]))
             {

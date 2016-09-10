@@ -79,7 +79,7 @@
                     </ul>
                 </li>
                 <li runat="server" id="liOrderMgt">
-                    <asp:LinkButton CausesValidation="false" runat="server" Text="<%$ Resources:Resource,OrderMgtString%>" PostBackUrl="~/CaseMgt/CustomerMaintain.aspx" ID="LinkCaseMgt" />
+                    <asp:LinkButton CausesValidation="false" runat="server" Text="<%$ Resources:Resource,OrderMgtString%>" PostBackUrl="~/CaseMgt/AdvisoryMaintain.aspx" ID="LinkCaseMgt" />
                     <ul>
 
                         <li>
