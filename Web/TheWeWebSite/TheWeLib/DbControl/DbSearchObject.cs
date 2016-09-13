@@ -128,7 +128,8 @@ namespace TheWeLib
         TakePicture = 82,
         DressRent = 83,
         ReceiptDetail = 84,
-        DressOrder = 85
+        DressOrder = 85,
+        Nothing = 100
     }
 
     public enum LanguageCode

@@ -26,20 +26,20 @@
 
             <asp:Label runat="server" ID="labelWarnString" ForeColor="Red" Visible="false" />
             <cc1:TabContainer runat="server">
-                <cc1:TabPanel runat="server" HeaderText="<%$ Resources:Resource,BasicInfoString%>">
+                <cc1:TabPanel runat="server" HeaderText="<%$ Resources:Resource,BasicInfoString%>" ID="tab1">
                     <ContentTemplate>
                         <div>
                             <div class="12u">
                                 <div class="row uniform 50%">
                                     <div class="2u 12u(mobilep)">
                                         <div class="Div">
-                                            <asp:Label runat="server" Text="<%$ Resources:Resource,StoreString%>"></asp:Label>
+                                            <asp:Label runat="server" Text="<%$ Resources:Resource,StoreString %>"></asp:Label>
                                         </div>
                                         <asp:DropDownList runat="server" ID="ddlStore" />
                                     </div>
                                     <div class="2u 12u(mobilep)">
                                         <div class="Div">
-                                            <asp:Label runat="server" Text="<%$ Resources:Resource,SnString%>"></asp:Label>
+                                            <asp:Label runat="server" Text="<%$ Resources:Resource,SnString %>"></asp:Label>
                                         </div>
                                         <asp:TextBox runat="server" ID="tbSn" CssClass="required"></asp:TextBox>
                                         <asp:RequiredFieldValidator ID="RequiredFieldValidator1"
@@ -49,14 +49,14 @@
                                     </div>
                                     <div class="2u 12u(mobilep)">
                                         <div class="Div">
-                                            <asp:Label runat="server" Text="<%$ Resources:Resource,GenderString%>"></asp:Label>
+                                            <asp:Label runat="server" Text="<%$ Resources:Resource,GenderString %>"></asp:Label>
                                         </div>
                                         <asp:DropDownList runat="server" ID="ddlGender" />
 
                                     </div>
                                     <div class="2u 12u(mobilep)">
                                         <div class="Div">
-                                            <asp:Label runat="server" Text="<%$ Resources:Resource,CategoryString%>"></asp:Label>
+                                            <asp:Label runat="server" Text="<%$ Resources:Resource,CategoryString %>"></asp:Label>
                                         </div>
                                         <asp:DropDownList runat="server" ID="ddlDressCategory" CssClass="required" />
                                         <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate="ddlDressCategory" runat="server"
@@ -65,13 +65,13 @@
                                     </div>
                                     <div class="2u 12u(mobilep)">
                                         <div class="Div">
-                                            <asp:Label runat="server" Text="<%$ Resources:Resource,ColorString%>"></asp:Label>
+                                            <asp:Label runat="server" Text="<%$ Resources:Resource,ColorString %>"></asp:Label>
                                         </div>
                                         <asp:TextBox runat="server" ID="tbColor" />
                                     </div>
                                     <div class="2u 12u(mobilep)">
                                         <div class="Div">
-                                            <asp:Label runat="server" Text="<%$ Resources:Resource,ColorString%>"></asp:Label>
+                                            <asp:Label runat="server" Text="<%$ Resources:Resource,ColorString %>"></asp:Label>
                                         </div>
                                         <asp:TextBox runat="server" ID="tbColor2" />
                                     </div>
@@ -82,37 +82,37 @@
                                 <div class="row uniform 50%">
                                     <div class="2u 12u(mobilep)">
                                         <div class="Div">
-                                            <asp:Label runat="server" Text="<%$ Resources:Resource,TypeString%>"></asp:Label>
+                                            <asp:Label runat="server" Text="<%$ Resources:Resource,TypeString %>"></asp:Label>
                                         </div>
                                         <asp:DropDownList runat="server" ID="ddlDressType" />
                                     </div>
                                     <div class="2u 12u(mobilep)">
                                         <div class="Div">
-                                            <asp:Label runat="server" Text="<%$ Resources:Resource,MaterialString%>"></asp:Label>
+                                            <asp:Label runat="server" Text="<%$ Resources:Resource,MaterialString %>"></asp:Label>
                                         </div>
                                         <asp:TextBox runat="server" ID="tbMaterial"></asp:TextBox>
                                     </div>
                                     <div class="2u 12u(mobilep)">
                                         <div class="Div">
-                                            <asp:Label runat="server" Text="<%$ Resources:Resource,MaterialString%>"></asp:Label>
+                                            <asp:Label runat="server" Text="<%$ Resources:Resource,MaterialString %>"></asp:Label>
                                         </div>
                                         <asp:TextBox runat="server" ID="tbMaterial2"></asp:TextBox>
                                     </div>
                                     <div class="2u 12u(mobilep)">
                                         <div class="Div">
-                                            <asp:Label runat="server" Text="<%$ Resources:Resource,NecklineString%>"></asp:Label>
+                                            <asp:Label runat="server" Text="<%$ Resources:Resource,NecklineString %>"></asp:Label>
                                         </div>
                                         <asp:DropDownList runat="server" ID="ddlNeckline" />
                                     </div>
                                     <div class="2u 12u(mobilep)">
                                         <div class="Div">
-                                            <asp:Label runat="server" Text="<%$ Resources:Resource,DressBackString%>"></asp:Label>
+                                            <asp:Label runat="server" Text="<%$ Resources:Resource,DressBackString %>"></asp:Label>
                                         </div>
                                         <asp:DropDownList runat="server" ID="ddlBack" />
                                     </div>
                                     <div class="2u 12u(mobilep)">
                                         <div class="Div">
-                                            <asp:Label runat="server" Text="<%$ Resources:Resource,ShoulderString%>"></asp:Label>
+                                            <asp:Label runat="server" Text="<%$ Resources:Resource,ShoulderString %>"></asp:Label>
                                         </div>
                                         <asp:DropDownList runat="server" ID="ddlShoulder" />
                                     </div>
@@ -123,32 +123,32 @@
                                 <div class="row uniform 50%">
                                     <div class="2u 12u(mobilep)">
                                         <div class="Div">
-                                            <asp:Label runat="server" Text="<%$ Resources:Resource,WornString%>"></asp:Label>
+                                            <asp:Label runat="server" Text="<%$ Resources:Resource,WornString %>"></asp:Label>
                                         </div>
                                         <asp:DropDownList runat="server" ID="ddlWorn" />
                                     </div>
                                     <div class="2u 12u(mobilep)">
                                         <div class="Div">
-                                            <asp:Label runat="server" Text="<%$ Resources:Resource,VeilString%>"></asp:Label>
+                                            <asp:Label runat="server" Text="<%$ Resources:Resource,VeilString %>"></asp:Label>
                                         </div>
                                         <asp:DropDownList runat="server" ID="ddlVeil" />
                                     </div>
                                     <div class="2u 12u(mobilep)">
                                         <div class="Div">
-                                            <asp:Label runat="server" Text="<%$ Resources:Resource,TrailingString%>"></asp:Label>
+                                            <asp:Label runat="server" Text="<%$ Resources:Resource,TrailingString %>"></asp:Label>
                                         </div>
                                         <asp:DropDownList runat="server" ID="ddlTrailing" />
                                     </div>
                                     <div class="2u 12u(mobilep)">
                                         <div class="Div">
-                                            <asp:Label runat="server" Text="<%$ Resources:Resource,CorsageString%>"></asp:Label>
+                                            <asp:Label runat="server" Text="<%$ Resources:Resource,CorsageString %>"></asp:Label>
                                         </div>
                                         <asp:DropDownList runat="server" ID="ddlCorsage" />
 
                                     </div>
                                     <div class="2u 12u(mobilep)">
                                         <div class="Div">
-                                            <asp:Label runat="server" Text="<%$ Resources:Resource,GlovesString%>"></asp:Label>
+                                            <asp:Label runat="server" Text="<%$ Resources:Resource,GlovesString %>"></asp:Label>
                                         </div>
                                         <asp:DropDownList runat="server" ID="ddlGloves" />
                                     </div>
@@ -161,7 +161,7 @@
                                 <div class="row uniform 50%">
                                     <div class="2u 12u(mobilep)">
                                         <div class="Div">
-                                            <asp:Label runat="server" Text="<%$ Resources:Resource,StatusString%>"></asp:Label>
+                                            <asp:Label runat="server" Text="<%$ Resources:Resource,StatusString %>"></asp:Label>
                                         </div>
                                         <asp:DropDownList runat="server" ID="ddlStatus" CssClass="required" />
                                         <asp:RequiredFieldValidator ID="RequiredFieldValidator4" ControlToValidate="ddlStatus" runat="server"
@@ -169,13 +169,13 @@
                                     </div>
                                     <div class="2u 12u(mobilep)">
                                         <div class="Div">
-                                            <asp:Label runat="server" Text="<%$ Resources:Resource,UsageStatusString%>"></asp:Label>
+                                            <asp:Label runat="server" Text="<%$ Resources:Resource,UsageStatusString %>"></asp:Label>
                                         </div>
                                         <asp:DropDownList runat="server" ID="ddlUseStatus" />
                                     </div>
                                     <div class="4u 12u(mobilep)">
                                         <div class="Div">
-                                            <asp:Label runat="server" Text="<%$ Resources:Resource,FittingString%>"></asp:Label>
+                                            <asp:Label runat="server" Text="<%$ Resources:Resource,FittingString %>"></asp:Label>
                                         </div>
                                         <div>
                                             <asp:TextBox runat="server" ID="tbFitting"></asp:TextBox>
@@ -183,7 +183,7 @@
                                     </div>
                                     <div class="4u 12u(mobilep)">
                                         <div class="Div">
-                                            <asp:Label runat="server" Text="<%$ Resources:Resource,OtherString%>"></asp:Label>
+                                            <asp:Label runat="server" Text="<%$ Resources:Resource,OtherString %>"></asp:Label>
                                         </div>
                                         <div>
                                             <asp:TextBox runat="server" ID="tbOthers"></asp:TextBox>
@@ -195,7 +195,7 @@
                                 <div class="row uniform 50%">
                                     <div class="2u 12u(mobilep)">
                                         <div class="Div">
-                                            <asp:Label runat="server" Text="<%$ Resources:Resource,CostString%>"></asp:Label>
+                                            <asp:Label runat="server" Text="<%$ Resources:Resource,CostString %>"></asp:Label>
                                         </div>
                                         <asp:TextBox runat="server" ID="tbCost" Style="text-align: right"></asp:TextBox>
                                         <asp:RegularExpressionValidator ID="RegularExpressionValidator1" ControlToValidate="tbCost"
@@ -203,7 +203,7 @@
                                     </div>
                                     <div class="2u 12u(mobilep)">
                                         <div class="Div">
-                                            <asp:Label runat="server" Text="<%$ Resources:Resource,CustomPriceString%>"></asp:Label>
+                                            <asp:Label runat="server" Text="<%$ Resources:Resource,CustomPriceString %>"></asp:Label>
                                         </div>
                                         <asp:TextBox runat="server" ID="tbCustomPrice" Style="text-align: right"></asp:TextBox>
                                         <asp:RegularExpressionValidator ID="RegularExpressionValidator2" ControlToValidate="tbCustomPrice" runat="server"
@@ -211,13 +211,13 @@
                                     </div>
                                     <div class="2u 12u(mobilep)">
                                         <div class="Div">
-                                            <asp:Label runat="server" Text="<%$ Resources:Resource,SupplierString%>"></asp:Label>
+                                            <asp:Label runat="server" Text="<%$ Resources:Resource,SupplierString %>"></asp:Label>
                                         </div>
                                         <asp:DropDownList runat="server" ID="ddlSupplier" />
                                     </div>
                                     <div class="2u 12u(mobilep)">
                                         <div class="Div">
-                                            <asp:Label runat="server" Text="<%$ Resources:Resource,RentPriceString%>"></asp:Label>
+                                            <asp:Label runat="server" Text="<%$ Resources:Resource,RentPriceString %>"></asp:Label>
                                         </div>
                                         <asp:TextBox runat="server" ID="tbRentPrice" Style="text-align: right"></asp:TextBox>
                                         <asp:RegularExpressionValidator ID="RegularExpressionValidator3" ControlToValidate="tbRentPrice" runat="server"
@@ -225,7 +225,7 @@
                                     </div>
                                     <div class="2u 12u(mobilep)">
                                         <div class="Div">
-                                            <asp:Label runat="server" Text="<%$ Resources:Resource,SellingPriceString%>"></asp:Label>
+                                            <asp:Label runat="server" Text="<%$ Resources:Resource,SellingPriceString %>"></asp:Label>
                                         </div>
                                         <asp:TextBox runat="server" ID="tbSellsPrice" Style="text-align: right"></asp:TextBox>
                                         <asp:RegularExpressionValidator ID="RegularExpressionValidator4" ControlToValidate="tbSellsPrice" runat="server"
@@ -236,7 +236,7 @@
                             <div class="12u">
                                 <div class="row uniform 50%">
                                     <div>
-                                        <asp:CheckBox runat="server" CssClass="Div" Text="<%$ Resources:Resource,DomesticWeddingOnlyString%>" ID="cbDomesticWedding" />
+                                        <asp:CheckBox runat="server" CssClass="Div" Text="<%$ Resources:Resource,DomesticWeddingOnlyString %>" ID="cbDomesticWedding" />
                                     </div>
                                     <div>
                                         <asp:UpdatePanel runat="server">
@@ -249,7 +249,7 @@
                                     </div>
                                     <div>
                                         <div class="Div">
-                                            <asp:Label runat="server" Text="<%$ Resources:Resource,OutdoorShootingPriceString%>"></asp:Label>
+                                            <asp:Label runat="server" Text="<%$ Resources:Resource,OutdoorShootingPriceString %>"></asp:Label>
                                         </div>
                                         <asp:UpdatePanel runat="server">
                                             <ContentTemplate>
@@ -268,7 +268,7 @@
                                     </div>
                                     <div>
                                         <div class="Div">
-                                            <asp:Label runat="server" Text="<%$ Resources:Resource,AdditionalPurchasePriceString%>"></asp:Label>
+                                            <asp:Label runat="server" Text="<%$ Resources:Resource,AdditionalPurchasePriceString %>"></asp:Label>
                                         </div>
                                         <asp:UpdatePanel runat="server">
                                             <ContentTemplate>
@@ -279,7 +279,7 @@
                                         </asp:UpdatePanel>
                                     </div>
                                     <div>
-                                        <asp:CheckBox runat="server" CssClass="Div" Text="<%$ Resources:Resource,BigSizeString%>" ID="cbBigSize" />
+                                        <asp:CheckBox runat="server" CssClass="Div" Text="<%$ Resources:Resource,BigSizeString %>" ID="cbBigSize" />
                                     </div>
                                 </div>
                             </div>
@@ -291,35 +291,35 @@
                                         <div runat="server" id="divPhotoUpload">
                                             <div class="ImageUploadBtn">
                                                 <button id="btnUploadPanel" onclick="uploadPanelControl();" class="Div btn actions button alt">
-                                                    <asp:Literal runat="server" Text="<%$ Resources:Resource,UploadString%>" />
+                                                    <asp:Literal runat="server" Text="<%$ Resources:Resource,UploadString %>" />
                                                 </button>
                                                 <!--<asp:Button runat="server" ID="btnUploadPanel" OnClick="btnUploadPanel_Click" Text="<%$ Resources:Resource,UploadString%>" />-->
                                             </div>
                                             <div id="uploadPanel" style="display: none;">
                                                 <div runat="server" id="divUpload">
                                                     <div class="fileUpload">
-                                                        <asp:Label runat="server" Text="<%$ Resources:Resource,ImgFrontString%>"></asp:Label>
+                                                        <asp:Label runat="server" Text="<%$ Resources:Resource,ImgFrontString %>"></asp:Label>
                                                         <asp:FileUpload ID="FileUpload1" runat="server" />
                                                     </div>
                                                     <div class="fileUpload">
-                                                        <asp:Label runat="server" Text="<%$ Resources:Resource,ImgBackString%>"></asp:Label>
+                                                        <asp:Label runat="server" Text="<%$ Resources:Resource,ImgBackString %>"></asp:Label>
                                                         <asp:FileUpload ID="FileUpload2" runat="server" />
                                                     </div>
                                                     <div class="fileUpload">
-                                                        <asp:Label runat="server" Text="<%$ Resources:Resource,ImgSideString%>"></asp:Label>
+                                                        <asp:Label runat="server" Text="<%$ Resources:Resource,ImgSideString %>"></asp:Label>
                                                         <asp:FileUpload ID="FileUpload3" runat="server" />
                                                     </div>
                                                     <div class="fileUpload">
-                                                        <asp:Label runat="server" Text="<%$ Resources:Resource,ImgOtherString%>"></asp:Label>
+                                                        <asp:Label runat="server" Text="<%$ Resources:Resource,ImgOtherString %>"></asp:Label>
                                                         <asp:FileUpload ID="FileUpload4" runat="server" />
                                                     </div>
                                                     <div class="fileUpload">
-                                                        <asp:Label runat="server" Text="<%$ Resources:Resource,ImgOtherString%>"></asp:Label>
+                                                        <asp:Label runat="server" Text="<%$ Resources:Resource,ImgOtherString %>"></asp:Label>
                                                         <asp:FileUpload ID="FileUpload5" runat="server" />
                                                     </div>
                                                 </div>
                                                 <div style="text-align: left; margin-top: 15px;">
-                                                    <asp:Button CausesValidation="true" runat="server" Text="<%$ Resources:Resource,UploadString%>" ID="btnUpload"
+                                                    <asp:Button runat="server" Text="<%$ Resources:Resource,UploadString %>" ID="btnUpload"
                                                         OnClick="btnUpload_Click" OnClientClick="uploadPanelControl();" />
                                                 </div>
                                             </div>
@@ -327,8 +327,8 @@
                                     </div>
                                     <div class="2u">
                                         <div style="text-align: center">
-                                            <asp:Label runat="server" Text="<%$ Resources:Resource,ImgFrontString%>"></asp:Label>
-                                            <asp:Label runat="server" Text="" ID="tbFolderPath" Visible="false"></asp:Label>
+                                            <asp:Label runat="server" Text="<%$ Resources:Resource,ImgFrontString %>"></asp:Label>
+                                            <asp:Label runat="server" ID="tbFolderPath" Visible="False"></asp:Label>
                                         </div>
                                         <span class="image fit">
                                             <asp:Image runat="server" ID="ImgFront" />
@@ -336,7 +336,7 @@
                                     </div>
                                     <div class="2u">
                                         <div style="text-align: center">
-                                            <asp:Label runat="server" Text="<%$ Resources:Resource,ImgBackString%>"></asp:Label>
+                                            <asp:Label runat="server" Text="<%$ Resources:Resource,ImgBackString %>"></asp:Label>
                                         </div>
                                         <span class="image fit">
                                             <asp:Image runat="server" ID="ImgBack" />
@@ -344,7 +344,7 @@
                                     </div>
                                     <div class="2u">
                                         <div style="text-align: center">
-                                            <asp:Label runat="server" Text="<%$ Resources:Resource,ImgSideString%>"></asp:Label>
+                                            <asp:Label runat="server" Text="<%$ Resources:Resource,ImgSideString %>"></asp:Label>
                                         </div>
                                         <span class="image fit">
                                             <asp:Image runat="server" ID="ImgSide" />
@@ -352,7 +352,7 @@
                                     </div>
                                     <div class="2u">
                                         <div style="text-align: center">
-                                            <asp:Label runat="server" Text="<%$ Resources:Resource,ImgOtherString%>"></asp:Label>
+                                            <asp:Label runat="server" Text="<%$ Resources:Resource,ImgOtherString %>"></asp:Label>
                                         </div>
                                         <span class="image fit">
                                             <asp:Image runat="server" ID="ImgOther1" />
@@ -360,7 +360,7 @@
                                     </div>
                                     <div class="2u">
                                         <div style="text-align: center">
-                                            <asp:Label runat="server" Text="<%$ Resources:Resource,ImgOtherString%>"></asp:Label>
+                                            <asp:Label runat="server" Text="<%$ Resources:Resource,ImgOtherString %>"></asp:Label>
                                         </div>
                                         <span class="image fit">
                                             <asp:Image runat="server" ID="ImgOther2" />
@@ -375,19 +375,19 @@
                                 <ul class="actions">
 
                                     <li>
-                                        <asp:Button runat="server" CssClass="button alt" Text="<%$ Resources:Resource,CreateString%>" ID="btnCreate" OnClick="btnCreate_Click" />
+                                        <asp:Button runat="server" CssClass="button alt" Text="<%$ Resources:Resource,CreateString %>" ID="btnCreate" OnClick="btnCreate_Click" />
                                     </li>
                                     <li>
-                                        <asp:Button runat="server" CssClass="button alt" Text="<%$ Resources:Resource,ModifyString%>" ID="btnModify" OnClick="btnModify_Click" />
+                                        <asp:Button runat="server" CssClass="button alt" Text="<%$ Resources:Resource,ModifyString %>" ID="btnModify" OnClick="btnModify_Click" />
                                     </li>
                                     <li>
-                                        <asp:Button CausesValidation="false" runat="server" CssClass="button alt" Text="<%$ Resources:Resource,ClearString%>" ID="btnClear" OnClick="btnClear_Click" />
+                                        <asp:Button CausesValidation="False" runat="server" CssClass="button alt" Text="<%$ Resources:Resource,ClearString %>" ID="btnClear" OnClick="btnClear_Click" />
                                     </li>
                                     <li>
-                                        <asp:Button runat="server" CssClass="button alt" Text="<%$ Resources:Resource,DeleteString%>" ID="btnDelete" OnClick="btnDelete_Click" />
+                                        <asp:Button runat="server" CssClass="button alt" Text="<%$ Resources:Resource,DeleteString %>" ID="btnDelete" OnClick="btnDelete_Click" />
                                     </li>
                                     <li>
-                                        <asp:Button CausesValidation="false" runat="server" CssClass="button alt" Text="<%$ Resources:Resource,CancelString%>" ID="btnCancel" OnClick="btnCancel_Click" />
+                                        <asp:Button CausesValidation="False" runat="server" CssClass="button alt" Text="<%$ Resources:Resource,CancelString %>" ID="btnCancel" OnClick="btnCancel_Click" />
                                     </li>
                                 </ul>
                             </div>
