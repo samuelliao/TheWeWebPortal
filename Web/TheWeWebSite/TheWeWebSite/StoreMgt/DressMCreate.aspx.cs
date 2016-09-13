@@ -268,7 +268,7 @@ namespace TheWeWebSite.StoreMgt
         {
             ddlUseStatus.Items.Clear();
             ddlUseStatus.Items.Add(new ListItem(Resources.Resource.SeletionRemindString, string.Empty));
-            string sql = "Select * From DressUseStatus where IsDelete = 0";
+            string sql = "Select * From DressUseStatus where IsDelete = 0 Order by Sn";
             DataSet ds = GetDataSetFromTable(sql);
             if (SysProperty.Util.IsDataSetEmpty(ds)) return;
             foreach (DataRow dr in ds.Tables[0].Rows)
