@@ -280,12 +280,17 @@ namespace TheWeWebSite.StoreMgt
 
         protected void ddlArea_SelectedIndexChanged(object sender, EventArgs e)
         {
+            DataRow dr = SysProperty.GetAreaById(ddlArea.SelectedValue);
+            ddlCountry.SelectedValue = dr["CountryId"].ToString();
             LocationDropDownList(ddlCountry.SelectedValue, ddlArea.SelectedValue);
             FirstGridViewRow_dgChurchServiceItem();
         }
 
         protected void ddlLocate_SelectedIndexChanged(object sender, EventArgs e)
         {
+            DataRow dr = SysProperty.GetChurchById(ddlLocate.SelectedValue);
+            ddlCountry.SelectedValue = dr["CountryId"].ToString();
+            ddlArea.SelectedValue = dr["AreaId"].ToString();
             FirstGridViewRow_dgChurchServiceItem();
         }
         #endregion
@@ -556,7 +561,7 @@ namespace TheWeWebSite.StoreMgt
                 DropDownList ddlService = (DropDownList)e.Row.FindControl("ddlServiceItem");
                 ddlService.Items.Add(new ListItem(Resources.Resource.ServiceItemSelectRemindString, string.Empty));
                 if (string.IsNullOrEmpty(ddlLocate.SelectedValue)) return;
-                DataSet ds = SysProperty.GenDbCon.GetDataFromTable("Select * From ServiceItem Where IsGeneral = 0 And IsDelete=0 And SupplierId = '" + ddlLocate.SelectedValue + "'");
+                DataSet ds = SysProperty.GenDbCon.GetDataFromTable("Select * From ServiceItem Where IsStore = 0 And IsDelete=0 And SupplierId = '" + ddlLocate.SelectedValue + "'");
                 if (SysProperty.Util.IsDataSetEmpty(ds)) return;
                 foreach (DataRow dr in ds.Tables[0].Rows)
                 {

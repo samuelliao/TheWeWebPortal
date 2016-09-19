@@ -121,6 +121,11 @@ namespace TheWeWebSite
                     SysProperty.Log.Error(ex.Message);
                 }
             }
+            else
+            {
+                Session.RemoveAll();
+                Response.Redirect("~/Login.aspx");
+            }
         }
 
         protected void linkCaseReminder_Click(object sender, EventArgs e)

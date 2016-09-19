@@ -9,6 +9,7 @@ using TheWeLib.DbControl;
 using TheWeLib;
 using System.Web.Configuration;
 using System.Globalization;
+using NLog;
 
 namespace TheWeWebSite
 {
@@ -70,7 +71,7 @@ namespace TheWeWebSite
 
             if (string.IsNullOrEmpty(SysProperty.ImgRootFolderpath))
             {
-                SysProperty.ImgRootFolderpath = @"\\127.0.0.1\Photo\";
+                SysProperty.ImgRootFolderpath = @"\\60.205.146.133\Photo\";
             }
         }
 
@@ -96,7 +97,7 @@ namespace TheWeWebSite
             {
                 return SysProperty.GenDbCon.GetDataFromTable("*"
                     , SysProperty.Util.MsSqlTableConverter(MsSqlTable.Store)
-                    , " Where IsDelete = 0 Order by GradeLv, EngName");
+                    , " Where IsDelete = 0 Order by GradeLv, Sn");
             }
             catch (Exception ex)
             {
@@ -166,6 +167,7 @@ namespace TheWeWebSite
             }
         }
 
+        #region Get Basic Info
         private void GetLocateStoreInfo(string id)
         {
             try
@@ -236,5 +238,6 @@ namespace TheWeWebSite
                 Session["Operation"] = null;
             }
         }
+        #endregion
     }
 }

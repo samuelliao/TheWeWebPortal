@@ -30,7 +30,7 @@
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,SnString%>"></asp:Label>
                             </div>
-                            <asp:TextBox CssClass="required" runat="server" ID="tbOthSn"></asp:TextBox>
+                            <asp:TextBox runat="server" CssClass="required" ID="tbOthSn"></asp:TextBox>
                             <asp:RequiredFieldValidator ID="RequiredFieldValidator1"
                                 ControlToValidate="tbOthSn" runat="server"
                                 ErrorMessage="required"

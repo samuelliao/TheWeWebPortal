@@ -286,7 +286,7 @@ namespace TheWeWebSite.SysMgt
             {
                 condStr = " And ( Name like N'%" + tbName.Text + "%'"
                     + " OR ChName like N'%" + tbName.Text + "%'"
-                    + " EngOR Name like N'%" + tbName.Text + "%'"
+                    + " OR EngName like N'%" + tbName.Text + "%'"
                     + " OR JpName like N'%" + tbName.Text + "%')";
             }
             return condStr;

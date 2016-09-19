@@ -433,7 +433,7 @@ namespace TheWeWebSite.StoreMgt
         protected void LinkItemMCreate_Click(object sender, EventArgs e)
         {
             Session.Remove("SetId");
-            Server.Transfer("ItemMCreate.aspx", true);
+            Response.Redirect("ItemMCreate.aspx", true);
         }
     }
 }

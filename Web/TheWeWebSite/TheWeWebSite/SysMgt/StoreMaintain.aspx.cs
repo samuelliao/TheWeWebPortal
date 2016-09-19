@@ -192,7 +192,7 @@ namespace TheWeWebSite.SysMgt
                 updateLst.Add(new DbSearchObject("EngName", AtrrTypeItem.String, AttrSymbolItem.Equal, ((TextBox)e.Item.Cells[5].Controls[0]).Text));
                 updateLst.Add(new DbSearchObject("JpName", AtrrTypeItem.String, AttrSymbolItem.Equal, ((TextBox)e.Item.Cells[6].Controls[0]).Text));
                 updateLst.Add(new DbSearchObject("Addr", AtrrTypeItem.String, AttrSymbolItem.Equal, ((TextBox)e.Item.Cells[7].Controls[0]).Text));
-                updateLst.Add(new DbSearchObject("Description", AtrrTypeItem.String, AttrSymbolItem.Equal, ((TextBox)e.Item.Cells[11].Controls[0]).Text));
+                updateLst.Add(new DbSearchObject("Description", AtrrTypeItem.String, AttrSymbolItem.Equal, ((TextBox)e.Item.Cells[12].Controls[0]).Text));
                 updateLst.Add(new DbSearchObject("CountryId", AtrrTypeItem.String, AttrSymbolItem.Equal, ddl1.SelectedValue));
                 updateLst.Add(new DbSearchObject("HoldingCompany", AtrrTypeItem.Bit, AttrSymbolItem.Equal, (ddl3.SelectedValue == "0" ? "1" : "0")));
                 updateLst.Add(new DbSearchObject("GradeLv", AtrrTypeItem.String, AttrSymbolItem.Equal, ddl3.SelectedValue));

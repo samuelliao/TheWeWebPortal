@@ -191,8 +191,9 @@ namespace TheWeWebSite.StoreMgt
         private void StoreList(bool isStore, string cid, string aid)
         {
             ddlStore.Items.Clear();
+            ddlStore.Items.Add(new ListItem(Resources.Resource.SeletionRemindString, string.Empty));
             DataSet ds;
-            string condStr = string.Empty;
+            string condStr = string.Empty;            
             if (!string.IsNullOrEmpty(cid))
             {
                 condStr += " And CountryId = '" + cid + "'";
@@ -229,7 +230,14 @@ namespace TheWeWebSite.StoreMgt
         protected void ddlType_SelectedIndexChanged(object sender, EventArgs e)
         {
             tbType.Visible = ddlType.SelectedValue == "CreateItem";
-            tbType.Text = string.Empty;
+            if (ddlType.SelectedValue == "CreateItem")
+            {
+                tbType.Text = string.Empty;
+            }
+            else
+            {
+                tbType.Text = ddlType.SelectedItem.Text;
+            }
         }
 
         protected void ddlOthCategory_SelectedIndexChanged(object sender, EventArgs e)
@@ -398,7 +406,14 @@ namespace TheWeWebSite.StoreMgt
             ddlOthCategory_SelectedIndexChanged(ddlOthCategory, new EventArgs());
             ddlType.SelectedValue = dr["Type"].ToString();
             ddlType_SelectedIndexChanged(ddlType, new EventArgs());
-            ddlStore.SelectedValue = dr["StoreId"].ToString();
+            if (ddlCategory.SelectedValue == "Store")
+            {
+                ddlStore.SelectedValue = dr["StoreId"].ToString();
+            }
+            else
+            {
+                ddlStore.SelectedValue = dr["SupplierId"].ToString();
+            }
             ddlStore_SelectedIndexChanged(ddlStore, new EventArgs());
 
             string imgPath = @dr["Img"].ToString();
@@ -406,14 +421,7 @@ namespace TheWeWebSite.StoreMgt
             else imgPath = SysProperty.ImgRootFolderpath + imgPath;
             string ImgFolderPath = imgPath;
             tbFolderPath.Text = ImgFolderPath;
-            RefreshImage(0, ImgFolderPath);
-
-            if (bool.Parse(dr["IsGeneral"].ToString()))
-            {
-                btnModify.Visible = false;
-                btnDelete.Visible = false;
-                btnClear.Visible = false;
-            }
+            RefreshImage(0, ImgFolderPath);           
 
             if (!bool.Parse(((DataRow)Session["LocateStore"])["HoldingCompany"].ToString()))
             {
@@ -427,6 +435,12 @@ namespace TheWeWebSite.StoreMgt
                 ddlStore.Enabled = false;
                 ddlType.Enabled = false;
                 divPhotoUpload.Attributes["style"] = "display: none;";
+                if (bool.Parse(dr["IsGeneral"].ToString()))
+                {
+                    btnModify.Visible = false;
+                    btnDelete.Visible = false;
+                    btnClear.Visible = false;
+                }
             }
         }
 

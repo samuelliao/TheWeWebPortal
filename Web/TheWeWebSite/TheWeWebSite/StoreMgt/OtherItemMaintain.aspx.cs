@@ -184,21 +184,24 @@ namespace TheWeWebSite.StoreMgt
                         + (bool.Parse(((DataRow)Session["LocateStore"])["HoldingCompany"].ToString())
                             ? string.Empty
                             : " and a.StoreId = '" + ((DataRow)Session["LocateStore"])["Id"].ToString() + "'");
-                    DS = GetServiceItem(condStr, sortStr);
+                    DS = GetServiceItem(condStr+" And a.IsStore = 1", sortStr);
                     condStr = OtherConditionString + " And IsGeneral = 1";
                     DS.Merge(GetServiceItem(condStr, sortStr));
                 }
-                else if (ddlOthCategory.SelectedValue == "4ec16237-2cb6-496f-ab85-8fa708aa4d55")
-                {
-                    condStr = OtherConditionString
-                        + (bool.Parse(((DataRow)Session["LocateStore"])["HoldingCompany"].ToString())
-                            ? string.Empty
-                            : " and a.StoreId = '" + ((DataRow)Session["LocateStore"])["Id"].ToString() + "'");
-                    DS = GetServiceItem(condStr, sortStr);
-                }
                 else
                 {
-                    DS = GetServiceItem(condStr, sortStr);
+                    if (ddlOthCategory.SelectedValue == "4ec16237-2cb6-496f-ab85-8fa708aa4d55")
+                    {
+                        condStr = OtherConditionString
+                            + (bool.Parse(((DataRow)Session["LocateStore"])["HoldingCompany"].ToString())
+                                ? string.Empty
+                                : " and a.StoreId = '" + ((DataRow)Session["LocateStore"])["Id"].ToString() + "'");
+                        DS = GetServiceItem(condStr, sortStr);
+                    }
+                    else
+                    {
+                        DS = GetServiceItem(condStr, sortStr);
+                    }
                 }
             }
             catch (Exception ex)
