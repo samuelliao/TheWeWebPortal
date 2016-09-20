@@ -193,26 +193,11 @@
                                                         <asp:Label runat="server" ID="labelType" />
                                                     </ItemTemplate>
                                                 </asp:TemplateColumn>
-                                                <asp:TemplateColumn HeaderText="<%$ Resources:Resource,NecklineString%>" SortExpression="Neckline">
+                                                <asp:TemplateColumn HeaderText="<%$ Resources:Resource,ImgFrontString%>">
                                                     <ItemTemplate>
-                                                        <asp:Label runat="server" ID="labelNeckline" />
+                                                        <asp:Image runat="server" ID="imgDress" Width="80px" Height="80px" />
                                                     </ItemTemplate>
-                                                </asp:TemplateColumn>
-                                                <asp:TemplateColumn HeaderText="<%$ Resources:Resource,DressbackString%>" SortExpression="Back">
-                                                    <ItemTemplate>
-                                                        <asp:Label runat="server" ID="labelDressBack" />
-                                                    </ItemTemplate>
-                                                </asp:TemplateColumn>
-                                                <asp:TemplateColumn HeaderText="<%$ Resources:Resource,ShoulderString%>" SortExpression="Shoulder">
-                                                    <ItemTemplate>
-                                                        <asp:Label runat="server" ID="labelShoulder" />
-                                                    </ItemTemplate>
-                                                </asp:TemplateColumn>
-                                                <asp:TemplateColumn HeaderText="<%$ Resources:Resource,WornString%>" SortExpression="Worn">
-                                                    <ItemTemplate>
-                                                        <asp:Label runat="server" ID="labelWorn" />
-                                                    </ItemTemplate>
-                                                </asp:TemplateColumn>
+                                                </asp:TemplateColumn>                                                
                                                 <asp:ButtonColumn CommandName="Delete"
                                                     HeaderText="<%$ Resources:Resource,DeleteString%>"
                                                     Text="<%$ Resources:Resource,DeleteString%>" />

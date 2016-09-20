@@ -228,4 +228,7 @@
   <data name="AppointmentDateString" xml:space="preserve">
     <value>预约日期</value>
   </data>
+  <data name="ChurchString" xml:space="preserve">
+    <value>教堂</value>
+  </data>
 </root>

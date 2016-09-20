@@ -273,11 +273,7 @@ namespace TheWeWebSite.StoreMgt
                 ((Label)e.Item.FindControl("labelStore")).Text = ddlStore.Items.FindByValue(dataItem1["StoreId"].ToString()).Text;
                 ((Label)e.Item.FindControl("labelCategory")).Text = ddlDressCategory.Items.FindByValue(dataItem1["Category"].ToString()).Text;
                 ((Label)e.Item.FindControl("labelType")).Text = ddlDressType.Items.FindByValue(dataItem1["Type"].ToString()).Text;
-                ((Label)e.Item.FindControl("labelNeckline")).Text = ddlNeckLine.Items.FindByValue(dataItem1["Neckline"].ToString()).Text;
-                ((Label)e.Item.FindControl("labelDressBack")).Text = ddlBack.Items.FindByValue(dataItem1["Back"].ToString()).Text;
-                ((Label)e.Item.FindControl("labelShoulder")).Text = ddlShoulder.Items.FindByValue(dataItem1["Shoulder"].ToString()).Text;
-                ((Label)e.Item.FindControl("labelWorn")).Text = ddlWorn.Items.FindByValue(dataItem1["Worn"].ToString()).Text;
-
+                ((Image)e.Item.FindControl("imgDress")).ImageUrl = "http:"+SysProperty.ImgRootFolderpath + @dataItem1["Img"].ToString()+ "\\" + dataItem1["Sn"].ToString() + "_1.jpg?" + DateTime.Now.Ticks.ToString();
             }
         }
         protected void dataGrid_SelectedIndexChanged(object sender, EventArgs e)

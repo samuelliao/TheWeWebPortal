@@ -50,34 +50,72 @@
                                     <div class="Div">
                                         <asp:Label runat="server" Text="<%$ Resources:Resource,CategoryString%>"></asp:Label>
                                     </div>
-                                    <asp:DropDownList runat="server" ID="ddlOthCategory" />
+                                    <asp:DropDownList runat="server" ID="ddlCategory" AutoPostBack="true" OnSelectedIndexChanged="ddlCategory_SelectedIndexChanged" />
                                 </div>
-
-                             
-
-                                <!-- Btn -->
-
-                                <div class="Div btn">
-                                    <ul class="actions">
-
-                                        <li>
-                                            <asp:Button runat="server" Text="<%$ Resources:Resource,CreateString%>" ID="LinkOtherItemMCreate" OnClick="LinkOtherItemMCreate_Click" />
-                                        </li>
-                                        <li>
-                                            <asp:Button runat="server" CssClass="button alt" Text="<%$ Resources:Resource,SearchString%>"
-                                                ID="btnSearch" OnClick="btnSearch_Click" />
-                                        </li>
-
-                                    </ul>
+                                <div class="2u 12u(mobilep)">
+                                    <div class="Div">
+                                        <asp:Label runat="server" Text="<%$ Resources:Resource,CategoryString%>"></asp:Label>
+                                    </div>
+                                    <asp:DropDownList runat="server" ID="ddlOthCategory" />
                                 </div>
                             </div>
                         </div>
+                        <asp:UpdatePanel runat="server">
+                            <ContentTemplate>
+                                <div class="12u" runat="server" id="divLocation" visible="false">
+                                    <div class="row uniform 12u">
+                                        <div class="2u 12u(mobilep)">
+                                            <div class="Div">
+                                                <asp:Label runat="server" Text="<%$ Resources:Resource,CountryString%>" />
+                                            </div>
+                                            <asp:UpdatePanel runat="server">
+                                                <ContentTemplate>
+                                                    <asp:DropDownList runat="server" ID="ddlCountry" AutoPostBack="true" OnSelectedIndexChanged="ddlCountry_SelectedIndexChanged" />
+                                                </ContentTemplate>
+                                            </asp:UpdatePanel>
+                                        </div>
+                                        <div class="2u 12u(mobilep)">
+                                            <div class="Div">
+                                                <asp:Label runat="server" Text="<%$ Resources:Resource,AreaString%>" />
+                                            </div>
+                                            <asp:UpdatePanel runat="server">
+                                                <ContentTemplate>
+                                                    <asp:DropDownList runat="server" ID="ddlArea" AutoPostBack="true" OnSelectedIndexChanged="ddlArea_SelectedIndexChanged" />
+                                                </ContentTemplate>
+                                            </asp:UpdatePanel>
+                                        </div>
+                                        <div class="2u 12u(mobilep)">
+                                            <div class="Div">
+                                                <asp:Label runat="server" ID="labelHolderTitle" Text="<%$ Resources:Resource,LocateString%>" />
+                                            </div>
+                                            <asp:UpdatePanel runat="server">
+                                                <ContentTemplate>
+                                                    <asp:DropDownList runat="server" ID="ddlStore" AutoPostBack="true" OnSelectedIndexChanged="ddlStore_SelectedIndexChanged" />
+                                                </ContentTemplate>
+                                            </asp:UpdatePanel>
+                                        </div>
+                                    </div>
+                                </div>
+                            </ContentTemplate>
+                        </asp:UpdatePanel>
+                        <div class="Div btn">
+                            <ul class="actions">
 
+                                <li>
+                                    <asp:Button runat="server" Text="<%$ Resources:Resource,CreateString%>" ID="LinkOtherItemMCreate" OnClick="LinkOtherItemMCreate_Click" />
+                                </li>
+                                <li>
+                                    <asp:Button runat="server" CssClass="button alt" Text="<%$ Resources:Resource,SearchString%>"
+                                        ID="btnSearch" OnClick="btnSearch_Click" />
+                                </li>
+
+                            </ul>
+                        </div>
                     </div>
                     <asp:Label runat="server" ID="labelWarnString" ForeColor="Red" Visible="false" />
                     <hr />
                     <!-- Table -->
-                     
+
                     <div class="row serch">
                         <div class="12u">
                             <div class="table-wrapper">
@@ -90,22 +128,28 @@
                                     <Columns>
                                         <asp:ButtonColumn Text="<%$ Resources:Resource,SearchString%>" CommandName="Select" />
                                         <asp:BoundColumn Visible="false" DataField="Id" />
-                                        <asp:BoundColumn HeaderText="<%$ Resources:Resource,OtherItemSnString%>" DataField="Sn" SortExpression="Sn" />
+                                        <asp:TemplateColumn HeaderText="<%$ Resources:Resource,CategoryString%>">
+                                            <ItemTemplate>
+                                                <asp:Label runat="server" Text="" ID="labelCategory" />
+                                            </ItemTemplate>
+                                        </asp:TemplateColumn>
+                                        <asp:TemplateColumn HeaderText="<%$ Resources:Resource,LocateString%>">
+                                            <ItemTemplate>
+                                                <asp:Label runat="server" Text="" ID="labelChurch" />
+                                            </ItemTemplate>
+                                        </asp:TemplateColumn>
+                                        <asp:TemplateColumn HeaderText="<%$ Resources:Resource,LocateString%>">
+                                            <ItemTemplate>
+                                                <asp:Label runat="server" Text="" ID="labelChurchOth" />
+                                            </ItemTemplate>
+                                        </asp:TemplateColumn>
                                         <asp:BoundColumn HeaderText="<%$ Resources:Resource,NameString%>" DataField="Name" SortExpression="Name" />
                                         <asp:TemplateColumn HeaderText="<%$ Resources:Resource,CategoryString%>" SortExpression="CategoryId">
                                             <ItemTemplate>
                                                 <asp:Label runat="server" ID="dgLabelCategory" />
                                             </ItemTemplate>
                                         </asp:TemplateColumn>
-                                        
-                                        <asp:TemplateColumn HeaderText="<%$ Resources:Resource,TypeString%>" SortExpression="Type">
-                                            <ItemTemplate>
-                                                <asp:Label runat="server" ID="dgLabelType" />
-                                            </ItemTemplate>
-                                        </asp:TemplateColumn>
-                                        
                                         <asp:BoundColumn HeaderText="<%$ Resources:Resource,PriceString%>" DataField="Price" SortExpression="Price" />
-                                        <asp:BoundColumn HeaderText="<%$ Resources:Resource,DescriptionString%>" DataField="Description" SortExpression="Description" />
                                         <asp:ButtonColumn CommandName="Delete"
                                             HeaderText="<%$ Resources:Resource,DeleteString%>"
                                             Text="<%$ Resources:Resource,DeleteString%>" />

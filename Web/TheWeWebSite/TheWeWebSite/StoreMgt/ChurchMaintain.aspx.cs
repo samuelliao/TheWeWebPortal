@@ -178,10 +178,11 @@ namespace TheWeWebSite.StoreMgt
             DataRowView dataItem1 = (DataRowView)e.Item.DataItem;
             if (dataItem1 != null)
             {
+                DataRow countryDr = SysProperty.GetCountryById(dataItem1["CountryId"].ToString());
                 Label label = (Label)e.Item.FindControl("dgLabelCountry");
                 label.Text = SysProperty.Util.OutputRelatedLangName(
                     Session["CultureCode"].ToString()
-                    , SysProperty.GetCountryById(dataItem1["CountryId"].ToString()));
+                    , countryDr);
                 Label label2 = (Label)e.Item.FindControl("dgLabelArea");
                 label2.Text = SysProperty.Util.OutputRelatedLangName(
                     Session["CultureCode"].ToString()
@@ -191,6 +192,7 @@ namespace TheWeWebSite.StoreMgt
                     Session["CultureCode"].ToString()
                     , SysProperty.GetChurchById(dataItem1["Id"].ToString()));
                 ((Label)e.Item.FindControl("dgLabelPrice")).Text = SysProperty.Util.ParseMoney(dataItem1["Price"].ToString()).ToString("#0.00");
+                ((Label)e.Item.FindControl("dgLabelChurchOth")).Text = countryDr["Code"].ToString().Trim() == "JP" ? dataItem1["JpName"].ToString() : dataItem1["EngName"].ToString();
             }
         }
         #endregion

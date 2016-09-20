@@ -115,7 +115,11 @@
                                                     <asp:Label runat="server" ID="dgLabelChurch" />
                                                 </ItemTemplate>
                                             </asp:TemplateColumn>
-                                            <asp:BoundColumn HeaderText="<%$ Resources:Resource,CapacitiesString%>" DataField="Capacities" />
+                                            <asp:TemplateColumn HeaderText="<%$ Resources:Resource,LocateString%>">
+                                                <ItemTemplate>
+                                                    <asp:Label runat="server" ID="dgLabelChurchOth" />
+                                                </ItemTemplate>
+                                            </asp:TemplateColumn>
                                             <asp:TemplateColumn HeaderText="<%$ Resources:Resource,PriceString%>">
                                                 <ItemTemplate>
                                                     <asp:Label runat="server" ID="dgLabelPrice" />

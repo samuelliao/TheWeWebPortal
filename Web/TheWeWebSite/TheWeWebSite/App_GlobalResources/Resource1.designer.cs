@@ -673,6 +673,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   查詢類似 Church 的當地語系化字串。
+        /// </summary>
+        internal static string ChurchString {
+            get {
+                return ResourceManager.GetString("ChurchString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查詢類似 Clear 的當地語系化字串。
         /// </summary>
         internal static string ClearString {

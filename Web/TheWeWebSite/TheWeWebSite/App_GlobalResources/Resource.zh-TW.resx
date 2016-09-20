@@ -1239,4 +1239,7 @@
   <data name="DMPhotoString" xml:space="preserve">
     <value>DM照片</value>
   </data>
+  <data name="ChurchString" xml:space="preserve">
+    <value>教堂</value>
+  </data>
 </root>
