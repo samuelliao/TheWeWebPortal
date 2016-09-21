@@ -21,13 +21,18 @@ namespace TheWeLib
         private static Hashtable CountryHashList;
         private static Hashtable AreaHashList;
         private static Hashtable ChurchHashList;
+        private static Hashtable StoreHashList;
         private static DateTime AreaHashUpdateTime;
+        private static DateTime StoreHashUpdateTime;
         private static DateTime CountryHashUpdateTime;
         private static DateTime ChurchHashUpdateTime;
         private static object AreaLocker = new object();
         private static object CountryLocker = new object();
         private static object ChurchLocker = new object();
+        private static object StoreLocker = new object();
 
+        #region System Hash map
+        #region Area Hash map
         public static void UpdateAreas()
         {
             if(!string.IsNullOrEmpty(DbConcString)&& GenDbCon != null)
@@ -68,7 +73,9 @@ namespace TheWeLib
                 return result;
             }
         }
+        #endregion
 
+        #region Country Hash map
         public static void UpdateCountries()
         {
             if (!string.IsNullOrEmpty(DbConcString) && GenDbCon != null)
@@ -109,7 +116,9 @@ namespace TheWeLib
                     return null;
             }
         }
+        #endregion
 
+        #region Church Hash map
         public static void UpdateChurch()
         {
             if (!string.IsNullOrEmpty(DbConcString) && GenDbCon != null)
@@ -150,11 +159,56 @@ namespace TheWeLib
                     return null;
             }
         }
+        #endregion
+
+        #region Church Hash map
+        public static void UpdateStore()
+        {
+            if (!string.IsNullOrEmpty(DbConcString) && GenDbCon != null)
+            {
+                lock (StoreLocker)
+                {
+                    StoreHashList = new Hashtable();
+                    StoreHashUpdateTime = DateTime.Now;
+                    DataSet ds = GenDbCon.GetDataFromTable("Select * From Store Where IsDelete = 0");
+                    if (Util.IsDataSetEmpty(ds)) return;
+                    foreach (DataRow dr in ds.Tables[0].Rows)
+                    {
+                        StoreHashList.Add(dr["Id"].ToString(), dr);
+                    }
+                }
+            }
+        }
+        public static bool CheckKeyInStore(string id)
+        {
+            lock (StoreLocker)
+            {
+                bool result = StoreHashList.ContainsKey(id);
+                if (!result && HashTableNeedUpdate(StoreHashUpdateTime))
+                {
+                    UpdateStore();
+                    result = StoreHashList.ContainsKey(id);
+                }
+                return result;
+            }
+        }
+        public static DataRow GetStoreById(string id)
+        {
+            lock (StoreLocker)
+            {
+                if (CheckKeyInStore(id))
+                    return (DataRow)StoreHashList[id];
+                else
+                    return null;
+            }
+        }
+        #endregion
 
         private static bool HashTableNeedUpdate(DateTime time)
         {
             TimeSpan ts = DateTime.Now - time;
             return ts.Ticks >= HashTableUpdatePeriod;
         }
+        #endregion
     }
 }
