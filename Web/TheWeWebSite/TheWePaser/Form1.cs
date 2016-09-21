@@ -28,8 +28,6 @@ namespace TheWeParser
             //comboBox1.Items.Add(new Item("Dress", ""));
         }
 
-
-
         private class Item
         {
             public string Name;
@@ -65,9 +63,14 @@ namespace TheWeParser
         private void GetDressFile()
         {
             DressDataParser dress = new DressDataParser(@"Data Source=60.205.146.133;Initial Catalog=TheWe_C;Persist Security Info=True;User ID=TheWe;Password=!QAZ2wsx#EDC");
-            dress.FileReader(textBox1.Text);
-            bool result;
+            dress.FileReader(textBox1.Text);            
             dress.GetDressDbListAndWrite();
+        }
+
+        private void ArrangeDressPhoto()
+        {
+            DressDataParser dress = new DressDataParser(@"Data Source=60.205.146.133;Initial Catalog=TheWe_C;Persist Security Info=True;User ID=TheWe;Password=!QAZ2wsx#EDC");
+            dress.ArrangePhoto(textBox1.Text);
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -75,14 +78,22 @@ namespace TheWeParser
             this.Cursor = Cursors.WaitCursor;
             if (((Item)comboBox1.SelectedItem).Value == "Church")
             {
-                GetChurchFile();
+                //GetChurchFile();
+                SetServiceItem();
             }
             else if (((Item)comboBox1.SelectedItem).Value == "Dress")
             {
-                GetDressFile();
+                //GetDressFile();
+                ArrangeDressPhoto();
             }
             this.Cursor = Cursors.Arrow;
         }
+
+        private void SetServiceItem()
+        {
+            ChurchDataParser church = new ChurchDataParser(@"Data Source=60.205.146.133;Initial Catalog=TheWe_C;Persist Security Info=True;User ID=TheWe;Password=!QAZ2wsx#EDC");
+            church.ResetAccountAndPassword();
+        }        
     }
 
 }

@@ -83,7 +83,7 @@ namespace TheWeParser.Output
                                 attrValue = (cell.CellType == NPOI.SS.UserModel.CellType.Numeric ? cell.NumericCellValue.ToString() : cell.StringCellValue);
                                 if (table == MsSqlTable.Nothing)
                                 {
-                                    if(cellCnt == 1)
+                                    if (cellCnt == 1)
                                     {
                                         attrValue = string.IsNullOrEmpty(attrValue) ? "0" : (attrValue == "女" ? "0" : "1");
                                     }
@@ -377,6 +377,64 @@ namespace TheWeParser.Output
                     return MsSqlTable.DressUseStatus;
                 default:
                     return MsSqlTable.Nothing;
+            }
+        }
+
+        public void ArrangePhoto(string path)
+        {
+            DataSet ds = GetDressPhotoRelatedInfo();
+            if (Util.IsDataSetEmpty(ds)) return;
+            string sn = string.Empty;
+            string sysSn = string.Empty;
+            string folder = string.Empty;
+            string destFile = string.Empty;
+            string[] dirs;
+            foreach (DataRow dr in ds.Tables[0].Rows)
+            {
+                if (string.IsNullOrEmpty(dr["Sn"].ToString())) continue;
+                sn = dr["Sn"].ToString().Substring(0, 4);
+                sysSn = dr["Sn"].ToString().Replace(sn, "");
+                folder = Path.Combine(path, sysSn);
+                if (!Directory.Exists(folder))
+                {
+                    Directory.CreateDirectory(folder);
+                }
+                dirs = Directory.GetFiles(folder, sysSn + "-*");
+                if (dirs.Length == 0) continue;
+                foreach (string dir in dirs)
+                {
+                    destFile = Path.Combine(folder, PhotoEncounter(dr["Sn"].ToString(), Path.GetFileName(dir))) + ".jpg";
+                    if (File.Exists(destFile)) { File.Delete(destFile); }
+                    File.Move(dir, destFile);
+                }
+            }
+        }
+        private DataSet GetDressPhotoRelatedInfo()
+        {
+            try
+            {
+                string sql = "Select Sn From Dress Order by Sn";
+                return GenDbCon.GetDataFromTable(sql);
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        private string PhotoEncounter(string sysSn, string fileName)
+        {
+            if (fileName.Contains("-"))
+            {
+                for (int i = 1; i <= 5; i++)
+                {
+                    if (fileName.Contains("-" + i)) { return sysSn + "_" + i; }
+                }
+                return sysSn + "_" + 1;
+            }
+            else
+            {
+                return sysSn + "_" + 1;
             }
         }
     }

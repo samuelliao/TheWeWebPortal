@@ -353,6 +353,230 @@ namespace TheWeParser.Output
                 return string.Empty;
             }
         }
-    }
 
+        public void SetAllServiceItem()
+        {
+            DataSet chDs = GetChurchId();
+            DataSet siDs = GetExistServiceItem();
+            
+            if (Util.IsDataSetEmpty(chDs) && Util.IsDataSetEmpty(siDs)) return;
+            List<List<DbSearchObject>> dbls = new List<List<DbSearchObject>>();
+            foreach (DataRow dr in siDs.Tables[0].Rows)
+            {
+                dbls.Add(OthItemInfoDbObject(dr["Sn"].ToString().Substring(0, 2), dr, string.Empty));
+            }
+
+            foreach (DataRow dr in chDs.Tables[0].Rows)
+            {
+                if (siDs.Tables[0].Select("SupplierId = '" + dr["Id"].ToString() + "'").Length > 0) continue;
+                foreach(List<DbSearchObject> item in dbls)
+                {
+                    item[item.FindIndex(x => x.AttrName == "SupplierId")].AttrValue = dr["Id"].ToString();
+                    WriteBackInfo(MsSqlTable.ServiceItem, item);
+                }
+            }
+        }
+
+        private List<DbSearchObject> OthItemInfoDbObject(string sn, DataRow dr, string churchId)
+        {
+            List<DbSearchObject> lst = new List<DbSearchObject>();
+            lst.Add(new DbSearchObject(
+                "Sn"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , sn
+                ));
+            lst.Add(new DbSearchObject(
+                "IsGeneral"
+                , AtrrTypeItem.Bit
+                , AttrSymbolItem.Equal
+                , "1"
+                ));
+            lst.Add(new DbSearchObject(
+                "Name"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , dr["Name"].ToString()
+                ));
+            lst.Add(new DbSearchObject(
+                "Price"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , dr["Price"].ToString()
+                ));
+            lst.Add(new DbSearchObject(
+                "Cost"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , dr["Cost"].ToString()
+                ));
+            lst.Add(new DbSearchObject(
+                "Description"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , dr["Description"].ToString()
+                ));
+            lst.Add(new DbSearchObject(
+                "CategoryId"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , dr["CategoryId"].ToString()
+                ));
+            string typeId = dr["Type"].ToString();
+            if (!string.IsNullOrEmpty(typeId))
+            {
+                lst.Add(new DbSearchObject(
+                    "Type"
+                    , AtrrTypeItem.String
+                    , AttrSymbolItem.Equal
+                    , typeId
+                    ));
+            }
+
+            lst.Add(new DbSearchObject(
+                "SupplierId"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , churchId
+                ));
+
+            lst.Add(new DbSearchObject(
+                "IsStore"
+                , AtrrTypeItem.Bit
+                , AttrSymbolItem.Equal
+                , "0"
+                ));
+            lst.Add(new DbSearchObject(
+                "UpdateAccId"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , "00000000-0000-0000-0000-000000000001"
+                ));
+            lst.Add(new DbSearchObject(
+                "UpdateTime"
+                , AtrrTypeItem.DateTime
+                , AttrSymbolItem.Equal
+                , DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss")
+                ));
+            lst.Add(new DbSearchObject(
+            "CreatedateAccId"
+            , AtrrTypeItem.String
+            , AttrSymbolItem.Equal
+            , "00000000-0000-0000-0000-000000000001"
+            ));
+            lst.Add(new DbSearchObject(
+            "CreatedateTime"
+            , AtrrTypeItem.DateTime
+            , AttrSymbolItem.Equal
+            , DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss")
+            ));
+            return lst;
+        }
+
+        private List<DbSearchObject> AccInfoDbObject(string acc)
+        {
+            List<DbSearchObject> lst = new List<DbSearchObject>();
+            lst.Add(new DbSearchObject(
+                "Account"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , acc
+                ));
+            lst.Add(new DbSearchObject(
+                "AccInfo"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , Util.GetMD5(acc)
+                ));
+            lst.Add(new DbSearchObject(
+                "UpdateAccId"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , "00000000-0000-0000-0000-000000000001"
+                ));
+            lst.Add(new DbSearchObject(
+                "UpdateTime"
+                , AtrrTypeItem.DateTime
+                , AttrSymbolItem.Equal
+                , DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss")
+                ));
+            return lst;
+        }
+
+        public DataSet GetChurchId()
+        {
+            try
+            {
+                string sql = "Select * From Church Where IsDelete = 0";
+                return GenDbCon.GetDataFromTable(sql);
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        public DataSet GetExistServiceItem()
+        {
+            try
+            {
+                string sql = "Select * From Serviceitem Where IsDelete = 0 And IsStore = 0";
+                return GenDbCon.GetDataFromTable(sql);
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        private bool WriteBackInfo(MsSqlTable table, List<DbSearchObject> lst)
+        {
+            try
+            {
+                return GenDbCon.InsertDataInToTable(
+                        Util.MsSqlTableConverter(table)
+                        , Util.SqlQueryInsertInstanceConverter(lst)
+                        , Util.SqlQueryInsertValueConverter(lst));
+            }
+            catch (Exception ex)
+            {
+                return false;
+
+            }
+        }
+
+        private bool WriteBackInfo(MsSqlTable table, List<DbSearchObject> lst, string id)
+        {
+            try
+            {
+                return GenDbCon.UpdateDataIntoTable(
+                        Util.MsSqlTableConverter(table)
+                        , Util.SqlQueryUpdateConverter(lst)
+                        , " Where Id = '" + id + "'");
+            }
+            catch (Exception ex)
+            {
+                return false;
+
+            }
+        }
+
+        public void ResetAccountAndPassword()
+        {
+            try
+            {
+                string sql = "Select * From Employee Where IsDelete = 0";
+                DataSet ds =  GenDbCon.GetDataFromTable(sql);
+                foreach(DataRow dr in ds.Tables[0].Rows)
+                {
+                    if (dr["Account"].ToString() == "admin") continue;
+                    WriteBackInfo(MsSqlTable.Employee, AccInfoDbObject(dr["Account"].ToString().ToLower()), dr["Id"].ToString());
+                }
+            }
+            catch(Exception ex)
+            {
+
+            }
+        }
+    }
 }
