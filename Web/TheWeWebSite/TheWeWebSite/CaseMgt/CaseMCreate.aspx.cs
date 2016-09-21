@@ -434,12 +434,36 @@ namespace TheWeWebSite.CaseMgt
             SetChurchList(ddlCountry.SelectedValue, ddlArea.SelectedValue);
             SetProductSetList(ddlCountry.SelectedValue, ddlArea.SelectedValue, ddlLocate.SelectedValue, ddlOrderType.SelectedValue);
             FirstGridViewRow();
+            if (!string.IsNullOrEmpty(ddlArea.SelectedValue))
+            {
+                try
+                {
+                    DataRow dr = SysProperty.GetAreaById(ddlArea.SelectedValue);
+                    ddlCountry.SelectedValue = dr["CountryId"].ToString();
+                }
+                catch (Exception ex)
+                {
+                    SysProperty.Log.Error(ex.Message);
+                }
+            }
         }
 
         protected void ddlLocate_SelectedIndexChanged(object sender, EventArgs e)
         {
             SetProductSetList(ddlCountry.SelectedValue, ddlArea.SelectedValue, ddlLocate.SelectedValue, ddlOrderType.SelectedValue);
             FirstGridViewRow();
+            if (!string.IsNullOrEmpty(ddlLocate.SelectedValue))
+            {
+                try
+                {
+                    DataRow dr = SysProperty.GetChurchById(ddlLocate.SelectedValue);
+                    ddlArea.SelectedValue = dr["AreaId"].ToString();
+                    ddlCountry.SelectedValue = dr["CountryId"].ToString();
+                }catch(Exception ex)
+                {
+                    SysProperty.Log.Error(ex.Message);
+                }
+            }
         }
 
         protected void ddlOrderType_SelectedIndexChanged(object sender, EventArgs e)
@@ -758,7 +782,12 @@ namespace TheWeWebSite.CaseMgt
         private void SetOrderServiceItem(string orderId)
         {
             if (string.IsNullOrEmpty(orderId)) return;
-            DataSet ds = SysProperty.GenDbCon.GetDataFromTable("Select * From ProductSetServiceItem Where IsDelete = 0 And OrderId='" + orderId + "'");
+            string sql = "SELECT ps.[Id],[SetId],[ItemId],[Number],[UnitId],ps.[CategoryId]"
+                + ", ps.[OrderId],ps.[IsDelete],ps.[Price],si.IsStore,si.Price as Cost"
+                + " FROM [dbo].[ProductSetServiceItem] as ps"
+                + " Left join ServiceItem as si on si.Id = ps.ItemId"
+                + " Where ps.IsDelete = 0 And ps.OrderId='" + orderId + "'";
+            DataSet ds = SysProperty.GenDbCon.GetDataFromTable(sql);
             if (SysProperty.Util.IsDataSetEmpty(ds)) return;
             int cnt = 0;
             foreach (DataRow dr in ds.Tables[0].Rows)
@@ -767,7 +796,9 @@ namespace TheWeWebSite.CaseMgt
                 {
                     AddNewRow();
                 }
+                ((DropDownList)dgServiceItem.Rows[cnt].FindControl("ddlCategory")).SelectedValue = dr["IsStore"].ToString();
                 ((DropDownList)dgServiceItem.Rows[cnt].FindControl("ddlServiceItem")).SelectedValue = dr["ItemId"].ToString();
+                ((Label)dgServiceItem.Rows[cnt].FindControl("labelCost")).Text = SysProperty.Util.ParseMoney(dr["Cost"].ToString()).ToString("#0.00");
                 ((TextBox)dgServiceItem.Rows[cnt].FindControl("tbNumber")).Text = dr["Number"].ToString();
                 ((TextBox)dgServiceItem.Rows[cnt].FindControl("tbPrice")).Text = SysProperty.Util.ParseMoney(dr["Price"].ToString()).ToString("#0.00");
                 cnt++;
@@ -778,7 +809,12 @@ namespace TheWeWebSite.CaseMgt
         private void SetProductServiceItem(string setId)
         {
             if (string.IsNullOrEmpty(setId)) return;
-            DataSet ds = SysProperty.GenDbCon.GetDataFromTable("Select * From ProductSetServiceItem Where IsDelete = 0 And SetId='" + setId + "'");
+            string sql = "SELECT ps.[Id],[SetId],[ItemId],[Number],[UnitId],ps.[CategoryId]"
+                + ", ps.[OrderId],ps.[IsDelete],ps.[Price],si.IsStore,si.Price as Cost"
+                + " FROM [dbo].[ProductSetServiceItem] as ps"
+                + " Left join ServiceItem as si on si.Id = ps.ItemId"
+                + " Where ps.IsDelete = 0 And ps.SetId='" + setId + "'";
+            DataSet ds = SysProperty.GenDbCon.GetDataFromTable(sql);
             if (SysProperty.Util.IsDataSetEmpty(ds)) return;
             int cnt = 0;
             foreach (DataRow dr in ds.Tables[0].Rows)
@@ -787,9 +823,11 @@ namespace TheWeWebSite.CaseMgt
                 {
                     AddNewRow();
                 }
-                ((DropDownList)dgServiceItem.Rows[cnt].FindControl("ddlServiceItem")).SelectedValue = dr["ItemId"].ToString();
+                ((DropDownList)dgServiceItem.Rows[cnt].FindControl("ddlCategory")).SelectedValue = dr["IsStore"].ToString() + ";" + cnt;
+                ((DropDownList)dgServiceItem.Rows[cnt].FindControl("ddlServiceItem")).SelectedValue = dr["ItemId"].ToString() + ";" + SysProperty.Util.ParseMoney(dr["Cost"].ToString()).ToString("#0.00") + ";" + cnt;
+                ((Label)dgServiceItem.Rows[cnt].FindControl("labelCost")).Text = SysProperty.Util.ParseMoney(dr["Cost"].ToString()).ToString("#0.00");
                 ((TextBox)dgServiceItem.Rows[cnt].FindControl("tbNumber")).Text = dr["Number"].ToString();
-                ((TextBox)dgServiceItem.Rows[cnt].FindControl("tbPrice")).Text = "0";
+                ((TextBox)dgServiceItem.Rows[cnt].FindControl("tbPrice")).Text = SysProperty.Util.ParseMoney(dr["Price"].ToString()).ToString("#0.00");
                 cnt++;
                 AddNewRow();
             }
@@ -1206,15 +1244,15 @@ namespace TheWeWebSite.CaseMgt
                     foreach (GridViewRow dr in dgServiceItem.Rows)
                     {
                         lst = new List<DbSearchObject>();
-                        str = ((DropDownList)dr.Cells[0].FindControl("ddlServiceItem")).SelectedValue;
+                        str = ((DropDownList)dr.Cells[1].FindControl("ddlServiceItem")).SelectedValue;
                         if (string.IsNullOrEmpty(str)) continue;
                         lst.Add(new DbSearchObject(
                             "ItemId"
                             , AtrrTypeItem.Date
                             , AttrSymbolItem.Equal
-                            , str
+                            , str.Split(';')[0]
                             ));
-                        str = ((TextBox)dr.Cells[1].FindControl("tbNumber")).Text;
+                        str = ((TextBox)dr.Cells[3].FindControl("tbNumber")).Text;
                         if (string.IsNullOrEmpty(str)) continue;
                         lst.Add(new DbSearchObject(
                             "Number"
@@ -1222,7 +1260,7 @@ namespace TheWeWebSite.CaseMgt
                             , AttrSymbolItem.Equal
                             , str
                             ));
-                        str = ((TextBox)dr.Cells[2].FindControl("tbPrice")).Text;
+                        str = ((TextBox)dr.Cells[4].FindControl("tbPrice")).Text;
                         if (string.IsNullOrEmpty(str)) continue;
                         lst.Add(new DbSearchObject(
                             "Price"
@@ -1530,13 +1568,17 @@ namespace TheWeWebSite.CaseMgt
         {
             DataTable dt = new DataTable();
             DataRow dr = null;
+            dt.Columns.Add(new DataColumn("Category", typeof(string)));
             dt.Columns.Add(new DataColumn("Col1", typeof(string)));
             dt.Columns.Add(new DataColumn("Col2", typeof(string)));
             dt.Columns.Add(new DataColumn("Col3", typeof(string)));
+            dt.Columns.Add(new DataColumn("Cost", typeof(string)));
             dr = dt.NewRow();
+            dr["Category"] = string.Empty;
             dr["Col1"] = string.Empty;
             dr["Col2"] = string.Empty;
             dr["Col3"] = string.Empty;
+            dr["Cost"] = string.Empty;
             dt.Rows.Add(dr);
 
             ViewState["CurrentTable"] = dt;
@@ -1556,18 +1598,24 @@ namespace TheWeWebSite.CaseMgt
                 {
                     for (int i = 1; i <= dtCurrentTable.Rows.Count; i++)
                     {
+                        DropDownList DdlCategory =
+                            (DropDownList)dgServiceItem.Rows[rowIndex].Cells[0].FindControl("ddlCategory");
                         DropDownList DdlItem =
-                            (DropDownList)dgServiceItem.Rows[rowIndex].Cells[0].FindControl("ddlServiceItem");
+                            (DropDownList)dgServiceItem.Rows[rowIndex].Cells[1].FindControl("ddlServiceItem");
                         TextBox TextStart =
-                          (TextBox)dgServiceItem.Rows[rowIndex].Cells[1].FindControl("tbNumber");
+                          (TextBox)dgServiceItem.Rows[rowIndex].Cells[3].FindControl("tbNumber");
                         TextBox TextEnd =
-                          (TextBox)dgServiceItem.Rows[rowIndex].Cells[2].FindControl("tbPrice");
+                          (TextBox)dgServiceItem.Rows[rowIndex].Cells[4].FindControl("tbPrice");
+                        Label LabelCost =
+                          (Label)dgServiceItem.Rows[rowIndex].Cells[2].FindControl("labelCost");
 
 
                         drCurrentRow = dtCurrentTable.NewRow();
+                        dtCurrentTable.Rows[i - 1]["Category"] = DdlCategory.SelectedValue;
                         dtCurrentTable.Rows[i - 1]["Col1"] = DdlItem.SelectedValue;
                         dtCurrentTable.Rows[i - 1]["Col2"] = TextStart.Text;
                         dtCurrentTable.Rows[i - 1]["Col3"] = TextEnd.Text;
+                        dtCurrentTable.Rows[i - 1]["Cost"] = LabelCost.Text;
                         rowIndex++;
                     }
                     dtCurrentTable.Rows.Add(drCurrentRow);
@@ -1594,14 +1642,19 @@ namespace TheWeWebSite.CaseMgt
                 {
                     for (int i = 0; i < dt.Rows.Count; i++)
                     {
-                        DropDownList DdlItem = (DropDownList)dgServiceItem.Rows[rowIndex].Cells[0].FindControl("ddlServiceItem");
-                        TextBox TextStart = (TextBox)dgServiceItem.Rows[rowIndex].Cells[1].FindControl("tbNumber");
-                        TextBox TextEnd = (TextBox)dgServiceItem.Rows[rowIndex].Cells[2].FindControl("tbPrice");
+                        DropDownList DdlCategory = (DropDownList)dgServiceItem.Rows[rowIndex].Cells[0].FindControl("ddlCategory");
+                        DropDownList DdlItem = (DropDownList)dgServiceItem.Rows[rowIndex].Cells[1].FindControl("ddlServiceItem");
+                        Label LabelCost = (Label)dgServiceItem.Rows[rowIndex].Cells[2].FindControl("labelCost");
+                        TextBox TextStart = (TextBox)dgServiceItem.Rows[rowIndex].Cells[3].FindControl("tbNumber");
+                        TextBox TextEnd = (TextBox)dgServiceItem.Rows[rowIndex].Cells[4].FindControl("tbPrice");
                         if (TextStart == null) continue;
                         if (TextEnd == null) continue;
+                        DdlCategory.SelectedValue = dt.Rows[i]["Category"].ToString();
+                        ddlCategory_SelectedIndexChanged(DdlCategory, new EventArgs());
                         DdlItem.SelectedValue = dt.Rows[i]["Col1"].ToString();
                         TextStart.Text = dt.Rows[i]["Col2"] == null ? string.Empty : dt.Rows[i]["Col2"].ToString();
                         TextEnd.Text = dt.Rows[i]["Col3"] == null ? string.Empty : dt.Rows[i]["Col3"].ToString();
+                        LabelCost.Text = dt.Rows[i]["Cost"].ToString();
                         rowIndex++;
                     }
                 }
@@ -1619,13 +1672,23 @@ namespace TheWeWebSite.CaseMgt
                 {
                     for (int i = 1; i <= dtCurrentTable.Rows.Count; i++)
                     {
-                        DropDownList DdlItem = (DropDownList)dgServiceItem.Rows[rowIndex].Cells[0].FindControl("ddlServiceItem");
-                        TextBox TextNumber = (TextBox)dgServiceItem.Rows[rowIndex].Cells[1].FindControl("tbNumber");
-                        TextBox TextPrice = (TextBox)dgServiceItem.Rows[rowIndex].Cells[2].FindControl("tbPrice");
+                        DropDownList DdlCategory =
+                            (DropDownList)dgServiceItem.Rows[rowIndex].Cells[0].FindControl("ddlCategory");
+                        DropDownList DdlItem =
+                            (DropDownList)dgServiceItem.Rows[rowIndex].Cells[1].FindControl("ddlServiceItem");
+                        TextBox TextNumber =
+                          (TextBox)dgServiceItem.Rows[rowIndex].Cells[3].FindControl("tbNumber");
+                        TextBox TextPrice =
+                          (TextBox)dgServiceItem.Rows[rowIndex].Cells[4].FindControl("tbPrice");
+                        Label LabelCost =
+                          (Label)dgServiceItem.Rows[rowIndex].Cells[2].FindControl("labelCost");
+
                         drCurrentRow = dtCurrentTable.NewRow();
+                        dtCurrentTable.Rows[i - 1]["Category"] = DdlCategory.SelectedValue;
                         dtCurrentTable.Rows[i - 1]["Col1"] = DdlItem.SelectedValue;
                         dtCurrentTable.Rows[i - 1]["Col2"] = TextNumber.Text;
                         dtCurrentTable.Rows[i - 1]["Col3"] = TextPrice.Text;
+                        dtCurrentTable.Rows[i - 1]["Cost"] = LabelCost.Text;
                         rowIndex++;
                     }
 
@@ -1668,32 +1731,83 @@ namespace TheWeWebSite.CaseMgt
             DataRowView dataItem1 = (DataRowView)e.Row.DataItem;
             if (dataItem1 != null)
             {
-                if (Session["CultureCode"] == null) return;
-                string cultureCode = Session["CultureCode"].ToString();
-                DropDownList ddlService = (DropDownList)e.Row.FindControl("ddlServiceItem");
-                ddlService.Items.Add(new ListItem(Resources.Resource.ServiceItemSelectRemindString, string.Empty));
-                DataSet ds = SysProperty.GenDbCon.GetDataFromTable("Select * From ServiceItem Where IsDelete = 0 And IsGeneral = 1");
-                if (SysProperty.Util.IsDataSetEmpty(ds)) return;
-                foreach (DataRow dr in ds.Tables[0].Rows)
-                {
-                    ddlService.Items.Add(new ListItem(
-                        SysProperty.Util.OutputRelatedLangName(cultureCode, dr)
-                        , dr["Id"].ToString()
-                        ));
-                }
-                if (string.IsNullOrEmpty(ddlLocate.SelectedValue)) return;
-                ds = SysProperty.GenDbCon.GetDataFromTable("Select * From ServiceItem Where IsGeneral = 0 And SupplierId = '" + ddlLocate.SelectedValue + "'");
-                if (SysProperty.Util.IsDataSetEmpty(ds)) return;
-                foreach (DataRow dr in ds.Tables[0].Rows)
-                {
-                    ddlService.Items.Add(new ListItem(
-                        SysProperty.Util.OutputRelatedLangName(cultureCode, dr)
-                        , dr["Id"].ToString()
-                        ));
-                }
-                ddlService.SelectedIndex = 0;
+                SetCategoryControl(e, e.Row.RowIndex);
+                SetServiceItemControl(e, e.Row.RowIndex, ((DropDownList)e.Row.FindControl("ddlCategory")).SelectedValue.Split(';')[0]);
+                ((Label)e.Row.FindControl("LabelCost")).Text = dataItem1["Cost"].ToString();
             }
         }
+        private void SetCategoryControl(GridViewRowEventArgs e, int index)
+        {
+            DropDownList ddlCategory = null;
+            if (e == null)
+            {
+                ddlCategory = (DropDownList)dgServiceItem.Rows[index].FindControl("ddlCategory");
+            }
+            else
+            {
+                ddlCategory = ((DropDownList)e.Row.FindControl("ddlCategory"));
+            }
+            ddlCategory.Items.Clear();
+            ddlCategory.Items.Add(new ListItem(Resources.Resource.ChurchString, "Church;" + index));
+            ddlCategory.Items.Add(new ListItem(Resources.Resource.StoreString, "Store;" + index));
+        }
+
+        private void SetServiceItemControl(GridViewRowEventArgs e, int index, string category)
+        {
+            if (string.IsNullOrEmpty(category)) return;
+
+            DropDownList ddlService = null;
+
+            if (e == null)
+            {
+                ddlService = (DropDownList)dgServiceItem.Rows[index].FindControl("ddlServiceItem");
+            }
+            else
+            {
+                ddlService = ((DropDownList)e.Row.FindControl("ddlServiceItem"));
+            }
+            ddlService.Items.Clear();
+            DataSet ds = null;
+            if (category.Trim() == "Store")
+            {
+                ds = SysProperty.GenDbCon.GetDataFromTable("Select * From ServiceItem Where IsDelete = 0 And IsStore = 1 "
+                    + "And StoreId = '" + ((DataRow)Session["LocateStore"])["Id"].ToString() + "'");
+            }
+            else if (category.Trim() == "Church")
+            {
+                if (string.IsNullOrEmpty(ddlLocate.SelectedValue)) return;
+                ds = SysProperty.GenDbCon.GetDataFromTable("Select * From ServiceItem Where IsStore = 0 And SupplierId = '" + ddlLocate.SelectedValue + "'");
+            }
+
+            if (SysProperty.Util.IsDataSetEmpty(ds)) return;
+            ddlService.Items.Add(new ListItem(Resources.Resource.ServiceItemSelectRemindString, string.Empty));
+            foreach (DataRow dr in ds.Tables[0].Rows)
+            {
+                ddlService.Items.Add(new ListItem(
+                    SysProperty.Util.OutputRelatedLangName(Session["CultureCode"].ToString(), dr)
+                    , dr["Id"].ToString() + ";" + dr["Price"].ToString() + ";" + index
+                    ));
+            }
+            ddlService.SelectedIndex = 0;
+
+        }
+        protected void ddlCategory_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string[] strs = ((DropDownList)sender).SelectedValue.Split(';');
+            SetServiceItemControl(null, int.Parse(strs[1]), strs[0]);
+            ((Label)dgServiceItem.Rows[int.Parse(strs[1])].FindControl("labelCost")).Text = "0";
+            ((TextBox)dgServiceItem.Rows[int.Parse(strs[1])].FindControl("tbNumber")).Text = "0";
+            ((TextBox)dgServiceItem.Rows[int.Parse(strs[1])].FindControl("tbPrice")).Text = "0";
+        }
+
+        protected void ddlServiceItem_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string value = ((DropDownList)sender).SelectedValue;
+            if (string.IsNullOrEmpty(value) || !value.Contains(";")) return;
+            string[] strs = value.Split(';');
+            ((Label)dgServiceItem.Rows[int.Parse(strs[2])].FindControl("labelCost")).Text = strs[1];
+        }
+
         protected void tbPrice_TextChanged(object sender, EventArgs e)
         {
             //bool result = false;
@@ -2070,6 +2184,6 @@ namespace TheWeWebSite.CaseMgt
             }
         }
 
-        #endregion
+        #endregion        
     }
 }

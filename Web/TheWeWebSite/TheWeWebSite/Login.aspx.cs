@@ -78,6 +78,7 @@ namespace TheWeWebSite
         private void InitialStoreList()
         {
             DataSet stores = GetStoreList();
+            if (SysProperty.Util.IsDataSetEmpty(stores)) return;
             ddlStore.Items.Clear();
             ListItem item = new ListItem(Resources.Resource.SelectStoreString, string.Empty, true);
             ddlStore.Items.Add(item);
