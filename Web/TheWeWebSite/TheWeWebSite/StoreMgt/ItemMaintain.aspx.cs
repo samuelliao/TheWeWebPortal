@@ -384,7 +384,7 @@ namespace TheWeWebSite.StoreMgt
 
         private void GetProductList(string condStr, string sortStr)
         {
-            string sqlTxt = "SELECT p.[Id],p.Sn,p.[CountryId],[Decoration],p.[Price],[PriceCurrencyId],[Cost]"
+            string sqlTxt = "SELECT TOP 100 p.[Id],p.Sn,p.[CountryId],[Decoration],p.[Price],[PriceCurrencyId],[Cost]"
                 + ",[CostCurrencyId],[ChurchId],[ChurchCost],p.[IsDelete],p.[UpdateAccId],p.[UpdateTime]"
                 + ",p.[Name],p.StoreId, p.BaseId,p.[EngName],p.[JpName],p.[CnName],[Category],[WeddingCategory],p.[AreaId],w.Name as TypeName"
                 + ",w.CnName as TypeCnName,w.EngName as TypeEngName,w.JpName as TypeJpName,s.Name as CategoryName"

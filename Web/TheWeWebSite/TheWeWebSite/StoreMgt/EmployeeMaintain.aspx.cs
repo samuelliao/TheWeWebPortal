@@ -215,7 +215,7 @@ namespace TheWeWebSite.StoreMgt
 
         private void BindData()
         {
-            GetEmployeeList(string.Empty);
+            GetEmployeeList(" Order by a.Sn");
             dataGrid.DataSource = DS;
             dataGrid.AllowPaging = !SysProperty.Util.IsDataSetEmpty(DS);
             dataGrid.DataBind();
@@ -225,7 +225,7 @@ namespace TheWeWebSite.StoreMgt
         {
             try
             {
-                string sql = "select a.[Id],a.[CountryId],d.[Name] as [CountryName] ,a.[Sn],a.[Name],a.[Addr],a.[Phone]"
+                string sql = "select TOP 100 a.[Id],a.[CountryId],d.[Name] as [CountryName] ,a.[Sn],a.[Name],a.[Addr],a.[Phone]"
                     + " ,a.[Bday],a.[OnBoard],a.[QuitDay],a.[Salary],a.[CurrencyId],a.[Remark]"
                     + " ,a.[StoreId],b.[Name] as [StoreName],a.[IsValid],a.[IsDelete], a.Account,a.[StoreHolder]"
                     + " from  [dbo].[vwEN_Employee] as a"

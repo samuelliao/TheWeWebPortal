@@ -117,7 +117,7 @@ namespace TheWeWebSite.StoreMgt
         {
             if (DS == null)
             {
-                GetCustomerList("Order by a." + e.SortExpression + " " + SysProperty.Util.GetSortDirection(e.SortExpression));
+                GetHariStyle("Order by a." + e.SortExpression + " " + SysProperty.Util.GetSortDirection(e.SortExpression));
             }
             if (DS != null)
             {
@@ -145,17 +145,17 @@ namespace TheWeWebSite.StoreMgt
 
         private void BindData()
         {
-            GetCustomerList(string.Empty);
+            GetHariStyle(string.Empty);
             dataGrid.DataSource = DS;
             dataGrid.AllowPaging = !SysProperty.Util.IsDataSetEmpty(DS);
             dataGrid.DataBind();
         }
 
-        private void GetCustomerList(string sortStr)
+        private void GetHariStyle(string sortStr)
         {
             try
             {
-                string sql = "select a.[Id],a.[Sn],b.[Name],a.[Type],a.[Img],a.[IsDelete],a.[UpdateAccId],a.[UpdateTime],a.[Description],a.[Img]"
+                string sql = "select TOP 100 a.[Id],a.[Sn],b.[Name],a.[Type],a.[Img],a.[IsDelete],a.[UpdateAccId],a.[UpdateTime],a.[Description],a.[Img]"
                     + " from  [dbo].[HairStyleItem] as a "
                     + " left join HairStyleCategory as b on b.Id=a.Type"
                     + " where a.IsDelete =0 " + OtherConditionString

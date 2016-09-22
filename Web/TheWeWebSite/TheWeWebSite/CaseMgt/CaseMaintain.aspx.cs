@@ -311,7 +311,7 @@ namespace TheWeWebSite.CaseMgt
                 {
                     if (lst == null || lst.Count == 0)
                     {
-                        sqlTxt = "SELECT o.[Id] as Id,[ConsultId], c.Sn As ConsultSn,o.[Sn],o.[StartTime]"
+                        sqlTxt = "SELECT TOP 100 o.[Id] as Id,[ConsultId], c.Sn As ConsultSn,o.[Sn],o.[StartTime]"
                             + ",o.[CustomerId],cus.Name AS CustomerName,o.[StatusId], ci.Name As StatusName, ci.JpName AS StatusJpName"
                             + ", ci.CnName AS StatusCnName, ci.EngName AS StatusEngName,[CloseTime],o.[CountryId],o.[AreaId],"
                             + "o.[ChurchId],SetId, p.Name AS SetName, p.EngName AS SetEngName,o.StoreId"
@@ -331,7 +331,7 @@ namespace TheWeWebSite.CaseMgt
                         if (item.Value.CanEntry)
                         {
                             sqlTxt += string.IsNullOrEmpty(sqlTxt) ? string.Empty : " Union ";
-                            sqlTxt += "SELECT o.[Id] as Id,[ConsultId], c.Sn As ConsultSn,o.[Sn],o.[StartTime]"
+                            sqlTxt += "SELECT TOP 100 o.[Id] as Id,[ConsultId], c.Sn As ConsultSn,o.[Sn],o.[StartTime]"
                             + ",o.[CustomerId],cus.Name AS CustomerName,o.[StatusId], ci.Name As StatusName, ci.JpName AS StatusJpName"
                             + ", ci.CnName AS StatusCnName, ci.EngName AS StatusEngName,[CloseTime],o.[CountryId],o.[AreaId],"
                             + "o.[ChurchId],SetId, p.Name AS SetName, p.EngName AS SetEngName,o.StoreId"
@@ -353,7 +353,7 @@ namespace TheWeWebSite.CaseMgt
                             }
                         }
                     }
-                    return "Select * From (" + sqlTxt + ")TBL " + otherCondition;
+                    return "Select TOP 100 * From (" + sqlTxt + ")TBL " + otherCondition;
                 }
                 catch (Exception ex)
                 {
@@ -366,7 +366,7 @@ namespace TheWeWebSite.CaseMgt
             else
             {
                 #region Holding Company
-                sqlTxt = "SELECT o.[Id] as Id,[ConsultId], c.Sn As ConsultSn,o.[Sn],o.[StartTime]"
+                sqlTxt = "SELECT TOP 100 o.[Id] as Id,[ConsultId], c.Sn As ConsultSn,o.[Sn],o.[StartTime]"
                             + ",o.[CustomerId],cus.Name AS CustomerName,o.[StatusId], ci.Name As StatusName, ci.JpName AS StatusJpName"
                             + ", ci.CnName AS StatusCnName, ci.EngName AS StatusEngName,[CloseTime],o.[CountryId],o.[AreaId],"
                             + "o.[ChurchId],SetId, p.Name AS SetName, p.EngName AS SetEngName,o.StoreId"

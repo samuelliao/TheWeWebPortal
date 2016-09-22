@@ -322,7 +322,7 @@ namespace TheWeWebSite.Main
         #region DB Control
         private void GetRentData(string condStr, string sortStr)
         {
-            string sql = "SELECT d.[Id],[DressId],d.[UpdateTime],d.[UpdateAccId],d.[CreatedateAccId],d.[CreatedateTime],d.[StartTime]"
+            string sql = "SELECT TOP 100 d.[Id],[DressId],d.[UpdateTime],d.[UpdateAccId],d.[CreatedateAccId],d.[CreatedateTime],d.[StartTime]"
                 + ",[EndTime],d.StatusCode,[OrderId],o.ChurchId,o.Sn As OrderSn,o.CountryId,o.AreaId,dr.StoreId,dr.Sn As DressSn"
                 + " FROM [dbo].[DressRent] AS d"
                 + " Left join OrderInfo as o on o.Id = d.OrderId"

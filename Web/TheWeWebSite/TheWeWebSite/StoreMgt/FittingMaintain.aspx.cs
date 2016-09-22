@@ -251,17 +251,17 @@ namespace TheWeWebSite.StoreMgt
                 {
                     if (string.IsNullOrEmpty(item.Value)) continue;
                     sql += string.IsNullOrEmpty(sql) ? string.Empty : " union ";
-                    sql += "Select Id, Sn, StoreId, Category, RentPrice, SellsPrice, IsDelete"
+                    sql += "Select TOP 100 Id, Sn, StoreId, Category, RentPrice, SellsPrice, IsDelete"
                         + ", StatusCode, '" + item.Value + "' As TypeName"
                     + " From " + item.Value + " Where IsDelete = 0 " + storeStr;
 
                 }
-                DS = GetDataFromDb("Select * From (" + sql + ")TBL Where IsDelete=0 " + condStr + " " + sortStr);
+                DS = GetDataFromDb("Select TOP 100 * From (" + sql + ")TBL Where IsDelete=0 " + condStr + " " + sortStr);
             }
             else
             {
-                sql = "Select Id, Sn, StoreId, Category, RentPrice, SellsPrice, IsDelete"
-                    +", StatusCode, '" + ddlCategory.SelectedValue + "' As TypeName"
+                sql = "Select TOP 100 Id, Sn, StoreId, Category, RentPrice, SellsPrice, IsDelete"
+                    + ", StatusCode, '" + ddlCategory.SelectedValue + "' As TypeName"
                     + " From " + tableName + " Where IsDelete = 0 " + storeStr + " " + condStr + " " + sortStr;
                 DS = GetDataFromDb(sql);
             }

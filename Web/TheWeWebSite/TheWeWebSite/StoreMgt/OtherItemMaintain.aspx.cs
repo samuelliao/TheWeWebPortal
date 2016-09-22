@@ -317,7 +317,7 @@ namespace TheWeWebSite.StoreMgt
         {
             try
             {
-                string sql = "select a.[Id],a.[Sn]"
+                string sql = "select TOP 100 a.[Id],a.[Sn]"
                         + " ,a.[Name],a.[Description],a.[Type],a.[Price]"
                         + " ,a.[SupplierId],a.[Cost],a.[StoreId],a.[CnName]"
                         + " ,a.[EngName],a.[JpName],a.[IsDelete],a.[CategoryId]"

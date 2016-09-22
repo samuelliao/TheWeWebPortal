@@ -218,7 +218,7 @@ namespace TheWeWebSite.CaseMgt
         {
             try
             {
-                string sql = "SELECT c.[Id],c.Sn,c.Name,c.EngName,c.Nickname"
+                string sql = "SELECT TOP 100 c.[Id],c.Sn,c.Name,c.EngName,c.Nickname"
                     + ",c.Phone,c.Email,c.Bday,m.Name as MsgerName,c.MessengerId"
                     + ",c.[IsDelete],c.UpdateAccId,c.UpdateTime,c.StoreId"
                     + " FROM [dbo].[vwEN_Customer] as c"

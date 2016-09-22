@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Data;
 using System.IO;
-using System.Linq;
-using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using TheWeLib;
@@ -434,12 +432,37 @@ namespace TheWeWebSite.CaseMgt
             SetChurchList(ddlCountry.SelectedValue, ddlArea.SelectedValue);
             SetProductSetList(ddlCountry.SelectedValue, ddlArea.SelectedValue, ddlLocate.SelectedValue, ddlOrderType.SelectedValue);
             FirstGridViewRow();
+            if (!string.IsNullOrEmpty(ddlArea.SelectedValue))
+            {
+                try
+                {
+                    DataRow dr = SysProperty.GetAreaById(ddlArea.SelectedValue);
+                    ddlCountry.SelectedValue = dr["CountryId"].ToString();
+                }
+                catch (Exception ex)
+                {
+                    SysProperty.Log.Error(ex.Message);
+                }
+            }
         }
 
         protected void ddlLocate_SelectedIndexChanged(object sender, EventArgs e)
         {
             SetProductSetList(ddlCountry.SelectedValue, ddlArea.SelectedValue, ddlLocate.SelectedValue, ddlOrderType.SelectedValue);
             FirstGridViewRow();
+            if (!string.IsNullOrEmpty(ddlLocate.SelectedValue))
+            {
+                try
+                {
+                    DataRow dr = SysProperty.GetChurchById(ddlLocate.SelectedValue);
+                    ddlArea.SelectedValue = dr["AreaId"].ToString();
+                    ddlCountry.SelectedValue = dr["CountryId"].ToString();
+                }
+                catch (Exception ex)
+                {
+                    SysProperty.Log.Error(ex.Message);
+                }
+            }
         }
 
         protected void ddlOrderType_SelectedIndexChanged(object sender, EventArgs e)
@@ -1671,8 +1694,10 @@ namespace TheWeWebSite.CaseMgt
                 if (Session["CultureCode"] == null) return;
                 string cultureCode = Session["CultureCode"].ToString();
                 DropDownList ddlService = (DropDownList)e.Row.FindControl("ddlServiceItem");
+                ddlService.Items.Clear();
                 ddlService.Items.Add(new ListItem(Resources.Resource.ServiceItemSelectRemindString, string.Empty));
-                DataSet ds = SysProperty.GenDbCon.GetDataFromTable("Select * From ServiceItem Where IsDelete = 0 And IsGeneral = 1");
+                DataSet ds = SysProperty.GenDbCon.GetDataFromTable("Select * From ServiceItem Where IsDelete = 0 And IsStore = 1"
+                    + " And StoreId = '" + ((DataRow)Session["LocateStore"])["Id"].ToString() + "'");
                 if (SysProperty.Util.IsDataSetEmpty(ds)) return;
                 foreach (DataRow dr in ds.Tables[0].Rows)
                 {
@@ -1682,7 +1707,7 @@ namespace TheWeWebSite.CaseMgt
                         ));
                 }
                 if (string.IsNullOrEmpty(ddlLocate.SelectedValue)) return;
-                ds = SysProperty.GenDbCon.GetDataFromTable("Select * From ServiceItem Where IsGeneral = 0 And SupplierId = '" + ddlLocate.SelectedValue + "'");
+                ds = SysProperty.GenDbCon.GetDataFromTable("Select * From ServiceItem Where IsStore = 0 And SupplierId = '" + ddlLocate.SelectedValue + "'");
                 if (SysProperty.Util.IsDataSetEmpty(ds)) return;
                 foreach (DataRow dr in ds.Tables[0].Rows)
                 {

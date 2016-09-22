@@ -355,7 +355,7 @@ namespace TheWeWebSite.StoreMgt
 
         private void GetDressList(string storeId, string condStr)
         {
-            string sqlTxt = "Select * From Dress Where IsDelete=0 "
+            string sqlTxt = "Select TOP 100 * From Dress Where IsDelete=0 "
                 + (string.IsNullOrEmpty(storeId) ? string.Empty : " And StoreId='" + storeId + "' ")
                 + condStr;
             DS = (DataSet)GetDataSetFromTable(sqlTxt);

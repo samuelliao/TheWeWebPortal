@@ -113,7 +113,7 @@ namespace TheWeWebSite.StoreMgt
         {
             try
             {
-                ChurchDataSet = SysProperty.GenDbCon.GetDataFromTable(string.Empty
+                ChurchDataSet = SysProperty.GenDbCon.GetDataFromTable(" TOP 100 * "
                     , SysProperty.Util.MsSqlTableConverter(MsSqlTable.Church)
                     , " Where IsDelete = 0" + condStr + " " + sortStr);
             }

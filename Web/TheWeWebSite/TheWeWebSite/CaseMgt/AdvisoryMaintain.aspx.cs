@@ -185,7 +185,7 @@ namespace TheWeWebSite.CaseMgt
         #region DB Control
         private void GetConsultList(string storeId, string otherCondition, string sortStr)
         {
-            string sqlTxt = "SELECT c.[Id],c.[Sn],[EmployeeId],e.Name as EmployeeName"
+            string sqlTxt = "SELECT TOP 100 c.[Id],c.[Sn],[EmployeeId],e.Name as EmployeeName"
                 + ",[SeekerGender],[BridalName],[BridalEngName],[BridalPhone],[GroomName]"
                 + ",[GroomEngName],c.[StatusId],con.Name as StatusName,[LastReceivedDate],c.[Remark]"
                 + ",[ConsultDate],[IsReply],[CloseDate],c.[BookingDate],[ContactMethod]"
