@@ -130,7 +130,7 @@
                                                 <asp:Label runat="server" ID="labelCategroy" />
                                             </ItemTemplate>
                                         </asp:TemplateColumn>
-                                        <asp:TemplateColumn HeaderText="<%$ Resources:Resource,WeddingStyleString%>" SortExpression="WeddingCategory">
+                                        <asp:TemplateColumn HeaderText="<%$ Resources:Resource,NameString%>">
                                             <ItemTemplate>
                                                 <asp:Label runat="server" ID="labelWeddingStyle" />
                                             </ItemTemplate>

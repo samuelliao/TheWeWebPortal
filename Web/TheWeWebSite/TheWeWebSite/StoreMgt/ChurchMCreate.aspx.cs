@@ -849,6 +849,7 @@ namespace TheWeWebSite.StoreMgt
                 RefreshImage(0, tbFolderPath.Text);
             }
         }
-        #endregion        
+        #endregion
+        
     }
 }

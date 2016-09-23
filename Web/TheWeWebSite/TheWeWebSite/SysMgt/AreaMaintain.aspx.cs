@@ -285,7 +285,7 @@ namespace TheWeWebSite.SysMgt
             if (!string.IsNullOrEmpty(tbName.Text))
             {
                 condStr = " And ( Name like N'%" + tbName.Text + "%'"
-                    + " OR ChName like N'%" + tbName.Text + "%'"
+                    + " OR CnName like N'%" + tbName.Text + "%'"
                     + " OR EngName like N'%" + tbName.Text + "%'"
                     + " OR JpName like N'%" + tbName.Text + "%')";
             }

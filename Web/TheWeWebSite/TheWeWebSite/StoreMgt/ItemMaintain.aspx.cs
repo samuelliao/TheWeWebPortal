@@ -309,10 +309,10 @@ namespace TheWeWebSite.StoreMgt
                     , dataItem1["CategoryEngName"].ToString()
                     , dataItem1["CategoryJpName"].ToString());
                 ((Label)e.Item.FindControl("labelWeddingStyle")).Text = SysProperty.Util.OutputRelatedLangName(Session["CultureCode"].ToString()
-                    , dataItem1["TypeName"].ToString()
-                    , dataItem1["TypeCnName"].ToString()
-                    , dataItem1["TypeEngName"].ToString()
-                    , dataItem1["TypeJpName"].ToString());
+                    , dataItem1["Name"].ToString()
+                    , dataItem1["CnName"].ToString()
+                    , dataItem1["EngName"].ToString()
+                    , dataItem1["JpName"].ToString());
                 if (!bool.Parse(((DataRow)Session["LocateStore"])["HoldingCompany"].ToString()))
                 {
                     if (!string.IsNullOrEmpty(dataItem1["BaseId"].ToString()))

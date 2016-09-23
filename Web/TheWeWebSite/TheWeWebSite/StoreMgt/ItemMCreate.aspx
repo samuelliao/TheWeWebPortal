@@ -86,9 +86,7 @@
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,WeddingStyleString%>"></asp:Label>
                             </div>
-                            <asp:DropDownList runat="server" ID="ddlWeddingType" CssClass="required" />
-                            <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate="ddlWeddingType" runat="server"
-                                ErrorMessage="required" CssClass="error" Display="Dynamic"></asp:RequiredFieldValidator>
+                            <asp:DropDownList runat="server" ID="ddlWeddingType" />
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
@@ -146,7 +144,7 @@
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,FilmingTimeString%>"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server" Cssclass="date date-1"  ID="tbFilmTime" Style="text-align: right"></asp:TextBox>
+                            <asp:TextBox runat="server"  ID="tbFilmTime" Style="text-align: right"></asp:TextBox>
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">

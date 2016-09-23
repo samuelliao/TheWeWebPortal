@@ -300,6 +300,7 @@ namespace TheWeWebSite.CaseMgt
                 {
                     ddlLocate.Items.Add(new ListItem(
                         SysProperty.Util.OutputRelatedLangName(Session["CultureCode"].ToString(), dr)
+                        +"("+ SysProperty.Util.OutputRelatedLangName(Session["CultureCode"].ToString(), SysProperty.GetAreaById(dr["AreaId"].ToString())) + ")"
                         , dr["Id"].ToString()
                         ));
                 }

@@ -281,7 +281,7 @@ namespace TheWeWebSite.StoreMgt
                 string condStr = string.Empty;
                 if (string.IsNullOrEmpty(ddlOthCategory.SelectedValue))
                 {
-                    condStr = OtherConditionString + " And CategoryId = '4ec16237-2cb6-496f-ab85-8fa708aa4d55'"
+                    condStr = OtherConditionString + " And CategoryId in ('4ec16237-2cb6-496f-ab85-8fa708aa4d55', '907C7E99-73A5-4B2A-8484-FB7BBD0BC1BA')"
                         + (bool.Parse(((DataRow)Session["LocateStore"])["HoldingCompany"].ToString())
                             ? string.Empty
                             : " and a.StoreId = '" + ((DataRow)Session["LocateStore"])["Id"].ToString() + "'");

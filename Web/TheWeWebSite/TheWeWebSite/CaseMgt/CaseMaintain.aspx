@@ -201,7 +201,7 @@
                                             </ItemTemplate>
                                         </asp:TemplateColumn>
                                         <asp:BoundColumn HeaderText="<%$ Resources:Resource,ContractSnString%>" DataField="Sn" />
-                                        <asp:TemplateColumn HeaderText="<%$ Resources:Resource,BridalNameString%>">
+                                        <asp:TemplateColumn HeaderText="<%$ Resources:Resource,BridalNameString%>" Visible="false">
                                             <ItemTemplate>
                                                 <asp:LinkButton runat="server" ID="linkCustomerName" Text="" OnClick="linkCustomerName_Click" />
                                             </ItemTemplate>

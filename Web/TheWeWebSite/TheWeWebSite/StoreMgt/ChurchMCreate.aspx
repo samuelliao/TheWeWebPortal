@@ -159,7 +159,7 @@
                             <div>
                                 <asp:UpdatePanel runat="server">
                                     <ContentTemplate>
-                                        <asp:GridView ID="dgBookTable" runat="server"
+                                        <asp:GridView ID="dgBookTable" runat="server" OnRowDeleting="dgBookTable_RowDeleting"
                                             AutoGenerateColumns="False" Font-Size="Small">
                                             <Columns>
                                                 <asp:TemplateField>
