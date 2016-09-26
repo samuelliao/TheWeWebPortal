@@ -1242,4 +1242,10 @@
   <data name="ChurchString" xml:space="preserve">
     <value>教堂</value>
   </data>
+  <data name="ExpectedPaymentDateString" xml:space="preserve">
+    <value>預計付款日</value>
+  </data>
+  <data name="RemittanceFeeString" xml:space="preserve">
+    <value>匯費</value>
+  </data>
 </root>

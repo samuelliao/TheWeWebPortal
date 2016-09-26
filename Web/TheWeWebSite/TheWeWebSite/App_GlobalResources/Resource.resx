@@ -1066,10 +1066,10 @@
     <value></value>
   </data>
   <data name="PaymentTimeString" xml:space="preserve">
-    <value></value>
+    <value>Payment Date</value>
   </data>
   <data name="PaymentMethodString" xml:space="preserve">
-    <value></value>
+    <value>Payment Method</value>
   </data>
   <data name="SecondString" xml:space="preserve">
     <value></value>
@@ -1177,7 +1177,7 @@
     <value></value>
   </data>
   <data name="PaymentString" xml:space="preserve">
-    <value></value>
+    <value>Payment</value>
   </data>
   <data name="OtherNameString" xml:space="preserve">
     <value></value>
@@ -1241,5 +1241,11 @@
   </data>
   <data name="ChurchString" xml:space="preserve">
     <value>Church</value>
+  </data>
+  <data name="ExpectedPaymentDateString" xml:space="preserve">
+    <value>Expected Payment Date</value>
+  </data>
+  <data name="RemittanceFeeString" xml:space="preserve">
+    <value>Remittance Fee</value>
   </data>
 </root>

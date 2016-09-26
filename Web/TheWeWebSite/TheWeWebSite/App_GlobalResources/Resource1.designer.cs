@@ -1357,6 +1357,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   查詢類似 Expected Payment Date 的當地語系化字串。
+        /// </summary>
+        internal static string ExpectedPaymentDateString {
+            get {
+                return ResourceManager.GetString("ExpectedPaymentDateString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查詢類似 Export 的當地語系化字串。
         /// </summary>
         internal static string ExportString {
@@ -2383,7 +2392,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   查詢類似  的當地語系化字串。
+        ///   查詢類似 Payment Method 的當地語系化字串。
         /// </summary>
         internal static string PaymentMethodString {
             get {
@@ -2392,7 +2401,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   查詢類似  的當地語系化字串。
+        ///   查詢類似 Payment 的當地語系化字串。
         /// </summary>
         internal static string PaymentString {
             get {
@@ -2401,7 +2410,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   查詢類似  的當地語系化字串。
+        ///   查詢類似 Payment Date 的當地語系化字串。
         /// </summary>
         internal static string PaymentTimeString {
             get {
@@ -2658,6 +2667,15 @@ namespace Resources {
         internal static string RemitMoneyString {
             get {
                 return ResourceManager.GetString("RemitMoneyString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查詢類似 Remittance Fee 的當地語系化字串。
+        /// </summary>
+        internal static string RemittanceFeeString {
+            get {
+                return ResourceManager.GetString("RemittanceFeeString", resourceCulture);
             }
         }
         

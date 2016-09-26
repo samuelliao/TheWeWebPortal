@@ -673,7 +673,7 @@ namespace TheWeWebSite.SysMgt
                     , SysProperty.Util.SqlQueryInsertValueConverter(lst)
                     ))
                     : (SysProperty.GenDbCon.UpdateDataIntoTable(
-                        SysProperty.Util.MsSqlTableConverter(MsSqlTable.Permission)
+                        SysProperty.Util.MsSqlTableConverter(table)
                         , SysProperty.Util.SqlQueryUpdateConverter(lst)
                         , " Where Id = '" + id + "'"));
             }

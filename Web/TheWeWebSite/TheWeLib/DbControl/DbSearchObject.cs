@@ -129,6 +129,7 @@ namespace TheWeLib
         DressRent = 83,
         ReceiptDetail = 84,
         DressOrder = 85,
+        PaymentMethod = 86,
         Nothing = 100
     }
 

@@ -136,6 +136,9 @@
                         <li>
                             <asp:LinkButton CausesValidation="false" runat="server" Text="<%$ Resources:Resource,CurrencyString%>" ID="LinkDollarMaintain" PostBackUrl="~/SysMgt/DollarMaintain.aspx" />
                         </li>
+                        <li>
+                            <asp:LinkButton CausesValidation="false" runat="server" Text="<%$ Resources:Resource,PaymentMethodString%>" ID="LinkPaymentMethod" PostBackUrl="~/SysMgt/PaymentMethod.aspx" />
+                        </li>
                     </ul>
                 </li>
                 <li runat="server" id="li1">

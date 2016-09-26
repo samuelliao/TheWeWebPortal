@@ -27,11 +27,13 @@ namespace TheWeWebSite.CaseMgt
             }
         }
 
+        #region Page Initialize
         private void InitialPage()
         {
             InitialControl();
             FirstGridViewRow();
             FirstGridViewRow2();
+            GridViewPayment_FirstGridViewRow();
             TextHint();
             if (Session["OrderId"] != null)
             {
@@ -190,6 +192,7 @@ namespace TheWeWebSite.CaseMgt
                 }
             }
         }
+        #endregion
 
         #region DropDownList Setting
         private void SetMsgerTypeList()
@@ -604,6 +607,7 @@ namespace TheWeWebSite.CaseMgt
             {
                 Session["OrderId"] = id;
                 WriteBackReceiptInfo(ReceiptDbObject(id));
+                WriteBackReceiptInfo(PaymentDbObject(id));
                 TransferToOtherPage(true);
             }
         }
@@ -625,6 +629,7 @@ namespace TheWeWebSite.CaseMgt
             if (result)
             {
                 WriteBackReceiptInfo(ReceiptDbObject(id));
+                WriteBackReceiptInfo(PaymentDbObject(id));
                 TransferToOtherPage(true);
             }
         }
@@ -739,6 +744,7 @@ namespace TheWeWebSite.CaseMgt
 
             // Receipt
             SetReceiptDetail(id);
+            SetPaymentDetail(id);
         }
 
         private void InitialCustomerInfo(string id)
@@ -822,7 +828,7 @@ namespace TheWeWebSite.CaseMgt
         private void SetReceiptDetail(string orderId)
         {
             if (string.IsNullOrEmpty(orderId)) return;
-            DataSet ds = SysProperty.GenDbCon.GetDataFromTable("Select * From ReceiptDetail Where IsDelete = 0 And OrderId = '" + orderId + "' order by Type, CreatedateTime");
+            DataSet ds = SysProperty.GenDbCon.GetDataFromTable("Select * From ReceiptDetail Where IsDelete = 0 And IsIncome = 1 And OrderId = '" + orderId + "' order by Type, CreatedateTime");
             int cnt = 0;
             if (!SysProperty.Util.IsDataSetEmpty(ds))
             {
@@ -835,9 +841,10 @@ namespace TheWeWebSite.CaseMgt
                     ((TextBox)GridView2.Rows[cnt].FindControl("tbReceiptId")).Text = dr["Id"].ToString();
                     ((TextBox)GridView2.Rows[cnt].FindControl("tbCategory")).Text = dr["Category"].ToString();
                     ((TextBox)GridView2.Rows[cnt].FindControl("tbIncomeDate")).Text = SysProperty.Util.ParseDateTime("DateTime", dr["PayDate"].ToString());
+                    ((DropDownList)GridView2.Rows[cnt].FindControl("ddlPaymentMethod")).SelectedValue = dr["PaymentMethod"].ToString();
                     ((DropDownList)GridView2.Rows[cnt].FindControl("ddlCurrency")).SelectedValue = dr["Currency"].ToString();
                     ((TextBox)GridView2.Rows[cnt].FindControl("tbCash")).Text = SysProperty.Util.ParseMoney(dr["Cash"].ToString()).ToString("#0.00");
-                    ((TextBox)GridView2.Rows[cnt].FindControl("tbRemit")).Text = SysProperty.Util.ParseMoney(dr["Remit"].ToString()).ToString("#0.00");
+                    ((TextBox)GridView2.Rows[cnt].FindControl("tbPaymentDate")).Text = SysProperty.Util.ParseDateTime("Date", dr["Anticipated"].ToString());
                     ((TextBox)GridView2.Rows[cnt].FindControl("tbReceiptDate")).Text = SysProperty.Util.ParseDateTime("DateTime", dr["ReceiptDate"].ToString());
                     ((TextBox)GridView2.Rows[cnt].FindControl("tbReceiptSn")).Text = dr["ReceiptSn"].ToString();
                     ((TextBox)GridView2.Rows[cnt].FindControl("tbTotalPrice")).Text = SysProperty.Util.ParseMoney(dr["TotalPrice"].ToString()).ToString("#0.00");
@@ -861,6 +868,50 @@ namespace TheWeWebSite.CaseMgt
                     ((TextBox)GridView2.Rows[cnt].FindControl("tbType")).Text = cnt.ToString();
                     GridView2.Rows[cnt].Cells[GridView2.Rows[cnt].Cells.Count - 1].Controls[0].Visible = false;
                     AddNewRow2();
+                }
+            }
+        }
+        private void SetPaymentDetail(string orderId)
+        {
+            if (string.IsNullOrEmpty(orderId)) return;
+            DataSet ds = SysProperty.GenDbCon.GetDataFromTable("Select * From ReceiptDetail Where IsDelete = 0 And IsIncome = 0 And OrderId = '" + orderId + "' order by Type, CreatedateTime");
+            int cnt = 0;
+            if (!SysProperty.Util.IsDataSetEmpty(ds))
+            {
+                if (GridViewPayment.Rows.Count == 0)
+                {
+                    GridViewPayment_AddNewRow();
+                }
+                foreach (DataRow dr in ds.Tables[0].Rows)
+                {                    
+                    ((TextBox)GridViewPayment.Rows[cnt].FindControl("tbReceiptId")).Text = dr["Id"].ToString();
+                    ((TextBox)GridViewPayment.Rows[cnt].FindControl("tbCategory")).Text = dr["Category"].ToString();
+                    ((TextBox)GridViewPayment.Rows[cnt].FindControl("tbIncomeDate")).Text = SysProperty.Util.ParseDateTime("DateTime", dr["PayDate"].ToString());
+                    ((DropDownList)GridViewPayment.Rows[cnt].FindControl("ddlPaymentMethod")).SelectedValue = dr["PaymentMethod"].ToString();
+                    ((DropDownList)GridViewPayment.Rows[cnt].FindControl("ddlCurrency")).SelectedValue = dr["Currency"].ToString();
+                    ((TextBox)GridViewPayment.Rows[cnt].FindControl("tbCash")).Text = SysProperty.Util.ParseMoney(dr["Cash"].ToString()).ToString("#0.00");
+                    ((TextBox)GridViewPayment.Rows[cnt].FindControl("tbPaymentDate")).Text = SysProperty.Util.ParseDateTime("Date", dr["Anticipated"].ToString());
+                    ((TextBox)GridViewPayment.Rows[cnt].FindControl("tbRate")).Text = SysProperty.Util.ParseMoney(dr["AccurencyRate"].ToString()).ToString("#0.00");
+                    ((TextBox)GridViewPayment.Rows[cnt].FindControl("tbFee")).Text = SysProperty.Util.ParseMoney(dr["Fee"].ToString()).ToString("#0.00");
+                    ((TextBox)GridViewPayment.Rows[cnt].FindControl("tbTotalPrice")).Text = SysProperty.Util.ParseMoney(dr["TotalPrice"].ToString()).ToString("#0.00");
+                    ((TextBox)GridViewPayment.Rows[cnt].FindControl("tbType")).Text = dr["Type"].ToString();
+                    GridViewPayment.Rows[cnt].Cells[GridViewPayment.Rows[cnt].Cells.Count - 1].Controls[0].Visible = false;
+                    cnt++;
+                    GridViewPayment_AddNewRow();
+                }
+            }
+            else
+            {
+                if (GridViewPayment.Rows.Count == 0)
+                {
+                    GridViewPayment_AddNewRow();
+                }
+                for (cnt = 0; cnt < 2; cnt++)
+                {
+                    ((TextBox)GridViewPayment.Rows[cnt].FindControl("tbCategory")).Text = (cnt == 0 ? Resources.Resource.DepositString : Resources.Resource.BalanceDueString);
+                    ((TextBox)GridViewPayment.Rows[cnt].FindControl("tbType")).Text = cnt.ToString();
+                    GridViewPayment.Rows[cnt].Cells[GridViewPayment.Rows[cnt].Cells.Count - 1].Controls[0].Visible = false;
+                    GridViewPayment_AddNewRow();
                 }
             }
         }
@@ -1323,67 +1374,78 @@ namespace TheWeWebSite.CaseMgt
                             , ((TextBox)dr.Cells[2].FindControl("tbIncomeDate")).Text
                             ));
                         lst.Add(new DbSearchObject(
+                            "PaymentMethod"
+                            , AtrrTypeItem.String
+                            , AttrSymbolItem.Equal
+                            , ((DropDownList)dr.Cells[3].FindControl("ddlPaymentMethod")).SelectedValue
+                            ));
+                        lst.Add(new DbSearchObject(
                             "Currency"
                             , AtrrTypeItem.String
                             , AttrSymbolItem.Equal
-                            , ((DropDownList)dr.Cells[3].FindControl("ddlCurrency")).SelectedValue
+                            , ((DropDownList)dr.Cells[4].FindControl("ddlCurrency")).SelectedValue
                             ));
                         lst.Add(new DbSearchObject(
                             "Cash"
                             , AtrrTypeItem.String
                             , AttrSymbolItem.Equal
-                            , ((TextBox)dr.Cells[4].FindControl("tbCash")).Text
+                            , ((TextBox)dr.Cells[5].FindControl("tbCash")).Text
                             ));
                         lst.Add(new DbSearchObject(
-                            "Remit"
+                            "Anticipated"
                             , AtrrTypeItem.String
                             , AttrSymbolItem.Equal
-                            , ((TextBox)dr.Cells[5].FindControl("tbRemit")).Text
+                            , ((TextBox)dr.Cells[6].FindControl("tbPaymentDate")).Text
                             ));
                         lst.Add(new DbSearchObject(
                             "ReceiptDate"
                             , AtrrTypeItem.DateTime
                             , AttrSymbolItem.Equal
-                            , ((TextBox)dr.Cells[6].FindControl("tbReceiptDate")).Text
+                            , ((TextBox)dr.Cells[7].FindControl("tbReceiptDate")).Text
                             ));
                         lst.Add(new DbSearchObject(
                             "ReceiptSn"
                             , AtrrTypeItem.String
                             , AttrSymbolItem.Equal
-                            , ((TextBox)dr.Cells[7].FindControl("tbReceiptSn")).Text
+                            , ((TextBox)dr.Cells[8].FindControl("tbReceiptSn")).Text
                             ));
                         lst.Add(new DbSearchObject(
                             "TotalPrice"
                             , AtrrTypeItem.String
                             , AttrSymbolItem.Equal
-                            , ((TextBox)dr.Cells[8].FindControl("tbTotalPrice")).Text
+                            , ((TextBox)dr.Cells[9].FindControl("tbTotalPrice")).Text
                             ));
                         lst.Add(new DbSearchObject(
                             "SalesPrice"
                             , AtrrTypeItem.String
                             , AttrSymbolItem.Equal
-                            , ((TextBox)dr.Cells[9].FindControl("tbSales")).Text
-                            ));
-                        str = ((TextBox)dr.Cells[11].FindControl("tbType")).Text;
-                        lst.Add(new DbSearchObject(
-                            "Type"
-                            , AtrrTypeItem.String
-                            , AttrSymbolItem.Equal
-                            , string.IsNullOrEmpty(str) ? "2" : str
+                            , ((TextBox)dr.Cells[10].FindControl("tbSales")).Text
                             ));
                         lst.Add(new DbSearchObject(
                             "Tax"
                             , AtrrTypeItem.String
                             , AttrSymbolItem.Equal
-                            , ((TextBox)dr.Cells[10].FindControl("tbTax")).Text
+                            , ((TextBox)dr.Cells[11].FindControl("tbTax")).Text
                             ));
+                        str = ((TextBox)dr.Cells[12].FindControl("tbType")).Text;
+                        lst.Add(new DbSearchObject(
+                            "Type"
+                            , AtrrTypeItem.String
+                            , AttrSymbolItem.Equal
+                            , string.IsNullOrEmpty(str) ? "2" : str
+                            ));                        
                         lst.Add(new DbSearchObject(
                             "UpdateAccId"
                             , AtrrTypeItem.String
                             , AttrSymbolItem.Equal
                             , ((DataRow)Session["AccountInfo"])["Id"].ToString()
                             ));
-                        result.Add(lst);
+                        lst.Add(new DbSearchObject(
+                            "IsIncome"
+                            , AtrrTypeItem.Bit
+                            , AttrSymbolItem.Equal
+                            , "1"
+                            ));
                         if (isCreate)
                         {
                             lst.Add(new DbSearchObject(
@@ -1402,6 +1464,127 @@ namespace TheWeWebSite.CaseMgt
                             , ((TextBox)dr.Cells[0].FindControl("tbReceiptId")).Text
                             ));
                         }
+                        result.Add(lst);
+                    }
+                }
+            }
+            return result;
+        }
+        private List<List<DbSearchObject>> PaymentDbObject(string id)
+        {
+            List<List<DbSearchObject>> result = new List<List<DbSearchObject>>();
+            List<DbSearchObject> lst = new List<DbSearchObject>();
+            if (ViewState["CurrentTablePayment"] != null)
+            {
+                string str = string.Empty;
+                bool isCreate = false;
+                if (GridViewPayment.Rows.Count > 0)
+                {
+                    foreach (GridViewRow dr in GridViewPayment.Rows)
+                    {
+                        lst = new List<DbSearchObject>();
+                        str = ((TextBox)dr.Cells[0].FindControl("tbReceiptId")).Text;
+                        isCreate = string.IsNullOrEmpty(str);
+                        str = ((TextBox)dr.Cells[1].FindControl("tbCategory")).Text;
+                        if (string.IsNullOrEmpty(str)) continue;
+                        lst.Add(new DbSearchObject(
+                            "Category"
+                            , AtrrTypeItem.String
+                            , AttrSymbolItem.Equal
+                            , str
+                            ));
+                        lst.Add(new DbSearchObject(
+                            "OrderId"
+                            , AtrrTypeItem.String
+                            , AttrSymbolItem.Equal
+                            , id
+                            ));
+                        lst.Add(new DbSearchObject(
+                            "PayDate"
+                            , AtrrTypeItem.DateTime
+                            , AttrSymbolItem.Equal
+                            , ((TextBox)dr.Cells[2].FindControl("tbIncomeDate")).Text
+                            ));
+                        lst.Add(new DbSearchObject(
+                            "PaymentMethod"
+                            , AtrrTypeItem.String
+                            , AttrSymbolItem.Equal
+                            , ((DropDownList)dr.Cells[3].FindControl("ddlPaymentMethod")).SelectedValue
+                            ));
+                        lst.Add(new DbSearchObject(
+                            "Currency"
+                            , AtrrTypeItem.String
+                            , AttrSymbolItem.Equal
+                            , ((DropDownList)dr.Cells[4].FindControl("ddlCurrency")).SelectedValue
+                            ));
+                        lst.Add(new DbSearchObject(
+                            "Cash"
+                            , AtrrTypeItem.String
+                            , AttrSymbolItem.Equal
+                            , ((TextBox)dr.Cells[5].FindControl("tbCash")).Text
+                            ));
+                        lst.Add(new DbSearchObject(
+                            "Anticipated"
+                            , AtrrTypeItem.String
+                            , AttrSymbolItem.Equal
+                            , ((TextBox)dr.Cells[6].FindControl("tbPaymentDate")).Text
+                            ));
+                        lst.Add(new DbSearchObject(
+                            "AccurencyRate"
+                            , AtrrTypeItem.DateTime
+                            , AttrSymbolItem.Equal
+                            , ((TextBox)dr.Cells[7].FindControl("tbRate")).Text
+                            ));
+                        lst.Add(new DbSearchObject(
+                            "Fee"
+                            , AtrrTypeItem.String
+                            , AttrSymbolItem.Equal
+                            , ((TextBox)dr.Cells[8].FindControl("tbFee")).Text
+                            ));
+                        lst.Add(new DbSearchObject(
+                            "TotalPrice"
+                            , AtrrTypeItem.String
+                            , AttrSymbolItem.Equal
+                            , ((TextBox)dr.Cells[9].FindControl("tbTotalPrice")).Text
+                            ));
+                        str = ((TextBox)dr.Cells[10].FindControl("tbType")).Text;
+                        lst.Add(new DbSearchObject(
+                            "Type"
+                            , AtrrTypeItem.String
+                            , AttrSymbolItem.Equal
+                            , string.IsNullOrEmpty(str) ? "2" : str
+                            ));
+                        lst.Add(new DbSearchObject(
+                            "UpdateAccId"
+                            , AtrrTypeItem.String
+                            , AttrSymbolItem.Equal
+                            , ((DataRow)Session["AccountInfo"])["Id"].ToString()
+                            ));
+                        lst.Add(new DbSearchObject(
+                            "IsIncome"
+                            , AtrrTypeItem.Bit
+                            , AttrSymbolItem.Equal
+                            , "0"
+                            ));
+                        if (isCreate)
+                        {
+                            lst.Add(new DbSearchObject(
+                            "CreatedateAccId"
+                            , AtrrTypeItem.String
+                            , AttrSymbolItem.Equal
+                            , ((DataRow)Session["AccountInfo"])["Id"].ToString()
+                            ));
+                        }
+                        else
+                        {
+                            lst.Add(new DbSearchObject(
+                            "Id"
+                            , AtrrTypeItem.String
+                            , AttrSymbolItem.Equal
+                            , ((TextBox)dr.Cells[0].FindControl("tbReceiptId")).Text
+                            ));
+                        }
+                        result.Add(lst);
                     }
                 }
             }
@@ -1871,7 +2054,7 @@ namespace TheWeWebSite.CaseMgt
         }
         #endregion
 
-        #region Receipt Table
+        #region Income Table
         protected void GridView2_RowDataBound(object sender, GridViewRowEventArgs e)
         {
             DataRowView dataItem1 = (DataRowView)e.Row.DataItem;
@@ -1879,6 +2062,8 @@ namespace TheWeWebSite.CaseMgt
             {
                 if (Session["CultureCode"] == null) return;
                 string cultureCode = Session["CultureCode"].ToString();
+
+                #region Set Currency Control
                 DropDownList ddlCurrency = (DropDownList)e.Row.FindControl("ddlCurrency");
                 ddlCurrency.Items.Clear();
                 DataSet ds = SysProperty.GenDbCon.GetDataFromTable("Select * From Currency Where IsDelete = 0");
@@ -1890,10 +2075,25 @@ namespace TheWeWebSite.CaseMgt
                         , dr["Id"].ToString()
                         ));
                 }
-                if (string.IsNullOrEmpty(dataItem1["Col3"].ToString()))
+                if (string.IsNullOrEmpty(dataItem1["Col4"].ToString()))
                 {
                     ddlCurrency.SelectedValue = ((DataRow)Session["LocateStore"])["Currency"].ToString();
                 }
+                #endregion
+
+                #region Set Peyment Method Control
+                DropDownList ddlMehtod = (DropDownList)e.Row.FindControl("ddlPaymentMethod");
+                ddlMehtod.Items.Clear();
+                ds = SysProperty.GenDbCon.GetDataFromTable("Select * From PaymentMethod Where IsDelete = 0 Order by Sn");
+                if (SysProperty.Util.IsDataSetEmpty(ds)) return;
+                foreach (DataRow dr in ds.Tables[0].Rows)
+                {
+                    ddlMehtod.Items.Add(new ListItem(
+                        SysProperty.Util.OutputRelatedLangName(cultureCode, dr)
+                        , dr["Id"].ToString()
+                        ));
+                }
+                #endregion
 
                 if (!string.IsNullOrEmpty(dataItem1["Id"].ToString()))
                 {
@@ -1931,16 +2131,17 @@ namespace TheWeWebSite.CaseMgt
 
         private void FirstGridViewRow2()
         {
+            int colCnt = 12;
             DataTable dt = new DataTable();
             DataRow dr = null;
             dt.Columns.Add(new DataColumn("Id", typeof(string)));
-            for (int i = 1; i <= 11; i++)
+            for (int i = 1; i <= colCnt; i++)
             {
                 dt.Columns.Add(new DataColumn("Col" + i, typeof(string)));
             }
             dr = dt.NewRow();
             dr["Id"] = string.Empty;
-            for (int i = 1; i <= 11; i++)
+            for (int i = 1; i <= colCnt; i++)
             {
                 dr["Col" + i] = string.Empty;
             }
@@ -1954,7 +2155,7 @@ namespace TheWeWebSite.CaseMgt
         private void AddNewRow2()
         {
             int rowIndex = 0;
-
+            int cnt = 0;
             if (ViewState["CurrentTable2"] != null)
             {
                 DataTable dtCurrentTable = (DataTable)ViewState["CurrentTable2"];
@@ -1963,33 +2164,36 @@ namespace TheWeWebSite.CaseMgt
                 {
                     for (int i = 1; i <= dtCurrentTable.Rows.Count; i++)
                     {
-                        TextBox TextReceiptId = (TextBox)GridView2.Rows[rowIndex].Cells[0].FindControl("tbReceiptId");
-                        TextBox TextCategory = (TextBox)GridView2.Rows[rowIndex].Cells[1].FindControl("tbCategory");
-                        TextBox TextDate = (TextBox)GridView2.Rows[rowIndex].Cells[2].FindControl("tbIncomeDate");
-                        DropDownList DdlItem = (DropDownList)GridView2.Rows[rowIndex].Cells[3].FindControl("ddlCurrency");
-                        TextBox TextCash = (TextBox)GridView2.Rows[rowIndex].Cells[4].FindControl("tbCash");
-                        TextBox TextRemit = (TextBox)GridView2.Rows[rowIndex].Cells[5].FindControl("tbRemit");
-                        TextBox TextReceiptDate = (TextBox)GridView2.Rows[rowIndex].Cells[6].FindControl("tbReceiptDate");
-                        TextBox TextReceiptSn = (TextBox)GridView2.Rows[rowIndex].Cells[7].FindControl("tbReceiptSn");
-                        TextBox TextTotalPrice = (TextBox)GridView2.Rows[rowIndex].Cells[8].FindControl("tbTotalPrice");
-                        TextBox TextSales = (TextBox)GridView2.Rows[rowIndex].Cells[9].FindControl("tbSales");
-                        TextBox TextTax = (TextBox)GridView2.Rows[rowIndex].Cells[10].FindControl("tbTax");
-                        TextBox TextType = (TextBox)GridView2.Rows[rowIndex].Cells[11].FindControl("tbType");
+                        cnt = 0;
+                        TextBox TextReceiptId = (TextBox)GridView2.Rows[rowIndex].Cells[cnt++].FindControl("tbReceiptId");
+                        TextBox TextCategory = (TextBox)GridView2.Rows[rowIndex].Cells[cnt++].FindControl("tbCategory");
+                        TextBox TextDate = (TextBox)GridView2.Rows[rowIndex].Cells[cnt++].FindControl("tbIncomeDate");
+                        DropDownList DdlPayment = (DropDownList)GridView2.Rows[rowIndex].Cells[cnt++].FindControl("ddlPaymentMethod");
+                        DropDownList DdlItem = (DropDownList)GridView2.Rows[rowIndex].Cells[cnt++].FindControl("ddlCurrency");
+                        TextBox TextCash = (TextBox)GridView2.Rows[rowIndex].Cells[cnt++].FindControl("tbCash");
+                        TextBox TextPaymentDate = (TextBox)GridView2.Rows[rowIndex].Cells[cnt++].FindControl("tbPaymentDate");
+                        TextBox TextReceiptDate = (TextBox)GridView2.Rows[rowIndex].Cells[cnt++].FindControl("tbReceiptDate");
+                        TextBox TextReceiptSn = (TextBox)GridView2.Rows[rowIndex].Cells[cnt++].FindControl("tbReceiptSn");
+                        TextBox TextTotalPrice = (TextBox)GridView2.Rows[rowIndex].Cells[cnt++].FindControl("tbTotalPrice");
+                        TextBox TextSales = (TextBox)GridView2.Rows[rowIndex].Cells[cnt++].FindControl("tbSales");
+                        TextBox TextTax = (TextBox)GridView2.Rows[rowIndex].Cells[cnt++].FindControl("tbTax");
+                        TextBox TextType = (TextBox)GridView2.Rows[rowIndex].Cells[cnt++].FindControl("tbType");
 
-
+                        cnt = 1;
                         drCurrentRow = dtCurrentTable.NewRow();
                         dtCurrentTable.Rows[i - 1]["Id"] = TextReceiptId.Text;
-                        dtCurrentTable.Rows[i - 1]["Col1"] = TextCategory.Text;
-                        dtCurrentTable.Rows[i - 1]["Col2"] = TextDate.Text;
-                        dtCurrentTable.Rows[i - 1]["Col3"] = DdlItem.SelectedValue;
-                        dtCurrentTable.Rows[i - 1]["Col4"] = TextCash.Text;
-                        dtCurrentTable.Rows[i - 1]["Col5"] = TextRemit.Text;
-                        dtCurrentTable.Rows[i - 1]["Col6"] = TextReceiptDate.Text;
-                        dtCurrentTable.Rows[i - 1]["Col7"] = TextReceiptSn.Text;
-                        dtCurrentTable.Rows[i - 1]["Col8"] = TextTotalPrice.Text;
-                        dtCurrentTable.Rows[i - 1]["Col9"] = TextSales.Text;
-                        dtCurrentTable.Rows[i - 1]["Col10"] = TextTax.Text;
-                        dtCurrentTable.Rows[i - 1]["Col11"] = TextType.Text;
+                        dtCurrentTable.Rows[i - 1]["Col"+(cnt++)] = TextCategory.Text;
+                        dtCurrentTable.Rows[i - 1]["Col" + (cnt++)] = TextDate.Text;
+                        dtCurrentTable.Rows[i - 1]["Col" + (cnt++)] = DdlPayment.SelectedIndex;
+                        dtCurrentTable.Rows[i - 1]["Col" + (cnt++)] = DdlItem.SelectedValue;
+                        dtCurrentTable.Rows[i - 1]["Col" + (cnt++)] = TextCash.Text;
+                        dtCurrentTable.Rows[i - 1]["Col" + (cnt++)] = TextPaymentDate.Text;
+                        dtCurrentTable.Rows[i - 1]["Col" + (cnt++)] = TextReceiptDate.Text;
+                        dtCurrentTable.Rows[i - 1]["Col" + (cnt++)] = TextReceiptSn.Text;
+                        dtCurrentTable.Rows[i - 1]["Col" + (cnt++)] = TextTotalPrice.Text;
+                        dtCurrentTable.Rows[i - 1]["Col" + (cnt++)] = TextSales.Text;
+                        dtCurrentTable.Rows[i - 1]["Col" + (cnt++)] = TextTax.Text;
+                        dtCurrentTable.Rows[i - 1]["Col" + (cnt++)] = TextType.Text;
                         rowIndex++;
                     }
                     dtCurrentTable.Rows.Add(drCurrentRow);
@@ -2009,6 +2213,7 @@ namespace TheWeWebSite.CaseMgt
         private void SetPreviousData2()
         {
             int rowIndex = 0;
+            int cnt = 0;
             if (ViewState["CurrentTable2"] != null)
             {
                 DataTable dt = (DataTable)ViewState["CurrentTable2"];
@@ -2016,31 +2221,35 @@ namespace TheWeWebSite.CaseMgt
                 {
                     for (int i = 0; i < dt.Rows.Count; i++)
                     {
-                        TextBox TextReceiptId = (TextBox)GridView2.Rows[rowIndex].Cells[0].FindControl("tbReceiptId");
-                        TextBox TextCategory = (TextBox)GridView2.Rows[rowIndex].Cells[1].FindControl("tbCategory");
-                        TextBox TextDate = (TextBox)GridView2.Rows[rowIndex].Cells[2].FindControl("tbIncomeDate");
-                        DropDownList DdlItem = (DropDownList)GridView2.Rows[rowIndex].Cells[3].FindControl("ddlCurrency");
-                        TextBox TextCash = (TextBox)GridView2.Rows[rowIndex].Cells[4].FindControl("tbCash");
-                        TextBox TextRemit = (TextBox)GridView2.Rows[rowIndex].Cells[5].FindControl("tbRemit");
-                        TextBox TextReceiptDate = (TextBox)GridView2.Rows[rowIndex].Cells[6].FindControl("tbReceiptDate");
-                        TextBox TextReceiptSn = (TextBox)GridView2.Rows[rowIndex].Cells[7].FindControl("tbReceiptSn");
-                        TextBox TextTotalPrice = (TextBox)GridView2.Rows[rowIndex].Cells[8].FindControl("tbTotalPrice");
-                        TextBox TextSales = (TextBox)GridView2.Rows[rowIndex].Cells[9].FindControl("tbSales");
-                        TextBox TextTax = (TextBox)GridView2.Rows[rowIndex].Cells[10].FindControl("tbTax");
-                        TextBox TextType = (TextBox)GridView2.Rows[rowIndex].Cells[11].FindControl("tbType");
+                        cnt = 0;
+                        TextBox TextReceiptId = (TextBox)GridView2.Rows[rowIndex].Cells[cnt++].FindControl("tbReceiptId");
+                        TextBox TextCategory = (TextBox)GridView2.Rows[rowIndex].Cells[cnt++].FindControl("tbCategory");
+                        TextBox TextDate = (TextBox)GridView2.Rows[rowIndex].Cells[cnt++].FindControl("tbIncomeDate");
+                        DropDownList DdlPayment = (DropDownList)GridView2.Rows[rowIndex].Cells[cnt++].FindControl("ddlPaymentMethod");
+                        DropDownList DdlItem = (DropDownList)GridView2.Rows[rowIndex].Cells[cnt++].FindControl("ddlCurrency");
+                        TextBox TextCash = (TextBox)GridView2.Rows[rowIndex].Cells[cnt++].FindControl("tbCash");
+                        TextBox TextPaymentDate = (TextBox)GridView2.Rows[rowIndex].Cells[cnt++].FindControl("tbPaymentDate");
+                        TextBox TextReceiptDate = (TextBox)GridView2.Rows[rowIndex].Cells[cnt++].FindControl("tbReceiptDate");
+                        TextBox TextReceiptSn = (TextBox)GridView2.Rows[rowIndex].Cells[cnt++].FindControl("tbReceiptSn");
+                        TextBox TextTotalPrice = (TextBox)GridView2.Rows[rowIndex].Cells[cnt++].FindControl("tbTotalPrice");
+                        TextBox TextSales = (TextBox)GridView2.Rows[rowIndex].Cells[cnt++].FindControl("tbSales");
+                        TextBox TextTax = (TextBox)GridView2.Rows[rowIndex].Cells[cnt++].FindControl("tbTax");
+                        TextBox TextType = (TextBox)GridView2.Rows[rowIndex].Cells[cnt++].FindControl("tbType");
 
+                        cnt = 1;
                         TextReceiptId.Text = dt.Rows[i]["Id"] == null ? string.Empty : dt.Rows[i]["Id"].ToString();
-                        TextCategory.Text = dt.Rows[i]["Col1"] == null ? string.Empty : dt.Rows[i]["Col1"].ToString();
-                        TextDate.Text = dt.Rows[i]["Col2"] == null ? string.Empty : dt.Rows[i]["Col2"].ToString();
-                        DdlItem.SelectedValue = dt.Rows[i]["Col3"].ToString();
-                        TextCash.Text = dt.Rows[i]["Col4"] == null ? string.Empty : dt.Rows[i]["Col4"].ToString();
-                        TextRemit.Text = dt.Rows[i]["Col5"] == null ? string.Empty : dt.Rows[i]["Col5"].ToString();
-                        TextReceiptDate.Text = dt.Rows[i]["Col6"] == null ? string.Empty : dt.Rows[i]["Col6"].ToString();
-                        TextReceiptSn.Text = dt.Rows[i]["Col7"] == null ? string.Empty : dt.Rows[i]["Col7"].ToString();
-                        TextTotalPrice.Text = dt.Rows[i]["Col8"] == null ? string.Empty : dt.Rows[i]["Col8"].ToString();
-                        TextSales.Text = dt.Rows[i]["Col9"] == null ? string.Empty : dt.Rows[i]["Col9"].ToString();
-                        TextTax.Text = dt.Rows[i]["Col10"] == null ? string.Empty : dt.Rows[i]["Col10"].ToString();
-                        TextType.Text = dt.Rows[i]["Col11"] == null ? string.Empty : dt.Rows[i]["Col11"].ToString();
+                        TextCategory.Text = dt.Rows[i]["Col"+cnt] == null ? string.Empty : dt.Rows[i]["Col" + (cnt++)].ToString();
+                        TextDate.Text = dt.Rows[i]["Col" + cnt] == null ? string.Empty : dt.Rows[i]["Col" + (cnt++)].ToString();
+                        DdlPayment.SelectedValue = dt.Rows[i]["Col" + (cnt++)].ToString();
+                        DdlItem.SelectedValue = dt.Rows[i]["Col" + (cnt++)].ToString();
+                        TextCash.Text = dt.Rows[i]["Col" + cnt] == null ? string.Empty : dt.Rows[i]["Col" + (cnt++)].ToString();
+                        TextPaymentDate.Text = dt.Rows[i]["Col" + cnt] == null ? string.Empty : dt.Rows[i]["Col" + (cnt++)].ToString();
+                        TextReceiptDate.Text = dt.Rows[i]["Col" + cnt] == null ? string.Empty : dt.Rows[i]["Col" + (cnt++)].ToString();
+                        TextReceiptSn.Text = dt.Rows[i]["Col" + cnt] == null ? string.Empty : dt.Rows[i]["Col" + (cnt++)].ToString();
+                        TextTotalPrice.Text = dt.Rows[i]["Col" + cnt] == null ? string.Empty : dt.Rows[i]["Col" + (cnt++)].ToString();
+                        TextSales.Text = dt.Rows[i]["Col" + cnt] == null ? string.Empty : dt.Rows[i]["Col" + (cnt++)].ToString();
+                        TextTax.Text = dt.Rows[i]["Col" + cnt] == null ? string.Empty : dt.Rows[i]["Col" + (cnt++)].ToString();
+                        TextType.Text = dt.Rows[i]["Col" + cnt] == null ? string.Empty : dt.Rows[i]["Col" + (cnt++)].ToString();
                         rowIndex++;
                     }
                 }
@@ -2049,7 +2258,7 @@ namespace TheWeWebSite.CaseMgt
         private void SetRowData2()
         {
             int rowIndex = 0;
-
+            int cnt = 0;
             if (ViewState["CurrentTable2"] != null)
             {
                 DataTable dtCurrentTable = (DataTable)ViewState["CurrentTable2"];
@@ -2058,32 +2267,36 @@ namespace TheWeWebSite.CaseMgt
                 {
                     for (int i = 1; i <= dtCurrentTable.Rows.Count; i++)
                     {
-                        TextBox TextReceiptId = (TextBox)GridView2.Rows[rowIndex].Cells[0].FindControl("tbReceiptId");
-                        TextBox TextCategory = (TextBox)GridView2.Rows[rowIndex].Cells[1].FindControl("tbCategory");
-                        TextBox TextDate = (TextBox)GridView2.Rows[rowIndex].Cells[2].FindControl("tbIncomeDate");
-                        DropDownList DdlItem = (DropDownList)GridView2.Rows[rowIndex].Cells[3].FindControl("ddlCurrency");
-                        TextBox TextCash = (TextBox)GridView2.Rows[rowIndex].Cells[4].FindControl("tbCash");
-                        TextBox TextRemit = (TextBox)GridView2.Rows[rowIndex].Cells[5].FindControl("tbRemit");
-                        TextBox TextReceiptDate = (TextBox)GridView2.Rows[rowIndex].Cells[6].FindControl("tbReceiptDate");
-                        TextBox TextReceiptSn = (TextBox)GridView2.Rows[rowIndex].Cells[7].FindControl("tbReceiptSn");
-                        TextBox TextTotalPrice = (TextBox)GridView2.Rows[rowIndex].Cells[8].FindControl("tbTotalPrice");
-                        TextBox TextSales = (TextBox)GridView2.Rows[rowIndex].Cells[9].FindControl("tbSales");
-                        TextBox TextTax = (TextBox)GridView2.Rows[rowIndex].Cells[10].FindControl("tbTax");
-                        TextBox TextType = (TextBox)GridView2.Rows[rowIndex].Cells[11].FindControl("tbType");
+                        cnt = 0;
+                        TextBox TextReceiptId = (TextBox)GridView2.Rows[rowIndex].Cells[cnt++].FindControl("tbReceiptId");
+                        TextBox TextCategory = (TextBox)GridView2.Rows[rowIndex].Cells[cnt++].FindControl("tbCategory");
+                        TextBox TextDate = (TextBox)GridView2.Rows[rowIndex].Cells[cnt++].FindControl("tbIncomeDate");
+                        DropDownList DdlPayment = (DropDownList)GridView2.Rows[rowIndex].Cells[cnt++].FindControl("ddlPaymentMethod");
+                        DropDownList DdlItem = (DropDownList)GridView2.Rows[rowIndex].Cells[cnt++].FindControl("ddlCurrency");
+                        TextBox TextCash = (TextBox)GridView2.Rows[rowIndex].Cells[cnt++].FindControl("tbCash");
+                        TextBox TextPaymentDate = (TextBox)GridView2.Rows[rowIndex].Cells[cnt++].FindControl("tbPaymentDate");
+                        TextBox TextReceiptDate = (TextBox)GridView2.Rows[rowIndex].Cells[cnt++].FindControl("tbReceiptDate");
+                        TextBox TextReceiptSn = (TextBox)GridView2.Rows[rowIndex].Cells[cnt++].FindControl("tbReceiptSn");
+                        TextBox TextTotalPrice = (TextBox)GridView2.Rows[rowIndex].Cells[cnt++].FindControl("tbTotalPrice");
+                        TextBox TextSales = (TextBox)GridView2.Rows[rowIndex].Cells[cnt++].FindControl("tbSales");
+                        TextBox TextTax = (TextBox)GridView2.Rows[rowIndex].Cells[cnt++].FindControl("tbTax");
+                        TextBox TextType = (TextBox)GridView2.Rows[rowIndex].Cells[cnt++].FindControl("tbType");
 
+                        cnt = 1;
                         drCurrentRow = dtCurrentTable.NewRow();
                         dtCurrentTable.Rows[i - 1]["Id"] = TextReceiptId.Text;
-                        dtCurrentTable.Rows[i - 1]["Col1"] = TextCategory.Text;
-                        dtCurrentTable.Rows[i - 1]["Col2"] = TextDate.Text;
-                        dtCurrentTable.Rows[i - 1]["Col3"] = DdlItem.SelectedValue;
-                        dtCurrentTable.Rows[i - 1]["Col4"] = TextCash.Text;
-                        dtCurrentTable.Rows[i - 1]["Col5"] = TextRemit.Text;
-                        dtCurrentTable.Rows[i - 1]["Col6"] = TextReceiptDate.Text;
-                        dtCurrentTable.Rows[i - 1]["Col7"] = TextReceiptSn.Text;
-                        dtCurrentTable.Rows[i - 1]["Col8"] = TextTotalPrice.Text;
-                        dtCurrentTable.Rows[i - 1]["Col9"] = TextSales.Text;
-                        dtCurrentTable.Rows[i - 1]["Col10"] = TextTax.Text;
-                        dtCurrentTable.Rows[i - 1]["Col11"] = TextType.Text;
+                        dtCurrentTable.Rows[i - 1]["Col" + (cnt++)] = TextCategory.Text;
+                        dtCurrentTable.Rows[i - 1]["Col" + (cnt++)] = TextDate.Text;
+                        dtCurrentTable.Rows[i - 1]["Col" + (cnt++)] = DdlPayment.SelectedIndex;
+                        dtCurrentTable.Rows[i - 1]["Col" + (cnt++)] = DdlItem.SelectedValue;
+                        dtCurrentTable.Rows[i - 1]["Col" + (cnt++)] = TextCash.Text;
+                        dtCurrentTable.Rows[i - 1]["Col" + (cnt++)] = TextPaymentDate.Text;
+                        dtCurrentTable.Rows[i - 1]["Col" + (cnt++)] = TextReceiptDate.Text;
+                        dtCurrentTable.Rows[i - 1]["Col" + (cnt++)] = TextReceiptSn.Text;
+                        dtCurrentTable.Rows[i - 1]["Col" + (cnt++)] = TextTotalPrice.Text;
+                        dtCurrentTable.Rows[i - 1]["Col" + (cnt++)] = TextSales.Text;
+                        dtCurrentTable.Rows[i - 1]["Col" + (cnt++)] = TextTax.Text;
+                        dtCurrentTable.Rows[i - 1]["Col" + (cnt++)] = TextType.Text;
                         rowIndex++;
                     }
 
@@ -2096,6 +2309,249 @@ namespace TheWeWebSite.CaseMgt
             }
         }
 
+        #endregion
+
+        #region Payment Table
+        protected void GridViewPayment_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            DataRowView dataItem1 = (DataRowView)e.Row.DataItem;
+            if (dataItem1 != null)
+            {
+                if (Session["CultureCode"] == null) return;
+                string cultureCode = Session["CultureCode"].ToString();
+
+                #region Set Currency Control
+                DropDownList ddlCurrency = (DropDownList)e.Row.FindControl("ddlCurrency");
+                ddlCurrency.Items.Clear();
+                DataSet ds = SysProperty.GenDbCon.GetDataFromTable("Select * From Currency Where IsDelete = 0");
+                if (SysProperty.Util.IsDataSetEmpty(ds)) return;
+                foreach (DataRow dr in ds.Tables[0].Rows)
+                {
+                    ddlCurrency.Items.Add(new ListItem(
+                        dr["Name"].ToString()
+                        , dr["Id"].ToString()
+                        ));
+                }
+                if (string.IsNullOrEmpty(dataItem1["Col4"].ToString()))
+                {
+                    ddlCurrency.SelectedValue = ((DataRow)Session["LocateStore"])["Currency"].ToString();
+                }
+                #endregion
+
+                #region Set Peyment Method Control
+                DropDownList ddlMehtod = (DropDownList)e.Row.FindControl("ddlPaymentMethod");
+                ddlMehtod.Items.Clear();
+                ds = SysProperty.GenDbCon.GetDataFromTable("Select * From PaymentMethod Where IsDelete = 0 Order by Sn");
+                if (SysProperty.Util.IsDataSetEmpty(ds)) return;
+                foreach (DataRow dr in ds.Tables[0].Rows)
+                {
+                    ddlMehtod.Items.Add(new ListItem(
+                        SysProperty.Util.OutputRelatedLangName(cultureCode, dr)
+                        , dr["Id"].ToString()
+                        ));
+                }
+                #endregion
+
+                if (!string.IsNullOrEmpty(dataItem1["Id"].ToString()))
+                {
+                    e.Row.Cells[e.Row.Cells.Count - 1].Controls[0].Visible = false;
+                }
+            }
+        }
+
+        protected void GridViewPayment_RowDeleting(object sender, GridViewDeleteEventArgs e)
+        {
+            GridViewPayment_SetRowData();
+            if (ViewState["CurrentTablePayment"] != null)
+            {
+                DataTable dt = (DataTable)ViewState["CurrentTablePayment"];
+                DataRow drCurrentRow = null;
+                int rowIndex = Convert.ToInt32(e.RowIndex);
+                if (dt.Rows.Count > 1)
+                {
+                    dt.Rows.Remove(dt.Rows[rowIndex]);
+                    drCurrentRow = dt.NewRow();
+                    ViewState["CurrentTablePayment"] = dt;
+                    GridViewPayment.DataSource = dt;
+                    GridViewPayment.DataBind();
+
+                    GridViewPayment_SetPreviousData();
+                }
+            }
+        }
+
+        private void GridViewPayment_FirstGridViewRow()
+        {
+            int colCnt = 10;
+            DataTable dt = new DataTable();
+            DataRow dr = null;
+            dt.Columns.Add(new DataColumn("Id", typeof(string)));
+            for (int i = 1; i <= colCnt; i++)
+            {
+                dt.Columns.Add(new DataColumn("Col" + i, typeof(string)));
+            }
+            dr = dt.NewRow();
+            dr["Id"] = string.Empty;
+            for (int i = 1; i <= colCnt; i++)
+            {
+                dr["Col" + i] = string.Empty;
+            }
+            dt.Rows.Add(dr);
+
+            ViewState["CurrentTablePayment"] = dt;
+            GridViewPayment.DataSource = dt;
+            GridViewPayment.DataBind();
+        }
+
+        private void GridViewPayment_AddNewRow()
+        {
+            int rowIndex = 0;
+            int cnt = 0;
+            if (ViewState["CurrentTablePayment"] != null)
+            {
+                DataTable dtCurrentTable = (DataTable)ViewState["CurrentTablePayment"];
+                DataRow drCurrentRow = null;
+                if (dtCurrentTable.Rows.Count > 0)
+                {
+                    for (int i = 1; i <= dtCurrentTable.Rows.Count; i++)
+                    {
+                        cnt = 0;
+                        TextBox TextReceiptId = (TextBox)GridViewPayment.Rows[rowIndex].Cells[cnt++].FindControl("tbReceiptId");
+                        TextBox TextCategory = (TextBox)GridViewPayment.Rows[rowIndex].Cells[cnt++].FindControl("tbCategory");
+                        TextBox TextDate = (TextBox)GridViewPayment.Rows[rowIndex].Cells[cnt++].FindControl("tbIncomeDate");
+                        DropDownList DdlPayment = (DropDownList)GridViewPayment.Rows[rowIndex].Cells[cnt++].FindControl("ddlPaymentMethod");
+                        DropDownList DdlItem = (DropDownList)GridViewPayment.Rows[rowIndex].Cells[cnt++].FindControl("ddlCurrency");
+                        TextBox TextCash = (TextBox)GridViewPayment.Rows[rowIndex].Cells[cnt++].FindControl("tbCash");
+                        TextBox TextPaymentDate = (TextBox)GridViewPayment.Rows[rowIndex].Cells[cnt++].FindControl("tbPaymentDate");
+                        TextBox TextRate = (TextBox)GridViewPayment.Rows[rowIndex].Cells[cnt++].FindControl("tbRate");
+                        TextBox TextFee = (TextBox)GridViewPayment.Rows[rowIndex].Cells[cnt++].FindControl("tbFee");
+                        TextBox TextTotalPrice = (TextBox)GridViewPayment.Rows[rowIndex].Cells[cnt++].FindControl("tbTotalPrice");
+                        TextBox TextType = (TextBox)GridViewPayment.Rows[rowIndex].Cells[cnt++].FindControl("tbType");
+
+                        cnt = 1;
+                        drCurrentRow = dtCurrentTable.NewRow();
+                        dtCurrentTable.Rows[i - 1]["Id"] = TextReceiptId.Text;
+                        dtCurrentTable.Rows[i - 1]["Col" + (cnt++)] = TextCategory.Text;
+                        dtCurrentTable.Rows[i - 1]["Col" + (cnt++)] = TextDate.Text;
+                        dtCurrentTable.Rows[i - 1]["Col" + (cnt++)] = DdlPayment.SelectedIndex;
+                        dtCurrentTable.Rows[i - 1]["Col" + (cnt++)] = DdlItem.SelectedValue;
+                        dtCurrentTable.Rows[i - 1]["Col" + (cnt++)] = TextCash.Text;
+                        dtCurrentTable.Rows[i - 1]["Col" + (cnt++)] = TextPaymentDate.Text;
+                        dtCurrentTable.Rows[i - 1]["Col" + (cnt++)] = TextRate.Text;
+                        dtCurrentTable.Rows[i - 1]["Col" + (cnt++)] = TextFee.Text;
+                        dtCurrentTable.Rows[i - 1]["Col" + (cnt++)] = TextTotalPrice.Text;
+                        dtCurrentTable.Rows[i - 1]["Col" + (cnt++)] = TextType.Text;
+                        rowIndex++;
+                    }
+                    dtCurrentTable.Rows.Add(drCurrentRow);
+                    ViewState["CurrentTablePayment"] = dtCurrentTable;
+
+                    GridViewPayment.DataSource = dtCurrentTable;
+                    GridViewPayment.DataBind();
+                }
+            }
+            else
+            {
+                Response.Write("ViewState is null");
+            }
+            GridViewPayment_SetPreviousData();
+        }
+
+        private void GridViewPayment_SetPreviousData()
+        {
+            int rowIndex = 0;
+            int cnt = 0;
+            if (ViewState["CurrentTablePayment"] != null)
+            {
+                DataTable dt = (DataTable)ViewState["CurrentTablePayment"];
+                if (dt.Rows.Count > 0)
+                {
+                    for (int i = 0; i < dt.Rows.Count; i++)
+                    {
+                        cnt = 0;
+                        TextBox TextReceiptId = (TextBox)GridViewPayment.Rows[rowIndex].Cells[cnt++].FindControl("tbReceiptId");
+                        TextBox TextCategory = (TextBox)GridViewPayment.Rows[rowIndex].Cells[cnt++].FindControl("tbCategory");
+                        TextBox TextDate = (TextBox)GridViewPayment.Rows[rowIndex].Cells[cnt++].FindControl("tbIncomeDate");
+                        DropDownList DdlPayment = (DropDownList)GridViewPayment.Rows[rowIndex].Cells[cnt++].FindControl("ddlPaymentMethod");
+                        DropDownList DdlItem = (DropDownList)GridViewPayment.Rows[rowIndex].Cells[cnt++].FindControl("ddlCurrency");
+                        TextBox TextCash = (TextBox)GridViewPayment.Rows[rowIndex].Cells[cnt++].FindControl("tbCash");
+                        TextBox TextPaymentDate = (TextBox)GridViewPayment.Rows[rowIndex].Cells[cnt++].FindControl("tbPaymentDate");
+                        TextBox TextRate = (TextBox)GridViewPayment.Rows[rowIndex].Cells[cnt++].FindControl("tbRate");
+                        TextBox TextFee = (TextBox)GridViewPayment.Rows[rowIndex].Cells[cnt++].FindControl("tbFee");
+                        TextBox TextTotalPrice = (TextBox)GridViewPayment.Rows[rowIndex].Cells[cnt++].FindControl("tbTotalPrice");
+                        TextBox TextType = (TextBox)GridViewPayment.Rows[rowIndex].Cells[cnt++].FindControl("tbType");
+
+                        cnt = 1;
+                        TextReceiptId.Text = dt.Rows[i]["Id"] == null ? string.Empty : dt.Rows[i]["Id"].ToString();
+                        TextCategory.Text = dt.Rows[i]["Col" + cnt] == null ? string.Empty : dt.Rows[i]["Col" + (cnt++)].ToString();
+                        TextDate.Text = dt.Rows[i]["Col" + cnt] == null ? string.Empty : dt.Rows[i]["Col" + (cnt++)].ToString();
+                        DdlPayment.SelectedValue = dt.Rows[i]["Col" + (cnt++)].ToString();
+                        DdlItem.SelectedValue = dt.Rows[i]["Col" + (cnt++)].ToString();
+                        TextCash.Text = dt.Rows[i]["Col" + cnt] == null ? string.Empty : dt.Rows[i]["Col" + (cnt++)].ToString();
+                        TextPaymentDate.Text = dt.Rows[i]["Col" +cnt] == null ? string.Empty : dt.Rows[i]["Col" + (cnt++)].ToString();
+                        TextRate.Text = dt.Rows[i]["Col" + cnt] == null ? string.Empty : dt.Rows[i]["Col" + (cnt++)].ToString();
+                        TextFee.Text = dt.Rows[i]["Col" + cnt] == null ? string.Empty : dt.Rows[i]["Col" + (cnt++)].ToString();
+                        TextTotalPrice.Text = dt.Rows[i]["Col" + cnt] == null ? string.Empty : dt.Rows[i]["Col" + (cnt++)].ToString();
+                        TextType.Text = dt.Rows[i]["Col" + cnt] == null ? string.Empty : dt.Rows[i]["Col" + (cnt++)].ToString();
+                        rowIndex++;
+                    }
+                }
+            }
+        }
+        private void GridViewPayment_SetRowData()
+        {
+            int rowIndex = 0;
+            int cnt = 0;
+            if (ViewState["CurrentTablePayment"] != null)
+            {
+                DataTable dtCurrentTable = (DataTable)ViewState["CurrentTablePayment"];
+                DataRow drCurrentRow = null;
+                if (dtCurrentTable.Rows.Count > 0)
+                {
+                    for (int i = 1; i <= dtCurrentTable.Rows.Count; i++)
+                    {
+                        cnt = 0;
+                        TextBox TextReceiptId = (TextBox)GridViewPayment.Rows[rowIndex].Cells[cnt++].FindControl("tbReceiptId");
+                        TextBox TextCategory = (TextBox)GridViewPayment.Rows[rowIndex].Cells[cnt++].FindControl("tbCategory");
+                        TextBox TextDate = (TextBox)GridViewPayment.Rows[rowIndex].Cells[cnt++].FindControl("tbIncomeDate");
+                        DropDownList DdlPayment = (DropDownList)GridViewPayment.Rows[rowIndex].Cells[cnt++].FindControl("ddlPaymentMethod");
+                        DropDownList DdlItem = (DropDownList)GridViewPayment.Rows[rowIndex].Cells[cnt++].FindControl("ddlCurrency");
+                        TextBox TextCash = (TextBox)GridViewPayment.Rows[rowIndex].Cells[cnt++].FindControl("tbCash");
+                        TextBox TextPaymentDate = (TextBox)GridViewPayment.Rows[rowIndex].Cells[cnt++].FindControl("tbPaymentDate");
+                        TextBox TextRate = (TextBox)GridViewPayment.Rows[rowIndex].Cells[cnt++].FindControl("tbRate");
+                        TextBox TextFee = (TextBox)GridViewPayment.Rows[rowIndex].Cells[cnt++].FindControl("tbFee");
+                        TextBox TextTotalPrice = (TextBox)GridViewPayment.Rows[rowIndex].Cells[cnt++].FindControl("tbTotalPrice");
+                        TextBox TextType = (TextBox)GridViewPayment.Rows[rowIndex].Cells[cnt++].FindControl("tbType");
+
+                        cnt = 1;
+                        drCurrentRow = dtCurrentTable.NewRow();
+                        dtCurrentTable.Rows[i - 1]["Id"] = TextReceiptId.Text;
+                        dtCurrentTable.Rows[i - 1]["Col" + (cnt++)] = TextCategory.Text;
+                        dtCurrentTable.Rows[i - 1]["Col" + (cnt++)] = TextDate.Text;
+                        dtCurrentTable.Rows[i - 1]["Col" + (cnt++)] = DdlPayment.SelectedIndex;
+                        dtCurrentTable.Rows[i - 1]["Col" + (cnt++)] = DdlItem.SelectedValue;
+                        dtCurrentTable.Rows[i - 1]["Col" + (cnt++)] = TextCash.Text;
+                        dtCurrentTable.Rows[i - 1]["Col" + (cnt++)] = TextPaymentDate.Text;
+                        dtCurrentTable.Rows[i - 1]["Col" + (cnt++)] = TextRate.Text;
+                        dtCurrentTable.Rows[i - 1]["Col" + (cnt++)] = TextFee.Text;
+                        dtCurrentTable.Rows[i - 1]["Col" + (cnt++)] = TextTotalPrice.Text;
+                        dtCurrentTable.Rows[i - 1]["Col" + (cnt++)] = TextType.Text;
+                        rowIndex++;
+                    }
+
+                    ViewState["CurrentTablePayment"] = dtCurrentTable;
+                }
+            }
+            else
+            {
+                Response.Write("ViewState is null");
+            }
+        }
+
+        protected void btnPaymentAddRow_Click(object sender, EventArgs e)
+        {
+            GridViewPayment_AddNewRow();
+        }
         #endregion
     }
 }

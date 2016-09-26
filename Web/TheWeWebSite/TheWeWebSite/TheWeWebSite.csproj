@@ -142,11 +142,13 @@
     <Content Include="SysMgt\DollarMaintain.aspx" />
     <Content Include="SysMgt\LoginMaintain.aspx" />
     <Content Include="SysMgt\MsgMaintain.aspx" />
+    <Content Include="SysMgt\PaymentMethod.aspx" />
     <Content Include="SysMgt\RootMaintain.aspx" />
     <Content Include="SysMgt\StoreMaintain.aspx" />
     <Content Include="SysMgt\UnitMaintain.aspx" />
     <Content Include="UC\DressSelection.ascx" />
     <Content Include="Web.config" />
+    <Content Include="WebUserControl1.ascx" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_GlobalResources\Resource.zh-CN.designer.cs">
@@ -430,6 +432,13 @@
     <Compile Include="SysMgt\MsgMaintain.aspx.designer.cs">
       <DependentUpon>MsgMaintain.aspx</DependentUpon>
     </Compile>
+    <Compile Include="SysMgt\PaymentMethod.aspx.cs">
+      <DependentUpon>PaymentMethod.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SysMgt\PaymentMethod.aspx.designer.cs">
+      <DependentUpon>PaymentMethod.aspx</DependentUpon>
+    </Compile>
     <Compile Include="SysMgt\RootMaintain.aspx.cs">
       <DependentUpon>RootMaintain.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -458,6 +467,13 @@
     <Compile Include="UC\DressSelection.ascx.designer.cs">
       <DependentUpon>DressSelection.ascx</DependentUpon>
     </Compile>
+    <Compile Include="WebUserControl1.ascx.cs">
+      <DependentUpon>WebUserControl1.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebUserControl1.ascx.designer.cs">
+      <DependentUpon>WebUserControl1.ascx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="assets\sass\ie8.scss" />
@@ -471,6 +487,7 @@
     </Content>
     <Content Include="packages.config" />
     <None Include="Properties\PublishProfiles\The We.pubxml" />
+    <None Include="Properties\PublishProfiles\TheWe.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

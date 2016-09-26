@@ -67,6 +67,7 @@ namespace TheWeWebSite
                 case "RootMaintain":
                 case "StoreMaintain":
                 case "UnitMaintain":
+                case "PaymentMethod":
                     return "6";
                 case "AccInfoSetting":
                     return "7";

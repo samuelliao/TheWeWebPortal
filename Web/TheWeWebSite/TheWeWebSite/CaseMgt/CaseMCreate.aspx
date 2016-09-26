@@ -513,7 +513,7 @@
                         </asp:Panel>
                     </ContentTemplate>
                 </cc1:TabPanel>
-                <cc1:TabPanel runat="server">
+                <cc1:TabPanel runat="server" ID="tabBalanceOfPayment">
                     <HeaderTemplate>
                         <asp:Label runat="server" Text="<%$ Resources:Resource,IncomeDetailString%>"></asp:Label>
                     </HeaderTemplate>
@@ -568,57 +568,61 @@
                                                     </asp:TemplateField>
                                                     <asp:TemplateField HeaderText="<%$ Resources:Resource,DateString%>">
                                                         <ItemTemplate>
-                                                            <asp:TextBox runat="server" Style="text-align: right" ID="tbIncomeDate"
+                                                            <asp:TextBox runat="server" Style="text-align: right" ID="tbIncomeDate" Font-Size="Small"
                                                                 CssClass="date date-1" value="" placeholder="YYYY-MM-DD HH:MM APM" data-timeformat="HH:MM"></asp:TextBox>
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
+                                                    <asp:TemplateField HeaderText="<%$ Resources:Resource,PaymentMethodString%>">
+                                                        <ItemTemplate>
+                                                            <asp:DropDownList runat="server" ID="ddlPaymentMethod" Font-Size="Small" Width="80px" />
                                                         </ItemTemplate>
                                                     </asp:TemplateField>
                                                     <asp:TemplateField HeaderText="<%$ Resources:Resource,CurrencyString%>">
                                                         <ItemTemplate>
                                                             <asp:DropDownList runat="server" ID="ddlCurrency" Font-Size="Small" Width="80px" />
                                                         </ItemTemplate>
-                                                    </asp:TemplateField>
-                                                    <asp:TemplateField HeaderText="<%$ Resources:Resource,CashString%>">
+                                                    </asp:TemplateField>                                                    
+                                                    <asp:TemplateField HeaderText="<%$ Resources:Resource,PriceString%>">
                                                         <ItemTemplate>
-                                                            <asp:TextBox runat="server" ID="tbCash" Style="text-align: right" Width="100px" />
+                                                            <asp:TextBox runat="server" ID="tbCash" Style="text-align: right" Width="80px" Font-Size="Small" />
                                                             <asp:RegularExpressionValidator ID="RegularExpressionValidator2" ControlToValidate="tbCash" runat="server"
                                                                 ErrorMessage="Only Numbers allowed" ValidationExpression="\d+[.]*\d*" CssClass="error" Display="Dynamic"></asp:RegularExpressionValidator>
                                                         </ItemTemplate>
-                                                    </asp:TemplateField>
-                                                    <asp:TemplateField HeaderText="<%$ Resources:Resource,RemitMoneyString%>">
+                                                    </asp:TemplateField>    
+                                                    <asp:TemplateField HeaderText="<%$ Resources:Resource,ExpectedPaymentDateString%>">
                                                         <ItemTemplate>
-                                                            <asp:TextBox runat="server" ID="tbRemit" Style="text-align: right" Width="100px" />
-                                                            <asp:RegularExpressionValidator ID="RegularExpressionValidator3" ControlToValidate="tbRemit" runat="server"
-                                                                ErrorMessage="Only Numbers allowed" ValidationExpression="\d+[.]*\d*" CssClass="error" Display="Dynamic"></asp:RegularExpressionValidator>
+                                                            <asp:TextBox runat="server" Style="text-align: right" ID="tbPaymentDate" Font-Size="Small"
+                                                                CssClass="date date-1" value="" placeholder="YYYY-MM-DD"></asp:TextBox>
                                                         </ItemTemplate>
-                                                    </asp:TemplateField>
+                                                    </asp:TemplateField>                                                    
                                                     <asp:TemplateField HeaderText="<%$ Resources:Resource,ReceiptDateString%>">
                                                         <ItemTemplate>
-                                                            <asp:TextBox runat="server" Style="text-align: right" ID="tbReceiptDate"
+                                                            <asp:TextBox runat="server" Style="text-align: right" ID="tbReceiptDate" Font-Size="Small"
                                                                 CssClass="date date-1" value="" placeholder="YYYY-MM-DD HH:MM APM" data-timeformat="HH:MM"></asp:TextBox>
                                                         </ItemTemplate>
                                                     </asp:TemplateField>
                                                     <asp:TemplateField HeaderText="<%$ Resources:Resource,ReceiptSnString%>">
                                                         <ItemTemplate>
-                                                            <asp:TextBox runat="server" ID="tbReceiptSn"></asp:TextBox>
+                                                            <asp:TextBox runat="server" ID="tbReceiptSn" Font-Size="Small"></asp:TextBox>
                                                         </ItemTemplate>
                                                     </asp:TemplateField>
                                                     <asp:TemplateField HeaderText="<%$ Resources:Resource,TotalPriceString%>">
                                                         <ItemTemplate>
-                                                            <asp:TextBox runat="server" ID="tbTotalPrice" Style="text-align: right" Width="100px" />
+                                                            <asp:TextBox runat="server" ID="tbTotalPrice" Font-Size="Small" Style="text-align: right" Width="80px" />
                                                             <asp:RegularExpressionValidator ID="RegularExpressionValidator4" ControlToValidate="tbTotalPrice" runat="server"
                                                                 ErrorMessage="Only Numbers allowed" ValidationExpression="\d+[.]*\d*" CssClass="error" Display="Dynamic"></asp:RegularExpressionValidator>
                                                         </ItemTemplate>
                                                     </asp:TemplateField>
                                                     <asp:TemplateField HeaderText="<%$ Resources:Resource,SalesString%>">
                                                         <ItemTemplate>
-                                                            <asp:TextBox runat="server" ID="tbSales" Style="text-align: right" Width="100px" />
+                                                            <asp:TextBox runat="server" ID="tbSales" Style="text-align: right" Font-Size="Small" Width="80px" />
                                                             <asp:RegularExpressionValidator ID="RegularExpressionValidator5" ControlToValidate="tbSales" runat="server"
                                                                 ErrorMessage="Only Numbers allowed" ValidationExpression="\d+[.]*\d*" CssClass="error" Display="Dynamic"></asp:RegularExpressionValidator>
                                                         </ItemTemplate>
                                                     </asp:TemplateField>
                                                     <asp:TemplateField HeaderText="<%$ Resources:Resource,TaxString%>">
                                                         <ItemTemplate>
-                                                            <asp:TextBox ID="tbTax" runat="server" Style="text-align: right" Width="100px"></asp:TextBox>
+                                                            <asp:TextBox ID="tbTax" runat="server" Style="text-align: right" Width="80px" Font-Size="Small"></asp:TextBox>
                                                             <asp:RegularExpressionValidator ID="RegularExpressionValidator6" ControlToValidate="tbTax" runat="server"
                                                                 ErrorMessage="Only Numbers allowed" ValidationExpression="\d+[.]*\d*" CssClass="error" Display="Dynamic"></asp:RegularExpressionValidator>
                                                         </ItemTemplate>
@@ -627,6 +631,95 @@
                                                             <asp:Button CausesValidation="false"
                                                                 ID="btnAddRow2" runat="server"
                                                                 Text="Add New Row" OnClick="btnAddRow2_Click" />
+                                                        </FooterTemplate>
+                                                    </asp:TemplateField>
+                                                    <asp:TemplateField ItemStyle-Width="0px">
+                                                        <ItemTemplate>
+                                                            <asp:TextBox runat="server" ID="tbType" ReadOnly="true" Width="0px" Style="display: none;" />
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
+                                                    <asp:CommandField ShowDeleteButton="True" ItemStyle-Width="50px" />
+                                                </Columns>
+                                            </asp:GridView>
+                                        </ContentTemplate>
+                                    </asp:UpdatePanel>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row serch">
+                            <div class="12u">
+                                <div class="table-wrapper">
+                                    <asp:Label runat="server" ID="labelPaymentTable" Text="<%$ Resources:Resource,PaymentString%>" />
+                                    <asp:UpdatePanel runat="server">
+                                        <ContentTemplate>
+                                            <asp:GridView ID="GridViewPayment" runat="server"
+                                                ShowFooter="True" AutoGenerateColumns="False" OnRowDataBound="GridViewPayment_RowDataBound"
+                                                OnRowDeleting="GridViewPayment_RowDeleting" Font-Size="Small">
+                                                <Columns>
+                                                    <asp:TemplateField ItemStyle-Width="0px">
+                                                        <ItemTemplate>
+                                                            <asp:TextBox runat="server" ID="tbReceiptId" ReadOnly="true" Width="0px" Style="display: none;" />
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
+                                                    <asp:TemplateField HeaderText="<%$ Resources:Resource,CategoryString%>">
+                                                        <ItemTemplate>
+                                                            <asp:TextBox runat="server" ID="tbCategory" Font-Size="Small" />
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
+                                                    <asp:TemplateField HeaderText="<%$ Resources:Resource,DateString%>">
+                                                        <ItemTemplate>
+                                                            <asp:TextBox runat="server" Style="text-align: right" ID="tbIncomeDate" Font-Size="Small"
+                                                                CssClass="date date-1" value="" placeholder="YYYY-MM-DD HH:MM APM" data-timeformat="HH:MM"></asp:TextBox>
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
+                                                    <asp:TemplateField HeaderText="<%$ Resources:Resource,PaymentMethodString%>">
+                                                        <ItemTemplate>
+                                                            <asp:DropDownList runat="server" ID="ddlPaymentMethod" Font-Size="Small" Width="80px" />
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
+                                                    <asp:TemplateField HeaderText="<%$ Resources:Resource,CurrencyString%>">
+                                                        <ItemTemplate>
+                                                            <asp:DropDownList runat="server" ID="ddlCurrency" Font-Size="Small" Width="80px" />
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>                                                    
+                                                    <asp:TemplateField HeaderText="<%$ Resources:Resource,PriceString%>">
+                                                        <ItemTemplate>
+                                                            <asp:TextBox runat="server" ID="tbCash" Style="text-align: right" Width="80px" Font-Size="Small" />
+                                                            <asp:RegularExpressionValidator ID="RegularExpressionValidator1" ControlToValidate="tbCash" runat="server"
+                                                                ErrorMessage="Only Numbers allowed" ValidationExpression="\d+[.]*\d*" CssClass="error" Display="Dynamic"></asp:RegularExpressionValidator>
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>    
+                                                    <asp:TemplateField HeaderText="<%$ Resources:Resource,ExpectedPaymentDateString%>">
+                                                        <ItemTemplate>
+                                                            <asp:TextBox runat="server" Style="text-align: right" ID="tbPaymentDate" Font-Size="Small"
+                                                                CssClass="date date-1" value="" placeholder="YYYY-MM-DD"></asp:TextBox>
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>                                                    
+                                                    <asp:TemplateField HeaderText="<%$ Resources:Resource,CurrencyRateString%>">
+                                                        <ItemTemplate>
+                                                            <asp:TextBox runat="server" ID="tbRate" Style="text-align: right" Width="80px" Font-Size="Small"></asp:TextBox>
+                                                            <asp:RegularExpressionValidator ID="RegularExpressionValidator2" ControlToValidate="tbRate" runat="server"
+                                                                ErrorMessage="Only Numbers allowed" ValidationExpression="\d+[.]*\d*" CssClass="error" Display="Dynamic"></asp:RegularExpressionValidator>
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
+                                                    <asp:TemplateField HeaderText="<%$ Resources:Resource,RemittanceFeeString%>">
+                                                        <ItemTemplate>
+                                                            <asp:TextBox runat="server" ID="tbFee" Style="text-align: right" Width="80px" Font-Size="Small"></asp:TextBox>
+                                                            <asp:RegularExpressionValidator ID="RegularExpressionValidator3" ControlToValidate="tbFee" runat="server"
+                                                                ErrorMessage="Only Numbers allowed" ValidationExpression="\d+[.]*\d*" CssClass="error" Display="Dynamic"></asp:RegularExpressionValidator>
+                                                        </ItemTemplate>
+                                                    </asp:TemplateField>
+                                                    <asp:TemplateField HeaderText="<%$ Resources:Resource,TotalPriceString%>">
+                                                        <ItemTemplate>
+                                                            <asp:TextBox runat="server" ID="tbTotalPrice" Style="text-align: right" Width="80px" Font-Size="Small"/>
+                                                            <asp:RegularExpressionValidator ID="RegularExpressionValidator4" ControlToValidate="tbTotalPrice" runat="server"
+                                                                ErrorMessage="Only Numbers allowed" ValidationExpression="\d+[.]*\d*" CssClass="error" Display="Dynamic"></asp:RegularExpressionValidator>
+                                                        </ItemTemplate>
+                                                        <FooterStyle HorizontalAlign="Right" />
+                                                        <FooterTemplate>
+                                                            <asp:Button CausesValidation="false"
+                                                                ID="btnPaymentAddRow" runat="server"
+                                                                Text="Add New Row" OnClick="btnPaymentAddRow_Click" />
                                                         </FooterTemplate>
                                                     </asp:TemplateField>
                                                     <asp:TemplateField ItemStyle-Width="0px">
