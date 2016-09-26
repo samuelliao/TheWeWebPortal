@@ -151,8 +151,12 @@
                             <div>
                                 <asp:TextBox runat="server" TextMode="MultiLine" ID="tbRemark" Height="150px"></asp:TextBox>
                             </div>
-                        </div>
-                        <div class="4u 12u(mobilep) serch">
+                        </div>                        
+                    </div>
+                </div>
+                <div class="12u">
+                    <div class="row uniform 50%">
+                        <div class="6u 12u(mobilep) serch">
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,WeddingAppointmentTimeString%>"></asp:Label>
                             </div>
@@ -162,9 +166,20 @@
                                         <asp:GridView ID="dgBookTable" runat="server" OnRowDeleting="dgBookTable_RowDeleting"
                                             AutoGenerateColumns="False" Font-Size="Small">
                                             <Columns>
-                                                <asp:TemplateField>
+                                                <asp:TemplateField ItemStyle-Width="0px">
+                                                    <ItemTemplate>
+                                                        <asp:TextBox ID="tbId" runat="server" Style="display:none;" Width="0px"></asp:TextBox>
+                                                    </ItemTemplate>
+                                                </asp:TemplateField>
+                                                <asp:TemplateField HeaderText="<%$ Resources:Resource,StartString%>">
                                                     <ItemTemplate>
                                                         <asp:TextBox ID="tbStart" Style="text-align: right; margin-top: 15px" runat="server"
+                                                            CssClass="date date-1" value="HH:MM" data-type="time"></asp:TextBox>
+                                                    </ItemTemplate>
+                                                </asp:TemplateField>
+                                                <asp:TemplateField HeaderText="<%$ Resources:Resource,EndString%>">
+                                                    <ItemTemplate>
+                                                        <asp:TextBox ID="tbEnd" Style="text-align: right; margin-top: 15px" runat="server"
                                                             CssClass="date date-1" value="HH:MM" data-type="time"></asp:TextBox>
                                                     </ItemTemplate>
                                                 </asp:TemplateField>
@@ -181,7 +196,6 @@
                         </div>
                     </div>
                 </div>
-
             </div>
 
             <hr />
@@ -224,7 +238,6 @@
                     <div style="text-align: center">
                         <asp:Label runat="server" Text="<%$ Resources:Resource,ImgFrontString%>"></asp:Label>
                         <asp:Label runat="server" Text="" ID="tbFolderPath" Visible="false"></asp:Label>
-                        <asp:Label runat="server" Text="" ID="tbFolderMealPath" Visible="false"></asp:Label>
                     </div>
                     <span class="image fit">
                         <asp:Image runat="server" ID="ImgFront" />

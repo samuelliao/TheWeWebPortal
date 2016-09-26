@@ -27,6 +27,7 @@ namespace TheWeWebSite.StoreMgt
             }
         }
 
+        #region Initial Page
         private void InitialPage()
         {
             FirstGridViewRow();
@@ -126,6 +127,7 @@ namespace TheWeWebSite.StoreMgt
                 InitialPage();
             }
         }
+        #endregion
 
         #region Button Control
         protected void btnCancel_Click(object sender, EventArgs e)
@@ -332,40 +334,38 @@ namespace TheWeWebSite.StoreMgt
             SetChurchBookingTime(id);
             DynamicSn(ddlCountry.SelectedValue);
 
+            #region Image Control
             string imgPath = @dr["Img"].ToString();
-            if (string.IsNullOrEmpty(imgPath)) imgPath = SysProperty.ImgRootFolderpath + @"\Church\" + tbSn.Text;
+            if (string.IsNullOrEmpty(imgPath)) imgPath = SysProperty.ImgRootFolderpath + @"\Church\" + tbSn.Text + @"\Img";
             else imgPath = SysProperty.ImgRootFolderpath + imgPath;
             string ImgFolderPath = imgPath;
             RefreshImage(0, ImgFolderPath);
-            tbFolderPath.Text = ImgFolderPath;
+            tbFolderPath.Text = Path.GetDirectoryName(ImgFolderPath);
 
             string imgMeal = @dr["MealImg"].ToString();
-            if (string.IsNullOrEmpty(imgMeal)) imgMeal = SysProperty.ImgRootFolderpath + @"\Church\" + tbSn.Text;
+            if (string.IsNullOrEmpty(imgMeal)) imgMeal = SysProperty.ImgRootFolderpath + @"\Church\" + tbSn.Text + @"\Meal";
             else imgMeal = SysProperty.ImgRootFolderpath + imgMeal;
             string ImgFolderMealPath = imgMeal;
-            RefreshImage(0, ImgFolderMealPath);
-            tbFolderMealPath.Text = ImgFolderMealPath;
+            RefreshImage(8, ImgFolderMealPath);
 
             string imgMap = @dr["MapImg"].ToString();
-            if (string.IsNullOrEmpty(imgMap)) imgMap = SysProperty.ImgRootFolderpath + @"\Church\" + tbSn.Text;
+            if (string.IsNullOrEmpty(imgMap)) imgMap = SysProperty.ImgRootFolderpath + @"\Church\" + tbSn.Text + @"\Map";
             else imgMap = SysProperty.ImgRootFolderpath + imgMap;
             string ImgFolderMapPath = imgMap;
-            RefreshImage(0, ImgFolderMapPath);
-            tbFolderMealPath.Text = ImgFolderMapPath;
+            RefreshImage(6, ImgFolderMapPath);
 
             string imgDM = @dr["DmImg"].ToString();
-            if (string.IsNullOrEmpty(imgDM)) imgDM = SysProperty.ImgRootFolderpath + @"\Church\" + tbSn.Text;
+            if (string.IsNullOrEmpty(imgDM)) imgDM = SysProperty.ImgRootFolderpath + @"\Church\" + tbSn.Text + @"\Dm";
             else imgDM = SysProperty.ImgRootFolderpath + imgDM;
             string ImgFolderDMPath = imgDM;
-            RefreshImage(0, ImgFolderDMPath);
-            tbFolderMealPath.Text = ImgFolderDMPath;
+            RefreshImage(7, ImgFolderDMPath);
 
-            string imgBouquet = @dr["BOuquetImg"].ToString();
-            if (string.IsNullOrEmpty(imgBouquet)) imgBouquet = SysProperty.ImgRootFolderpath + @"\Church\" + tbSn.Text;
+            string imgBouquet = @dr["BouquetImg"].ToString();
+            if (string.IsNullOrEmpty(imgBouquet)) imgBouquet = SysProperty.ImgRootFolderpath + @"\Church\" + tbSn.Text + @"\Bouquet";
             else imgBouquet = SysProperty.ImgRootFolderpath + imgBouquet;
             string ImgFolderBouquetPath = imgBouquet;
-            RefreshImage(0, ImgFolderBouquetPath);
-            tbFolderMealPath.Text = ImgFolderBouquetPath;
+            RefreshImage(5, ImgFolderBouquetPath);
+            #endregion
 
             if (Session["LocateStore"] != null)
             {
@@ -416,13 +416,15 @@ namespace TheWeWebSite.StoreMgt
             DataSet ds = GetChurchBookingTime(id);
             if (SysProperty.Util.IsDataSetEmpty(ds)) return;
             int cnt = 0;
+            if (dgBookTable.Rows.Count == 0)
+            {
+                AddNewRow();
+            }
             foreach (DataRow dr in ds.Tables[0].Rows)
             {
-                if (dgBookTable.Rows.Count == 0)
-                {
-                    AddNewRow();
-                }
+                ((TextBox)dgBookTable.Rows[cnt].FindControl("tbId")).Text = dr["Id"].ToString();
                 ((TextBox)dgBookTable.Rows[cnt].FindControl("tbStart")).Text = SysProperty.Util.ParseDateTime("Time", dr["StartTime"].ToString());
+                ((TextBox)dgBookTable.Rows[cnt].FindControl("tbEnd")).Text = SysProperty.Util.ParseDateTime("Time", dr["EndTime"].ToString());
                 cnt++;
                 AddNewRow();
             }
@@ -454,9 +456,13 @@ namespace TheWeWebSite.StoreMgt
         {
             DataTable dt = new DataTable();
             DataRow dr = null;
+            dt.Columns.Add(new DataColumn("Id", typeof(string)));
             dt.Columns.Add(new DataColumn("Col1", typeof(string)));
+            dt.Columns.Add(new DataColumn("Col2", typeof(string)));
             dr = dt.NewRow();
+            dr["Id"] = string.Empty;
             dr["Col1"] = string.Empty;
+            dr["Col2"] = string.Empty;
             dt.Rows.Add(dr);
 
             ViewState["CurrentTable"] = dt;
@@ -476,11 +482,17 @@ namespace TheWeWebSite.StoreMgt
                 {
                     for (int i = 1; i <= dtCurrentTable.Rows.Count; i++)
                     {
+                        TextBox TextId =
+                          (TextBox)dgBookTable.Rows[rowIndex].Cells[0].FindControl("tbId");
                         TextBox TextStart =
-                          (TextBox)dgBookTable.Rows[rowIndex].Cells[0].FindControl("tbStart");
+                          (TextBox)dgBookTable.Rows[rowIndex].Cells[1].FindControl("tbStart");
+                        TextBox TextEnd =
+                          (TextBox)dgBookTable.Rows[rowIndex].Cells[2].FindControl("tbEnd");
                         drCurrentRow = dtCurrentTable.NewRow();
 
+                        dtCurrentTable.Rows[i - 1]["Id"] = TextId.Text;
                         dtCurrentTable.Rows[i - 1]["Col1"] = TextStart.Text;
+                        dtCurrentTable.Rows[i - 1]["Col2"] = TextEnd.Text;
                         rowIndex++;
                     }
                     dtCurrentTable.Rows.Add(drCurrentRow);
@@ -507,9 +519,14 @@ namespace TheWeWebSite.StoreMgt
                 {
                     for (int i = 0; i < dt.Rows.Count; i++)
                     {
-                        TextBox TextStart = (TextBox)dgBookTable.Rows[rowIndex].Cells[0].FindControl("tbStart");
+                        TextBox TextId = (TextBox)dgBookTable.Rows[rowIndex].Cells[0].FindControl("tbId");
+                        TextBox TextStart = (TextBox)dgBookTable.Rows[rowIndex].Cells[1].FindControl("tbStart");
+                        TextBox TextEnd = (TextBox)dgBookTable.Rows[rowIndex].Cells[2].FindControl("tbEnd");
+
                         if (TextStart == null) continue;
+                        TextId.Text = dt.Rows[i]["Id"] == null ? string.Empty : dt.Rows[i]["Id"].ToString();
                         TextStart.Text = dt.Rows[i]["Col1"] == null ? string.Empty : dt.Rows[i]["Col1"].ToString();
+                        TextEnd.Text = dt.Rows[i]["Col2"] == null ? string.Empty : dt.Rows[i]["Col2"].ToString();
                         rowIndex++;
                     }
                 }
@@ -528,9 +545,13 @@ namespace TheWeWebSite.StoreMgt
                 {
                     for (int i = 1; i <= dtCurrentTable.Rows.Count; i++)
                     {
-                        TextBox TextStart = (TextBox)dgBookTable.Rows[rowIndex].Cells[0].FindControl("tbStart");
+                        TextBox TextId = (TextBox)dgBookTable.Rows[rowIndex].Cells[0].FindControl("tbId");
+                        TextBox TextStart = (TextBox)dgBookTable.Rows[rowIndex].Cells[1].FindControl("tbStart");
+                        TextBox TextEnd = (TextBox)dgBookTable.Rows[rowIndex].Cells[2].FindControl("tbEnd");
                         drCurrentRow = dtCurrentTable.NewRow();
+                        dtCurrentTable.Rows[i - 1]["Id"] = TextId.Text;
                         dtCurrentTable.Rows[i - 1]["Col1"] = TextStart.Text;
+                        dtCurrentTable.Rows[i - 1]["Col2"] = TextEnd.Text;
                         rowIndex++;
                     }
 
@@ -674,7 +695,7 @@ namespace TheWeWebSite.StoreMgt
                     foreach (GridViewRow dr in dgBookTable.Rows)
                     {
                         lst = new List<DbSearchObject>();
-                        str = SysProperty.Util.ParseDateTime("Time", ((TextBox)dr.Cells[0].FindControl("tbStart")).Text);
+                        str = SysProperty.Util.ParseDateTime("Time", ((TextBox)dr.Cells[1].FindControl("tbStart")).Text);
                         if (string.IsNullOrEmpty(str)) continue;
                         lst.Add(new DbSearchObject(
                             "StartTime"
@@ -682,6 +703,16 @@ namespace TheWeWebSite.StoreMgt
                             , AttrSymbolItem.Equal
                             , str
                             ));
+                        str = SysProperty.Util.ParseDateTime("Time", ((TextBox)dr.Cells[2].FindControl("tbEnd")).Text);
+                        if (!string.IsNullOrEmpty(str))
+                        {
+                            lst.Add(new DbSearchObject(
+                                "EndTime"
+                                , AtrrTypeItem.Date
+                                , AttrSymbolItem.Equal
+                                , str
+                                ));
+                        }
                         lst.Add(new DbSearchObject(
                             "ChurchId"
                             , AtrrTypeItem.String
@@ -802,7 +833,7 @@ namespace TheWeWebSite.StoreMgt
                     ImgMap.ImageUrl = "http:" + path + "\\" + tbSn.Text + "_map.jpg?" + DateTime.Now.Ticks.ToString();
                     break;
                 case 7:
-                    ImgDM.ImageUrl = "http:" + path + "\\" + tbSn.Text + "dm.jpg?" + DateTime.Now.Ticks.ToString();
+                    ImgDM.ImageUrl = "http:" + path + "\\" + tbSn.Text + "_dm.jpg?" + DateTime.Now.Ticks.ToString();
                     break;
                 case 8:
                     ImgMeal.ImageUrl = "http:" + path + "\\" + tbSn.Text + "_meal.jpg?" + DateTime.Now.Ticks.ToString();
@@ -813,10 +844,6 @@ namespace TheWeWebSite.StoreMgt
                     ImgBack.ImageUrl = "http:" + path + "\\" + tbSn.Text + "_2.jpg?" + DateTime.Now.Ticks.ToString();
                     ImgSide.ImageUrl = "http:" + path + "\\" + tbSn.Text + "_3.jpg?" + DateTime.Now.Ticks.ToString();
                     ImgOther1.ImageUrl = "http:" + path + "\\" + tbSn.Text + "_4.jpg?" + DateTime.Now.Ticks.ToString();
-                    ImgMeal.ImageUrl = "http:" + path + "\\" + tbSn.Text + "_1.jpg?" + DateTime.Now.Ticks.ToString();
-                    ImgDM.ImageUrl = "http:" + path + "\\" + tbSn.Text + "_1.jpg?" + DateTime.Now.Ticks.ToString();
-                    ImgMap.ImageUrl = "http:" + path + "\\" + tbSn.Text + "_1.jpg?" + DateTime.Now.Ticks.ToString();
-                    ImgBouquet.ImageUrl = "http:" + path + "\\" + tbSn.Text + "_1.jpg?" + DateTime.Now.Ticks.ToString();
                     break;
             }
         }
@@ -833,20 +860,50 @@ namespace TheWeWebSite.StoreMgt
             if (string.IsNullOrEmpty(tbFolderPath.Text)) return;
             bool needRefresh = false;
             CheckFolder(tbFolderPath.Text);
+            string folderPath = string.Empty;
+            
             for (int i = 1; i <= 8; i++)
             {
                 FileUpload upload = divUpload.FindControl("FileUpload" + i) as FileUpload;
                 if (upload == null) continue;
                 if (upload.HasFile)
                 {
-                    upload.PostedFile.SaveAs(tbFolderPath.Text + "\\" + tbSn.Text + "_" + (i == 8 ? "meal" : i.ToString()) + ".jpg");
+                    folderPath = tbFolderPath.Text + "\\" + FolderName(i);
+                    CheckFolder(folderPath);
+                    upload.PostedFile.SaveAs(folderPath + "\\" + tbSn.Text + "_" + (i > 4 ? FolderName(i).Trim().ToLower() : i.ToString()) + ".jpg");
                     needRefresh = true;
                 }
             }
 
             if (needRefresh)
             {
-                RefreshImage(0, tbFolderPath.Text);
+                RefreshImage(0, tbFolderPath.Text + @"\\Img");
+                for (int i = 5; i <= 8; i++)
+                {
+                    RefreshImage(i, tbFolderPath + "\\" + FolderName(i));
+                }
+            }
+        }
+
+        private string FolderName(int cnt)
+        {
+            switch (cnt)
+            {
+                case 1:
+                case 2:
+                case 3:
+                case 4:
+                    return "Img";
+                case 5:
+                    return "Bouquet";
+                case 6:
+                    return "Map";
+                case 7:
+                    return "Dm";
+                case 8:
+                    return "Meal";
+                default:
+                    return string.Empty;
             }
         }
         #endregion
