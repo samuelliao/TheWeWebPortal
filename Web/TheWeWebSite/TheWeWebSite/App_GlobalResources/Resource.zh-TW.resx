@@ -1248,4 +1248,19 @@
   <data name="RemittanceFeeString" xml:space="preserve">
     <value>匯費</value>
   </data>
+  <data name="NumberLimitString" xml:space="preserve">
+    <value>數量限制</value>
+  </data>
+  <data name="SumitDayString" xml:space="preserve">
+    <value>提交日期</value>
+  </data>
+  <data name="ApprovalDayString" xml:space="preserve">
+    <value>審核日期</value>
+  </data>
+  <data name="BuyAutoPassMgtString" xml:space="preserve">
+    <value>採購憑證管理</value>
+  </data>
+  <data name="AmountLimitString" xml:space="preserve">
+    <value>金額限制</value>
+  </data>
 </root>

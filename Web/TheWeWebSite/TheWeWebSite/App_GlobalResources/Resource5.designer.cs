@@ -115,7 +115,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   查詢類似  的當地語系化字串。
+        ///   查詢類似 Additional Item 的當地語系化字串。
         /// </summary>
         internal static string AdditionalItemString {
             get {
@@ -142,7 +142,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   查詢類似  的當地語系化字串。
+        ///   查詢類似 Additional Service 的當地語系化字串。
         /// </summary>
         internal static string AdditionServiceString {
             get {
@@ -205,11 +205,29 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   查詢類似 Amount Limitation 的當地語系化字串。
+        /// </summary>
+        internal static string AmountLimitString {
+            get {
+                return ResourceManager.GetString("AmountLimitString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查詢類似 Appointment Date 的當地語系化字串。
         /// </summary>
         internal static string AppointmentDateString {
             get {
                 return ResourceManager.GetString("AppointmentDateString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查詢類似 Day of Approval 的當地語系化字串。
+        /// </summary>
+        internal static string ApprovalDayString {
+            get {
+                return ResourceManager.GetString("ApprovalDayString", resourceCulture);
             }
         }
         
@@ -241,7 +259,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   查詢類似  的當地語系化字串。
+        ///   查詢類似 Attractions 的當地語系化字串。
         /// </summary>
         internal static string AttractionsString {
             get {
@@ -250,7 +268,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   查詢類似  的當地語系化字串。
+        ///   查詢類似 Back Trip 的當地語系化字串。
         /// </summary>
         internal static string BackString {
             get {
@@ -259,7 +277,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   查詢類似  的當地語系化字串。
+        ///   查詢類似 Balance Due 的當地語系化字串。
         /// </summary>
         internal static string BalanceDueString {
             get {
@@ -286,7 +304,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   查詢類似  的當地語系化字串。
+        ///   查詢類似 Banquet Content 的當地語系化字串。
         /// </summary>
         internal static string BanquetContentString {
             get {
@@ -295,7 +313,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   查詢類似  的當地語系化字串。
+        ///   查詢類似 Number of Attendance 的當地語系化字串。
         /// </summary>
         internal static string BanquetPeopleString {
             get {
@@ -304,7 +322,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   查詢類似  的當地語系化字串。
+        ///   查詢類似 Banquet 的當地語系化字串。
         /// </summary>
         internal static string BanquetString {
             get {
@@ -322,7 +340,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   查詢類似  的當地語系化字串。
+        ///   查詢類似 Yukata 的當地語系化字串。
         /// </summary>
         internal static string BathrobeString {
             get {
@@ -367,7 +385,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   查詢類似  的當地語系化字串。
+        ///   查詢類似 Picture of Bouquet 的當地語系化字串。
         /// </summary>
         internal static string BouquetPictureString {
             get {
@@ -493,11 +511,20 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   查詢類似  的當地語系化字串。
+        ///   查詢類似 Bust 的當地語系化字串。
         /// </summary>
         internal static string BustString {
             get {
                 return ResourceManager.GetString("BustString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查詢類似 Purchase Certificate Mgt 的當地語系化字串。
+        /// </summary>
+        internal static string BuyAutoPassMgtString {
+            get {
+                return ResourceManager.GetString("BuyAutoPassMgtString", resourceCulture);
             }
         }
         
@@ -574,7 +601,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   查詢類似  的當地語系化字串。
+        ///   查詢類似 Champagne 的當地語系化字串。
         /// </summary>
         internal static string ChampagneString {
             get {
@@ -583,7 +610,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   查詢類似  的當地語系化字串。
+        ///   查詢類似 Final Check 的當地語系化字串。
         /// </summary>
         internal static string CheckDressString {
             get {
@@ -601,7 +628,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   查詢類似  的當地語系化字串。
+        ///   查詢類似 Choose 的當地語系化字串。
         /// </summary>
         internal static string ChooseString {
             get {
@@ -772,7 +799,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   查詢類似  的當地語系化字串。
+        ///   查詢類似 Contact 的當地語系化字串。
         /// </summary>
         internal static string ContactString {
             get {
@@ -853,7 +880,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   查詢類似  的當地語系化字串。
+        ///   查詢類似 Corresponding Sn 的當地語系化字串。
         /// </summary>
         internal static string CorrespondSnString {
             get {
@@ -862,7 +889,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   查詢類似  的當地語系化字串。
+        ///   查詢類似 Corresponding Object 的當地語系化字串。
         /// </summary>
         internal static string CorrespondString {
             get {
@@ -925,7 +952,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   查詢類似  的當地語系化字串。
+        ///   查詢類似 Create Item 的當地語系化字串。
         /// </summary>
         internal static string CreateItemString {
             get {
@@ -1069,7 +1096,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   查詢類似  的當地語系化字串。
+        ///   查詢類似 Description 的當地語系化字串。
         /// </summary>
         internal static string DescriptionString {
             get {
@@ -1087,7 +1114,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   查詢類似  的當地語系化字串。
+        ///   查詢類似 DM 的當地語系化字串。
         /// </summary>
         internal static string DMPhotoString {
             get {
@@ -1177,7 +1204,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   查詢類似  的當地語系化字串。
+        ///   查詢類似 Dress Rental 的當地語系化字串。
         /// </summary>
         internal static string DressRentString {
             get {
@@ -1240,7 +1267,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   查詢類似  的當地語系化字串。
+        ///   查詢類似 Emergency Contact 的當地語系化字串。
         /// </summary>
         internal static string EmergencyContactString {
             get {
@@ -1249,7 +1276,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   查詢類似  的當地語系化字串。
+        ///   查詢類似 Emergency Contact Phone 的當地語系化字串。
         /// </summary>
         internal static string EmergencyContactTelString {
             get {
@@ -1294,7 +1321,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   查詢類似  的當地語系化字串。
+        ///   查詢類似 On-Board Date 的當地語系化字串。
         /// </summary>
         internal static string EmpOnboardDayString {
             get {
@@ -1303,7 +1330,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   查詢類似  的當地語系化字串。
+        ///   查詢類似 Leave Date  的當地語系化字串。
         /// </summary>
         internal static string EmpQuitDayString {
             get {
@@ -1339,7 +1366,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   查詢類似  的當地語系化字串。
+        ///   查詢類似 Evening Gown 的當地語系化字串。
         /// </summary>
         internal static string EveningDressString {
             get {
@@ -1456,7 +1483,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   查詢類似  的當地語系化字串。
+        ///   查詢類似 Flight Info 的當地語系化字串。
         /// </summary>
         internal static string FlightInfoString {
             get {
@@ -1465,7 +1492,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   查詢類似  的當地語系化字串。
+        ///   查詢類似 Food 的當地語系化字串。
         /// </summary>
         internal static string FoodString {
             get {
@@ -1483,7 +1510,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   查詢類似  的當地語系化字串。
+        ///   查詢類似 Dress Pickup 的當地語系化字串。
         /// </summary>
         internal static string GetDressString {
             get {
@@ -1501,7 +1528,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   查詢類似  的當地語系化字串。
+        ///   查詢類似 Go Trip 的當地語系化字串。
         /// </summary>
         internal static string GoString {
             get {
@@ -1618,7 +1645,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   查詢類似  的當地語系化字串。
+        ///   查詢類似 Number of Guests 的當地語系化字串。
         /// </summary>
         internal static string GuestString {
             get {
@@ -1627,7 +1654,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   查詢類似  的當地語系化字串。
+        ///   查詢類似 Hair Style 的當地語系化字串。
         /// </summary>
         internal static string HairString {
             get {
@@ -1636,7 +1663,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   查詢類似  的當地語系化字串。
+        ///   查詢類似 Hips 的當地語系化字串。
         /// </summary>
         internal static string HipsString {
             get {
@@ -1798,7 +1825,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   查詢類似  的當地語系化字串。
+        ///   查詢類似 Kimono 的當地語系化字串。
         /// </summary>
         internal static string KimonoString {
             get {
@@ -1825,7 +1852,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   查詢類似  的當地語系化字串。
+        ///   查詢類似 Select a Language Sn 的當地語系化字串。
         /// </summary>
         internal static string LangSelectRemindString {
             get {
@@ -1978,7 +2005,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   查詢類似  的當地語系化字串。
+        ///   查詢類似 Makeup Emphasis 的當地語系化字串。
         /// </summary>
         internal static string MakeupEmphasisString {
             get {
@@ -2005,7 +2032,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   查詢類似  的當地語系化字串。
+        ///   查詢類似 Map 的當地語系化字串。
         /// </summary>
         internal static string MapPhotoString {
             get {
@@ -2068,7 +2095,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   查詢類似  的當地語系化字串。
+        ///   查詢類似 Pictures of Modeling 的當地語系化字串。
         /// </summary>
         internal static string ModelingPhotoString {
             get {
@@ -2077,7 +2104,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   查詢類似  的當地語系化字串。
+        ///   查詢類似 Sn of Modeling 的當地語系化字串。
         /// </summary>
         internal static string ModelingSnString {
             get {
@@ -2086,7 +2113,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   查詢類似  的當地語系化字串。
+        ///   查詢類似 Modeling 的當地語系化字串。
         /// </summary>
         internal static string ModelingString {
             get {
@@ -2194,6 +2221,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   查詢類似 Quantity Limitation 的當地語系化字串。
+        /// </summary>
+        internal static string NumberLimitString {
+            get {
+                return ResourceManager.GetString("NumberLimitString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查詢類似 Number 的當地語系化字串。
         /// </summary>
         internal static string NumberString {
@@ -2230,7 +2266,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   查詢類似  的當地語系化字串。
+        ///   查詢類似 Category of Wedding Item 的當地語系化字串。
         /// </summary>
         internal static string OtherItemCategoryString {
             get {
@@ -2239,7 +2275,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   查詢類似  的當地語系化字串。
+        ///   查詢類似 Sn of Wedding Item 的當地語系化字串。
         /// </summary>
         internal static string OtherItemSnString {
             get {
@@ -2248,7 +2284,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   查詢類似  的當地語系化字串。
+        ///   查詢類似 Other Name 的當地語系化字串。
         /// </summary>
         internal static string OtherNameString {
             get {
@@ -2302,7 +2338,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   查詢類似  的當地語系化字串。
+        ///   查詢類似 Passport Id 的當地語系化字串。
         /// </summary>
         internal static string PassportIdString {
             get {
@@ -2464,7 +2500,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   查詢類似  的當地語系化字串。
+        ///   查詢類似 Avoid Poses for Photo Shooting 的當地語系化字串。
         /// </summary>
         internal static string PhotoAvoidString {
             get {
@@ -2473,7 +2509,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   查詢類似  的當地語系化字串。
+        ///   查詢類似 Bouquet of Photo Shooting 的當地語系化字串。
         /// </summary>
         internal static string PhotoBouquetString {
             get {
@@ -2482,7 +2518,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   查詢類似  的當地語系化字串。
+        ///   查詢類似 Item of Photo Shooting 的當地語系化字串。
         /// </summary>
         internal static string PhotoItemString {
             get {
@@ -2500,7 +2536,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   查詢類似  的當地語系化字串。
+        ///   查詢類似 Special Request of Photo Shooting 的當地語系化字串。
         /// </summary>
         internal static string PhotoSpecialClaimString {
             get {
@@ -2734,7 +2770,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   查詢類似  的當地語系化字串。
+        ///   查詢類似 Route Planner 的當地語系化字串。
         /// </summary>
         internal static string RoutePlanString {
             get {
@@ -2743,7 +2779,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   查詢類似  的當地語系化字串。
+        ///   查詢類似 Salary 的當地語系化字串。
         /// </summary>
         internal static string SalaryString {
             get {
@@ -2806,7 +2842,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   查詢類似  的當地語系化字串。
+        ///   查詢類似 Secondary Payment 的當地語系化字串。
         /// </summary>
         internal static string SecondPayString {
             get {
@@ -2815,7 +2851,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   查詢類似  的當地語系化字串。
+        ///   查詢類似 Secondary 的當地語系化字串。
         /// </summary>
         internal static string SecondString {
             get {
@@ -2905,7 +2941,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   查詢類似  的當地語系化字串。
+        ///   查詢類似 Field Planner 的當地語系化字串。
         /// </summary>
         internal static string SitePlanString {
             get {
@@ -2914,7 +2950,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   查詢類似  的當地語系化字串。
+        ///   查詢類似 Size Confirmation 的當地語系化字串。
         /// </summary>
         internal static string SizeCheckString {
             get {
@@ -2986,7 +3022,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   查詢類似  的當地語系化字串。
+        ///   查詢類似 Special Request 的當地語系化字串。
         /// </summary>
         internal static string SpecialClaimString {
             get {
@@ -3094,11 +3130,20 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   查詢類似  的當地語系化字串。
+        ///   查詢類似 Suit 的當地語系化字串。
         /// </summary>
         internal static string SuitString {
             get {
                 return ResourceManager.GetString("SuitString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查詢類似 Day of Submission 的當地語系化字串。
+        /// </summary>
+        internal static string SumitDayString {
+            get {
+                return ResourceManager.GetString("SumitDayString", resourceCulture);
             }
         }
         
@@ -3193,7 +3238,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   查詢類似  的當地語系化字串。
+        ///   查詢類似 Tour 的當地語系化字串。
         /// </summary>
         internal static string TravelPeriodString {
             get {
@@ -3202,7 +3247,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   查詢類似  的當地語系化字串。
+        ///   查詢類似 Try on 的當地語系化字串。
         /// </summary>
         internal static string TryDressString {
             get {
@@ -3301,7 +3346,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   查詢類似  的當地語系化字串。
+        ///   查詢類似 Waist 的當地語系化字串。
         /// </summary>
         internal static string WaistString {
             get {
@@ -3373,7 +3418,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   查詢類似  的當地語系化字串。
+        ///   查詢類似 Order of Entry The Church 的當地語系化字串。
         /// </summary>
         internal static string WeddingSequenceString {
             get {
@@ -3400,7 +3445,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   查詢類似  的當地語系化字串。
+        ///   查詢類似 Welcome Card 的當地語系化字串。
         /// </summary>
         internal static string WelcomeCardString {
             get {
@@ -3409,7 +3454,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   查詢類似  的當地語系化字串。
+        ///   查詢類似 Wedding Dress 的當地語系化字串。
         /// </summary>
         internal static string WhiteDressString {
             get {

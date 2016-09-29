@@ -1,8 +1,8 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="Header.ascx.cs" Inherits="TheWeWebSite.Header" %>
 <header id="header">
     <div>
-        <asp:ScriptManager runat="server" />
-        <asp:UpdatePanel runat="server">
+        <asp:ScriptManager runat="server" ID="headerScript" />
+        <asp:UpdatePanel runat="server" ID="headerUpdatePanel1">
             <ContentTemplate>
                 <h1>
                     <asp:Label runat="server" Text="台北" ID="labelStoreName" Font-Size="Larger" Font-Bold="true"></asp:Label>
@@ -97,8 +97,16 @@
                         </li>
                     </ul>
                 </li>
-                <li runat="server" id="liPurchaseMgt" style="display: none;">
-                    <asp:LinkButton CausesValidation="false" runat="server" Text="<%$ Resources:Resource,PurchaseMgtString%>" ID="LinkPuchaseMgt" />
+                <li runat="server" id="liPurchaseMgt">
+                    <asp:LinkButton CausesValidation="false" runat="server" Text="<%$ Resources:Resource,PurchaseMgtString%>" ID="LinkPuchaseMgt" PostBackUrl="~/BuyMgt/BuyMgt.aspx" />
+                    <ul>
+                        <li>
+                            <asp:LinkButton CausesValidation="false" runat="server" Text="<%$ Resources:Resource,PurchaseMgtString%>" PostBackUrl="~/BuyMgt/BuyMgt.aspx" ID="LinkButton2" />
+                        </li>
+                        <li>
+                            <asp:LinkButton CausesValidation="false" runat="server" Text="<%$ Resources:Resource,BuyAutoPassMgtString%>" PostBackUrl="~/BuyMgt/BuyAutoPassMgt.aspx" ID="LinkButton3" />
+                        </li>
+                    </ul>
                 </li>
                 <li runat="server" id="liSalesMgt" style="display: none;">
                     <asp:LinkButton CausesValidation="false" runat="server" Text="<%$ Resources:Resource,SalesMgtString%>" ID="LinkSalesMgtString" />
@@ -156,7 +164,7 @@
         </nav>
         <br />
         <div>
-            <asp:UpdatePanel runat="server">
+            <asp:UpdatePanel runat="server" ID="headerUpdatePanelTimer">
                 <ContentTemplate>
 
                     <asp:Timer runat="server" ID="Timer1" OnTick="Timer1_Tick" Interval="3600000" />

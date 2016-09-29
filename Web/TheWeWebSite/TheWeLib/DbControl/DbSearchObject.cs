@@ -130,6 +130,10 @@ namespace TheWeLib
         ReceiptDetail = 84,
         DressOrder = 85,
         PaymentMethod = 86,
+        BuyStuffCategory = 87,
+        BuyRequest = 88,
+        BuyStatus = 89,
+        BuyAutoPass = 90,
         Nothing = 100
     }
 

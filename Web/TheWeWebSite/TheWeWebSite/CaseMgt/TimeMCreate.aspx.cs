@@ -735,7 +735,7 @@ namespace TheWeWebSite.CaseMgt
                 if (SysProperty.Util.IsDataSetEmpty(ds))
                 {
                     tbOth.Text = string.Empty;
-                    tbConDate.Text = DateTime.Now.ToString("yyyy/MM/dd HH:mm");
+                    tbConDate.Text = DateTime.Now.ToString("yyyy/MM/dd HH:00");
                     cbCompleted.Checked = false;
                 }
                 else
@@ -743,7 +743,7 @@ namespace TheWeWebSite.CaseMgt
                     DataRow dr = ds.Tables[0].Rows[0];
                     tbOth.Text = dr["Remark"].ToString();
                     tbConDate.Text = SysProperty.Util.ParseDateTime("DateTime", dr["BookingDate"].ToString());
-                    if (string.IsNullOrEmpty(tbConDate.Text)) tbConDate.Text = DateTime.Now.ToString("yyyy/MM/dd HH:mm");
+                    if (string.IsNullOrEmpty(tbConDate.Text)) tbConDate.Text = DateTime.Now.ToString("yyyy/MM/dd HH:00");
                     cbCompleted.Checked = bool.Parse(dr["IsCheck"].ToString());
                 }
             }

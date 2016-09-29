@@ -58,6 +58,10 @@ namespace TheWeWebSite
                 case "CustomerMCreate":
                 case "TimeMCreate":
                     return "2";
+                case "BuyMgt":
+                case "BuyMCreate":
+                case "BuyAutoPassMgt":
+                    return "3";
                 case "AreaMaintain":
                 case "CaseRootMaintain":
                 case "CountryMaintain":

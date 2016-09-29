@@ -105,6 +105,9 @@
     <Content Include="assets\js\picker.js" />
     <Content Include="assets\js\skel.min.js" />
     <Content Include="assets\js\util.js" />
+    <Content Include="BuyMgt\BuyAutoPassMgt.aspx" />
+    <Content Include="BuyMgt\BuyMCreate.aspx" />
+    <Content Include="BuyMgt\BuyMgt.aspx" />
     <Content Include="CaseMgt\AdvisoryMaintain.aspx" />
     <Content Include="CaseMgt\AdvisoryMCreate.aspx" />
     <Content Include="CaseMgt\CaseMaintain.aspx" />
@@ -160,10 +163,31 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resource.zh-TW.resx</DependentUpon>
     </Compile>
-    <Compile Include="App_GlobalResources\Resource1.designer.cs">
+    <Compile Include="App_GlobalResources\Resource5.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resource.resx</DependentUpon>
+    </Compile>
+    <Compile Include="BuyMgt\BuyAutoPassMgt.aspx.cs">
+      <DependentUpon>BuyAutoPassMgt.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="BuyMgt\BuyAutoPassMgt.aspx.designer.cs">
+      <DependentUpon>BuyAutoPassMgt.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="BuyMgt\BuyMCreate.aspx.cs">
+      <DependentUpon>BuyMCreate.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="BuyMgt\BuyMCreate.aspx.designer.cs">
+      <DependentUpon>BuyMCreate.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="BuyMgt\BuyMgt.aspx.cs">
+      <DependentUpon>BuyMgt.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="BuyMgt\BuyMgt.aspx.designer.cs">
+      <DependentUpon>BuyMgt.aspx</DependentUpon>
     </Compile>
     <Compile Include="CaseMgt\AdvisoryMaintain.aspx.cs">
       <DependentUpon>AdvisoryMaintain.aspx</DependentUpon>
@@ -496,7 +520,7 @@
   <ItemGroup>
     <Content Include="App_GlobalResources\Resource.resx">
       <Generator>GlobalResourceProxyGenerator</Generator>
-      <LastGenOutput>Resource1.designer.cs</LastGenOutput>
+      <LastGenOutput>Resource5.designer.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <ItemGroup>

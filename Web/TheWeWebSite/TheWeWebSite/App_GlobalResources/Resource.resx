@@ -892,40 +892,40 @@
     <value>Case</value>
   </data>
   <data name="OtherItemCategoryString" xml:space="preserve">
-    <value></value>
+    <value>Category of Wedding Item</value>
   </data>
   <data name="OtherItemSnString" xml:space="preserve">
-    <value></value>
+    <value>Sn of Wedding Item</value>
   </data>
   <data name="DescriptionString" xml:space="preserve">
-    <value></value>
+    <value>Description</value>
   </data>
   <data name="ModelingSnString" xml:space="preserve">
-    <value></value>
+    <value>Sn of Modeling</value>
   </data>
   <data name="TypeSelectRemindString" xml:space="preserve">
     <value></value>
   </data>
   <data name="PassportIdString" xml:space="preserve">
-    <value></value>
+    <value>Passport Id</value>
   </data>
   <data name="LangSelectRemindString" xml:space="preserve">
-    <value></value>
+    <value>Select a Language Sn</value>
   </data>
   <data name="EmpNameString" xml:space="preserve">
     <value>Employee Name</value>
   </data>
   <data name="EmpOnboardDayString" xml:space="preserve">
-    <value></value>
+    <value>On-Board Date</value>
   </data>
   <data name="EmpQuitDayString" xml:space="preserve">
-    <value></value>
+    <value>Leave Date </value>
   </data>
   <data name="EmergencyContactString" xml:space="preserve">
-    <value></value>
+    <value>Emergency Contact</value>
   </data>
   <data name="EmergencyContactTelString" xml:space="preserve">
-    <value></value>
+    <value>Emergency Contact Phone</value>
   </data>
   <data name="BankString" xml:space="preserve">
     <value>Bank Account</value>
@@ -934,13 +934,13 @@
     <value>Bank Book</value>
   </data>
   <data name="SalaryString" xml:space="preserve">
-    <value></value>
+    <value>Salary</value>
   </data>
   <data name="InsuranceString" xml:space="preserve">
     <value>Insurance</value>
   </data>
   <data name="CreateItemString" xml:space="preserve">
-    <value></value>
+    <value>Create Item</value>
   </data>
   <data name="OtherString" xml:space="preserve">
     <value>Other</value>
@@ -1027,7 +1027,7 @@
     <value>Vocation</value>
   </data>
   <data name="AdditionalItemString" xml:space="preserve">
-    <value></value>
+    <value>Additional Item</value>
   </data>
   <data name="SystemSnString" xml:space="preserve">
     <value></value>
@@ -1051,19 +1051,19 @@
     <value>Please Enter </value>
   </data>
   <data name="CorrespondSnString" xml:space="preserve">
-    <value></value>
+    <value>Corresponding Sn</value>
   </data>
   <data name="CorrespondString" xml:space="preserve">
-    <value></value>
+    <value>Corresponding Object</value>
   </data>
   <data name="DepositString" xml:space="preserve">
     <value>Desposit</value>
   </data>
   <data name="SecondPayString" xml:space="preserve">
-    <value></value>
+    <value>Secondary Payment</value>
   </data>
   <data name="BalanceDueString" xml:space="preserve">
-    <value></value>
+    <value>Balance Due</value>
   </data>
   <data name="PaymentTimeString" xml:space="preserve">
     <value>Payment Date</value>
@@ -1072,121 +1072,121 @@
     <value>Payment Method</value>
   </data>
   <data name="SecondString" xml:space="preserve">
-    <value></value>
+    <value>Secondary</value>
   </data>
   <data name="SystemString" xml:space="preserve">
     <value></value>
   </data>
   <data name="DressRentString" xml:space="preserve">
-    <value></value>
+    <value>Dress Rental</value>
   </data>
   <data name="HotelString" xml:space="preserve">
     <value>Hotel</value>
   </data>
   <data name="TravelPeriodString" xml:space="preserve">
-    <value></value>
+    <value>Tour</value>
   </data>
   <data name="FlightInfoString" xml:space="preserve">
-    <value></value>
+    <value>Flight Info</value>
   </data>
   <data name="ContactString" xml:space="preserve">
-    <value></value>
+    <value>Contact</value>
   </data>
   <data name="WelcomeCardString" xml:space="preserve">
-    <value></value>
+    <value>Welcome Card</value>
   </data>
   <data name="ChampagneString" xml:space="preserve">
-    <value></value>
+    <value>Champagne</value>
   </data>
   <data name="GuestString" xml:space="preserve">
-    <value></value>
+    <value>Number of Guests</value>
   </data>
   <data name="WeddingSequenceString" xml:space="preserve">
-    <value></value>
+    <value>Order of Entry The Church</value>
   </data>
   <data name="AdditionServiceString" xml:space="preserve">
-    <value></value>
+    <value>Additional Service</value>
   </data>
   <data name="AttractionsString" xml:space="preserve">
-    <value></value>
+    <value>Attractions</value>
   </data>
   <data name="RoutePlanString" xml:space="preserve">
-    <value></value>
+    <value>Route Planner</value>
   </data>
   <data name="PhotoItemString" xml:space="preserve">
-    <value></value>
+    <value>Item of Photo Shooting</value>
   </data>
   <data name="PhotoBouquetString" xml:space="preserve">
-    <value></value>
+    <value>Bouquet of Photo Shooting</value>
   </data>
   <data name="PhotoSpecialClaimString" xml:space="preserve">
-    <value></value>
+    <value>Special Request of Photo Shooting</value>
   </data>
   <data name="PhotoAvoidString" xml:space="preserve">
-    <value></value>
+    <value>Avoid Poses for Photo Shooting</value>
   </data>
   <data name="SitePlanString" xml:space="preserve">
-    <value></value>
+    <value>Field Planner</value>
   </data>
   <data name="BanquetContentString" xml:space="preserve">
-    <value></value>
+    <value>Banquet Content</value>
   </data>
   <data name="FoodString" xml:space="preserve">
-    <value></value>
+    <value>Food</value>
   </data>
   <data name="ModelingString" xml:space="preserve">
-    <value></value>
+    <value>Modeling</value>
   </data>
   <data name="MakeupEmphasisString" xml:space="preserve">
-    <value></value>
+    <value>Makeup Emphasis</value>
   </data>
   <data name="SpecialClaimString" xml:space="preserve">
-    <value></value>
+    <value>Special Request</value>
   </data>
   <data name="WhiteDressString" xml:space="preserve">
-    <value></value>
+    <value>Wedding Dress</value>
   </data>
   <data name="EveningDressString" xml:space="preserve">
-    <value></value>
+    <value>Evening Gown</value>
   </data>
   <data name="BathrobeString" xml:space="preserve">
-    <value></value>
+    <value>Yukata</value>
   </data>
   <data name="KimonoString" xml:space="preserve">
-    <value></value>
+    <value>Kimono</value>
   </data>
   <data name="SuitString" xml:space="preserve">
-    <value></value>
+    <value>Suit</value>
   </data>
   <data name="BanquetPeopleString" xml:space="preserve">
-    <value></value>
+    <value>Number of Attendance</value>
   </data>
   <data name="ChooseString" xml:space="preserve">
-    <value></value>
+    <value>Choose</value>
   </data>
   <data name="BanquetString" xml:space="preserve">
-    <value></value>
+    <value>Banquet</value>
   </data>
   <data name="HairString" xml:space="preserve">
-    <value></value>
+    <value>Hair Style</value>
   </data>
   <data name="SizeCheckString" xml:space="preserve">
-    <value></value>
+    <value>Size Confirmation</value>
   </data>
   <data name="GetDressString" xml:space="preserve">
-    <value></value>
+    <value>Dress Pickup</value>
   </data>
   <data name="PaymentString" xml:space="preserve">
     <value>Payment</value>
   </data>
   <data name="OtherNameString" xml:space="preserve">
-    <value></value>
+    <value>Other Name</value>
   </data>
   <data name="GoString" xml:space="preserve">
-    <value></value>
+    <value>Go Trip</value>
   </data>
   <data name="BackString" xml:space="preserve">
-    <value></value>
+    <value>Back Trip</value>
   </data>
   <data name="DateString" xml:space="preserve">
     <value>Date</value>
@@ -1210,34 +1210,34 @@
     <value>Sales</value>
   </data>
   <data name="BouquetPictureString" xml:space="preserve">
-    <value></value>
+    <value>Picture of Bouquet</value>
   </data>
   <data name="IncomeDetailString" xml:space="preserve">
     <value>Income Detail</value>
   </data>
   <data name="BustString" xml:space="preserve">
-    <value></value>
+    <value>Bust</value>
   </data>
   <data name="WaistString" xml:space="preserve">
-    <value></value>
+    <value>Waist</value>
   </data>
   <data name="HipsString" xml:space="preserve">
-    <value></value>
+    <value>Hips</value>
   </data>
   <data name="TryDressString" xml:space="preserve">
-    <value></value>
+    <value>Try on</value>
   </data>
   <data name="CheckDressString" xml:space="preserve">
-    <value></value>
+    <value>Final Check</value>
   </data>
   <data name="ModelingPhotoString" xml:space="preserve">
-    <value></value>
+    <value>Pictures of Modeling</value>
   </data>
   <data name="MapPhotoString" xml:space="preserve">
-    <value></value>
+    <value>Map</value>
   </data>
   <data name="DMPhotoString" xml:space="preserve">
-    <value></value>
+    <value>DM</value>
   </data>
   <data name="ChurchString" xml:space="preserve">
     <value>Church</value>
@@ -1247,5 +1247,20 @@
   </data>
   <data name="RemittanceFeeString" xml:space="preserve">
     <value>Remittance Fee</value>
+  </data>
+  <data name="NumberLimitString" xml:space="preserve">
+    <value>Quantity Limitation</value>
+  </data>
+  <data name="SumitDayString" xml:space="preserve">
+    <value>Day of Submission</value>
+  </data>
+  <data name="ApprovalDayString" xml:space="preserve">
+    <value>Day of Approval</value>
+  </data>
+  <data name="BuyAutoPassMgtString" xml:space="preserve">
+    <value>Purchase Certificate Mgt</value>
+  </data>
+  <data name="AmountLimitString" xml:space="preserve">
+    <value>Amount Limitation</value>
   </data>
 </root>
