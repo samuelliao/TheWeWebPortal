@@ -121,6 +121,7 @@ namespace TheWeWebSite.CaseMgt
             SetOrderTypeList();
             SetStatusList();
             SetProductSetList(ddlCountry.SelectedValue, ddlArea.SelectedValue, ddlCountry.SelectedValue, ddlOrderType.SelectedValue);
+            CurrencyList();
         }
         private void InitialControlWithPermission()
         {
@@ -195,6 +196,26 @@ namespace TheWeWebSite.CaseMgt
         #endregion
 
         #region DropDownList Setting
+        private void CurrencyList()
+        {
+            ddlCurrency.Items.Clear();
+            try
+            {
+                DataSet ds = SysProperty.GenDbCon.GetDataFromTable("Select * From Currency Where IsDelete = 0");
+                if (SysProperty.Util.IsDataSetEmpty(ds)) return;
+                ListItem item = new ListItem();
+                foreach (DataRow dr in ds.Tables[0].Rows)
+                {
+                    item = new ListItem(dr["Name"].ToString(), dr["Id"].ToString());
+                    ddlCurrency.Items.Add(item);
+                }
+            }
+            catch (Exception ex)
+            {
+                SysProperty.Log.Error(ex.Message);
+                ShowErrorMsg(ex.Message);
+            }
+        }
         private void SetMsgerTypeList()
         {
             ddlGroomMsgerType.Items.Clear();

@@ -1263,4 +1263,28 @@
   <data name="AmountLimitString" xml:space="preserve">
     <value>Amount Limitation</value>
   </data>
+  <data name="ProductPriceWarnString" xml:space="preserve">
+    <value>Price cannot lower than Cost!</value>
+  </data>
+  <data name="CreateSuccessString" xml:space="preserve">
+    <value>Successfully Created</value>
+  </data>
+  <data name="ModifySuccessString" xml:space="preserve">
+    <value>Successfully Modified</value>
+  </data>
+  <data name="CreateFailedString" xml:space="preserve">
+    <value>Failed to Create</value>
+  </data>
+  <data name="ModifyFailedString" xml:space="preserve">
+    <value>Failed to Modify</value>
+  </data>
+  <data name="SaveString" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="SubmitString" xml:space="preserve">
+    <value>Submit</value>
+  </data>
+  <data name="AbandonString" xml:space="preserve">
+    <value>Abandon</value>
+  </data>
 </root>

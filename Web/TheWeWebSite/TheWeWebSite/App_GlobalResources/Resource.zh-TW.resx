@@ -1263,4 +1263,28 @@
   <data name="AmountLimitString" xml:space="preserve">
     <value>金額限制</value>
   </data>
+  <data name="ProductPriceWarnString" xml:space="preserve">
+    <value>套餐價格不得低於成本價</value>
+  </data>
+  <data name="CreateSuccessString" xml:space="preserve">
+    <value>新增成功</value>
+  </data>
+  <data name="ModifySuccessString" xml:space="preserve">
+    <value>修改成功</value>
+  </data>
+  <data name="CreateFailedString" xml:space="preserve">
+    <value>新增失敗</value>
+  </data>
+  <data name="ModifyFailedString" xml:space="preserve">
+    <value>修改失敗</value>
+  </data>
+  <data name="SaveString" xml:space="preserve">
+    <value> 儲存</value>
+  </data>
+  <data name="SubmitString" xml:space="preserve">
+    <value>提交</value>
+  </data>
+  <data name="AbandonString" xml:space="preserve">
+    <value>捨棄</value>
+  </data>
 </root>

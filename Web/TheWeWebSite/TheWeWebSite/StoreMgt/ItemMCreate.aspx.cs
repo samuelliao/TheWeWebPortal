@@ -52,8 +52,8 @@ namespace TheWeWebSite.StoreMgt
 
         private void TextHint()
         {
-            tbSn.Attributes.Add("placeholder" , Resources.Resource.SystemSnString);
-            tbName.Attributes.Add("placeHolder" ,Resources.Resource.AddString + Resources.Resource.NameString);
+            tbSn.Attributes.Add("placeholder", Resources.Resource.SystemSnString);
+            tbName.Attributes.Add("placeHolder", Resources.Resource.AddString + Resources.Resource.NameString);
             tbCnName.Attributes.Add("placeHolder", Resources.Resource.AddString + Resources.Resource.CnNameString);
             tbEngName.Attributes.Add("placeHolder", Resources.Resource.AddString + Resources.Resource.EnglishNameString);
             tbJpName.Attributes.Add("placeHolder", Resources.Resource.AddString + Resources.Resource.JpNameString);
@@ -68,7 +68,7 @@ namespace TheWeWebSite.StoreMgt
             tbCorsage.Attributes.Add("placeHolder", Resources.Resource.AddString + Resources.Resource.CorsageString);
             tbDecorate.Attributes.Add("placeHolder", Resources.Resource.AddString + Resources.Resource.ChurchArrangementsString);
             tbPerformence.Attributes.Add("placeHolder", Resources.Resource.AddString + Resources.Resource.WeddingPerformanceString);
-            tbCost.Attributes.Add("placeHolder","0.00");
+            tbCost.Attributes.Add("placeHolder", "0.00");
             tbPrice.Attributes.Add("placeHolder", "0.00");
 
 
@@ -120,6 +120,28 @@ namespace TheWeWebSite.StoreMgt
             WeddingTypeDropDownList();
             StaffDropDownList();
             StoreList();
+            InitialCurrency();
+        }
+        private void InitialCurrency()
+        {
+            ddlCostCurrency.Items.Clear();
+            ddlPriceCurrency.Items.Clear();
+            try
+            {
+                List<DbSearchObject> lst = new List<DbSearchObject>();
+                lst.Add(new DbSearchObject("IsDelete", AtrrTypeItem.Bit, AttrSymbolItem.Equal, "0"));
+                DataSet ds = GetDataFromDb(SysProperty.Util.MsSqlTableConverter(MsSqlTable.Currency), lst);
+                foreach (DataRow dr in ds.Tables[0].Rows)
+                {
+                    ddlCostCurrency.Items.Add(new ListItem(dr["Name"].ToString(), dr["Id"].ToString()));
+                    ddlPriceCurrency.Items.Add(new ListItem(dr["Name"].ToString(), dr["Id"].ToString()));
+                }
+            }
+            catch (Exception ex)
+            {
+                SysProperty.Log.Error(ex.Message);
+                ShowErrorMsg(ex.Message);
+            }
         }
         private void StoreList()
         {
@@ -372,12 +394,18 @@ namespace TheWeWebSite.StoreMgt
 
         protected void btnModify_Click(object sender, EventArgs e)
         {
+            ShowErrorMsg(string.Empty);
+            if (ComparePrice())
+            {
+                ShowErrorMsg(Resources.Resource.ProductPriceWarnString);
+                return;
+            }
             labelUpdateTime.Text = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss");
-            if (Session["SetId"] == null) return;
+            if (Session["SetId"] == null) { ShowErrorMsg(Resources.Resource.ModifyFailedString); return; }
             string id = Session["SetId"].ToString();
-            if (string.IsNullOrEmpty(id)) return;
+            if (string.IsNullOrEmpty(id)) { ShowErrorMsg(Resources.Resource.ModifyFailedString); return; }
             bool result = WriteBackInfo(MsSqlTable.ProductSet, false, SetDbObject(false), " Where Id='" + id + "'");
-            if (!result) return;
+            if (!result) { ShowErrorMsg(Resources.Resource.ModifyFailedString); return; }
             if (bool.Parse(((DataRow)Session["LocateStore"])["HoldingCompany"].ToString())
                 && ddlStore.SelectedValue == ((DataRow)Session["LocateStore"])["Id"].ToString())
             {
@@ -388,17 +416,24 @@ namespace TheWeWebSite.StoreMgt
             if (result)
             {
                 TransferToOtherPage(true);
+                ShowErrorMsg(Resources.Resource.ModifySuccessString);
             }
+            else { ShowErrorMsg(Resources.Resource.ModifyFailedString);}
         }
 
         protected void btnCreate_Click(object sender, EventArgs e)
         {
+            if (ComparePrice())
+            {
+                ShowErrorMsg("ProductPriceWarnString");
+                return;
+            }
             labelUpdateTime.Text = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss");
             List<DbSearchObject> lst = SetDbObject(true);
             bool result = WriteBackInfo(MsSqlTable.ProductSet, true, lst, string.Empty);
-            if (!result) return;
+            if (!result) { ShowErrorMsg(Resources.Resource.ModifyFailedString); return; }
             string id = GetCreateSetId(lst);
-            if (string.IsNullOrEmpty(id)) return;
+            if (string.IsNullOrEmpty(id)) { ShowErrorMsg(Resources.Resource.ModifyFailedString); return; }
             if (bool.Parse(((DataRow)Session["LocateStore"])["HoldingCompany"].ToString())
                 && ddlStore.SelectedValue == ((DataRow)Session["LocateStore"])["Id"].ToString())
             {
@@ -410,7 +445,21 @@ namespace TheWeWebSite.StoreMgt
             {
                 Session["SetId"] = id;
                 TransferToOtherPage(true);
+                ShowErrorMsg(Resources.Resource.ModifySuccessString);
             }
+            else { ShowErrorMsg(Resources.Resource.ModifyFailedString); return; }
+        }
+
+        private bool ComparePrice()
+        {
+            bool result = false;
+            if (divForStore.Visible)
+            {
+                decimal price = SysProperty.Util.ParseMoney(tbPrice.Text);
+                decimal cost = SysProperty.Util.ParseMoney(tbCost.Text);
+                return price < cost;
+            }
+            return result;
         }
         #endregion
 
@@ -731,8 +780,12 @@ namespace TheWeWebSite.StoreMgt
 
             labelUpdateTime.Text = dr["UpdateTime"].ToString();
 
-            tbCost.Text = SysProperty.Util.ParseMoney(dr["Cost"].ToString()).ToString("#0.00");
-            tbPrice.Text = SysProperty.Util.ParseMoney(dr["Price"].ToString()).ToString("#0.00");
+            decimal cost = SysProperty.Util.ParseMoney(dr["Cost"].ToString());
+            tbCost.Text = cost.ToString("#0.00");
+            ddlCostCurrency.SelectedValue = dr["CostCurrencyId"].ToString();
+            decimal price = SysProperty.Util.ParseMoney(dr["Price"].ToString());
+            tbPrice.Text = price >= cost ? price.ToString("#0.00") : cost.ToString("#0.00");
+            ddlPriceCurrency.SelectedValue = dr["PriceCurrencyId"].ToString();
             if (string.IsNullOrEmpty(labelBaseId.Text))
             {
                 if (!bool.Parse(((DataRow)Session["LocateStore"])["HoldingCompany"].ToString()))
@@ -814,6 +867,12 @@ namespace TheWeWebSite.StoreMgt
                     if (SysProperty.Util.IsDataSetEmpty(ds)) return;
                     tbCost.Text = SysProperty.Util.ParseMoney(ds.Tables[0].Rows[0]["Price"].ToString()).ToString("#0.00");
                     tbPrice.Text = SysProperty.Util.ParseMoney(tbPrice.Text) == 0 ? tbCost.Text : tbPrice.Text;
+                    try
+                    {
+                        ddlCostCurrency.SelectedValue = ds.Tables[0].Rows[0]["Currency"].ToString();
+                        ddlPriceCurrency.SelectedValue = ds.Tables[0].Rows[0]["Currency"].ToString();
+                    }
+                    catch { }
                 }
             }
 
@@ -852,6 +911,7 @@ namespace TheWeWebSite.StoreMgt
                 ddlStore.Enabled = false;
                 ddlWeddingType.Enabled = false;
                 ddlWeddingType.CssClass = "Enable";
+                ddlCostCurrency.Enabled = false;
                 cbBreakfast.Enabled = false;
                 cbCertificate.Enabled = false;
                 cbChurchCost.Enabled = false;
@@ -984,7 +1044,6 @@ namespace TheWeWebSite.StoreMgt
             }
             return result;
         }
-
         private List<DbSearchObject> SetDbObject(bool isCreate)
         {
             List<DbSearchObject> lst = new List<DbSearchObject>();
@@ -1136,6 +1195,18 @@ namespace TheWeWebSite.StoreMgt
                 , AttrSymbolItem.Equal
                 , ddlStaff.SelectedValue
                 ));
+            lst.Add(new DbSearchObject(
+                "CostCurrencyId"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , ddlCostCurrency.SelectedValue
+                ));
+            lst.Add(new DbSearchObject(
+                "PriceCurrencyId"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , ddlPriceCurrency.SelectedValue
+                ));
             #endregion
             #region CheckBox
             lst.Add(new DbSearchObject(
@@ -1255,7 +1326,6 @@ namespace TheWeWebSite.StoreMgt
             }
             return lst;
         }
-
         private List<List<DbSearchObject>> StoreLvPriceDbObject(bool isCreate, string setId)
         {
             List<List<DbSearchObject>> result = new List<List<DbSearchObject>>();
@@ -1280,6 +1350,13 @@ namespace TheWeWebSite.StoreMgt
                     if (string.IsNullOrEmpty(str)) continue;
                     lst.Add(new DbSearchObject(
                         "StoreLv"
+                        , AtrrTypeItem.String
+                        , AttrSymbolItem.Equal
+                        , str
+                        ));
+                    str = ((DropDownList)dr.Cells[2].FindControl("ddlStoreCurrency")).SelectedValue;
+                    lst.Add(new DbSearchObject(
+                        "Currency"
                         , AtrrTypeItem.String
                         , AttrSymbolItem.Equal
                         , str
@@ -1507,16 +1584,16 @@ namespace TheWeWebSite.StoreMgt
             {
                 sql = "IF((Select COUNT(*) From StoreLvSetPrice Where IsDelete=0 And SetId = '" + setId + "') != 0)"
                     + " BEGIN"
-                    + " SELECT Id,[Price],[StoreLv] FROM StoreLvSetPrice Where IsDelete = 0 And SetId = '" + setId + "' Order by StoreLv"
+                    + " SELECT Id,[Price],[StoreLv],Currency FROM StoreLvSetPrice Where IsDelete = 0 And SetId = '" + setId + "' Order by StoreLv"
                     + " END"
                     + " ELSE"
                     + " BEGIN"
-                    + " Select Distinct GradeLv As StoreLv, '' As Id, 0 as Price From Store Where IsDelete = 0 And GradeLv!=0 Order by GradeLv"
+                    + " Select Distinct GradeLv As StoreLv, '' As Id, '' As Currency, 0 as Price From Store Where IsDelete = 0 And GradeLv!=0 Order by GradeLv"
                     + " END";
             }
             else
             {
-                sql = "Select Distinct GradeLv As StoreLv, '' As Id, 0 as Price From Store Where IsDelete = 0 And GradeLv!=0 Order by GradeLv";
+                sql = "Select Distinct GradeLv As StoreLv, '' As Id, '' As Currency, 0 as Price From Store Where IsDelete = 0 And GradeLv!=0 Order by GradeLv";
             }
             DataSet ds = GetDataFromDb(sql);
             PriceTable.DataSource = ds;
@@ -1527,7 +1604,28 @@ namespace TheWeWebSite.StoreMgt
             DataRowView dataItem1 = (DataRowView)e.Row.DataItem;
             if (dataItem1 != null)
             {
-                ((TextBox)e.Row.FindControl("tbStorePrice")).Text = SysProperty.Util.ParseMoney(dataItem1["Price"].ToString()).ToString("#0.00");
+                #region Initial Currency Control
+                DropDownList ddl = (DropDownList)e.Row.FindControl("ddlStoreCurrency");
+                ddl.Items.Clear();
+                foreach (ListItem item in ddlCostCurrency.Items)
+                {
+                    ddl.Items.Add(item);
+                }
+                ddl.SelectedValue = dataItem1["Currency"].ToString();
+                #endregion
+
+                #region Price 
+                decimal price = SysProperty.Util.ParseMoney(dataItem1["Price"].ToString());
+                if (price < SysProperty.Util.ParseMoney(tbCost.Text))
+                {
+                    ((TextBox)e.Row.FindControl("tbStorePrice")).Text = tbCost.Text;
+                }
+                else
+                {
+                    ((TextBox)e.Row.FindControl("tbStorePrice")).Text = price.ToString("#0.00");
+                }
+                #endregion
+
             }
         }
         #endregion

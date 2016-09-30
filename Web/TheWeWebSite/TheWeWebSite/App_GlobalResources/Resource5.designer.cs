@@ -61,6 +61,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   查詢類似 Abandon 的當地語系化字串。
+        /// </summary>
+        internal static string AbandonString {
+            get {
+                return ResourceManager.GetString("AbandonString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查詢類似 Accessory 的當地語系化字串。
         /// </summary>
         internal static string AccessoryMaintainString {
@@ -952,6 +961,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   查詢類似 Failed to Create 的當地語系化字串。
+        /// </summary>
+        internal static string CreateFailedString {
+            get {
+                return ResourceManager.GetString("CreateFailedString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查詢類似 Create Item 的當地語系化字串。
         /// </summary>
         internal static string CreateItemString {
@@ -966,6 +984,15 @@ namespace Resources {
         internal static string CreateString {
             get {
                 return ResourceManager.GetString("CreateString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查詢類似 Successfully Created 的當地語系化字串。
+        /// </summary>
+        internal static string CreateSuccessString {
+            get {
+                return ResourceManager.GetString("CreateSuccessString", resourceCulture);
             }
         }
         
@@ -2131,11 +2158,29 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   查詢類似 Failed to Modify 的當地語系化字串。
+        /// </summary>
+        internal static string ModifyFailedString {
+            get {
+                return ResourceManager.GetString("ModifyFailedString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查詢類似 Edit 的當地語系化字串。
         /// </summary>
         internal static string ModifyString {
             get {
                 return ResourceManager.GetString("ModifyString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查詢類似 Successfully Modified 的當地語系化字串。
+        /// </summary>
+        internal static string ModifySuccessString {
+            get {
+                return ResourceManager.GetString("ModifySuccessString", resourceCulture);
             }
         }
         
@@ -2590,6 +2635,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   查詢類似 Price cannot lower than Cost! 的當地語系化字串。
+        /// </summary>
+        internal static string ProductPriceWarnString {
+            get {
+                return ResourceManager.GetString("ProductPriceWarnString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查詢類似 Product 的當地語系化字串。
         /// </summary>
         internal static string ProductSetString {
@@ -2802,6 +2856,15 @@ namespace Resources {
         internal static string SalesString {
             get {
                 return ResourceManager.GetString("SalesString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查詢類似 Save 的當地語系化字串。
+        /// </summary>
+        internal static string SaveString {
+            get {
+                return ResourceManager.GetString("SaveString", resourceCulture);
             }
         }
         
@@ -3126,6 +3189,15 @@ namespace Resources {
         internal static string StyleMaintainString {
             get {
                 return ResourceManager.GetString("StyleMaintainString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查詢類似 Submit 的當地語系化字串。
+        /// </summary>
+        internal static string SubmitString {
+            get {
+                return ResourceManager.GetString("SubmitString", resourceCulture);
             }
         }
         

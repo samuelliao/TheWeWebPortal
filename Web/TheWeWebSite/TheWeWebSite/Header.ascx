@@ -97,7 +97,7 @@
                         </li>
                     </ul>
                 </li>
-                <li runat="server" id="liPurchaseMgt">
+                <li runat="server" id="liPurchaseMgt" style="display:none;">
                     <asp:LinkButton CausesValidation="false" runat="server" Text="<%$ Resources:Resource,PurchaseMgtString%>" ID="LinkPuchaseMgt" PostBackUrl="~/BuyMgt/BuyMgt.aspx" />
                     <ul>
                         <li>

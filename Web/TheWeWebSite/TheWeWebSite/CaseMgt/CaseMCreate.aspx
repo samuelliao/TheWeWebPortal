@@ -411,8 +411,16 @@
                                     </div>
                                 </div>
                                 <div class="12u">
-
                                     <div class="row uniform 50%">
+                                        <div class="2u 12u(mobilep)">
+                                            <div class="Div">
+                                                <asp:Label runat="server" Text="<%$ Resources:Resource,CurrencyString%>"></asp:Label>
+                                            </div>
+                                            <asp:UpdatePanel runat="server">
+                                                <ContentTemplate>
+                                                    <asp:DropDownList runat="server" ID="ddlCurrency" />
+                                                </ContentTemplate>
+                                            </asp:UpdatePanel>
                                         <div class="2u 12u(mobilep)">
                                             <div class="Div">
                                                 <asp:Label runat="server" Text="<%$ Resources:Resource,PriceString%>"></asp:Label>
@@ -424,7 +432,6 @@
                                                     <asp:RegularExpressionValidator CssClass="error" Display="Dynamic" ID="RegularExpressionValidator1" ControlToValidate="tbContractPrice" runat="server" ErrorMessage="Only Numbers allowed" ValidationExpression="\d+[.]*\d*"></asp:RegularExpressionValidator>
                                                 </ContentTemplate>
                                             </asp:UpdatePanel>
-
                                         </div>
                                         <div class="2u 12u(mobilep)">
                                             <div class="Div">
@@ -597,7 +604,7 @@
                                                     </asp:TemplateField>
                                                     <asp:TemplateField HeaderText="<%$ Resources:Resource,StoreString%>">
                                                         <ItemTemplate>
-                                                            <asp:DropDownList runat="server" ID="ddlStore" />
+                                                            <asp:DropDownList runat="server" ID="ddlStore" Font-Size="Small" Width="150px"/>
                                                         </ItemTemplate>
                                                     </asp:TemplateField>
                                                     <asp:TemplateField HeaderText="<%$ Resources:Resource,ReceiptDateString%>">
@@ -723,7 +730,7 @@
                                                     </asp:TemplateField>
                                                     <asp:TemplateField HeaderText="<%$ Resources:Resource,StoreString%>">
                                                         <ItemTemplate>
-                                                            <asp:DropDownList runat="server" ID="ddlStore" />
+                                                            <asp:DropDownList runat="server" ID="ddlStore" Font-Size="Small" />
                                                         </ItemTemplate>
                                                         <FooterStyle HorizontalAlign="Right" />
                                                         <FooterTemplate>
