@@ -394,12 +394,11 @@ namespace TheWeWebSite.StoreMgt
 
         protected void btnModify_Click(object sender, EventArgs e)
         {
-            ShowErrorMsg(string.Empty);
-            if (ComparePrice())
-            {
-                ShowErrorMsg(Resources.Resource.ProductPriceWarnString);
-                return;
-            }
+            //if (ComparePrice())
+            //{
+            //    ShowErrorMsg(Resources.Resource.ProductPriceWarnString);
+            //    return;
+            //}
             labelUpdateTime.Text = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss");
             if (Session["SetId"] == null) { ShowErrorMsg(Resources.Resource.ModifyFailedString); return; }
             string id = Session["SetId"].ToString();
@@ -423,11 +422,11 @@ namespace TheWeWebSite.StoreMgt
 
         protected void btnCreate_Click(object sender, EventArgs e)
         {
-            if (ComparePrice())
-            {
-                ShowErrorMsg("ProductPriceWarnString");
-                return;
-            }
+            //if (ComparePrice())
+            //{
+            //    ShowErrorMsg(Resources.Resource.ProductPriceWarnString);
+            //    return;
+            //}
             labelUpdateTime.Text = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss");
             List<DbSearchObject> lst = SetDbObject(true);
             bool result = WriteBackInfo(MsSqlTable.ProductSet, true, lst, string.Empty);
@@ -437,17 +436,17 @@ namespace TheWeWebSite.StoreMgt
             if (bool.Parse(((DataRow)Session["LocateStore"])["HoldingCompany"].ToString())
                 && ddlStore.SelectedValue == ((DataRow)Session["LocateStore"])["Id"].ToString())
             {
-                result = WriteBackServiceItem(MsSqlTable.ProductSetServiceItem, false, ServiceItemDbObject(true, "Church", id), id);
+                result = WriteBackServiceItem(MsSqlTable.ProductSetChurchServiceItem, false, ServiceItemDbObject(true, "Church", id), id);
                 result = WriteBackStoreLvPrice(true, StoreLvPriceDbObject(true, id));
             }
-            result = WriteBackServiceItem(MsSqlTable.ProductSetChurchServiceItem, false, ServiceItemDbObject(true, "Custom", id), id);
+            result = WriteBackServiceItem(MsSqlTable.ProductSetServiceItem, false, ServiceItemDbObject(true, "Custom", id), id);
             if (result)
             {
                 Session["SetId"] = id;
                 TransferToOtherPage(true);
-                ShowErrorMsg(Resources.Resource.ModifySuccessString);
+                ShowErrorMsg(Resources.Resource.CreateSuccessString);
             }
-            else { ShowErrorMsg(Resources.Resource.ModifyFailedString); return; }
+            else { ShowErrorMsg(Resources.Resource.CreateFailedString); return; }
         }
 
         private bool ComparePrice()
@@ -784,7 +783,7 @@ namespace TheWeWebSite.StoreMgt
             tbCost.Text = cost.ToString("#0.00");
             ddlCostCurrency.SelectedValue = dr["CostCurrencyId"].ToString();
             decimal price = SysProperty.Util.ParseMoney(dr["Price"].ToString());
-            tbPrice.Text = price >= cost ? price.ToString("#0.00") : cost.ToString("#0.00");
+            tbPrice.Text = price > 0 ? price.ToString("#0.00") : cost.ToString("#0.00");
             ddlPriceCurrency.SelectedValue = dr["PriceCurrencyId"].ToString();
             if (string.IsNullOrEmpty(labelBaseId.Text))
             {
@@ -810,7 +809,7 @@ namespace TheWeWebSite.StoreMgt
                 GetCostAndPrice(
                     string.IsNullOrEmpty(labelBaseId.Text)
                     , labelBaseId.Text
-                    , SplitString(ddlStore.SelectedItem.Text, "(", 1).Replace(")", ""));
+                    , ddlStore.SelectedValue);
                 LoadDataFromBasedId(labelBaseId.Text);
             }
 
@@ -835,8 +834,7 @@ namespace TheWeWebSite.StoreMgt
             tbGroomHairStyle.Text = drBase["GroomMakeup"].ToString();
             tbMovemont.Text = drBase["Moves"].ToString();
             tbPerformence.Text = drBase["Performence"].ToString();
-            tbRoom.Text = drBase["RoomId"].ToString();
-            tbSn.Text = drBase["Sn"].ToString();
+            tbRoom.Text = drBase["RoomId"].ToString();            
             tbStay.Text = drBase["StayNight"].ToString();
             cbBreakfast.Checked = bool.Parse(drBase["Breakfast"].ToString());
             cbCertificate.Checked = bool.Parse(drBase["Certificate"].ToString());
@@ -1616,7 +1614,7 @@ namespace TheWeWebSite.StoreMgt
 
                 #region Price 
                 decimal price = SysProperty.Util.ParseMoney(dataItem1["Price"].ToString());
-                if (price < SysProperty.Util.ParseMoney(tbCost.Text))
+                if (price <= 0)
                 {
                     ((TextBox)e.Row.FindControl("tbStorePrice")).Text = tbCost.Text;
                 }

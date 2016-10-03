@@ -421,6 +421,7 @@
                                                     <asp:DropDownList runat="server" ID="ddlCurrency" />
                                                 </ContentTemplate>
                                             </asp:UpdatePanel>
+                                            </div>
                                         <div class="2u 12u(mobilep)">
                                             <div class="Div">
                                                 <asp:Label runat="server" Text="<%$ Resources:Resource,PriceString%>"></asp:Label>
@@ -457,8 +458,8 @@
                                             </asp:UpdatePanel>
 
                                         </div>
-                                    </div>
-                                </div>
+                            </div>
+                            </div>
                                 <div class="12u">
                                     <div class="row uniform 50%">
                                         <!-- 照片 -->
@@ -604,7 +605,7 @@
                                                     </asp:TemplateField>
                                                     <asp:TemplateField HeaderText="<%$ Resources:Resource,StoreString%>">
                                                         <ItemTemplate>
-                                                            <asp:DropDownList runat="server" ID="ddlStore" Font-Size="Small" Width="150px"/>
+                                                            <asp:DropDownList runat="server" ID="ddlStore" Font-Size="Small" Width="150px" />
                                                         </ItemTemplate>
                                                     </asp:TemplateField>
                                                     <asp:TemplateField HeaderText="<%$ Resources:Resource,ReceiptDateString%>">

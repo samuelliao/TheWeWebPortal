@@ -29,8 +29,7 @@ namespace TheWeWebSite.BuyMgt
             btnAbandon.Visible = item.CanCreate;
             if (!bool.Parse(((DataRow)Session["LocateStore"])["HoldingCompany"].ToString()))
             {
-                divApproval.Visible = false;
-                
+                divApproval.Visible = false;                
             }
         }
 

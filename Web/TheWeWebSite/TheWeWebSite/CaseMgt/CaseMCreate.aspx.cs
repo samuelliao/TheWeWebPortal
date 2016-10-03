@@ -115,12 +115,12 @@ namespace TheWeWebSite.CaseMgt
         private void InitialControl()
         {
             SetMsgerTypeList();
-            SetCountryList();
-            SetAreaList(ddlCountry.SelectedValue);
-            SetChurchList(ddlCountry.SelectedValue, ddlArea.SelectedValue);
+            //SetCountryList();
+            //SetAreaList(ddlCountry.SelectedValue);
+            //SetChurchList(ddlCountry.SelectedValue, ddlArea.SelectedValue);
             SetOrderTypeList();
             SetStatusList();
-            SetProductSetList(ddlCountry.SelectedValue, ddlArea.SelectedValue, ddlCountry.SelectedValue, ddlOrderType.SelectedValue);
+            //SetProductSetList(ddlCountry.SelectedValue, ddlArea.SelectedValue, ddlCountry.SelectedValue, ddlOrderType.SelectedValue);
             CurrencyList();
         }
         private void InitialControlWithPermission()
@@ -241,26 +241,38 @@ namespace TheWeWebSite.CaseMgt
             }
         }
 
-        private void SetCountryList()
+        private void SetCountryList(bool isWeddingPlanner)
         {
             ddlCountry.Items.Clear();
-            ddlCountry.Items.Add(new ListItem(Resources.Resource.CountrySelectRemindString, string.Empty));
             try
             {
-                string sql = "Select * From Country Where IsDelete = 0 And Id in (Select Distinct CountryId From ProductSet Where IsDelete=0";
-                if (!string.IsNullOrEmpty(ddlOrderType.SelectedValue))
+                if (!isWeddingPlanner)
                 {
-                    sql += " And Category = '" + ddlOrderType.SelectedValue + "'";
+                    ddlCountry.Items.Add(new ListItem(Resources.Resource.CountrySelectRemindString, string.Empty));
+                    string sql = "Select * From Country Where IsDelete = 0 And Id in (Select Distinct CountryId From ProductSet Where IsDelete=0"
+                        + " And StoreId = '" + ((DataRow)Session["LocateStore"])["Id"].ToString() + "'";
+                    if (!string.IsNullOrEmpty(ddlOrderType.SelectedValue))
+                    {
+                        sql += " And Category = '" + ddlOrderType.SelectedValue + "'";
+                    }
+                    sql += ")";
+                    DataSet ds = SysProperty.GenDbCon.GetDataFromTable(sql);
+                    if (SysProperty.Util.IsDataSetEmpty(ds)) return;
+                    foreach (DataRow dr in ds.Tables[0].Rows)
+                    {
+                        ddlCountry.Items.Add(new ListItem(
+                            SysProperty.Util.OutputRelatedLangName(Session["CultureCode"].ToString(), dr)
+                            , dr["Id"].ToString()
+                            ));
+                    }
                 }
-                sql += ")";
-                DataSet ds = SysProperty.GenDbCon.GetDataFromTable(sql);
-                if (SysProperty.Util.IsDataSetEmpty(ds)) return;
-                foreach (DataRow dr in ds.Tables[0].Rows)
+                else
                 {
+                    DataRow countryDr = SysProperty.GetCountryById(((DataRow)Session["LocateStore"])["CountryId"].ToString());
                     ddlCountry.Items.Add(new ListItem(
-                        SysProperty.Util.OutputRelatedLangName(Session["CultureCode"].ToString(), dr)
-                        , dr["Id"].ToString()
-                        ));
+                            SysProperty.Util.OutputRelatedLangName(Session["CultureCode"].ToString(), countryDr)
+                            , countryDr["Id"].ToString()
+                            ));
                 }
             }
             catch (Exception ex)
@@ -269,29 +281,41 @@ namespace TheWeWebSite.CaseMgt
                 ShowErrorMsg(ex.Message);
             }
         }
-        private void SetAreaList(string cid)
+        private void SetAreaList(string cid, bool isWeddingPlanner)
         {
             ddlArea.Items.Clear();
-            ddlArea.Items.Add(new ListItem(Resources.Resource.AreaSelectRemindString, string.Empty));
             try
             {
-                string sql = "Select * From Area Where IsDelete = 0 "
-                    + (string.IsNullOrEmpty(cid) ? string.Empty : " And CountryId = '" + cid + "'");
-                sql += " And Id in (Select Distinct AreaId From ProductSet Where IsDelete=0";
-                if (!string.IsNullOrEmpty(ddlOrderType.SelectedValue))
+                if (!isWeddingPlanner)
                 {
-                    sql += " And Category = '" + ddlOrderType.SelectedValue + "'";
-                }
-                sql += ")";
+                    ddlArea.Items.Add(new ListItem(Resources.Resource.AreaSelectRemindString, string.Empty));
+                    string sql = "Select * From Area Where IsDelete = 0 "
+                        + (string.IsNullOrEmpty(cid) ? string.Empty : " And CountryId = '" + cid + "'");
+                    sql += " And Id in (Select Distinct AreaId From ProductSet Where IsDelete=0"
+                        + " And StoreId = '" + ((DataRow)Session["LocateStore"])["Id"].ToString() + "'";
+                    if (!string.IsNullOrEmpty(ddlOrderType.SelectedValue))
+                    {
+                        sql += " And Category = '" + ddlOrderType.SelectedValue + "'";
+                    }
+                    sql += ")";
 
-                DataSet ds = SysProperty.GenDbCon.GetDataFromTable(sql);
-                if (SysProperty.Util.IsDataSetEmpty(ds)) return;
-                foreach (DataRow dr in ds.Tables[0].Rows)
+                    DataSet ds = SysProperty.GenDbCon.GetDataFromTable(sql);
+                    if (SysProperty.Util.IsDataSetEmpty(ds)) return;
+                    foreach (DataRow dr in ds.Tables[0].Rows)
+                    {
+                        ddlArea.Items.Add(new ListItem(
+                            SysProperty.Util.OutputRelatedLangName(Session["CultureCode"].ToString(), dr)
+                            , dr["Id"].ToString()
+                            ));
+                    }
+                }
+                else
                 {
+                    DataRow areaDr = SysProperty.GetAreaById(((DataRow)Session["LocateStore"])["AreaId"].ToString());
                     ddlArea.Items.Add(new ListItem(
-                        SysProperty.Util.OutputRelatedLangName(Session["CultureCode"].ToString(), dr)
-                        , dr["Id"].ToString()
-                        ));
+                            SysProperty.Util.OutputRelatedLangName(Session["CultureCode"].ToString(), areaDr)
+                            , areaDr["Id"].ToString()
+                            ));
                 }
             }
             catch (Exception ex)
@@ -300,33 +324,45 @@ namespace TheWeWebSite.CaseMgt
                 ShowErrorMsg(ex.Message);
             }
         }
-        private void SetChurchList(string cid, string aid)
+        private void SetChurchList(string cid, string aid, bool isWeddingPlanner)
         {
             ddlLocate.Items.Clear();
-            ddlLocate.Items.Add(new ListItem(Resources.Resource.ChurchSelectRemindString, string.Empty));
             try
             {
-                string condStr = string.Empty;
-                condStr += (string.IsNullOrEmpty(cid) ? string.Empty : " And CountryId = '" + cid + "'");
-                condStr += (string.IsNullOrEmpty(aid) ? string.Empty : " And AreaId = '" + aid + "'");
-
-                string sql = "Select * From Church Where IsDelete = 0 " + condStr;
-                sql += " And Id in (Select Distinct ChurchId From ProductSet Where IsDelete=0";
-                if (!string.IsNullOrEmpty(ddlOrderType.SelectedValue))
+                if (!isWeddingPlanner)
                 {
-                    sql += " And Category = '" + ddlOrderType.SelectedValue + "'";
+                    ddlLocate.Items.Add(new ListItem(Resources.Resource.ChurchSelectRemindString, string.Empty));
+                    string condStr = string.Empty;
+                    condStr += (string.IsNullOrEmpty(cid) ? string.Empty : " And CountryId = '" + cid + "'");
+                    condStr += (string.IsNullOrEmpty(aid) ? string.Empty : " And AreaId = '" + aid + "'");
+
+                    string sql = "Select * From Church Where IsDelete = 0 " + condStr;
+                    sql += " And Id in (Select Distinct ChurchId From ProductSet Where IsDelete=0"
+                        + " And StoreId = '" + ((DataRow)Session["LocateStore"])["Id"].ToString() + "'";
+                    if (!string.IsNullOrEmpty(ddlOrderType.SelectedValue))
+                    {
+                        sql += " And Category = '" + ddlOrderType.SelectedValue + "'";
+                    }
+                    sql += ")";
+
+                    DataSet ds = SysProperty.GenDbCon.GetDataFromTable(sql);
+                    if (SysProperty.Util.IsDataSetEmpty(ds)) return;
+                    foreach (DataRow dr in ds.Tables[0].Rows)
+                    {
+                        ddlLocate.Items.Add(new ListItem(
+                            SysProperty.Util.OutputRelatedLangName(Session["CultureCode"].ToString(), dr)
+                            + "(" + SysProperty.Util.OutputRelatedLangName(Session["CultureCode"].ToString(), SysProperty.GetAreaById(dr["AreaId"].ToString())) + ")"
+                            , dr["Id"].ToString()
+                            ));
+                    }
                 }
-                sql += ")";
-
-                DataSet ds = SysProperty.GenDbCon.GetDataFromTable(sql);
-                if (SysProperty.Util.IsDataSetEmpty(ds)) return;
-                foreach (DataRow dr in ds.Tables[0].Rows)
+                else
                 {
+                    DataRow locDr = (DataRow)Session["LocateStore"];
                     ddlLocate.Items.Add(new ListItem(
-                        SysProperty.Util.OutputRelatedLangName(Session["CultureCode"].ToString(), dr)
-                        +"("+ SysProperty.Util.OutputRelatedLangName(Session["CultureCode"].ToString(), SysProperty.GetAreaById(dr["AreaId"].ToString())) + ")"
-                        , dr["Id"].ToString()
-                        ));
+                            SysProperty.Util.OutputRelatedLangName(Session["CultureCode"].ToString(), locDr)
+                            , locDr["Id"].ToString()
+                            ));
                 }
             }
             catch (Exception ex)
@@ -335,31 +371,39 @@ namespace TheWeWebSite.CaseMgt
                 ShowErrorMsg(ex.Message);
             }
         }
-        private void SetProductSetList(string cid, string aid, string lid, string typeId)
+        private void SetProductSetList(string cid, string aid, string lid, string typeId, bool isWeddingPlanner)
         {
             ddlProductSet.Items.Clear();
             ddlProductSet.Items.Add(new ListItem(Resources.Resource.ProductSetString, string.Empty));
             try
             {
-                string condStr = string.Empty;
-                if (!string.IsNullOrEmpty(cid))
+                string sql = string.Empty;
+                if (isWeddingPlanner)
                 {
-                    condStr += " And CountryId='" + cid + "'";
+                    sql = "Select * From ServiceItemCategory Where IsDelete = 0 And TypeLv = 1";
                 }
-                if (!string.IsNullOrEmpty(aid))
+                else
                 {
-                    condStr += " And AreaId='" + aid + "'";
-                }
-                if (!string.IsNullOrEmpty(lid))
-                {
-                    condStr += " And ChurchId='" + lid + "'";
-                }
-                if (!string.IsNullOrEmpty(typeId))
-                {
-                    condStr += " And Category='" + typeId + "'";
-                }
+                    string condStr = string.Empty;
+                    if (!string.IsNullOrEmpty(cid))
+                    {
+                        condStr += " And CountryId='" + cid + "'";
+                    }
+                    if (!string.IsNullOrEmpty(aid))
+                    {
+                        condStr += " And AreaId='" + aid + "'";
+                    }
+                    if (!string.IsNullOrEmpty(lid))
+                    {
+                        condStr += " And ChurchId='" + lid + "'";
+                    }
+                    if (!string.IsNullOrEmpty(typeId))
+                    {
+                        condStr += " And Category='" + typeId + "'";
+                    }
 
-                string sql = "Select * From ProductSet Where IsDelete = 0 " + condStr + " And StoreId = '" + ((DataRow)Session["LocateStore"])["Id"].ToString() + "'";
+                    sql = "Select * From ProductSet Where IsDelete = 0 " + condStr + " And StoreId = '" + ((DataRow)Session["LocateStore"])["Id"].ToString() + "'";
+                }
                 DataSet ds = SysProperty.GenDbCon.GetDataFromTable(sql);
                 if (SysProperty.Util.IsDataSetEmpty(ds)) return;
                 foreach (DataRow dr in ds.Tables[0].Rows)
@@ -379,7 +423,6 @@ namespace TheWeWebSite.CaseMgt
         private void SetOrderTypeList()
         {
             ddlOrderType.Items.Clear();
-            ddlOrderType.Items.Add(new ListItem(Resources.Resource.ProjectString, string.Empty));
             try
             {
                 string sql = "SELECT * FROM [dbo].[ServiceItemCategory] Where TypeLv=0 order by Sn";
@@ -424,12 +467,17 @@ namespace TheWeWebSite.CaseMgt
             }
         }
         #region DropDownList Event Hanlder
+        private bool IsWeddingPlanner()
+        {
+            return SplitOutOrderTypeCode(ddlOrderType.SelectedItem.Text).Trim() == "WC";
+        }
+
         protected void ddlCountry_SelectedIndexChanged(object sender, EventArgs e)
         {
             DynamicSn(ddlOrderType.SelectedValue, ddlCountry.SelectedValue);
-            SetAreaList(ddlCountry.SelectedValue);
-            SetChurchList(ddlCountry.SelectedValue, ddlArea.SelectedValue);
-            SetProductSetList(ddlCountry.SelectedValue, ddlArea.SelectedValue, ddlLocate.SelectedValue, ddlOrderType.SelectedValue);
+            SetAreaList(ddlCountry.SelectedValue, IsWeddingPlanner());
+            SetChurchList(ddlCountry.SelectedValue, ddlArea.SelectedValue, IsWeddingPlanner());
+            SetProductSetList(ddlCountry.SelectedValue, ddlArea.SelectedValue, ddlLocate.SelectedValue, ddlOrderType.SelectedValue, IsWeddingPlanner());
             FirstGridViewRow();
         }
 
@@ -454,8 +502,8 @@ namespace TheWeWebSite.CaseMgt
 
         protected void ddlArea_SelectedIndexChanged(object sender, EventArgs e)
         {
-            SetChurchList(ddlCountry.SelectedValue, ddlArea.SelectedValue);
-            SetProductSetList(ddlCountry.SelectedValue, ddlArea.SelectedValue, ddlLocate.SelectedValue, ddlOrderType.SelectedValue);
+            SetChurchList(ddlCountry.SelectedValue, ddlArea.SelectedValue, IsWeddingPlanner());
+            SetProductSetList(ddlCountry.SelectedValue, ddlArea.SelectedValue, ddlLocate.SelectedValue, ddlOrderType.SelectedValue, IsWeddingPlanner());
             FirstGridViewRow();
             if (!string.IsNullOrEmpty(ddlArea.SelectedValue))
             {
@@ -473,7 +521,7 @@ namespace TheWeWebSite.CaseMgt
 
         protected void ddlLocate_SelectedIndexChanged(object sender, EventArgs e)
         {
-            SetProductSetList(ddlCountry.SelectedValue, ddlArea.SelectedValue, ddlLocate.SelectedValue, ddlOrderType.SelectedValue);
+            SetProductSetList(ddlCountry.SelectedValue, ddlArea.SelectedValue, ddlLocate.SelectedValue, ddlOrderType.SelectedValue, IsWeddingPlanner());
             FirstGridViewRow();
             if (!string.IsNullOrEmpty(ddlLocate.SelectedValue))
             {
@@ -492,15 +540,22 @@ namespace TheWeWebSite.CaseMgt
 
         protected void ddlOrderType_SelectedIndexChanged(object sender, EventArgs e)
         {
-            DynamicSn(ddlOrderType.SelectedValue, ddlCountry.SelectedValue);
-            SetProductSetList(ddlCountry.SelectedValue, ddlArea.SelectedValue, ddlLocate.SelectedValue, ddlOrderType.SelectedValue);
+            bool isWeddingPlanner = IsWeddingPlanner();            
+            SetProductSetList(ddlCountry.SelectedValue, ddlArea.SelectedValue, ddlLocate.SelectedValue, ddlOrderType.SelectedValue, isWeddingPlanner);
             FirstGridViewRow();
+            SetCountryList(isWeddingPlanner);
+            SetAreaList(ddlCountry.SelectedValue, isWeddingPlanner);
+            SetChurchList(ddlCountry.SelectedValue, ddlArea.SelectedValue, isWeddingPlanner);
+            ddlCountry.Enabled = !isWeddingPlanner;
+            ddlLocate.Enabled = !isWeddingPlanner;
+            ddlArea.Enabled = !isWeddingPlanner;
+            DynamicSn(ddlOrderType.SelectedValue, ddlCountry.SelectedValue);
         }
 
         protected void ddlProductSet_SelectedIndexChanged(object sender, EventArgs e)
         {
             FirstGridViewRow();
-            if (!string.IsNullOrEmpty(ddlProductSet.SelectedValue))
+            if (!string.IsNullOrEmpty(ddlProductSet.SelectedValue) && !IsWeddingPlanner())
             {
                 SetProductServiceItem(ddlProductSet.SelectedValue);
                 SetProductInfo(ddlProductSet.SelectedValue);
@@ -731,6 +786,10 @@ namespace TheWeWebSite.CaseMgt
             tbTotalPrice.Text = string.IsNullOrEmpty(dr["TotalPrice"].ToString())
                 ? tbContractPrice.Text
                 : SysProperty.Util.ParseMoney(dr["TotalPrice"].ToString()).ToString("#0.00");
+            if (!string.IsNullOrEmpty(dr["CurrencyId"].ToString()))
+            {
+                ddlCurrency.SelectedValue = dr["CurrencyId"].ToString();
+            }
 
             ddlStatus.SelectedValue = dr["StatusId"].ToString();
             if (ddlStatus.SelectedIndex != 0)
@@ -738,8 +797,10 @@ namespace TheWeWebSite.CaseMgt
                 btnModify.Visible = false;
                 btnDelete.Visible = false;
             }
-            ddlProductSet.SelectedValue = dr["SetId"].ToString();
             ddlOrderType.SelectedValue = dr["ServiceType"].ToString();
+            bool isWP = IsWeddingPlanner();
+            ddlOrderType_SelectedIndexChanged(ddlOrderType, new EventArgs());
+            ddlProductSet.SelectedValue = dr["SetId"].ToString();            
             ddlCountry.SelectedValue = dr["CountryId"].ToString();
             ddlArea.SelectedValue = dr["AreaId"].ToString();
             ddlLocate.SelectedValue = dr["ChurchId"].ToString();
@@ -905,7 +966,7 @@ namespace TheWeWebSite.CaseMgt
                     GridViewPayment_AddNewRow();
                 }
                 foreach (DataRow dr in ds.Tables[0].Rows)
-                {                    
+                {
                     ((TextBox)GridViewPayment.Rows[cnt].FindControl("tbReceiptId")).Text = dr["Id"].ToString();
                     ((TextBox)GridViewPayment.Rows[cnt].FindControl("tbCategory")).Text = dr["Category"].ToString();
                     ((TextBox)GridViewPayment.Rows[cnt].FindControl("tbIncomeDate")).Text = SysProperty.Util.ParseDateTime("DateTime", dr["PayDate"].ToString());
@@ -1021,6 +1082,12 @@ namespace TheWeWebSite.CaseMgt
                 , AtrrTypeItem.String
                 , AttrSymbolItem.Equal
                 , tbTotalPrice.Text
+                ));
+            lst.Add(new DbSearchObject(
+                "CurrencyId"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , ddlCurrency.SelectedValue
                 ));
             lst.Add(new DbSearchObject(
                 "Remark"
@@ -1462,7 +1529,7 @@ namespace TheWeWebSite.CaseMgt
                             , AtrrTypeItem.String
                             , AttrSymbolItem.Equal
                             , string.IsNullOrEmpty(str) ? "2" : str
-                            ));                        
+                            ));
                         lst.Add(new DbSearchObject(
                             "UpdateAccId"
                             , AtrrTypeItem.String
@@ -1747,27 +1814,6 @@ namespace TheWeWebSite.CaseMgt
         #endregion
 
         #region Service Item Table
-        protected void dgBookTable_RowDeleting(object sender, GridViewDeleteEventArgs e)
-        {
-            SetRowData();
-            if (ViewState["CurrentTable"] != null)
-            {
-                DataTable dt = (DataTable)ViewState["CurrentTable"];
-                DataRow drCurrentRow = null;
-                int rowIndex = Convert.ToInt32(e.RowIndex);
-                if (dt.Rows.Count > 1)
-                {
-                    dt.Rows.Remove(dt.Rows[rowIndex]);
-                    drCurrentRow = dt.NewRow();
-                    ViewState["CurrentTable"] = dt;
-                    dgServiceItem.DataSource = dt;
-                    dgServiceItem.DataBind();
-
-                    SetPreviousData();
-                }
-            }
-        }
-
         private void FirstGridViewRow()
         {
             DataTable dt = new DataTable();
@@ -1785,7 +1831,6 @@ namespace TheWeWebSite.CaseMgt
             dgServiceItem.DataSource = dt;
             dgServiceItem.DataBind();
         }
-
         private void AddNewRow()
         {
             int rowIndex = 0;
@@ -1825,7 +1870,6 @@ namespace TheWeWebSite.CaseMgt
             }
             SetPreviousData();
         }
-
         private void SetPreviousData()
         {
             int rowIndex = 0;
@@ -1879,12 +1923,10 @@ namespace TheWeWebSite.CaseMgt
                 Response.Write("ViewState is null");
             }
         }
-
         protected void btnAddRow_Click(object sender, EventArgs e)
         {
             AddNewRow();
         }
-
         protected void dgServiceItem_RowDeleting(object sender, GridViewDeleteEventArgs e)
         {
             SetRowData();
@@ -1960,8 +2002,9 @@ namespace TheWeWebSite.CaseMgt
             {
                 DataSet ds = SysProperty.GenDbCon.GetDataFromTable("Select * From ProductSet Where IsDelete = 0 And Id='" + setId + "'");
                 if (SysProperty.Util.IsDataSetEmpty(ds)) return;
-                tbContractPrice.Text = ds.Tables[0].Rows[0]["Price"].ToString();
-                tbTotalPrice.Text = ds.Tables[0].Rows[0]["Price"].ToString();
+                tbContractPrice.Text = SysProperty.Util.ParseMoney(ds.Tables[0].Rows[0]["Price"].ToString()).ToString("#0.00");
+                tbTotalPrice.Text = SysProperty.Util.ParseMoney(ds.Tables[0].Rows[0]["Price"].ToString()).ToString("#0.00");
+                ddlCurrency.SelectedValue = ds.Tables[0].Rows[0]["PriceCurrencyId"].ToString();
                 ddlArea.SelectedValue = ds.Tables[0].Rows[0]["AreaId"].ToString();
                 ddlLocate.SelectedValue = ds.Tables[0].Rows[0]["ChurchId"].ToString();
                 ddlCountry.SelectedValue = ds.Tables[0].Rows[0]["CountryId"].ToString();
@@ -2243,7 +2286,7 @@ namespace TheWeWebSite.CaseMgt
                         drCurrentRow = dtCurrentTable.NewRow();
                         dtCurrentTable.Rows[i - 1]["Id"] = TextReceiptId.Text;
                         dtCurrentTable.Rows[i - 1]["Store"] = DdlStore.SelectedValue;
-                        dtCurrentTable.Rows[i - 1]["Col"+(cnt++)] = TextCategory.Text;
+                        dtCurrentTable.Rows[i - 1]["Col" + (cnt++)] = TextCategory.Text;
                         dtCurrentTable.Rows[i - 1]["Col" + (cnt++)] = TextDate.Text;
                         dtCurrentTable.Rows[i - 1]["Col" + (cnt++)] = DdlPayment.SelectedIndex;
                         dtCurrentTable.Rows[i - 1]["Col" + (cnt++)] = DdlItem.SelectedValue;
@@ -2300,7 +2343,7 @@ namespace TheWeWebSite.CaseMgt
 
                         cnt = 1;
                         TextReceiptId.Text = dt.Rows[i]["Id"] == null ? string.Empty : dt.Rows[i]["Id"].ToString();
-                        TextCategory.Text = dt.Rows[i]["Col"+cnt] == null ? string.Empty : dt.Rows[i]["Col" + (cnt++)].ToString();
+                        TextCategory.Text = dt.Rows[i]["Col" + cnt] == null ? string.Empty : dt.Rows[i]["Col" + (cnt++)].ToString();
                         TextDate.Text = dt.Rows[i]["Col" + cnt] == null ? string.Empty : dt.Rows[i]["Col" + (cnt++)].ToString();
                         DdlPayment.SelectedValue = dt.Rows[i]["Col" + (cnt++)].ToString();
                         DdlItem.SelectedValue = dt.Rows[i]["Col" + (cnt++)].ToString();
@@ -2516,7 +2559,7 @@ namespace TheWeWebSite.CaseMgt
                         TextBox TextFee = (TextBox)GridViewPayment.Rows[rowIndex].Cells[cnt++].FindControl("tbFee");
                         TextBox TextTotalPrice = (TextBox)GridViewPayment.Rows[rowIndex].Cells[cnt++].FindControl("tbTotalPrice");
                         DropDownList DdlStore = (DropDownList)GridViewPayment.Rows[rowIndex].Cells[cnt++].FindControl("ddlStore");
-                        TextBox TextType = (TextBox)GridViewPayment.Rows[rowIndex].Cells[cnt++].FindControl("tbType");                        
+                        TextBox TextType = (TextBox)GridViewPayment.Rows[rowIndex].Cells[cnt++].FindControl("tbType");
 
                         cnt = 1;
                         drCurrentRow = dtCurrentTable.NewRow();
@@ -2581,7 +2624,7 @@ namespace TheWeWebSite.CaseMgt
                         DdlItem.SelectedValue = dt.Rows[i]["Col" + (cnt++)].ToString();
                         DdlStore.SelectedValue = dt.Rows[i]["Store"].ToString();
                         TextCash.Text = dt.Rows[i]["Col" + cnt] == null ? string.Empty : dt.Rows[i]["Col" + (cnt++)].ToString();
-                        TextPaymentDate.Text = dt.Rows[i]["Col" +cnt] == null ? string.Empty : dt.Rows[i]["Col" + (cnt++)].ToString();
+                        TextPaymentDate.Text = dt.Rows[i]["Col" + cnt] == null ? string.Empty : dt.Rows[i]["Col" + (cnt++)].ToString();
                         TextRate.Text = dt.Rows[i]["Col" + cnt] == null ? string.Empty : dt.Rows[i]["Col" + (cnt++)].ToString();
                         TextFee.Text = dt.Rows[i]["Col" + cnt] == null ? string.Empty : dt.Rows[i]["Col" + (cnt++)].ToString();
                         TextTotalPrice.Text = dt.Rows[i]["Col" + cnt] == null ? string.Empty : dt.Rows[i]["Col" + (cnt++)].ToString();

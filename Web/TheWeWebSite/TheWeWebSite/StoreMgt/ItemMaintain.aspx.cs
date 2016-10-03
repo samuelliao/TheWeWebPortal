@@ -315,14 +315,14 @@ namespace TheWeWebSite.StoreMgt
                     , dataItem1["JpName"].ToString());
                 if (!bool.Parse(((DataRow)Session["LocateStore"])["HoldingCompany"].ToString()))
                 {
-                    if (!string.IsNullOrEmpty(dataItem1["BaseId"].ToString()))
-                    {
-                        ((Label)e.Item.FindControl("dgLabelPrice")).Text = SysProperty.Util.ParseMoney(dataItem1["Price"].ToString()).ToString("#0.00");
-                    }
-                    else
-                    {
-                        ((Label)e.Item.FindControl("dgLabelPrice")).Text = SysProperty.Util.ParseMoney(dataItem1["LvPrice"].ToString()).ToString("#0.00");
-                    }
+                    //if (!string.IsNullOrEmpty(dataItem1["BaseId"].ToString()))
+                    //{
+                    //    ((Label)e.Item.FindControl("dgLabelPrice")).Text = SysProperty.Util.ParseMoney(dataItem1["Price"].ToString()).ToString("#0.00");
+                    //}
+                    //else
+                    //{
+                    //    ((Label)e.Item.FindControl("dgLabelPrice")).Text = SysProperty.Util.ParseMoney(dataItem1["LvPrice"].ToString()).ToString("#0.00");
+                    //}
 
                     if (dataItem1["StoreId"].ToString() != ((DataRow)Session["LocateStore"])["Id"].ToString())
                     {

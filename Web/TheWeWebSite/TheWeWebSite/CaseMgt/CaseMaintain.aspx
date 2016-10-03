@@ -151,6 +151,7 @@
                                         <asp:Label runat="server" Text="<%$ Resources:Resource,ProductSetString%>"></asp:Label>
                                     </div>
                                     <asp:DropDownList runat="server" ID="ddlProductSet" />
+                                    <asp:DropDownList runat="server" ID="ddlWPProductSet" Style="display:none" />
                                 </div>
                             </div>
                         </div>
