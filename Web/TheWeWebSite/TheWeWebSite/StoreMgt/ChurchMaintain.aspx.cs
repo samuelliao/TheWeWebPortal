@@ -152,7 +152,7 @@ namespace TheWeWebSite.StoreMgt
         {
             string id = dgChurch.DataKeys[dgChurch.SelectedIndex].ToString();
             Session["ChurchId"] = id;
-            Server.Transfer("ChurchMCreate.aspx", true);
+            Response.Redirect("~/StoreMgt/ChurchMCreate.aspx", true);
         }
         protected void dgChurch_DeleteCommand(object source, DataGridCommandEventArgs e)
         {
@@ -229,7 +229,7 @@ namespace TheWeWebSite.StoreMgt
         protected void btnCreate_Click(object sender, EventArgs e)
         {
             Session.Remove("ChurchId");
-            Server.Transfer("ChurchMCreate.aspx", true);
+            Response.Redirect("~/StoreMgt/ChurchMCreate.aspx", true);
         }
     }
 }

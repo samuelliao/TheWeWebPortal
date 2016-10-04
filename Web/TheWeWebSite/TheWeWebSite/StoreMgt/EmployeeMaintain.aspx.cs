@@ -154,7 +154,7 @@ namespace TheWeWebSite.StoreMgt
         {
             string id = dataGrid.DataKeys[dataGrid.SelectedIndex].ToString();
             Session["EmpId"] = id;
-            Server.Transfer("EmployeeMCreate.aspx", true);
+            Response.Redirect("~/StoreMgt/EmployeeMCreate.aspx", true);
         }
 
         protected void dataGrid_DeleteCommand(object source, DataGridCommandEventArgs e)
@@ -249,7 +249,7 @@ namespace TheWeWebSite.StoreMgt
         protected void LinkEmployeeMCreate_Click(object sender, EventArgs e)
         {
             Session.Remove("EmpId");
-            Server.Transfer("EmployeeMCreate.aspx", true);
+            Response.Redirect("~/StoreMgt/EmployeeMCreate.aspx", true);
         }
     }
 }

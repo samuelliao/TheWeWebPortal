@@ -347,7 +347,7 @@ namespace TheWeWebSite.CaseMgt
         private void TransferToOtherPage()
         {
             Session.Remove("OrderId");
-            Server.Transfer("TimeMaintain.aspx", true);
+            Response.Redirect("~/CaseMgt/TimeMaintain.aspx", true);
         }
 
         protected void btnModify_Click(object sender, EventArgs e)

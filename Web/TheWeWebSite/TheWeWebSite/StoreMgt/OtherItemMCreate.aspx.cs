@@ -119,6 +119,19 @@ namespace TheWeWebSite.StoreMgt
             ddlCategory.SelectedIndex = 0;
             ddlCategory_SelectedIndexChanged(ddlCategory, new EventArgs());
         }
+        private void CurrencyList()
+        {
+            ddlCurrency.Items.Clear();
+            List<DbSearchObject> lst = new List<DbSearchObject>();
+            lst.Add(new DbSearchObject("IsDelete", AtrrTypeItem.Bit, AttrSymbolItem.Equal, "0"));
+            DataSet ds = GetDataFromDb(SysProperty.Util.MsSqlTableConverter(MsSqlTable.Currency), lst, string.Empty);
+            foreach (DataRow dr in ds.Tables[0].Rows)
+            {
+                ddlCurrency.Items.Add(new ListItem
+                    (dr["Name"].ToString()
+                    , dr["Id"].ToString()));
+            }
+        }
         private void CategoryList()
         {
             ddlOthCategory.Items.Clear();
@@ -406,6 +419,8 @@ namespace TheWeWebSite.StoreMgt
             ddlOthCategory_SelectedIndexChanged(ddlOthCategory, new EventArgs());
             ddlType.SelectedValue = dr["Type"].ToString();
             ddlType_SelectedIndexChanged(ddlType, new EventArgs());
+
+            #region Location Info
             if (ddlCategory.SelectedValue == "Store")
             {
                 ddlStore.SelectedValue = dr["StoreId"].ToString();
@@ -416,12 +431,24 @@ namespace TheWeWebSite.StoreMgt
             }
             ddlStore_SelectedIndexChanged(ddlStore, new EventArgs());
 
+            if (!string.IsNullOrEmpty(dr["AreaId"].ToString()))
+            {
+                ddlArea.SelectedValue = dr["AreaId"].ToString();
+            }
+            if (!string.IsNullOrEmpty(dr["CountryId"].ToString()))
+            {
+                ddlCountry.SelectedValue = dr["CountryId"].ToString();
+            }
+            #endregion
+
+            #region Image Info
             string imgPath = @dr["Img"].ToString();
             if (string.IsNullOrEmpty(imgPath)) imgPath = SysProperty.ImgRootFolderpath + @"\Item\" + tbOthSn.Text;
             else imgPath = SysProperty.ImgRootFolderpath + imgPath;
             string ImgFolderPath = imgPath;
             tbFolderPath.Text = ImgFolderPath;
-            RefreshImage(0, ImgFolderPath);           
+            RefreshImage(0, ImgFolderPath);
+            #endregion
 
             if (!bool.Parse(((DataRow)Session["LocateStore"])["HoldingCompany"].ToString()))
             {
@@ -467,6 +494,12 @@ namespace TheWeWebSite.StoreMgt
                 , tbOthName.Text
                 ));
             lst.Add(new DbSearchObject(
+                "CurrencyId"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , ddlCurrency.SelectedValue
+                ));
+            lst.Add(new DbSearchObject(
                 "Price"
                 , AtrrTypeItem.String
                 , AttrSymbolItem.Equal
@@ -500,13 +533,33 @@ namespace TheWeWebSite.StoreMgt
                     ));
             }
 
-            lst.Add(new DbSearchObject(
-                (ddlCategory.SelectedValue == "Store" ? "StoreId" : "SupplierId")
-                , AtrrTypeItem.String
-                , AttrSymbolItem.Equal
-                , ddlStore.SelectedValue
-                ));
-
+            if (!string.IsNullOrEmpty(ddlStore.SelectedValue))
+            {
+                lst.Add(new DbSearchObject(
+                    (ddlCategory.SelectedValue == "Store" ? "StoreId" : "SupplierId")
+                    , AtrrTypeItem.String
+                    , AttrSymbolItem.Equal
+                    , ddlStore.SelectedValue
+                    ));
+            }
+            if (!string.IsNullOrEmpty(ddlArea.SelectedValue))
+            {
+                lst.Add(new DbSearchObject(
+                    "AreaId"
+                    , AtrrTypeItem.String
+                    , AttrSymbolItem.Equal
+                    , ddlArea.SelectedValue
+                    ));
+            }
+            if (!string.IsNullOrEmpty(ddlCountry.SelectedValue))
+            {
+                lst.Add(new DbSearchObject(
+                    "CountryId"
+                    , AtrrTypeItem.String
+                    , AttrSymbolItem.Equal
+                    , ddlCountry.SelectedValue
+                    ));
+            }
             lst.Add(new DbSearchObject(
                 "IsStore"
                 , AtrrTypeItem.Bit
@@ -762,6 +815,7 @@ namespace TheWeWebSite.StoreMgt
         {
             if (!string.IsNullOrEmpty(ddlCategory.SelectedValue))
             {
+                labelHolderTitle.Text = ddlCategory.SelectedValue == "Store" ? Resources.Resource.StoreString : Resources.Resource.LocateString;
                 CountryList(ddlCategory.SelectedValue);
                 AreaList(ddlCategory.SelectedValue, ddlCountry.SelectedValue);
                 StoreList(ddlCategory.SelectedValue == "Store", ddlCountry.SelectedValue, ddlArea.SelectedValue);

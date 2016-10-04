@@ -225,11 +225,15 @@
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,CostString%>"></asp:Label>
                             </div>
-                            <asp:DropDownList runat="server" ID="ddlCostCurrency" />
-                            <asp:TextBox runat="server" ID="tbCost" Style="text-align: right"></asp:TextBox>
-                            <asp:RegularExpressionValidator ID="RegularExpressionValidator3" ControlToValidate="tbCost" runat="server"
-                                ErrorMessage="Only Numbers allowed" ValidationExpression="\d+[.]*\d*"
-                                CssClass="error" Display="Dynamic"></asp:RegularExpressionValidator>
+                            <asp:UpdatePanel runat="server" ID="panelCost">
+                                <ContentTemplate>
+                                    <asp:DropDownList runat="server" ID="ddlCostCurrency" AutoPostBack="true" />
+                                    <asp:TextBox runat="server" ID="tbCost" Style="text-align: right" Text="0"></asp:TextBox>
+                                    <asp:RegularExpressionValidator ID="RegularExpressionValidator3" ControlToValidate="tbCost" runat="server"
+                                        ErrorMessage="Only Numbers allowed" ValidationExpression="\d+[.]*\d*"
+                                        CssClass="error" Display="Dynamic"></asp:RegularExpressionValidator>
+                                </ContentTemplate>
+                            </asp:UpdatePanel>
                         </div>
                     </div>
                 </div>
@@ -311,10 +315,10 @@
                                                 <asp:TemplateField HeaderText="<%$ Resources:Resource,PriceString%>" ItemStyle-Wrap="false">
                                                     <ItemStyle Wrap="false" />
                                                     <ItemTemplate>
-                                                            <asp:DropDownList runat="server" ID="ddlStoreCurrency" />
-                                                            <asp:TextBox runat="server" ID="tbStorePrice" Style="text-align: right" />
-                                                            <asp:RegularExpressionValidator ID="RegularExpressionValidator5" ControlToValidate="tbStorePrice" runat="server"
-                                                                ErrorMessage="Only Numbers allowed" ValidationExpression="\d+[.]*\d*" CssClass="error" Display="Dynamic"></asp:RegularExpressionValidator>
+                                                        <asp:DropDownList runat="server" ID="ddlStoreCurrency" />
+                                                        <asp:TextBox runat="server" ID="tbStorePrice" Style="text-align: right" Text="0" />
+                                                        <asp:RegularExpressionValidator ID="RegularExpressionValidator5" ControlToValidate="tbStorePrice" runat="server"
+                                                            ErrorMessage="Only Numbers allowed" ValidationExpression="\d+[.]*\d*" CssClass="error" Display="Dynamic"></asp:RegularExpressionValidator>
                                                     </ItemTemplate>
                                                 </asp:TemplateField>
                                             </Columns>

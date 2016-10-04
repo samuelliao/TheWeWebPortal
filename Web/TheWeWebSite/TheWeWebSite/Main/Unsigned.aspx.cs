@@ -86,7 +86,7 @@ namespace TheWeWebSite.Main
         {
             string id = dataGrid.DataKeys[dataGrid.SelectedIndex].ToString();
             Session["ConsultId"] = id;
-            Server.Transfer("AdvisoryMCreate.aspx", true);
+            Response.Redirect("~/CaseMgt/AdvisoryMCreate.aspx", true);
         }
 
         protected void dataGrid_SortCommand(object source, DataGridSortCommandEventArgs e)
@@ -167,7 +167,7 @@ namespace TheWeWebSite.Main
         protected void linkConsult_Click(object sender, EventArgs e)
         {
             Session["ConsultId"] = ((LinkButton)sender).CommandArgument;
-            Server.Transfer("~/CaseMgt/AdvisoryMCreate.aspx");
+            Response.Redirect("~/CaseMgt/AdvisoryMCreate.aspx", true);
         }
     }
 }

@@ -89,7 +89,7 @@ namespace TheWeWebSite.StoreMgt
         {
             string id = dataGrid.DataKeys[dataGrid.SelectedIndex].ToString();
             Session["ModelingId"] = id;
-            Server.Transfer("ModelingMCreate.aspx", true);
+            Response.Redirect("~/StoreMgt/ModelingMCreate.aspx", true);
         }
 
         protected void dataGrid_DeleteCommand(object source, DataGridCommandEventArgs e)
@@ -176,7 +176,7 @@ namespace TheWeWebSite.StoreMgt
         protected void LinkModelingMCreate_Click(object sender, EventArgs e)
         {
             Session.Remove("ModelingId");
-            Server.Transfer("ModelingMCreate.aspx", true);
+            Response.Redirect("~/StoreMgt/ModelingMCreate.aspx", true);
         }
     }
 }

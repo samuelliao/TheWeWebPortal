@@ -287,7 +287,7 @@ namespace TheWeWebSite.CaseMgt
         {
             string id = dataGrid.DataKeys[dataGrid.SelectedIndex].ToString();
             Session["OrderId"] = id;
-            Server.Transfer("TimeMCreate.aspx", true);
+            Response.Redirect("~/CaseMgt/TimeMCreate.aspx", true);
         }
 
         protected void dataGrid_SortCommand(object source, DataGridSortCommandEventArgs e)
@@ -527,19 +527,19 @@ namespace TheWeWebSite.CaseMgt
         protected void linkConsult_Click(object sender, EventArgs e)
         {
             Session["ConsultId"] = ((LinkButton)sender).CommandArgument;
-            Server.Transfer("AdvisoryMCreate.aspx");
+            Response.Redirect("~/CaseMgt/AdvisoryMCreate.aspx");
         }
 
         protected void linkContract_Click(object sender, EventArgs e)
         {
             Session["OrderId"] = ((LinkButton)sender).CommandArgument;
-            Server.Transfer("CaseMCreate.aspx");
+            Response.Redirect("~/CaseMgt/CaseMCreate.aspx");
         }
 
         protected void linkCustomerName_Click(object sender, EventArgs e)
         {
             Session["CustomerId"] = ((LinkButton)sender).CommandArgument;
-            Server.Transfer("CustomerMCreate.aspx");
+            Response.Redirect("~/CaseMgt/CustomerMCreate.aspx");
         }
     }
 }

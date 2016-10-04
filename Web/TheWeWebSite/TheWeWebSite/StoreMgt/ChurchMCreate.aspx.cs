@@ -120,7 +120,7 @@ namespace TheWeWebSite.StoreMgt
             {
                 ViewState.Remove("CurrentTable");
                 Session.Remove("ChurchId");
-                Server.Transfer("ChurchMaintain.aspx", true);
+                Response.Redirect("~/StoreMgt/ChurchMaintain.aspx", true);
             }
             else
             {

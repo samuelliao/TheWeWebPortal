@@ -95,6 +95,12 @@
                     <div class="row uniform 50%">
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,CurrencyString%>"></asp:Label>
+                            </div>
+                            <asp:DropDownList runat="server" ID="ddlCurrency" />
+                        </div>
+                        <div class="2u 12u(mobilep)">
+                            <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,PriceString%>"></asp:Label>
                             </div>
                             <asp:TextBox runat="server" ID="tbOthPrice" Style="text-align: right"></asp:TextBox>
@@ -129,9 +135,7 @@
                             </div>
                             <asp:UpdatePanel runat="server">
                                 <ContentTemplate>
-                                    <asp:DropDownList CssClass="required" runat="server" ID="ddlArea" AutoPostBack="true" OnSelectedIndexChanged="ddlArea_SelectedIndexChanged" />
-                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator9" ControlToValidate="ddlArea" runat="server"
-                                        ErrorMessage="required" CssClass="error" Display="Dynamic"></asp:RequiredFieldValidator>
+                                    <asp:DropDownList runat="server" ID="ddlArea" AutoPostBack="true" OnSelectedIndexChanged="ddlArea_SelectedIndexChanged" />
                                 </ContentTemplate>
                             </asp:UpdatePanel>
                         </div>
@@ -141,9 +145,7 @@
                             </div>
                             <asp:UpdatePanel runat="server">
                                 <ContentTemplate>
-                                    <asp:DropDownList CssClass="required" runat="server" ID="ddlStore" AutoPostBack="true" OnSelectedIndexChanged="ddlStore_SelectedIndexChanged" />
-                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator4" ControlToValidate="ddlStore" runat="server"
-                                        ErrorMessage="required" CssClass="error" Display="Dynamic"></asp:RequiredFieldValidator>
+                                    <asp:DropDownList runat="server" ID="ddlStore" AutoPostBack="true" OnSelectedIndexChanged="ddlStore_SelectedIndexChanged" />
                                 </ContentTemplate>
                             </asp:UpdatePanel>
                         </div>

@@ -634,13 +634,13 @@ namespace TheWeWebSite.CaseMgt
         protected void linkConsult_Click(object sender, EventArgs e)
         {
             Session["ConsultId"] = ((LinkButton)sender).CommandArgument;
-            Server.Transfer("~/CaseMgt/AdvisoryMCreate.aspx");
+            Response.Redirect("~/CaseMgt/AdvisoryMCreate.aspx", true);
         }
 
         protected void linkCustomerName_Click(object sender, EventArgs e)
         {
             Session["CustomerId"] = ((LinkButton)sender).CommandArgument;
-            Server.Transfer("~/CaseMgt/CustomerMCreate.aspx");
+            Response.Redirect("~/CaseMgt/CustomerMCreate.aspx", true);
         }
 
         protected void btnCreate_Click(object sender, EventArgs e)

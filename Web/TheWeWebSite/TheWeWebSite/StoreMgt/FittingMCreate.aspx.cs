@@ -85,7 +85,7 @@ namespace TheWeWebSite.StoreMgt
             {
                 Session.Remove("FittingId");
                 Session.Remove("FittingCategory");
-                Server.Transfer("FittingMaintain.aspx", true);
+                Response.Redirect("~/StoreMgt/FittingMaintain.aspx", true);
             }
         }
 

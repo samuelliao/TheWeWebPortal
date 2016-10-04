@@ -194,7 +194,7 @@ namespace TheWeWebSite.StoreMgt
         {
             string id = dataGrid.DataKeys[dataGrid.SelectedIndex].ToString();
             Session["OthId"] = id;
-            Server.Transfer("OtherItemMCreate.aspx", true);
+            Response.Redirect("~/StoreMgt/OtherItemMCreate.aspx", true);
         }
 
         protected void dataGrid_DeleteCommand(object source, DataGridCommandEventArgs e)
@@ -376,7 +376,7 @@ namespace TheWeWebSite.StoreMgt
         protected void LinkOtherItemMCreate_Click(object sender, EventArgs e)
         {
             Session.Remove("OthId");
-            Server.Transfer("OtherItemMCreate.aspx", true);
+            Response.Redirect("~/StoreMgt/OtherItemMCreate.aspx", true);
         }
 
         protected void ddlCountry_SelectedIndexChanged(object sender, EventArgs e)

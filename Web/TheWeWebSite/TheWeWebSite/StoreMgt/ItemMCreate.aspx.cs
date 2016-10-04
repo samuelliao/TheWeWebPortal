@@ -417,7 +417,7 @@ namespace TheWeWebSite.StoreMgt
                 TransferToOtherPage(true);
                 ShowErrorMsg(Resources.Resource.ModifySuccessString);
             }
-            else { ShowErrorMsg(Resources.Resource.ModifyFailedString);}
+            else { ShowErrorMsg(Resources.Resource.ModifyFailedString); }
         }
 
         protected void btnCreate_Click(object sender, EventArgs e)
@@ -834,7 +834,7 @@ namespace TheWeWebSite.StoreMgt
             tbGroomHairStyle.Text = drBase["GroomMakeup"].ToString();
             tbMovemont.Text = drBase["Moves"].ToString();
             tbPerformence.Text = drBase["Performence"].ToString();
-            tbRoom.Text = drBase["RoomId"].ToString();            
+            tbRoom.Text = drBase["RoomId"].ToString();
             tbStay.Text = drBase["StayNight"].ToString();
             cbBreakfast.Checked = bool.Parse(drBase["Breakfast"].ToString());
             cbCertificate.Checked = bool.Parse(drBase["Certificate"].ToString());
@@ -1329,6 +1329,7 @@ namespace TheWeWebSite.StoreMgt
             List<List<DbSearchObject>> result = new List<List<DbSearchObject>>();
             List<DbSearchObject> lst = new List<DbSearchObject>();
             string str = string.Empty;
+            int rowCnt = 3;
             if (PriceTable.Rows.Count > 0)
             {
                 foreach (GridViewRow dr in PriceTable.Rows)
@@ -1345,6 +1346,7 @@ namespace TheWeWebSite.StoreMgt
                             ));
                     }
                     str = dr.Cells[1].Text;
+                    rowCnt -= int.Parse(str);
                     if (string.IsNullOrEmpty(str)) continue;
                     lst.Add(new DbSearchObject(
                         "StoreLv"
@@ -1352,21 +1354,39 @@ namespace TheWeWebSite.StoreMgt
                         , AttrSymbolItem.Equal
                         , str
                         ));
-                    str = ((DropDownList)dr.Cells[2].FindControl("ddlStoreCurrency")).SelectedValue;
-                    lst.Add(new DbSearchObject(
-                        "Currency"
-                        , AtrrTypeItem.String
-                        , AttrSymbolItem.Equal
-                        , str
-                        ));
+
                     str = ((TextBox)dr.Cells[2].FindControl("tbStorePrice")).Text;
-                    if (string.IsNullOrEmpty(str)) continue;
-                    lst.Add(new DbSearchObject(
-                        "Price"
-                        , AtrrTypeItem.String
-                        , AttrSymbolItem.Equal
-                        , str
-                        ));
+                    if (string.IsNullOrEmpty(str))
+                    {
+                        lst.Add(new DbSearchObject(
+                            "Price"
+                            , AtrrTypeItem.String
+                            , AttrSymbolItem.Equal
+                            , tbCost.Text
+                            ));
+                        lst.Add(new DbSearchObject(
+                            "Currency"
+                            , AtrrTypeItem.String
+                            , AttrSymbolItem.Equal
+                            , ddlCostCurrency.SelectedValue
+                            ));
+                    }
+                    else
+                    {
+                        lst.Add(new DbSearchObject(
+                            "Price"
+                            , AtrrTypeItem.String
+                            , AttrSymbolItem.Equal
+                            , str
+                            ));
+                        str = ((DropDownList)dr.Cells[2].FindControl("ddlStoreCurrency")).SelectedValue;
+                        lst.Add(new DbSearchObject(
+                            "Currency"
+                            , AtrrTypeItem.String
+                            , AttrSymbolItem.Equal
+                            , str
+                            ));
+                    }
                     lst.Add(new DbSearchObject(
                         "SetId"
                         , AtrrTypeItem.String
@@ -1594,6 +1614,10 @@ namespace TheWeWebSite.StoreMgt
                 sql = "Select Distinct GradeLv As StoreLv, '' As Id, '' As Currency, 0 as Price From Store Where IsDelete = 0 And GradeLv!=0 Order by GradeLv";
             }
             DataSet ds = GetDataFromDb(sql);
+            if (ds.Tables[0].Rows.Count < 2)
+            {
+
+            }
             PriceTable.DataSource = ds;
             PriceTable.DataBind();
         }
@@ -1607,7 +1631,7 @@ namespace TheWeWebSite.StoreMgt
                 ddl.Items.Clear();
                 foreach (ListItem item in ddlCostCurrency.Items)
                 {
-                    ddl.Items.Add(item);
+                    ddl.Items.Add(new ListItem(item.Text, item.Value));
                 }
                 ddl.SelectedValue = dataItem1["Currency"].ToString();
                 #endregion

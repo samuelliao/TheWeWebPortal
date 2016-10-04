@@ -1362,7 +1362,7 @@ namespace TheWeWebSite.CaseMgt
             else
             {
                 Session.Remove("ConsultId");
-                Server.Transfer("AdvisoryMaintain.aspx", true);
+                Response.Redirect("~/CaseMgt/AdvisoryMaintain.aspx", true);
             }
         }
 

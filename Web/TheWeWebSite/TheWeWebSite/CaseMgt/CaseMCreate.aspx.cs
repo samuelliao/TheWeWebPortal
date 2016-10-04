@@ -103,12 +103,12 @@ namespace TheWeWebSite.CaseMgt
                 InitialPage();
             }
             else
-            {
-                Server.Transfer("CaseMaintain.aspx", true);
+            {                
                 Session.Remove("OrderId");
                 if (Session["CustomerId"] != null) Session.Remove("CustomerId");
                 if (Session["PartnerId"] != null) Session.Remove("PartnerId");
                 ViewState.Remove("CurrentTable");
+                Response.Redirect("~/CaseMgt/CaseMaintain.aspx", true);
             }
         }
 
@@ -553,13 +553,13 @@ namespace TheWeWebSite.CaseMgt
         }
 
         protected void ddlProductSet_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            FirstGridViewRow();
+        {            
             if (!string.IsNullOrEmpty(ddlProductSet.SelectedValue) && !IsWeddingPlanner())
             {
                 SetProductServiceItem(ddlProductSet.SelectedValue);
                 SetProductInfo(ddlProductSet.SelectedValue);
             }
+            FirstGridViewRow();
         }
 
         protected void ddlStatus_SelectedIndexChanged(object sender, EventArgs e)
@@ -1959,23 +1959,28 @@ namespace TheWeWebSite.CaseMgt
                 ddlService.Items.Add(new ListItem(Resources.Resource.ServiceItemSelectRemindString, string.Empty));
                 DataSet ds = SysProperty.GenDbCon.GetDataFromTable("Select * From ServiceItem Where IsDelete = 0 And IsStore = 1"
                     + " And StoreId = '" + ((DataRow)Session["LocateStore"])["Id"].ToString() + "'");
-                if (SysProperty.Util.IsDataSetEmpty(ds)) return;
-                foreach (DataRow dr in ds.Tables[0].Rows)
+                if (!SysProperty.Util.IsDataSetEmpty(ds))
                 {
-                    ddlService.Items.Add(new ListItem(
-                        SysProperty.Util.OutputRelatedLangName(cultureCode, dr)
-                        , dr["Id"].ToString()
-                        ));
+                    foreach (DataRow dr in ds.Tables[0].Rows)
+                    {
+                        ddlService.Items.Add(new ListItem(
+                            SysProperty.Util.OutputRelatedLangName(cultureCode, dr)
+                            , dr["Id"].ToString()
+                            ));
+                    }
                 }
                 if (string.IsNullOrEmpty(ddlLocate.SelectedValue)) return;
-                ds = SysProperty.GenDbCon.GetDataFromTable("Select * From ServiceItem Where IsStore = 0 And SupplierId = '" + ddlLocate.SelectedValue + "'");
-                if (SysProperty.Util.IsDataSetEmpty(ds)) return;
-                foreach (DataRow dr in ds.Tables[0].Rows)
+                ds = SysProperty.GenDbCon.GetDataFromTable("EXEC [GetLocationServiceItem] @CountryID = '" + ddlCountry.SelectedValue + "', @AreaID = '" + ddlArea.SelectedValue + "', @LocateID = '" + ddlLocate.SelectedValue + "'");
+                //ds = SysProperty.GenDbCon.GetDataFromTable("Select * From ServiceItem Where IsStore = 0 And SupplierId = '" + ddlLocate.SelectedValue + "'");
+                if (!SysProperty.Util.IsDataSetEmpty(ds))
                 {
-                    ddlService.Items.Add(new ListItem(
-                        SysProperty.Util.OutputRelatedLangName(cultureCode, dr)
-                        , dr["Id"].ToString()
-                        ));
+                    foreach (DataRow dr in ds.Tables[0].Rows)
+                    {
+                        ddlService.Items.Add(new ListItem(
+                            SysProperty.Util.OutputRelatedLangName(cultureCode, dr)
+                            , dr["Id"].ToString()
+                            ));
+                    }
                 }
                 ddlService.SelectedIndex = 0;
             }

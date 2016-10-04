@@ -151,7 +151,7 @@ namespace TheWeWebSite.CaseMgt
         {
             string id = dataGrid.DataKeys[dataGrid.SelectedIndex].ToString();
             Session["CustomerId"] = id;
-            Server.Transfer("CustomerMCreate.aspx", true);
+            Response.Redirect("~/CaseMgt/CustomerMCreate.aspx", true);
         }
 
         protected void dataGrid_DeleteCommand(object source, DataGridCommandEventArgs e)

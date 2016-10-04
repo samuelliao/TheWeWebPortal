@@ -539,6 +539,14 @@ namespace TheWeLib
                     return "DressOrder";
                 case MsSqlTable.PaymentMethod:
                     return "PaymentMethod";
+                case MsSqlTable.BuyAutoPass:
+                    return "BuyAutoPass";
+                case MsSqlTable.BuyRequest:
+                    return "BuyRequest";
+                case MsSqlTable.BuyStatus:
+                    return "BuyStatus";
+                case MsSqlTable.BuyStuffCategory:
+                    return "BuyStuffCategory";
                 default:
                     return string.Empty;
 

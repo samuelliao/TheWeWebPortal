@@ -288,7 +288,7 @@ namespace TheWeWebSite.StoreMgt
         {
             string id = dataGrid.DataKeys[dataGrid.SelectedIndex].ToString();
             Session["SetId"] = id;
-            Server.Transfer("ItemMCreate.aspx", true);
+            Response.Redirect("~/StoreMgt/ItemMCreate.aspx", true);            
         }
 
         protected void dataGrid_ItemDataBound(object sender, DataGridItemEventArgs e)
