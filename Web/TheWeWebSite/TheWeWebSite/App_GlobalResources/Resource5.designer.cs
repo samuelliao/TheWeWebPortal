@@ -3193,6 +3193,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   查詢類似 Submit Day 的當地語系化字串。
+        /// </summary>
+        internal static string SubmitDayString {
+            get {
+                return ResourceManager.GetString("SubmitDayString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查詢類似 Submit 的當地語系化字串。
         /// </summary>
         internal static string SubmitString {

@@ -40,13 +40,40 @@ namespace TheWeWebSite.BuyMgt {
         protected global::System.Web.UI.WebControls.Label labelWarnString;
         
         /// <summary>
-        /// divRequest 控制項。
+        /// panelRequest 控制項。
         /// </summary>
         /// <remarks>
         /// 自動產生的欄位。
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divRequest;
+        protected global::System.Web.UI.WebControls.Panel panelRequest;
+        
+        /// <summary>
+        /// tbRequestStatus 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label tbRequestStatus;
+        
+        /// <summary>
+        /// ddlRequestStatus 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlRequestStatus;
+        
+        /// <summary>
+        /// tbReqeuster 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox tbReqeuster;
         
         /// <summary>
         /// tbRequestDate 控制項。
@@ -157,6 +184,15 @@ namespace TheWeWebSite.BuyMgt {
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator5;
         
         /// <summary>
+        /// ddlCurrency 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlCurrency;
+        
+        /// <summary>
         /// tbPrice 控制項。
         /// </summary>
         /// <remarks>
@@ -202,13 +238,13 @@ namespace TheWeWebSite.BuyMgt {
         protected global::System.Web.UI.WebControls.TextBox tbRemark;
         
         /// <summary>
-        /// divApproval 控制項。
+        /// panelApproval 控制項。
         /// </summary>
         /// <remarks>
         /// 自動產生的欄位。
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divApproval;
+        protected global::System.Web.UI.WebControls.Panel panelApproval;
         
         /// <summary>
         /// tbApprovalDate 控制項。

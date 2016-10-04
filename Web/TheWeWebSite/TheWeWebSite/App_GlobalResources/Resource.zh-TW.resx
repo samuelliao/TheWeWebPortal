@@ -1287,4 +1287,7 @@
   <data name="AbandonString" xml:space="preserve">
     <value>捨棄</value>
   </data>
+  <data name="SubmitDayString" xml:space="preserve">
+    <value>提交日</value>
+  </data>
 </root>
