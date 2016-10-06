@@ -130,7 +130,7 @@
                                             OnPageIndexChanged="dgMethod_PageIndexChanged" OnUpdateCommand="dgMethod_UpdateCommand"
                                             OnSortCommand="dgMethod_SortCommand" OnItemDataBound="dgMethod_ItemDataBound">
                                             <HeaderStyle VerticalAlign="Middle" HorizontalAlign="Center" />
-                                            <ItemStyle VerticalAlign="Middle" HorizontalAlign="Left" />
+                                            <ItemStyle VerticalAlign="Middle" HorizontalAlign="Center" />
                                             <PagerStyle Mode="NumericPages" />
                                             <Columns>
                                                 <asp:BoundColumn DataField="Id" Visible="false" />

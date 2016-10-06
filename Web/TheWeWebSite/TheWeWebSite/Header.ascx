@@ -16,6 +16,7 @@
                 <li>
                     <asp:LinkButton CausesValidation="false" runat="server" Text="<%$ Resources:Resource,WorkReminderString%>" PostBackUrl="~/CaseMgt/AdvisoryMaintain.aspx" ID="linkWorkReminder" />
                     <ul>
+                        <li></li>
                         <li>
                             <asp:LinkButton CausesValidation="false" runat="server" Text="<%$ Resources:Resource,ConsultMaintainString%>" PostBackUrl="~/CaseMgt/AdvisoryMaintain.aspx" ID="LinkConsultMgt" />
                         </li>
@@ -30,8 +31,8 @@
                 <li runat="server" id="liMainFunction">
                     <asp:LinkButton CausesValidation="false" runat="server" Text="<%$ Resources:Resource,MainPageString%>" PostBackUrl="~/Main/Unsigned.aspx" ID="LinkMain" />
                     <ul>
+                        <li></li>
                         <li>
-
                             <asp:LinkButton CausesValidation="false" runat="server" Text="<%$ Resources:Resource,ConsultScheduleString%>" PostBackUrl="~/Main/Unsigned.aspx" ID="LinkUnsigned" />
                         </li>
                         <li>
@@ -54,6 +55,7 @@
                 <li runat="server" id="liStoreMgt">
                     <asp:LinkButton CausesValidation="false" runat="server" Text="<%$ Resources:Resource,StoreMgtString%>" PostBackUrl="~/StoreMgt/ItemMaintain.aspx" ID="LinkItemMaintain" />
                     <ul>
+                        <li></li>
                         <li>
                             <asp:LinkButton CausesValidation="false" runat="server" Text="<%$ Resources:Resource,ProductMaintainString%>" PostBackUrl="~/StoreMgt/ItemMaintain.aspx" ID="LinkProductMgt" />
                         </li>
@@ -81,7 +83,7 @@
                 <li runat="server" id="liOrderMgt">
                     <asp:LinkButton CausesValidation="false" runat="server" Text="<%$ Resources:Resource,OrderMgtString%>" PostBackUrl="~/CaseMgt/AdvisoryMaintain.aspx" ID="LinkCaseMgt" />
                     <ul>
-
+                        <li></li>
                         <li>
                             <asp:LinkButton CausesValidation="false" runat="server" Text="<%$ Resources:Resource,ConsultMaintainString%>" PostBackUrl="~/CaseMgt/AdvisoryMaintain.aspx" ID="LinkButton1" />
                         </li>
@@ -97,9 +99,10 @@
                         </li>
                     </ul>
                 </li>
-                <li runat="server" id="liPurchaseMgt" style="display:none;">
+                <li runat="server" id="liPurchaseMgt">
                     <asp:LinkButton CausesValidation="false" runat="server" Text="<%$ Resources:Resource,PurchaseMgtString%>" ID="LinkPuchaseMgt" PostBackUrl="~/BuyMgt/BuyMgt.aspx" />
                     <ul>
+                        <li></li>
                         <li>
                             <asp:LinkButton CausesValidation="false" runat="server" Text="<%$ Resources:Resource,PurchaseMgtString%>" PostBackUrl="~/BuyMgt/BuyMgt.aspx" ID="LinkButton2" />
                         </li>
@@ -116,7 +119,8 @@
                 </li>
                 <li runat="server" id="liSysMgt">
                     <asp:LinkButton CausesValidation="false" runat="server" Text="<%$ Resources:Resource,SysMgtString%>" ID="LinkSysMgt" PostBackUrl="~/SysMgt/LoginMaintain.aspx" />
-                    <ul>
+                    <ul style="margin-top:10px">
+                        <li></li>
                         <li>
                             <asp:LinkButton CausesValidation="false" runat="server" Text="<%$ Resources:Resource,LoginMaintainString%>" ID="LinkLoginMaintain" PostBackUrl="~/SysMgt/LoginMaintain.aspx" />
                         </li>
@@ -152,6 +156,7 @@
                 <li runat="server" id="li1">
                     <asp:LinkButton CausesValidation="false" runat="server" Text="<%$ Resources:Resource,SettingString%>" ID="btnSetting" PostBackUrl="~/Setting/AccInfoSetting.aspx" />
                     <ul>
+                        <li></li>
                         <li>
                             <asp:LinkButton CausesValidation="false" runat="server" Text="<%$ Resources:Resource,AccountSettingString%>" ID="btnAccSetting" PostBackUrl="~/Setting/AccInfoSetting.aspx" />
                         </li>

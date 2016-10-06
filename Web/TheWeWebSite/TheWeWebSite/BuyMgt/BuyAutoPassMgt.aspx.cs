@@ -327,7 +327,7 @@ namespace TheWeWebSite.BuyMgt
 
         private void GetBuyRequest(string condStr, string sortStr)
         {
-            string sql = "Select * From BuyRequest Where IsDelete = 0 " + condStr + " " + sortStr;
+            string sql = "Select * From BuyAutoPass Where IsDelete = 0 " + condStr + " " + sortStr;
             DS = GetDataFromDb(sql);
         }
 
@@ -396,7 +396,7 @@ namespace TheWeWebSite.BuyMgt
             updateLst.Add(new DbSearchObject("CurrencyId", AtrrTypeItem.String, AttrSymbolItem.Equal, ddlCurrency.SelectedValue));
             updateLst.Add(new DbSearchObject("NeedLimit", AtrrTypeItem.Bit, AttrSymbolItem.Equal, ((float.Parse(price) <= 0 && int.Parse(number) <= 0) ? "1" : "0")));
             updateLst.Add(new DbSearchObject("CreatedateAccId", AtrrTypeItem.String, AttrSymbolItem.Equal, ((DataRow)Session["AccountInfo"])["Id"].ToString()));
-            updateLst.Add(new DbSearchObject("CreatedateTie", AtrrTypeItem.DateTime, AttrSymbolItem.Equal, DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss")));
+            updateLst.Add(new DbSearchObject("CreatedateTime", AtrrTypeItem.DateTime, AttrSymbolItem.Equal, DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss")));
             updateLst.Add(new DbSearchObject("UpdateAccId", AtrrTypeItem.String, AttrSymbolItem.Equal, ((DataRow)Session["AccountInfo"])["Id"].ToString()));
             updateLst.Add(new DbSearchObject("UpdateTime", AtrrTypeItem.DateTime, AttrSymbolItem.Equal, DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss")));
             updateLst.Add(new DbSearchObject("AutoPass", AtrrTypeItem.Bit, AttrSymbolItem.Equal, "1"));

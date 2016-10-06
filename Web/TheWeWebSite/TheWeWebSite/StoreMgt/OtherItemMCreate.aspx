@@ -153,7 +153,7 @@
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,DescriptionString%>"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server" ID="tbOthDescription"></asp:TextBox>
+                            <asp:TextBox runat="server" ID="tbOthDescription" Rows="2"></asp:TextBox>
                         </div>
 
                     </div>

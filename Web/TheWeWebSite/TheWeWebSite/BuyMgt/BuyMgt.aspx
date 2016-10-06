@@ -63,6 +63,7 @@
                                     <asp:UpdatePanel runat="server">
                                         <ContentTemplate>
                                             <asp:DropDownList runat="server" ID="ddlType" />
+                                            <asp:DropDownList runat="server" ID="ddlAllType" Style="display:none" />
                                         </ContentTemplate>
                                     </asp:UpdatePanel>
                                 </div>

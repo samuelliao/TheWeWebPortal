@@ -105,6 +105,7 @@ namespace TheWeWebSite.BuyMgt
         private void TypeList(string categoryId)
         {
             ddlType.Items.Clear();
+            ddlAllType.Items.Clear();
             ddlType.Items.Add(new ListItem(Resources.Resource.SeletionRemindString, string.Empty));
             string cond = string.IsNullOrEmpty(categoryId) ? string.Empty : " And ParentId = '" + categoryId + "'";
             DataSet ds = GetDataFromDb("Select * From BuyStuffCategory Where IsDelete = 0 And Lv = 1" + cond);
@@ -112,6 +113,9 @@ namespace TheWeWebSite.BuyMgt
             foreach (DataRow dr in ds.Tables[0].Rows)
             {
                 ddlType.Items.Add(new ListItem(
+                    SysProperty.Util.OutputRelatedLangName(Session["CultureCode"].ToString(), dr)
+                    , dr["Id"].ToString()));
+                ddlAllType.Items.Add(new ListItem(
                     SysProperty.Util.OutputRelatedLangName(Session["CultureCode"].ToString(), dr)
                     , dr["Id"].ToString()));
             }
@@ -150,12 +154,12 @@ namespace TheWeWebSite.BuyMgt
                 }
                 if (!string.IsNullOrEmpty(dataItem1["TypeId"].ToString()))
                 {
-                    ((Label)e.Item.FindControl("dgLabelType")).Text = ddlCategory.Items.FindByValue(dataItem1["TypeId"].ToString()).Text;
+                    ((Label)e.Item.FindControl("dgLabelType")).Text = ddlAllType.Items.FindByValue(dataItem1["TypeId"].ToString()).Text;
                 }
                 ((Label)e.Item.FindControl("dgLabelPrice")).Text = SysProperty.Util.ParseMoney(dataItem1["Price"].ToString()).ToString("#0.00");
-                if (!string.IsNullOrEmpty(dataItem1["StatusCode"].ToString()))
+                if (!string.IsNullOrEmpty(dataItem1["StatusId"].ToString()))
                 {
-                    ((Label)e.Item.FindControl("dgLabelStatus")).Text = ddlStatus.Items.FindByValue(dataItem1["StatusCode"].ToString()).Text;
+                    ((Label)e.Item.FindControl("dgLabelStatus")).Text = ddlStatus.Items.FindByValue(dataItem1["StatusId"].ToString()).Text;
                 }
                 ((Label)e.Item.FindControl("dgLabelSubmit")).Text = SysProperty.Util.ParseDateTime("DateTime", dataItem1["CreatedateTime"].ToString());
                 ((Label)e.Item.FindControl("dgLabelApproval")).Text = SysProperty.Util.ParseDateTime("DateTime", dataItem1["AuditDay"].ToString());
