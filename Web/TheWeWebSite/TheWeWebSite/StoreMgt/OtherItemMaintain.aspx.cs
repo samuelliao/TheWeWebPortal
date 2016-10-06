@@ -162,31 +162,43 @@ namespace TheWeWebSite.StoreMgt
 
         protected void btnSearch_Click(object sender, EventArgs e)
         {
-            OtherConditionString = string.Empty;
+            BindData();
+        }
+
+        public string GenWhereCondition()
+        {
+            string condStr = string.Empty;
             if (!string.IsNullOrEmpty(tbOthSn.Text))
             {
-                OtherConditionString += " And a.Sn like '%" + tbOthSn.Text + "%'";
+                condStr += " And a.Sn like '%" + tbOthSn.Text + "%'";
             }
 
             if (!string.IsNullOrEmpty(tbOthName.Text))
             {
-                OtherConditionString += " And a.Name like '%" + tbOthName.Text + "%'";
+                condStr += " And a.Name like '%" + tbOthName.Text + "%'";
             }
 
             if (!string.IsNullOrEmpty(ddlOthCategory.SelectedValue))
             {
-                OtherConditionString += " And a.CategoryId = '" + ddlOthCategory.SelectedValue + "'";
+                condStr += " And a.CategoryId = '" + ddlOthCategory.SelectedValue + "'";
             }
             if (!string.IsNullOrEmpty(ddlCategory.SelectedValue))
             {
-                OtherConditionString += " And a.IsStore = " + (ddlCategory.SelectedValue == "Store" ? "1" : "0");
+                condStr += " And a.IsStore = " + (ddlCategory.SelectedValue == "Store" ? "1" : "0");
+                if (!string.IsNullOrEmpty(ddlCountry.SelectedValue))
+                {
+                    condStr += " And a.CountryId = '" + ddlCountry.SelectedValue + "'";
+                }
+                if (!string.IsNullOrEmpty(ddlArea.SelectedValue))
+                {
+                    condStr += " And a.AreaId = '" + ddlArea.SelectedValue + "'";
+                }
                 if (!string.IsNullOrEmpty(ddlStore.SelectedValue))
                 {
-                    OtherConditionString += " And a." + (ddlCategory.SelectedValue == "Store" ? "StoreId" : "SupplierId") + " = '" + ddlStore.SelectedValue + "'";
+                    condStr += " And a." + (ddlCategory.SelectedValue == "Store" ? "StoreId" : "SupplierId") + " = '" + ddlStore.SelectedValue + "'";
                 }
             }
-
-            BindData();
+            return condStr;
         }
 
         #region DataGrid Control
@@ -254,9 +266,22 @@ namespace TheWeWebSite.StoreMgt
                 }
                 else
                 {
-                    location = SysProperty.GetChurchById(dataItem1["SupplierId"].ToString());
-                    ((Label)e.Item.FindControl("labelChurch")).Text = SysProperty.Util.OutputRelatedLangName(Session["CultureCode"].ToString(), location);
-                    ((Label)e.Item.FindControl("labelChurchOth")).Text = SysProperty.GetCountryById(location["CountryId"].ToString())["Code"].ToString().Trim() == "JP" ? location["JpName"].ToString() : location["EngName"].ToString();
+                    if (!string.IsNullOrEmpty(dataItem1["SupplierId"].ToString()))
+                    {
+                        location = SysProperty.GetChurchById(dataItem1["SupplierId"].ToString());
+                        ((Label)e.Item.FindControl("labelChurch")).Text = SysProperty.Util.OutputRelatedLangName(Session["CultureCode"].ToString(), location);
+                        ((Label)e.Item.FindControl("labelChurchOth")).Text = SysProperty.GetCountryById(location["CountryId"].ToString())["Code"].ToString().Trim() == "JP" ? location["JpName"].ToString() : location["EngName"].ToString();
+                    }
+                    else
+                    {
+                        if (!string.IsNullOrEmpty(dataItem1["CountryId"].ToString()))
+                        {
+                            location = SysProperty.GetCountryById(dataItem1["CountryId"].ToString());
+                            ((Label)e.Item.FindControl("labelChurch")).Text = SysProperty.Util.OutputRelatedLangName(Session["CultureCode"].ToString(), location);
+                            ((Label)e.Item.FindControl("labelChurchOth")).Text = location["Code"].ToString().Trim() == "JP" ? location["JpName"].ToString() : location["EngName"].ToString();
+                        }
+                    }
+                    
                 }
 
 
@@ -270,6 +295,7 @@ namespace TheWeWebSite.StoreMgt
             GetOtherItemList(string.Empty);
             dataGrid.DataSource = DS;
             dataGrid.AllowPaging = !SysProperty.Util.IsDataSetEmpty(DS);
+            
             dataGrid.DataBind();
         }
 
@@ -277,21 +303,21 @@ namespace TheWeWebSite.StoreMgt
         {
             try
             {
+                OtherConditionString = GenWhereCondition();
                 string sql = string.Empty;
                 string condStr = string.Empty;
-                if (string.IsNullOrEmpty(ddlOthCategory.SelectedValue))
+                if (string.IsNullOrEmpty(ddlCategory.SelectedValue))
                 {
-                    condStr = OtherConditionString + " And CategoryId in ('4ec16237-2cb6-496f-ab85-8fa708aa4d55', '907C7E99-73A5-4B2A-8484-FB7BBD0BC1BA')"
-                        + (bool.Parse(((DataRow)Session["LocateStore"])["HoldingCompany"].ToString())
+                    condStr = OtherConditionString + (bool.Parse(((DataRow)Session["LocateStore"])["HoldingCompany"].ToString())
                             ? string.Empty
                             : " and a.StoreId = '" + ((DataRow)Session["LocateStore"])["Id"].ToString() + "'");
-                    DS = GetServiceItem(condStr + " And a.IsStore = 1", sortStr);
-                    condStr = OtherConditionString + " And IsGeneral = 1";
+                    DS = GetServiceItem(condStr, sortStr);
+                    condStr = OtherConditionString + " And IsStore = 0";
                     DS.Merge(GetServiceItem(condStr, sortStr));
                 }
                 else
                 {
-                    if (ddlOthCategory.SelectedValue == "4ec16237-2cb6-496f-ab85-8fa708aa4d55")
+                    if (ddlCategory.SelectedValue == "Store")
                     {
                         condStr = OtherConditionString
                             + (bool.Parse(((DataRow)Session["LocateStore"])["HoldingCompany"].ToString())
@@ -301,6 +327,7 @@ namespace TheWeWebSite.StoreMgt
                     }
                     else
                     {
+                        condStr = OtherConditionString;
                         DS = GetServiceItem(condStr, sortStr);
                     }
                 }
@@ -322,6 +349,7 @@ namespace TheWeWebSite.StoreMgt
                         + " ,a.[SupplierId],a.[Cost],a.[StoreId],a.[CnName]"
                         + " ,a.[EngName],a.[JpName],a.[IsDelete],a.[CategoryId]"
                         + " ,a.[UpdateAccId],a.[UpdateTime],a.IsGeneral,b.Name as TypeName,c.Name as CategoryName,a.IsStore"
+                        + " ,a.CountryId,a.AreaId"
                         + " from  [dbo].[ServiceItem] as a "
                         + " left join ServiceItemCategory as b on b.id=a.Type "
                         + " left join ServiceItemCategory as c on c.id=a.CategoryId"
@@ -392,7 +420,7 @@ namespace TheWeWebSite.StoreMgt
             {
                 if (!string.IsNullOrEmpty(ddlArea.SelectedValue))
                 {
-                    string countryId = SysProperty.GetAreaById(ddlArea.SelectedValue)["Id"].ToString();
+                    string countryId = SysProperty.GetAreaById(ddlArea.SelectedValue)["CountryId"].ToString();
                     if (ddlCountry.SelectedValue != countryId)
                     {
                         ddlCountry.SelectedValue = countryId;

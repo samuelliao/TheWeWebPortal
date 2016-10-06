@@ -87,6 +87,7 @@ namespace TheWeWebSite.StoreMgt
             CountryList(ddlCategory.SelectedValue);
             AreaList(ddlCategory.SelectedValue, ddlCountry.SelectedValue);
             StoreList(ddlCategory.SelectedValue == "Store", ddlCountry.SelectedValue, ddlArea.SelectedValue);
+            CurrencyList();
         }
         private void InitialControlWithPermission()
         {
@@ -678,7 +679,7 @@ namespace TheWeWebSite.StoreMgt
                 {
                     conds.Add(lst.Find(x => x.AttrName == "CategoryId"));
                     conds.Add(lst.Find(x => x.AttrName == "IsStore"));
-                    conds.Add(lst.Find(x => x.AttrName == (ddlCategory.SelectedValue == "Store" ? "StoreId" : "SupplierId")));
+                    //conds.Add(lst.Find(x => x.AttrName == (ddlCategory.SelectedValue == "Store" ? "StoreId" : "SupplierId")));
                     conds.Add(lst.Find(x => x.AttrName == "Name"));
                     conds.Add(lst.Find(x => x.AttrName == "UpdateAccId"));
                     conds.Add(lst.Find(x => x.AttrName == "CreatedateAccId"));

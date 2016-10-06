@@ -120,7 +120,7 @@ namespace TheWeWebSite
                 SysProperty.UpdateCountries();
                 SysProperty.UpdateAreas();
                 SysProperty.UpdateChurch();
-                if (ddlStore.SelectedIndex == 1) SysProperty.UpdateStore();
+                SysProperty.UpdateStore();
                 Session["AccountInfo"] = ds.Tables[0].Rows[0];
                 GetLocateStoreInfo(ddlStore.SelectedValue);
                 GetOperationPermission(ddlStore.SelectedValue);
@@ -241,5 +241,12 @@ namespace TheWeWebSite
             }
         }
         #endregion
+
+        protected void ddlStore_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            tbAccount.Text = string.Empty;
+            tbPassword.Text = string.Empty;
+            cbRemember.Checked = false;
+        }
     }
 }

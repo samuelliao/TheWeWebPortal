@@ -19,19 +19,31 @@
                 <div style="color: #000; margin-bottom: 10px; margin-left: auto; margin-right: auto; width: 15em;">
                     <asp:UpdatePanel runat="server">
                         <ContentTemplate>
-                            <asp:DropDownList runat="server" ID="ddlStore" />
+                            <asp:DropDownList runat="server" ID="ddlStore" AutoPostBack="true" OnSelectedIndexChanged="ddlStore_SelectedIndexChanged" />
                         </ContentTemplate>
                     </asp:UpdatePanel>
                 </div>
 
                 <div style="color: #000; margin-bottom: 10px; margin-left: auto; margin-right: auto; width: 15EM;">
-                    <asp:TextBox runat="server" TextMode="SingleLine" ID="tbAccount" />
+                    <asp:UpdatePanel runat="server">
+                        <ContentTemplate>
+                            <asp:TextBox runat="server" TextMode="SingleLine" ID="tbAccount" />
+                        </ContentTemplate>
+                    </asp:UpdatePanel>                    
                 </div>
                 <div style="color: #000; margin-bottom: 10px; margin-left: auto; margin-right: auto; width: 15EM;">
-                    <asp:TextBox runat="server" ID="tbPassword" TextMode="Password"></asp:TextBox>
+                    <asp:UpdatePanel runat="server">
+                        <ContentTemplate>
+                            <asp:TextBox runat="server" ID="tbPassword" TextMode="Password"></asp:TextBox>
+                        </ContentTemplate>
+                    </asp:UpdatePanel>                    
                 </div>
                 <div style="color: #000; margin-bottom: auto; margin-left: auto; margin-right: auto; width: 15EM; vertical-align:bottom; margin-top: 30px;">
-                    <asp:CheckBox runat="server" ID="cbRemember" Style="vertical-align:central; text-align:left;"  Text="Remember me" />
+                    <asp:UpdatePanel runat="server">
+                        <ContentTemplate>
+                            <asp:CheckBox runat="server" ID="cbRemember" Style="vertical-align:central; text-align:left;"  Text="Remember me" />
+                        </ContentTemplate>
+                    </asp:UpdatePanel>                    
                 </div>
                 <div>
                     <asp:Label runat="server" ID="labelWarnText" ForeColor="Red" />

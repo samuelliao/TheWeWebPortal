@@ -140,11 +140,11 @@
                             </asp:UpdatePanel>
                         </div>
                         <div class="2u 12u(mobilep)">
-                            <div class="Div">
-                                <asp:Label runat="server" ID="labelHolderTitle" Text="<%$ Resources:Resource,StoreString%>" />
-                            </div>
                             <asp:UpdatePanel runat="server">
                                 <ContentTemplate>
+                                    <div class="Div">
+                                        <asp:Label runat="server" ID="labelHolderTitle" Text="<%$ Resources:Resource,StoreString%>" />
+                                    </div>
                                     <asp:DropDownList runat="server" ID="ddlStore" AutoPostBack="true" OnSelectedIndexChanged="ddlStore_SelectedIndexChanged" />
                                 </ContentTemplate>
                             </asp:UpdatePanel>
