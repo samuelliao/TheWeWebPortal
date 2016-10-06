@@ -34,6 +34,7 @@
                         <div class="12u">
                             <div class="2u 12u(mobilep)" runat="server" id="divStore" style="display: none;">
                                 <asp:DropDownList runat="server" ID="ddlStore" />
+                                <asp:DropDownList runat="server" ID="ddlWPProductSet" Style="display:none" />
                             </div>
                             <div class="table-wrapper">
                                 <asp:DataGrid runat="server" ID="dataGrid" AllowPaging="true" AllowSorting="true" AutoGenerateColumns="false"

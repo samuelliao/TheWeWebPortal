@@ -35,6 +35,7 @@
                                 </div>
                                 <asp:TextBox runat="server" placeholder="<%$ Resources:Resource,SystemString%>" ID="labelSn" Enabled="false" />
                                 <asp:CheckBox runat="server" ID="cbIsClose" Visible="false" />
+                                <asp:DropDownList runat="server" ID="ddlWPProductSet" Style="display:none" />
                             </div>
                             <div class="2u 12u(mobilep)">
                                 <div class="Div">

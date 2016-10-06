@@ -160,6 +160,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   查詢類似 Add into Wedding Item 的當地語系化字串。
+        /// </summary>
+        internal static string AddOthItemString {
+            get {
+                return ResourceManager.GetString("AddOthItemString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查詢類似 Please input a address 的當地語系化字串。
         /// </summary>
         internal static string AddressInputString {

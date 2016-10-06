@@ -38,6 +38,7 @@
                                         <asp:Label runat="server" Text="<%$ Resources:Resource,StoreString%>"></asp:Label>
                                     </div>
                                     <asp:DropDownList runat="server" ID="ddlStore" />
+                                    <asp:DropDownList runat="server" ID="ddlWPProductSet" Style="display:none" />
                                 </div>
                                 <div class="2u 12u(mobilep)">
                                     <div class="Div">

@@ -25,6 +25,7 @@ namespace TheWeLib
         {
             try
             {
+                SqlConn.Open();
                 SqlDataAdapter da = new SqlDataAdapter(KeyOpenString + sqlStr, SqlConn);
                 DataSet ds = new DataSet();
                 da.Fill(ds);
@@ -35,6 +36,10 @@ namespace TheWeLib
                 // Output log here.
                 SysProperty.Log.Error(ex.Message);
                 throw ex;
+            }
+            finally
+            {
+                if (SqlConn.State == ConnectionState.Open) SqlConn.Close();
             }
         }
 

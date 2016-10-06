@@ -20,7 +20,7 @@ namespace TheWeWebSite.Main
                 else
                 {
                     labelPageTitle.Text = Resources.Resource.MainPageString + " > " + Resources.Resource.ContractScheduleString;
-                    StoreList();
+                    InitialControl();
                     BindData();
                 }
             }
@@ -30,6 +30,35 @@ namespace TheWeWebSite.Main
             labelWarnString.Text = msg;
             labelWarnString.Visible = !string.IsNullOrEmpty(msg);
         }
+        private void InitialControl()
+        {
+            StoreList();
+            WPProductSet();
+        }
+        private void WPProductSet()
+        {
+            ddlWPProductSet.Items.Clear();
+            ddlWPProductSet.Items.Add(new ListItem(Resources.Resource.SeletionRemindString, string.Empty));
+            try
+            {
+                DataSet ds = SysProperty.GenDbCon.GetDataFromTable("select * From ServiceItemCategory Where IsDelete=0 And TypeLv = 1");
+                if (!SysProperty.Util.IsDataSetEmpty(ds))
+                {
+                    foreach (DataRow dr in ds.Tables[0].Rows)
+                    {
+                        ddlWPProductSet.Items.Add(new ListItem(
+                            SysProperty.Util.OutputRelatedLangName(Session["CultureCode"].ToString(), dr)
+                            , dr["Id"].ToString()));
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                SysProperty.Log.Error(ex.Message);
+                ShowErrorMsg(ex.Message);
+            }
+        }
+
         private void StoreList()
         {
             ddlStore.Items.Clear();
@@ -79,6 +108,7 @@ namespace TheWeWebSite.Main
             DataRowView dataItem1 = (DataRowView)e.Item.DataItem;
             if (dataItem1 != null)
             {
+                bool isWP = dataItem1["Sn"].ToString().Trim().StartsWith("WC");
                 ((Label)e.Item.FindControl("labelStore")).Text = ddlStore.Items.FindByValue(dataItem1["StoreId"].ToString()).Text;
 
                 LinkButton hyperLink1 = (LinkButton)e.Item.FindControl("linkConsult");
@@ -106,16 +136,21 @@ namespace TheWeWebSite.Main
                     , dataItem1["StatusEngName"].ToString()
                     , dataItem1["StatusJpName"].ToString());
 
-                ((Label)e.Item.FindControl("labelLocation")).Text = SysProperty.Util.OutputRelatedLangName(Session["CultureCode"].ToString()
-                    , SysProperty.GetChurchById(dataItem1["ChurchId"].ToString()))
-                    + "(" + (SysProperty.Util.OutputRelatedLangName(Session["CultureCode"].ToString(),
+                ((Label)e.Item.FindControl("labelLocation")).Text = (SysProperty.Util.OutputRelatedLangName(Session["CultureCode"].ToString()
+                    , (isWP ? SysProperty.GetStoreById(dataItem1["StoreId"].ToString()) : SysProperty.GetChurchById(dataItem1["ChurchId"].ToString())))) + "(" + (SysProperty.Util.OutputRelatedLangName(Session["CultureCode"].ToString(),
                     SysProperty.GetCountryById(dataItem1["CountryId"].ToString()))) + ")";
-
-                ((Label)e.Item.FindControl("labelSet")).Text = SysProperty.Util.OutputRelatedLangName(Session["CultureCode"].ToString()
-                    , dataItem1["SetName"].ToString()
-                    , dataItem1["SetCnName"].ToString()
-                    , dataItem1["SetEngName"].ToString()
-                    , dataItem1["SetJpName"].ToString());
+                if (isWP)
+                {
+                    ((Label)e.Item.FindControl("labelSet")).Text = ddlWPProductSet.Items.FindByValue(dataItem1["SetId"].ToString()).Text;
+                }
+                else
+                {
+                    ((Label)e.Item.FindControl("labelSet")).Text = SysProperty.Util.OutputRelatedLangName(Session["CultureCode"].ToString()
+                        , dataItem1["SetName"].ToString()
+                        , dataItem1["SetCnName"].ToString()
+                        , dataItem1["SetEngName"].ToString()
+                        , dataItem1["SetJpName"].ToString());
+                }
             }
         }
 
@@ -207,7 +242,7 @@ namespace TheWeWebSite.Main
                                 + " Left join ConferenceItem as ci on ci.Id = o.ConferenceCategory"
                                 + " Left join vwEN_Partner as pr on pr.Id = o.PartnerId"
                                 + " Left join Employee as e on e.Id = o.EmployeeId"
-                                + " WHERE o.IsDelete = 0" 
+                                + " WHERE o.IsDelete = 0"
                                 + " And o.BookingDate >='" + DateTime.Now.ToString("yyyy/MM/dd") + " 00:00:00'"
                                 + " And o.BookingDate <='" + DateTime.Now.AddDays(1).ToString("yyyy/MM/dd") + " 00:00:00'";
                             if (item.Value.Type == "Store")

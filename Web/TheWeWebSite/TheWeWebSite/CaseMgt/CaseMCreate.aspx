@@ -41,6 +41,7 @@
                                                 <asp:Label runat="server" Text="<%$ Resources:Resource,AdviosryIdString%>"></asp:Label>
                                             </div>
                                             <asp:TextBox runat="server" Enabled="false" ID="tbAdvisorySn"></asp:TextBox>
+                                            <asp:DropDownList runat="server" ID="ddlStore" Style="display:none" />
                                         </div>
                                         <div class="2u 12u(mobilep)">
                                             <div class="Div">

@@ -1290,4 +1290,7 @@
   <data name="SubmitDayString" xml:space="preserve">
     <value>提交日</value>
   </data>
+  <data name="AddOthItemString" xml:space="preserve">
+    <value>加入婚禮週邊資料庫</value>
+  </data>
 </root>

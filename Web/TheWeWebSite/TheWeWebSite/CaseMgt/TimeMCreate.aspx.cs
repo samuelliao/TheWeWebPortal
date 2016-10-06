@@ -22,11 +22,7 @@ namespace TheWeWebSite.CaseMgt
                 else
                 {
                     SysProperty.DataSetSortType = true;
-                    InitialPastorLanguage();
-                    InitialConferenceItem();
-                    InitialLangList();
-                    InitialOrderType();
-                    InitialTextAndHint();
+                    InitialPage();                 
                     FirstGridViewRow_dgCutomServiceItem();
                     FirstGridViewRow2();
                     if (Session["OrderId"] != null)
@@ -51,6 +47,15 @@ namespace TheWeWebSite.CaseMgt
         }
 
         #region Page initialize
+        private void InitialPage()
+        {
+            WPProductSet();
+            InitialPastorLanguage();
+            InitialConferenceItem();
+            InitialLangList();
+            InitialOrderType();
+            InitialTextAndHint();
+        }
         private void InitialTextAndHint()
         {
             InitiallblText();
@@ -64,8 +69,7 @@ namespace TheWeWebSite.CaseMgt
             ddlLangPastor.Items.Add(new ListItem(Resources.Resource.SimplifiedChineseString, "2"));
             ddlLangPastor.Items.Add(new ListItem(Resources.Resource.EnglishString, "0"));
             ddlLangPastor.Items.Add(new ListItem(Resources.Resource.JapaneseString, "3"));
-        }
-
+        }        
         private void InitiallblText()
         {
             //1-1
@@ -337,6 +341,29 @@ namespace TheWeWebSite.CaseMgt
                 ShowErrorMsg(ex.Message);
             }
         }
+        private void WPProductSet()
+        {
+            ddlWPProductSet.Items.Clear();
+            ddlWPProductSet.Items.Add(new ListItem(Resources.Resource.SeletionRemindString, string.Empty));
+            try
+            {
+                DataSet ds = SysProperty.GenDbCon.GetDataFromTable("select * From ServiceItemCategory Where IsDelete=0 And TypeLv = 1");
+                if (!SysProperty.Util.IsDataSetEmpty(ds))
+                {
+                    foreach (DataRow dr in ds.Tables[0].Rows)
+                    {
+                        ddlWPProductSet.Items.Add(new ListItem(
+                            SysProperty.Util.OutputRelatedLangName(Session["CultureCode"].ToString(), dr)
+                            , dr["Id"].ToString()));
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                SysProperty.Log.Error(ex.Message);
+                ShowErrorMsg(ex.Message);
+            }
+        }
         #endregion
 
         private void ShowErrorMsg(string msg)
@@ -536,16 +563,26 @@ namespace TheWeWebSite.CaseMgt
             DataSet ds = GetOrderInfo(id);
             if (SysProperty.Util.IsDataSetEmpty(ds)) return;
             DataRow dr = ds.Tables[0].Rows[0];
+            bool isWP = dr["Sn"].ToString().Trim().StartsWith("WC");
             tbBridalName.Text = dr["CustomerName"].ToString();
             tbGroomName.Text = dr["PartnerName"].ToString();
-            tbProductSet.Text = SysProperty.Util.OutputRelatedLangName(
-                cultureCode
-                , dr["SetName"].ToString()
-                , dr["SetCnName"].ToString()
-                , dr["SetEngName"].ToString()
-                , dr["SetJpName"].ToString());
+
+            if (isWP)
+            {
+                tbProductSet.Text = ddlWPProductSet.Items.FindByValue(dr["SetId"].ToString()).Text;
+            }
+            else
+            {
+                tbProductSet.Text = SysProperty.Util.OutputRelatedLangName(Session["CultureCode"].ToString()
+                    , dr["SetName"].ToString()
+                    , dr["SetCnName"].ToString()
+                    , dr["SetEngName"].ToString()
+                    , dr["SetJpName"].ToString());
+            }
+
             ddlOrderType.SelectedValue = dr["ServiceType"].ToString();
-            tbLocation.Text = SysProperty.Util.OutputRelatedLangName(cultureCode, SysProperty.GetChurchById(dr["ChurchId"].ToString()));
+            tbLocation.Text = SysProperty.Util.OutputRelatedLangName(Session["CultureCode"].ToString()
+                    , (isWP ? SysProperty.GetStoreById(dr["StoreId"].ToString()) : SysProperty.GetChurchById(dr["ChurchId"].ToString())));
             tbArea.Text = SysProperty.Util.OutputRelatedLangName(cultureCode, SysProperty.GetAreaById(dr["AreaId"].ToString()));
             tbCountry.Text = SysProperty.Util.OutputRelatedLangName(cultureCode, SysProperty.GetCountryById(dr["CountryId"].ToString()));
             tbContractDate.Text = SysProperty.Util.ParseDateTime("DateTime", dr["StartTime"].ToString());

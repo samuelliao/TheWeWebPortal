@@ -481,7 +481,7 @@ namespace TheWeWebSite.CaseMgt
                 ((Label)e.Item.FindControl("labelArea")).Text = SysProperty.Util.OutputRelatedLangName(Session["CultureCode"].ToString()
                     , SysProperty.GetAreaById(dataItem1["AreaId"].ToString()));
                 ((Label)e.Item.FindControl("labelLocation")).Text = SysProperty.Util.OutputRelatedLangName(Session["CultureCode"].ToString()
-                    , (isWP ? ((DataRow)Session["LocateStore"]) : SysProperty.GetChurchById(dataItem1["ChurchId"].ToString())));
+                    , (isWP ? SysProperty.GetStoreById(dataItem1["StoreId"].ToString()) : SysProperty.GetChurchById(dataItem1["ChurchId"].ToString())));
                 if (isWP) {
                     ((Label)e.Item.FindControl("labelSet")).Text = ddlWPProductSet.Items.FindByValue(dataItem1["SetId"].ToString()).Text;
                 }

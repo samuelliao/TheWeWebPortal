@@ -1290,4 +1290,7 @@
   <data name="SubmitDayString" xml:space="preserve">
     <value>Submit Day</value>
   </data>
+  <data name="AddOthItemString" xml:space="preserve">
+    <value>Add into Wedding Item</value>
+  </data>
 </root>

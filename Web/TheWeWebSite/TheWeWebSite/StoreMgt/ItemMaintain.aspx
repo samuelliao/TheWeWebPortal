@@ -55,7 +55,7 @@
                                 </div>
                                 <asp:UpdatePanel runat="server">
                                     <ContentTemplate>
-                                        <asp:DropDownList runat="server" ID="ddlCountry" OnSelectedIndexChanged="ddlCountry_SelectedIndexChanged" />
+                                        <asp:DropDownList runat="server" ID="ddlCountry" AutoPostBack="true" OnSelectedIndexChanged="ddlCountry_SelectedIndexChanged" />
                                     </ContentTemplate>
                                 </asp:UpdatePanel>
                             </div>
@@ -65,7 +65,7 @@
                                 </div>
                                 <asp:UpdatePanel runat="server">
                                     <ContentTemplate>
-                                        <asp:DropDownList runat="server" ID="ddlArea" OnSelectedIndexChanged="ddlArea_SelectedIndexChanged" />
+                                        <asp:DropDownList runat="server" ID="ddlArea" AutoPostBack="true" OnSelectedIndexChanged="ddlArea_SelectedIndexChanged" />
                                     </ContentTemplate>
                                 </asp:UpdatePanel>
                             </div>

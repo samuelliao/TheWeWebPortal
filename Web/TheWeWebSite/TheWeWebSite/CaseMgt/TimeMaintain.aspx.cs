@@ -58,6 +58,30 @@ namespace TheWeWebSite.CaseMgt
             LocationDropDownList(string.Empty, string.Empty);
             ProductSetDropDownList();
             StoreList();
+            WPProductSet();
+        }
+        private void WPProductSet()
+        {
+            ddlWPProductSet.Items.Clear();
+            ddlWPProductSet.Items.Add(new ListItem(Resources.Resource.SeletionRemindString, string.Empty));
+            try
+            {
+                DataSet ds = SysProperty.GenDbCon.GetDataFromTable("select * From ServiceItemCategory Where IsDelete=0 And TypeLv = 1");
+                if (!SysProperty.Util.IsDataSetEmpty(ds))
+                {
+                    foreach (DataRow dr in ds.Tables[0].Rows)
+                    {
+                        ddlWPProductSet.Items.Add(new ListItem(
+                            SysProperty.Util.OutputRelatedLangName(Session["CultureCode"].ToString(), dr)
+                            , dr["Id"].ToString()));
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                SysProperty.Log.Error(ex.Message);
+                ShowErrorMsg(ex.Message);
+            }
         }
         private void StoreList()
         {
@@ -311,6 +335,7 @@ namespace TheWeWebSite.CaseMgt
             DataRowView dataItem1 = (DataRowView)e.Item.DataItem;
             if (dataItem1 != null)
             {
+                bool isWP = dataItem1["Sn"].ToString().Trim().StartsWith("WC");
                 ((Label)e.Item.FindControl("labelStore")).Text = ddlStore.Items.FindByValue(dataItem1["StoreId"].ToString()).Text;
 
                 LinkButton hyperLink1 = (LinkButton)e.Item.FindControl("linkConsult");
@@ -337,13 +362,19 @@ namespace TheWeWebSite.CaseMgt
                 ((Label)e.Item.FindControl("labelArea")).Text = SysProperty.Util.OutputRelatedLangName(Session["CultureCode"].ToString()
                     , SysProperty.GetAreaById(dataItem1["AreaId"].ToString()));
                 ((Label)e.Item.FindControl("labelLocation")).Text = SysProperty.Util.OutputRelatedLangName(Session["CultureCode"].ToString()
-                    , SysProperty.GetChurchById(dataItem1["ChurchId"].ToString()));
-
-                ((Label)e.Item.FindControl("labelSet")).Text = SysProperty.Util.OutputRelatedLangName(Session["CultureCode"].ToString()
-                    , dataItem1["SetName"].ToString()
-                    , dataItem1["SetCnName"].ToString()
-                    , dataItem1["SetEngName"].ToString()
-                    , dataItem1["SetJpName"].ToString());
+                    , (isWP ? SysProperty.GetStoreById(dataItem1["StoreId"].ToString()) : SysProperty.GetChurchById(dataItem1["ChurchId"].ToString())));
+                if (isWP)
+                {
+                    ((Label)e.Item.FindControl("labelSet")).Text = ddlWPProductSet.Items.FindByValue(dataItem1["SetId"].ToString()).Text;
+                }
+                else
+                {
+                    ((Label)e.Item.FindControl("labelSet")).Text = SysProperty.Util.OutputRelatedLangName(Session["CultureCode"].ToString()
+                        , dataItem1["SetName"].ToString()
+                        , dataItem1["SetCnName"].ToString()
+                        , dataItem1["SetEngName"].ToString()
+                        , dataItem1["SetJpName"].ToString());
+                }
             }
         }
 
