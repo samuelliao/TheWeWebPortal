@@ -13,6 +13,9 @@ namespace TheWeParser
 {
     public partial class Form1 : Form
     {
+        private string AWSStr = @"Data Source=54.223.78.5;Initial Catalog=TheWe_C;Persist Security Info=True;User ID=sa;Password=!QAZ2wsx#EDC";
+        private string AliStr = @"Data Source=60.205.146.133;Initial Catalog=TheWe_C;Persist Security Info=True;User ID=TheWe;Password=!QAZ2wsx#EDC";
+
         public Form1()
         {
             InitializeComponent();
@@ -25,6 +28,7 @@ namespace TheWeParser
             comboBox1.Items.Clear();
             comboBox1.Items.Add(new Item("Church", "Church"));
             comboBox1.Items.Add(new Item("Dress", "Dress"));
+            comboBox1.Items.Add(new Item("Product", "Product"));
             //comboBox1.Items.Add(new Item("Dress", ""));
         }
 
@@ -79,12 +83,18 @@ namespace TheWeParser
             if (((Item)comboBox1.SelectedItem).Value == "Church")
             {
                 //GetChurchFile();
-                SetServiceItem();
+                //SetServiceItem();
+                SetDressPhotoChurchData();
             }
             else if (((Item)comboBox1.SelectedItem).Value == "Dress")
             {
                 //GetDressFile();
                 ArrangeDressPhoto();
+            }
+            else if (((Item)comboBox1.SelectedItem).Value == "Product")
+            {
+                //GetDressFile();
+                SetProductData();
             }
             this.Cursor = Cursors.Arrow;
         }
@@ -93,7 +103,28 @@ namespace TheWeParser
         {
             ChurchDataParser church = new ChurchDataParser(@"Data Source=60.205.146.133;Initial Catalog=TheWe_C;Persist Security Info=True;User ID=TheWe;Password=!QAZ2wsx#EDC");
             church.ResetAccountAndPassword();
-        }        
+        }  
+        
+        private void SetDressPhotoChurchData()
+        {
+            ChurchDataParser church = new ChurchDataParser(@"Data Source=60.205.146.133;Initial Catalog=TheWe_C;Persist Security Info=True;User ID=TheWe;Password=!QAZ2wsx#EDC");
+            church.FileReader(textBox1.Text);
+            church.WriteBackChurch(church.GetChurchDbList2());
+        }
+        private void SetProductData()
+        {
+            ProductdataParser set = new ProductdataParser(@"Data Source=60.205.146.133;Initial Catalog=TheWe_C;Persist Security Info=True;User ID=sa;Password=!QAZ2wsx#EDC");
+            //ProductdataParser set = new ProductdataParser(@"Data Source=54.223.78.5;Initial Catalog=TheWe_C;Persist Security Info=True;User ID=sa;Password=!QAZ2wsx#EDC");
+            set.FileReader(textBox1.Text);
+            set.GetProductDbList();
+            set.WriteBack();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            ProductdataParser set = new ProductdataParser(AliStr);
+            set.FixServiceItemLocationInfo();
+        }
     }
 
 }

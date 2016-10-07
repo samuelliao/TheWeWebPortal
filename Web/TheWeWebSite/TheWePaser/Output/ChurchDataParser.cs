@@ -45,6 +45,49 @@ namespace TheWeParser.Output
             else return false;
         }
 
+        public List<List<DbSearchObject>> GetChurchDbList2()
+        {
+            List<List<DbSearchObject>> result = new List<List<DbSearchObject>>();
+            if (WORKBOOK != null)
+            {
+                for (int sheetCnt = 0; sheetCnt < WORKBOOK.NumberOfSheets; sheetCnt++)
+                {
+                    WORKSHEET = (XSSFSheet)WORKBOOK.GetSheetAt(sheetCnt);
+                    for (int rowCnt = 1; rowCnt <= WORKSHEET.LastRowNum; rowCnt++)
+                    {
+                        List<DbSearchObject> lst = new List<DbSearchObject>();
+                        if (WORKSHEET.GetRow(rowCnt) == null) continue;
+                        if (WORKSHEET.GetRow(rowCnt).GetCell(0) == null) continue;
+
+                        // Country
+                        string countryName = WORKSHEET.GetRow(rowCnt).GetCell(0).StringCellValue;
+                        string countryid = GetCountryId(countryName);
+                        if (string.IsNullOrEmpty(countryid)) continue;
+                        lst.Add(new DbSearchObject(GetAttrName(0), AtrrTypeItem.String, AttrSymbolItem.Equal, countryid));
+
+                        // Area
+                        string areaName = string.Empty;
+                        try
+                        {
+                            areaName = WORKSHEET.GetRow(rowCnt).GetCell(1).StringCellValue;
+                        }catch(Exception ex)
+                        {
+                            areaName = countryName;
+                        }
+                        string areaId = GetAreaId(countryid, areaName);
+                        if (string.IsNullOrEmpty(areaId)) continue;
+                        lst.Add(new DbSearchObject(GetAttrName(1), AtrrTypeItem.String, AttrSymbolItem.Equal, areaId));
+
+                        string churchName = areaName + "婚紗拍攝";
+                        lst.Add(new DbSearchObject(GetAttrName(2), AtrrTypeItem.String, AttrSymbolItem.Equal, churchName));
+
+                        result.Add(lst);
+                    }
+                }
+            }
+            return result;
+        }
+
         public List<List<DbSearchObject>> GetChurchDbList()
         {
             List<List<DbSearchObject>> result = new List<List<DbSearchObject>>();
@@ -334,7 +377,7 @@ namespace TheWeParser.Output
                 if (GenDbCon.InsertDataInToTable((isCountry ? "Country" : "Area"), Util.SqlQueryInsertInstanceConverter(lst), Util.SqlQueryInsertValueConverter(lst)))
                 {
                     DataSet ds = GenDbCon.GetDataFromTable("Id", (isCountry ? "Country" : "Area"), Util.SqlQueryConditionConverter(lst));
-                    if (Util.IsDataSetEmpty(ds))
+                    if (!Util.IsDataSetEmpty(ds))
                     {
                         return ds.Tables[0].Rows[0]["Id"].ToString();
                     }
