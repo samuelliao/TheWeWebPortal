@@ -282,7 +282,7 @@ namespace TheWeWebSite.SysMgt
                 "IsDelete"
                 , AtrrTypeItem.Bit
                 , AttrSymbolItem.Equal
-                , "0"));            
+                , "0"));
             return lst;
         }
 
@@ -371,7 +371,8 @@ namespace TheWeWebSite.SysMgt
                     + " FROM [dbo].[Permission] as p"
                     + " left join Store as s on s.Id = p.ObjectId"
                     + " left join Employee as e on e.Id = p.UpdateAccId"
-                    + " Where p.IsDelete = 0 And p.Type = 'Operation' " + sortString;
+                    + " Where p.IsDelete = 0 And p.Type = 'Operation'"
+                    + " And ObjectId  not in (Select Id From Store Where HoldingCompany = 1) " + sortString;
                 DS = SysProperty.GenDbCon.GetDataFromTable(sqlTxt);
             }
             catch (Exception ex)

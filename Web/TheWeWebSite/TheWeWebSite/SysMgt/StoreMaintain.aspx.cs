@@ -520,6 +520,7 @@ namespace TheWeWebSite.SysMgt
         }
         private List<List<DbSearchObject>> PermissionItemListFromTable(bool isCreate, string newId)
         {
+            int functionTypeCnt = 3;
             List<List<DbSearchObject>> root = new List<List<DbSearchObject>>();
             List<DbSearchObject> lst = new List<DbSearchObject>();
             DbSearchObject obj = new DbSearchObject();
@@ -543,27 +544,27 @@ namespace TheWeWebSite.SysMgt
                     "CanEntry"
                     , AtrrTypeItem.Bit
                     , AttrSymbolItem.Equal
-                    , (int.Parse(dr["Type"].ToString()) < 3 ? "1" : "0")));
+                    , (int.Parse(dr["Type"].ToString()) <= functionTypeCnt ? "1" : "0")));
                 lst.Add(new DbSearchObject(
                     "CanCreate"
                     , AtrrTypeItem.Bit
                     , AttrSymbolItem.Equal
-                    , (int.Parse(dr["Type"].ToString()) < 3 ? "1" : "0")));
+                    , (int.Parse(dr["Type"].ToString()) <= functionTypeCnt ? "1" : "0")));
                 lst.Add(new DbSearchObject(
                     "CanModify"
                     , AtrrTypeItem.Bit
                     , AttrSymbolItem.Equal
-                    , (int.Parse(dr["Type"].ToString()) < 3 ? "1" : "0")));
+                    , (int.Parse(dr["Type"].ToString()) <= functionTypeCnt ? "1" : "0")));
                 lst.Add(new DbSearchObject(
                     "CanDelete"
                     , AtrrTypeItem.Bit
                     , AttrSymbolItem.Equal
-                    , (int.Parse(dr["Type"].ToString()) < 3 ? "1" : "0")));
+                    , (int.Parse(dr["Type"].ToString()) <= functionTypeCnt ? "1" : "0")));
                 lst.Add(new DbSearchObject(
                     "CanExport"
                     , AtrrTypeItem.Bit
                     , AttrSymbolItem.Equal
-                    , (int.Parse(dr["Type"].ToString()) < 3 ? "1" : "0")));
+                    , (int.Parse(dr["Type"].ToString()) <= functionTypeCnt ? "1" : "0")));
                 lst.Add(new DbSearchObject(
                     "Type"
                     , AtrrTypeItem.String

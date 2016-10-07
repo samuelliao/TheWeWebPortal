@@ -58,6 +58,7 @@ namespace TheWeWebSite
                         break;
                     case "3":
                         liPurchaseMgt.Visible = item.Value.CanEntry;
+                        LinkAutoPassMgt.Visible = bool.Parse(((DataRow)Session["LocateStore"])["HoldingCompany"].ToString());
                         break;
                     case "4":
                         liSalesMgt.Visible = item.Value.CanEntry;

@@ -376,7 +376,6 @@ namespace TheWeWebSite.BuyMgt
             RefreshImage(0, ImgFolderPath);
             tbFolderPath.Text = ImgFolderPath;
             #endregion
-
         }
         private void SetOthItemInfoData(string id)
         {
@@ -803,6 +802,7 @@ namespace TheWeWebSite.BuyMgt
                     , AttrSymbolItem.Equal
                     , cbAddOthItem.Checked ? "1" : "0"
                     ));
+                #region Add new Service Item
                 if (cbAddOthItem.Checked)
                 {
                     lst.Add(new DbSearchObject(
@@ -842,6 +842,8 @@ namespace TheWeWebSite.BuyMgt
                     , tbOthPrice.Text
                     ));
                 }
+                #endregion
+                #region AutoPass
                 if (autoPass)
                 {
                     lst.Add(new DbSearchObject(
@@ -875,6 +877,7 @@ namespace TheWeWebSite.BuyMgt
                         , "Auto pass by system!!"
                         ));
                 }
+                #endregion
             }
             #endregion
             #region Buy Approval
@@ -1232,7 +1235,7 @@ namespace TheWeWebSite.BuyMgt
         }
         #endregion
 
-        #region Other Items
+        #region Service Items
         protected void cbAddOthItem_CheckedChanged(object sender, EventArgs e)
         {
             panelAddOthItem.Visible = cbAddOthItem.Checked;

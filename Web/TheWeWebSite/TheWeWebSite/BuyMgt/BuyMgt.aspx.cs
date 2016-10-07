@@ -37,17 +37,16 @@ namespace TheWeWebSite.BuyMgt
         {
             PermissionUtil util = new PermissionUtil();
             if (Session["Operation"] == null) Response.Redirect("~/Login.aspx");
+            PermissionItem item = util.GetPermissionByKey(Session["Operation"], util.GetOperationSnByPage(this.Page.AppRelativeVirtualPath));
+            LinkBuyMCreate.Visible = item.CanCreate;
+            LinkBuyMCreate.Enabled = item.CanCreate;
             if (bool.Parse(((DataRow)Session["LocateStore"])["HoldingCompany"].ToString()))
             {
-                PermissionItem item = util.GetPermissionByKey(Session["Operation"], util.GetOperationSnByPage(this.Page.AppRelativeVirtualPath));
-                LinkBuyMCreate.Visible = item.CanCreate;
-                LinkBuyMCreate.Enabled = item.CanCreate;
                 divStore.Attributes["style"] = "display: inline;";
             }
             else
             {
-                LinkBuyMCreate.Visible = false;
-                LinkBuyMCreate.Enabled = false;
+                divStore.Attributes["style"] = "display: none;";
             }
         }
         private void InitialControls()

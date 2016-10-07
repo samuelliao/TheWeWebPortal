@@ -79,14 +79,13 @@ namespace TheWeWebSite
         {
             DataSet stores = GetStoreList();
             ddlStore.Items.Clear();
-            ListItem item = new ListItem(Resources.Resource.SelectStoreString, string.Empty, true);
-            ddlStore.Items.Add(item);
+            if (SysProperty.Util.IsDataSetEmpty(stores)) return;
+            ddlStore.Items.Add(new ListItem(Resources.Resource.SelectStoreString, string.Empty, true));
             foreach (DataRow dr in stores.Tables[0].Rows)
             {
-                item = new ListItem(
+                ddlStore.Items.Add(new ListItem(
                     SysProperty.Util.OutputRelatedLangName(((string)Session["CultureCode"]), dr)
-                    , dr["Id"].ToString());
-                ddlStore.Items.Add(item);
+                    , dr["Id"].ToString()));
             }
             ddlStore.Items[0].Selected = true;
         }
