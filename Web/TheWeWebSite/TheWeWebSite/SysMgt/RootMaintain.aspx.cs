@@ -96,7 +96,7 @@ namespace TheWeWebSite.SysMgt
 
         private void BindData()
         {
-            GetPermissionList(string.Empty);
+            GetPermissionList(" Order by S.Sn");
             dataGrid.DataSource = DS;
             dataGrid.AllowPaging = !SysProperty.Util.IsDataSetEmpty(DS);
             dataGrid.DataBind();
