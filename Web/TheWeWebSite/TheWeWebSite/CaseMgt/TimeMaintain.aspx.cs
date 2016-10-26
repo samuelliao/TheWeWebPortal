@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NLog;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -12,9 +13,14 @@ namespace TheWeWebSite.CaseMgt
     public partial class TimeMaintain : System.Web.UI.Page
     {
         DataSet DS;
-        string OtherConditionString;
+        private Logger Log;
+
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Log == null)
+            {
+                Log = NLog.LogManager.GetCurrentClassLogger();
+            }
             if (!Page.IsPostBack)
             {
                 if (SysProperty.Util == null) Response.Redirect("../Login.aspx", true);
@@ -79,7 +85,7 @@ namespace TheWeWebSite.CaseMgt
             }
             catch (Exception ex)
             {
-                SysProperty.Log.Error(ex.Message);
+                Log.Error(ex.Message);
                 ShowErrorMsg(ex.Message);
             }
         }
@@ -120,7 +126,7 @@ namespace TheWeWebSite.CaseMgt
             }
             catch (Exception ex)
             {
-                SysProperty.Log.Error(ex.Message);
+                Log.Error(ex.Message);
                 ShowErrorMsg(ex.Message);
             }
         }
@@ -147,7 +153,7 @@ namespace TheWeWebSite.CaseMgt
             }
             catch (Exception ex)
             {
-                SysProperty.Log.Error(ex.Message);
+                Log.Error(ex.Message);
                 ShowErrorMsg(ex.Message);
             }
         }
@@ -179,7 +185,7 @@ namespace TheWeWebSite.CaseMgt
             }
             catch (Exception ex)
             {
-                SysProperty.Log.Error(ex.Message);
+                Log.Error(ex.Message);
                 ShowErrorMsg(ex.Message);
             }
         }
@@ -214,7 +220,7 @@ namespace TheWeWebSite.CaseMgt
             }
             catch (Exception ex)
             {
-                SysProperty.Log.Error(ex.Message);
+                Log.Error(ex.Message);
                 ShowErrorMsg(ex.Message);
             }
         }
@@ -235,7 +241,13 @@ namespace TheWeWebSite.CaseMgt
 
         protected void btnSearch_Click(object sender, EventArgs e)
         {
-            OtherConditionString = string.Empty;
+            dataGrid.CurrentPageIndex = 0;
+            BindData();
+        }
+
+        private string GetQueryString()
+        {
+            string OtherConditionString = string.Empty;
             DataSet ds;
             string tmpStr = string.Empty;
             // Create Case Sn
@@ -282,7 +294,7 @@ namespace TheWeWebSite.CaseMgt
             OtherConditionString += ((string.IsNullOrEmpty(tbContractEndDate.Text)) ? string.Empty : " And StartTime <='" + tbContractEndDate.Text + "'");
             OtherConditionString += ((string.IsNullOrEmpty(tbConStartDate.Text)) ? string.Empty : " And BookingDate >='" + tbConStartDate.Text + "'");
             OtherConditionString += ((string.IsNullOrEmpty(tbConEndDate.Text)) ? string.Empty : " And BookingDate <='" + tbConEndDate.Text + "'");
-            BindData();
+            return OtherConditionString;
         }
 
         #region DataGrid Control
@@ -302,7 +314,7 @@ namespace TheWeWebSite.CaseMgt
             }
             catch (Exception ex)
             {
-                SysProperty.Log.Error(ex.Message);
+                Log.Error(ex.Message);
                 ShowErrorMsg(ex.Message);
             }
         }
@@ -320,7 +332,7 @@ namespace TheWeWebSite.CaseMgt
             {
                 string storeId = bool.Parse(((DataRow)Session["LocateStore"])["HoldingCompany"].ToString())
                     ? string.Empty : ((DataRow)Session["LocateStore"])["Id"].ToString();
-                GetCaseList(storeId, OtherConditionString
+                GetCaseList(storeId, GetQueryString()
                     + " Order by " + e.SortExpression + " " + SysProperty.Util.GetSortDirection(e.SortExpression));
             }
             if (DS != null)
@@ -388,7 +400,7 @@ namespace TheWeWebSite.CaseMgt
         private void BindData()
         {
             string storeId = string.IsNullOrEmpty(ddlStore.SelectedValue) ? string.Empty : ddlStore.SelectedValue;
-            GetCaseList(storeId, OtherConditionString + " Order by Sn");
+            GetCaseList(storeId, GetQueryString() + " Order by Sn");
             dataGrid.DataSource = DS;
             dataGrid.AllowPaging = !SysProperty.Util.IsDataSetEmpty(DS);
             dataGrid.DataBind();
@@ -405,7 +417,7 @@ namespace TheWeWebSite.CaseMgt
             }
             catch (Exception ex)
             {
-                SysProperty.Log.Error(ex.Message);
+                Log.Error(ex.Message);
                 ShowErrorMsg(ex.Message);
             }
         }
@@ -474,7 +486,7 @@ namespace TheWeWebSite.CaseMgt
                 }
                 catch (Exception ex)
                 {
-                    SysProperty.Log.Error(ex.Message);
+                    Log.Error(ex.Message);
                     ShowErrorMsg(ex.Message);
                     return string.Empty;
                 }
@@ -549,7 +561,7 @@ namespace TheWeWebSite.CaseMgt
             }
             catch (Exception ex)
             {
-                SysProperty.Log.Error(ex.Message);
+                Log.Error(ex.Message);
                 return null;
             }
         }

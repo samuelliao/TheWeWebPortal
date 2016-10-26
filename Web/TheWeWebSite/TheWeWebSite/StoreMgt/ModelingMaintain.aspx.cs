@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NLog;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -12,9 +13,14 @@ namespace TheWeWebSite.StoreMgt
     public partial class ModelingMaintain : System.Web.UI.Page
     {
         DataSet DS;
-        string OtherConditionString;
+        private Logger Log;
+
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Log == null)
+            {
+                Log = NLog.LogManager.GetCurrentClassLogger();
+            }
             if (!Page.IsPostBack)
             {
                 if (SysProperty.Util == null) Response.Redirect("../Login.aspx", true);
@@ -64,14 +70,20 @@ namespace TheWeWebSite.StoreMgt
             }
             catch (Exception ex)
             {
-                SysProperty.Log.Error(ex.Message);
+                Log.Error(ex.Message);
                 ShowErrorMsg(ex.Message);
             }
         }
 
         protected void btnSearch_Click(object sender, EventArgs e)
+        {            
+            dataGrid.CurrentPageIndex = 0;
+            BindData();
+        }
+
+        public string GetQueryString()
         {
-            OtherConditionString = string.Empty;
+            string OtherConditionString = string.Empty;
             if (!string.IsNullOrEmpty(tbSn.Text))
             {
                 OtherConditionString += " And a.Sn like '%" + tbSn.Text + "%'";
@@ -81,7 +93,7 @@ namespace TheWeWebSite.StoreMgt
             {
                 OtherConditionString += " And a.Type = '" + ddlCategory.SelectedValue + "'";
             }
-            BindData();
+            return OtherConditionString;
         }
 
         #region DataGrid Control
@@ -108,7 +120,7 @@ namespace TheWeWebSite.StoreMgt
             }
             catch (Exception ex)
             {
-                SysProperty.Log.Error(ex.Message);
+                Log.Error(ex.Message);
                 ShowErrorMsg(ex.Message);
             }
         }
@@ -158,7 +170,7 @@ namespace TheWeWebSite.StoreMgt
                 string sql = "select TOP 100 a.[Id],a.[Sn],b.[Name],a.[Type],a.[Img],a.[IsDelete],a.[UpdateAccId],a.[UpdateTime],a.[Description],a.[Img]"
                     + " from  [dbo].[HairStyleItem] as a "
                     + " left join HairStyleCategory as b on b.Id=a.Type"
-                    + " where a.IsDelete =0 " + OtherConditionString
+                    + " where a.IsDelete =0 " + GetQueryString()
                     + (bool.Parse(((DataRow)Session["LocateStore"])["HoldingCompany"].ToString())
                     ? string.Empty
                     : " and a.StoreId = '" + ((DataRow)Session["LocateStore"])["Id"].ToString() + "'")
@@ -167,7 +179,7 @@ namespace TheWeWebSite.StoreMgt
             }
             catch (Exception ex)
             {
-                SysProperty.Log.Error(ex.Message);
+                Log.Error(ex.Message);
                 ShowErrorMsg(ex.Message);
                 DS = null;
             }

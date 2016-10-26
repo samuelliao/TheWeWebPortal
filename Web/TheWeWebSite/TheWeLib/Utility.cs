@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NLog;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
@@ -12,6 +13,17 @@ namespace TheWeLib
 {
     public class Utility
     {
+        private Logger Log;
+
+        public Utility()
+        {
+            if (Log == null)
+            {
+                Log = NLog.LogManager.GetCurrentClassLogger();
+            }
+        }
+
+
         /// <summary>
         /// True, dataset is null or empty.
         /// False, dataset in not empty.
@@ -102,7 +114,7 @@ namespace TheWeLib
             }
             catch (Exception ex)
             {
-                SysProperty.Log.Error(ex.Message);
+                Log.Error(ex.Message);
                 return string.Empty;
             }
         }
@@ -150,7 +162,7 @@ namespace TheWeLib
             }
             catch (Exception ex)
             {
-                SysProperty.Log.Error(ex.Message);
+                Log.Error(ex.Message);
                 return string.Empty;
             }
         }
@@ -213,7 +225,7 @@ namespace TheWeLib
             }
             catch (Exception ex)
             {
-                SysProperty.Log.Error(ex.Message);
+                Log.Error(ex.Message);
                 return null;
             }
         }        

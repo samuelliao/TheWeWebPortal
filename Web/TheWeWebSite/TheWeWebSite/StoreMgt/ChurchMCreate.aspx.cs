@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NLog;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.IO;
@@ -13,10 +14,14 @@ namespace TheWeWebSite.StoreMgt
     public partial class ChurchMCreate : System.Web.UI.Page
     {
         DataSet ChurchDataSet;
+        private Logger Log;
+
         protected void Page_Load(object sender, EventArgs e)
         {
-
-
+            if (Log == null)
+            {
+                Log = NLog.LogManager.GetCurrentClassLogger();
+            }
             if (!Page.IsPostBack)
             {
                 if (SysProperty.Util == null) Response.Redirect("../Login.aspx", true);
@@ -151,7 +156,7 @@ namespace TheWeWebSite.StoreMgt
             }
             catch (Exception ex)
             {
-                SysProperty.Log.Error(ex.Message);
+                Log.Error(ex.Message);
                 ShowErrorMsg(ex.Message);
             }
         }
@@ -236,7 +241,7 @@ namespace TheWeWebSite.StoreMgt
             }
             catch (Exception ex)
             {
-                SysProperty.Log.Error(ex.Message);
+                Log.Error(ex.Message);
                 ShowErrorMsg(ex.Message);
             }
         }
@@ -259,7 +264,7 @@ namespace TheWeWebSite.StoreMgt
             }
             catch (Exception ex)
             {
-                SysProperty.Log.Error(ex.Message);
+                Log.Error(ex.Message);
                 ShowErrorMsg(ex.Message);
             }
         }
@@ -279,7 +284,7 @@ namespace TheWeWebSite.StoreMgt
             }
             catch (Exception ex)
             {
-                SysProperty.Log.Error(ex.Message);
+                Log.Error(ex.Message);
                 ShowErrorMsg(ex.Message);
                 ChurchDataSet = null;
             }
@@ -298,7 +303,7 @@ namespace TheWeWebSite.StoreMgt
             }
             catch (Exception ex)
             {
-                SysProperty.Log.Error(ex.Message);
+                Log.Error(ex.Message);
                 ShowErrorMsg(ex.Message);
                 return string.Empty;
             }
@@ -329,8 +334,13 @@ namespace TheWeWebSite.StoreMgt
             tbRedCarpetLength.Text = dr["RedCarpetLong"].ToString();
             tbRedCarpetType.Text = dr["RedCarpetCategory"].ToString();
             tbRemark.Text = dr["Remark"].ToString();
+            tbProviderName.Text = dr["LocationName"].ToString();
+            tbProviderEngName.Text = dr["LocationEngName"].ToString();
+            tbProviderCnName.Text = dr["LocationCnName"].ToString();
+            tbProviderJpName.Text = dr["LocationJpName"].ToString();
             ddlCountry.SelectedValue = dr["CountryId"].ToString();
-            ddlArea.SelectedValue = dr["AreaId"].ToString();
+            ddlCountry_SelectedIndexChanged(ddlCountry, new EventArgs());
+            ddlArea.SelectedValue = dr["AreaId"].ToString();            
             SetChurchBookingTime(id);
             DynamicSn(ddlCountry.SelectedValue);
 
@@ -366,7 +376,7 @@ namespace TheWeWebSite.StoreMgt
             string ImgFolderBouquetPath = imgBouquet;
             RefreshImage(5, ImgFolderBouquetPath);
             #endregion
-
+                        
             if (Session["LocateStore"] != null)
             {
                 if (!bool.Parse(((DataRow)Session["LocateStore"])["HoldingCompany"].ToString()))
@@ -405,7 +415,7 @@ namespace TheWeWebSite.StoreMgt
             }
             catch (Exception ex)
             {
-                SysProperty.Log.Error(ex.Message);
+                Log.Error(ex.Message);
                 ShowErrorMsg(ex.Message);
                 return null;
             }
@@ -659,6 +669,30 @@ namespace TheWeWebSite.StoreMgt
                 , tbMealDescription.Text
                 ));
             lst.Add(new DbSearchObject(
+                "LocationName"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , tbProviderName.Text
+                ));
+            lst.Add(new DbSearchObject(
+                "LocationCnName"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , tbProviderCnName.Text
+                ));
+            lst.Add(new DbSearchObject(
+                "LocationEngName"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , tbProviderEngName.Text
+                ));
+            lst.Add(new DbSearchObject(
+                "LocationJpName"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , tbProviderJpName.Text
+                ));
+            lst.Add(new DbSearchObject(
                 "UpdateAccId"
                 , AtrrTypeItem.String
                 , AttrSymbolItem.Equal
@@ -766,7 +800,7 @@ namespace TheWeWebSite.StoreMgt
             }
             catch (Exception ex)
             {
-                SysProperty.Log.Error(ex.Message);
+                Log.Error(ex.Message);
                 ShowErrorMsg(ex.Message);
                 return false;
             }
@@ -791,7 +825,7 @@ namespace TheWeWebSite.StoreMgt
             }
             catch (Exception ex)
             {
-                SysProperty.Log.Error(ex.Message);
+                Log.Error(ex.Message);
                 ShowErrorMsg(ex.Message);
                 return false;
             }

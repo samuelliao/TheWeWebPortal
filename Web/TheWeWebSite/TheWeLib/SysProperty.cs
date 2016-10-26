@@ -12,7 +12,7 @@ namespace TheWeLib
     public static class SysProperty
     {
         public static string DbConcString;
-        public static Logger Log;
+        //public static Logger Log;
         public static GeneralDbDAO GenDbCon = new GeneralDbDAO();
         public static Utility Util;        
         public static bool DataSetSortType;

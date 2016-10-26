@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NLog;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -12,9 +13,14 @@ namespace TheWeWebSite.StoreMgt
     public partial class FittingMaintain : System.Web.UI.Page
     {
         DataSet DS;
-        string OtherCondStr;
+        private Logger Log;
+
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Log == null)
+            {
+                Log = NLog.LogManager.GetCurrentClassLogger();
+            }
             if (!Page.IsPostBack)
             {
                 if (SysProperty.Util == null) Response.Redirect("../Login.aspx", true);
@@ -82,7 +88,7 @@ namespace TheWeWebSite.StoreMgt
             }
             catch (Exception ex)
             {
-                SysProperty.Log.Error(ex.Message);
+                Log.Error(ex.Message);
                 ShowErrorMsg(ex.Message);
             }
         }
@@ -155,11 +161,18 @@ namespace TheWeWebSite.StoreMgt
 
         protected void btnSearch_Click(object sender, EventArgs e)
         {
-            Session["FittingCategory"] = ddlCategory.SelectedValue;
+            Session["FittingCategory"] = ddlCategory.SelectedValue;            
+            dataGrid.CurrentPageIndex = 0;
+            BindData();
+        }
+
+        private string GetQueryString()
+        {
+            string OtherCondStr = "";
             OtherCondStr = string.IsNullOrEmpty(ddlType.SelectedValue) ? string.Empty : " And Category = '" + ddlType.SelectedValue + "'";
             OtherCondStr += string.IsNullOrEmpty(tbSn.Text) ? string.Empty : " And Sn like '%" + tbSn.Text + "%'";
             OtherCondStr += string.IsNullOrEmpty(ddlStatus.SelectedValue) ? string.Empty : "And StatusCode ='" + ddlStatus.SelectedValue + "'";
-            BindData();
+            return OtherCondStr;
         }
 
         #region DataGrid Control
@@ -181,6 +194,7 @@ namespace TheWeWebSite.StoreMgt
                 {
                     ((Label)e.Item.FindControl("dgLabelStatus")).Text = ddlStatus.Items.FindByValue(dataItem1["StatusCode"].ToString()).Text;
                 }
+                ((Image)e.Item.FindControl("imgDress")).ImageUrl = "http:" + SysProperty.ImgRootFolderpath + @dataItem1["Img"].ToString() + "\\" + dataItem1["Sn"].ToString() + "_1.jpg?" + DateTime.Now.Ticks.ToString();
             }
         }
 
@@ -222,7 +236,7 @@ namespace TheWeWebSite.StoreMgt
             {
                 GetFittingList(
                     Session["FittingCategory"].ToString()
-                    , OtherCondStr
+                    , GetQueryString()
                     , "Order by " + e.SortExpression + " " + SysProperty.Util.GetSortDirection(e.SortExpression));
             }
             if (DS != null)
@@ -235,7 +249,7 @@ namespace TheWeWebSite.StoreMgt
 
         private void BindData()
         {
-            GetFittingList(ddlCategory.SelectedValue, OtherCondStr, " Order by Sn");
+            GetFittingList(ddlCategory.SelectedValue, GetQueryString(), " Order by Sn");
             dataGrid.DataSource = DS;
             dataGrid.AllowPaging = !SysProperty.Util.IsDataSetEmpty(DS);
             dataGrid.DataBind();
@@ -252,7 +266,7 @@ namespace TheWeWebSite.StoreMgt
                     if (string.IsNullOrEmpty(item.Value)) continue;
                     sql += string.IsNullOrEmpty(sql) ? string.Empty : " union ";
                     sql += "Select TOP 100 Id, Sn, StoreId, Category, RentPrice, SellsPrice, IsDelete"
-                        + ", StatusCode, '" + item.Value + "' As TypeName"
+                        + ", StatusCode, '" + item.Value + "' As TypeName, Img"
                     + " From " + item.Value + " Where IsDelete = 0 " + storeStr;
 
                 }
@@ -261,7 +275,7 @@ namespace TheWeWebSite.StoreMgt
             else
             {
                 sql = "Select TOP 100 Id, Sn, StoreId, Category, RentPrice, SellsPrice, IsDelete"
-                    + ", StatusCode, '" + ddlCategory.SelectedValue + "' As TypeName"
+                    + ", StatusCode, '" + ddlCategory.SelectedValue + "' As TypeName, Img"
                     + " From " + tableName + " Where IsDelete = 0 " + storeStr + " " + condStr + " " + sortStr;
                 DS = GetDataFromDb(sql);
             }
@@ -274,7 +288,7 @@ namespace TheWeWebSite.StoreMgt
             }
             catch (Exception ex)
             {
-                SysProperty.Log.Error(ex.Message);
+                Log.Error(ex.Message);
                 ShowErrorMsg(ex.Message);
                 return null;
             }
@@ -287,7 +301,7 @@ namespace TheWeWebSite.StoreMgt
             }
             catch (Exception ex)
             {
-                SysProperty.Log.Error(ex.Message);
+                Log.Error(ex.Message);
                 ShowErrorMsg(ex.Message);
                 return false;
             }

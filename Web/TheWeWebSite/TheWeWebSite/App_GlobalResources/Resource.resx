@@ -1293,4 +1293,7 @@
   <data name="AddOthItemString" xml:space="preserve">
     <value>Add into Wedding Item</value>
   </data>
+  <data name="ProviderNameString" xml:space="preserve">
+    <value>Provider</value>
+  </data>
 </root>

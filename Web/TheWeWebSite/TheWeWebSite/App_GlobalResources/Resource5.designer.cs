@@ -2680,6 +2680,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   查詢類似 Provider 的當地語系化字串。
+        /// </summary>
+        internal static string ProviderNameString {
+            get {
+                return ResourceManager.GetString("ProviderNameString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查詢類似 Purchase Mgt 的當地語系化字串。
         /// </summary>
         internal static string PurchaseMgtString {

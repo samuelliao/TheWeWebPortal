@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NLog;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -11,22 +12,33 @@ namespace TheWeLib
     {
         private string ConnStr;
         private SqlConnection SqlConn;
+        private Logger Log;
         private const string KeyOpenString = "OPEN SYMMETRIC KEY RM_SY DECRYPTION BY PASSWORD = 'CheesWedding';";
 
         public DbConn(string str)
         {
+            if (Log == null)
+            {
+                Log = NLog.LogManager.GetCurrentClassLogger();
+            }
             this.ConnStr = str;
             SqlConn = new SqlConnection(this.ConnStr);
         }
 
-        public DbConn() { }
+        public DbConn() {
+            if (Log == null)
+            {
+                Log = NLog.LogManager.GetCurrentClassLogger();
+            }
+        }
 
         public DataSet GetDataSet(string sqlStr)
         {
             try
             {
                 SqlConn.Open();
-                SqlDataAdapter da = new SqlDataAdapter(KeyOpenString + sqlStr, SqlConn);
+                //SqlDataAdapter da = new SqlDataAdapter(KeyOpenString + sqlStr, SqlConn);
+                SqlDataAdapter da = new SqlDataAdapter(sqlStr, SqlConn);
                 DataSet ds = new DataSet();
                 da.Fill(ds);
                 return ds;                
@@ -34,7 +46,7 @@ namespace TheWeLib
             catch(Exception ex)
             {
                 // Output log here.
-                SysProperty.Log.Error(ex.Message);
+                Log.Error(ex.Message);
                 throw ex;
             }
             finally
@@ -49,14 +61,15 @@ namespace TheWeLib
             {
                 DataSet ds = new DataSet();
                 SqlConn.Open();
-                SqlCommand cmd = new SqlCommand(KeyOpenString + sqlStr, SqlConn);
+                //SqlCommand cmd = new SqlCommand(KeyOpenString + sqlStr, SqlConn);
+                SqlCommand cmd = new SqlCommand(sqlStr, SqlConn);
                 int result = cmd.ExecuteNonQuery();
                 return result != 0;                
             }
             catch(Exception ex)
             {
                 // Output log.
-                SysProperty.Log.Error(ex.Message);
+                Log.Error(ex.Message);
                 throw ex;
             }
             finally

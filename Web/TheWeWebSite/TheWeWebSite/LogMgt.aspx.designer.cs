@@ -7,72 +7,54 @@
 // </自動產生的>
 //------------------------------------------------------------------------------
 
-namespace TheWeWebSite.UC {
+namespace TheWeWebSite {
     
     
-    public partial class DressSelection {
+    public partial class LogMgt {
         
         /// <summary>
-        /// ddlType 控制項。
+        /// scriptMgt 控制項。
         /// </summary>
         /// <remarks>
         /// 自動產生的欄位。
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlType;
+        protected global::System.Web.UI.ScriptManager scriptMgt;
         
         /// <summary>
-        /// cbDress 控制項。
+        /// labelPageTitle 控制項。
         /// </summary>
         /// <remarks>
         /// 自動產生的欄位。
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
-        protected global::AjaxControlToolkit.ComboBox cbDress;
+        protected global::System.Web.UI.WebControls.Label labelPageTitle;
         
         /// <summary>
-        /// tbFolderPath 控制項。
+        /// labelWarnStr 控制項。
         /// </summary>
         /// <remarks>
         /// 自動產生的欄位。
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label tbFolderPath;
+        protected global::System.Web.UI.WebControls.Label labelWarnStr;
         
         /// <summary>
-        /// ImgFront 控制項。
+        /// listLogs 控制項。
         /// </summary>
         /// <remarks>
         /// 自動產生的欄位。
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Image ImgFront;
+        protected global::System.Web.UI.WebControls.ListBox listLogs;
         
         /// <summary>
-        /// ImgBack 控制項。
+        /// tbLog 控制項。
         /// </summary>
         /// <remarks>
         /// 自動產生的欄位。
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Image ImgBack;
-        
-        /// <summary>
-        /// ImgSide 控制項。
-        /// </summary>
-        /// <remarks>
-        /// 自動產生的欄位。
-        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Image ImgSide;
-        
-        /// <summary>
-        /// btnDelete 控制項。
-        /// </summary>
-        /// <remarks>
-        /// 自動產生的欄位。
-        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnDelete;
+        protected global::System.Web.UI.WebControls.TextBox tbLog;
     }
 }

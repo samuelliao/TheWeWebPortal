@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NLog;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -12,8 +13,13 @@ namespace TheWeWebSite.SysMgt
     public partial class AreaMaintain : System.Web.UI.Page
     {
         DataSet AreaDataSet;
+        private Logger Log;
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Log == null)
+            {
+                Log = NLog.LogManager.GetCurrentClassLogger();
+            }
             if (!Page.IsPostBack)
             {
                 if (SysProperty.Util == null) Response.Redirect("../Login.aspx", true);
@@ -52,7 +58,7 @@ namespace TheWeWebSite.SysMgt
             }
             catch (Exception ex)
             {
-                SysProperty.Log.Error(ex.Message);
+                Log.Error(ex.Message);
                 ShowErrorMsg(ex.Message);
                 AreaDataSet = null;
             }
@@ -86,7 +92,7 @@ namespace TheWeWebSite.SysMgt
             }
             catch (Exception ex)
             {
-                SysProperty.Log.Error(ex.Message);
+                Log.Error(ex.Message);
                 ShowErrorMsg(ex.Message);
             }
         }
@@ -212,7 +218,7 @@ namespace TheWeWebSite.SysMgt
             }
             catch (Exception ex)
             {
-                SysProperty.Log.Error(ex.Message);
+                Log.Error(ex.Message);
                 ShowErrorMsg(ex.Message);
             }
         }
@@ -241,7 +247,7 @@ namespace TheWeWebSite.SysMgt
                     }
                     catch (Exception ex)
                     {
-                        SysProperty.Log.Error(ex.Message);
+                        Log.Error(ex.Message);
                     }
                 }
                 else
@@ -272,6 +278,7 @@ namespace TheWeWebSite.SysMgt
 
         protected void btnSearch_Click(object sender, EventArgs e)
         {
+            dgArea.CurrentPageIndex = 0;
             BindData(GenQueryCond());
         }
 

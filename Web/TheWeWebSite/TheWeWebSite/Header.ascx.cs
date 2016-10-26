@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NLog;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.IO;
@@ -12,8 +13,14 @@ namespace TheWeWebSite
 {
     public partial class Header : System.Web.UI.UserControl
     {
+        private Logger Log;
+
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Log == null)
+            {
+                Log = NLog.LogManager.GetCurrentClassLogger();
+            }
             Timer1.Enabled = true;
             Timer1_Tick(Timer1, new EventArgs());
             SetOperationPermission();
@@ -107,7 +114,7 @@ namespace TheWeWebSite
                 }
                 catch (Exception ex)
                 {
-                    SysProperty.Log.Error(ex.Message);
+                    Log.Error(ex.Message);
                 }
 
                 sql = "Select 'Advisory' as Type, Id, Sn, BookingDate From Consultation Where StoreId = '" + ((DataRow)Session["LocateStore"])["Id"].ToString() + "'"
@@ -119,7 +126,7 @@ namespace TheWeWebSite
                 }
                 catch (Exception ex)
                 {
-                    SysProperty.Log.Error(ex.Message);
+                    Log.Error(ex.Message);
                 }
             }
             else

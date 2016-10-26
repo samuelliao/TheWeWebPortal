@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NLog;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -13,10 +14,14 @@ namespace TheWeWebSite.StoreMgt
     public partial class ChurchMaintain : System.Web.UI.Page
     {
         DataSet ChurchDataSet;
-        DataSet CountryDataSet;
-        DataSet AreaDataSet;
+        private Logger Log;
+
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Log == null)
+            {
+                Log = NLog.LogManager.GetCurrentClassLogger();
+            }
             if (!Page.IsPostBack)
             {
                 if (SysProperty.Util == null) Response.Redirect("../Login.aspx", true);
@@ -68,7 +73,7 @@ namespace TheWeWebSite.StoreMgt
             try
             {
                 ddlCountry.Items.Add(new ListItem(Resources.Resource.CountrySelectRemindString, string.Empty, true));
-                CountryDataSet = SysProperty.GenDbCon.GetDataFromTable(string.Empty
+                DataSet CountryDataSet = SysProperty.GenDbCon.GetDataFromTable(string.Empty
                     , SysProperty.Util.MsSqlTableConverter(MsSqlTable.Country), string.Empty);
                 foreach (DataRow dr in CountryDataSet.Tables[0].Rows)
                 {
@@ -79,7 +84,7 @@ namespace TheWeWebSite.StoreMgt
             }
             catch (Exception ex)
             {
-                SysProperty.Log.Error(ex.Message);
+                Log.Error(ex.Message);
                 ShowErrorMsg(ex.Message);
                 return;
             }
@@ -91,7 +96,7 @@ namespace TheWeWebSite.StoreMgt
             try
             {
                 ddlArea.Items.Add(new ListItem(Resources.Resource.AreaSelectRemindString, string.Empty, true));
-                AreaDataSet = SysProperty.GenDbCon.GetDataFromTable(string.Empty
+                DataSet AreaDataSet = SysProperty.GenDbCon.GetDataFromTable(string.Empty
                     , SysProperty.Util.MsSqlTableConverter(MsSqlTable.Area)
                     , string.IsNullOrEmpty(countryId) ? string.Empty : " Where CountryId = '" + countryId + "'");
                 foreach (DataRow dr in AreaDataSet.Tables[0].Rows)
@@ -103,7 +108,7 @@ namespace TheWeWebSite.StoreMgt
             }
             catch (Exception ex)
             {
-                SysProperty.Log.Error(ex.Message);
+                Log.Error(ex.Message);
                 ShowErrorMsg(ex.Message);
                 return;
             }
@@ -119,7 +124,7 @@ namespace TheWeWebSite.StoreMgt
             }
             catch (Exception ex)
             {
-                SysProperty.Log.Error(ex.Message);
+                Log.Error(ex.Message);
                 ShowErrorMsg(ex.Message);
                 return;
             }
@@ -193,6 +198,12 @@ namespace TheWeWebSite.StoreMgt
                     , SysProperty.GetChurchById(dataItem1["Id"].ToString()));
                 ((Label)e.Item.FindControl("dgLabelPrice")).Text = SysProperty.Util.ParseMoney(dataItem1["Price"].ToString()).ToString("#0.00");
                 ((Label)e.Item.FindControl("dgLabelChurchOth")).Text = countryDr["Code"].ToString().Trim() == "JP" ? dataItem1["JpName"].ToString() : dataItem1["EngName"].ToString();
+                ((Label)e.Item.FindControl("dgLabelProvider")).Text = SysProperty.Util.OutputRelatedLangName(
+                    Session["CultureCode"].ToString()
+                    , dataItem1["LocationName"].ToString()
+                    , dataItem1["LocationCnName"].ToString()
+                    , dataItem1["LocationEngName"].ToString()
+                    , dataItem1["LocationJpName"].ToString());
             }
         }
         #endregion
@@ -200,6 +211,7 @@ namespace TheWeWebSite.StoreMgt
         #region Button Control
         protected void btnSearch_Click(object sender, EventArgs e)
         {
+            dgChurch.CurrentPageIndex = 0;
             BindData(ConditionGen());
         }
 

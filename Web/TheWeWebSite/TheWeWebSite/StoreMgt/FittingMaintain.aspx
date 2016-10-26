@@ -139,6 +139,11 @@
                                                 <asp:Label runat="server" ID="dgLabelRentPrice" Style="text-align: right" />
                                             </ItemTemplate>
                                         </asp:TemplateColumn>
+                                        <asp:TemplateColumn HeaderText="<%$ Resources:Resource,ImgFrontString%>">
+                                                    <ItemTemplate>
+                                                        <asp:Image runat="server" ID="imgDress" Width="80px" Height="80px" />
+                                                    </ItemTemplate>
+                                                </asp:TemplateColumn> 
                                         <asp:ButtonColumn CommandName="Delete"
                                             HeaderText="<%$ Resources:Resource,DeleteString%>"
                                             Text="<%$ Resources:Resource,DeleteString%>" />

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NLog;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -12,9 +13,14 @@ namespace TheWeWebSite.StoreMgt
     public partial class DressMaintain : System.Web.UI.Page
     {
         DataSet DS;
-        string OtherConditionString;
+        private Logger Log;
+
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Log == null)
+            {
+                Log = NLog.LogManager.GetCurrentClassLogger();
+            }
             if (!Page.IsPostBack)
             {
                 if (SysProperty.Util == null) Response.Redirect("../Login.aspx", true);
@@ -95,7 +101,7 @@ namespace TheWeWebSite.StoreMgt
             }
             catch (Exception ex)
             {
-                SysProperty.Log.Error(ex.Message);
+                Log.Error(ex.Message);
                 ShowErrorMsg(ex.Message);
             }
         }
@@ -288,7 +294,7 @@ namespace TheWeWebSite.StoreMgt
                 GetDressList(
                     bool.Parse(((DataRow)Session["LocateStore"])["HoldingCompany"].ToString())
                     ? string.Empty : ((DataRow)Session["LocateStore"])["Id"].ToString()
-                    , OtherConditionString + " Order by " + e.SortExpression + " " + SysProperty.Util.GetSortDirection(e.SortExpression));
+                    , GetQueryString() + " Order by " + e.SortExpression + " " + SysProperty.Util.GetSortDirection(e.SortExpression));
             }
             if (DS != null)
             {
@@ -312,42 +318,48 @@ namespace TheWeWebSite.StoreMgt
             }
             catch (Exception ex)
             {
-                SysProperty.Log.Error(ex.Message);
+                Log.Error(ex.Message);
                 ShowErrorMsg(ex.Message);
             }
         }
         #endregion
 
         protected void btnSearch_Click(object sender, EventArgs e)
+        {            
+            dataGrid.CurrentPageIndex = 0;
+            BindData();
+        }
+
+        private string GetQueryString()
         {
-            OtherConditionString = string.Empty;
+            string queryStr = string.Empty;
             if (!string.IsNullOrEmpty(tbSn.Text))
             {
-                OtherConditionString += " And Sn like '%" + tbSn.Text + "%'";
+                queryStr += " And Sn like '%" + tbSn.Text + "%'";
             }
 
-            OtherConditionString += string.IsNullOrEmpty(ddlDressCategory.SelectedValue) ? string.Empty : " And Category='" + ddlDressCategory.SelectedValue + "'";
-            OtherConditionString += string.IsNullOrEmpty(ddlBack.SelectedValue) ? string.Empty : " And Back='" + ddlBack.SelectedValue + "'";
-            OtherConditionString += string.IsNullOrEmpty(ddlColor.SelectedValue) ? string.Empty : " And Color like '%" + ddlColor.SelectedValue + "%'";
-            OtherConditionString += string.IsNullOrEmpty(ddlDressType.SelectedValue) ? string.Empty : " And Type='" + ddlDressType.SelectedValue + "'";
-            OtherConditionString += string.IsNullOrEmpty(ddlGender.SelectedValue) ? string.Empty : " And Gender=" + ddlGender.SelectedValue;
-            OtherConditionString += string.IsNullOrEmpty(ddlMaterial.SelectedValue) ? string.Empty : " And Material like '%" + ddlMaterial.SelectedValue + "%'";
-            OtherConditionString += string.IsNullOrEmpty(ddlNeckLine.SelectedValue) ? string.Empty : " And Neckline='" + ddlNeckLine.SelectedValue + "'";
-            OtherConditionString += string.IsNullOrEmpty(ddlShoulder.SelectedValue) ? string.Empty : " And Shoulder='" + ddlShoulder.SelectedValue + "'";
-            OtherConditionString += string.IsNullOrEmpty(ddlStatus.SelectedValue) ? string.Empty : " And StatusCode='" + ddlStatus.SelectedValue + "'";
-            OtherConditionString += string.IsNullOrEmpty(ddlUseStatus.SelectedValue) ? string.Empty : " And UseStatus='" + ddlUseStatus.SelectedValue + "'";
-            OtherConditionString += string.IsNullOrEmpty(ddlWorn.SelectedValue) ? string.Empty : " And Worn='" + ddlWorn.SelectedValue + "'";
-            OtherConditionString += cbAddPrice.Checked ? " And AddPrice = 1" : string.Empty;
-            OtherConditionString += cbBigSize.Checked ? " And BigSize = 1" : string.Empty;
-            OtherConditionString += cbDomesticWedding.Checked ? " And DomesticWedding = 1" : string.Empty;
-            OtherConditionString += cbOutPhoto.Checked ? " And OutPicture = 1" : string.Empty;
-            BindData();
+            queryStr += string.IsNullOrEmpty(ddlDressCategory.SelectedValue) ? string.Empty : " And Category='" + ddlDressCategory.SelectedValue + "'";
+            queryStr += string.IsNullOrEmpty(ddlBack.SelectedValue) ? string.Empty : " And Back='" + ddlBack.SelectedValue + "'";
+            queryStr += string.IsNullOrEmpty(ddlColor.SelectedValue) ? string.Empty : " And Color like '%" + ddlColor.SelectedValue + "%'";
+            queryStr += string.IsNullOrEmpty(ddlDressType.SelectedValue) ? string.Empty : " And Type='" + ddlDressType.SelectedValue + "'";
+            queryStr += string.IsNullOrEmpty(ddlGender.SelectedValue) ? string.Empty : " And Gender=" + ddlGender.SelectedValue;
+            queryStr += string.IsNullOrEmpty(ddlMaterial.SelectedValue) ? string.Empty : " And Material like '%" + ddlMaterial.SelectedValue + "%'";
+            queryStr += string.IsNullOrEmpty(ddlNeckLine.SelectedValue) ? string.Empty : " And Neckline='" + ddlNeckLine.SelectedValue + "'";
+            queryStr += string.IsNullOrEmpty(ddlShoulder.SelectedValue) ? string.Empty : " And Shoulder='" + ddlShoulder.SelectedValue + "'";
+            queryStr += string.IsNullOrEmpty(ddlStatus.SelectedValue) ? string.Empty : " And StatusCode='" + ddlStatus.SelectedValue + "'";
+            queryStr += string.IsNullOrEmpty(ddlUseStatus.SelectedValue) ? string.Empty : " And UseStatus='" + ddlUseStatus.SelectedValue + "'";
+            queryStr += string.IsNullOrEmpty(ddlWorn.SelectedValue) ? string.Empty : " And Worn='" + ddlWorn.SelectedValue + "'";
+            queryStr += cbAddPrice.Checked ? " And AddPrice = 1" : string.Empty;
+            queryStr += cbBigSize.Checked ? " And BigSize = 1" : string.Empty;
+            queryStr += cbDomesticWedding.Checked ? " And DomesticWedding = 1" : string.Empty;
+            queryStr += cbOutPhoto.Checked ? " And OutPicture = 1" : string.Empty;
+            return queryStr;
         }
 
         private void BindData()
         {
             string storeId = string.IsNullOrEmpty(ddlStore.SelectedValue) ? string.Empty : ddlStore.SelectedValue;
-            GetDressList(storeId, OtherConditionString + " Order by Sn");
+            GetDressList(storeId, GetQueryString() + " Order by Sn");
             dataGrid.DataSource = DS;
             dataGrid.AllowPaging = !SysProperty.Util.IsDataSetEmpty(DS);
             dataGrid.DataBind();
@@ -370,7 +382,7 @@ namespace TheWeWebSite.StoreMgt
             }
             catch (Exception ex)
             {
-                SysProperty.Log.Error(ex.Message);
+                Log.Error(ex.Message);
                 ShowErrorMsg(ex.Message);
                 return null;
             }

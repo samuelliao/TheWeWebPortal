@@ -1293,4 +1293,7 @@
   <data name="AddOthItemString" xml:space="preserve">
     <value>加入婚禮週邊資料庫</value>
   </data>
+  <data name="ProviderNameString" xml:space="preserve">
+    <value>提供者</value>
+  </data>
 </root>

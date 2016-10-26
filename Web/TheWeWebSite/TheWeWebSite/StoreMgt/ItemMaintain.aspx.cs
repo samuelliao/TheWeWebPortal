@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NLog;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -13,8 +14,14 @@ namespace TheWeWebSite.StoreMgt
     {
         DataSet DS;
         string OtherConditionString;
+        private Logger Log;
+
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Log == null)
+            {
+                Log = NLog.LogManager.GetCurrentClassLogger();
+            }
             if (!Page.IsPostBack)
             {
                 if (SysProperty.Util == null) Response.Redirect("../Login.aspx", true);
@@ -78,7 +85,7 @@ namespace TheWeWebSite.StoreMgt
             }
             catch (Exception ex)
             {
-                SysProperty.Log.Error(ex.Message);
+                Log.Error(ex.Message);
                 ShowErrorMsg(ex.Message);
             }
         }
@@ -100,7 +107,7 @@ namespace TheWeWebSite.StoreMgt
             }
             catch (Exception ex)
             {
-                SysProperty.Log.Error(ex.Message);
+                Log.Error(ex.Message);
                 ShowErrorMsg(ex.Message);
             }
         }
@@ -126,7 +133,7 @@ namespace TheWeWebSite.StoreMgt
             }
             catch (Exception ex)
             {
-                SysProperty.Log.Error(ex.Message);
+                Log.Error(ex.Message);
                 ShowErrorMsg(ex.Message);
             }
         }
@@ -148,16 +155,23 @@ namespace TheWeWebSite.StoreMgt
                 }
 
                 DataSet ds = GetDataFromDb(SysProperty.Util.MsSqlTableConverter(MsSqlTable.Church), lst);
+                string provider = string.Empty;
                 foreach (DataRow dr in ds.Tables[0].Rows)
                 {
+                    provider = SysProperty.Util.OutputRelatedLangName(Session["CultureCode"].ToString()
+                        , dr["LocationName"].ToString()
+                        , dr["LocationCnName"].ToString()
+                        , dr["LocationEngName"].ToString()
+                        , dr["LocationJpName"].ToString());
                     ddlLocation.Items.Add(new ListItem
                         (SysProperty.Util.OutputRelatedLangName(((string)Session["CultureCode"]), dr)
+                        + (string.IsNullOrEmpty(provider) ? string.Empty : ("(" + provider + ")"))
                         , dr["Id"].ToString()));
                 }
             }
             catch (Exception ex)
             {
-                SysProperty.Log.Error(ex.Message);
+                Log.Error(ex.Message);
                 ShowErrorMsg(ex.Message);
             }
         }
@@ -220,7 +234,21 @@ namespace TheWeWebSite.StoreMgt
 
         protected void ddlArea_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (!string.IsNullOrEmpty(ddlArea.SelectedValue))
+            {
+                ddlCountry.SelectedValue = SysProperty.GetAreaById(ddlArea.SelectedValue)["CountryId"].ToString();
+            }
             LocationDropDownList(ddlCountry.SelectedValue, ddlArea.SelectedValue);
+        }
+        protected void ddlLocation_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(ddlLocation.SelectedValue))
+            {
+                DataRow dr = SysProperty.GetChurchById(ddlLocation.SelectedValue);
+                ddlCountry.SelectedValue = dr["CountryId"].ToString();
+                AreaDropDownList(ddlCountry.SelectedValue);
+                ddlArea.SelectedValue = dr["AreaId"].ToString();
+            }
         }
         #endregion
         #endregion
@@ -255,7 +283,7 @@ namespace TheWeWebSite.StoreMgt
             }
             catch (Exception ex)
             {
-                SysProperty.Log.Error(ex.Message);
+                Log.Error(ex.Message);
                 ShowErrorMsg(ex.Message);
                 return null;
             }
@@ -279,7 +307,7 @@ namespace TheWeWebSite.StoreMgt
             }
             catch (Exception ex)
             {
-                SysProperty.Log.Error(ex.Message);
+                Log.Error(ex.Message);
                 ShowErrorMsg(ex.Message);
             }
         }
@@ -301,8 +329,14 @@ namespace TheWeWebSite.StoreMgt
                     , SysProperty.GetCountryById(dataItem1["CountryId"].ToString()));
                 ((Label)e.Item.FindControl("labelArea")).Text = SysProperty.Util.OutputRelatedLangName(Session["CultureCode"].ToString()
                     , SysProperty.GetAreaById(dataItem1["AreaId"].ToString()));
+                DataRow dr = SysProperty.GetChurchById(dataItem1["ChurchId"].ToString());
+                string provider = SysProperty.Util.OutputRelatedLangName(Session["CultureCode"].ToString()
+                        , dr["LocationName"].ToString()
+                        , dr["LocationCnName"].ToString()
+                        , dr["LocationEngName"].ToString()
+                        , dr["LocationJpName"].ToString());
                 ((Label)e.Item.FindControl("labelLocation")).Text = SysProperty.Util.OutputRelatedLangName(Session["CultureCode"].ToString()
-                    , SysProperty.GetChurchById(dataItem1["ChurchId"].ToString()));
+                    , dr) + (string.IsNullOrEmpty(provider) ? string.Empty : ("(" + provider + ")"));
                 ((Label)e.Item.FindControl("labelCategroy")).Text = SysProperty.Util.OutputRelatedLangName(Session["CultureCode"].ToString()
                     , dataItem1["CategoryName"].ToString()
                     , dataItem1["CategoryCnName"].ToString()
@@ -338,7 +372,7 @@ namespace TheWeWebSite.StoreMgt
 
         protected void dataGrid_PageIndexChanged(object source, DataGridPageChangedEventArgs e)
         {
-            dataGrid.CurrentPageIndex = e.NewPageIndex;
+            dataGrid.CurrentPageIndex = e.NewPageIndex;            
             BindData();
         }
 
@@ -346,7 +380,7 @@ namespace TheWeWebSite.StoreMgt
         {
             if (DS == null)
             {
-                GetProductList(OtherConditionString,
+                GetProductList(GetQueryString(),
                     " Order by c." + e.SortExpression + " " + SysProperty.Util.GetSortDirection(e.SortExpression));
             }
             if (DS != null)
@@ -359,24 +393,30 @@ namespace TheWeWebSite.StoreMgt
 
         protected void btnSearch_Click(object sender, EventArgs e)
         {
-            OtherConditionString = string.Empty;
-            // Create Case Sn
-            if (!string.IsNullOrEmpty(tbSn.Text))
-            {
-                OtherConditionString += " And p.Sn like '%" + tbSn.Text + "%'";
-            }
-
-            OtherConditionString += (string.IsNullOrEmpty(ddlCountry.SelectedValue) ? string.Empty : " And p.CountryId = '" + ddlCountry.SelectedValue + "'");
-            OtherConditionString += (string.IsNullOrEmpty(ddlArea.SelectedValue) ? string.Empty : " And p.AreaId = '" + ddlArea.SelectedValue + "'");
-            OtherConditionString += (string.IsNullOrEmpty(ddlLocation.SelectedValue) ? string.Empty : " And p.ChurchId = '" + ddlLocation.SelectedValue + "'");
-            OtherConditionString += (string.IsNullOrEmpty(ddlCategory.SelectedValue) ? string.Empty : " And p.Category = '" + ddlCategory.SelectedValue + "'");
-            OtherConditionString += (string.IsNullOrEmpty(ddlWeddingType.SelectedValue) ? string.Empty : " And p.WeddingCategory = '" + ddlWeddingType.SelectedValue + "'");
+            dataGrid.CurrentPageIndex = 0;
             BindData();
         }
 
+        private string GetQueryString()
+        {
+            string queryStr = string.Empty;
+            if (!string.IsNullOrEmpty(tbSn.Text))
+            {
+                queryStr += " And p.Sn like '%" + tbSn.Text + "%'";
+            }
+
+            queryStr += (string.IsNullOrEmpty(ddlCountry.SelectedValue) ? string.Empty : " And p.CountryId = '" + ddlCountry.SelectedValue + "'");
+            queryStr += (string.IsNullOrEmpty(ddlArea.SelectedValue) ? string.Empty : " And p.AreaId = '" + ddlArea.SelectedValue + "'");
+            queryStr += (string.IsNullOrEmpty(ddlLocation.SelectedValue) ? string.Empty : " And p.ChurchId = '" + ddlLocation.SelectedValue + "'");
+            queryStr += (string.IsNullOrEmpty(ddlCategory.SelectedValue) ? string.Empty : " And p.Category = '" + ddlCategory.SelectedValue + "'");
+            queryStr += (string.IsNullOrEmpty(ddlWeddingType.SelectedValue) ? string.Empty : " And p.WeddingCategory = '" + ddlWeddingType.SelectedValue + "'");
+            return queryStr;
+        }
+
+
         private void BindData()
         {
-            GetProductList(OtherConditionString, " Order by st.Sn, p.Sn");
+            GetProductList(GetQueryString(), " Order by st.Sn, p.Sn");
             dataGrid.DataSource = DS;
             dataGrid.AllowPaging = !SysProperty.Util.IsDataSetEmpty(DS);
             dataGrid.DataBind();
@@ -406,7 +446,7 @@ namespace TheWeWebSite.StoreMgt
             }
             catch (Exception ex)
             {
-                SysProperty.Log.Error(ex.Message);
+                Log.Error(ex.Message);
                 ShowErrorMsg(ex.Message);
             }
         }

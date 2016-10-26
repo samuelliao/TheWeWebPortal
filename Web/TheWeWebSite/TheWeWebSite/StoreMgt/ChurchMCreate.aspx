@@ -87,9 +87,7 @@
 
                     </div>
                 </div>
-
                 <div class="12u">
-
                     <div class="row uniform 50%">
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
@@ -133,7 +131,34 @@
                         </div>
                     </div>
                 </div>
-
+                <div class="12u">
+                    <div class="row uniform 50%">
+                        <div class="2u 12u(mobilep)">
+                            <div class="Div">
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,ProviderNameString%>"></asp:Label>
+                            </div>
+                            <asp:TextBox runat="server" ID="tbProviderName"></asp:TextBox>
+                        </div>
+                        <div class="2u 12u(mobilep)">
+                            <div class="Div">
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,CnNameString%>"></asp:Label>
+                            </div>
+                            <asp:TextBox runat="server" ID="tbProviderCnName"></asp:TextBox>
+                        </div>
+                        <div class="2u 12u(mobilep)">
+                            <div class="Div">
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,EnglishNameString%>"></asp:Label>
+                            </div>
+                            <asp:TextBox runat="server" ID="tbProviderEngName"></asp:TextBox>
+                        </div>
+                        <div class="2u 12u(mobilep)">
+                            <div class="Div">
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,JpNameString%>"></asp:Label>
+                            </div>
+                            <asp:TextBox runat="server" ID="tbProviderJpName"></asp:TextBox>
+                        </div>
+                    </div>
+                </div>
                 <div class="12u">
                     <div class="row uniform 50%">
                         <div class="4u 12u(mobilep)">
@@ -151,7 +176,7 @@
                             <div>
                                 <asp:TextBox runat="server" TextMode="MultiLine" ID="tbRemark" Height="150px"></asp:TextBox>
                             </div>
-                        </div>                        
+                        </div>
                     </div>
                 </div>
                 <div class="12u">
@@ -168,7 +193,7 @@
                                             <Columns>
                                                 <asp:TemplateField ItemStyle-Width="0px">
                                                     <ItemTemplate>
-                                                        <asp:TextBox ID="tbId" runat="server" Style="display:none;" Width="0px"></asp:TextBox>
+                                                        <asp:TextBox ID="tbId" runat="server" Style="display: none;" Width="0px"></asp:TextBox>
                                                     </ItemTemplate>
                                                 </asp:TemplateField>
                                                 <asp:TemplateField HeaderText="<%$ Resources:Resource,StartString%>">
@@ -201,37 +226,37 @@
             <hr />
             <!-- 照片 -->
             <div class="12u" runat="server" id="divPhotoUpload">
-                <div class="ImageUploadBtn" style="margin-top:0PX!important">
+                <div class="ImageUploadBtn" style="margin-top: 0PX!important">
                     <button class="Div btn actions button alt" id="btnUploadPanel" onclick="uploadPanelControl();">
                         <asp:Literal runat="server" Text="<%$ Resources:Resource,UploadString%>" />
                     </button>
                 </div>
                 <div id="uploadPanel" style="display: none;">
-                        <div class="fileUpload" runat="server" id="divUpload">
-                            <asp:Label runat="server" Text="<%$ Resources:Resource,ImgFrontString%>"></asp:Label>
-                            <asp:FileUpload ID="FileUpload1" Width="80px"  runat="server" />
-                            <asp:Label runat="server" Text="<%$ Resources:Resource,ImgBackString%>"></asp:Label>
-                            <asp:FileUpload ID="FileUpload2" Width="80px"  runat="server" />
-                            <asp:Label runat="server" Text="<%$ Resources:Resource,ImgSideString%>"></asp:Label>
-                            <asp:FileUpload ID="FileUpload3" Width="80px"  runat="server" />
-                            <asp:Label runat="server" Text="<%$ Resources:Resource,ImgOtherString%>"></asp:Label>
-                            <asp:FileUpload ID="FileUpload4" Width="80px"  runat="server" />
-                            <asp:Label runat="server" Text="<%$ Resources:Resource,BouquetPictureString%>"></asp:Label>
-                            <asp:FileUpload ID="FileUpload5" Width="80px"  runat="server" />
-                            <asp:Label runat="server" Text="<%$ Resources:Resource,MapPhotoString%>"></asp:Label>
-                            <asp:FileUpload ID="FileUpload6" Width="80px"  runat="server" />
-                            <asp:Label runat="server" Text="<%$ Resources:Resource,DMPhotoString%>"></asp:Label>
-                            <asp:FileUpload ID="FileUpload7" Width="80px"  runat="server" />
-                            <asp:Label runat="server" Text="<%$ Resources:Resource,MealString%>"></asp:Label>
-                            <asp:FileUpload ID="FileUpload8" Width="80px"  runat="server" />
-                        </div>
+                    <div class="fileUpload" runat="server" id="divUpload">
+                        <asp:Label runat="server" Text="<%$ Resources:Resource,ImgFrontString%>"></asp:Label>
+                        <asp:FileUpload ID="FileUpload1" Width="80px" runat="server" />
+                        <asp:Label runat="server" Text="<%$ Resources:Resource,ImgBackString%>"></asp:Label>
+                        <asp:FileUpload ID="FileUpload2" Width="80px" runat="server" />
+                        <asp:Label runat="server" Text="<%$ Resources:Resource,ImgSideString%>"></asp:Label>
+                        <asp:FileUpload ID="FileUpload3" Width="80px" runat="server" />
+                        <asp:Label runat="server" Text="<%$ Resources:Resource,ImgOtherString%>"></asp:Label>
+                        <asp:FileUpload ID="FileUpload4" Width="80px" runat="server" />
+                        <asp:Label runat="server" Text="<%$ Resources:Resource,BouquetPictureString%>"></asp:Label>
+                        <asp:FileUpload ID="FileUpload5" Width="80px" runat="server" />
+                        <asp:Label runat="server" Text="<%$ Resources:Resource,MapPhotoString%>"></asp:Label>
+                        <asp:FileUpload ID="FileUpload6" Width="80px" runat="server" />
+                        <asp:Label runat="server" Text="<%$ Resources:Resource,DMPhotoString%>"></asp:Label>
+                        <asp:FileUpload ID="FileUpload7" Width="80px" runat="server" />
+                        <asp:Label runat="server" Text="<%$ Resources:Resource,MealString%>"></asp:Label>
+                        <asp:FileUpload ID="FileUpload8" Width="80px" runat="server" />
+                    </div>
                     <div style="text-align: left; margin-top: 15px;">
                         <asp:Button CausesValidation="true" runat="server" Text="<%$ Resources:Resource,UploadString%>" ID="btnUpload"
                             OnClick="btnUpload_Click" OnClientClick="uploadPanelControl();" />
                     </div>
                 </div>
             </div>
-                    <hr />
+            <hr />
 
             <div class="row no-collapse 50% uniform">
                 <div class="6u 12u(mobilep)">

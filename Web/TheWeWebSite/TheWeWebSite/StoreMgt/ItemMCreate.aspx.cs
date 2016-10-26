@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NLog;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -11,8 +12,14 @@ namespace TheWeWebSite.StoreMgt
 {
     public partial class ItemMCreate : System.Web.UI.Page
     {
+        private Logger Log;
+
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Log == null)
+            {
+                Log = NLog.LogManager.GetCurrentClassLogger();
+            }
             if (!Page.IsPostBack)
             {
                 if (SysProperty.Util == null) Response.Redirect("../Login.aspx", true);
@@ -139,7 +146,7 @@ namespace TheWeWebSite.StoreMgt
             }
             catch (Exception ex)
             {
-                SysProperty.Log.Error(ex.Message);
+                Log.Error(ex.Message);
                 ShowErrorMsg(ex.Message);
             }
         }
@@ -162,7 +169,7 @@ namespace TheWeWebSite.StoreMgt
             }
             catch (Exception ex)
             {
-                SysProperty.Log.Error(ex.Message);
+                Log.Error(ex.Message);
                 ShowErrorMsg(ex.Message);
             }
         }
@@ -184,7 +191,7 @@ namespace TheWeWebSite.StoreMgt
             }
             catch (Exception ex)
             {
-                SysProperty.Log.Error(ex.Message);
+                Log.Error(ex.Message);
                 ShowErrorMsg(ex.Message);
             }
         }
@@ -206,7 +213,7 @@ namespace TheWeWebSite.StoreMgt
             }
             catch (Exception ex)
             {
-                SysProperty.Log.Error(ex.Message);
+                Log.Error(ex.Message);
                 ShowErrorMsg(ex.Message);
             }
         }
@@ -233,7 +240,7 @@ namespace TheWeWebSite.StoreMgt
             }
             catch (Exception ex)
             {
-                SysProperty.Log.Error(ex.Message);
+                Log.Error(ex.Message);
                 ShowErrorMsg(ex.Message);
             }
         }
@@ -256,16 +263,23 @@ namespace TheWeWebSite.StoreMgt
                 }
 
                 DataSet ds = GetDataFromDb(SysProperty.Util.MsSqlTableConverter(MsSqlTable.Church), lst);
+                string provider = string.Empty;
                 foreach (DataRow dr in ds.Tables[0].Rows)
                 {
+                    provider = SysProperty.Util.OutputRelatedLangName(Session["CultureCode"].ToString()
+                        , dr["LocationName"].ToString()
+                        , dr["LocationCnName"].ToString()
+                        , dr["LocationEngName"].ToString()
+                        , dr["LocationJpName"].ToString());
                     ddlLocate.Items.Add(new ListItem
                         (SysProperty.Util.OutputRelatedLangName(((string)Session["CultureCode"]), dr)
+                        + (string.IsNullOrEmpty(provider) ? string.Empty : ("(" + provider + ")"))
                         , dr["Id"].ToString()));
                 }
             }
             catch (Exception ex)
             {
-                SysProperty.Log.Error(ex.Message);
+                Log.Error(ex.Message);
                 ShowErrorMsg(ex.Message);
             }
         }
@@ -312,6 +326,7 @@ namespace TheWeWebSite.StoreMgt
         {
             DataRow dr = SysProperty.GetChurchById(ddlLocate.SelectedValue);
             ddlCountry.SelectedValue = dr["CountryId"].ToString();
+            AreaDropDownList(ddlCountry.SelectedValue);
             ddlArea.SelectedValue = dr["AreaId"].ToString();
             FirstGridViewRow_dgChurchServiceItem();
         }
@@ -340,7 +355,7 @@ namespace TheWeWebSite.StoreMgt
             }
             catch (Exception ex)
             {
-                SysProperty.Log.Error(ex.Message);
+                Log.Error(ex.Message);
                 ShowErrorMsg(ex.Message);
             }
         }
@@ -667,7 +682,7 @@ namespace TheWeWebSite.StoreMgt
             }
             catch (Exception ex)
             {
-                SysProperty.Log.Error(ex.Message);
+                Log.Error(ex.Message);
                 ShowErrorMsg(ex.Message);
                 return null;
             }
@@ -726,7 +741,7 @@ namespace TheWeWebSite.StoreMgt
             }
             catch (Exception ex)
             {
-                SysProperty.Log.Error(ex.Message);
+                Log.Error(ex.Message);
                 ShowErrorMsg(ex.Message);
                 return false;
             }

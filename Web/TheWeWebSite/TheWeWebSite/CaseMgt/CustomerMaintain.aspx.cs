@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NLog;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -13,8 +14,14 @@ namespace TheWeWebSite.CaseMgt
     {
         DataSet DS;
         string OtherConditionString;
+        private Logger Log;
+
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Log == null)
+            {
+                Log = NLog.LogManager.GetCurrentClassLogger();
+            }
             if (!Page.IsPostBack)
             {
                 if (SysProperty.Util == null) Response.Redirect("../Login.aspx", true);
@@ -76,7 +83,7 @@ namespace TheWeWebSite.CaseMgt
             }
             catch (Exception ex)
             {
-                SysProperty.Log.Error(ex.Message);
+                Log.Error(ex.Message);
                 ShowErrorMsg(ex.Message);
             }
         }
@@ -104,7 +111,7 @@ namespace TheWeWebSite.CaseMgt
             }
             catch (Exception ex)
             {
-                SysProperty.Log.Error(ex.Message);
+                Log.Error(ex.Message);
                 ShowErrorMsg(ex.Message);
             }
         }
@@ -143,6 +150,7 @@ namespace TheWeWebSite.CaseMgt
             {
                 OtherConditionString += " And c.MessengerType = '" + ddlMsgerType.SelectedValue + "'";
             }
+            dataGrid.CurrentPageIndex = 0;
             BindData();
         }
 
@@ -170,7 +178,7 @@ namespace TheWeWebSite.CaseMgt
             }
             catch (Exception ex)
             {
-                SysProperty.Log.Error(ex.Message);
+                Log.Error(ex.Message);
                 ShowErrorMsg(ex.Message);
             }
         }
@@ -232,7 +240,7 @@ namespace TheWeWebSite.CaseMgt
             }
             catch (Exception ex)
             {
-                SysProperty.Log.Error(ex.Message);
+                Log.Error(ex.Message);
                 ShowErrorMsg(ex.Message);
                 DS = null;
             }

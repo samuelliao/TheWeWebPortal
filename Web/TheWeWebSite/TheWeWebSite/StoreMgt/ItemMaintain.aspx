@@ -48,7 +48,7 @@
                                     <asp:Label runat="server" Text="<%$ Resources:Resource,SnString%>"></asp:Label>
                                 </div>
                                 <asp:TextBox runat="server" ID="tbSn" placeholder="<%$ Resources:Resource,SnInputString%>"></asp:TextBox>
-                            </div>                            
+                            </div>
                             <div class="2u 12u(mobilep)">
                                 <div class="Div">
                                     <asp:Label runat="server" Text="<%$ Resources:Resource,CountryString%>"></asp:Label>
@@ -73,7 +73,11 @@
                                 <div class="Div">
                                     <asp:Label runat="server" Text="<%$ Resources:Resource,LocateString%>"></asp:Label>
                                 </div>
-                                <asp:DropDownList runat="server" ID="ddlLocation" />
+                                <asp:UpdatePanel runat="server">
+                                    <ContentTemplate>
+                                        <asp:DropDownList runat="server" ID="ddlLocation" />
+                                    </ContentTemplate>
+                                </asp:UpdatePanel>
                             </div>
                             <div class="2u 12u(mobilep)">
                                 <div class="Div">
@@ -171,7 +175,7 @@
                 <ul class="copyright">
                     <li>rights.</li>
                     <li>The We Wedding</li>
-                </ul>                
+                </ul>
             </footer>
         </div>
         <!-- Scripts -->

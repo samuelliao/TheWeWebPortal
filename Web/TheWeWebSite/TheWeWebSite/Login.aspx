@@ -21,7 +21,7 @@
                         <ContentTemplate>
                             <asp:DropDownList runat="server" ID="ddlStore" AutoPostBack="true" OnSelectedIndexChanged="ddlStore_SelectedIndexChanged" />
                         </ContentTemplate>
-                    </asp:UpdatePanel>
+                    </asp:UpdatePanel>                    
                 </div>
 
                 <div style="color: #000; margin-bottom: 10px; margin-left: auto; margin-right: auto; width: 15EM;">
@@ -29,26 +29,30 @@
                         <ContentTemplate>
                             <asp:TextBox runat="server" TextMode="SingleLine" ID="tbAccount" />
                         </ContentTemplate>
-                    </asp:UpdatePanel>                    
+                    </asp:UpdatePanel>
                 </div>
                 <div style="color: #000; margin-bottom: 10px; margin-left: auto; margin-right: auto; width: 15EM;">
                     <asp:UpdatePanel runat="server">
                         <ContentTemplate>
                             <asp:TextBox runat="server" ID="tbPassword" TextMode="Password"></asp:TextBox>
                         </ContentTemplate>
-                    </asp:UpdatePanel>                    
+                    </asp:UpdatePanel>
                 </div>
-                <div style="color: #000; margin-bottom: auto; margin-left: auto; margin-right: auto; width: 15EM; vertical-align:bottom; margin-top: 30px;">
+                <div style="color: #000; margin-bottom: auto; margin-left: auto; margin-right: auto; width: 15EM; vertical-align: bottom; margin-top: 30px;">
                     <asp:UpdatePanel runat="server">
                         <ContentTemplate>
-                            <asp:CheckBox runat="server" ID="cbRemember" Style="vertical-align:central; text-align:left;"  Text="Remember me" />
+                            <asp:CheckBox runat="server" ID="cbRemember" Style="vertical-align: central; text-align: left;" Text="Remember me" />
                         </ContentTemplate>
-                    </asp:UpdatePanel>                    
+                    </asp:UpdatePanel>
                 </div>
                 <div>
                     <asp:Label runat="server" ID="labelWarnText" ForeColor="Red" />
                     <br />
-                    <asp:Button runat="server" CssClass="button alt" Text="<%$ Resources:Resource,LoginString%>" OnClick="btnLogin_Click" />
+                    <asp:UpdatePanel runat="server">
+                        <ContentTemplate>
+                            <asp:Button runat="server" CssClass="button alt" Text="<%$ Resources:Resource,LoginString%>" OnClick="btnLogin_Click" />
+                        </ContentTemplate>
+                    </asp:UpdatePanel>                    
                 </div>
             </section>
         </div>

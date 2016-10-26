@@ -15,25 +15,24 @@ namespace TheWeWebSite
 {
     public partial class Login : System.Web.UI.Page
     {
-
+        private Logger Log;
         protected void Page_Load(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(SysProperty.DbConcString))
             {
-                SysProperty.DbConcString = WebConfigurationManager.ConnectionStrings["TheWeConnectionString"].ConnectionString;
+                SysProperty.DbConcString = WebConfigurationManager.ConnectionStrings["TheWeConnectionString1"].ConnectionString;
             }
 
-            if (SysProperty.Log == null)
+            if (Log == null)
             {
-                SysProperty.Log = NLog.LogManager.GetCurrentClassLogger();
+                Log = NLog.LogManager.GetCurrentClassLogger();
             }
 
             Session["CultureCode"] = CultureInfo.CurrentCulture.ToString();
-
+            SysProperty.GenDbCon = new GeneralDbDAO();
+            SysProperty.Util = new Utility();
             if (!Page.IsPostBack)
             {
-                SysProperty.GenDbCon = new GeneralDbDAO();
-                SysProperty.Util = new Utility();
                 InitialStoreList();
                 InitialImgFolderPath();
                 GetAccInfoCookie();
@@ -101,7 +100,7 @@ namespace TheWeWebSite
             catch (Exception ex)
             {
                 // output log
-                SysProperty.Log.Error(ex.Message);
+                Log.Error(ex.Message);
                 return null;
             }
         }

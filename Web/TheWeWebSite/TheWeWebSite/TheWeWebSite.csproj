@@ -52,9 +52,6 @@
     <Reference Include="ICSharpCode.SharpZipLib">
       <HintPath>NPOI\Net40\ICSharpCode.SharpZipLib.dll</HintPath>
     </Reference>
-    <Reference Include="log4net">
-      <HintPath>.\log4net.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
       <HintPath>..\packages\NLog.4.3.5\lib\net40\NLog.dll</HintPath>
@@ -144,12 +141,12 @@
     <Content Include="SysMgt\CountryMaintain.aspx" />
     <Content Include="SysMgt\DollarMaintain.aspx" />
     <Content Include="SysMgt\LoginMaintain.aspx" />
+    <Content Include="LogMgt.aspx" />
     <Content Include="SysMgt\MsgMaintain.aspx" />
     <Content Include="SysMgt\PaymentMethod.aspx" />
     <Content Include="SysMgt\RootMaintain.aspx" />
     <Content Include="SysMgt\StoreMaintain.aspx" />
     <Content Include="SysMgt\UnitMaintain.aspx" />
-    <Content Include="UC\DressSelection.ascx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -448,6 +445,13 @@
     <Compile Include="SysMgt\LoginMaintain.aspx.designer.cs">
       <DependentUpon>LoginMaintain.aspx</DependentUpon>
     </Compile>
+    <Compile Include="LogMgt.aspx.cs">
+      <DependentUpon>LogMgt.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="LogMgt.aspx.designer.cs">
+      <DependentUpon>LogMgt.aspx</DependentUpon>
+    </Compile>
     <Compile Include="SysMgt\MsgMaintain.aspx.cs">
       <DependentUpon>MsgMaintain.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -482,13 +486,6 @@
     </Compile>
     <Compile Include="SysMgt\UnitMaintain.aspx.designer.cs">
       <DependentUpon>UnitMaintain.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="UC\DressSelection.ascx.cs">
-      <DependentUpon>DressSelection.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="UC\DressSelection.ascx.designer.cs">
-      <DependentUpon>DressSelection.ascx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -552,7 +549,7 @@
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost/TheWeWebSite</IISUrl>
           <OverrideIISAppRootUrl>True</OverrideIISAppRootUrl>
-          <IISAppRootUrl>http://localhost:49221/</IISAppRootUrl>
+          <IISAppRootUrl>http://localhost/TheWeWebSite</IISAppRootUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

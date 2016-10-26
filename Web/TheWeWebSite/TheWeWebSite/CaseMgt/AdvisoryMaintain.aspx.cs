@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NLog;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -12,9 +13,14 @@ namespace TheWeWebSite.CaseMgt
     public partial class AdvisoryMaintain : System.Web.UI.Page
     {
         DataSet DS;
-        string OtherConditionString;
+        private Logger Log;
+
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Log == null)
+            {
+                Log = NLog.LogManager.GetCurrentClassLogger();
+            }
             if (!Page.IsPostBack)
             {
                 if (SysProperty.Util == null) Response.Redirect("../Login.aspx", true);
@@ -92,7 +98,13 @@ namespace TheWeWebSite.CaseMgt
 
         protected void btnSearch_Click(object sender, EventArgs e)
         {
-            OtherConditionString = string.Empty;
+            dataGrid.CurrentPageIndex = 0;
+            BindData();
+        }
+
+        public string GetQueryString()
+        {
+            string OtherConditionString = string.Empty;
             if (!string.IsNullOrEmpty(tbConsultSn.Text))
             {
                 OtherConditionString += " And c.Sn like '%" + tbConsultSn.Text + "%'";
@@ -111,7 +123,8 @@ namespace TheWeWebSite.CaseMgt
             OtherConditionString += ((string.IsNullOrEmpty(tbSearchEndDate.Text)) ? string.Empty : " And c.ConsultDate <='" + tbSearchEndDate.Text + "'");
             OtherConditionString += ((string.IsNullOrEmpty(tbBookStartDate.Text)) ? string.Empty : " And c.BookingDate >='" + tbBookStartDate.Text + "'");
             OtherConditionString += ((string.IsNullOrEmpty(tbBookEndDate.Text)) ? string.Empty : " And c.BookingDate <='" + tbBookEndDate.Text + "'");
-            BindData();
+            return OtherConditionString;
+
         }
 
         #region DataGrid Control
@@ -131,7 +144,7 @@ namespace TheWeWebSite.CaseMgt
             }
             catch (Exception ex)
             {
-                SysProperty.Log.Error(ex.Message);
+                Log.Error(ex.Message);
                 ShowErrorMsg(ex.Message);
             }
         }
@@ -156,7 +169,7 @@ namespace TheWeWebSite.CaseMgt
             {
                 GetConsultList(
                     (bool.Parse(((DataRow)Session["LocateStore"])["HoldingCompany"].ToString()) ? string.Empty : ((DataRow)Session["LocateStore"])["Id"].ToString())
-                    , OtherConditionString
+                    , GetQueryString()
                     , "Order by c." + e.SortExpression + " " + SysProperty.Util.GetSortDirection(e.SortExpression));
             }
             if (DS != null)
@@ -176,7 +189,7 @@ namespace TheWeWebSite.CaseMgt
         private void BindData()
         {
             string storeId = string.IsNullOrEmpty(ddlStore.SelectedValue) ? string.Empty : ddlStore.SelectedValue;
-            GetConsultList(storeId, OtherConditionString, " Order by Sn");
+            GetConsultList(storeId, GetQueryString(), " Order by Sn");
             dataGrid.DataSource = DS;
             dataGrid.AllowPaging = !SysProperty.Util.IsDataSetEmpty(DS);
             dataGrid.DataBind();
@@ -193,7 +206,7 @@ namespace TheWeWebSite.CaseMgt
                 + " FROM [dbo].[Consultation] as c"
                 + " left join ConferenceItem as con on c.StatusId = con.Id"
                 + " left join Employee as e on e.Id = c.EmployeeId"
-                + " WHERE c.IsDelete = 0"
+                + " WHERE c.IsDelete = 0 And StatusId = 'DBA3EE71-4EED-4AC3-A0E4-562F81F3CD1E'"
                 + (string.IsNullOrEmpty(storeId) ? string.Empty : " And c.StoreId='" + storeId + "'")
                 + otherCondition
                 + " " + sortStr;
@@ -203,7 +216,7 @@ namespace TheWeWebSite.CaseMgt
             }
             catch (Exception ex)
             {
-                SysProperty.Log.Error(ex.Message);
+                Log.Error(ex.Message);
                 ShowErrorMsg(ex.Message);
             }
         }
@@ -238,7 +251,7 @@ namespace TheWeWebSite.CaseMgt
             }
             catch (Exception ex)
             {
-                SysProperty.Log.Error(ex.Message);
+                Log.Error(ex.Message);
                 return null;
             }
         }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NLog;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.IO;
@@ -11,8 +12,14 @@ namespace TheWeWebSite.CaseMgt
 {
     public partial class CaseMCreate : System.Web.UI.Page
     {
+        private Logger Log;
+
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Log == null)
+            {
+                Log = NLog.LogManager.GetCurrentClassLogger();
+            }
             if (Request.QueryString["Id"] != null)
             {
                 Session["OrderId"] = Request.QueryString["Id"].ToString();
@@ -213,7 +220,7 @@ namespace TheWeWebSite.CaseMgt
             }
             catch (Exception ex)
             {
-                SysProperty.Log.Error(ex.Message);
+                Log.Error(ex.Message);
                 ShowErrorMsg(ex.Message);
             }
         }
@@ -237,7 +244,7 @@ namespace TheWeWebSite.CaseMgt
             }
             catch (Exception ex)
             {
-                SysProperty.Log.Error(ex.Message);
+                Log.Error(ex.Message);
                 ShowErrorMsg(ex.Message);
             }
         }
@@ -260,7 +267,7 @@ namespace TheWeWebSite.CaseMgt
             }
             catch (Exception ex)
             {
-                SysProperty.Log.Error(ex.Message);
+                Log.Error(ex.Message);
                 ShowErrorMsg(ex.Message);
             }
         }
@@ -301,7 +308,7 @@ namespace TheWeWebSite.CaseMgt
             }
             catch (Exception ex)
             {
-                SysProperty.Log.Error(ex.Message);
+                Log.Error(ex.Message);
                 ShowErrorMsg(ex.Message);
             }
         }
@@ -345,7 +352,7 @@ namespace TheWeWebSite.CaseMgt
             }
             catch (Exception ex)
             {
-                SysProperty.Log.Error(ex.Message);
+                Log.Error(ex.Message);
                 ShowErrorMsg(ex.Message);
             }
         }
@@ -392,7 +399,7 @@ namespace TheWeWebSite.CaseMgt
             }
             catch (Exception ex)
             {
-                SysProperty.Log.Error(ex.Message);
+                Log.Error(ex.Message);
                 ShowErrorMsg(ex.Message);
             }
         }
@@ -441,7 +448,7 @@ namespace TheWeWebSite.CaseMgt
             }
             catch (Exception ex)
             {
-                SysProperty.Log.Error(ex.Message);
+                Log.Error(ex.Message);
                 ShowErrorMsg(ex.Message);
             }
         }
@@ -464,7 +471,7 @@ namespace TheWeWebSite.CaseMgt
             }
             catch (Exception ex)
             {
-                SysProperty.Log.Error(ex.Message);
+                Log.Error(ex.Message);
                 ShowErrorMsg(ex.Message);
             }
         }
@@ -487,7 +494,7 @@ namespace TheWeWebSite.CaseMgt
             }
             catch (Exception ex)
             {
-                SysProperty.Log.Error(ex.Message);
+                Log.Error(ex.Message);
                 ShowErrorMsg(ex.Message);
             }
         }
@@ -540,7 +547,7 @@ namespace TheWeWebSite.CaseMgt
                 }
                 catch (Exception ex)
                 {
-                    SysProperty.Log.Error(ex.Message);
+                    Log.Error(ex.Message);
                 }
             }
         }
@@ -559,7 +566,7 @@ namespace TheWeWebSite.CaseMgt
                 }
                 catch (Exception ex)
                 {
-                    SysProperty.Log.Error(ex.Message);
+                    Log.Error(ex.Message);
                 }
             }
         }
@@ -624,7 +631,7 @@ namespace TheWeWebSite.CaseMgt
             }
             catch (Exception ex)
             {
-                SysProperty.Log.Error(ex.Message);
+                Log.Error(ex.Message);
                 ShowErrorMsg(ex.Message);
             }
         }
@@ -762,7 +769,7 @@ namespace TheWeWebSite.CaseMgt
             }
             catch (Exception ex)
             {
-                SysProperty.Log.Error(ex.Message);
+                Log.Error(ex.Message);
                 ShowErrorMsg(ex.Message);
                 return null;
             }
@@ -1740,7 +1747,7 @@ namespace TheWeWebSite.CaseMgt
             }
             catch (Exception ex)
             {
-                SysProperty.Log.Error(ex.Message);
+                Log.Error(ex.Message);
                 ShowErrorMsg(ex.Message);
                 return false;
             }
@@ -1756,7 +1763,7 @@ namespace TheWeWebSite.CaseMgt
             }
             catch (Exception ex)
             {
-                SysProperty.Log.Error(ex.Message);
+                Log.Error(ex.Message);
                 ShowErrorMsg(ex.Message);
                 return string.Empty;
             }
@@ -1772,7 +1779,7 @@ namespace TheWeWebSite.CaseMgt
             }
             catch (Exception ex)
             {
-                SysProperty.Log.Error(ex.Message);
+                Log.Error(ex.Message);
                 ShowErrorMsg(ex.Message);
                 return null;
             }

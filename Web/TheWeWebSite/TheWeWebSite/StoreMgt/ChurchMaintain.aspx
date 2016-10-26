@@ -120,6 +120,11 @@
                                                     <asp:Label runat="server" ID="dgLabelChurchOth" />
                                                 </ItemTemplate>
                                             </asp:TemplateColumn>
+                                            <asp:TemplateColumn HeaderText="<%$ Resources:Resource,ProviderNameString%>">
+                                                <ItemTemplate>
+                                                    <asp:Label runat="server" ID="dgLabelProvider" />
+                                                </ItemTemplate>
+                                            </asp:TemplateColumn>
                                             <asp:TemplateColumn HeaderText="<%$ Resources:Resource,PriceString%>">
                                                 <ItemTemplate>
                                                     <asp:Label runat="server" ID="dgLabelPrice" />

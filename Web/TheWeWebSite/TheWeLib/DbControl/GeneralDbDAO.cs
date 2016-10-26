@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NLog;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -10,9 +11,14 @@ namespace TheWeLib.DbControl
     {
         DbConn DbConnection;
         Utility Util;
-
+        private Logger Log;
         public GeneralDbDAO()
         {
+            if (Log == null)
+            {
+                Log = NLog.LogManager.GetCurrentClassLogger();
+            }
+
             Util = new Utility();
             DbConnection = new DbConn(SysProperty.DbConcString);
         }
@@ -54,7 +60,7 @@ namespace TheWeLib.DbControl
             catch (Exception ex)
             {
                 // output log
-                SysProperty.Log.Error(ex.Message);
+                Log.Error(ex.Message);
                 throw ex;
             }
         }
@@ -82,7 +88,7 @@ namespace TheWeLib.DbControl
             catch (Exception ex)
             {
                 // output log
-                SysProperty.Log.Error(ex.Message);
+                Log.Error(ex.Message);
                 throw ex;
             }
         }
