@@ -49,7 +49,7 @@ namespace TheWeParser.Output
             else return false;
         }
 
-        public void GetProductDbList()
+        public void GetMainProductDbList()
         {
             DataSet pds = null;
             DataSet chDs = null;
@@ -70,8 +70,8 @@ namespace TheWeParser.Output
                         if (WORKSHEET.GetRow(rowCnt).GetCell(0) == null) continue;
 
                         productName = WORKSHEET.GetRow(rowCnt).GetCell(0).StringCellValue.Trim();
-                        churchName = WORKSHEET.GetRow(rowCnt).GetCell(1).StringCellValue.Trim();
-                        chDs = GetChurch(churchName);
+                        churchName = WORKSHEET.GetRow(rowCnt).GetCell(7).StringCellValue.Trim();
+                        chDs = GetChurch(churchName, WORKSHEET.GetRow(rowCnt).GetCell(6).StringCellValue.Trim());
                         if (Util.IsDataSetEmpty(chDs))
                         {
                             continue;
@@ -119,11 +119,100 @@ namespace TheWeParser.Output
             }
         }
 
+        public void GetProductDbList()
+        {
+            DataSet pds = null;
+            DataSet chDs = null;
+            DataSet storePrice = null;
+            string productid = "";
+            string productName = "";
+            string churchName = "";
+            List<DbSearchObject> lst;
+            if (WORKBOOK != null)
+            {
+                for (int sheetCnt = 0; sheetCnt < 1; sheetCnt++)
+                {
+                    WORKSHEET = (XSSFSheet)WORKBOOK.GetSheetAt(sheetCnt);
+                    for (int rowCnt = 1; rowCnt <= WORKSHEET.LastRowNum; rowCnt++)
+                    {
+                        lst = new List<DbSearchObject>();
+                        if (WORKSHEET.GetRow(rowCnt) == null) continue;
+                        if (WORKSHEET.GetRow(rowCnt).GetCell(0) == null) continue;
+                        if (string.IsNullOrEmpty(WORKSHEET.GetRow(rowCnt).GetCell(0).StringCellValue)) continue;
+
+                        productName = WORKSHEET.GetRow(rowCnt).GetCell(0).StringCellValue.Trim();
+                        churchName = WORKSHEET.GetRow(rowCnt).GetCell(6).StringCellValue.Trim();
+                        string countryid = GetCountryId(WORKSHEET.GetRow(rowCnt).GetCell(4).StringCellValue);
+                        string areaId = GetAreaId(countryid, WORKSHEET.GetRow(rowCnt).GetCell(5).StringCellValue);
+                        chDs = GetChurch(countryid, areaId, churchName);
+                        //chDs = GetChurch(churchName);
+                        if (Util.IsDataSetEmpty(chDs))
+                        {
+                            continue;
+                        }
+                        foreach (DataRow dr in chDs.Tables[0].Rows)
+                        {
+                            pds = GetProduct(productName, dr["Id"].ToString());
+                            if (Util.IsDataSetEmpty(pds))
+                            {
+                                WriteBackDb(SetProductData(WORKSHEET.GetRow(rowCnt) as XSSFRow, dr["CountryId"].ToString(), dr["AreaId"].ToString(), dr["Id"].ToString()), true, "ProductSet");
+                                pds = GetProduct(productName, dr["Id"].ToString());
+                                if (Util.IsDataSetEmpty(pds))
+                                {
+                                    continue;
+                                }
+                                else break;
+                            }
+                            else break;
+                        }
+                        if (Util.IsDataSetEmpty(pds))
+                        {
+                            continue;
+                        }
+
+                        productid = pds.Tables[0].Rows[0]["Id"].ToString();
+                        if (string.IsNullOrEmpty(productid))
+                        {
+                            continue;
+                        }
+
+                        lst.Add(new DbSearchObject("Id", AtrrTypeItem.String, AttrSymbolItem.Equal, productid));
+                        lst.Add(new DbSearchObject("Cost", AtrrTypeItem.String, AttrSymbolItem.Equal, Util.ParseMoney(WORKSHEET.GetRow(rowCnt).GetCell(19).NumericCellValue.ToString()).ToString("#0.00")));
+                        //lst.Add(new DbSearchObject("CostCurrencyId", AtrrTypeItem.String, AttrSymbolItem.Equal, "470E9113-4E57-43B6-A2B3-622904493945"));
+                        lst.Add(new DbSearchObject("CostCurrencyId", AtrrTypeItem.String, AttrSymbolItem.Equal, "FD570380-B2DA-45EA-B27B-FBB7A497BAB2"));
+                        //lst.Add(new DbSearchObject("CostCurrencyId", AtrrTypeItem.String, AttrSymbolItem.Equal, "470E9113-4E57-43B6-A2B3-622904493945"));//JPN
+                        lst.Add(new DbSearchObject("UpdateAccId", AtrrTypeItem.String, AttrSymbolItem.Equal, "00000000-0000-0000-0000-000000000001"));
+                        lst.Add(new DbSearchObject("UpdateTime", AtrrTypeItem.DateTime, AttrSymbolItem.Equal, DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss")));
+                        ProductInfo.Add(lst);
+
+                        ProductForStore.Add(SetDbObject(pds, Util.ParseMoney(WORKSHEET.GetRow(rowCnt).GetCell(33).NumericCellValue.ToString()).ToString("#0.00"), Util.ParseMoney(WORKSHEET.GetRow(rowCnt).GetCell(35).NumericCellValue.ToString()).ToString("#0.00")));
+
+                        for (int cnt = 1; cnt <= 2; cnt++)
+                        {
+                            ProductLvPrice.Add(StoreLvPriceDbObject(productid, Util.ParseMoney(WORKSHEET.GetRow(rowCnt).GetCell(33).NumericCellValue.ToString()).ToString("#0.00"), cnt.ToString()));
+                        }
+                        //storePrice = StoreLVPrice(productid);
+                        //if (Util.IsDataSetEmpty(storePrice)) continue;
+                        //foreach (DataRow dr in storePrice.Tables[0].Rows)
+                        //{
+                        //    lst = new List<DbSearchObject>();
+                        //    lst.Add(new DbSearchObject("Id", AtrrTypeItem.String, AttrSymbolItem.Equal, dr["Id"].ToString()));
+                        //    lst.Add(new DbSearchObject("Currency", AtrrTypeItem.String, AttrSymbolItem.Equal, "FD570380-B2DA-45EA-B27B-FBB7A497BAB2"));
+                        //    lst.Add(new DbSearchObject("Price", AtrrTypeItem.String, AttrSymbolItem.Equal, Util.ParseMoney(WORKSHEET.GetRow(rowCnt).GetCell(33).NumericCellValue.ToString()).ToString("#0.00")));
+                        //    lst.Add(new DbSearchObject("UpdateAccId", AtrrTypeItem.String, AttrSymbolItem.Equal, "00000000-0000-0000-0000-000000000001"));
+                        //    lst.Add(new DbSearchObject("UpdateTime", AtrrTypeItem.DateTime, AttrSymbolItem.Equal, DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss")));
+                        //    ProductLvPrice.Add(lst);
+                        //}
+                    }
+                }
+            }
+        }
+
         public bool WriteBack()
         {
             bool result = true;
-            result = result & WriteBackProductInfo();
-            result = result & WriteBackProductStroeLvPrice();
+            //result = result & WriteBackProductInfo();
+            result = result & WriteBackProductStroeLvPrice(true);
             result = result & WriteBackProductForStore();
             return result;
         }
@@ -145,14 +234,21 @@ namespace TheWeParser.Output
             }
             return result;
         }
-        private bool WriteBackProductStroeLvPrice()
+        private bool WriteBackProductStroeLvPrice(bool isInsert)
         {
             bool result = true;
             foreach (List<DbSearchObject> item in ProductLvPrice)
             {
                 try
                 {
-                    result = result & GenDbCon.UpdateDataIntoTable("StoreLvSetPrice", Util.SqlQueryUpdateConverter(item), " Where Id = '" + item.Find(x => x.AttrName == "Id").AttrValue + "'");
+                    if (isInsert)
+                    {
+                        result = result & GenDbCon.InsertDataInToTable("StoreLvSetPrice", Util.SqlQueryInsertInstanceConverter(item), Util.SqlQueryInsertValueConverter(item));
+                    }
+                    else
+                    {
+                        result = result & GenDbCon.UpdateDataIntoTable("StoreLvSetPrice", Util.SqlQueryUpdateConverter(item), " Where Id = '" + item.Find(x => x.AttrName == "Id").AttrValue + "'");
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -358,7 +454,8 @@ namespace TheWeParser.Output
                 "CostCurrencyId"
                 , AtrrTypeItem.String
                 , AttrSymbolItem.Equal
-                , "470E9113-4E57-43B6-A2B3-622904493945"
+                , "FD570380-B2DA-45EA-B27B-FBB7A497BAB2"
+                //, "470E9113-4E57-43B6-A2B3-622904493945"
                 ));
             lst.Add(new DbSearchObject(
                 "PriceCurrencyId"
@@ -480,7 +577,54 @@ namespace TheWeParser.Output
             return lst;
         }
 
-
+        private List<DbSearchObject> StoreLvPriceDbObject(string setId, string price, string lvCnt)
+        {
+            List<DbSearchObject> lst = new List<DbSearchObject>();
+            lst.Add(new DbSearchObject(
+                "StoreLv"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , lvCnt
+                ));
+            lst.Add(new DbSearchObject(
+                "Price"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , price
+                ));
+            lst.Add(new DbSearchObject(
+                "Currency"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , "FD570380-B2DA-45EA-B27B-FBB7A497BAB2"
+                //, "470E9113-4E57-43B6-A2B3-622904493945"
+                ));
+            lst.Add(new DbSearchObject(
+                "SetId"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , setId
+                ));
+            lst.Add(new DbSearchObject(
+                "UpdateAccId"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , "00000000-0000-0000-0000-000000000001"
+                ));
+            lst.Add(new DbSearchObject(
+                    "UpdateTime"
+                    , AtrrTypeItem.DateTime
+                    , AttrSymbolItem.Equal
+                    , DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss")
+                    ));
+            lst.Add(new DbSearchObject(
+            "CreatedateAccId"
+            , AtrrTypeItem.String
+            , AttrSymbolItem.Equal
+            , "00000000-0000-0000-0000-000000000001"
+            ));
+            return lst;
+        }
 
         private string GetProductId(string name)
         {
@@ -507,7 +651,7 @@ namespace TheWeParser.Output
         {
             try
             {
-                string sql = "Select * From ProductSet Where Name like N'%" + name + "%' And ChurchId = '"+ churchId + "'";
+                string sql = "Select * From ProductSet Where Name like N'%" + name + "%' And ChurchId = '" + churchId + "'";
                 DataSet ds = GenDbCon.GetDataFromTable(sql);
                 if (Util.IsDataSetEmpty(ds))
                 {
@@ -523,14 +667,77 @@ namespace TheWeParser.Output
                 return null;
             }
         }
-        private DataSet GetChurch(string name)
+        private DataSet GetChurch(string name, string locName)
         {
             try
             {
-                string sql = "Select * From Church Where Name like N'%" + name + "%'";
+                string sql = "Select * From Church Where Name = N'" + name + "' and locationName = N'" + locName + "'";
                 DataSet ds = GenDbCon.GetDataFromTable(sql);
                 if (Util.IsDataSetEmpty(ds))
                 {
+                    return null;// InsertData(true, name, string.Empty);
+                }
+                else
+                {
+                    return ds;
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        public string GetCountryId(string name)
+        {
+            try
+            {
+                string sql = "Select Id From Country Where Name like N'%" + name + "%'";
+                DataSet ds = GenDbCon.GetDataFromTable(sql);
+                if (Util.IsDataSetEmpty(ds))
+                {
+                    return InsertData(true, name, string.Empty);
+                }
+                else
+                {
+                    return ds.Tables[0].Rows[0]["Id"].ToString();
+                }
+            }
+            catch (Exception ex)
+            {
+                return string.Empty;
+            }
+        }
+
+        public string GetAreaId(string countryId, string name)
+        {
+            try
+            {
+                string sql = "Select Id From Area Where Name like N'%" + name + "%' And CountryId='" + countryId + "'";
+                DataSet ds = GenDbCon.GetDataFromTable(sql);
+                if (Util.IsDataSetEmpty(ds))
+                {
+                    return InsertData(false, name, countryId);
+                }
+                else
+                {
+                    return ds.Tables[0].Rows[0]["Id"].ToString();
+                }
+            }
+            catch (Exception ex)
+            {
+                return string.Empty;
+            }
+        }
+        public DataSet GetChurch(string countryId, string areaId, string name)
+        {
+            try
+            {
+                string sql = "Select * From Church Where Name = N'" + name + "' And CountryId='" + countryId + "' And AreaId = '" + areaId + "'";
+                DataSet ds = GenDbCon.GetDataFromTable(sql);
+                if (Util.IsDataSetEmpty(ds))
+                {
+                    //return InsertData(false, name, countryId);
                     return null;
                 }
                 else
@@ -541,6 +748,60 @@ namespace TheWeParser.Output
             catch (Exception ex)
             {
                 return null;
+            }
+        }
+
+        private DataSet GetChurch(string name)
+        {
+            try
+            {
+                string sql = "Select * From Church Where Name = N'" + name + "'";
+                DataSet ds = GenDbCon.GetDataFromTable(sql);
+                if (Util.IsDataSetEmpty(ds))
+                {
+                    return null;// InsertData(true, name, string.Empty);
+                }
+                else
+                {
+                    return ds;
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        public string InsertData(bool isCountry, string name, string cid)
+        {
+            try
+            {
+                List<DbSearchObject> lst = new List<DbSearchObject>();
+                lst.Add(new DbSearchObject("Name", AtrrTypeItem.String, AttrSymbolItem.Equal, name));
+                lst.Add(new DbSearchObject("CreatedateAccId", AtrrTypeItem.String, AttrSymbolItem.Equal, "00000000-0000-0000-0000-000000000001"));
+                lst.Add(new DbSearchObject("IsDelete", AtrrTypeItem.Bit, AttrSymbolItem.Equal, "0"));
+                lst.Add(new DbSearchObject("UpdateAccId", AtrrTypeItem.String, AttrSymbolItem.Equal, "00000000-0000-0000-0000-000000000001"));
+                if (!isCountry) lst.Add(new DbSearchObject("CountryId", AtrrTypeItem.String, AttrSymbolItem.Equal, cid));
+                if (GenDbCon.InsertDataInToTable((isCountry ? "Country" : "Area"), Util.SqlQueryInsertInstanceConverter(lst), Util.SqlQueryInsertValueConverter(lst)))
+                {
+                    DataSet ds = GenDbCon.GetDataFromTable("Id", (isCountry ? "Country" : "Area"), Util.SqlQueryConditionConverter(lst));
+                    if (!Util.IsDataSetEmpty(ds))
+                    {
+                        return ds.Tables[0].Rows[0]["Id"].ToString();
+                    }
+                    else
+                    {
+                        return string.Empty;
+                    }
+                }
+                else
+                {
+                    return string.Empty;
+                }
+            }
+            catch (Exception ex)
+            {
+                return string.Empty;
             }
         }
 
@@ -578,10 +839,10 @@ namespace TheWeParser.Output
             DataSet ds1 = GetDataFromDb("Select DISTINCT * From ServiceItem Where  SupplierId is not null And CountryId is null and AreaId is null");
             DataSet ds2 = GetDataFromDb("Select * From Church"); ;
             if (Util.IsDataSetEmpty(ds1) || Util.IsDataSetEmpty(ds2)) return;
-            List<List<DbSearchObject>> lsts = new List<List<DbSearchObject>>(); 
+            List<List<DbSearchObject>> lsts = new List<List<DbSearchObject>>();
             List<DbSearchObject> lst = new List<DbSearchObject>();
             DataRow[] findout;
-            foreach(DataRow dr in ds1.Tables[0].Rows)
+            foreach (DataRow dr in ds1.Tables[0].Rows)
             {
                 findout = ds2.Tables[0].Select("Id = '" + dr["SupplierId"].ToString() + "'");
                 if (findout.Length >= 2 || findout.Length == 0) continue;
@@ -625,6 +886,28 @@ namespace TheWeParser.Output
 
             return result;
         }
+        private bool WriteBackDb(List<DbSearchObject> lst, bool isCreate, string tableName)
+        {
+            bool result = true;
+            try
+            {
+                if (isCreate)
+                {
+                    result = result & GenDbCon.InsertDataInToTable(tableName, Util.SqlQueryInsertInstanceConverter(lst), Util.SqlQueryInsertValueConverter(lst));
+                }
+                else
+                {
+                    string id = lst.Find(x => x.AttrName == "Id").AttrValue;
+                    result = result & GenDbCon.UpdateDataIntoTable(tableName, Util.SqlQueryUpdateConverter(lst), " Where Id = '" + id + "'");
+                }
+            }
+            catch (Exception ex)
+            {
+                result = false;
+            }
+
+            return result;
+        }
 
         private bool WriteBackProductLvPrice()
         {
@@ -645,6 +928,259 @@ namespace TheWeParser.Output
             return result;
         }
 
+        private List<DbSearchObject> SetProductData(XSSFRow row, string countryId, string areaId, string churchId)
+        {
+            List<DbSearchObject> lst = new List<DbSearchObject>();
+            #region TextBox
+            lst.Add(new DbSearchObject(
+                "Cost"
+                , AtrrTypeItem.Integer
+                , AttrSymbolItem.Equal
+                , row.GetCell(19).NumericCellValue.ToString()
+                ));
+            lst.Add(new DbSearchObject(
+            "Price"
+            , AtrrTypeItem.Integer
+            , AttrSymbolItem.Equal
+            , row.GetCell(33).NumericCellValue.ToString()
+            ));
+
+            lst.Add(new DbSearchObject(
+                "Name"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , row.GetCell(0).StringCellValue
+                ));
+            lst.Add(new DbSearchObject(
+                "EngName"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , (row.GetCell(1) == null ? string.Empty : row.GetCell(1).StringCellValue)
+                ));
+            lst.Add(new DbSearchObject(
+                "BridalMakeup"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , (row.GetCell(7).CellType == NPOI.SS.UserModel.CellType.Numeric ? row.GetCell(7).NumericCellValue.ToString() : row.GetCell(7).StringCellValue)
+                ));
+            lst.Add(new DbSearchObject(
+                "GroomMakeup"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , (row.GetCell(8).CellType == NPOI.SS.UserModel.CellType.Numeric ? row.GetCell(8).NumericCellValue.ToString() : row.GetCell(8).StringCellValue)
+                ));
+            lst.Add(new DbSearchObject(
+                "Corsage"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , (row.GetCell(15) == null ? string.Empty : row.GetCell(15).StringCellValue.ToString())
+                ));
+            lst.Add(new DbSearchObject(
+                "WeddingFilmingTime"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , (row.GetCell(9) == null ? string.Empty : row.GetCell(9).StringCellValue)
+                ));
+            lst.Add(new DbSearchObject(
+                "FilmingLocation"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , (row.GetCell(10) == null ? string.Empty : row.GetCell(10).StringCellValue)
+                ));
+            lst.Add(new DbSearchObject(
+                "Decoration"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , (row.GetCell(17) == null ? string.Empty : row.GetCell(17).StringCellValue)
+                ));
+            lst.Add(new DbSearchObject(
+                "Moves"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , (row.GetCell(11) == null ? string.Empty : row.GetCell(11).StringCellValue)
+                ));
+            lst.Add(new DbSearchObject(
+                "PhotosNum"
+                , AtrrTypeItem.Integer
+                , AttrSymbolItem.Equal
+                , row.GetCell(12).NumericCellValue.ToString()
+                ));
+            lst.Add(new DbSearchObject(
+                "Performence"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , (row.GetCell(18) == null ? string.Empty : row.GetCell(18).StringCellValue)
+                ));
+            lst.Add(new DbSearchObject(
+                "RoomId"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , (row.GetCell(14) == null ? string.Empty : row.GetCell(14).StringCellValue)
+                ));
+            lst.Add(new DbSearchObject(
+                "StayNight"
+                , AtrrTypeItem.Integer
+                , AttrSymbolItem.Equal
+                , (row.GetCell(13) == null ? "0" : (string.IsNullOrEmpty(row.GetCell(13).NumericCellValue.ToString()) ? "0" : row.GetCell(13).NumericCellValue.ToString()))
+                ));
+            #endregion
+            #region DropDownList
+            lst.Add(new DbSearchObject(
+                "CountryId"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , countryId
+                ));
+            lst.Add(new DbSearchObject(
+                "AreaId"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , areaId
+                ));
+            lst.Add(new DbSearchObject(
+                "ChurchId"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , churchId
+                ));
+            string tmp = (row.GetCell(3) == null ? string.Empty : GetWeddingCategory(row.GetCell(3).StringCellValue));
+            if (!string.IsNullOrEmpty(tmp))
+            {
+                lst.Add(new DbSearchObject(
+                    "WeddingCategory"
+                    , AtrrTypeItem.String
+                    , AttrSymbolItem.Equal
+                    , tmp
+                    ));
+            }
+            lst.Add(new DbSearchObject(
+            "Category"
+            , AtrrTypeItem.String
+            , AttrSymbolItem.Equal
+            , (row.GetCell(2) == null ? string.Empty : GetCategory(row.GetCell(2).StringCellValue))
+            ));
+            lst.Add(new DbSearchObject(
+                "Staff"
+                , AtrrTypeItem.Integer
+                , AttrSymbolItem.Equal
+                , "1"
+                ));
+            lst.Add(new DbSearchObject(
+                "CostCurrencyId"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , "FD570380-B2DA-45EA-B27B-FBB7A497BAB2"
+                //, "470E9113-4E57-43B6-A2B3-622904493945"
+                ));
+            lst.Add(new DbSearchObject(
+                "PriceCurrencyId"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , "FD570380-B2DA-45EA-B27B-FBB7A497BAB2"
+                //, "470E9113-4E57-43B6-A2B3-622904493945"
+                ));
+            #endregion
+            #region CheckBox
+            lst.Add(new DbSearchObject(
+                "Breakfast"
+                , AtrrTypeItem.Bit
+                , AttrSymbolItem.Equal
+                , (row.GetCell(28) == null ? "0" : row.GetCell(28).StringCellValue == "Y" ? "1" : "0")
+                ));
+            lst.Add(new DbSearchObject(
+                "Certificate"
+                , AtrrTypeItem.Bit
+                , AttrSymbolItem.Equal
+                , row.GetCell(22) == null ? "0" : row.GetCell(22).StringCellValue == "Y" ? "1" : "0"
+                ));
+            lst.Add(new DbSearchObject(
+                "ChurchCost"
+                , AtrrTypeItem.Bit
+                , AttrSymbolItem.Equal
+                , row.GetCell(20) == null ? "0" : row.GetCell(20).StringCellValue == "Y" ? "1" : "0"
+                ));
+            lst.Add(new DbSearchObject(
+                "Dinner"
+                , AtrrTypeItem.Bit
+                , AttrSymbolItem.Equal
+                , row.GetCell(30) == null ? "0" : row.GetCell(30).StringCellValue == "Y" ? "1" : "0"
+                ));
+            lst.Add(new DbSearchObject(
+                "DressIroning"
+                , AtrrTypeItem.Bit
+                , AttrSymbolItem.Equal
+                , row.GetCell(26) == null ? "0" : row.GetCell(26).StringCellValue == "Y" ? "1" : "0"
+                ));
+            lst.Add(new DbSearchObject(
+                "IsLegal"
+                , AtrrTypeItem.Bit
+                , AttrSymbolItem.Equal
+                , row.GetCell(32) == null ? "0" : row.GetCell(32).StringCellValue == "Y" ? "1" : "0"
+                ));
+            lst.Add(new DbSearchObject(
+                "Lounge"
+                , AtrrTypeItem.Bit
+                , AttrSymbolItem.Equal
+                , row.GetCell(25) == null ? "0" : row.GetCell(25).StringCellValue == "Y" ? "1" : "0"
+                ));
+            lst.Add(new DbSearchObject(
+                "Lunch"
+                , AtrrTypeItem.Bit
+                , AttrSymbolItem.Equal
+                , row.GetCell(29) == null ? "0" : row.GetCell(29).StringCellValue == "Y" ? "1" : "0"
+                ));
+            lst.Add(new DbSearchObject(
+                "Kickoff"
+                , AtrrTypeItem.Bit
+                , AttrSymbolItem.Equal
+                , row.GetCell(27) == null ? "0" : row.GetCell(27).StringCellValue == "Y" ? "1" : "0"
+                ));
+            lst.Add(new DbSearchObject(
+                "Pastor"
+                , AtrrTypeItem.Bit
+                , AttrSymbolItem.Equal
+                , row.GetCell(21) == null ? "0" : row.GetCell(21).StringCellValue == "Y" ? "1" : "0"
+                ));
+            lst.Add(new DbSearchObject(
+                "SignPen"
+                , AtrrTypeItem.Bit
+                , AttrSymbolItem.Equal
+                , row.GetCell(24) == null ? "0" : row.GetCell(24).StringCellValue == "Y" ? "1" : "0"
+                ));
+            lst.Add(new DbSearchObject(
+                "RingPillow"
+                , AtrrTypeItem.Bit
+                , AttrSymbolItem.Equal
+                , row.GetCell(23) == null ? "0" : row.GetCell(23).StringCellValue == "Y" ? "1" : "0"
+                ));
+            lst.Add(new DbSearchObject(
+                "Rehearsal"
+                , AtrrTypeItem.Bit
+                , AttrSymbolItem.Equal
+                , row.GetCell(31) == null ? "0" : row.GetCell(31).StringCellValue == "Y" ? "1" : "0"
+                ));
+            #endregion
+            lst.Add(new DbSearchObject(
+                "StoreId"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , "B7E99B67-EE4B-4FE0-AAA7-F2BC24A9E45A"
+                ));
+            lst.Add(new DbSearchObject(
+                "UpdateAccId"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , "00000000-0000-0000-0000-000000000001"
+                ));
+            lst.Add(new DbSearchObject(
+            "CreatedateAccId"
+            , AtrrTypeItem.String
+            , AttrSymbolItem.Equal
+            , "00000000-0000-0000-0000-000000000001"
+            ));
+            return lst;
+        }
+
         private DataSet GetDataFromDb(string sql)
         {
             try
@@ -662,6 +1198,50 @@ namespace TheWeParser.Output
             catch (Exception ex)
             {
                 return null;
+            }
+        }
+
+        private string GetWeddingCategory(string wc)
+        {
+            if (string.IsNullOrEmpty(wc)) return string.Empty;
+            try
+            {
+                string sql = "Select * From [WeddingCategory] Where Name = N'" + wc + "'";
+                DataSet ds = GenDbCon.GetDataFromTable(sql);
+                if (Util.IsDataSetEmpty(ds))
+                {
+                    return string.Empty;// InsertData(true, name, string.Empty);
+                }
+                else
+                {
+                    return ds.Tables[0].Rows[0]["Id"].ToString();
+                }
+            }
+            catch (Exception ex)
+            {
+                return string.Empty;
+            }
+        }
+
+        private string GetCategory(string wc)
+        {
+            if (string.IsNullOrEmpty(wc)) return string.Empty;
+            try
+            {
+                string sql = "Select * From [ServiceItemCategory] where TypeLv = 0 AND Name = N'" + wc + "'";
+                DataSet ds = GenDbCon.GetDataFromTable(sql);
+                if (Util.IsDataSetEmpty(ds))
+                {
+                    return string.Empty;// InsertData(true, name, string.Empty);
+                }
+                else
+                {
+                    return ds.Tables[0].Rows[0]["Id"].ToString();
+                }
+            }
+            catch (Exception ex)
+            {
+                return string.Empty;
             }
         }
     }

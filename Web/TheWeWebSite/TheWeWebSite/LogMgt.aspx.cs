@@ -27,7 +27,7 @@ namespace TheWeWebSite
                 listLogs.Items.Add(new ListItem(file, file));
                 //listLogs.Items.Add(new ListViewDataItem())
             }
-            listLogs.SelectedIndex = 0;
+            //listLogs.SelectedIndex = 0;
             ReadFile(listLogs.SelectedValue);
         }
 

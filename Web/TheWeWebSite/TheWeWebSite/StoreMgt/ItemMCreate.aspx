@@ -312,7 +312,7 @@
                                             <Columns>
                                                 <asp:BoundField DataField="Id" Visible="false" />
                                                 <asp:BoundField HeaderText="<%$ Resources:Resource,StoreLevelString%>" DataField="StoreLv" ItemStyle-Width="80px" ItemStyle-VerticalAlign="Top" ItemStyle-HorizontalAlign="Center" />
-                                                <asp:TemplateField HeaderText="<%$ Resources:Resource,PriceString%>" ItemStyle-Wrap="false">
+                                                <asp:TemplateField HeaderText="<%$ Resources:Resource,CostString%>" ItemStyle-Wrap="false">
                                                     <ItemStyle Wrap="false" />
                                                     <ItemTemplate>
                                                         <asp:DropDownList runat="server" ID="ddlStoreCurrency" />

@@ -426,6 +426,7 @@ namespace TheWeWebSite.StoreMgt
             ddlOthCategory.SelectedValue = dr["CategoryId"].ToString();
             ddlOthCategory_SelectedIndexChanged(ddlOthCategory, new EventArgs());
             ddlType.SelectedValue = dr["Type"].ToString();
+            ddlCurrency.SelectedValue = dr["CurrencyId"].ToString();
             ddlType_SelectedIndexChanged(ddlType, new EventArgs());
 
             #region Location Info
@@ -438,15 +439,15 @@ namespace TheWeWebSite.StoreMgt
                 ddlStore.SelectedValue = dr["SupplierId"].ToString();
             }
             ddlStore_SelectedIndexChanged(ddlStore, new EventArgs());
-
-            if (!string.IsNullOrEmpty(dr["AreaId"].ToString()))
-            {
-                ddlArea.SelectedValue = dr["AreaId"].ToString();
-            }
             if (!string.IsNullOrEmpty(dr["CountryId"].ToString()))
             {
                 ddlCountry.SelectedValue = dr["CountryId"].ToString();
+                ddlCountry_SelectedIndexChanged(ddlCountry, new EventArgs());
             }
+            if (!string.IsNullOrEmpty(dr["AreaId"].ToString()))
+            {
+                ddlArea.SelectedValue = dr["AreaId"].ToString();
+            }            
             #endregion
 
             #region Image Info
@@ -837,7 +838,7 @@ namespace TheWeWebSite.StoreMgt
             {
                 if (!string.IsNullOrEmpty(ddlArea.SelectedValue))
                 {
-                    string countryId = SysProperty.GetAreaById(ddlArea.SelectedValue)["Id"].ToString();
+                    string countryId = SysProperty.GetAreaById(ddlArea.SelectedValue)["CountryId"].ToString();
                     if(ddlCountry.SelectedValue!= countryId)
                     {
                         ddlCountry.SelectedValue = countryId;

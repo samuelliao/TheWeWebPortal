@@ -122,11 +122,11 @@
                             <asp:TextBox runat="server" Style="text-align: right" ID="tbPatioHeight"></asp:TextBox>
                             <asp:RegularExpressionValidator CssClass="error" Display="Dynamic" ID="RegularExpressionValidator3" ControlToValidate="tbPatioHeight" runat="server" ErrorMessage="Only Numbers allowed" ValidationExpression="^[0-9]*$"></asp:RegularExpressionValidator>
                         </div>
-                        <div class="2u 12u(mobilep)">
+                        <div class="2u 12u(mobilep)" style="display:none">
                             <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,PriceString%>"></asp:Label>
                             </div>
-                            <asp:TextBox runat="server" Style="text-align: right" ID="tbPrice"></asp:TextBox>
+                            <asp:TextBox runat="server" Style="text-align: right" ID="tbPrice" Text="0"></asp:TextBox>
                             <asp:RegularExpressionValidator CssClass="error" Display="Dynamic" ID="RegularExpressionValidator4" ControlToValidate="tbPrice" runat="server" ErrorMessage="Only Numbers allowed" ValidationExpression="\d+[.]*\d*"></asp:RegularExpressionValidator>
                         </div>
                     </div>

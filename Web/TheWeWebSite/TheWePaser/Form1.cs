@@ -15,6 +15,7 @@ namespace TheWeParser
     {
         private string AWSStr = @"Data Source=54.223.78.5;Initial Catalog=TheWe_C;Persist Security Info=True;User ID=sa;Password=!QAZ2wsx#EDC";
         private string AliStr = @"Data Source=60.205.146.133;Initial Catalog=TheWe_C;Persist Security Info=True;User ID=TheWe;Password=!QAZ2wsx#EDC";
+        private string TESTSTR = @"Data Source=127.0.0.1;Initial Catalog=TheWe_C;Persist Security Info=True;User ID=sa;Password=Abc12345";
 
         public Form1()
         {
@@ -57,11 +58,12 @@ namespace TheWeParser
 
         private void GetChurchFile()
         {
-            ChurchDataParser church = new ChurchDataParser(@"Data Source=60.205.146.133;Initial Catalog=TheWe_C;Persist Security Info=True;User ID=TheWe;Password=!QAZ2wsx#EDC");
+            //ChurchDataParser church = new ChurchDataParser(TESTSTR);
+            ChurchDataParser church = new ChurchDataParser(AliStr);
             church.FileReader(textBox1.Text);
             bool result;
             result = church.WriteBackChurch(church.GetChurchDbList());
-            result = church.WriteBackChurchServiceTime(church.GetChurchServiceTime());
+            //result = church.WriteBackChurchServiceTime(church.GetChurchServiceTime());
         }
 
         private void GetDressFile()
@@ -82,9 +84,9 @@ namespace TheWeParser
             this.Cursor = Cursors.WaitCursor;
             if (((Item)comboBox1.SelectedItem).Value == "Church")
             {
-                //GetChurchFile();
+                GetChurchFile();
                 //SetServiceItem();
-                SetDressPhotoChurchData();
+                //SetDressPhotoChurchData();
             }
             else if (((Item)comboBox1.SelectedItem).Value == "Dress")
             {
@@ -113,7 +115,8 @@ namespace TheWeParser
         }
         private void SetProductData()
         {
-            ProductdataParser set = new ProductdataParser(@"Data Source=60.205.146.133;Initial Catalog=TheWe_C;Persist Security Info=True;User ID=sa;Password=!QAZ2wsx#EDC");
+            //ProductdataParser set = new ProductdataParser(TESTSTR);
+            ProductdataParser set = new ProductdataParser(AliStr);
             //ProductdataParser set = new ProductdataParser(@"Data Source=54.223.78.5;Initial Catalog=TheWe_C;Persist Security Info=True;User ID=sa;Password=!QAZ2wsx#EDC");
             set.FileReader(textBox1.Text);
             set.GetProductDbList();
@@ -122,8 +125,10 @@ namespace TheWeParser
 
         private void button3_Click(object sender, EventArgs e)
         {
-            ProductdataParser set = new ProductdataParser(AliStr);
-            set.FixServiceItemLocationInfo();
+            OtherDataParser set = new OtherDataParser(TESTSTR);
+            set.FileReader(textBox1.Text);
+            set.GetDataList();
+            set.writeBackData();
         }
     }
 

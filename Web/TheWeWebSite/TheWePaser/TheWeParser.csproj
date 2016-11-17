@@ -85,6 +85,7 @@
     </Compile>
     <Compile Include="Output\ChurchDataParser.cs" />
     <Compile Include="Output\DressDataParser.cs" />
+    <Compile Include="Output\OtherDataParser.cs" />
     <Compile Include="Output\ProductdataParser.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

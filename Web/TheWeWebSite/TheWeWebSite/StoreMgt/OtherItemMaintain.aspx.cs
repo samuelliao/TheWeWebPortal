@@ -283,12 +283,29 @@ namespace TheWeWebSite.StoreMgt
                     {
                         if (!string.IsNullOrEmpty(dataItem1["CountryId"].ToString()))
                         {
+                            string labelChurch = string.Empty;
+                            string labelChurchOth = string.Empty;
                             location = SysProperty.GetCountryById(dataItem1["CountryId"].ToString());
-                            ((Label)e.Item.FindControl("labelChurch")).Text = SysProperty.Util.OutputRelatedLangName(Session["CultureCode"].ToString(), location);
-                            ((Label)e.Item.FindControl("labelChurchOth")).Text = location["Code"].ToString().Trim() == "JP" ? location["JpName"].ToString() : location["EngName"].ToString();
+                            if (!string.IsNullOrEmpty(dataItem1["AreaId"].ToString()))
+                            {
+                                DataRow areaRow = SysProperty.GetAreaById(dataItem1["AreaId"].ToString());
+                                labelChurch += SysProperty.Util.OutputRelatedLangName(Session["CultureCode"].ToString(), areaRow);
+                                labelChurchOth += location["Code"].ToString().Trim() == "JP" ? areaRow["JpName"].ToString() : areaRow["EngName"].ToString();
+                                
+                                labelChurch += "(" + SysProperty.Util.OutputRelatedLangName(Session["CultureCode"].ToString(), location) + ")";
+                                labelChurchOth += "(" + location["Code"].ToString().Trim() == "JP" ? location["JpName"].ToString() : location["EngName"].ToString() + ")";
+                            }
+                            else
+                            {                                
+                                labelChurch = SysProperty.Util.OutputRelatedLangName(Session["CultureCode"].ToString(), location);
+                                labelChurchOth = location["Code"].ToString().Trim() == "JP" ? location["JpName"].ToString() : location["EngName"].ToString();
+                            }
+                            ((Label)e.Item.FindControl("labelChurch")).Text = labelChurch;
+                            ((Label)e.Item.FindControl("labelChurchOth")).Text = labelChurchOth;
+
                         }
                     }
-                    
+
                 }
 
 
@@ -302,7 +319,7 @@ namespace TheWeWebSite.StoreMgt
             GetOtherItemList(string.Empty);
             dataGrid.DataSource = DS;
             dataGrid.AllowPaging = !SysProperty.Util.IsDataSetEmpty(DS);
-            
+
             dataGrid.DataBind();
         }
 
@@ -319,8 +336,19 @@ namespace TheWeWebSite.StoreMgt
                             ? string.Empty
                             : " and a.StoreId = '" + ((DataRow)Session["LocateStore"])["Id"].ToString() + "'");
                     DS = GetServiceItem(condStr, sortStr);
+                    if (!SysProperty.Util.IsDataSetEmpty(DS))
+                    {
+                        DS.Tables[0].PrimaryKey = new[] { DS.Tables[0].Columns["Id"] };
+                    }
+
                     condStr = OtherConditionString + " And IsStore = 0";
-                    DS.Merge(GetServiceItem(condStr, sortStr));
+                    DataSet ds2 = GetServiceItem(condStr, sortStr);
+                    if (!SysProperty.Util.IsDataSetEmpty(ds2))
+                    {
+                        ds2.Tables[0].PrimaryKey = new[] { ds2.Tables[0].Columns["Id"] };
+                    }
+                    DS.Merge(ds2);
+                    //DS.Tables[0].S
                 }
                 else
                 {
@@ -488,7 +516,7 @@ namespace TheWeWebSite.StoreMgt
                 CountryList(ddlCategory.SelectedValue);
                 AreaList(ddlCategory.SelectedValue, ddlCountry.SelectedValue);
                 StoreList(ddlCategory.SelectedValue == "Store", ddlCountry.SelectedValue, ddlArea.SelectedValue);
-                if(ddlCategory.SelectedValue == "Store")
+                if (ddlCategory.SelectedValue == "Store")
                 {
                     if (!bool.Parse(((DataRow)Session["LocateStore"])["HoldingCompany"].ToString()))
                     {
@@ -498,7 +526,8 @@ namespace TheWeWebSite.StoreMgt
                     {
                         LocationDdlControl(true);
                     }
-                }else
+                }
+                else
                 {
                     LocationDdlControl(true);
                 }

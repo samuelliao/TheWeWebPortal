@@ -70,7 +70,8 @@ namespace TheWeParser.Output
                         try
                         {
                             areaName = WORKSHEET.GetRow(rowCnt).GetCell(1).StringCellValue;
-                        }catch(Exception ex)
+                        }
+                        catch (Exception ex)
                         {
                             areaName = countryName;
                         }
@@ -93,25 +94,34 @@ namespace TheWeParser.Output
             List<List<DbSearchObject>> result = new List<List<DbSearchObject>>();
             if (WORKBOOK != null)
             {
-                for (int sheetCnt = 0; sheetCnt < WORKBOOK.NumberOfSheets; sheetCnt++)
+                for (int sheetCnt = 0; sheetCnt < 1; sheetCnt++)
                 {
                     WORKSHEET = (XSSFSheet)WORKBOOK.GetSheetAt(sheetCnt);
                     for (int rowCnt = 1; rowCnt <= WORKSHEET.LastRowNum; rowCnt++)
                     {
                         List<DbSearchObject> lst = new List<DbSearchObject>();
                         if (WORKSHEET.GetRow(rowCnt) == null) continue;
-                        if (WORKSHEET.GetRow(rowCnt).GetCell(0) == null || WORKSHEET.GetRow(rowCnt).GetCell(1) == null) continue;
+                        if (WORKSHEET.GetRow(rowCnt).GetCell(0) == null) continue;
+                        if (string.IsNullOrEmpty(WORKSHEET.GetRow(rowCnt).GetCell(0).StringCellValue)) continue;
 
                         // Country
-                        string countryid = GetCountryId(WORKSHEET.GetRow(rowCnt).GetCell(0).StringCellValue);
+                        string countryid = GetCountryId(WORKSHEET.GetRow(rowCnt).GetCell(4).StringCellValue);
                         if (string.IsNullOrEmpty(countryid)) continue;
                         lst.Add(new DbSearchObject(GetAttrName(0), AtrrTypeItem.String, AttrSymbolItem.Equal, countryid));
 
                         // Area
-                        string areaId = GetAreaId(countryid, WORKSHEET.GetRow(rowCnt).GetCell(1).StringCellValue);
+                        string areaId = GetAreaId(countryid, WORKSHEET.GetRow(rowCnt).GetCell(5).StringCellValue);
                         if (string.IsNullOrEmpty(areaId)) continue;
                         lst.Add(new DbSearchObject(GetAttrName(1), AtrrTypeItem.String, AttrSymbolItem.Equal, areaId));
+                        
+                        string churchName = WORKSHEET.GetRow(rowCnt).GetCell(6).StringCellValue;
+                        lst.Add(new DbSearchObject("Name", AtrrTypeItem.String, AttrSymbolItem.Equal, churchName));
 
+                        //if (WORKSHEET.GetRow(rowCnt).GetCell(1) != null)
+                        //    lst.Add(new DbSearchObject("LocationName", AtrrTypeItem.String, AttrSymbolItem.Equal, WORKSHEET.GetRow(rowCnt).GetCell(1).StringCellValue));
+
+
+                        /*
                         for (int cellCnt = 2; cellCnt < 10; cellCnt++)
                         {
                             var cell = WORKSHEET.GetRow(rowCnt).GetCell(cellCnt);
@@ -150,6 +160,8 @@ namespace TheWeParser.Output
                                     , AttrSymbolItem.Equal
                                     , remark));
                         }
+                        */
+
                         result.Add(lst);
                     }
                 }
@@ -231,6 +243,8 @@ namespace TheWeParser.Output
             {
                 try
                 {
+                    string churchId = GetChurchId(item.Find(x=>x.AttrName=="CountryId").AttrValue, item.Find(x => x.AttrName == "AreaId").AttrValue, item.Find(x => x.AttrName == "Name").AttrValue);
+                    if (!string.IsNullOrEmpty(churchId)) continue;
                     result = result & GenDbCon.InsertDataInToTable("Church", Util.SqlQueryInsertInstanceConverter(item), Util.SqlQueryInsertValueConverter(item));
                 }
                 catch (Exception ex)
@@ -401,7 +415,7 @@ namespace TheWeParser.Output
         {
             DataSet chDs = GetChurchId();
             DataSet siDs = GetExistServiceItem();
-            
+
             if (Util.IsDataSetEmpty(chDs) && Util.IsDataSetEmpty(siDs)) return;
             List<List<DbSearchObject>> dbls = new List<List<DbSearchObject>>();
             foreach (DataRow dr in siDs.Tables[0].Rows)
@@ -412,7 +426,7 @@ namespace TheWeParser.Output
             foreach (DataRow dr in chDs.Tables[0].Rows)
             {
                 if (siDs.Tables[0].Select("SupplierId = '" + dr["Id"].ToString() + "'").Length > 0) continue;
-                foreach(List<DbSearchObject> item in dbls)
+                foreach (List<DbSearchObject> item in dbls)
                 {
                     item[item.FindIndex(x => x.AttrName == "SupplierId")].AttrValue = dr["Id"].ToString();
                     WriteBackInfo(MsSqlTable.ServiceItem, item);
@@ -609,14 +623,14 @@ namespace TheWeParser.Output
             try
             {
                 string sql = "Select * From Employee Where IsDelete = 0";
-                DataSet ds =  GenDbCon.GetDataFromTable(sql);
-                foreach(DataRow dr in ds.Tables[0].Rows)
+                DataSet ds = GenDbCon.GetDataFromTable(sql);
+                foreach (DataRow dr in ds.Tables[0].Rows)
                 {
                     if (dr["Account"].ToString() == "admin") continue;
                     WriteBackInfo(MsSqlTable.Employee, AccInfoDbObject(dr["Account"].ToString().ToLower()), dr["Id"].ToString());
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
 
             }

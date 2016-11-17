@@ -20,7 +20,7 @@ namespace TheWeWebSite
         {
             if (string.IsNullOrEmpty(SysProperty.DbConcString))
             {
-                SysProperty.DbConcString = WebConfigurationManager.ConnectionStrings["TheWeConnectionString1"].ConnectionString;
+                SysProperty.DbConcString = WebConfigurationManager.ConnectionStrings["TheWeConnectionString"].ConnectionString;
             }
 
             if (Log == null)
