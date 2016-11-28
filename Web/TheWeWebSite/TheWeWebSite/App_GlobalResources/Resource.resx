@@ -1296,4 +1296,10 @@
   <data name="ProviderNameString" xml:space="preserve">
     <value>Provider</value>
   </data>
+  <data name="ExteriorPhotoString" xml:space="preserve">
+    <value>Exterior Photo</value>
+  </data>
+  <data name="InternalPhotoString" xml:space="preserve">
+    <value>Internal Photo</value>
+  </data>
 </root>

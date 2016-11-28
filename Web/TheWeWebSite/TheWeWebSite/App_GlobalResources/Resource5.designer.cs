@@ -1438,6 +1438,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   查詢類似 Exterior Photo 的當地語系化字串。
+        /// </summary>
+        internal static string ExteriorPhotoString {
+            get {
+                return ResourceManager.GetString("ExteriorPhotoString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查詢類似 Extra Long 的當地語系化字串。
         /// </summary>
         internal static string ExtraLongString {
@@ -1803,6 +1812,15 @@ namespace Resources {
         internal static string InsuranceString {
             get {
                 return ResourceManager.GetString("InsuranceString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查詢類似 Internal Photo 的當地語系化字串。
+        /// </summary>
+        internal static string InternalPhotoString {
+            get {
+                return ResourceManager.GetString("InternalPhotoString", resourceCulture);
             }
         }
         

@@ -1296,4 +1296,10 @@
   <data name="ProviderNameString" xml:space="preserve">
     <value>提供者</value>
   </data>
+  <data name="ExteriorPhotoString" xml:space="preserve">
+    <value>外觀照片</value>
+  </data>
+  <data name="InternalPhotoString" xml:space="preserve">
+    <value>內部照片</value>
+  </data>
 </root>

@@ -94,15 +94,15 @@
                                     <Columns>
                                         <asp:ButtonColumn Text="<%$ Resources:Resource,SearchString%>" CommandName="Select" />
                                         <asp:BoundColumn Visible="false" DataField="Id" />
-                                        <asp:TemplateColumn HeaderText="">
+                                        <asp:TemplateColumn HeaderText="<%$ Resources:Resource,StoreString%>">
                                             <ItemTemplate>
                                                 <asp:Label runat="server" ID="labelStore" />
                                             </ItemTemplate>
                                         </asp:TemplateColumn>
-                                        <asp:BoundColumn HeaderText="" DataField="Account" />
-                                        <asp:BoundColumn HeaderText="" DataField="Sn" />
-                                        <asp:BoundColumn HeaderText="" DataField="Name" />
-                                        <asp:TemplateColumn HeaderText="">
+                                        <asp:BoundColumn HeaderText="<%$ Resources:Resource,AccountString%>" DataField="Account" />
+                                        <asp:BoundColumn HeaderText="<%$ Resources:Resource,EmployeeSnString%>" DataField="Sn" />
+                                        <asp:BoundColumn HeaderText="<%$ Resources:Resource,NameString%>" DataField="Name" />
+                                        <asp:TemplateColumn HeaderText="<%$ Resources:Resource,IsValidString%>">
                                             <ItemTemplate>
                                                 <asp:Label runat="server" ID="labelIsValid" />
                                             </ItemTemplate>

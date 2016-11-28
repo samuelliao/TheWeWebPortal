@@ -125,11 +125,6 @@
                                                     <asp:Label runat="server" ID="dgLabelProvider" />
                                                 </ItemTemplate>
                                             </asp:TemplateColumn>
-                                            <asp:TemplateColumn HeaderText="<%$ Resources:Resource,PriceString%>">
-                                                <ItemTemplate>
-                                                    <asp:Label runat="server" ID="dgLabelPrice" />
-                                                </ItemTemplate>
-                                            </asp:TemplateColumn>
                                             <asp:BoundColumn HeaderText="<%$ Resources:Resource,RemarkString%>" DataField="Remark"></asp:BoundColumn>
                                             <asp:ButtonColumn CommandName="Delete"
                                                 HeaderText="<%$ Resources:Resource,DeleteString%>"

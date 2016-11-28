@@ -233,9 +233,9 @@
                 </div>
                 <div id="uploadPanel" style="display: none;">
                     <div class="fileUpload" runat="server" id="divUpload">
-                        <asp:Label runat="server" Text="<%$ Resources:Resource,ImgFrontString%>"></asp:Label>
+                        <asp:Label runat="server" Text="<%$ Resources:Resource,ExteriorPhotoString%>"></asp:Label>
                         <asp:FileUpload ID="FileUpload1" Width="80px" runat="server" />
-                        <asp:Label runat="server" Text="<%$ Resources:Resource,ImgBackString%>"></asp:Label>
+                        <asp:Label runat="server" Text="<%$ Resources:Resource,InternalPhotoString%>"></asp:Label>
                         <asp:FileUpload ID="FileUpload2" Width="80px" runat="server" />
                         <asp:Label runat="server" Text="<%$ Resources:Resource,ImgSideString%>"></asp:Label>
                         <asp:FileUpload ID="FileUpload3" Width="80px" runat="server" />
@@ -261,7 +261,7 @@
             <div class="row no-collapse 50% uniform">
                 <div class="6u 12u(mobilep)">
                     <div style="text-align: center">
-                        <asp:Label runat="server" Text="<%$ Resources:Resource,ImgFrontString%>"></asp:Label>
+                        <asp:Label runat="server" Text="<%$ Resources:Resource,ExteriorPhotoString%>"></asp:Label>
                         <asp:Label runat="server" Text="" ID="tbFolderPath" Visible="false"></asp:Label>
                     </div>
                     <span class="image fit">
@@ -271,7 +271,7 @@
                 </div>
                 <div class="6u 12u(mobilep)">
                     <div style="text-align: center">
-                        <asp:Label runat="server" Text="<%$ Resources:Resource,ImgBackString%>"></asp:Label>
+                        <asp:Label runat="server" Text="<%$ Resources:Resource,InternalPhotoString%>"></asp:Label>
                     </div>
                     <span class="image fit">
                         <asp:Image runat="server" ID="ImgBack" />

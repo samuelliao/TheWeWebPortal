@@ -87,7 +87,8 @@ namespace TheWeWebSite.Output
                 foreach(DataRow dr in lst.Where(x => x["CountryId"].ToString().Equals(countryId)))
                 {
                     result += string.IsNullOrEmpty(result) ? string.Empty : ", ";
-                    result += SysProperty.Util.OutputRelatedLangName(string.Empty, dr);
+                    result += SysProperty.Util.OutputRelatedLangName(string.Empty, dr)+"("+ SysProperty.Util.OutputRelatedLangName
+                            (string.Empty, SysProperty.GetAreaById(dr["AreaId"].ToString())) +")";
                 }
             }
             return result;
