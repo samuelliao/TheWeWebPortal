@@ -100,7 +100,7 @@ namespace TheWeParser.Output
                         lst.Add(new DbSearchObject("UpdateTime", AtrrTypeItem.DateTime, AttrSymbolItem.Equal, DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss")));
                         ProductInfo.Add(lst);
 
-                        ProductForStore.Add(SetDbObject(pds, Util.ParseMoney(WORKSHEET.GetRow(rowCnt).GetCell(3).NumericCellValue.ToString()).ToString("#0.00"), Util.ParseMoney(WORKSHEET.GetRow(rowCnt).GetCell(4).NumericCellValue.ToString()).ToString("#0.00")));
+                        ProductForStore.Add(SetDbObject(pds, Util.ParseMoney(WORKSHEET.GetRow(rowCnt).GetCell(3).NumericCellValue.ToString()).ToString("#0.00"), Util.ParseMoney(WORKSHEET.GetRow(rowCnt).GetCell(4).NumericCellValue.ToString()).ToString("#0.00"), false, false, ""));
 
                         storePrice = StoreLVPrice(productid);
                         if (Util.IsDataSetEmpty(storePrice)) continue;
@@ -127,10 +127,15 @@ namespace TheWeParser.Output
             string productid = "";
             string productName = "";
             string churchName = "";
+            bool isJP = false;
+            //string currencyId = "470E9113-4E57-43B6-A2B3-622904493945"; // JPY
+            //string currencyId = "FD570380-B2DA-45EA-B27B-FBB7A497BAB2"; // usd
+            string currencyId = "96decc41-c9a8-4a63-acc5-6600568a9567"; // gbp
+            //string currencyId = "F4C8B4A8-2DDB-4200-8BA0-447555201219"; // EUR
             List<DbSearchObject> lst;
             if (WORKBOOK != null)
             {
-                for (int sheetCnt = 0; sheetCnt < 1; sheetCnt++)
+                for (int sheetCnt = 0; sheetCnt < WORKBOOK.NumberOfSheets; sheetCnt++)
                 {
                     WORKSHEET = (XSSFSheet)WORKBOOK.GetSheetAt(sheetCnt);
                     for (int rowCnt = 1; rowCnt <= WORKSHEET.LastRowNum; rowCnt++)
@@ -144,8 +149,8 @@ namespace TheWeParser.Output
                         churchName = WORKSHEET.GetRow(rowCnt).GetCell(6).StringCellValue.Trim();
                         string countryid = GetCountryId(WORKSHEET.GetRow(rowCnt).GetCell(4).StringCellValue);
                         string areaId = GetAreaId(countryid, WORKSHEET.GetRow(rowCnt).GetCell(5).StringCellValue);
-                        chDs = GetChurch(countryid, areaId, churchName);
-                        //chDs = GetChurch(churchName);
+                        string churchLoc = WORKSHEET.GetRow(rowCnt).GetCell(1) != null ? WORKSHEET.GetRow(rowCnt).GetCell(1).StringCellValue : string.Empty;
+                        chDs = GetChurch(countryid, areaId, churchName, (isJP ? churchLoc : ""));
                         if (Util.IsDataSetEmpty(chDs))
                         {
                             continue;
@@ -155,7 +160,7 @@ namespace TheWeParser.Output
                             pds = GetProduct(productName, dr["Id"].ToString());
                             if (Util.IsDataSetEmpty(pds))
                             {
-                                WriteBackDb(SetProductData(WORKSHEET.GetRow(rowCnt) as XSSFRow, dr["CountryId"].ToString(), dr["AreaId"].ToString(), dr["Id"].ToString()), true, "ProductSet");
+                                WriteBackDb(SetProductData(WORKSHEET.GetRow(rowCnt) as XSSFRow, dr["CountryId"].ToString(), dr["AreaId"].ToString(), dr["Id"].ToString(), isJP, currencyId), true, "ProductSet");
                                 pds = GetProduct(productName, dr["Id"].ToString());
                                 if (Util.IsDataSetEmpty(pds))
                                 {
@@ -179,13 +184,15 @@ namespace TheWeParser.Output
                         lst.Add(new DbSearchObject("Id", AtrrTypeItem.String, AttrSymbolItem.Equal, productid));
                         lst.Add(new DbSearchObject("Cost", AtrrTypeItem.String, AttrSymbolItem.Equal, Util.ParseMoney(WORKSHEET.GetRow(rowCnt).GetCell(19).NumericCellValue.ToString()).ToString("#0.00")));
                         //lst.Add(new DbSearchObject("CostCurrencyId", AtrrTypeItem.String, AttrSymbolItem.Equal, "470E9113-4E57-43B6-A2B3-622904493945"));
-                        lst.Add(new DbSearchObject("CostCurrencyId", AtrrTypeItem.String, AttrSymbolItem.Equal, "FD570380-B2DA-45EA-B27B-FBB7A497BAB2"));
+                        lst.Add(new DbSearchObject("CostCurrencyId", AtrrTypeItem.String, AttrSymbolItem.Equal, currencyId)); //USD
+                        //lst.Add(new DbSearchObject("CostCurrencyId", AtrrTypeItem.String, AttrSymbolItem.Equal, "FD570380-B2DA-45EA-B27B-FBB7A497BAB2")); //USD
                         //lst.Add(new DbSearchObject("CostCurrencyId", AtrrTypeItem.String, AttrSymbolItem.Equal, "470E9113-4E57-43B6-A2B3-622904493945"));//JPN
                         lst.Add(new DbSearchObject("UpdateAccId", AtrrTypeItem.String, AttrSymbolItem.Equal, "00000000-0000-0000-0000-000000000001"));
                         lst.Add(new DbSearchObject("UpdateTime", AtrrTypeItem.DateTime, AttrSymbolItem.Equal, DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss")));
                         ProductInfo.Add(lst);
 
-                        ProductForStore.Add(SetDbObject(pds, Util.ParseMoney(WORKSHEET.GetRow(rowCnt).GetCell(33).NumericCellValue.ToString()).ToString("#0.00"), Util.ParseMoney(WORKSHEET.GetRow(rowCnt).GetCell(35).NumericCellValue.ToString()).ToString("#0.00")));
+                        ProductForStore.Add(SetDbObject(pds, Util.ParseMoney(WORKSHEET.GetRow(rowCnt).GetCell(33).NumericCellValue.ToString()).ToString("#0.00"), Util.ParseMoney(WORKSHEET.GetRow(rowCnt).GetCell(35).NumericCellValue.ToString()).ToString("#0.00"), true, true, currencyId));
+                        ProductForStore.Add(SetDbObject(pds, Util.ParseMoney(WORKSHEET.GetRow(rowCnt).GetCell(33).NumericCellValue.ToString()).ToString("#0.00"), Util.ParseMoney(WORKSHEET.GetRow(rowCnt).GetCell(35).NumericCellValue.ToString()).ToString("#0.00"), false, false, currencyId));
 
                         for (int cnt = 1; cnt <= 2; cnt++)
                         {
@@ -211,13 +218,13 @@ namespace TheWeParser.Output
         public bool WriteBack()
         {
             bool result = true;
-            //result = result & WriteBackProductInfo();
+            //result = result & WriteBackProductInfo(isJP);
             result = result & WriteBackProductStroeLvPrice(true);
             result = result & WriteBackProductForStore();
             return result;
         }
 
-        private bool WriteBackProductInfo()
+        private bool WriteBackProductInfo(bool isJP)
         {
             bool result = true;
             foreach (List<DbSearchObject> item in ProductInfo)
@@ -299,7 +306,7 @@ namespace TheWeParser.Output
             }
         }
 
-        private List<DbSearchObject> SetDbObject(DataSet ds, string cost, string price)
+        private List<DbSearchObject> SetDbObject(DataSet ds, string cost, string price, bool isTWD, bool isTW, string currency)
         {
             List<DbSearchObject> lst = new List<DbSearchObject>();
             #region TextBox
@@ -313,7 +320,7 @@ namespace TheWeParser.Output
             "Price"
             , AtrrTypeItem.Integer
             , AttrSymbolItem.Equal
-            , price
+            , (isTW ? price : "0")
             ));
 
             lst.Add(new DbSearchObject(
@@ -454,6 +461,7 @@ namespace TheWeParser.Output
                 "CostCurrencyId"
                 , AtrrTypeItem.String
                 , AttrSymbolItem.Equal
+                //, currency
                 , "FD570380-B2DA-45EA-B27B-FBB7A497BAB2"
                 //, "470E9113-4E57-43B6-A2B3-622904493945"
                 ));
@@ -461,7 +469,7 @@ namespace TheWeParser.Output
                 "PriceCurrencyId"
                 , AtrrTypeItem.String
                 , AttrSymbolItem.Equal
-                , "A22C53A8-DD4D-4DD8-BD12-1D6512B89D95"
+                , (isTWD ? "A22C53A8-DD4D-4DD8-BD12-1D6512B89D95" : "07AE6782-CB3E-4F9D-ACC3-225A77B36550")
                 ));
             #endregion
             #region CheckBox
@@ -548,7 +556,7 @@ namespace TheWeParser.Output
                 "StoreId"
                 , AtrrTypeItem.String
                 , AttrSymbolItem.Equal
-                , "24C25A04-4C6C-44CD-961B-83C4BF129A3D"
+                , (isTW ? "24C25A04-4C6C-44CD-961B-83C4BF129A3D" : "B106FD82-C7E3-4028-9C6C-032F0B47EC98")
                 ));
             lst.Add(new DbSearchObject(
                 "UpdateAccId"
@@ -692,7 +700,7 @@ namespace TheWeParser.Output
         {
             try
             {
-                string sql = "Select Id From Country Where Name like N'%" + name + "%'";
+                string sql = "Select Id From Country Where Name like N'%" + name + "%'";                
                 DataSet ds = GenDbCon.GetDataFromTable(sql);
                 if (Util.IsDataSetEmpty(ds))
                 {
@@ -729,11 +737,12 @@ namespace TheWeParser.Output
                 return string.Empty;
             }
         }
-        public DataSet GetChurch(string countryId, string areaId, string name)
+        public DataSet GetChurch(string countryId, string areaId, string name, string locationName)
         {
             try
             {
                 string sql = "Select * From Church Where Name = N'" + name + "' And CountryId='" + countryId + "' And AreaId = '" + areaId + "'";
+                if (!string.IsNullOrEmpty(locationName)) sql += sql + " And locationName='" + locationName + "'";
                 DataSet ds = GenDbCon.GetDataFromTable(sql);
                 if (Util.IsDataSetEmpty(ds))
                 {
@@ -928,7 +937,7 @@ namespace TheWeParser.Output
             return result;
         }
 
-        private List<DbSearchObject> SetProductData(XSSFRow row, string countryId, string areaId, string churchId)
+        private List<DbSearchObject> SetProductData(XSSFRow row, string countryId, string areaId, string churchId, bool isJP, string currencyId)
         {
             List<DbSearchObject> lst = new List<DbSearchObject>();
             #region TextBox
@@ -951,12 +960,15 @@ namespace TheWeParser.Output
                 , AttrSymbolItem.Equal
                 , row.GetCell(0).StringCellValue
                 ));
-            lst.Add(new DbSearchObject(
-                "EngName"
-                , AtrrTypeItem.String
-                , AttrSymbolItem.Equal
-                , (row.GetCell(1) == null ? string.Empty : row.GetCell(1).StringCellValue)
-                ));
+            if (!isJP)
+            {
+                lst.Add(new DbSearchObject(
+                    "EngName"
+                    , AtrrTypeItem.String
+                    , AttrSymbolItem.Equal
+                    , (row.GetCell(1) == null ? string.Empty : row.GetCell(1).StringCellValue)
+                    ));
+            }
             lst.Add(new DbSearchObject(
                 "BridalMakeup"
                 , AtrrTypeItem.String
@@ -1069,14 +1081,16 @@ namespace TheWeParser.Output
                 "CostCurrencyId"
                 , AtrrTypeItem.String
                 , AttrSymbolItem.Equal
-                , "FD570380-B2DA-45EA-B27B-FBB7A497BAB2"
+                , currencyId
+                //, "FD570380-B2DA-45EA-B27B-FBB7A497BAB2"
                 //, "470E9113-4E57-43B6-A2B3-622904493945"
                 ));
             lst.Add(new DbSearchObject(
                 "PriceCurrencyId"
                 , AtrrTypeItem.String
                 , AttrSymbolItem.Equal
-                , "FD570380-B2DA-45EA-B27B-FBB7A497BAB2"
+                , currencyId
+                //, "FD570380-B2DA-45EA-B27B-FBB7A497BAB2"
                 //, "470E9113-4E57-43B6-A2B3-622904493945"
                 ));
             #endregion

@@ -41,7 +41,7 @@
                                                 <asp:Label runat="server" Text="<%$ Resources:Resource,AdviosryIdString%>"></asp:Label>
                                             </div>
                                             <asp:TextBox runat="server" Enabled="false" ID="tbAdvisorySn"></asp:TextBox>
-                                            <asp:DropDownList runat="server" ID="ddlStore" Style="display:none" />
+                                            <asp:DropDownList runat="server" ID="ddlStore" Style="display: none" />
                                         </div>
                                         <div class="2u 12u(mobilep)">
                                             <div class="Div">
@@ -422,7 +422,7 @@
                                                     <asp:DropDownList runat="server" ID="ddlCurrency" />
                                                 </ContentTemplate>
                                             </asp:UpdatePanel>
-                                            </div>
+                                        </div>
                                         <div class="2u 12u(mobilep)">
                                             <div class="Div">
                                                 <asp:Label runat="server" Text="<%$ Resources:Resource,PriceString%>"></asp:Label>
@@ -459,8 +459,8 @@
                                             </asp:UpdatePanel>
 
                                         </div>
-                            </div>
-                            </div>
+                                    </div>
+                                </div>
                                 <div class="12u">
                                     <div class="row uniform 50%">
                                         <!-- 照片 -->
@@ -490,13 +490,18 @@
                                                     <Columns>
                                                         <asp:TemplateField HeaderText="<%$ Resources:Resource,ItemString%>">
                                                             <ItemTemplate>
-                                                                <asp:DropDownList runat="server" ID="ddlServiceItem" />
+                                                                <asp:DropDownList runat="server" ID="ddlServiceItem" AutoPostBack="true" OnSelectedIndexChanged="ddlServiceItem_SelectedIndexChanged" />
                                                             </ItemTemplate>
                                                         </asp:TemplateField>
                                                         <asp:TemplateField HeaderText="<%$ Resources:Resource,NumberString%>">
                                                             <ItemTemplate>
                                                                 <asp:TextBox ID="tbNumber" runat="server" Style="text-align: right"></asp:TextBox>
                                                                 <asp:RegularExpressionValidator CssClass="error" Display="Dynamic" ID="RegularExpressionValidator3" ControlToValidate="tbNumber" runat="server" ErrorMessage="Only Numbers allowed" ValidationExpression="\d+"></asp:RegularExpressionValidator>
+                                                            </ItemTemplate>
+                                                        </asp:TemplateField>
+                                                        <asp:TemplateField HeaderText="<%$ Resources:Resource,CurrencyString%>">
+                                                            <ItemTemplate>
+                                                                <asp:Label ID="tbCurrency" Style="text-align: right" runat="server"></asp:Label>
                                                             </ItemTemplate>
                                                         </asp:TemplateField>
                                                         <asp:TemplateField HeaderText="<%$ Resources:Resource,PriceString%>">

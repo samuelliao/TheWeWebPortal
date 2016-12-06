@@ -17,7 +17,8 @@ namespace TheWeWebSite.Output
         public string CreateContractDoc(string sn
             , string bridalName, string bridalEmail, string bridalPhone
             , string groomName, string groomEmail, string groomPhone
-            , string ServiceName, string setName, string otherPrcie, string price, string expectDate)
+            , string ServiceName, string setName, string otherPrcie, string price
+            , string expectDate, string orderDate)
         {
             string folderPath = SysProperty.ImgRootFolderpath + @"\docTemplate";
             string filePath = folderPath + @"\Template\Contract2016TW.xlsx";
@@ -40,10 +41,11 @@ namespace TheWeWebSite.Output
                         {
                             if (cell.StringCellValue.Contains("Pattern"))
                             {
-                                cell.SetCellValue(ReplacePattern(cell.StringCellValue
+                                cell.SetCellValue(ReplacePattern(cell.StringCellValue, sn
                                     , bridalName, bridalEmail, bridalPhone
                                     , groomName, groomEmail, groomPhone
-                                    , ServiceName, setName, otherPrcie, price, expectDate));
+                                    , ServiceName, setName, otherPrcie, price
+                                    , expectDate, orderDate));
                             }
                         }
                     }
@@ -69,13 +71,15 @@ namespace TheWeWebSite.Output
             }
         }
 
-        private string ReplacePattern(string str
+        private string ReplacePattern(string str, string sn
             , string bridalName, string bridalEmail, string bridalPhone
             , string groomName, string groomEmail, string groomPhone
-            , string ServiceName, string setName, string otherPrcie, string price, string expectDate)
+            , string ServiceName, string setName, string otherPrcie, string price
+            , string expectDate, string orderDate)
         {
             if (string.IsNullOrEmpty(str)) return str;
             str = str.Replace("DateTimePattern", DateTime.Now.ToString("dd/MM/yyyy"));
+            str = str.Replace("SnPattern", sn);
             str = str.Replace("BridalEmailPattern", bridalEmail);
             str = str.Replace("BridalNamePattern", bridalName);
             str = str.Replace("BridalPhonePattern", bridalPhone);
@@ -85,6 +89,7 @@ namespace TheWeWebSite.Output
 
             str = str.Replace("SetNamePattern", setName);
             str = str.Replace("ExpectDatePattern", expectDate);
+            str = str.Replace("OrderDatePattern", orderDate);
             str = str.Replace("SetPricePattern", price);
             str = str.Replace("OtherPricePattern", otherPrcie);
             str = str.Replace("ServicePattern", ServiceName);

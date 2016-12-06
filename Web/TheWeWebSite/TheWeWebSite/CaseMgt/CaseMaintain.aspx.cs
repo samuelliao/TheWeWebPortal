@@ -464,7 +464,8 @@ namespace TheWeWebSite.CaseMgt
             DataRowView dataItem1 = (DataRowView)e.Item.DataItem;
             if (dataItem1 != null)
             {
-                bool isWP = dataItem1["Sn"].ToString().Trim().StartsWith("WC");
+                DataRow cnRow = SysProperty.GetCountryById(dataItem1["CountryId"].ToString());
+                bool isWP = dataItem1["Sn"].ToString().Trim().StartsWith("WC"+ cnRow["Code"].ToString());
                 ((Label)e.Item.FindControl("labelStore")).Text = ddlStore.Items.FindByValue(dataItem1["StoreId"].ToString()).Text;
 
                 LinkButton hyperLink1 = (LinkButton)e.Item.FindControl("linkConsult");
@@ -482,7 +483,7 @@ namespace TheWeWebSite.CaseMgt
                     , dataItem1["StatusEngName"].ToString()
                     , dataItem1["StatusJpName"].ToString());
                 ((Label)e.Item.FindControl("labelCountry")).Text = SysProperty.Util.OutputRelatedLangName(Session["CultureCode"].ToString()
-                    , SysProperty.GetCountryById(dataItem1["CountryId"].ToString()));
+                    , cnRow);
                 ((Label)e.Item.FindControl("labelArea")).Text = SysProperty.Util.OutputRelatedLangName(Session["CultureCode"].ToString()
                     , SysProperty.GetAreaById(dataItem1["AreaId"].ToString()));
                 ((Label)e.Item.FindControl("labelLocation")).Text = SysProperty.Util.OutputRelatedLangName(Session["CultureCode"].ToString()

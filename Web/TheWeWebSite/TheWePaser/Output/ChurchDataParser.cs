@@ -45,7 +45,7 @@ namespace TheWeParser.Output
             else return false;
         }
 
-        public List<List<DbSearchObject>> GetChurchDbList2()
+        public List<List<DbSearchObject>> GetChurchDbList2(bool isJP)
         {
             List<List<DbSearchObject>> result = new List<List<DbSearchObject>>();
             if (WORKBOOK != null)
@@ -58,9 +58,9 @@ namespace TheWeParser.Output
                         List<DbSearchObject> lst = new List<DbSearchObject>();
                         if (WORKSHEET.GetRow(rowCnt) == null) continue;
                         if (WORKSHEET.GetRow(rowCnt).GetCell(0) == null) continue;
-
+                        if (string.IsNullOrEmpty(WORKSHEET.GetRow(rowCnt).GetCell(0).StringCellValue)) continue;
                         // Country
-                        string countryName = WORKSHEET.GetRow(rowCnt).GetCell(0).StringCellValue;
+                        string countryName = WORKSHEET.GetRow(rowCnt).GetCell(4).StringCellValue;
                         string countryid = GetCountryId(countryName);
                         if (string.IsNullOrEmpty(countryid)) continue;
                         lst.Add(new DbSearchObject(GetAttrName(0), AtrrTypeItem.String, AttrSymbolItem.Equal, countryid));
@@ -69,7 +69,7 @@ namespace TheWeParser.Output
                         string areaName = string.Empty;
                         try
                         {
-                            areaName = WORKSHEET.GetRow(rowCnt).GetCell(1).StringCellValue;
+                            areaName = WORKSHEET.GetRow(rowCnt).GetCell(5).StringCellValue;
                         }
                         catch (Exception ex)
                         {
@@ -79,7 +79,8 @@ namespace TheWeParser.Output
                         if (string.IsNullOrEmpty(areaId)) continue;
                         lst.Add(new DbSearchObject(GetAttrName(1), AtrrTypeItem.String, AttrSymbolItem.Equal, areaId));
 
-                        string churchName = areaName + "婚紗拍攝";
+                        //string churchName = areaName + "婚紗拍攝";
+                        string churchName = WORKSHEET.GetRow(rowCnt).GetCell(6).StringCellValue;
                         lst.Add(new DbSearchObject(GetAttrName(2), AtrrTypeItem.String, AttrSymbolItem.Equal, churchName));
 
                         result.Add(lst);
@@ -89,12 +90,12 @@ namespace TheWeParser.Output
             return result;
         }
 
-        public List<List<DbSearchObject>> GetChurchDbList()
+        public List<List<DbSearchObject>> GetChurchDbList(bool isJP)
         {
             List<List<DbSearchObject>> result = new List<List<DbSearchObject>>();
             if (WORKBOOK != null)
             {
-                for (int sheetCnt = 0; sheetCnt < 1; sheetCnt++)
+                for (int sheetCnt = 0; sheetCnt < WORKBOOK.NumberOfSheets; sheetCnt++)
                 {
                     WORKSHEET = (XSSFSheet)WORKBOOK.GetSheetAt(sheetCnt);
                     for (int rowCnt = 1; rowCnt <= WORKSHEET.LastRowNum; rowCnt++)
@@ -105,24 +106,27 @@ namespace TheWeParser.Output
                         if (string.IsNullOrEmpty(WORKSHEET.GetRow(rowCnt).GetCell(0).StringCellValue)) continue;
 
                         // Country
-                        string countryid = GetCountryId(WORKSHEET.GetRow(rowCnt).GetCell(4).StringCellValue);
+                        string countryid = GetCountryId(WORKSHEET.GetRow(rowCnt).GetCell(0).StringCellValue);
                         if (string.IsNullOrEmpty(countryid)) continue;
                         lst.Add(new DbSearchObject(GetAttrName(0), AtrrTypeItem.String, AttrSymbolItem.Equal, countryid));
 
                         // Area
-                        string areaId = GetAreaId(countryid, WORKSHEET.GetRow(rowCnt).GetCell(5).StringCellValue);
+                        string areaId = GetAreaId(countryid, WORKSHEET.GetRow(rowCnt).GetCell(1).StringCellValue);
                         if (string.IsNullOrEmpty(areaId)) continue;
                         lst.Add(new DbSearchObject(GetAttrName(1), AtrrTypeItem.String, AttrSymbolItem.Equal, areaId));
                         
-                        string churchName = WORKSHEET.GetRow(rowCnt).GetCell(6).StringCellValue;
+                        string churchName = WORKSHEET.GetRow(rowCnt).GetCell(2).StringCellValue;
                         lst.Add(new DbSearchObject("Name", AtrrTypeItem.String, AttrSymbolItem.Equal, churchName));
 
-                        //if (WORKSHEET.GetRow(rowCnt).GetCell(1) != null)
-                        //    lst.Add(new DbSearchObject("LocationName", AtrrTypeItem.String, AttrSymbolItem.Equal, WORKSHEET.GetRow(rowCnt).GetCell(1).StringCellValue));
+                        if (WORKSHEET.GetRow(rowCnt).GetCell(3) != null)
+                            lst.Add(new DbSearchObject("LocationName", AtrrTypeItem.String, AttrSymbolItem.Equal, WORKSHEET.GetRow(rowCnt).GetCell(3).StringCellValue));
+                        else
+                        {
+                            lst.Add(new DbSearchObject("LocationName", AtrrTypeItem.String, AttrSymbolItem.Equal, ""));
+                        }
 
-
-                        /*
-                        for (int cellCnt = 2; cellCnt < 10; cellCnt++)
+                        
+                        for (int cellCnt = 4; cellCnt <= 10; cellCnt++)
                         {
                             var cell = WORKSHEET.GetRow(rowCnt).GetCell(cellCnt);
                             if (cell != null)
@@ -134,7 +138,7 @@ namespace TheWeParser.Output
                             }
                         }
                         string remark = string.Empty;
-                        for (int cellCnt = 19; cellCnt <= WORKSHEET.GetRow(rowCnt).LastCellNum; cellCnt++)
+                        for (int cellCnt = 20; cellCnt <= WORKSHEET.GetRow(rowCnt).LastCellNum; cellCnt++)
                         {
                             var cell = WORKSHEET.GetRow(rowCnt).GetCell(cellCnt);
                             if (cell != null)
@@ -142,14 +146,15 @@ namespace TheWeParser.Output
                                 string tmp = (cell.CellType == NPOI.SS.UserModel.CellType.Numeric ? cell.NumericCellValue.ToString() : cell.StringCellValue);
                                 if (!string.IsNullOrEmpty(tmp))
                                 {
-                                    if (cellCnt >= 25)
-                                    {
-                                        remark += tmp + "\r\n";
-                                    }
-                                    else
-                                    {
-                                        remark += WORKSHEET.GetRow(0).GetCell(cellCnt).StringCellValue + ":" + tmp + "\r\n";
-                                    }
+                                    remark += tmp + "\r\n";
+                                    //if (cellCnt >= 25)
+                                    //{
+                                    //    remark += tmp + "\r\n";
+                                    //}
+                                    //else
+                                    //{
+                                    //    remark += WORKSHEET.GetRow(0).GetCell(cellCnt).StringCellValue + ":" + tmp + "\r\n";
+                                    //}
                                 }
                             }
                         }
@@ -160,7 +165,6 @@ namespace TheWeParser.Output
                                     , AttrSymbolItem.Equal
                                     , remark));
                         }
-                        */
 
                         result.Add(lst);
                     }
@@ -185,13 +189,21 @@ namespace TheWeParser.Output
 
                         string countryid = GetCountryId(WORKSHEET.GetRow(rowCnt).GetCell(0).StringCellValue);
                         string areaId = GetAreaId(countryid, WORKSHEET.GetRow(rowCnt).GetCell(1).StringCellValue);
+                        string churchName = WORKSHEET.GetRow(rowCnt).GetCell(2).StringCellValue;
+                        string locaName = string.Empty;
+                        if (WORKSHEET.GetRow(rowCnt).GetCell(3) != null)
+                            locaName =  WORKSHEET.GetRow(rowCnt).GetCell(3).StringCellValue;
+
                         //string name = WORKSHEET.GetRow(rowCnt).GetCell(2).StringCellValue;
-                        string churchId = GetChurchId(countryid, areaId, WORKSHEET.GetRow(rowCnt).GetCell(2).StringCellValue);
-                        if (string.IsNullOrEmpty(churchId)) continue;
+                        string churchId = GetChurchId(countryid, areaId, churchName, locaName);
+                        if (string.IsNullOrEmpty(churchId))
+                        {
+                            continue;
+                        }
                         //if (name == "藍點灣海洋教堂") {
                         //    string str = "";
                         //}
-                        for (int cellCnt = 10; cellCnt <= 18; cellCnt++)
+                        for (int cellCnt = 11; cellCnt <= 19; cellCnt++)
                         {
                             var cell = WORKSHEET.GetRow(rowCnt).GetCell(cellCnt);
                             if (cell != null)
@@ -243,9 +255,12 @@ namespace TheWeParser.Output
             {
                 try
                 {
-                    string churchId = GetChurchId(item.Find(x=>x.AttrName=="CountryId").AttrValue, item.Find(x => x.AttrName == "AreaId").AttrValue, item.Find(x => x.AttrName == "Name").AttrValue);
-                    if (!string.IsNullOrEmpty(churchId)) continue;
-                    result = result & GenDbCon.InsertDataInToTable("Church", Util.SqlQueryInsertInstanceConverter(item), Util.SqlQueryInsertValueConverter(item));
+                    //string churchId = GetChurchId(item.Find(x=>x.AttrName=="CountryId").AttrValue, item.Find(x => x.AttrName == "AreaId").AttrValue, item.Find(x => x.AttrName == "Name").AttrValue, item.Find(x => x.AttrName == "LocationName").AttrValue);
+                    string churchId = GetChurchId(item.Find(x => x.AttrName == "CountryId").AttrValue, item.Find(x => x.AttrName == "AreaId").AttrValue, item.Find(x => x.AttrName == "Name").AttrValue);
+                    if (!string.IsNullOrEmpty(churchId))
+                        result = result & GenDbCon.UpdateDataIntoTable("Church", Util.SqlQueryUpdateConverter(item), " Where Id = N'" + churchId + "'");
+                    else
+                        result = result & GenDbCon.InsertDataInToTable("Church", Util.SqlQueryInsertInstanceConverter(item), Util.SqlQueryInsertValueConverter(item));
                 }
                 catch (Exception ex)
                 {
@@ -288,25 +303,25 @@ namespace TheWeParser.Output
                 case 2:
                     result = "Name";
                     break;
-                case 3:
+                case 4:
                     result = "CnName";
                     break;
-                case 4:
+                case 5:
                     result = "EngName";
                     break;
-                case 5:
+                case 6:
                     result = "JpName";
                     break;
-                case 6:
+                case 7:
                     result = "Capacities";
                     break;
-                case 7:
+                case 8:
                     result = "RedCarpetLong";
                     break;
-                case 8:
+                case 9:
                     result = "RedCarpetCategory";
                     break;
-                case 9:
+                case 10:
                     result = "PatioHeight";
                     break;
                 default:
@@ -356,11 +371,35 @@ namespace TheWeParser.Output
                 return string.Empty;
             }
         }
+        public string GetChurchId(string countryId, string areaId, string name, string location)
+        {
+            try
+            {
+                string sql = "Select Id From Church Where Name = N'" + name + "' And CountryId='" + countryId + "' And AreaId = '" + areaId + "'";
+                //if (!string.IsNullOrEmpty(location)) sql += " And locationName = N'" + location + "'";
+                DataSet ds = GenDbCon.GetDataFromTable(sql);
+                if (Util.IsDataSetEmpty(ds))
+                {
+                    //return InsertData(false, name, countryId);
+                    return string.Empty;
+                }
+                else
+                {
+                    return ds.Tables[0].Rows[0]["Id"].ToString();
+                }
+            }
+            catch (Exception ex)
+            {
+                return string.Empty;
+            }
+        }
+
         public string GetChurchId(string countryId, string areaId, string name)
         {
             try
             {
-                string sql = "Select Id From Church Where Name like N'%" + name + "%' And CountryId='" + countryId + "' And AreaId = '" + areaId + "'";
+                string sql = "Select Id From Church Where Name = N'" + name + "' And CountryId='" + countryId + "'";
+                //if (!string.IsNullOrEmpty(location)) sql += " And locationName = N'" + location + "'";
                 DataSet ds = GenDbCon.GetDataFromTable(sql);
                 if (Util.IsDataSetEmpty(ds))
                 {

@@ -520,7 +520,7 @@ namespace TheWeWebSite.CaseMgt
                     + ",do.[CreatedateTime],do.[UpdatedateTime]"
                     + ",do.[SpecialClaim],do.[IsTry],d.Sn as DressSn"
                     + ",hs.Sn as HairItemSn,d.Category as DressCategory,hs.Type as HairItemType"
-                    + " FROM[TheWe_C].[dbo].[DressOrder] as do"
+                    + " FROM [DressOrder] as do"
                     + " Left join Dress as d on d.Id = do.DressId"
                     + " Left Join HairStyleItem as hs on hs.Id = do.HairItemId"
                     + " Where do.IsDelete=0 And do.OrderId='" + orderId + "'";

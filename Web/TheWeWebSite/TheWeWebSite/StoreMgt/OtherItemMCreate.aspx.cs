@@ -130,6 +130,7 @@ namespace TheWeWebSite.StoreMgt
         private void CurrencyList()
         {
             ddlCurrency.Items.Clear();
+            ddlCostCurrency.Items.Clear();
             List<DbSearchObject> lst = new List<DbSearchObject>();
             lst.Add(new DbSearchObject("IsDelete", AtrrTypeItem.Bit, AttrSymbolItem.Equal, "0"));
             DataSet ds = GetDataFromDb(SysProperty.Util.MsSqlTableConverter(MsSqlTable.Currency), lst, string.Empty);
@@ -138,6 +139,10 @@ namespace TheWeWebSite.StoreMgt
                 ddlCurrency.Items.Add(new ListItem
                     (dr["Name"].ToString()
                     , dr["Id"].ToString()));
+                ddlCostCurrency.Items.Add(new ListItem
+                    (dr["Name"].ToString()
+                    , dr["Id"].ToString()));
+
             }
         }
         private void CategoryList()
@@ -214,7 +219,7 @@ namespace TheWeWebSite.StoreMgt
             ddlStore.Items.Clear();
             ddlStore.Items.Add(new ListItem(Resources.Resource.SeletionRemindString, string.Empty));
             DataSet ds;
-            string condStr = string.Empty;            
+            string condStr = string.Empty;
             if (!string.IsNullOrEmpty(cid))
             {
                 condStr += " And CountryId = '" + cid + "'";
@@ -422,14 +427,24 @@ namespace TheWeWebSite.StoreMgt
             tbOthDescription.Text = dr["Description"].ToString();
             tbOthName.Text = dr["Name"].ToString();
             ddlCategory.SelectedValue = (bool.Parse(dr["IsStore"].ToString()) ? "Store" : "Church");
-            ddlCategory_SelectedIndexChanged(ddlCategory, new EventArgs());            
+            ddlCategory_SelectedIndexChanged(ddlCategory, new EventArgs());
             ddlOthCategory.SelectedValue = dr["CategoryId"].ToString();
             ddlOthCategory_SelectedIndexChanged(ddlOthCategory, new EventArgs());
             ddlType.SelectedValue = dr["Type"].ToString();
             ddlCurrency.SelectedValue = dr["CurrencyId"].ToString();
+            ddlCostCurrency.SelectedValue = dr["CostCurrencyId"] != null ? dr["CostCurrencyId"].ToString() : ddlCostCurrency.Items[0].Value;
             ddlType_SelectedIndexChanged(ddlType, new EventArgs());
 
             #region Location Info
+            if (!string.IsNullOrEmpty(dr["CountryId"].ToString()))
+            {
+                ddlCountry.SelectedValue = dr["CountryId"].ToString();
+                ddlCountry_SelectedIndexChanged(ddlCountry, new EventArgs());
+            }
+            if (!string.IsNullOrEmpty(dr["AreaId"].ToString()))
+            {
+                ddlArea.SelectedValue = dr["AreaId"].ToString();
+            }
             if (ddlCategory.SelectedValue == "Store")
             {
                 ddlStore.SelectedValue = dr["StoreId"].ToString();
@@ -439,15 +454,6 @@ namespace TheWeWebSite.StoreMgt
                 ddlStore.SelectedValue = dr["SupplierId"].ToString();
             }
             ddlStore_SelectedIndexChanged(ddlStore, new EventArgs());
-            if (!string.IsNullOrEmpty(dr["CountryId"].ToString()))
-            {
-                ddlCountry.SelectedValue = dr["CountryId"].ToString();
-                ddlCountry_SelectedIndexChanged(ddlCountry, new EventArgs());
-            }
-            if (!string.IsNullOrEmpty(dr["AreaId"].ToString()))
-            {
-                ddlArea.SelectedValue = dr["AreaId"].ToString();
-            }            
             #endregion
 
             #region Image Info
@@ -515,6 +521,12 @@ namespace TheWeWebSite.StoreMgt
                 , tbOthPrice.Text
                 ));
             lst.Add(new DbSearchObject(
+                "CostCurrencyId"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , ddlCostCurrency.SelectedValue
+                ));
+            lst.Add(new DbSearchObject(
                 "Cost"
                 , AtrrTypeItem.String
                 , AttrSymbolItem.Equal
@@ -541,25 +553,18 @@ namespace TheWeWebSite.StoreMgt
                     , typeId
                     ));
             }
-
-            if (!string.IsNullOrEmpty(ddlStore.SelectedValue))
-            {
-                lst.Add(new DbSearchObject(
-                    (ddlCategory.SelectedValue == "Store" ? "StoreId" : "SupplierId")
-                    , AtrrTypeItem.String
-                    , AttrSymbolItem.Equal
-                    , ddlStore.SelectedValue
-                    ));
-            }
-            if (!string.IsNullOrEmpty(ddlArea.SelectedValue))
-            {
-                lst.Add(new DbSearchObject(
-                    "AreaId"
-                    , AtrrTypeItem.String
-                    , AttrSymbolItem.Equal
-                    , ddlArea.SelectedValue
-                    ));
-            }
+            lst.Add(new DbSearchObject(
+                (ddlCategory.SelectedValue == "Store" ? "StoreId" : "SupplierId")
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , ddlStore.SelectedValue
+                ));
+            lst.Add(new DbSearchObject(
+                "AreaId"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , ddlArea.SelectedValue
+                ));
             if (!string.IsNullOrEmpty(ddlCountry.SelectedValue))
             {
                 lst.Add(new DbSearchObject(
@@ -839,12 +844,13 @@ namespace TheWeWebSite.StoreMgt
                 if (!string.IsNullOrEmpty(ddlArea.SelectedValue))
                 {
                     string countryId = SysProperty.GetAreaById(ddlArea.SelectedValue)["CountryId"].ToString();
-                    if(ddlCountry.SelectedValue!= countryId)
+                    if (ddlCountry.SelectedValue != countryId)
                     {
                         ddlCountry.SelectedValue = countryId;
                     }
                 }
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 Log.Error(ex.Message);
                 ShowErrorMsg(ex.Message);
@@ -870,7 +876,8 @@ namespace TheWeWebSite.StoreMgt
                         DataRow dr = SysProperty.GetChurchById(ddlStore.SelectedValue);
                         countryId = dr["CountryId"].ToString();
                         areaId = dr["AreaId"].ToString();
-                    }else
+                    }
+                    else
                     {
                         DataSet ds = GetDataSetFromTable("Select * From Store Where Id = '" + ddlStore.SelectedValue + "'");
                         if (SysProperty.Util.IsDataSetEmpty(ds)) return;

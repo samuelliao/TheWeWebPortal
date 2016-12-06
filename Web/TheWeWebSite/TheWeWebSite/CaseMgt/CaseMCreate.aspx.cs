@@ -110,7 +110,7 @@ namespace TheWeWebSite.CaseMgt
                 InitialPage();
             }
             else
-            {                
+            {
                 Session.Remove("OrderId");
                 if (Session["CustomerId"] != null) Session.Remove("CustomerId");
                 if (Session["PartnerId"] != null) Session.Remove("PartnerId");
@@ -509,7 +509,7 @@ namespace TheWeWebSite.CaseMgt
             DynamicSn(ddlOrderType.SelectedValue, ddlCountry.SelectedValue);
             SetAreaList(ddlCountry.SelectedValue, IsWeddingPlanner());
             SetChurchList(ddlCountry.SelectedValue, ddlArea.SelectedValue, IsWeddingPlanner());
-            
+
             SetProductSetList(ddlCountry.SelectedValue, ddlArea.SelectedValue, ddlLocate.SelectedValue, ddlOrderType.SelectedValue, IsWeddingPlanner(), ddlStore.SelectedValue);
             FirstGridViewRow();
         }
@@ -573,7 +573,7 @@ namespace TheWeWebSite.CaseMgt
 
         protected void ddlOrderType_SelectedIndexChanged(object sender, EventArgs e)
         {
-            bool isWeddingPlanner = IsWeddingPlanner();            
+            bool isWeddingPlanner = IsWeddingPlanner();
             SetProductSetList(ddlCountry.SelectedValue, ddlArea.SelectedValue, ddlLocate.SelectedValue, ddlOrderType.SelectedValue, isWeddingPlanner, ddlStore.SelectedValue);
             FirstGridViewRow();
             SetCountryList(isWeddingPlanner);
@@ -586,7 +586,7 @@ namespace TheWeWebSite.CaseMgt
         }
 
         protected void ddlProductSet_SelectedIndexChanged(object sender, EventArgs e)
-        {            
+        {
             if (!string.IsNullOrEmpty(ddlProductSet.SelectedValue) && !IsWeddingPlanner())
             {
                 SetProductServiceItem(ddlProductSet.SelectedValue);
@@ -834,7 +834,7 @@ namespace TheWeWebSite.CaseMgt
             ddlOrderType.SelectedValue = dr["ServiceType"].ToString();
             bool isWP = IsWeddingPlanner();
             ddlOrderType_SelectedIndexChanged(ddlOrderType, new EventArgs());
-            ddlProductSet.SelectedValue = dr["SetId"].ToString();            
+            ddlProductSet.SelectedValue = dr["SetId"].ToString();
             ddlCountry.SelectedValue = dr["CountryId"].ToString();
             ddlArea.SelectedValue = dr["AreaId"].ToString();
             ddlLocate.SelectedValue = dr["ChurchId"].ToString();
@@ -1857,10 +1857,12 @@ namespace TheWeWebSite.CaseMgt
             dt.Columns.Add(new DataColumn("Col1", typeof(string)));
             dt.Columns.Add(new DataColumn("Col2", typeof(string)));
             dt.Columns.Add(new DataColumn("Col3", typeof(string)));
+            dt.Columns.Add(new DataColumn("Col4", typeof(string)));
             dr = dt.NewRow();
             dr["Col1"] = string.Empty;
             dr["Col2"] = string.Empty;
             dr["Col3"] = string.Empty;
+            dr["Col4"] = string.Empty;
             dt.Rows.Add(dr);
 
             ViewState["CurrentTable"] = dt;
@@ -1885,12 +1887,13 @@ namespace TheWeWebSite.CaseMgt
                           (TextBox)dgServiceItem.Rows[rowIndex].Cells[1].FindControl("tbNumber");
                         TextBox TextEnd =
                           (TextBox)dgServiceItem.Rows[rowIndex].Cells[2].FindControl("tbPrice");
-
+                        Label LabelCurrency = (Label)dgServiceItem.Rows[rowIndex].Cells[2].FindControl("tbCurrency");
 
                         drCurrentRow = dtCurrentTable.NewRow();
                         dtCurrentTable.Rows[i - 1]["Col1"] = DdlItem.SelectedValue;
                         dtCurrentTable.Rows[i - 1]["Col2"] = TextStart.Text;
                         dtCurrentTable.Rows[i - 1]["Col3"] = TextEnd.Text;
+                        dtCurrentTable.Rows[i - 1]["Col4"] = LabelCurrency.Text;
                         rowIndex++;
                     }
                     dtCurrentTable.Rows.Add(drCurrentRow);
@@ -1919,11 +1922,14 @@ namespace TheWeWebSite.CaseMgt
                         DropDownList DdlItem = (DropDownList)dgServiceItem.Rows[rowIndex].Cells[0].FindControl("ddlServiceItem");
                         TextBox TextStart = (TextBox)dgServiceItem.Rows[rowIndex].Cells[1].FindControl("tbNumber");
                         TextBox TextEnd = (TextBox)dgServiceItem.Rows[rowIndex].Cells[2].FindControl("tbPrice");
+                        Label LabelCurrency = (Label)dgServiceItem.Rows[rowIndex].Cells[2].FindControl("tbCurrency");
+
                         if (TextStart == null) continue;
                         if (TextEnd == null) continue;
                         DdlItem.SelectedValue = dt.Rows[i]["Col1"].ToString();
                         TextStart.Text = dt.Rows[i]["Col2"] == null ? string.Empty : dt.Rows[i]["Col2"].ToString();
                         TextEnd.Text = dt.Rows[i]["Col3"] == null ? string.Empty : dt.Rows[i]["Col3"].ToString();
+                        LabelCurrency.Text = dt.Rows[i]["Col4"] == null ? string.Empty : dt.Rows[i]["Col4"].ToString();
                         rowIndex++;
                     }
                 }
@@ -1943,11 +1949,13 @@ namespace TheWeWebSite.CaseMgt
                     {
                         DropDownList DdlItem = (DropDownList)dgServiceItem.Rows[rowIndex].Cells[0].FindControl("ddlServiceItem");
                         TextBox TextNumber = (TextBox)dgServiceItem.Rows[rowIndex].Cells[1].FindControl("tbNumber");
-                        TextBox TextPrice = (TextBox)dgServiceItem.Rows[rowIndex].Cells[2].FindControl("tbPrice");
+                        TextBox TextPrice = (TextBox)dgServiceItem.Rows[rowIndex].Cells[3].FindControl("tbPrice");
+                        Label LabelCurrency = (Label)dgServiceItem.Rows[rowIndex].Cells[2].FindControl("tbCurrency");
                         drCurrentRow = dtCurrentTable.NewRow();
                         dtCurrentTable.Rows[i - 1]["Col1"] = DdlItem.SelectedValue;
                         dtCurrentTable.Rows[i - 1]["Col2"] = TextNumber.Text;
                         dtCurrentTable.Rows[i - 1]["Col3"] = TextPrice.Text;
+                        dtCurrentTable.Rows[i - 1]["Col4"] = LabelCurrency.Text;
                         rowIndex++;
                     }
 
@@ -2023,13 +2031,32 @@ namespace TheWeWebSite.CaseMgt
         }
         protected void tbPrice_TextChanged(object sender, EventArgs e)
         {
-            //bool result = false;
-            //decimal dec = 0;
-            //result = decimal.TryParse(((TextBox)sender).Text, out dec);
-            //if (result)
-            //{
-            //    //tbTotalPrice.Text = (SysProperty.Util.ParseMoney(tbTotalPrice.Text) + dec).ToString();
-            //}
+            CalTotalPrice();
+        }
+
+        private void CalTotalPrice()
+        {
+            decimal discount = SysProperty.Util.ParseMoney(tbDiscount.Text);
+            decimal otherServicePrice = 0;
+            decimal tmp = 0;
+            bool canParse = false;
+            if (dgServiceItem.Rows.Count > 0)
+            {
+                foreach (GridViewRow dr in dgServiceItem.Rows)
+                {
+                    string str = ((TextBox)dr.Cells[2].FindControl("tbPrice")).Text;
+                    if (string.IsNullOrEmpty(str)) continue;
+                    try
+                    {
+                        canParse =  decimal.TryParse(str, out tmp);
+                        if (canParse) otherServicePrice += tmp;
+                    }catch(Exception ex)
+                    {
+                        
+                    }
+                }
+            }
+            tbTotalPrice.Text = (SysProperty.Util.ParseMoney(tbContractPrice.Text) - discount + otherServicePrice).ToString();
         }
         #endregion                
 
@@ -2104,13 +2131,15 @@ namespace TheWeWebSite.CaseMgt
         private void CreateContrctDoc(string sn
             , string bridalName, string bridalEmail, string bridalPhone
             , string groomName, string groomEmail, string groomPhone
-            , string ServiceName, string setName, string totalPrice, string price, string expectDate)
+            , string ServiceName, string setName, string totalPrice, string price
+            , string expectDate, string orderDate)
         {
             string otherPrice = (SysProperty.Util.ParseMoney(totalPrice) - SysProperty.Util.ParseMoney(price)).ToString("#0.00");
             string filePath = new ContractDoc().CreateContractDoc(sn
                 , bridalName, bridalEmail, bridalPhone
                 , groomName, groomEmail, groomPhone
-                , ServiceName, setName, otherPrice, price, expectDate);
+                , ServiceName, setName, otherPrice, price
+                , expectDate, orderDate);
             Uri uri = new Uri(filePath); // Here I get the error
             string fName = Path.GetFullPath(uri.LocalPath);
             FileInfo fileInfo = new FileInfo(fName);
@@ -2138,7 +2167,8 @@ namespace TheWeWebSite.CaseMgt
             CreateContrctDoc(tbCaseSn.Text
                 , tbBridalName.Text, tbBridalEmail.Text, tbBridalPhone.Text
                 , tbGroomName.Text, tbGroomEmail.Text, tbGroomPhone.Text
-                , ddlOrderType.SelectedItem.Text, ddlProductSet.SelectedItem.Text, tbTotalPrice.Text, tbTotalPrice.Text, GetExpectDate());
+                , ddlOrderType.SelectedItem.Text, ddlProductSet.SelectedItem.Text, tbTotalPrice.Text, tbTotalPrice.Text
+                , GetExpectDate(), tbAppointDate.Text);
         }
 
         private string GetExpectDate()
@@ -2732,5 +2762,40 @@ namespace TheWeWebSite.CaseMgt
             GridViewPayment_AddNewRow();
         }
         #endregion
+
+        protected void ddlServiceItem_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            DropDownList ddl = sender as DropDownList;
+            int index = CalIndex(ddl.ClientID);
+            ((TextBox)dgServiceItem.Rows[index].FindControl("tbNumber")).Text = "1";
+            ((Label)dgServiceItem.Rows[index].FindControl("tbCurrency")).Text = "";
+            ((TextBox)dgServiceItem.Rows[index].FindControl("tbPrice")).Text = "0";
+
+            if (!string.IsNullOrEmpty(ddl.SelectedValue))
+            {
+                DataSet ds = SysProperty.GenDbCon.GetDataFromTable("SELECT A.Id, A.Price, B.Name FROM ServiceItem AS A Left JOIN Currency As B on A.CurrencyId = B.Id Where A.Id = '" + ddl.SelectedValue + "'");
+                if (SysProperty.Util.IsDataSetEmpty(ds)) return;
+                ((TextBox)dgServiceItem.Rows[index].FindControl("tbNumber")).Text = "1";
+                ((Label)dgServiceItem.Rows[index].FindControl("tbCurrency")).Text = ds.Tables[0].Rows[0]["Name"].ToString();
+                ((TextBox)dgServiceItem.Rows[index].FindControl("tbPrice")).Text = SysProperty.Util.ParseMoney(ds.Tables[0].Rows[0]["Price"].ToString()).ToString("#0.00");
+            }
+        }
+
+        private int CalIndex(string clientId)
+        {
+            int index = 0;
+            if (clientId.Contains("_"))
+            {
+                string[] tmp = clientId.Split('_');
+                if (tmp.Length >= 3)
+                {
+                    int tmpInt = 0;
+                    bool result = int.TryParse(tmp[tmp.Length - 1], out tmpInt);
+                    if (result)
+                        index = tmpInt;
+                }
+            }
+            return index;
+        }
     }
 }

@@ -45,7 +45,7 @@ namespace TheWeLib
                     if (Util.IsDataSetEmpty(ds)) return;
                     foreach(DataRow dr in ds.Tables[0].Rows)
                     {
-                        AreaHashList.Add(dr["Id"].ToString(), dr);
+                        AreaHashList.Add(dr["Id"].ToString().ToUpper(), dr);
                     }
                 }
             }
@@ -54,8 +54,8 @@ namespace TheWeLib
         {
             lock (AreaLocker)
             {
-                if (CheckKeyInAreas(id))
-                    return (DataRow)AreaHashList[id];
+                if (CheckKeyInAreas(id.ToUpper()))
+                    return (DataRow)AreaHashList[id.ToUpper()];
                 else
                     return null;
             }
@@ -64,11 +64,11 @@ namespace TheWeLib
         {
             lock (AreaLocker)
             {
-                bool result = AreaHashList.ContainsKey(id);
-                if (!result && HashTableNeedUpdate(AreaHashUpdateTime))
+                bool result = AreaHashList.ContainsKey(id.ToUpper());
+                if (!result || HashTableNeedUpdate(AreaHashUpdateTime))
                 {
                     UpdateAreas();
-                    result = AreaHashList.ContainsKey(id);
+                    result = AreaHashList.ContainsKey(id.ToUpper());
                 }
                 return result;
             }
@@ -88,7 +88,7 @@ namespace TheWeLib
                     if (Util.IsDataSetEmpty(ds)) return;
                     foreach (DataRow dr in ds.Tables[0].Rows)
                     {
-                        CountryHashList.Add(dr["Id"].ToString(), dr);
+                        CountryHashList.Add(dr["Id"].ToString().ToUpper(), dr);
                     }
                 }
             }
@@ -97,11 +97,11 @@ namespace TheWeLib
         {
             lock (CountryLocker)
             {
-                bool result = CountryHashList.ContainsKey(id);
-                if (!result && HashTableNeedUpdate(CountryHashUpdateTime))
+                bool result = CountryHashList.ContainsKey(id.ToUpper());
+                if (!result || HashTableNeedUpdate(CountryHashUpdateTime))
                 {
                     UpdateCountries();
-                    result = CountryHashList.ContainsKey(id);
+                    result = CountryHashList.ContainsKey(id.ToUpper());
                 }
                 return result;
             }
@@ -110,8 +110,8 @@ namespace TheWeLib
         {
             lock (CountryLocker)
             {
-                if (CheckKeyInCountry(id))
-                    return (DataRow)CountryHashList[id];
+                if (CheckKeyInCountry(id.ToUpper()))
+                    return (DataRow)CountryHashList[id.ToUpper()];
                 else
                     return null;
             }
@@ -131,7 +131,7 @@ namespace TheWeLib
                     if (Util.IsDataSetEmpty(ds)) return;
                     foreach (DataRow dr in ds.Tables[0].Rows)
                     {
-                        ChurchHashList.Add(dr["Id"].ToString(), dr);
+                        ChurchHashList.Add(dr["Id"].ToString().ToUpper(), dr);
                     }
                 }
             }
@@ -140,11 +140,11 @@ namespace TheWeLib
         {
             lock (ChurchLocker)
             {
-                bool result = ChurchHashList.ContainsKey(id);
-                if (!result && HashTableNeedUpdate(ChurchHashUpdateTime))
+                bool result = ChurchHashList.ContainsKey(id.ToUpper());
+                if (!result || HashTableNeedUpdate(ChurchHashUpdateTime))
                 {
                     UpdateChurch();
-                    result = ChurchHashList.ContainsKey(id);
+                    result = ChurchHashList.ContainsKey(id.ToUpper());
                 }
                 return result;
             }
@@ -153,8 +153,8 @@ namespace TheWeLib
         {
             lock (ChurchLocker)
             {
-                if (CheckKeyInChurch(id))
-                    return (DataRow)ChurchHashList[id];
+                if (CheckKeyInChurch(id.ToUpper()))
+                    return (DataRow)ChurchHashList[id.ToUpper()];
                 else
                     return null;
             }
@@ -174,7 +174,7 @@ namespace TheWeLib
                     if (Util.IsDataSetEmpty(ds)) return;
                     foreach (DataRow dr in ds.Tables[0].Rows)
                     {
-                        StoreHashList.Add(dr["Id"].ToString(), dr);
+                        StoreHashList.Add(dr["Id"].ToString().ToUpper(), dr);
                     }
                 }
             }
@@ -183,11 +183,11 @@ namespace TheWeLib
         {
             lock (StoreLocker)
             {
-                bool result = StoreHashList.ContainsKey(id);
-                if (!result && HashTableNeedUpdate(StoreHashUpdateTime))
+                bool result = StoreHashList.ContainsKey(id.ToUpper());
+                if (!result || HashTableNeedUpdate(StoreHashUpdateTime))
                 {
                     UpdateStore();
-                    result = StoreHashList.ContainsKey(id);
+                    result = StoreHashList.ContainsKey(id.ToUpper());
                 }
                 return result;
             }
@@ -196,8 +196,8 @@ namespace TheWeLib
         {
             lock (StoreLocker)
             {
-                if (CheckKeyInStore(id))
-                    return (DataRow)StoreHashList[id];
+                if (CheckKeyInStore(id.ToUpper()))
+                    return (DataRow)StoreHashList[id.ToUpper()];
                 else
                     return null;
             }

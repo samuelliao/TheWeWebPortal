@@ -196,7 +196,12 @@ namespace TheWeWebSite.StoreMgt
                 label3.Text = SysProperty.Util.OutputRelatedLangName(
                     Session["CultureCode"].ToString()
                     , SysProperty.GetChurchById(dataItem1["Id"].ToString()));
-                ((Label)e.Item.FindControl("dgLabelChurchOth")).Text = countryDr["Code"].ToString().Trim() == "JP" ? dataItem1["JpName"].ToString() : dataItem1["EngName"].ToString();
+
+                if(countryDr != null)
+                    ((Label)e.Item.FindControl("dgLabelChurchOth")).Text = countryDr["Code"].ToString().Trim() == "JP" ? dataItem1["JpName"].ToString() : dataItem1["EngName"].ToString();
+                else
+                    ((Label)e.Item.FindControl("dgLabelChurchOth")).Text = dataItem1["EngName"].ToString();
+
                 ((Label)e.Item.FindControl("dgLabelProvider")).Text = SysProperty.Util.OutputRelatedLangName(
                     Session["CultureCode"].ToString()
                     , dataItem1["LocationName"].ToString()

@@ -115,7 +115,8 @@ namespace TheWeWebSite.Main
             DataRowView dataItem1 = (DataRowView)e.Item.DataItem;
             if (dataItem1 != null)
             {
-                bool isWP = dataItem1["Sn"].ToString().Trim().StartsWith("WC");
+                DataRow cnRow = SysProperty.GetCountryById(dataItem1["CountryId"].ToString());
+                bool isWP = dataItem1["Sn"].ToString().Trim().StartsWith("WC" + cnRow["Code"].ToString());
                 ((Label)e.Item.FindControl("labelStore")).Text = ddlStore.Items.FindByValue(dataItem1["StoreId"].ToString()).Text;
 
                 LinkButton hyperLink1 = (LinkButton)e.Item.FindControl("linkConsult");
@@ -144,8 +145,9 @@ namespace TheWeWebSite.Main
                     , dataItem1["StatusJpName"].ToString());
 
                 ((Label)e.Item.FindControl("labelLocation")).Text = (SysProperty.Util.OutputRelatedLangName(Session["CultureCode"].ToString()
-                    , (isWP ? SysProperty.GetStoreById(dataItem1["StoreId"].ToString()) : SysProperty.GetChurchById(dataItem1["ChurchId"].ToString())))) + "(" + (SysProperty.Util.OutputRelatedLangName(Session["CultureCode"].ToString(),
-                    SysProperty.GetCountryById(dataItem1["CountryId"].ToString()))) + ")";
+                    , (isWP ? SysProperty.GetStoreById(dataItem1["StoreId"].ToString()) : SysProperty.GetChurchById(dataItem1["ChurchId"].ToString())))) + "(" 
+                    + (SysProperty.Util.OutputRelatedLangName(Session["CultureCode"].ToString(),
+                    cnRow)) + ")";
                 if (isWP)
                 {
                     ((Label)e.Item.FindControl("labelSet")).Text = ddlWPProductSet.Items.FindByValue(dataItem1["SetId"].ToString()).Text;

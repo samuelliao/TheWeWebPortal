@@ -163,7 +163,7 @@ namespace TheWeLib
             catch (Exception ex)
             {
                 Log.Error(ex.Message);
-                return name;
+                return name == null ? string.Empty : name;
             }
         }
 

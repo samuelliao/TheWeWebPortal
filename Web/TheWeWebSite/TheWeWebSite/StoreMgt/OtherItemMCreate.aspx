@@ -108,6 +108,12 @@
                         </div>
                         <div class="2u 12u(mobilep)">
                             <div class="Div">
+                                <asp:Label runat="server" Text="<%$ Resources:Resource,CurrencyString%>"></asp:Label>
+                            </div>
+                            <asp:DropDownList runat="server" ID="ddlCostCurrency" />
+                        </div>
+                        <div class="2u 12u(mobilep)">
+                            <div class="Div">
                                 <asp:Label runat="server" Text="<%$ Resources:Resource,CostString%>"></asp:Label>
                             </div>
                             <asp:TextBox runat="server" ID="tbOthCost" Style="text-align: right"></asp:TextBox>

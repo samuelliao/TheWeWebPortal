@@ -62,7 +62,7 @@ namespace TheWeParser
             ChurchDataParser church = new ChurchDataParser(AliStr);
             church.FileReader(textBox1.Text);
             bool result;
-            result = church.WriteBackChurch(church.GetChurchDbList());
+            result = church.WriteBackChurch(church.GetChurchDbList2(false));
             //result = church.WriteBackChurchServiceTime(church.GetChurchServiceTime());
         }
 
@@ -111,7 +111,7 @@ namespace TheWeParser
         {
             ChurchDataParser church = new ChurchDataParser(@"Data Source=60.205.146.133;Initial Catalog=TheWe_C;Persist Security Info=True;User ID=TheWe;Password=!QAZ2wsx#EDC");
             church.FileReader(textBox1.Text);
-            church.WriteBackChurch(church.GetChurchDbList2());
+            church.WriteBackChurch(church.GetChurchDbList2(false));
         }
         private void SetProductData()
         {

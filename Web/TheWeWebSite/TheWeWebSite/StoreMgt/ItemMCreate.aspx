@@ -346,12 +346,17 @@
                                     <Columns>
                                         <asp:TemplateField HeaderText="<%$ Resources:Resource,ItemString%>">
                                             <ItemTemplate>
-                                                <asp:DropDownList runat="server" ID="ddlServiceItem" />
+                                                <asp:DropDownList runat="server" ID="ddlServiceItem" AutoPostBack="true" OnSelectedIndexChanged="ddlServiceItem_SelectedIndexChanged" />
                                             </ItemTemplate>
                                         </asp:TemplateField>
                                         <asp:TemplateField HeaderText="<%$ Resources:Resource,NumberString%>">
                                             <ItemTemplate>
                                                 <asp:TextBox ID="tbNumber" Style="text-align: right" runat="server"></asp:TextBox>
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
+                                        <asp:TemplateField HeaderText="<%$ Resources:Resource,CurrencyString%>">
+                                            <ItemTemplate>
+                                                <asp:Label ID="tbCurrency" Style="text-align: right" runat="server"></asp:Label>
                                             </ItemTemplate>
                                         </asp:TemplateField>
                                         <asp:TemplateField HeaderText="<%$ Resources:Resource,PriceString%>">
@@ -385,12 +390,17 @@
                                     <Columns>
                                         <asp:TemplateField HeaderText="<%$ Resources:Resource,ItemString%>">
                                             <ItemTemplate>
-                                                <asp:DropDownList runat="server" ID="ddlServiceItem" />
+                                                <asp:DropDownList runat="server" ID="ddlServiceItem" AutoPostBack="true" OnSelectedIndexChanged="ddlServiceItem_SelectedIndexChanged1" />
                                             </ItemTemplate>
                                         </asp:TemplateField>
                                         <asp:TemplateField HeaderText="<%$ Resources:Resource,NumberString%>">
                                             <ItemTemplate>
                                                 <asp:TextBox ID="tbNumber" Style="text-align: right" runat="server"></asp:TextBox>
+                                            </ItemTemplate>
+                                        </asp:TemplateField>
+                                        <asp:TemplateField HeaderText="<%$ Resources:Resource,CurrencyString%>">
+                                            <ItemTemplate>
+                                                <asp:Label ID="tbCurrency" Style="text-align: right" runat="server"></asp:Label>
                                             </ItemTemplate>
                                         </asp:TemplateField>
                                         <asp:TemplateField HeaderText="<%$ Resources:Resource,PriceString%>">

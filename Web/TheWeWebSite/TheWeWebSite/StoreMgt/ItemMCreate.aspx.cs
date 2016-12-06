@@ -485,10 +485,12 @@ namespace TheWeWebSite.StoreMgt
             dt.Columns.Add(new DataColumn("Col1", typeof(string)));
             dt.Columns.Add(new DataColumn("Col2", typeof(string)));
             dt.Columns.Add(new DataColumn("Col3", typeof(string)));
+            dt.Columns.Add(new DataColumn("Col4", typeof(string)));
             dr = dt.NewRow();
             dr["Col1"] = string.Empty;
             dr["Col2"] = string.Empty;
             dr["Col3"] = string.Empty;
+            dr["Col4"] = string.Empty;
             dt.Rows.Add(dr);
 
             ViewState["CurrentTable"] = dt;
@@ -513,13 +515,16 @@ namespace TheWeWebSite.StoreMgt
                         TextBox TextStart =
                           (TextBox)dgChurchServiceItem.Rows[rowIndex].Cells[1].FindControl("tbNumber");
                         TextBox TextEnd =
-                          (TextBox)dgChurchServiceItem.Rows[rowIndex].Cells[2].FindControl("tbPrice");
+                          (TextBox)dgChurchServiceItem.Rows[rowIndex].Cells[3].FindControl("tbPrice");
+                        Label LabelCurrency =
+                            (Label)dgChurchServiceItem.Rows[rowIndex].Cells[2].FindControl("tbCurrency");
 
 
                         drCurrentRow = dtCurrentTable.NewRow();
                         dtCurrentTable.Rows[i - 1]["Col1"] = DdlItem.SelectedValue;
                         dtCurrentTable.Rows[i - 1]["Col2"] = TextStart.Text;
                         dtCurrentTable.Rows[i - 1]["Col3"] = TextEnd.Text;
+                        dtCurrentTable.Rows[i - 1]["Col4"] = LabelCurrency.Text;
                         rowIndex++;
                     }
                     dtCurrentTable.Rows.Add(drCurrentRow);
@@ -548,12 +553,14 @@ namespace TheWeWebSite.StoreMgt
                     {
                         DropDownList DdlItem = (DropDownList)dgChurchServiceItem.Rows[rowIndex].Cells[0].FindControl("ddlServiceItem");
                         TextBox TextStart = (TextBox)dgChurchServiceItem.Rows[rowIndex].Cells[1].FindControl("tbNumber");
-                        TextBox TextEnd = (TextBox)dgChurchServiceItem.Rows[rowIndex].Cells[2].FindControl("tbPrice");
+                        TextBox TextEnd = (TextBox)dgChurchServiceItem.Rows[rowIndex].Cells[3].FindControl("tbPrice");
+                        Label LabelCurrency = (Label)dgChurchServiceItem.Rows[rowIndex].Cells[2].FindControl("tbCurrency");
                         if (TextStart == null) continue;
                         if (TextEnd == null) continue;
                         DdlItem.SelectedValue = dt.Rows[i]["Col1"].ToString();
                         TextStart.Text = dt.Rows[i]["Col2"] == null ? string.Empty : dt.Rows[i]["Col2"].ToString();
                         TextEnd.Text = dt.Rows[i]["Col3"] == null ? string.Empty : dt.Rows[i]["Col3"].ToString();
+                        LabelCurrency.Text = dt.Rows[i]["Col4"] == null ? string.Empty : dt.Rows[i]["Col4"].ToString();
                         rowIndex++;
                     }
                 }
@@ -574,11 +581,13 @@ namespace TheWeWebSite.StoreMgt
                     {
                         DropDownList DdlItem = (DropDownList)dgChurchServiceItem.Rows[rowIndex].Cells[0].FindControl("ddlServiceItem");
                         TextBox TextNumber = (TextBox)dgChurchServiceItem.Rows[rowIndex].Cells[1].FindControl("tbNumber");
-                        TextBox TextPrice = (TextBox)dgChurchServiceItem.Rows[rowIndex].Cells[2].FindControl("tbPrice");
+                        TextBox TextPrice = (TextBox)dgChurchServiceItem.Rows[rowIndex].Cells[3].FindControl("tbPrice");
+                        Label LabelCurrency = (Label)dgChurchServiceItem.Rows[rowIndex].Cells[2].FindControl("tbCurrency");
                         drCurrentRow = dtCurrentTable.NewRow();
                         dtCurrentTable.Rows[i - 1]["Col1"] = DdlItem.SelectedValue;
                         dtCurrentTable.Rows[i - 1]["Col2"] = TextNumber.Text;
                         dtCurrentTable.Rows[i - 1]["Col3"] = TextPrice.Text;
+                        dtCurrentTable.Rows[i - 1]["Col4"] = LabelCurrency.Text;
                         rowIndex++;
                     }
 
@@ -624,7 +633,22 @@ namespace TheWeWebSite.StoreMgt
                 DropDownList ddlService = (DropDownList)e.Row.FindControl("ddlServiceItem");
                 ddlService.Items.Add(new ListItem(Resources.Resource.ServiceItemSelectRemindString, string.Empty));
                 if (string.IsNullOrEmpty(ddlLocate.SelectedValue)) return;
+
                 DataSet ds = SysProperty.GenDbCon.GetDataFromTable("Select * From ServiceItem Where IsStore = 0 And IsDelete=0 And SupplierId = '" + ddlLocate.SelectedValue + "'");
+                DataRow churchDr = SysProperty.GetChurchById(ddlLocate.SelectedValue);
+                try
+                {
+                    ds = SysProperty.GenDbCon.GetDataFromTable("Select * From ServiceItem Where IsStore = 0 And IsDelete=0 And CountryId = '" + churchDr["CountryId"].ToString() + "' And SupplierId = '' And AreaId = ''");
+                    DataSet dsArea = SysProperty.GenDbCon.GetDataFromTable("Select * From ServiceItem Where IsStore = 0 And IsDelete=0 And CountryId = '" + churchDr["CountryId"].ToString() + "' And SupplierId = '' And AreaId = '" + churchDr["AreaId"].ToString() + "'");
+                    DataSet dsChurch = SysProperty.GenDbCon.GetDataFromTable("Select * From ServiceItem Where IsStore = 0 And IsDelete=0 And SupplierId = '" + ddlLocate.SelectedValue + "'");
+
+                    ds.Merge(dsArea);
+                    ds.Merge(dsChurch);
+                }
+                catch (Exception ex)
+                {
+                    ds = SysProperty.GenDbCon.GetDataFromTable("Select * From ServiceItem Where IsStore = 0 And IsDelete=0 And SupplierId = '" + ddlLocate.SelectedValue + "'");
+                }
                 if (SysProperty.Util.IsDataSetEmpty(ds)) return;
                 foreach (DataRow dr in ds.Tables[0].Rows)
                 {
@@ -638,13 +662,7 @@ namespace TheWeWebSite.StoreMgt
         }
         protected void tbPrice_TextChanged(object sender, EventArgs e)
         {
-            //bool result = false;
-            //decimal dec = 0;
-            //result = decimal.TryParse(((TextBox)sender).Text, out dec);
-            //if (result)
-            //{
-            //    //tbPrice.Text = (SysProperty.Util.ParseMoney(tbPrice.Text) + dec).ToString();
-            //}
+            //CalTotalPrice();
         }
         #endregion        
 
@@ -951,7 +969,7 @@ namespace TheWeWebSite.StoreMgt
 
         private void SetServiceItemTable(string id)
         {
-            DataSet ds = SysProperty.GenDbCon.GetDataFromTable("Select * From ProductSetServiceItem Where IsDelete = 0 And SetId='" + id + "'");
+            DataSet ds = SysProperty.GenDbCon.GetDataFromTable("SELECT A.Id, A.SetId, A.ItemId, A.Number, A.Price, A.OrderId, C.Name FROM [ProductSetServiceItem] AS A LEFT JOIN  ServiceItem As B on A.ItemId = B.Id Left JOIN Currency As C on B.CurrencyId = C.Id Where A.IsDelete = 0 And A.SetId='" + id + "'");
             if (SysProperty.Util.IsDataSetEmpty(ds)) return;
             int cnt = 0;
             foreach (DataRow dr in ds.Tables[0].Rows)
@@ -962,6 +980,7 @@ namespace TheWeWebSite.StoreMgt
                 }
                 ((DropDownList)dgCutomServiceItem.Rows[cnt].FindControl("ddlServiceItem")).SelectedValue = dr["ItemId"].ToString();
                 ((TextBox)dgCutomServiceItem.Rows[cnt].FindControl("tbNumber")).Text = dr["Number"].ToString();
+                ((TextBox)dgCutomServiceItem.Rows[cnt].FindControl("tbCurrency")).Text = dr["Name"].ToString();
                 ((TextBox)dgCutomServiceItem.Rows[cnt].FindControl("tbPrice")).Text = SysProperty.Util.ParseMoney(dr["Price"].ToString()).ToString("#0.00");
                 cnt++;
                 AddNewRow_dgCutomServiceItem();
@@ -969,7 +988,7 @@ namespace TheWeWebSite.StoreMgt
         }
         private void SetServiceChurchItemTable(string id)
         {
-            DataSet ds = SysProperty.GenDbCon.GetDataFromTable("Select * From ProductSetChurchServiceItem Where IsDelete = 0 And SetId='" + id + "'");
+            DataSet ds = SysProperty.GenDbCon.GetDataFromTable("SELECT A.Id, A.SetId, A.ItemId, A.Number, A.Price, A.OrderId, C.Name FROM [ProductSetChurchServiceItem] AS A LEFT JOIN  ServiceItem As B on A.ItemId = B.Id Left JOIN Currency As C on B.CurrencyId = C.Id Where A.IsDelete = 0 And A.SetId='" + id + "'");
             if (SysProperty.Util.IsDataSetEmpty(ds)) return;
             int cnt = 0;
             foreach (DataRow dr in ds.Tables[0].Rows)
@@ -980,6 +999,7 @@ namespace TheWeWebSite.StoreMgt
                 }
                 ((DropDownList)dgChurchServiceItem.Rows[cnt].FindControl("ddlServiceItem")).SelectedValue = dr["ItemId"].ToString();
                 ((TextBox)dgChurchServiceItem.Rows[cnt].FindControl("tbNumber")).Text = dr["Number"].ToString();
+                ((TextBox)dgChurchServiceItem.Rows[cnt].FindControl("tbCurrency")).Text = dr["Name"].ToString();
                 ((TextBox)dgChurchServiceItem.Rows[cnt].FindControl("tbPrice")).Text = SysProperty.Util.ParseMoney(dr["Price"].ToString()).ToString("#0.00");
                 cnt++;
                 AddNewRow_dgChurchServiceItem();
@@ -1486,10 +1506,12 @@ namespace TheWeWebSite.StoreMgt
             dt.Columns.Add(new DataColumn("Col1", typeof(string)));
             dt.Columns.Add(new DataColumn("Col2", typeof(string)));
             dt.Columns.Add(new DataColumn("Col3", typeof(string)));
+            dt.Columns.Add(new DataColumn("Col4", typeof(string)));
             dr = dt.NewRow();
             dr["Col1"] = string.Empty;
             dr["Col2"] = string.Empty;
             dr["Col3"] = string.Empty;
+            dr["Col4"] = string.Empty;
             dt.Rows.Add(dr);
 
             ViewState["CurrentTable2"] = dt;
@@ -1514,13 +1536,16 @@ namespace TheWeWebSite.StoreMgt
                         TextBox TextStart =
                           (TextBox)dgCutomServiceItem.Rows[rowIndex].Cells[1].FindControl("tbNumber");
                         TextBox TextEnd =
-                          (TextBox)dgCutomServiceItem.Rows[rowIndex].Cells[2].FindControl("tbPrice");
+                          (TextBox)dgCutomServiceItem.Rows[rowIndex].Cells[3].FindControl("tbPrice");
+                        Label LabelCurrency =
+                          (Label)dgCutomServiceItem.Rows[rowIndex].Cells[2].FindControl("tbCurrency");
 
 
                         drCurrentRow = dtCurrentTable.NewRow();
                         dtCurrentTable.Rows[i - 1]["Col1"] = DdlItem.SelectedValue;
                         dtCurrentTable.Rows[i - 1]["Col2"] = TextStart.Text;
                         dtCurrentTable.Rows[i - 1]["Col3"] = TextEnd.Text;
+                        dtCurrentTable.Rows[i - 1]["Col4"] = LabelCurrency.Text;
                         rowIndex++;
                     }
                     dtCurrentTable.Rows.Add(drCurrentRow);
@@ -1549,12 +1574,14 @@ namespace TheWeWebSite.StoreMgt
                     {
                         DropDownList DdlItem = (DropDownList)dgCutomServiceItem.Rows[rowIndex].Cells[0].FindControl("ddlServiceItem");
                         TextBox TextStart = (TextBox)dgCutomServiceItem.Rows[rowIndex].Cells[1].FindControl("tbNumber");
-                        TextBox TextEnd = (TextBox)dgCutomServiceItem.Rows[rowIndex].Cells[2].FindControl("tbPrice");
+                        TextBox TextEnd = (TextBox)dgCutomServiceItem.Rows[rowIndex].Cells[3].FindControl("tbPrice");
+                        Label LabelCurrency = (Label)dgCutomServiceItem.Rows[rowIndex].Cells[2].FindControl("tbCurrency");
                         if (TextStart == null) continue;
                         if (TextEnd == null) continue;
                         DdlItem.SelectedValue = dt.Rows[i]["Col1"].ToString();
                         TextStart.Text = dt.Rows[i]["Col2"] == null ? string.Empty : dt.Rows[i]["Col2"].ToString();
                         TextEnd.Text = dt.Rows[i]["Col3"] == null ? string.Empty : dt.Rows[i]["Col3"].ToString();
+                        LabelCurrency.Text = dt.Rows[i]["Col4"] == null ? string.Empty : dt.Rows[i]["Col4"].ToString();
                         rowIndex++;
                     }
                 }
@@ -1575,11 +1602,13 @@ namespace TheWeWebSite.StoreMgt
                     {
                         DropDownList DdlItem = (DropDownList)dgCutomServiceItem.Rows[rowIndex].Cells[0].FindControl("ddlServiceItem");
                         TextBox TextNumber = (TextBox)dgCutomServiceItem.Rows[rowIndex].Cells[1].FindControl("tbNumber");
-                        TextBox TextPrice = (TextBox)dgCutomServiceItem.Rows[rowIndex].Cells[2].FindControl("tbPrice");
+                        TextBox TextPrice = (TextBox)dgCutomServiceItem.Rows[rowIndex].Cells[3].FindControl("tbPrice");
+                        Label LabelCurrency = (Label)dgCutomServiceItem.Rows[rowIndex].Cells[2].FindControl("tbCurrency");
                         drCurrentRow = dtCurrentTable.NewRow();
                         dtCurrentTable.Rows[i - 1]["Col1"] = DdlItem.SelectedValue;
                         dtCurrentTable.Rows[i - 1]["Col2"] = TextNumber.Text;
                         dtCurrentTable.Rows[i - 1]["Col3"] = TextPrice.Text;
+                        dtCurrentTable.Rows[i - 1]["Col4"] = LabelCurrency.Text;
                         rowIndex++;
                     }
 
@@ -1666,5 +1695,60 @@ namespace TheWeWebSite.StoreMgt
             }
         }
         #endregion
+
+        protected void ddlServiceItem_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            DropDownList ddl = sender as DropDownList;
+            int index = CalIndex(ddl.ClientID);
+            ((TextBox)dgChurchServiceItem.Rows[index].FindControl("tbNumber")).Text = "1";
+            ((Label)dgChurchServiceItem.Rows[index].FindControl("tbCurrency")).Text = "";
+            ((TextBox)dgChurchServiceItem.Rows[index].FindControl("tbPrice")).Text = "0";
+
+            if (!string.IsNullOrEmpty(ddl.SelectedValue))
+            {
+                DataSet ds = SysProperty.GenDbCon.GetDataFromTable("SELECT A.Id, A.Price, B.Name FROM ServiceItem AS A Left JOIN Currency As B on A.CurrencyId = B.Id Where A.Id = '" + ddl.SelectedValue + "'");
+                if (SysProperty.Util.IsDataSetEmpty(ds)) return;
+                ((TextBox)dgChurchServiceItem.Rows[index].FindControl("tbNumber")).Text = "1";
+                ((Label)dgChurchServiceItem.Rows[index].FindControl("tbCurrency")).Text = ds.Tables[0].Rows[0]["Name"].ToString();
+                ((TextBox)dgChurchServiceItem.Rows[index].FindControl("tbPrice")).Text = SysProperty.Util.ParseMoney(ds.Tables[0].Rows[0]["Price"].ToString()).ToString("#0.00");
+            }
+
+        }
+
+        private int CalIndex(string clientId)
+        {
+            int index = 0;
+            if (clientId.Contains("_"))
+            {
+                string[] tmp = clientId.Split('_');
+                if (tmp.Length >= 3)
+                {
+                    int tmpInt = 0;
+                    bool result = int.TryParse(tmp[tmp.Length - 1], out tmpInt);
+                    if (result)
+                        index = tmpInt;
+                }
+            }
+            return index;
+        }
+
+        protected void ddlServiceItem_SelectedIndexChanged1(object sender, EventArgs e)
+        {
+            DropDownList ddl = sender as DropDownList;
+            int index = CalIndex(ddl.ClientID);
+
+            ((TextBox)dgCutomServiceItem.Rows[index].FindControl("tbNumber")).Text = "1";
+            ((Label)dgCutomServiceItem.Rows[index].FindControl("tbCurrency")).Text = "";
+            ((TextBox)dgCutomServiceItem.Rows[index].FindControl("tbPrice")).Text = "0";
+
+            if (!string.IsNullOrEmpty(ddl.SelectedValue))
+            {
+                DataSet ds = SysProperty.GenDbCon.GetDataFromTable("SELECT A.Id, A.Price, B.Name FROM ServiceItem AS A Left JOIN Currency As B on A.CurrencyId = B.Id Where A.Id = '" + ddl.SelectedValue + "'");
+                if (SysProperty.Util.IsDataSetEmpty(ds)) return;
+                ((TextBox)dgCutomServiceItem.Rows[index].FindControl("tbNumber")).Text = "1";
+                ((Label)dgCutomServiceItem.Rows[index].FindControl("tbCurrency")).Text = ds.Tables[0].Rows[0]["Name"].ToString();
+                ((TextBox)dgCutomServiceItem.Rows[index].FindControl("tbPrice")).Text = SysProperty.Util.ParseMoney(ds.Tables[0].Rows[0]["Price"].ToString()).ToString("#0.00");
+            }
+        }
     }
 }
