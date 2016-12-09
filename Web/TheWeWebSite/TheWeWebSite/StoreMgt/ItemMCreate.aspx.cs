@@ -980,7 +980,7 @@ namespace TheWeWebSite.StoreMgt
                 }
                 ((DropDownList)dgCutomServiceItem.Rows[cnt].FindControl("ddlServiceItem")).SelectedValue = dr["ItemId"].ToString();
                 ((TextBox)dgCutomServiceItem.Rows[cnt].FindControl("tbNumber")).Text = dr["Number"].ToString();
-                ((TextBox)dgCutomServiceItem.Rows[cnt].FindControl("tbCurrency")).Text = dr["Name"].ToString();
+                ((Label)dgCutomServiceItem.Rows[cnt].FindControl("tbCurrency")).Text = dr["Name"].ToString();
                 ((TextBox)dgCutomServiceItem.Rows[cnt].FindControl("tbPrice")).Text = SysProperty.Util.ParseMoney(dr["Price"].ToString()).ToString("#0.00");
                 cnt++;
                 AddNewRow_dgCutomServiceItem();
@@ -999,7 +999,7 @@ namespace TheWeWebSite.StoreMgt
                 }
                 ((DropDownList)dgChurchServiceItem.Rows[cnt].FindControl("ddlServiceItem")).SelectedValue = dr["ItemId"].ToString();
                 ((TextBox)dgChurchServiceItem.Rows[cnt].FindControl("tbNumber")).Text = dr["Number"].ToString();
-                ((TextBox)dgChurchServiceItem.Rows[cnt].FindControl("tbCurrency")).Text = dr["Name"].ToString();
+                ((Label)dgChurchServiceItem.Rows[cnt].FindControl("tbCurrency")).Text = dr["Name"].ToString();
                 ((TextBox)dgChurchServiceItem.Rows[cnt].FindControl("tbPrice")).Text = SysProperty.Util.ParseMoney(dr["Price"].ToString()).ToString("#0.00");
                 cnt++;
                 AddNewRow_dgChurchServiceItem();
