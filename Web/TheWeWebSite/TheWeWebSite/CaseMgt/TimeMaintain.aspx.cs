@@ -347,7 +347,20 @@ namespace TheWeWebSite.CaseMgt
             DataRowView dataItem1 = (DataRowView)e.Item.DataItem;
             if (dataItem1 != null)
             {
-                bool isWP = dataItem1["Sn"].ToString().Trim().StartsWith("WC");
+                bool isWP = false;
+                if (dataItem1["ServiceType"] != null)
+                {
+                    try
+                    {
+                        isWP = dataItem1["ServiceType"].ToString().Trim().ToLower() == "B708E14F-F8E7-463B-BA8F-C8BE14B56AA0".ToLower();
+                    }
+                    catch (Exception ex)
+                    {
+                        Log.Error(ex.Message);
+                        isWP = false;
+                    }
+                }
+
                 ((Label)e.Item.FindControl("labelStore")).Text = ddlStore.Items.FindByValue(dataItem1["StoreId"].ToString()).Text;
 
                 LinkButton hyperLink1 = (LinkButton)e.Item.FindControl("linkConsult");
@@ -441,17 +454,16 @@ namespace TheWeWebSite.CaseMgt
                         sqlTxt = "SELECT TOP 100 o.[Id] as Id,[ConsultId], c.Sn As ConsultSn,o.[Sn],o.[StartTime]"
                             + ",o.[CustomerId],cus.Name AS CustomerName,o.[StatusId], ci.Name As StatusName, ci.JpName AS StatusJpName"
                             + ", ci.CnName AS StatusCnName, ci.EngName AS StatusEngName,[CloseTime],o.[CountryId],o.[AreaId],"
-                            + "o.[ChurchId],SetId, p.Name AS SetName, p.EngName AS SetEngName,o.StoreId"
+                            + "o.[ChurchId],SetId, p.Name AS SetName, p.EngName AS SetEngName,o.StoreId, o.ServiceType"
                             + ", p.JpName AS SetJpName, p.CnName AS SetCnName,o.BookingDate,o.PartnerId, pr.Name AS PartnerName"
                             + " FROM [dbo].[OrderInfo] as o"
                             + " Left join Consultation as c on c.Id = o.ConsultId"
                             + " Left join vwEN_Customer as cus on cus.Id = o.CustomerId"
                             + " Left join ProductSet as p on p.Id = o.SetId"
-                            + " Left join ConferenceItem as ci on ci.Id = o.ConferenceCategory"
+                            + " Left join ConferenceItem as ci on ci.Id = o.StatusId"
                             + " Left join vwEN_Partner as pr on pr.Id = o.PartnerId"
                             + " WHERE o.IsDelete = 0"
                             + (string.IsNullOrEmpty(storeId) ? string.Empty : " And o.StoreId='" + storeId + "'");
-                        //+ otherCondition;
                     }
 
                     foreach (KeyValuePair<string, PermissionItem> item in lst)
@@ -462,13 +474,13 @@ namespace TheWeWebSite.CaseMgt
                             sqlTxt += "SELECT TOP 100 o.[Id] as Id,[ConsultId], c.Sn As ConsultSn,o.[Sn],o.[StartTime]"
                             + ",o.[CustomerId],cus.Name AS CustomerName,o.[StatusId], ci.Name As StatusName, ci.JpName AS StatusJpName"
                             + ", ci.CnName AS StatusCnName, ci.EngName AS StatusEngName,[CloseTime],o.[CountryId],o.[AreaId],"
-                            + "o.[ChurchId],SetId, p.Name AS SetName, p.EngName AS SetEngName,o.StoreId"
+                            + "o.[ChurchId],SetId, p.Name AS SetName, p.EngName AS SetEngName,o.StoreId, o.ServiceType"
                             + ", p.JpName AS SetJpName, p.CnName AS SetCnName,o.BookingDate,o.PartnerId, pr.Name AS PartnerName"
                             + " FROM [dbo].[OrderInfo] as o"
                             + " Left join Consultation as c on c.Id = o.ConsultId"
                             + " Left join vwEN_Customer as cus on cus.Id = o.CustomerId"
                             + " Left join ProductSet as p on p.Id = o.SetId"
-                            + " Left join ConferenceItem as ci on ci.Id = o.ConferenceCategory"
+                            + " Left join ConferenceItem as ci on ci.Id = o.StatusId"
                             + " Left join vwEN_Partner as pr on pr.Id = o.PartnerId"
                             + " WHERE o.IsDelete = 0";
                             if (item.Value.Type == "Store")
@@ -479,7 +491,6 @@ namespace TheWeWebSite.CaseMgt
                             {
                                 sqlTxt += " And o.CountryId = '" + item.Value.ObjectId + "'";
                             }
-                            //sqlTxt += " " + otherCondition;
                         }
                     }
                     return "Select TOP 100 * From (" + sqlTxt + ")TBL " + otherCondition;
@@ -495,18 +506,19 @@ namespace TheWeWebSite.CaseMgt
             else
             {
                 #region Holding Company
-                sqlTxt = "SELECT o.[Id] as Id,[ConsultId], c.Sn As ConsultSn,o.[Sn],o.[StartTime]"
+                sqlTxt = "SELECT TOP 100 o.[Id] as Id,[ConsultId], c.Sn As ConsultSn,o.[Sn],o.[StartTime]"
                             + ",o.[CustomerId],cus.Name AS CustomerName,o.[StatusId], ci.Name As StatusName, ci.JpName AS StatusJpName"
                             + ", ci.CnName AS StatusCnName, ci.EngName AS StatusEngName,[CloseTime],o.[CountryId],o.[AreaId],"
-                            + "o.[ChurchId],SetId, p.Name AS SetName, p.EngName AS SetEngName,o.StoreId"
+                            + "o.[ChurchId],SetId, p.Name AS SetName, p.EngName AS SetEngName,o.StoreId,o.ServiceType"
                             + ", p.JpName AS SetJpName, p.CnName AS SetCnName,o.BookingDate,o.PartnerId, pr.Name AS PartnerName"
                             + " FROM [dbo].[OrderInfo] as o"
                             + " Left join Consultation as c on c.Id = o.ConsultId"
                             + " Left join vwEN_Customer as cus on cus.Id = o.CustomerId"
                             + " Left join ProductSet as p on p.Id = o.SetId"
-                            + " Left join ConferenceItem as ci on ci.Id = o.ConferenceCategory"
+                            + " Left join ConferenceItem as ci on ci.Id = o.StatusId"
                             + " Left join vwEN_Partner as pr on pr.Id = o.PartnerId"
-                            + " WHERE o.IsDelete = 0";
+                            + " WHERE o.IsDelete = 0"
+                            + (string.IsNullOrEmpty(storeId) ? string.Empty : " And o.StoreId='" + storeId + "'");
                 return "Select * From (" + sqlTxt + ")TBL " + otherCondition;
                 #endregion
             }

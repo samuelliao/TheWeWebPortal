@@ -106,6 +106,7 @@ namespace TheWeLib
         {
             try
             {
+                if (dr == null) return string.Empty;
                 return OutputRelatedLangName(cultureCode
                     , dr["Name"].ToString()
                     , dr["CnName"].ToString()
@@ -114,7 +115,7 @@ namespace TheWeLib
             }
             catch (Exception ex)
             {
-                Log.Error(ex.Message);
+                //Log.Error(ex.Message);
                 return string.Empty;
             }
         }

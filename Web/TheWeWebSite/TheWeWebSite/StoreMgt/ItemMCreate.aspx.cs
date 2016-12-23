@@ -816,7 +816,7 @@ namespace TheWeWebSite.StoreMgt
             tbCost.Text = cost.ToString("#0.00");
             ddlCostCurrency.SelectedValue = dr["CostCurrencyId"].ToString();
             decimal price = SysProperty.Util.ParseMoney(dr["Price"].ToString());
-            tbPrice.Text = price > 0 ? price.ToString("#0.00") : cost.ToString("#0.00");
+            tbPrice.Text = price > 0 ? price.ToString("#0.00") : tbCost.Text;
             ddlPriceCurrency.SelectedValue = dr["PriceCurrencyId"].ToString();
             if (string.IsNullOrEmpty(labelBaseId.Text))
             {
@@ -956,7 +956,6 @@ namespace TheWeWebSite.StoreMgt
                 cbPen.Enabled = false;
                 cbPillow.Enabled = false;
                 cbRehersal.Enabled = false;
-                dgChurchServiceItem.Enabled = false;
                 dgChurchServiceItem.ShowFooter = false;
             }
 
@@ -1684,7 +1683,7 @@ namespace TheWeWebSite.StoreMgt
                 decimal price = SysProperty.Util.ParseMoney(dataItem1["Price"].ToString());
                 if (price <= 0)
                 {
-                    ((TextBox)e.Row.FindControl("tbStorePrice")).Text = tbCost.Text;
+                    ((TextBox)e.Row.FindControl("tbStorePrice")).Text = string.Empty;
                 }
                 else
                 {

@@ -115,8 +115,20 @@ namespace TheWeWebSite.Main
             DataRowView dataItem1 = (DataRowView)e.Item.DataItem;
             if (dataItem1 != null)
             {
-                DataRow cnRow = SysProperty.GetCountryById(dataItem1["CountryId"].ToString());
-                bool isWP = dataItem1["Sn"].ToString().Trim().StartsWith("WC" + cnRow["Code"].ToString());
+                bool isWP = false;
+                if (dataItem1["ServiceType"] != null)
+                {
+                    try
+                    {
+                        isWP = dataItem1["ServiceType"].ToString().Trim().ToLower()== "B708E14F-F8E7-463B-BA8F-C8BE14B56AA0".ToLower();
+                    }
+                    catch (Exception ex)
+                    {
+                        Log.Error(ex.Message);
+                        isWP = false;
+                    }
+                }
+
                 ((Label)e.Item.FindControl("labelStore")).Text = ddlStore.Items.FindByValue(dataItem1["StoreId"].ToString()).Text;
 
                 LinkButton hyperLink1 = (LinkButton)e.Item.FindControl("linkConsult");
@@ -144,10 +156,14 @@ namespace TheWeWebSite.Main
                     , dataItem1["StatusEngName"].ToString()
                     , dataItem1["StatusJpName"].ToString());
 
-                ((Label)e.Item.FindControl("labelLocation")).Text = (SysProperty.Util.OutputRelatedLangName(Session["CultureCode"].ToString()
-                    , (isWP ? SysProperty.GetStoreById(dataItem1["StoreId"].ToString()) : SysProperty.GetChurchById(dataItem1["ChurchId"].ToString())))) + "(" 
+                if (!string.IsNullOrEmpty(dataItem1["ChurchId"].ToString()))
+                {
+                    ((Label)e.Item.FindControl("labelLocation")).Text = (SysProperty.Util.OutputRelatedLangName(Session["CultureCode"].ToString()
+                    , (isWP ? SysProperty.GetStoreById(dataItem1["StoreId"].ToString()) : SysProperty.GetChurchById(dataItem1["ChurchId"].ToString())))) + "("
                     + (SysProperty.Util.OutputRelatedLangName(Session["CultureCode"].ToString(),
-                    cnRow)) + ")";
+                    SysProperty.GetCountryById(dataItem1["CountryId"].ToString()))) + ")";
+                }
+
                 if (isWP)
                 {
                     ((Label)e.Item.FindControl("labelSet")).Text = ddlWPProductSet.Items.FindByValue(dataItem1["SetId"].ToString()).Text;
@@ -219,7 +235,7 @@ namespace TheWeWebSite.Main
                             + ", ci.CnName AS StatusCnName, ci.EngName AS StatusEngName,[CloseTime],o.[CountryId],o.[AreaId],"
                             + "o.[ChurchId],SetId, p.Name AS SetName, p.EngName AS SetEngName,o.EmployeeId,e.Name as EmployeeName"
                             + ", p.JpName AS SetJpName, p.CnName AS SetCnName,o.BookingDate,o.PartnerId, pr.Name AS PartnerName"
-                            + ",o.TotalPrice,o.StoreId"
+                            + ",o.TotalPrice,o.StoreId, o.ServiceType"
                             + " FROM [dbo].[OrderInfo] as o"
                             + " Left join Consultation as c on c.Id = o.ConsultId"
                             + " Left join vwEN_Customer as cus on cus.Id = o.CustomerId"
@@ -243,7 +259,7 @@ namespace TheWeWebSite.Main
                                 + ", ci.CnName AS StatusCnName, ci.EngName AS StatusEngName,[CloseTime],o.[CountryId],o.[AreaId],"
                                 + "o.[ChurchId],SetId, p.Name AS SetName, p.EngName AS SetEngName,o.EmployeeId,e.Name as EmployeeName"
                                 + ", p.JpName AS SetJpName, p.CnName AS SetCnName,o.BookingDate,o.PartnerId, pr.Name AS PartnerName"
-                                + ",o.TotalPrice,o.StoreId"
+                                + ",o.TotalPrice,o.StoreId, o.ServiceType"
                                 + " FROM [dbo].[OrderInfo] as o"
                                 + " Left join Consultation as c on c.Id = o.ConsultId"
                                 + " Left join vwEN_Customer as cus on cus.Id = o.CustomerId"
@@ -281,7 +297,7 @@ namespace TheWeWebSite.Main
                             + ", ci.CnName AS StatusCnName, ci.EngName AS StatusEngName,[CloseTime],o.[CountryId],o.[AreaId],"
                             + "o.[ChurchId],SetId, p.Name AS SetName, p.EngName AS SetEngName,o.EmployeeId,e.Name as EmployeeName"
                             + ", p.JpName AS SetJpName, p.CnName AS SetCnName,o.BookingDate,o.PartnerId, pr.Name AS PartnerName"
-                            + ",o.TotalPrice,o.StoreId"
+                            + ",o.TotalPrice,o.StoreId, o.ServiceType"
                             + " FROM [dbo].[OrderInfo] as o"
                             + " Left join Consultation as c on c.Id = o.ConsultId"
                             + " Left join vwEN_Customer as cus on cus.Id = o.CustomerId"

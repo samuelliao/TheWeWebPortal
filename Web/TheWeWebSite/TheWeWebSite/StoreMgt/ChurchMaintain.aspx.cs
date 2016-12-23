@@ -161,7 +161,7 @@ namespace TheWeWebSite.StoreMgt
         }
         protected void dgChurch_DeleteCommand(object source, DataGridCommandEventArgs e)
         {
-            string id = (string)dgChurch.DataKeys[(int)e.Item.ItemIndex];
+            string id = dgChurch.DataKeys[(int)e.Item.ItemIndex].ToString();
             string sqlTxt = "UPDATE Church SET IsDelete = 1"
                 + ", UpdateAccId=N'" + ((DataRow)Session["AccountInfo"])["Id"].ToString() + "'"
                 + ", UpdateTime='" + DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss") + "'"

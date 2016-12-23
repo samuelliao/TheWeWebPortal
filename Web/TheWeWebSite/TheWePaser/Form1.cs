@@ -13,7 +13,7 @@ namespace TheWeParser
 {
     public partial class Form1 : Form
     {
-        private string AWSStr = @"Data Source=54.223.78.5;Initial Catalog=TheWe_C;Persist Security Info=True;User ID=sa;Password=!QAZ2wsx#EDC";
+        //private string AWSStr = @"Data Source=54.223.78.5;Initial Catalog=TheWe_C;Persist Security Info=True;User ID=sa;Password=!QAZ2wsx#EDC";
         private string AliStr = @"Data Source=60.205.146.133;Initial Catalog=TheWe_C;Persist Security Info=True;User ID=TheWe;Password=!QAZ2wsx#EDC";
         private string TESTSTR = @"Data Source=127.0.0.1;Initial Catalog=TheWe_C;Persist Security Info=True;User ID=sa;Password=Abc12345";
 

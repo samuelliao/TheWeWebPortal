@@ -336,7 +336,7 @@ namespace TheWeWebSite.CaseMgt
                         sqlTxt = "SELECT TOP 100 o.[Id] as Id,[ConsultId], c.Sn As ConsultSn,o.[Sn],o.[StartTime]"
                             + ",o.[CustomerId],cus.Name AS CustomerName,o.[StatusId], ci.Name As StatusName, ci.JpName AS StatusJpName"
                             + ", ci.CnName AS StatusCnName, ci.EngName AS StatusEngName,[CloseTime],o.[CountryId],o.[AreaId],"
-                            + "o.[ChurchId],SetId, p.Name AS SetName, p.EngName AS SetEngName,o.StoreId"
+                            + "o.[ChurchId],SetId, p.Name AS SetName, p.EngName AS SetEngName,o.StoreId, o.ServiceType"
                             + ", p.JpName AS SetJpName, p.CnName AS SetCnName,o.BookingDate,o.PartnerId, pr.Name AS PartnerName"
                             + " FROM [dbo].[OrderInfo] as o"
                             + " Left join Consultation as c on c.Id = o.ConsultId"
@@ -356,7 +356,7 @@ namespace TheWeWebSite.CaseMgt
                             sqlTxt += "SELECT TOP 100 o.[Id] as Id,[ConsultId], c.Sn As ConsultSn,o.[Sn],o.[StartTime]"
                             + ",o.[CustomerId],cus.Name AS CustomerName,o.[StatusId], ci.Name As StatusName, ci.JpName AS StatusJpName"
                             + ", ci.CnName AS StatusCnName, ci.EngName AS StatusEngName,[CloseTime],o.[CountryId],o.[AreaId],"
-                            + "o.[ChurchId],SetId, p.Name AS SetName, p.EngName AS SetEngName,o.StoreId"
+                            + "o.[ChurchId],SetId, p.Name AS SetName, p.EngName AS SetEngName,o.StoreId, o.ServiceType"
                             + ", p.JpName AS SetJpName, p.CnName AS SetCnName,o.BookingDate,o.PartnerId, pr.Name AS PartnerName"
                             + " FROM [dbo].[OrderInfo] as o"
                             + " Left join Consultation as c on c.Id = o.ConsultId"
@@ -391,7 +391,7 @@ namespace TheWeWebSite.CaseMgt
                 sqlTxt = "SELECT TOP 100 o.[Id] as Id,[ConsultId], c.Sn As ConsultSn,o.[Sn],o.[StartTime]"
                             + ",o.[CustomerId],cus.Name AS CustomerName,o.[StatusId], ci.Name As StatusName, ci.JpName AS StatusJpName"
                             + ", ci.CnName AS StatusCnName, ci.EngName AS StatusEngName,[CloseTime],o.[CountryId],o.[AreaId],"
-                            + "o.[ChurchId],SetId, p.Name AS SetName, p.EngName AS SetEngName,o.StoreId"
+                            + "o.[ChurchId],SetId, p.Name AS SetName, p.EngName AS SetEngName,o.StoreId,o.ServiceType"
                             + ", p.JpName AS SetJpName, p.CnName AS SetCnName,o.BookingDate,o.PartnerId, pr.Name AS PartnerName"
                             + " FROM [dbo].[OrderInfo] as o"
                             + " Left join Consultation as c on c.Id = o.ConsultId"
@@ -445,8 +445,8 @@ namespace TheWeWebSite.CaseMgt
 
         private void BindData()
         {
-            string storeId = string.IsNullOrEmpty(ddlStore.SelectedValue) ? string.Empty : ddlStore.SelectedValue;            
-            GetCaseList(storeId, GetQueryString()+ " Order by Sn");
+            string storeId = string.IsNullOrEmpty(ddlStore.SelectedValue) ? string.Empty : ddlStore.SelectedValue;
+            GetCaseList(storeId, GetQueryString() + " Order by Sn");
             dataGrid.DataSource = CaseDataSet;
             dataGrid.AllowPaging = !SysProperty.Util.IsDataSetEmpty(CaseDataSet);
             dataGrid.DataBind();
@@ -464,8 +464,21 @@ namespace TheWeWebSite.CaseMgt
             DataRowView dataItem1 = (DataRowView)e.Item.DataItem;
             if (dataItem1 != null)
             {
-                DataRow cnRow = SysProperty.GetCountryById(dataItem1["CountryId"].ToString());
-                bool isWP = dataItem1["Sn"].ToString().Trim().StartsWith("WC"+ cnRow["Code"].ToString());
+                bool isWP = false;
+                if (dataItem1["ServiceType"] != null)
+                {
+                    try
+                    {
+                        isWP = dataItem1["ServiceType"].ToString().Trim().ToLower() == "B708E14F-F8E7-463B-BA8F-C8BE14B56AA0".ToLower();
+                    }
+                    catch (Exception ex)
+                    {
+                        Log.Error(ex.Message);
+                        isWP = false;
+                    }
+                }
+
+
                 ((Label)e.Item.FindControl("labelStore")).Text = ddlStore.Items.FindByValue(dataItem1["StoreId"].ToString()).Text;
 
                 LinkButton hyperLink1 = (LinkButton)e.Item.FindControl("linkConsult");
@@ -482,13 +495,21 @@ namespace TheWeWebSite.CaseMgt
                     , dataItem1["StatusCnName"].ToString()
                     , dataItem1["StatusEngName"].ToString()
                     , dataItem1["StatusJpName"].ToString());
-                ((Label)e.Item.FindControl("labelCountry")).Text = SysProperty.Util.OutputRelatedLangName(Session["CultureCode"].ToString()
-                    , cnRow);
-                ((Label)e.Item.FindControl("labelArea")).Text = SysProperty.Util.OutputRelatedLangName(Session["CultureCode"].ToString()
+
+                if (!string.IsNullOrEmpty(dataItem1["CountryId"].ToString()))
+                    ((Label)e.Item.FindControl("labelCountry")).Text = SysProperty.Util.OutputRelatedLangName(Session["CultureCode"].ToString()
+                    , SysProperty.GetCountryById(dataItem1["CountryId"].ToString()));
+
+                if (!string.IsNullOrEmpty(dataItem1["AreaId"].ToString()))
+                    ((Label)e.Item.FindControl("labelArea")).Text = SysProperty.Util.OutputRelatedLangName(Session["CultureCode"].ToString()
                     , SysProperty.GetAreaById(dataItem1["AreaId"].ToString()));
-                ((Label)e.Item.FindControl("labelLocation")).Text = SysProperty.Util.OutputRelatedLangName(Session["CultureCode"].ToString()
-                    , (isWP ? SysProperty.GetStoreById(dataItem1["StoreId"].ToString()) : SysProperty.GetChurchById(dataItem1["ChurchId"].ToString())));
-                if (isWP) {
+
+                if (!string.IsNullOrEmpty(dataItem1["ChurchId"].ToString()))
+                    ((Label)e.Item.FindControl("labelLocation")).Text = SysProperty.Util.OutputRelatedLangName(Session["CultureCode"].ToString()
+                        , (isWP ? SysProperty.GetStoreById(dataItem1["StoreId"].ToString()) : SysProperty.GetChurchById(dataItem1["ChurchId"].ToString())));
+
+                if (isWP)
+                {
                     ((Label)e.Item.FindControl("labelSet")).Text = ddlWPProductSet.Items.FindByValue(dataItem1["SetId"].ToString()).Text;
                 }
                 else
