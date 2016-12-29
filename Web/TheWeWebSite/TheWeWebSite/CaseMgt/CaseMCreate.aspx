@@ -501,17 +501,20 @@
                                                         </asp:TemplateField>
                                                         <asp:TemplateField HeaderText="<%$ Resources:Resource,CurrencyString%>">
                                                             <ItemTemplate>
-                                                                <asp:Label ID="tbCurrency" Style="text-align: right" runat="server"></asp:Label>
+                                                                <asp:DropDownList ID="tbCurrency" runat="server"></asp:DropDownList>
                                                             </ItemTemplate>
                                                         </asp:TemplateField>
                                                         <asp:TemplateField HeaderText="<%$ Resources:Resource,PriceString%>">
                                                             <ItemTemplate>
-                                                                <asp:TextBox ID="tbPrice" runat="server" OnTextChanged="tbPrice_TextChanged" Style="text-align: right" AutoPostBack="true"></asp:TextBox>
-                                                                <asp:RegularExpressionValidator CssClass="error" Display="Dynamic" ID="RegularExpressionValidator4" ControlToValidate="tbPrice" runat="server" ErrorMessage="Only Numbers allowed" ValidationExpression="\d+[.]*\d*"></asp:RegularExpressionValidator>
+                                                                <asp:TextBox ID="tbPrice" runat="server" OnTextChanged="tbPrice_TextChanged" 
+                                                                    Style="text-align: right" AutoPostBack="true"></asp:TextBox>
+                                                                <asp:RegularExpressionValidator CssClass="error" Display="Dynamic" 
+                                                                    ID="RegularExpressionValidator4" ControlToValidate="tbPrice" 
+                                                                    runat="server" ErrorMessage="Only Numbers allowed" ValidationExpression="\d+[.]*\d*"></asp:RegularExpressionValidator>
                                                             </ItemTemplate>
                                                             <FooterStyle HorizontalAlign="Right" />
                                                             <FooterTemplate>
-                                                                <asp:Button CausesValidation="false"
+                                                                <asp:Button
                                                                     ID="btnAddRow" runat="server"
                                                                     Text="Add New Row" OnClick="btnAddRow_Click" />
                                                             </FooterTemplate>

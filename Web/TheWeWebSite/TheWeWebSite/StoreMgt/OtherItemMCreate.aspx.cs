@@ -553,18 +553,24 @@ namespace TheWeWebSite.StoreMgt
                     , typeId
                     ));
             }
-            lst.Add(new DbSearchObject(
+            if (!string.IsNullOrEmpty(ddlStore.SelectedValue))
+            {
+                lst.Add(new DbSearchObject(
                 (ddlCategory.SelectedValue == "Store" ? "StoreId" : "SupplierId")
                 , AtrrTypeItem.String
                 , AttrSymbolItem.Equal
                 , ddlStore.SelectedValue
                 ));
-            lst.Add(new DbSearchObject(
+            }
+            if (!string.IsNullOrEmpty(ddlArea.SelectedValue))
+            {
+                lst.Add(new DbSearchObject(
                 "AreaId"
                 , AtrrTypeItem.String
                 , AttrSymbolItem.Equal
                 , ddlArea.SelectedValue
                 ));
+            }
             if (!string.IsNullOrEmpty(ddlCountry.SelectedValue))
             {
                 lst.Add(new DbSearchObject(

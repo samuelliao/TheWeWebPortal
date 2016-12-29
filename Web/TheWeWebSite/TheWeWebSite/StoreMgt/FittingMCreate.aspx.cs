@@ -73,8 +73,6 @@ namespace TheWeWebSite.StoreMgt
             tbRentPrice.Attributes.Add("placeHolder", "0.00");
             tbSalesPrice.Attributes.Add("placeHolder", "0.00");
             tbType.Attributes.Add("placeHolder", Resources.Resource.AddString + Resources.Resource.CreateItemString);
-
-
         }
 
         private void ShowErrorMsg(string msg)
@@ -107,7 +105,7 @@ namespace TheWeWebSite.StoreMgt
             SupplierList();
             RelatedCategory();
             StoreList();
-
+            CurrencyList();
         }
         private void InitialControlWithPermission()
         {
@@ -120,6 +118,8 @@ namespace TheWeWebSite.StoreMgt
                     btnCreate.Visible = false;
                     btnClear.Visible = false;
                     ddlStore.Enabled = false;
+                    divCost.Visible = false;
+                    divCostCurrency.Visible = false;
                 }
             }
             else
@@ -320,6 +320,24 @@ namespace TheWeWebSite.StoreMgt
             FittingTypeList();
             SetDivByAccessoryCategory(ddlCategory.SelectedValue);            
         }
+
+        private void CurrencyList()
+        {
+            ddlPriceCurrency.Items.Clear();
+            ddlCostCurrency.Items.Clear();
+            string sql = "Select * From Currency Where IsDelete = 0";
+            DataSet ds = GetDataFromDb(sql);
+            foreach (DataRow dr in ds.Tables[0].Rows)
+            {
+                ddlPriceCurrency.Items.Add(new ListItem
+                    (dr["Name"].ToString()
+                    , dr["Id"].ToString()));
+                ddlCostCurrency.Items.Add(new ListItem
+                    (dr["Name"].ToString()
+                    , dr["Id"].ToString()));
+
+            }
+        }
         private void SupplierList()
         {
             ddlSupplier.Items.Clear();
@@ -483,13 +501,15 @@ namespace TheWeWebSite.StoreMgt
             if (SysProperty.Util.IsDataSetEmpty(ds)) return;
             DataRow dr = ds.Tables[0].Rows[0];
             tbCost.Text = SysProperty.Util.ParseMoney(dr["Cost"].ToString()).ToString("#0.00");
-            tbOptionalPrice.Text = SysProperty.Util.ParseMoney(dr["Cost"].ToString()).ToString("#0.00");
-            tbRentPrice.Text = SysProperty.Util.ParseMoney(dr["Cost"].ToString()).ToString("#0.00");
-            tbSalesPrice.Text = SysProperty.Util.ParseMoney(dr["Cost"].ToString()).ToString("#0.00");
+            tbOptionalPrice.Text = SysProperty.Util.ParseMoney(dr["OptionalPrice"].ToString()).ToString("#0.00");
+            tbRentPrice.Text = SysProperty.Util.ParseMoney(dr["RentPrice"].ToString()).ToString("#0.00");
+            tbSalesPrice.Text = SysProperty.Util.ParseMoney(dr["SellsPrice"].ToString()).ToString("#0.00");
             tbSn.Text = dr["Sn"].ToString();
             tbDressId2.Text = tbSn.Text;
             tbColor1.Text = dr["Color"].ToString();
             tbMaterial1.Text = dr["Material"].ToString();
+            ddlCostCurrency.SelectedValue = dr["CostCurrency"].ToString();
+            ddlPriceCurrency.SelectedValue = dr["PriceCurrency"].ToString();
             ddlType.SelectedValue = dr["Category"].ToString();
             ddlType_SelectedIndexChanged(ddlType, new EventArgs());
             ddlSupplier.SelectedValue = dr["SupplierId"].ToString();
@@ -542,6 +562,7 @@ namespace TheWeWebSite.StoreMgt
                     ddlStore.Enabled = false;
                     ddlSupplier.Enabled = false;
                     ddlType.Enabled = false;
+                    ddlCostCurrency.Enabled = false;
                     divPhotoUpload.Attributes["style"] = "display: none;";
                 }
             }
@@ -576,6 +597,12 @@ namespace TheWeWebSite.StoreMgt
                 , tbCost.Text
                 ));
             lst.Add(new DbSearchObject(
+                "CostCurrency"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , ddlCostCurrency.SelectedValue
+                ));
+            lst.Add(new DbSearchObject(
                 "OptionalPrice"
                 , AtrrTypeItem.String
                 , AttrSymbolItem.Equal
@@ -592,6 +619,12 @@ namespace TheWeWebSite.StoreMgt
                 , AtrrTypeItem.String
                 , AttrSymbolItem.Equal
                 , tbSalesPrice.Text
+                ));
+            lst.Add(new DbSearchObject(
+                "PriceCurrency"
+                , AtrrTypeItem.String
+                , AttrSymbolItem.Equal
+                , ddlPriceCurrency.SelectedValue
                 ));
             if (!string.IsNullOrEmpty(ddlType.SelectedValue))
             {

@@ -161,12 +161,24 @@
                                         </div>
                                         <asp:DropDownList runat="server" ID="ddlSupplier" />
                                     </div>
-                                    <div class="2u 12u(mobilep)">
+                                    <div class="2u 12u(mobilep)" runat="server" id="divCostCurrency">
+                                        <div class="Div">
+                                            <asp:Label runat="server" Text="<%$ Resources:Resource,CurrencyString%>"></asp:Label>
+                                        </div>
+                                        <asp:DropDownList runat="server" ID="ddlCostCurrency" />
+                                    </div>
+                                    <div class="2u 12u(mobilep)" runat="server" id="divCost">
                                         <div class="Div">
                                             <asp:Label runat="server" Text="<%$ Resources:Resource,CostString%>"></asp:Label>
                                         </div>
                                         <asp:TextBox runat="server" ID="tbCost" Style="text-align: right"></asp:TextBox>
                                         <asp:RegularExpressionValidator CssClass="error" Display="Dynamic" ID="RegularExpressionValidator1" ControlToValidate="tbCost" runat="server" ErrorMessage="Only Numbers allowed" ValidationExpression="\d+[.]*\d*"></asp:RegularExpressionValidator>
+                                    </div>
+                                    <div class="2u 12u(mobilep)">
+                                        <div class="Div">
+                                            <asp:Label runat="server" Text="<%$ Resources:Resource,CurrencyString%>"></asp:Label>
+                                        </div>
+                                        <asp:DropDownList runat="server" ID="ddlPriceCurrency" />
                                     </div>
                                     <div class="2u 12u(mobilep)">
                                         <div class="Div">

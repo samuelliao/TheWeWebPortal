@@ -445,6 +445,8 @@ namespace TheWeWebSite.CaseMgt
                         , dr["Id"].ToString()
                         ));
                 }
+
+                //tbContractPrice.Text = SysProperty.Util.ParseMoney(ds.Tables[0].Rows[0]["Price"].ToString()).ToString("#0.00");
             }
             catch (Exception ex)
             {
@@ -583,16 +585,17 @@ namespace TheWeWebSite.CaseMgt
             ddlLocate.Enabled = !isWeddingPlanner;
             ddlArea.Enabled = !isWeddingPlanner;
             DynamicSn(ddlOrderType.SelectedValue, ddlCountry.SelectedValue);
+
         }
 
         protected void ddlProductSet_SelectedIndexChanged(object sender, EventArgs e)
         {
+            FirstGridViewRow();
             if (!string.IsNullOrEmpty(ddlProductSet.SelectedValue) && !IsWeddingPlanner())
             {
                 SetProductServiceItem(ddlProductSet.SelectedValue);
                 SetProductInfo(ddlProductSet.SelectedValue);
-            }
-            FirstGridViewRow();
+            }            
         }
 
         protected void ddlStatus_SelectedIndexChanged(object sender, EventArgs e)
@@ -836,9 +839,11 @@ namespace TheWeWebSite.CaseMgt
             ddlOrderType_SelectedIndexChanged(ddlOrderType, new EventArgs());
             ddlProductSet.SelectedValue = dr["SetId"].ToString();
             ddlCountry.SelectedValue = dr["CountryId"].ToString();
+            SetAreaList(ddlCountry.SelectedValue, IsWeddingPlanner());
             ddlArea.SelectedValue = dr["AreaId"].ToString();
+            SetChurchList(ddlCountry.SelectedValue, ddlArea.SelectedValue, IsWeddingPlanner());
             ddlLocate.SelectedValue = dr["ChurchId"].ToString();
-
+            SetProductSetList(ddlCountry.SelectedValue, ddlArea.SelectedValue, ddlLocate.SelectedValue, ddlOrderType.SelectedValue, IsWeddingPlanner(), ddlStore.SelectedValue);
             if (!string.IsNullOrEmpty(ddlLocate.SelectedValue))
             {
                 labelLocation.Text = ddlLocate.SelectedItem.Text + "(" + ddlCountry.SelectedItem.Text + ")";
@@ -918,6 +923,7 @@ namespace TheWeWebSite.CaseMgt
                 ((DropDownList)dgServiceItem.Rows[cnt].FindControl("ddlServiceItem")).SelectedValue = dr["ItemId"].ToString();
                 ((TextBox)dgServiceItem.Rows[cnt].FindControl("tbNumber")).Text = dr["Number"].ToString();
                 ((TextBox)dgServiceItem.Rows[cnt].FindControl("tbPrice")).Text = SysProperty.Util.ParseMoney(dr["Price"].ToString()).ToString("#0.00");
+                ((DropDownList)dgServiceItem.Rows[cnt].FindControl("tbCurrency")).SelectedValue = dr["CurrencyId"].ToString();
                 cnt++;
                 AddNewRow();
             }
@@ -926,7 +932,7 @@ namespace TheWeWebSite.CaseMgt
         private void SetProductServiceItem(string setId)
         {
             if (string.IsNullOrEmpty(setId)) return;
-            DataSet ds = SysProperty.GenDbCon.GetDataFromTable("Select * From ProductSetServiceItem Where IsDelete = 0 And SetId='" + setId + "'");
+            DataSet ds = SysProperty.GenDbCon.GetDataFromTable("Select * From ProductSetChurchServiceItem Where IsDelete = 0 And SetId='" + setId + "'");
             if (SysProperty.Util.IsDataSetEmpty(ds)) return;
             int cnt = 0;
             foreach (DataRow dr in ds.Tables[0].Rows)
@@ -938,6 +944,24 @@ namespace TheWeWebSite.CaseMgt
                 ((DropDownList)dgServiceItem.Rows[cnt].FindControl("ddlServiceItem")).SelectedValue = dr["ItemId"].ToString();
                 ((TextBox)dgServiceItem.Rows[cnt].FindControl("tbNumber")).Text = dr["Number"].ToString();
                 ((TextBox)dgServiceItem.Rows[cnt].FindControl("tbPrice")).Text = "0";
+                ((DropDownList)dgServiceItem.Rows[cnt].FindControl("tbCurrency")).SelectedValue = dr["CurrencyId"].ToString();
+                cnt++;
+                AddNewRow();
+            }
+
+            ds = SysProperty.GenDbCon.GetDataFromTable("Select * From ProductSetServiceItem Where IsDelete = 0 And SetId='" + setId + "'");
+            if (SysProperty.Util.IsDataSetEmpty(ds)) return;
+            cnt = 0;
+            foreach (DataRow dr in ds.Tables[0].Rows)
+            {
+                if (dgServiceItem.Rows.Count == 0)
+                {
+                    AddNewRow();
+                }
+                ((DropDownList)dgServiceItem.Rows[cnt].FindControl("ddlServiceItem")).SelectedValue = dr["ItemId"].ToString();
+                ((TextBox)dgServiceItem.Rows[cnt].FindControl("tbNumber")).Text = dr["Number"].ToString();
+                ((TextBox)dgServiceItem.Rows[cnt].FindControl("tbPrice")).Text = "0";
+                ((DropDownList)dgServiceItem.Rows[cnt].FindControl("tbCurrency")).SelectedValue = dr["CurrencyId"].ToString();
                 cnt++;
                 AddNewRow();
             }
@@ -1852,22 +1876,29 @@ namespace TheWeWebSite.CaseMgt
         #region Service Item Table
         private void FirstGridViewRow()
         {
-            DataTable dt = new DataTable();
-            DataRow dr = null;
-            dt.Columns.Add(new DataColumn("Col1", typeof(string)));
-            dt.Columns.Add(new DataColumn("Col2", typeof(string)));
-            dt.Columns.Add(new DataColumn("Col3", typeof(string)));
-            dt.Columns.Add(new DataColumn("Col4", typeof(string)));
-            dr = dt.NewRow();
-            dr["Col1"] = string.Empty;
-            dr["Col2"] = string.Empty;
-            dr["Col3"] = string.Empty;
-            dr["Col4"] = string.Empty;
-            dt.Rows.Add(dr);
+            try
+            {
+                DataTable dt = new DataTable();
+                DataRow dr = null;
+                dt.Columns.Add(new DataColumn("Col1", typeof(string)));
+                dt.Columns.Add(new DataColumn("Col2", typeof(string)));
+                dt.Columns.Add(new DataColumn("Col3", typeof(string)));
+                dt.Columns.Add(new DataColumn("Col4", typeof(string)));
+                dr = dt.NewRow();
+                dr["Col1"] = string.Empty;
+                dr["Col2"] = string.Empty;
+                dr["Col3"] = string.Empty;
+                dr["Col4"] = string.Empty;
+                dt.Rows.Add(dr);
 
-            ViewState["CurrentTable"] = dt;
-            dgServiceItem.DataSource = dt;
-            dgServiceItem.DataBind();
+                ViewState["CurrentTable"] = dt;
+                dgServiceItem.DataSource = dt;
+                dgServiceItem.DataBind();
+            }
+            catch (Exception ex)
+            {
+                
+            }
         }
         private void AddNewRow()
         {
@@ -1886,14 +1917,14 @@ namespace TheWeWebSite.CaseMgt
                         TextBox TextStart =
                           (TextBox)dgServiceItem.Rows[rowIndex].Cells[1].FindControl("tbNumber");
                         TextBox TextEnd =
-                          (TextBox)dgServiceItem.Rows[rowIndex].Cells[2].FindControl("tbPrice");
-                        Label LabelCurrency = (Label)dgServiceItem.Rows[rowIndex].Cells[2].FindControl("tbCurrency");
+                          (TextBox)dgServiceItem.Rows[rowIndex].Cells[3].FindControl("tbPrice");
+                        DropDownList LabelCurrency = (DropDownList)dgServiceItem.Rows[rowIndex].Cells[2].FindControl("tbCurrency");
 
                         drCurrentRow = dtCurrentTable.NewRow();
                         dtCurrentTable.Rows[i - 1]["Col1"] = DdlItem.SelectedValue;
                         dtCurrentTable.Rows[i - 1]["Col2"] = TextStart.Text;
                         dtCurrentTable.Rows[i - 1]["Col3"] = TextEnd.Text;
-                        dtCurrentTable.Rows[i - 1]["Col4"] = LabelCurrency.Text;
+                        dtCurrentTable.Rows[i - 1]["Col4"] = LabelCurrency.SelectedValue;
                         rowIndex++;
                     }
                     dtCurrentTable.Rows.Add(drCurrentRow);
@@ -1921,15 +1952,15 @@ namespace TheWeWebSite.CaseMgt
                     {
                         DropDownList DdlItem = (DropDownList)dgServiceItem.Rows[rowIndex].Cells[0].FindControl("ddlServiceItem");
                         TextBox TextStart = (TextBox)dgServiceItem.Rows[rowIndex].Cells[1].FindControl("tbNumber");
-                        TextBox TextEnd = (TextBox)dgServiceItem.Rows[rowIndex].Cells[2].FindControl("tbPrice");
-                        Label LabelCurrency = (Label)dgServiceItem.Rows[rowIndex].Cells[2].FindControl("tbCurrency");
+                        TextBox TextEnd = (TextBox)dgServiceItem.Rows[rowIndex].Cells[3].FindControl("tbPrice");
+                        DropDownList LabelCurrency = (DropDownList)dgServiceItem.Rows[rowIndex].Cells[2].FindControl("tbCurrency");
 
                         if (TextStart == null) continue;
                         if (TextEnd == null) continue;
                         DdlItem.SelectedValue = dt.Rows[i]["Col1"].ToString();
                         TextStart.Text = dt.Rows[i]["Col2"] == null ? string.Empty : dt.Rows[i]["Col2"].ToString();
                         TextEnd.Text = dt.Rows[i]["Col3"] == null ? string.Empty : dt.Rows[i]["Col3"].ToString();
-                        LabelCurrency.Text = dt.Rows[i]["Col4"] == null ? string.Empty : dt.Rows[i]["Col4"].ToString();
+                        LabelCurrency.SelectedValue = dt.Rows[i]["Col4"].ToString();
                         rowIndex++;
                     }
                 }
@@ -1950,12 +1981,12 @@ namespace TheWeWebSite.CaseMgt
                         DropDownList DdlItem = (DropDownList)dgServiceItem.Rows[rowIndex].Cells[0].FindControl("ddlServiceItem");
                         TextBox TextNumber = (TextBox)dgServiceItem.Rows[rowIndex].Cells[1].FindControl("tbNumber");
                         TextBox TextPrice = (TextBox)dgServiceItem.Rows[rowIndex].Cells[3].FindControl("tbPrice");
-                        Label LabelCurrency = (Label)dgServiceItem.Rows[rowIndex].Cells[2].FindControl("tbCurrency");
+                        DropDownList LabelCurrency = (DropDownList)dgServiceItem.Rows[rowIndex].Cells[2].FindControl("tbCurrency");
                         drCurrentRow = dtCurrentTable.NewRow();
                         dtCurrentTable.Rows[i - 1]["Col1"] = DdlItem.SelectedValue;
                         dtCurrentTable.Rows[i - 1]["Col2"] = TextNumber.Text;
                         dtCurrentTable.Rows[i - 1]["Col3"] = TextPrice.Text;
-                        dtCurrentTable.Rows[i - 1]["Col4"] = LabelCurrency.Text;
+                        dtCurrentTable.Rows[i - 1]["Col4"] = LabelCurrency.SelectedValue;
                         rowIndex++;
                     }
 
@@ -2003,6 +2034,7 @@ namespace TheWeWebSite.CaseMgt
                 ddlService.Items.Add(new ListItem(Resources.Resource.ServiceItemSelectRemindString, string.Empty));
                 DataSet ds = SysProperty.GenDbCon.GetDataFromTable("Select * From ServiceItem Where IsDelete = 0 And IsStore = 1"
                     + " And StoreId = '" + ddlStore.SelectedValue + "'");
+                
                 if (!SysProperty.Util.IsDataSetEmpty(ds))
                 {
                     foreach (DataRow dr in ds.Tables[0].Rows)
@@ -2013,20 +2045,31 @@ namespace TheWeWebSite.CaseMgt
                             ));
                     }
                 }
-                if (string.IsNullOrEmpty(ddlLocate.SelectedValue)) return;
-                ds = SysProperty.GenDbCon.GetDataFromTable("EXEC [GetLocationServiceItem] @CountryID = '" + ddlCountry.SelectedValue + "', @AreaID = '" + ddlArea.SelectedValue + "', @LocateID = '" + ddlLocate.SelectedValue + "'");
-                //ds = SysProperty.GenDbCon.GetDataFromTable("Select * From ServiceItem Where IsStore = 0 And SupplierId = '" + ddlLocate.SelectedValue + "'");
-                if (!SysProperty.Util.IsDataSetEmpty(ds))
+                if (!string.IsNullOrEmpty(ddlLocate.SelectedValue))
                 {
-                    foreach (DataRow dr in ds.Tables[0].Rows)
+                    ds = SysProperty.GenDbCon.GetDataFromTable("EXEC [GetLocationServiceItem] @CountryID = '" + ddlCountry.SelectedValue + "', @AreaID = '" + ddlArea.SelectedValue + "', @LocateID = '" + ddlLocate.SelectedValue + "'");
+                    //ds = SysProperty.GenDbCon.GetDataFromTable("Select * From ServiceItem Where IsStore = 0 And SupplierId = '" + ddlLocate.SelectedValue + "'");
+                    if (!SysProperty.Util.IsDataSetEmpty(ds))
                     {
-                        ddlService.Items.Add(new ListItem(
-                            SysProperty.Util.OutputRelatedLangName(cultureCode, dr)
-                            , dr["Id"].ToString()
-                            ));
+                        foreach (DataRow dr in ds.Tables[0].Rows)
+                        {
+                            ddlService.Items.Add(new ListItem(
+                                SysProperty.Util.OutputRelatedLangName(cultureCode, dr)
+                                , dr["Id"].ToString()
+                                ));
+                        }
                     }
                 }
                 ddlService.SelectedIndex = 0;
+
+                #region Initial Currency Control
+                DropDownList ddl = (DropDownList)e.Row.FindControl("tbCurrency");
+                ddl.Items.Clear();
+                foreach (ListItem item in ddlCurrency.Items)
+                {
+                    ddl.Items.Add(new ListItem(item.Text, item.Value));
+                }
+                #endregion
             }
         }
         protected void tbPrice_TextChanged(object sender, EventArgs e)
@@ -2048,11 +2091,12 @@ namespace TheWeWebSite.CaseMgt
                     if (string.IsNullOrEmpty(str)) continue;
                     try
                     {
-                        canParse =  decimal.TryParse(str, out tmp);
+                        canParse = decimal.TryParse(str, out tmp);
                         if (canParse) otherServicePrice += tmp;
-                    }catch(Exception ex)
+                    }
+                    catch (Exception ex)
                     {
-                        
+
                     }
                 }
             }
@@ -2768,15 +2812,15 @@ namespace TheWeWebSite.CaseMgt
             DropDownList ddl = sender as DropDownList;
             int index = CalIndex(ddl.ClientID);
             ((TextBox)dgServiceItem.Rows[index].FindControl("tbNumber")).Text = "1";
-            ((Label)dgServiceItem.Rows[index].FindControl("tbCurrency")).Text = "";
+            ((DropDownList)dgServiceItem.Rows[index].FindControl("tbCurrency")).SelectedIndex = 0;
             ((TextBox)dgServiceItem.Rows[index].FindControl("tbPrice")).Text = "0";
 
             if (!string.IsNullOrEmpty(ddl.SelectedValue))
             {
-                DataSet ds = SysProperty.GenDbCon.GetDataFromTable("SELECT A.Id, A.Price, B.Name FROM ServiceItem AS A Left JOIN Currency As B on A.CurrencyId = B.Id Where A.Id = '" + ddl.SelectedValue + "'");
+                DataSet ds = SysProperty.GenDbCon.GetDataFromTable("SELECT A.Id, A.Price, B.Id AS Name FROM ServiceItem AS A Left JOIN Currency As B on A.CurrencyId = B.Id Where A.Id = '" + ddl.SelectedValue + "'");
                 if (SysProperty.Util.IsDataSetEmpty(ds)) return;
                 ((TextBox)dgServiceItem.Rows[index].FindControl("tbNumber")).Text = "1";
-                ((Label)dgServiceItem.Rows[index].FindControl("tbCurrency")).Text = ds.Tables[0].Rows[0]["Name"].ToString();
+                ((DropDownList)dgServiceItem.Rows[index].FindControl("tbCurrency")).SelectedValue = ds.Tables[0].Rows[0]["Name"].ToString();
                 ((TextBox)dgServiceItem.Rows[index].FindControl("tbPrice")).Text = SysProperty.Util.ParseMoney(ds.Tables[0].Rows[0]["Price"].ToString()).ToString("#0.00");
             }
         }

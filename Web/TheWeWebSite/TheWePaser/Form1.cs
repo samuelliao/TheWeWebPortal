@@ -30,6 +30,7 @@ namespace TheWeParser
             comboBox1.Items.Add(new Item("Church", "Church"));
             comboBox1.Items.Add(new Item("Dress", "Dress"));
             comboBox1.Items.Add(new Item("Product", "Product"));
+            comboBox1.Items.Add(new Item("ServiceItem", "ServiceItem"));
             //comboBox1.Items.Add(new Item("Dress", ""));
         }
 
@@ -98,13 +99,21 @@ namespace TheWeParser
                 //GetDressFile();
                 SetProductData();
             }
+            else if (((Item)comboBox1.SelectedItem).Value == "ServiceItem")
+            {
+                SetServiceItem();
+            }
             this.Cursor = Cursors.Arrow;
         }
 
         private void SetServiceItem()
         {
-            ChurchDataParser church = new ChurchDataParser(@"Data Source=60.205.146.133;Initial Catalog=TheWe_C;Persist Security Info=True;User ID=TheWe;Password=!QAZ2wsx#EDC");
-            church.ResetAccountAndPassword();
+            //ChurchDataParser church = new ChurchDataParser(@"Data Source=60.205.146.133;Initial Catalog=TheWe_C;Persist Security Info=True;User ID=TheWe;Password=!QAZ2wsx#EDC");
+            //church.ResetAccountAndPassword();
+            ProductServiceParser service = new ProductServiceParser(AliStr);
+            service.FileReader(textBox1.Text);
+            service.GetMainProductDbList();
+            service.WriteBackDb(true, "ServiceItem");
         }  
         
         private void SetDressPhotoChurchData()

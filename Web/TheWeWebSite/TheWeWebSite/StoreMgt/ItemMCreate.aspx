@@ -356,7 +356,7 @@
                                         </asp:TemplateField>
                                         <asp:TemplateField HeaderText="<%$ Resources:Resource,CurrencyString%>">
                                             <ItemTemplate>
-                                                <asp:Label ID="tbCurrency" Style="text-align: right" runat="server"></asp:Label>
+                                                <asp:DropDownList ID="ddlCurrency" runat="server"></asp:DropDownList>
                                             </ItemTemplate>
                                         </asp:TemplateField>
                                         <asp:TemplateField HeaderText="<%$ Resources:Resource,PriceString%>">
@@ -400,7 +400,7 @@
                                         </asp:TemplateField>
                                         <asp:TemplateField HeaderText="<%$ Resources:Resource,CurrencyString%>">
                                             <ItemTemplate>
-                                                <asp:Label ID="tbCurrency" Style="text-align: right" runat="server"></asp:Label>
+                                                <asp:DropDownList ID="ddlCurrency" runat="server"></asp:DropDownList>
                                             </ItemTemplate>
                                         </asp:TemplateField>
                                         <asp:TemplateField HeaderText="<%$ Resources:Resource,PriceString%>">

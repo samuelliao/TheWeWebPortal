@@ -86,6 +86,7 @@
     <Compile Include="Output\DressDataParser.cs" />
     <Compile Include="Output\OtherDataParser.cs" />
     <Compile Include="Output\ProductdataParser.cs" />
+    <Compile Include="Output\ProductServiceParser.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form1.resx">
